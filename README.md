@@ -1,4 +1,4 @@
-# Kit
+# Dashboard Kit
 
 Framework CSS (+ JS opzionale) per dashboard, estratto da *Fatture Elettroniche Explorer*.
 Un file CSS, nessuna dipendenza, nessuna build. Tema chiaro e scuro con `light-dark()`.
