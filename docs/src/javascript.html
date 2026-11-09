@@ -1,0 +1,59 @@
+<!--title: JavaScript-->
+<!--desc: Il JavaScript è opzionale. Senza <code>kit.js</code> tutto lo stile funziona; serve solo per le parti che si muovono: tema, tab, select, menu, dialog e toast.-->
+<h2 id="principi">Principi</h2>
+<ul>
+  <li>Nessuna dipendenza e nessuna build: un solo file, <code>dist/kit.js</code>.</li>
+  <li>Si attiva con attributi <code>data-kit-*</code>, senza scrivere codice.</li>
+  <li>Non usa <code>innerHTML</code>, <code>eval</code> né script inline: funziona con <code>script-src 'self'</code>.</li>
+  <li>I gestori sono delegati al documento, quindi valgono anche per l'HTML aggiunto dopo il caricamento.</li>
+</ul>
+
+<h2 id="attributi">Attributi</h2>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table">
+  <thead><tr><th>Attributo</th><th>Dove</th><th>Cosa fa</th></tr></thead>
+  <tbody>
+    <tr><td><code>data-kit-theme-set="auto|light|dark"</code></td><td>un bottone o una voce di menu</td><td>Imposta il tema e lo ricorda.</td></tr>
+    <tr><td><code>data-kit-toggle="#id"</code></td><td>un bottone</td><td>Apre o chiude il <code>.kit-pop</code> indicato.</td></tr>
+    <tr><td><code>data-kit-select</code></td><td><code>.kit-select</code></td><td>Trasforma l'elenco di opzioni in un select.</td></tr>
+    <tr><td><code>data-kit-tabs</code></td><td><code>.kit-tabs</code></td><td>Attiva le tab; ogni <code>.kit-tab</code> ha <code>data-kit-panel="#id"</code>.</td></tr>
+    <tr><td><code>data-kit-open="#id"</code></td><td>un bottone</td><td>Apre il <code>&lt;dialog&gt;</code> indicato.</td></tr>
+    <tr><td><code>data-kit-close</code></td><td>dentro un <code>&lt;dialog&gt;</code></td><td>Chiude il dialog.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="api">API</h2>
+```js
+Kit.toast("Salvato!");          // messaggio temporaneo (2,5 s; secondo argomento: millisecondi)
+Kit.theme.get();                // "auto" | "light" | "dark"
+Kit.theme.set("dark");          // imposta e salva il tema
+Kit.init(elemento);             // rilegge select e tab di un'area aggiunta dopo il caricamento
+```
+<div class="doc-demo kit-bar" data-doc-js='Kit.toast("Salvato!");'>
+  <button class="kit-btn kit-btn-primary" data-doc-toast="Salvato!">Mostra un toast</button>
+  <button class="kit-btn" data-kit-theme-set="light">Tema chiaro</button>
+  <button class="kit-btn" data-kit-theme-set="dark">Tema scuro</button>
+  <button class="kit-btn" data-kit-theme-set="auto">Automatico</button>
+</div>
+
+<h2 id="eventi">Eventi</h2>
+<p>Sono <code>CustomEvent</code> che salgono nel DOM: si ascoltano sul documento o sull'elemento.</p>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table">
+  <thead><tr><th>Evento</th><th>Su</th><th><code>detail</code></th></tr></thead>
+  <tbody>
+    <tr><td><code>kit:change</code></td><td><code>.kit-select</code></td><td><code>{ value }</code>: il <code>data-value</code> scelto</td></tr>
+    <tr><td><code>kit:tab</code></td><td><code>.kit-tabs</code></td><td><code>{ tab }</code>: l'elemento della tab attivata</td></tr>
+    <tr><td><code>kit:theme</code></td><td><code>&lt;html&gt;</code></td><td>il tema impostato</td></tr>
+  </tbody>
+</table></div></div>
+```js
+document.addEventListener("kit:change", (e) => {
+  console.log("Scelto:", e.detail.value);
+});
+```
+
+<h2 id="tastiera">Tastiera</h2>
+<ul>
+  <li><b>Menu e select aperti</b>: frecce su/giù per scorrere le voci, Invio o spazio per scegliere, Esc per chiudere (il focus torna al bottone).</li>
+  <li><b>Tab</b>: frecce sinistra/destra passano alla tab vicina.</li>
+  <li><b>Dialog</b>: Esc lo chiude (comportamento nativo); anche un click sullo sfondo.</li>
+</ul>

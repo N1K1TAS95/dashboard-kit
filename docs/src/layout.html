@@ -1,0 +1,61 @@
+<!--title: Layout-->
+<!--desc: Contenitore, intestazione fissa, barre di elementi, impilamento e pannello affiancato: la struttura di una pagina. Per le colonne vedi la <a href="grid.html">griglia</a>.-->
+<h2 id="struttura">Struttura di una pagina</h2>
+<p>Una pagina è un <code>.kit-header</code> fisso in alto e un <code>.kit-main</code> con dentro un <code>.kit-container</code>. Dentro il container si usano la <a href="grid.html">griglia</a> o <code>.kit-stack</code>.</p>
+```html
+<header class="kit-header">
+  <h1 class="kit-brand">Nome <span>app</span></h1>
+  <span class="kit-spacer"></span>
+  <!-- bottoni, menu, tema… -->
+</header>
+<main class="kit-main">
+  <div class="kit-container kit-stack">
+    …
+  </div>
+</main>
+```
+<ul>
+  <li><code>.kit-header</code>: alto <code>--kit-hh</code>, resta incollato in alto (sticky). Le intestazioni di tabella si agganciano subito sotto.</li>
+  <li><code>.kit-brand</code>: titolo con il secondo termine, in <code>&lt;span&gt;</code>, colorato con l'accento.</li>
+  <li><code>.kit-main</code>: margine interno di 24px (16px sotto 900px) e 80px in fondo.</li>
+  <li><code>.kit-container</code>: larghezza massima di 1200px, centrato.</li>
+</ul>
+
+<h2 id="stack">Impilare: kit-stack</h2>
+<p>Dispone i figli in colonna con uno spazio costante (<code>--kit-sp</code>). È il modo più semplice per mettere card una sotto l'altra.</p>
+<div class="doc-demo">
+  <div class="kit-stack">
+    <div class="kit-card kit-card-body">Prima card</div>
+    <div class="kit-card kit-card-body">Seconda card</div>
+    <div class="kit-card kit-card-body">Terza card</div>
+  </div>
+</div>
+
+<h2 id="bar">Barra di elementi: kit-bar</h2>
+<p>Elementi affiancati e centrati in verticale, che vanno a capo se manca spazio: toolbar, filtri, gruppi di bottoni. <code>.kit-spacer</code> spinge a destra ciò che segue.</p>
+<div class="doc-demo">
+  <div class="kit-bar">
+    <button class="kit-btn kit-btn-primary">Nuovo</button>
+    <button class="kit-btn">Importa</button>
+    <span class="kit-spacer"></span>
+    <button class="kit-btn kit-btn-ghost">Impostazioni</button>
+  </div>
+</div>
+<p class="doc-note"><code>kit-bar</code> non è la riga della griglia: per le colonne usa <code>kit-row</code>.</p>
+
+<h2 id="split">Pannello affiancato: kit-split</h2>
+<p>Una lista con, accanto, un pannello di dettaglio che si apre quando si seleziona una riga. Il pannello resta fermo mentre la lista scorre; sotto i 900px copre la pagina.</p>
+```html
+<div class="kit-split is-open">           <!-- is-open: mostra il pannello -->
+  <div>
+    <!-- la lista -->
+  </div>
+  <aside class="kit-split-panel">
+    <!-- il dettaglio -->
+  </aside>
+</div>
+```
+<p>Si apre e si chiude aggiungendo o togliendo <code>is-open</code>. La larghezza del pannello è <code>--kit-split-w</code> (di base 40%).</p>
+
+<h2 id="spazi">Spaziatura di base</h2>
+<p>Tre token governano il respiro dell'interfaccia (vedi <a href="theming.html">Temi e token</a>): <code>--kit-sp</code> (margini, distanza tra card, padding interno, gutter), <code>--kit-rad</code> (angoli) e <code>--kit-ctl</code> (altezza di bottoni e campi). Sotto i 760px <code>--kit-sp</code> scende da 16 a 8px.</p>

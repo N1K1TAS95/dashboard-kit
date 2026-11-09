@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Feedback — Dashboard Kit</title>
+<meta name="description" content="Badge di stato, barre di avanzamento e stati vuoti.">
+<script src="../dist/kit.js"></script>
+<link rel="stylesheet" href="../dist/kit.css">
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<!-- Pagina generata da tools/gen-docs.py a partire da docs/src/feedback.html: non modificarla a mano. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+<symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
+</defs></svg>
+<header class="kit-header">
+  <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
+  <span class="kit-spacer"></span>
+  <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
+  <div class="kit-dropdown">
+    <button class="kit-btn" data-kit-toggle="#themeMenu" aria-haspopup="menu" aria-expanded="false"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-d-none kit-d-sm-inline">Tema</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
+    <div class="kit-pop kit-pop-right" id="themeMenu" role="menu" hidden>
+      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-opt-text"><b>Automatico</b><small>Segue il sistema</small></span></div>
+      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg><span class="kit-opt-text"><b>Chiaro</b></span></div>
+      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg><span class="kit-opt-text"><b>Scuro</b></span></div>
+    </div>
+  </div>
+</header>
+<main class="kit-main">
+<div class="kit-container">
+<div class="kit-row kit-gy-0">
+  <aside class="kit-col-12 kit-col-lg-3">
+    <nav class="doc-nav" aria-label="Documentazione">
+      <details class="doc-nav-d" open>
+        <summary class="kit-btn">Menu della documentazione</summary>
+        <div class="doc-nav-body">
+          <div class="doc-nav-group">Per iniziare</div>
+          <a href="index.html">Introduzione</a>
+          <a href="javascript.html">JavaScript</a>
+          <div class="doc-nav-group">Layout</div>
+          <a href="layout.html">Layout</a>
+          <a href="grid.html">Griglia</a>
+          <a href="utilities.html">Utility</a>
+          <div class="doc-nav-group">Componenti</div>
+          <a href="buttons.html">Bottoni</a>
+          <a href="forms.html">Form</a>
+          <a href="navigation.html">Navigazione</a>
+          <a href="cards.html">Schede</a>
+          <a href="tables.html">Tabelle</a>
+          <a href="content.html">Contenuti</a>
+          <a href="feedback.html" class="is-current" aria-current="page">Feedback</a>
+          <ul class="doc-toc">
+            <li><a href="#badge">Badge</a></li>
+            <li><a href="#progress">Barra di avanzamento</a></li>
+            <li><a href="#vuoto">Stato vuoto</a></li>
+          </ul>
+          <a href="overlays.html">Dialog e menu</a>
+          <div class="doc-nav-group">Personalizzare</div>
+          <a href="theming.html">Temi e token</a>
+          <a href="snippets.html">Snippet VS Code</a>
+          <div class="doc-nav-group">Esempi</div>
+          <a href="dashboard.html">Dashboard <span class="kit-badge kit-badge-neutral">esempio</span></a>
+        </div>
+      </details>
+    </nav>
+  </aside>
+  <article class="kit-col-12 kit-col-lg-9 doc-content">
+    <h1 class="doc-title">Feedback</h1>
+    <p class="doc-lead">Badge di stato, barre di avanzamento e stati vuoti.</p>
+<h2 id="badge">Badge</h2>
+<p>Etichette di stato. Il colore comunica l'esito: verde positivo, giallo da controllare, rosso errore, grigio neutro.</p>
+<div class="doc-demo">
+  <div class="kit-bar">
+    <span class="kit-badge">Info</span>
+    <span class="kit-badge kit-badge-success">Emessa</span>
+    <span class="kit-badge kit-badge-warning">Ricevuta</span>
+    <span class="kit-badge kit-badge-danger">Errore</span>
+    <span class="kit-badge kit-badge-neutral">Neutro</span>
+  </div>
+</div>
+<p class="doc-note">Non affidare il significato solo al colore: il testo del badge deve bastare da solo.</p>
+
+<h2 id="progress">Barra di avanzamento</h2>
+<p>L'avanzamento è la variabile <code>--kit-value</code> (0–100%) sull'elemento interno. Cambiala da JavaScript con <code>el.style.setProperty("--kit-value", "40%")</code>.</p>
+<div class="doc-demo kit-stack">
+  <div class="kit-progress"><i style="--kit-value: 25%"></i></div>
+  <div class="kit-progress"><i style="--kit-value: 62%"></i></div>
+  <div class="kit-progress"><i style="--kit-value: 100%"></i></div>
+</div>
+
+<h2 id="vuoto">Stato vuoto</h2>
+<p>Quando una lista o una tabella non ha ancora nulla da mostrare, spiega perché e cosa fare.</p>
+<div class="doc-demo">
+  <section class="kit-card">
+    <div class="kit-empty">
+      <div class="kit-empty-icon">🗂️</div>
+      <h2>Nessun risultato</h2>
+      <p>Prova a cambiare i filtri o a cercare un altro termine.</p>
+      <button class="kit-btn">Azzera i filtri</button>
+    </div>
+  </section>
+</div>
+    <nav class="doc-pager" aria-label="Pagina precedente e successiva">
+      <a href="content.html"><small>← Precedente</small><b>Contenuti</b></a>
+      <a class="doc-next" href="overlays.html"><small>Successiva →</small><b>Dialog e menu</b></a>
+    </nav>
+  </article>
+</div>
+</div>
+</main>
+<script src="docs.js"></script>
+</body>
+</html>

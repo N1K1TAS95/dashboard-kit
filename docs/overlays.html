@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Dialog e menu — Dashboard Kit</title>
+<meta name="description" content="Finestre di dialogo, menu a comparsa e messaggi temporanei. Richiedono kit.js.">
+<script src="../dist/kit.js"></script>
+<link rel="stylesheet" href="../dist/kit.css">
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<!-- Pagina generata da tools/gen-docs.py a partire da docs/src/overlays.html: non modificarla a mano. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+<symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
+</defs></svg>
+<header class="kit-header">
+  <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
+  <span class="kit-spacer"></span>
+  <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
+  <div class="kit-dropdown">
+    <button class="kit-btn" data-kit-toggle="#themeMenu" aria-haspopup="menu" aria-expanded="false"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-d-none kit-d-sm-inline">Tema</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
+    <div class="kit-pop kit-pop-right" id="themeMenu" role="menu" hidden>
+      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-opt-text"><b>Automatico</b><small>Segue il sistema</small></span></div>
+      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg><span class="kit-opt-text"><b>Chiaro</b></span></div>
+      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg><span class="kit-opt-text"><b>Scuro</b></span></div>
+    </div>
+  </div>
+</header>
+<main class="kit-main">
+<div class="kit-container">
+<div class="kit-row kit-gy-0">
+  <aside class="kit-col-12 kit-col-lg-3">
+    <nav class="doc-nav" aria-label="Documentazione">
+      <details class="doc-nav-d" open>
+        <summary class="kit-btn">Menu della documentazione</summary>
+        <div class="doc-nav-body">
+          <div class="doc-nav-group">Per iniziare</div>
+          <a href="index.html">Introduzione</a>
+          <a href="javascript.html">JavaScript</a>
+          <div class="doc-nav-group">Layout</div>
+          <a href="layout.html">Layout</a>
+          <a href="grid.html">Griglia</a>
+          <a href="utilities.html">Utility</a>
+          <div class="doc-nav-group">Componenti</div>
+          <a href="buttons.html">Bottoni</a>
+          <a href="forms.html">Form</a>
+          <a href="navigation.html">Navigazione</a>
+          <a href="cards.html">Schede</a>
+          <a href="tables.html">Tabelle</a>
+          <a href="content.html">Contenuti</a>
+          <a href="feedback.html">Feedback</a>
+          <a href="overlays.html" class="is-current" aria-current="page">Dialog e menu</a>
+          <ul class="doc-toc">
+            <li><a href="#dialog">Dialog</a></li>
+            <li><a href="#menu">Menu a comparsa</a></li>
+            <li><a href="#toast">Toast</a></li>
+          </ul>
+          <div class="doc-nav-group">Personalizzare</div>
+          <a href="theming.html">Temi e token</a>
+          <a href="snippets.html">Snippet VS Code</a>
+          <div class="doc-nav-group">Esempi</div>
+          <a href="dashboard.html">Dashboard <span class="kit-badge kit-badge-neutral">esempio</span></a>
+        </div>
+      </details>
+    </nav>
+  </aside>
+  <article class="kit-col-12 kit-col-lg-9 doc-content">
+    <h1 class="doc-title">Dialog e menu</h1>
+    <p class="doc-lead">Finestre di dialogo, menu a comparsa e messaggi temporanei. Richiedono <code>kit.js</code>.</p>
+<h2 id="dialog">Dialog</h2>
+<p>Usa l'elemento nativo <code>&lt;dialog&gt;</code>: il browser gestisce focus, tasto Esc e sfondo oscurato. Il kit aggiunge lo stile e due attributi: <code>data-kit-open</code> per aprirlo, <code>data-kit-close</code> per chiuderlo. Un click sullo sfondo lo chiude. <code>kit-dialog-wide</code> lo allarga a 700px.</p>
+<div class="doc-demo" data-doc-include="#dlg">
+  <button class="kit-btn kit-btn-primary" data-kit-open="#dlg">Apri il dialog</button>
+  <dialog class="kit-dialog" id="dlg">
+    <h2>Titolo del dialog</h2>
+    <p class="kit-mute">Si chiude con Esc, con un click sullo sfondo o con i bottoni.</p>
+    <div class="kit-card-foot" style="padding: var(--kit-sp) 0 0; border: 0">
+      <button class="kit-btn" data-kit-close>Annulla</button>
+      <button class="kit-btn kit-btn-primary" data-kit-close>Conferma</button>
+    </div>
+  </dialog>
+</div>
+
+<h2 id="menu">Menu a comparsa</h2>
+<p>Un bottone con <code>data-kit-toggle</code> apre il <code>.kit-pop</code> indicato. Si chiude con Esc o cliccando fuori, e le frecce scorrono le voci. <code>kit-pop-right</code> lo allinea al bordo destro del bottone; nelle voci puoi mettere un'icona, un titolo e una riga in grigio.</p>
+<div class="doc-demo" style="min-height: 190px">
+  <div class="kit-dropdown">
+    <button class="kit-btn" data-kit-toggle="#menu-azioni" aria-haspopup="menu" aria-expanded="false">Azioni<svg class="kit-icon"><use href="#i-chev"/></svg></button>
+    <div class="kit-pop" id="menu-azioni" role="menu" hidden>
+      <div class="kit-opt" role="menuitem"><svg class="kit-icon"><use href="#i-download"/></svg><span class="kit-opt-text"><b>Esporta CSV</b><small>Tutte le righe filtrate</small></span></div>
+      <div class="kit-opt" role="menuitem"><svg class="kit-icon"><use href="#i-search"/></svg><span class="kit-opt-text"><b>Cerca nei documenti</b></span></div>
+    </div>
+  </div>
+</div>
+
+<h2 id="toast">Toast</h2>
+<p>Un messaggio breve in basso che sparisce da solo. Si mostra da JavaScript: <code>Kit.toast("testo")</code>.</p>
+<div class="doc-demo" data-doc-js='Kit.toast("Salvato!");'>
+  <button class="kit-btn" data-doc-toast="Salvato!">Mostra un toast</button>
+</div>
+    <nav class="doc-pager" aria-label="Pagina precedente e successiva">
+      <a href="feedback.html"><small>← Precedente</small><b>Feedback</b></a>
+      <a class="doc-next" href="theming.html"><small>Successiva →</small><b>Temi e token</b></a>
+    </nav>
+  </article>
+</div>
+</div>
+</main>
+<script src="docs.js"></script>
+</body>
+</html>

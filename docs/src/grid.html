@@ -1,0 +1,181 @@
+<!--title: Griglia-->
+<!--desc: Griglia a 12 colonne con flexbox, con gli stessi nomi di Bootstrap. Si costruisce con righe e colonne e cambia al variare della larghezza dello schermo.-->
+<h2 id="come-funziona">Come funziona</h2>
+<ul>
+  <li>Una <code>.kit-row</code> contiene colonne <code>.kit-col-*</code>; ogni riga ha <b>12</b> colonne e va a capo da sola.</li>
+  <li>È <b>mobile first</b>: una classe senza breakpoint vale ovunque, <code>kit-col-md-6</code> vale da 768px in su.</li>
+  <li>La riga ha margini negativi che compensano il padding delle colonne (i <em>gutter</em>): mettila dentro un contenitore con padding, come <code>.kit-main</code> o <code>.kit-card-body</code>.</li>
+  <li>I figli diretti della riga sono tutti colonne: anche un <code>&lt;div&gt;</code> senza classe è largo il 100%.</li>
+</ul>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table">
+  <thead><tr><th>Sigla</th><th>Da</th><th>Esempio</th></tr></thead>
+  <tbody>
+    <tr><td><i>nessuna</i></td><td>0px</td><td><code>kit-col-6</code></td></tr>
+    <tr><td><code>sm</code></td><td>576px</td><td><code>kit-col-sm-6</code></td></tr>
+    <tr><td><code>md</code></td><td>768px</td><td><code>kit-col-md-6</code></td></tr>
+    <tr><td><code>lg</code></td><td>992px</td><td><code>kit-col-lg-6</code></td></tr>
+    <tr><td><code>xl</code></td><td>1200px</td><td><code>kit-col-xl-6</code></td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="colonne">Colonne</h2>
+<p><code>kit-col-N</code> con N da 1 a 12: la colonna occupa N dodicesimi della riga.</p>
+
+<div class="doc-demo kit-stack">
+    <div class="kit-row">
+      <div class="kit-col-4"><div class="kit-card kit-card-body kit-center">kit-col-4</div></div>
+      <div class="kit-col-4"><div class="kit-card kit-card-body kit-center">kit-col-4</div></div>
+      <div class="kit-col-4"><div class="kit-card kit-card-body kit-center">kit-col-4</div></div>
+    </div>
+    <div class="kit-row">
+      <div class="kit-col-8"><div class="kit-card kit-card-body kit-center">kit-col-8</div></div>
+      <div class="kit-col-4"><div class="kit-card kit-card-body kit-center">kit-col-4</div></div>
+    </div>
+</div>
+
+<h2 id="responsive">Responsive</h2>
+<p>Combina più classi: una colonna a tutta larghezza sul telefono, metà da <code>md</code>, un quarto da <code>xl</code>. <b>Ridimensiona la finestra</b> per vederle cambiare.</p>
+
+<div class="doc-demo kit-stack">
+    <div class="kit-row">
+      <div class="kit-col-12 kit-col-md-6 kit-col-xl-3"><div class="kit-card kit-card-body kit-center">12 → md 6 → xl 3</div></div>
+      <div class="kit-col-12 kit-col-md-6 kit-col-xl-3"><div class="kit-card kit-card-body kit-center">12 → md 6 → xl 3</div></div>
+      <div class="kit-col-12 kit-col-md-6 kit-col-xl-3"><div class="kit-card kit-card-body kit-center">12 → md 6 → xl 3</div></div>
+      <div class="kit-col-12 kit-col-md-6 kit-col-xl-3"><div class="kit-card kit-card-body kit-center">12 → md 6 → xl 3</div></div>
+    </div>
+</div>
+
+<h2 id="flessibili">Colonne flessibili</h2>
+<p><code>kit-col</code> si divide lo spazio che resta in parti uguali; <code>kit-col-auto</code> è largo quanto il contenuto.</p>
+
+<div class="doc-demo kit-stack">
+    <div class="kit-row">
+      <div class="kit-col"><div class="kit-card kit-card-body kit-center">kit-col</div></div>
+      <div class="kit-col-auto"><div class="kit-card kit-card-body kit-center">kit-col-auto</div></div>
+      <div class="kit-col"><div class="kit-card kit-card-body kit-center">kit-col</div></div>
+    </div>
+    <div class="kit-row">
+      <div class="kit-col"><div class="kit-card kit-card-body kit-center">kit-col</div></div>
+      <div class="kit-col-6"><div class="kit-card kit-card-body kit-center">kit-col-6</div></div>
+      <div class="kit-col"><div class="kit-card kit-card-body kit-center">kit-col</div></div>
+    </div>
+</div>
+
+<h2 id="row-cols">Numero di colonne per riga</h2>
+<p>Sulla riga, <code>kit-row-cols-N</code> (N da 1 a 6) decide quante celle stanno in una riga, senza classi sulle celle. È il modo più comodo per le schede KPI.</p>
+
+<div class="doc-demo kit-stack">
+    <div class="kit-row kit-row-cols-2 kit-row-cols-md-4">
+      <div><div class="kit-card kit-card-body kit-center">1</div></div>
+      <div><div class="kit-card kit-card-body kit-center">2</div></div>
+      <div><div class="kit-card kit-card-body kit-center">3</div></div>
+      <div><div class="kit-card kit-card-body kit-center">4</div></div>
+      <div><div class="kit-card kit-card-body kit-center">5</div></div>
+      <div><div class="kit-card kit-card-body kit-center">6</div></div>
+      <div><div class="kit-card kit-card-body kit-center">7</div></div>
+      <div><div class="kit-card kit-card-body kit-center">8</div></div>
+    </div>
+</div>
+
+<h2 id="offset-ordine">Offset e ordine</h2>
+<p><code>kit-offset-N</code> sposta la colonna a destra di N dodicesimi. <code>kit-order-first</code>, <code>kit-order-last</code> e <code>kit-order-0…5</code> cambiano l'ordine di visualizzazione senza toccare l'HTML.</p>
+
+<div class="doc-demo kit-stack">
+    <div class="kit-row">
+      <div class="kit-col-md-6 kit-offset-md-3"><div class="kit-card kit-card-body kit-center">kit-col-md-6 kit-offset-md-3</div></div>
+    </div>
+    <div class="kit-row">
+      <div class="kit-col-4 kit-order-last"><div class="kit-card kit-card-body kit-center">1° nel codice, ultima</div></div>
+      <div class="kit-col-4"><div class="kit-card kit-card-body kit-center">2°</div></div>
+      <div class="kit-col-4 kit-order-first"><div class="kit-card kit-card-body kit-center">3° nel codice, prima</div></div>
+    </div>
+</div>
+
+<h2 id="allineamento">Allineamento</h2>
+<p>Sulla riga, <code>kit-align-items-*</code> allinea in verticale e <code>kit-justify-content-*</code> in orizzontale. Sulla singola colonna vale <code>kit-align-self-*</code>.</p>
+
+<div class="doc-demo kit-stack">
+    <div class="kit-row kit-align-items-center">
+      <div class="kit-col-4"><div class="kit-card kit-card-body kit-center kit-py-4">align-items-center</div></div>
+      <div class="kit-col-4"><div class="kit-card kit-card-body kit-center">centrata</div></div>
+      <div class="kit-col-4"><div class="kit-card kit-card-body kit-center kit-py-5">centrata</div></div>
+    </div>
+    <div class="kit-row kit-justify-content-center">
+      <div class="kit-col-4"><div class="kit-card kit-card-body kit-center">justify-content-center</div></div>
+    </div>
+</div>
+
+<h2 id="gutter">Gutter</h2>
+<p>Lo spazio tra le colonne si regola con <code>kit-g-0…5</code> (orizzontale e verticale), <code>kit-gx-*</code> e <code>kit-gy-*</code>. Di base vale <code>--kit-sp</code>, quindi si stringe da solo sul telefono; con <code>kit-g-md-4</code> cambia da un breakpoint.</p>
+
+<div class="doc-demo kit-stack">
+    <div class="kit-row kit-g-0">
+      <div class="kit-col-6"><div class="kit-card kit-card-body kit-center">kit-g-0</div></div>
+      <div class="kit-col-6"><div class="kit-card kit-card-body kit-center">kit-g-0</div></div>
+    </div>
+    <div class="kit-row kit-g-4">
+      <div class="kit-col-6"><div class="kit-card kit-card-body kit-center">kit-g-4</div></div>
+      <div class="kit-col-6"><div class="kit-card kit-card-body kit-center">kit-g-4</div></div>
+      <div class="kit-col-6"><div class="kit-card kit-card-body kit-center">kit-g-4</div></div>
+      <div class="kit-col-6"><div class="kit-card kit-card-body kit-center">kit-g-4</div></div>
+    </div>
+</div>
+
+<h2 id="annidate">Righe annidate</h2>
+<p>Dentro una colonna puoi mettere un'altra riga, con le sue 12 colonne. Ricordati del padding del contenitore (qui <code>kit-card-body</code>).</p>
+
+<div class="doc-demo kit-stack">
+    <div class="kit-row">
+      <div class="kit-col-md-8">
+        <div class="kit-card kit-card-body">
+          <p class="kit-mute">kit-col-md-8, con una riga dentro</p>
+          <div class="kit-row">
+            <div class="kit-col-6"><div class="kit-card kit-card-body kit-center">kit-col-6</div></div>
+            <div class="kit-col-6"><div class="kit-card kit-card-body kit-center">kit-col-6</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="kit-col-md-4"><div class="kit-card kit-card-body kit-center">kit-col-md-4</div></div>
+    </div>
+</div>
+
+<h2 id="altezza">Card della stessa altezza</h2>
+<p>Le colonne di una riga hanno già la stessa altezza, ma la card dentro no. Aggiungi <code>kit-h-100</code> alla card.</p>
+
+<div class="doc-demo kit-stack">
+    <div class="kit-row">
+      <div class="kit-col-md-6"><div class="kit-card kit-card-body kit-h-100">Poco testo.</div></div>
+      <div class="kit-col-md-6"><div class="kit-card kit-card-body kit-h-100">Molto più testo, che va su più righe e rende la colonna più alta dell'altra: con kit-h-100 le due card finiscono alla stessa altezza.</div></div>
+    </div>
+</div>
+
+<h2 id="css-grid">Alternativa: CSS Grid</h2>
+<p>Quando non servono i breakpoint per colonna, <code>kit-grid</code> riempie la riga con tante colonne quante ne stanno (almeno 240px ciascuna). <code>kit-grid-2</code> e <code>kit-grid-3</code> fissano 2 o 3 colonne (una sola sotto i 900px).</p>
+
+<div class="doc-demo kit-stack">
+    <div class="kit-grid">
+      <div class="kit-card kit-card-body kit-center">kit-grid 1</div>
+      <div class="kit-card kit-card-body kit-center">kit-grid 2</div>
+      <div class="kit-card kit-card-body kit-center">kit-grid 3</div>
+      <div class="kit-card kit-card-body kit-center">kit-grid 4</div>
+    </div>
+</div>
+
+<h2 id="dashboard">Struttura di una dashboard</h2>
+<p>Lo schema più comune: KPI in alto, un grafico con un pannello laterale, poi una tabella a tutta larghezza. Il risultato completo è nella <a href="dashboard.html">dashboard di esempio</a>.</p>
+
+<div class="doc-demo kit-stack">
+    <div class="kit-row kit-row-cols-2 kit-row-cols-lg-4">
+      <div><div class="kit-card kit-kpi kit-h-100"><small>Documenti</small><b>1.284</b><span class="kit-badge kit-badge-success">+4%</span></div></div>
+      <div><div class="kit-card kit-kpi kit-h-100"><small>Totale</small><b>48.920 €</b><span class="kit-badge kit-badge-success">+1,2%</span></div></div>
+      <div><div class="kit-card kit-kpi kit-h-100"><small>Da controllare</small><b>17</b><span class="kit-badge kit-badge-warning">−3</span></div></div>
+      <div><div class="kit-card kit-kpi kit-h-100"><small>Scartate</small><b>2</b><span class="kit-badge kit-badge-danger">+1</span></div></div>
+    </div>
+    <div class="kit-row">
+      <div class="kit-col-12 kit-col-xl-8"><section class="kit-card kit-card-body kit-h-100 kit-center kit-mute kit-py-5">Grafico (kit-col-xl-8)</section></div>
+      <div class="kit-col-12 kit-col-xl-4"><section class="kit-card kit-card-body kit-h-100 kit-center kit-mute kit-py-5">Laterale (kit-col-xl-4)</section></div>
+    </div>
+    <div class="kit-row">
+      <div class="kit-col-12"><section class="kit-card kit-card-body kit-center kit-mute">Tabella (kit-col-12)</section></div>
+    </div>
+</div>

@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Layout — Dashboard Kit</title>
+<meta name="description" content="Contenitore, intestazione fissa, barre di elementi, impilamento e pannello affiancato: la struttura di una pagina. Per le colonne vedi la griglia.">
+<script src="../dist/kit.js"></script>
+<link rel="stylesheet" href="../dist/kit.css">
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<!-- Pagina generata da tools/gen-docs.py a partire da docs/src/layout.html: non modificarla a mano. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+<symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
+</defs></svg>
+<header class="kit-header">
+  <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
+  <span class="kit-spacer"></span>
+  <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
+  <div class="kit-dropdown">
+    <button class="kit-btn" data-kit-toggle="#themeMenu" aria-haspopup="menu" aria-expanded="false"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-d-none kit-d-sm-inline">Tema</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
+    <div class="kit-pop kit-pop-right" id="themeMenu" role="menu" hidden>
+      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-opt-text"><b>Automatico</b><small>Segue il sistema</small></span></div>
+      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg><span class="kit-opt-text"><b>Chiaro</b></span></div>
+      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg><span class="kit-opt-text"><b>Scuro</b></span></div>
+    </div>
+  </div>
+</header>
+<main class="kit-main">
+<div class="kit-container">
+<div class="kit-row kit-gy-0">
+  <aside class="kit-col-12 kit-col-lg-3">
+    <nav class="doc-nav" aria-label="Documentazione">
+      <details class="doc-nav-d" open>
+        <summary class="kit-btn">Menu della documentazione</summary>
+        <div class="doc-nav-body">
+          <div class="doc-nav-group">Per iniziare</div>
+          <a href="index.html">Introduzione</a>
+          <a href="javascript.html">JavaScript</a>
+          <div class="doc-nav-group">Layout</div>
+          <a href="layout.html" class="is-current" aria-current="page">Layout</a>
+          <ul class="doc-toc">
+            <li><a href="#struttura">Struttura di una pagina</a></li>
+            <li><a href="#stack">Impilare: kit-stack</a></li>
+            <li><a href="#bar">Barra di elementi: kit-bar</a></li>
+            <li><a href="#split">Pannello affiancato: kit-split</a></li>
+            <li><a href="#spazi">Spaziatura di base</a></li>
+          </ul>
+          <a href="grid.html">Griglia</a>
+          <a href="utilities.html">Utility</a>
+          <div class="doc-nav-group">Componenti</div>
+          <a href="buttons.html">Bottoni</a>
+          <a href="forms.html">Form</a>
+          <a href="navigation.html">Navigazione</a>
+          <a href="cards.html">Schede</a>
+          <a href="tables.html">Tabelle</a>
+          <a href="content.html">Contenuti</a>
+          <a href="feedback.html">Feedback</a>
+          <a href="overlays.html">Dialog e menu</a>
+          <div class="doc-nav-group">Personalizzare</div>
+          <a href="theming.html">Temi e token</a>
+          <a href="snippets.html">Snippet VS Code</a>
+          <div class="doc-nav-group">Esempi</div>
+          <a href="dashboard.html">Dashboard <span class="kit-badge kit-badge-neutral">esempio</span></a>
+        </div>
+      </details>
+    </nav>
+  </aside>
+  <article class="kit-col-12 kit-col-lg-9 doc-content">
+    <h1 class="doc-title">Layout</h1>
+    <p class="doc-lead">Contenitore, intestazione fissa, barre di elementi, impilamento e pannello affiancato: la struttura di una pagina. Per le colonne vedi la <a href="grid.html">griglia</a>.</p>
+<h2 id="struttura">Struttura di una pagina</h2>
+<p>Una pagina è un <code>.kit-header</code> fisso in alto e un <code>.kit-main</code> con dentro un <code>.kit-container</code>. Dentro il container si usano la <a href="grid.html">griglia</a> o <code>.kit-stack</code>.</p>
+<pre class="kit-code"><code>&lt;header class="kit-header"&gt;
+  &lt;h1 class="kit-brand"&gt;Nome &lt;span&gt;app&lt;/span&gt;&lt;/h1&gt;
+  &lt;span class="kit-spacer"&gt;&lt;/span&gt;
+  &lt;!-- bottoni, menu, tema… --&gt;
+&lt;/header&gt;
+&lt;main class="kit-main"&gt;
+  &lt;div class="kit-container kit-stack"&gt;
+    …
+  &lt;/div&gt;
+&lt;/main&gt;</code></pre>
+<ul>
+  <li><code>.kit-header</code>: alto <code>--kit-hh</code>, resta incollato in alto (sticky). Le intestazioni di tabella si agganciano subito sotto.</li>
+  <li><code>.kit-brand</code>: titolo con il secondo termine, in <code>&lt;span&gt;</code>, colorato con l'accento.</li>
+  <li><code>.kit-main</code>: margine interno di 24px (16px sotto 900px) e 80px in fondo.</li>
+  <li><code>.kit-container</code>: larghezza massima di 1200px, centrato.</li>
+</ul>
+
+<h2 id="stack">Impilare: kit-stack</h2>
+<p>Dispone i figli in colonna con uno spazio costante (<code>--kit-sp</code>). È il modo più semplice per mettere card una sotto l'altra.</p>
+<div class="doc-demo">
+  <div class="kit-stack">
+    <div class="kit-card kit-card-body">Prima card</div>
+    <div class="kit-card kit-card-body">Seconda card</div>
+    <div class="kit-card kit-card-body">Terza card</div>
+  </div>
+</div>
+
+<h2 id="bar">Barra di elementi: kit-bar</h2>
+<p>Elementi affiancati e centrati in verticale, che vanno a capo se manca spazio: toolbar, filtri, gruppi di bottoni. <code>.kit-spacer</code> spinge a destra ciò che segue.</p>
+<div class="doc-demo">
+  <div class="kit-bar">
+    <button class="kit-btn kit-btn-primary">Nuovo</button>
+    <button class="kit-btn">Importa</button>
+    <span class="kit-spacer"></span>
+    <button class="kit-btn kit-btn-ghost">Impostazioni</button>
+  </div>
+</div>
+<p class="doc-note"><code>kit-bar</code> non è la riga della griglia: per le colonne usa <code>kit-row</code>.</p>
+
+<h2 id="split">Pannello affiancato: kit-split</h2>
+<p>Una lista con, accanto, un pannello di dettaglio che si apre quando si seleziona una riga. Il pannello resta fermo mentre la lista scorre; sotto i 900px copre la pagina.</p>
+<pre class="kit-code"><code>&lt;div class="kit-split is-open"&gt;           &lt;!-- is-open: mostra il pannello --&gt;
+  &lt;div&gt;
+    &lt;!-- la lista --&gt;
+  &lt;/div&gt;
+  &lt;aside class="kit-split-panel"&gt;
+    &lt;!-- il dettaglio --&gt;
+  &lt;/aside&gt;
+&lt;/div&gt;</code></pre>
+<p>Si apre e si chiude aggiungendo o togliendo <code>is-open</code>. La larghezza del pannello è <code>--kit-split-w</code> (di base 40%).</p>
+
+<h2 id="spazi">Spaziatura di base</h2>
+<p>Tre token governano il respiro dell'interfaccia (vedi <a href="theming.html">Temi e token</a>): <code>--kit-sp</code> (margini, distanza tra card, padding interno, gutter), <code>--kit-rad</code> (angoli) e <code>--kit-ctl</code> (altezza di bottoni e campi). Sotto i 760px <code>--kit-sp</code> scende da 16 a 8px.</p>
+    <nav class="doc-pager" aria-label="Pagina precedente e successiva">
+      <a href="javascript.html"><small>← Precedente</small><b>JavaScript</b></a>
+      <a class="doc-next" href="grid.html"><small>Successiva →</small><b>Griglia</b></a>
+    </nav>
+  </article>
+</div>
+</div>
+</main>
+<script src="docs.js"></script>
+</body>
+</html>

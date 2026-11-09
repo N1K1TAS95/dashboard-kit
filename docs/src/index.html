@@ -1,0 +1,73 @@
+<!--title: Introduzione-->
+<!--desc: Dashboard Kit è un piccolo framework CSS, con JavaScript opzionale, per costruire dashboard. Un solo file, nessuna dipendenza, tema chiaro e scuro, griglia a 12 colonne come Bootstrap.-->
+<h2 id="installazione">Installazione</h2>
+<p>Da CDN (jsDelivr), con la versione fissata e l'attributo <code>integrity</code> (SRI): se il file venisse alterato, il browser lo rifiuta.</p>
+```html
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v{{version}}/dist/kit.css"
+      integrity="{{sri-css}}"
+      crossorigin="anonymous">
+
+<!-- opzionale: tema, select, tab, dialog, menu, toast -->
+<script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v{{version}}/dist/kit.js"
+        integrity="{{sri-js}}"
+        crossorigin="anonymous"></script>
+```
+<p>Oppure in locale: copia <code>dist/kit.css</code> (e <code>dist/kit.js</code>) nel progetto e collegali con un percorso relativo.</p>
+<p class="doc-note">Se il sito ha una Content-Security-Policy, autorizza <code>https://cdn.jsdelivr.net</code> in <code>style-src</code> e <code>script-src</code>. Evita <code>@main</code> o <code>@latest</code>: non sono versioni fissate e jsDelivr le tiene in cache per ore.</p>
+
+<h2 id="modello">Modello di pagina</h2>
+<p>Lo scheletro minimo con intestazione fissa e contenuto in griglia. Nell'editor lo ottieni scrivendo <code>kit-page</code> + Tab (vedi <a href="snippets.html">Snippet VS Code</a>).</p>
+```html
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>La mia dashboard</title>
+  <script src="dist/kit.js"></script>
+  <link rel="stylesheet" href="dist/kit.css">
+</head>
+<body>
+<header class="kit-header">
+  <h1 class="kit-brand">Nome <span>app</span></h1>
+</header>
+<main class="kit-main">
+  <div class="kit-container">
+    <div class="kit-row">
+      <div class="kit-col-12 kit-col-lg-8"><section class="kit-card kit-card-body">…</section></div>
+      <div class="kit-col-12 kit-col-lg-4"><section class="kit-card kit-card-body">…</section></div>
+    </div>
+  </div>
+</main>
+</body>
+</html>
+```
+
+<h2 id="icone">Icone</h2>
+<p>Il kit non include icone: <code>.kit-icon</code> dà solo dimensione e tratto a un <code>&lt;svg&gt;</code>. Si usa uno sprite inline nella pagina e lo si richiama con <code>&lt;use&gt;</code>, così le icone prendono il colore del testo.</p>
+```html
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+</defs></svg>
+
+<button class="kit-btn"><svg class="kit-icon"><use href="#i-search"/></svg>Cerca</button>
+```
+
+<h2 id="browser">Browser supportati</h2>
+<p>I colori chiaro/scuro usano <code>light-dark()</code>, quindi servono Chrome/Edge 123+, Safari 17.5+ o Firefox 120+. Il resto (flexbox, grid, <code>color-mix()</code>, <code>:has()</code> nelle sole pagine di documentazione) è supportato da quelle stesse versioni.</p>
+
+<h2 id="da-bootstrap">Se conosci Bootstrap</h2>
+<p>La griglia, le utility e i nomi seguono Bootstrap, con il prefisso <code>kit-</code>. Le differenze da tenere a mente:</p>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table">
+  <thead><tr><th>Bootstrap</th><th>Dashboard Kit</th><th>Nota</th></tr></thead>
+  <tbody>
+    <tr><td><code>.row</code>, <code>.col-md-6</code></td><td><code>.kit-row</code>, <code>.kit-col-md-6</code></td><td>Identici, ma con gutter di base uguali a <code>--kit-sp</code> (si stringono sul telefono).</td></tr>
+    <tr><td><code>.btn btn-primary</code></td><td><code>.kit-btn kit-btn-primary</code></td><td>Le varianti sono classi separate, non modificatori con doppio trattino.</td></tr>
+    <tr><td><code>.d-flex</code>, <code>.mt-3</code></td><td><code>.kit-d-flex</code>, <code>.kit-mt-3</code></td><td>Scala degli spazi 0–5 in px: 0, 4, 8, 16, 24, 48.</td></tr>
+    <tr><td><code>.modal</code>, <code>.dropdown</code></td><td><code>&lt;dialog class="kit-dialog"&gt;</code>, <code>.kit-dropdown</code></td><td>Il dialog è l'elemento nativo del browser.</td></tr>
+    <tr><td>Tema con <code>data-bs-theme</code></td><td><code>data-theme</code> su <code>&lt;html&gt;</code></td><td>Automatico di base, forzabile a chiaro o scuro.</td></tr>
+    <tr><td>Breakpoint <code>xxl</code></td><td>—</td><td>Non presente: si aggiunge in <code>tools/gen-grid.py</code>.</td></tr>
+  </tbody>
+</table></div></div>

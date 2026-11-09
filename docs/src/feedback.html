@@ -1,0 +1,35 @@
+<!--title: Feedback-->
+<!--desc: Badge di stato, barre di avanzamento e stati vuoti.-->
+<h2 id="badge">Badge</h2>
+<p>Etichette di stato. Il colore comunica l'esito: verde positivo, giallo da controllare, rosso errore, grigio neutro.</p>
+<div class="doc-demo">
+  <div class="kit-bar">
+    <span class="kit-badge">Info</span>
+    <span class="kit-badge kit-badge-success">Emessa</span>
+    <span class="kit-badge kit-badge-warning">Ricevuta</span>
+    <span class="kit-badge kit-badge-danger">Errore</span>
+    <span class="kit-badge kit-badge-neutral">Neutro</span>
+  </div>
+</div>
+<p class="doc-note">Non affidare il significato solo al colore: il testo del badge deve bastare da solo.</p>
+
+<h2 id="progress">Barra di avanzamento</h2>
+<p>L'avanzamento è la variabile <code>--kit-value</code> (0–100%) sull'elemento interno. Cambiala da JavaScript con <code>el.style.setProperty("--kit-value", "40%")</code>.</p>
+<div class="doc-demo kit-stack">
+  <div class="kit-progress"><i style="--kit-value: 25%"></i></div>
+  <div class="kit-progress"><i style="--kit-value: 62%"></i></div>
+  <div class="kit-progress"><i style="--kit-value: 100%"></i></div>
+</div>
+
+<h2 id="vuoto">Stato vuoto</h2>
+<p>Quando una lista o una tabella non ha ancora nulla da mostrare, spiega perché e cosa fare.</p>
+<div class="doc-demo">
+  <section class="kit-card">
+    <div class="kit-empty">
+      <div class="kit-empty-icon">🗂️</div>
+      <h2>Nessun risultato</h2>
+      <p>Prova a cambiare i filtri o a cercare un altro termine.</p>
+      <button class="kit-btn">Azzera i filtri</button>
+    </div>
+  </section>
+</div>

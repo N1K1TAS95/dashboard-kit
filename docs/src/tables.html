@@ -1,0 +1,51 @@
+<!--title: Tabelle-->
+<!--desc: Tabelle compatte con intestazione che resta agganciata, righe selezionabili e numeri allineati.-->
+<h2 id="base">Tabella</h2>
+<p>Metti la tabella in una card, dentro <code>kit-table-wrap</code> che la fa scorrere in orizzontale sugli schermi stretti. <code>kit-num</code> allinea a destra e rende le cifre della stessa larghezza; <code>kit-wrap</code> permette al testo di andare a capo.</p>
+<div class="doc-demo">
+  <section class="kit-card">
+    <div class="kit-table-wrap">
+      <table class="kit-table">
+        <thead><tr><th>Data</th><th>Numero</th><th>Cliente</th><th class="kit-num">Importo</th></tr></thead>
+        <tbody>
+          <tr><td>12/03/2026</td><td>FT-0042</td><td class="kit-wrap">Alfa Servizi S.r.l.<small>P.IVA 01234567890</small></td><td class="kit-num">1.250,00</td></tr>
+          <tr><td>02/03/2026</td><td>FT-0041</td><td class="kit-wrap">Beta Forniture S.p.A.</td><td class="kit-num">830,40</td></tr>
+          <tr><td>21/02/2026</td><td>FT-0040</td><td class="kit-wrap">Gamma Trasporti</td><td class="kit-num kit-danger">−310,00</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<h2 id="righe">Righe cliccabili e selezionate</h2>
+<p><code>kit-table-hover</code> evidenzia la riga sotto il mouse; <code>is-selected</code> sulla <code>&lt;tr&gt;</code> la marca come scelta (utile con il <a href="layout.html#split">pannello affiancato</a>).</p>
+<div class="doc-demo">
+  <section class="kit-card">
+    <div class="kit-table-wrap">
+      <table class="kit-table kit-table-hover">
+        <thead><tr><th>Numero</th><th>Stato</th></tr></thead>
+        <tbody>
+          <tr><td>FT-0042</td><td><span class="kit-badge kit-badge-success">Emessa</span></td></tr>
+          <tr class="is-selected"><td>FT-0041</td><td><span class="kit-badge kit-badge-warning">Ricevuta</span></td></tr>
+          <tr><td>FT-0040</td><td><span class="kit-badge kit-badge-danger">Scartata</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<h2 id="ordinamento">Ordinamento</h2>
+<p>Le intestazioni con <code>aria-sort</code> (<code>ascending</code>, <code>descending</code>, <code>none</code>) diventano cliccabili e quella attiva si colora. L'ordinamento vero lo fa il tuo codice: il kit ne gestisce solo l'aspetto.</p>
+<div class="doc-demo">
+  <section class="kit-card">
+    <div class="kit-table-wrap">
+      <table class="kit-table">
+        <thead><tr><th aria-sort="descending">Data</th><th aria-sort="none">Numero</th><th class="kit-num" aria-sort="none">Importo</th></tr></thead>
+        <tbody><tr><td>12/03/2026</td><td>FT-0042</td><td class="kit-num">1.250,00</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<h2 id="sticky">Intestazione agganciata</h2>
+<p>Di base le intestazioni (<code>&lt;th&gt;</code>) restano incollate sotto <code>.kit-header</code> mentre la pagina scorre. Dentro <code>kit-table-wrap</code> restano invece agganciate al bordo del riquadro, perché è lui a scorrere. La spaziatura delle celle si regola con <code>--kit-row</code> (verticale) e <code>--kit-cell</code> (orizzontale).</p>

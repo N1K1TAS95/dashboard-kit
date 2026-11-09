@@ -1,23 +1,73 @@
-/* Solo per la pagina di documentazione, non fa parte del framework. */
-.doc-h { margin: 18px 0 -6px; font-size: 13px; text-transform: uppercase; letter-spacing: .05em; color: var(--kit-mute); }
-.kit-hero .kit-code { text-align: left; margin-top: 16px; }
+/* Solo per le pagine della documentazione, non fa parte del framework. */
 
-/* Snippet sotto ogni esempio */
-.doc-code { position: relative; margin-top: -6px; }
-.doc-code > summary {
-    cursor: pointer;
-    display: inline-block;
-    color: var(--kit-mute);
-    font-size: 12.5px;
-    padding: 4px 2px;
-    user-select: none;
+.kit-brand a { color: inherit; text-decoration: none; display: inline-flex; gap: 6px; }
+
+/* ---------- Contenuto ---------- */
+.doc-content { min-width: 0; }
+.doc-title { font-size: 30px; letter-spacing: -.02em; margin: 0 0 6px; }
+.doc-lead { font-size: 16px; color: var(--kit-mute); margin: 0 0 28px; max-width: 70ch; }
+.doc-content h2 { font-size: 21px; letter-spacing: -.01em; margin: 40px 0 6px; scroll-margin-top: calc(var(--kit-hh) + 16px); padding-top: 4px; }
+.doc-content h2:first-of-type { margin-top: 0; }
+.doc-content h3 { font-size: 15px; margin: 24px 0 6px; }
+.doc-content p, .doc-content ul, .doc-content ol { max-width: 75ch; line-height: 1.6; }
+.doc-content p { margin: 0 0 12px; }
+.doc-content code:not(pre code) { background: var(--kit-accent-soft); color: var(--kit-accent); padding: 1px 6px; border-radius: 5px; font-size: 12.5px; }
+.doc-content pre code { font: inherit; }
+.doc-content table code { background: none; padding: 0; color: inherit; }
+.doc-content .kit-table td { white-space: normal; vertical-align: top; }
+.doc-content .kit-table td:first-child { white-space: nowrap; }
+.doc-note { border-left: 3px solid var(--kit-accent); background: var(--kit-accent-soft); padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 0 0 14px; max-width: 75ch; font-size: 13.5px; }
+.doc-note.is-warn { border-color: var(--kit-warning); background: color-mix(in srgb, var(--kit-warning) 12%, transparent); }
+
+/* ---------- Esempio + codice ---------- */
+.doc-demo {
+    background: var(--kit-bg);
+    border: 1px solid var(--kit-line);
+    border-radius: var(--kit-rad) var(--kit-rad) 0 0;
+    padding: var(--kit-sp);
+    margin: 12px 0 0;
 }
-.doc-code > summary:hover { color: var(--kit-accent); }
-.doc-code[open] > summary { color: var(--kit-accent); }
-.doc-copy { position: absolute; top: 28px; right: 8px; height: 28px; padding: 0 10px; font-size: 12px; z-index: 1; background: var(--kit-card); border-color: var(--kit-line); }
-.doc-code .kit-code { max-height: 360px; margin-top: 4px; }
+/* Quando sotto c'è lo snippet, esempio e codice formano un blocco unico */
+.doc-demo + .doc-code { margin-top: 0; }
+.doc-demo:not(:has(+ .doc-code)) { border-radius: var(--kit-rad); }
+.doc-demo > .kit-card:only-child, .doc-demo > .kit-stats:only-child { margin: 0; }
+.doc-demo > p:last-child { margin-bottom: 0; }
 
-/* Palcoscenico degli esempi di griglia: mostra i bordi del contenitore (non fa parte del framework) */
-.doc-stage { background: var(--kit-bg); border: 1px dashed var(--kit-line); border-radius: var(--kit-rad); padding: var(--kit-sp); }
-.doc-stage > p:last-child { margin: 0; }
-.doc-h small { text-transform: none; letter-spacing: 0; font-weight: 400; margin-left: 6px; }
+.doc-code { position: relative; border: 1px solid var(--kit-line); border-top: 0; border-radius: 0 0 var(--kit-rad) var(--kit-rad); background: var(--kit-card); margin-bottom: 18px; }
+.doc-code > summary { cursor: pointer; color: var(--kit-mute); font-size: 12.5px; padding: 8px 14px; user-select: none; }
+.doc-code > summary:hover, .doc-code[open] > summary { color: var(--kit-accent); }
+.doc-code[open] > summary { border-bottom: 1px solid var(--kit-line-soft); }
+.doc-copy { position: absolute; top: 6px; right: 8px; height: 28px; padding: 0 10px; font-size: 12px; z-index: 1; display: none; }
+.doc-code[open] .doc-copy { display: inline-flex; }
+.doc-code .kit-code { border: 0; border-radius: 0 0 var(--kit-rad) var(--kit-rad); max-height: 380px; background: var(--kit-card); }
+
+/* Codice statico (non generato) */
+.doc-content > .kit-code, .doc-content section > .kit-code { margin: 12px 0 18px; }
+
+/* Spazi tra esempi consecutivi */
+.doc-demo.kit-stack { gap: var(--kit-sp); }
+.doc-swatch { display: inline-block; width: 14px; height: 14px; border-radius: 4px; border: 1px solid var(--kit-line); vertical-align: -2px; margin-right: 8px; }
+
+/* ---------- Menu laterale ---------- */
+.doc-nav { position: sticky; top: calc(var(--kit-hh) + 16px); max-height: calc(100vh - var(--kit-hh) - 32px); overflow: auto; margin-bottom: var(--kit-sp); padding-right: 6px; }
+.doc-nav-d > summary { list-style: none; cursor: pointer; width: 100%; justify-content: space-between; margin-bottom: 8px; }
+.doc-nav-d > summary::-webkit-details-marker { display: none; }
+.doc-nav-d > summary::after { content: "▾"; color: var(--kit-mute); }
+.doc-nav-d:not([open]) > summary::after { content: "▸"; }
+@media (min-width: 992px) { .doc-nav-d > summary { display: none; } }
+
+.doc-nav-group { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--kit-mute); font-weight: 650; padding: 14px 10px 4px; }
+.doc-nav-group:first-child { padding-top: 0; }
+.doc-nav a { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 5px 10px; border-radius: 8px; color: var(--kit-ink); text-decoration: none; }
+.doc-nav a:hover { background: var(--kit-hover); }
+.doc-nav a.is-current { background: var(--kit-accent-soft); color: var(--kit-accent); font-weight: 600; }
+.doc-toc { list-style: none; margin: 2px 0 6px 12px; padding: 0 0 0 8px; border-left: 1px solid var(--kit-line); }
+.doc-toc a { font-size: 13px; color: var(--kit-mute); padding: 3px 8px; font-weight: 400; }
+.doc-toc a:hover { color: var(--kit-ink); }
+
+/* ---------- Avanti / indietro ---------- */
+.doc-pager { display: flex; justify-content: space-between; gap: var(--kit-sp); margin-top: 48px; padding-top: var(--kit-sp); border-top: 1px solid var(--kit-line); }
+.doc-pager a { display: flex; flex-direction: column; gap: 2px; padding: 10px 16px; border: 1px solid var(--kit-line); border-radius: var(--kit-rad); background: var(--kit-card); text-decoration: none; color: var(--kit-ink); min-width: 140px; }
+.doc-pager a:hover { border-color: var(--kit-accent); }
+.doc-pager small { color: var(--kit-mute); }
+.doc-pager .doc-next { text-align: right; margin-left: auto; }

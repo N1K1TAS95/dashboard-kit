@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Form — Dashboard Kit</title>
+<meta name="description" content="Campi, ricerca, caselle di spunta e select personalizzato. L&#x27;altezza di bottoni e campi è la stessa (--kit-ctl), così stanno bene sulla stessa riga.">
+<script src="../dist/kit.js"></script>
+<link rel="stylesheet" href="../dist/kit.css">
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<!-- Pagina generata da tools/gen-docs.py a partire da docs/src/forms.html: non modificarla a mano. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+<symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
+</defs></svg>
+<header class="kit-header">
+  <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
+  <span class="kit-spacer"></span>
+  <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
+  <div class="kit-dropdown">
+    <button class="kit-btn" data-kit-toggle="#themeMenu" aria-haspopup="menu" aria-expanded="false"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-d-none kit-d-sm-inline">Tema</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
+    <div class="kit-pop kit-pop-right" id="themeMenu" role="menu" hidden>
+      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-opt-text"><b>Automatico</b><small>Segue il sistema</small></span></div>
+      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg><span class="kit-opt-text"><b>Chiaro</b></span></div>
+      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg><span class="kit-opt-text"><b>Scuro</b></span></div>
+    </div>
+  </div>
+</header>
+<main class="kit-main">
+<div class="kit-container">
+<div class="kit-row kit-gy-0">
+  <aside class="kit-col-12 kit-col-lg-3">
+    <nav class="doc-nav" aria-label="Documentazione">
+      <details class="doc-nav-d" open>
+        <summary class="kit-btn">Menu della documentazione</summary>
+        <div class="doc-nav-body">
+          <div class="doc-nav-group">Per iniziare</div>
+          <a href="index.html">Introduzione</a>
+          <a href="javascript.html">JavaScript</a>
+          <div class="doc-nav-group">Layout</div>
+          <a href="layout.html">Layout</a>
+          <a href="grid.html">Griglia</a>
+          <a href="utilities.html">Utility</a>
+          <div class="doc-nav-group">Componenti</div>
+          <a href="buttons.html">Bottoni</a>
+          <a href="forms.html" class="is-current" aria-current="page">Form</a>
+          <ul class="doc-toc">
+            <li><a href="#campi">Campi</a></li>
+            <li><a href="#errore">Errore</a></li>
+            <li><a href="#ricerca">Ricerca</a></li>
+            <li><a href="#casella">Casella di spunta e piè di form</a></li>
+            <li><a href="#select">Select personalizzato</a></li>
+          </ul>
+          <a href="navigation.html">Navigazione</a>
+          <a href="cards.html">Schede</a>
+          <a href="tables.html">Tabelle</a>
+          <a href="content.html">Contenuti</a>
+          <a href="feedback.html">Feedback</a>
+          <a href="overlays.html">Dialog e menu</a>
+          <div class="doc-nav-group">Personalizzare</div>
+          <a href="theming.html">Temi e token</a>
+          <a href="snippets.html">Snippet VS Code</a>
+          <div class="doc-nav-group">Esempi</div>
+          <a href="dashboard.html">Dashboard <span class="kit-badge kit-badge-neutral">esempio</span></a>
+        </div>
+      </details>
+    </nav>
+  </aside>
+  <article class="kit-col-12 kit-col-lg-9 doc-content">
+    <h1 class="doc-title">Form</h1>
+    <p class="doc-lead">Campi, ricerca, caselle di spunta e select personalizzato. L'altezza di bottoni e campi è la stessa (<code>--kit-ctl</code>), così stanno bene sulla stessa riga.</p>
+<h2 id="campi">Campi</h2>
+<p><code>.kit-field</code> è l'etichetta con il campo sotto; <code>.kit-input</code> si applica a <code>&lt;input&gt;</code>. <code>.kit-fields</code> dispone più campi in una griglia che si adatta.</p>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <label class="kit-field">Nome <input class="kit-input" placeholder="Mario Rossi"></label>
+    <label class="kit-field">Data <input class="kit-input" type="date"></label>
+    <label class="kit-field">Importo <input class="kit-input" type="number" step="0.01" placeholder="€"></label>
+    <label class="kit-field kit-field-wide">Nota <input class="kit-input" placeholder="Occupa due colonne (kit-field-wide)"><small>Un testo di aiuto sotto il campo.</small></label>
+  </div>
+</div>
+
+<h2 id="errore">Errore</h2>
+<p>Con <code>aria-invalid="true"</code> il campo prende il bordo rosso. Un messaggio sotto, in <code>&lt;small class="kit-danger"&gt;</code>, spiega cosa correggere.</p>
+<div class="doc-demo">
+  <label class="kit-field">Codice fiscale <input class="kit-input" aria-invalid="true" value="ABC123"><small class="kit-danger">Il codice fiscale deve avere 16 caratteri.</small></label>
+</div>
+
+<h2 id="ricerca">Ricerca</h2>
+<p>Campo con lente e scorciatoia da tastiera. Si allunga per riempire la riga (<code>flex: 1</code>).</p>
+<div class="doc-demo">
+  <div class="kit-bar">
+    <label class="kit-search"><svg class="kit-icon"><use href="#i-search"/></svg><input class="kit-input" type="search" placeholder="Cerca…" aria-label="Cerca"><kbd>/</kbd></label>
+    <button class="kit-btn kit-btn-primary">Cerca</button>
+  </div>
+</div>
+
+<h2 id="casella">Casella di spunta e piè di form</h2>
+<div class="doc-demo">
+  <div class="kit-form-foot">
+    <label class="kit-check"><input type="checkbox" checked> Nascondi duplicati</label>
+    <div class="kit-btn-group">
+      <button class="kit-btn">Azzera</button>
+      <button class="kit-btn kit-btn-primary">Applica</button>
+    </div>
+  </div>
+</div>
+
+<h2 id="select">Select personalizzato</h2>
+<p>Un menu a tendina con voci, gruppi e una seconda riga di testo. Richiede <code>kit.js</code>. Al cambio parte l'evento <code>kit:change</code> (vedi <a href="javascript.html#eventi">JavaScript</a>). Per un <code>&lt;select&gt;</code> normale basta <code>class="kit-input"</code>.</p>
+<div class="doc-demo">
+  <div class="kit-field" style="max-width: 280px">
+    <span>Periodo</span>
+    <div class="kit-select" data-kit-select>
+      <button type="button" class="kit-select-btn"><span class="kit-select-value"></span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
+      <div class="kit-pop" hidden>
+        <div class="kit-pop-group">Trimestri</div>
+        <div class="kit-opt is-on" data-value="q1"><span class="kit-opt-text"><b>1° trimestre</b></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+        <div class="kit-opt" data-value="q2"><span class="kit-opt-text"><b>2° trimestre</b><small>aprile – giugno</small></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+        <div class="kit-opt" data-value="q3"><span class="kit-opt-text"><b>3° trimestre</b></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+      </div>
+    </div>
+    <small data-doc-out>Valore: q1</small>
+  </div>
+</div>
+<p>L'opzione con <code>is-on</code> è quella iniziale. <code>kit-pop-right</code> sul pannello lo allinea a destra del bottone.</p>
+    <nav class="doc-pager" aria-label="Pagina precedente e successiva">
+      <a href="buttons.html"><small>← Precedente</small><b>Bottoni</b></a>
+      <a class="doc-next" href="navigation.html"><small>Successiva →</small><b>Navigazione</b></a>
+    </nav>
+  </article>
+</div>
+</div>
+</main>
+<script src="docs.js"></script>
+</body>
+</html>

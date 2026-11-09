@@ -1,0 +1,42 @@
+<!--title: Temi e token-->
+<!--desc: Tutto l'aspetto passa da poche variabili CSS. Cambiandole in <code>:root</code>, o su un singolo elemento, si cambiano colori, densità e angoli di tutta l'interfaccia.-->
+<h2 id="tema">Tema chiaro e scuro</h2>
+<p>I colori sono scritti una volta sola con <code>light-dark(chiaro, scuro)</code>. Di base il tema segue il sistema; per forzarlo imposta <code>data-theme</code> su <code>&lt;html&gt;</code>. Con <code>kit.js</code> bastano i bottoni con <code>data-kit-theme-set</code> (la scelta viene ricordata); il menu "Tema" in alto a destra di queste pagine è fatto così.</p>
+```html
+<html lang="it" data-theme="dark">           <!-- forzato scuro; senza l'attributo segue il sistema -->
+
+<button class="kit-btn" data-kit-theme-set="light">Chiaro</button>
+<button class="kit-btn" data-kit-theme-set="dark">Scuro</button>
+<button class="kit-btn" data-kit-theme-set="auto">Automatico</button>
+```
+<p>Aggiungi <code>&lt;meta name="color-scheme" content="light dark"&gt;</code> nel <code>&lt;head&gt;</code> per evitare un lampo bianco al caricamento in tema scuro.</p>
+
+<h2 id="layout">Token di layout</h2>
+<p>Regolano il respiro dell'interfaccia. Sotto i 760px <code>--kit-sp</code> scende da 16 a 8px.</p>
+<!--tokens-layout-->
+
+<h2 id="colori">Token di colore</h2>
+<p>Ogni colore ha il valore per il tema chiaro e per quello scuro. Le classi del kit usano sempre i token, mai colori fissi: cambiando un token cambia dappertutto.</p>
+<!--tokens-colors-->
+
+<h2 id="personalizzare">Personalizzare</h2>
+<p>Sovrascrivi i token in <code>:root</code> dopo aver caricato <code>kit.css</code>:</p>
+```css
+:root {
+  --kit-accent: light-dark(#0f766e, #5eead4);
+  --kit-accent-soft: light-dark(#e6f6f4, #12312e);
+  --kit-rad: 8px;      /* angoli meno arrotondati */
+  --kit-row: 5px;      /* tabelle più compatte */
+  --kit-ctl: 36px;     /* bottoni e campi più bassi */
+}
+```
+<p>I token si possono cambiare anche su un solo elemento, e valgono per tutto ciò che contiene. Qui un'area con un altro accento:</p>
+<div class="doc-demo">
+  <div class="kit-bar" style="--kit-accent: light-dark(#0f766e, #5eead4); --kit-accent-soft: light-dark(#e6f6f4, #12312e)">
+    <button class="kit-btn kit-btn-primary">Primario</button>
+    <button class="kit-pill is-on">Pill attiva</button>
+    <span class="kit-badge">Badge</span>
+    <a href="#">Un link</a>
+  </div>
+</div>
+<p>Nota: l'attributo <code>style</code> in linea richiede <code>style-src-attr 'unsafe-inline'</code> se il sito ha una Content-Security-Policy; in un file CSS non serve.</p>

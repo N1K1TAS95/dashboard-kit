@@ -1,8 +1,14 @@
-// Solo per la pagina di documentazione, non fa parte del framework.
+// Solo per la documentazione, non fa parte del framework.
 
 /* ---------- Snippet: il codice di ogni esempio, generato dalla pagina stessa ----------
    Va eseguito PRIMA che kit.js inizializzi la pagina (DOMContentLoaded), altrimenti
-   nel codice mostrato finirebbero gli attributi aggiunti a runtime (role, aria-selected…). */
+   nel codice mostrato finirebbero gli attributi aggiunti a runtime (role, aria-selected…).
+
+   Un esempio è un <div class="doc-demo">: si mostra il suo contenuto. Attributi opzionali:
+     data-doc-include="#id"   aggiunge al codice anche un altro elemento (es. un <dialog>)
+     data-doc-js="codice"     aggiunge una riga di JavaScript d'esempio
+     data-doc-nocode          nessuno snippet sotto l'esempio
+   Gli id che iniziano con "doc-" servono solo all'esempio e si tolgono dal codice. */
 (function () {
     function dedent(text) {
         var lines = text.replace(/\t/g, "    ").split("\n");
@@ -18,19 +24,15 @@
 
     function clean(html) {
         return html
-            .replace(/\s+id="(segDemo|selDemo|selOut|bToast|p1|p2)"/g, function (m, id) {
-                // gli id dei pannelli servono alle tab: si tengono solo lì
-                return /^p\d$/.test(id) ? m : "";
-            })
+            .replace(/\s+id="doc-[^"]*"/g, "")
             .replace(/<use href="([^"]*)"><\/use>/g, '<use href="$1"/>')
             // il browser scrive gli attributi senza valore come attr="": si riportano come nel sorgente
-            .replace(/\s(data-kit-[a-z-]+|disabled|hidden|checked)=""/g, " $1")
+            .replace(/\s(data-kit-[a-z-]+|disabled|hidden|checked|open)=""/g, " $1")
             .replace(/\s+data-doc-[a-z]+="[^"]*"/g, "");
     }
 
     function snippetFor(demo) {
-        // di solito si mostra l'interno dell'esempio (il contenitore è solo scena); con data-doc-outer anche il contenitore
-        var parts = [dedent(clean(demo.hasAttribute("data-doc-outer") ? demo.outerHTML : demo.innerHTML))];
+        var parts = [dedent(clean(demo.innerHTML))];
         var inc = demo.getAttribute("data-doc-include");
         var other = inc && document.querySelector(inc);
         if (other) parts.push(dedent(clean(other.outerHTML)));
@@ -52,10 +54,8 @@
         }
     }
 
-    document.querySelectorAll("h3.doc-h").forEach(function (h) {
-        var demo = h.nextElementSibling;
-        if (!demo || demo.querySelector("pre") || demo.hasAttribute("data-doc-skip")) return;   // niente snippet per le sezioni che sono già testo o codice
-
+    document.querySelectorAll(".doc-demo").forEach(function (demo) {
+        if (demo.hasAttribute("data-doc-nocode")) return;
         var code = snippetFor(demo);
         var box = document.createElement("details");
         box.className = "doc-code";
@@ -82,17 +82,41 @@
     });
 })();
 
+/* ---------- Menu laterale: aperto su schermi larghi, chiuso sul telefono ---------- */
+(function () {
+    var d = document.querySelector(".doc-nav-d");
+    if (!d || !window.matchMedia) return;
+    var mq = window.matchMedia("(min-width: 992px)");
+    function sync() { d.open = mq.matches; }
+    sync();
+    if (mq.addEventListener) mq.addEventListener("change", sync);
+})();
+
 /* ---------- Interazioni degli esempi ---------- */
-document.getElementById("bToast").addEventListener("click", function () {
-    Kit.toast("Salvato!");
+// <button data-doc-toast="testo">: mostra un toast
+document.addEventListener("click", function (e) {
+    var t = e.target instanceof Element && e.target.closest("[data-doc-toast]");
+    if (t && window.Kit) Kit.toast(t.getAttribute("data-doc-toast"));
 });
 
-document.getElementById("selDemo").addEventListener("kit:change", function (e) {
-    document.getElementById("selOut").textContent = "Valore: " + e.detail.value;
-});
-
-document.getElementById("segDemo").addEventListener("click", function (e) {
+// Contenitore con data-doc-seg: una sola voce attiva alla volta (segmented, pill)
+document.addEventListener("click", function (e) {
+    var box = e.target instanceof Element && e.target.closest("[data-doc-seg]");
+    if (!box) return;
     var b = e.target.closest("button");
-    if (!b) return;
-    this.querySelectorAll("button").forEach(function (x) { x.classList.toggle("is-on", x === b); });
+    if (!b || !box.contains(b)) return;
+    box.querySelectorAll("button").forEach(function (x) { x.classList.toggle("is-on", x === b); });
+});
+
+// Chip: un click lo rimuove
+document.addEventListener("click", function (e) {
+    var chip = e.target instanceof Element && e.target.closest(".doc-demo .kit-chip");
+    if (chip) chip.remove();
+});
+
+// Select: mostra il valore scelto nell'elemento [data-doc-out] dello stesso esempio
+document.addEventListener("kit:change", function (e) {
+    var demo = e.target.closest(".doc-demo");
+    var out = demo && demo.querySelector("[data-doc-out]");
+    if (out) out.textContent = "Valore: " + e.detail.value;
 });

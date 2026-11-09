@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Temi e token — Dashboard Kit</title>
+<meta name="description" content="Tutto l&#x27;aspetto passa da poche variabili CSS. Cambiandole in :root, o su un singolo elemento, si cambiano colori, densità e angoli di tutta l&#x27;interfaccia.">
+<script src="../dist/kit.js"></script>
+<link rel="stylesheet" href="../dist/kit.css">
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<!-- Pagina generata da tools/gen-docs.py a partire da docs/src/theming.html: non modificarla a mano. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+<symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
+</defs></svg>
+<header class="kit-header">
+  <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
+  <span class="kit-spacer"></span>
+  <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
+  <div class="kit-dropdown">
+    <button class="kit-btn" data-kit-toggle="#themeMenu" aria-haspopup="menu" aria-expanded="false"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-d-none kit-d-sm-inline">Tema</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
+    <div class="kit-pop kit-pop-right" id="themeMenu" role="menu" hidden>
+      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-opt-text"><b>Automatico</b><small>Segue il sistema</small></span></div>
+      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg><span class="kit-opt-text"><b>Chiaro</b></span></div>
+      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg><span class="kit-opt-text"><b>Scuro</b></span></div>
+    </div>
+  </div>
+</header>
+<main class="kit-main">
+<div class="kit-container">
+<div class="kit-row kit-gy-0">
+  <aside class="kit-col-12 kit-col-lg-3">
+    <nav class="doc-nav" aria-label="Documentazione">
+      <details class="doc-nav-d" open>
+        <summary class="kit-btn">Menu della documentazione</summary>
+        <div class="doc-nav-body">
+          <div class="doc-nav-group">Per iniziare</div>
+          <a href="index.html">Introduzione</a>
+          <a href="javascript.html">JavaScript</a>
+          <div class="doc-nav-group">Layout</div>
+          <a href="layout.html">Layout</a>
+          <a href="grid.html">Griglia</a>
+          <a href="utilities.html">Utility</a>
+          <div class="doc-nav-group">Componenti</div>
+          <a href="buttons.html">Bottoni</a>
+          <a href="forms.html">Form</a>
+          <a href="navigation.html">Navigazione</a>
+          <a href="cards.html">Schede</a>
+          <a href="tables.html">Tabelle</a>
+          <a href="content.html">Contenuti</a>
+          <a href="feedback.html">Feedback</a>
+          <a href="overlays.html">Dialog e menu</a>
+          <div class="doc-nav-group">Personalizzare</div>
+          <a href="theming.html" class="is-current" aria-current="page">Temi e token</a>
+          <ul class="doc-toc">
+            <li><a href="#tema">Tema chiaro e scuro</a></li>
+            <li><a href="#layout">Token di layout</a></li>
+            <li><a href="#colori">Token di colore</a></li>
+            <li><a href="#personalizzare">Personalizzare</a></li>
+          </ul>
+          <a href="snippets.html">Snippet VS Code</a>
+          <div class="doc-nav-group">Esempi</div>
+          <a href="dashboard.html">Dashboard <span class="kit-badge kit-badge-neutral">esempio</span></a>
+        </div>
+      </details>
+    </nav>
+  </aside>
+  <article class="kit-col-12 kit-col-lg-9 doc-content">
+    <h1 class="doc-title">Temi e token</h1>
+    <p class="doc-lead">Tutto l'aspetto passa da poche variabili CSS. Cambiandole in <code>:root</code>, o su un singolo elemento, si cambiano colori, densità e angoli di tutta l'interfaccia.</p>
+<h2 id="tema">Tema chiaro e scuro</h2>
+<p>I colori sono scritti una volta sola con <code>light-dark(chiaro, scuro)</code>. Di base il tema segue il sistema; per forzarlo imposta <code>data-theme</code> su <code>&lt;html&gt;</code>. Con <code>kit.js</code> bastano i bottoni con <code>data-kit-theme-set</code> (la scelta viene ricordata); il menu "Tema" in alto a destra di queste pagine è fatto così.</p>
+<pre class="kit-code"><code>&lt;html lang="it" data-theme="dark"&gt;           &lt;!-- forzato scuro; senza l'attributo segue il sistema --&gt;
+
+&lt;button class="kit-btn" data-kit-theme-set="light"&gt;Chiaro&lt;/button&gt;
+&lt;button class="kit-btn" data-kit-theme-set="dark"&gt;Scuro&lt;/button&gt;
+&lt;button class="kit-btn" data-kit-theme-set="auto"&gt;Automatico&lt;/button&gt;</code></pre>
+<p>Aggiungi <code>&lt;meta name="color-scheme" content="light dark"&gt;</code> nel <code>&lt;head&gt;</code> per evitare un lampo bianco al caricamento in tema scuro.</p>
+
+<h2 id="layout">Token di layout</h2>
+<p>Regolano il respiro dell'interfaccia. Sotto i 760px <code>--kit-sp</code> scende da 16 a 8px.</p>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>Token</th><th>Valore</th><th>Cosa controlla</th></tr></thead><tbody>
+<tr><td><code>--kit-sp</code></td><td><code>16px</code></td><td>spazio unico: margine, distanza tra card, padding interno</td></tr>
+<tr><td><code>--kit-row</code></td><td><code>8px</code></td><td>padding verticale delle righe di tabella</td></tr>
+<tr><td><code>--kit-cell</code></td><td><code>12px</code></td><td>padding orizzontale tra le colonne</td></tr>
+<tr><td><code>--kit-rad</code></td><td><code>12px</code></td><td>raggio degli angoli delle card</td></tr>
+<tr><td><code>--kit-hh</code></td><td><code>72px</code></td><td>altezza dell&#x27;intestazione</td></tr>
+<tr><td><code>--kit-ctl</code></td><td><code>40px</code></td><td>altezza di bottoni e campi</td></tr>
+</tbody></table></div></div>
+
+<h2 id="colori">Token di colore</h2>
+<p>Ogni colore ha il valore per il tema chiaro e per quello scuro. Le classi del kit usano sempre i token, mai colori fissi: cambiando un token cambia dappertutto.</p>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>Token</th><th>Chiaro</th><th>Scuro</th><th>Uso</th></tr></thead><tbody>
+<tr><td><span class="doc-swatch" style="background:var(--kit-bg)"></span><code>--kit-bg</code></td><td><code>#f4f5f8</code></td><td><code>#0f1319</code></td><td>Sfondo della pagina</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-card)"></span><code>--kit-card</code></td><td><code>#fff</code></td><td><code>#171d26</code></td><td>Sfondo di card, header, tabelle</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-ink)"></span><code>--kit-ink</code></td><td><code>#18202c</code></td><td><code>#e8edf4</code></td><td>Testo principale</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-mute)"></span><code>--kit-mute</code></td><td><code>#6a7587</code></td><td><code>#8d99ab</code></td><td>Testo secondario</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-line)"></span><code>--kit-line</code></td><td><code>#e4e8ee</code></td><td><code>#262e3a</code></td><td>Bordi</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-line-soft)"></span><code>--kit-line-soft</code></td><td><code>#eef1f5</code></td><td><code>#1f2630</code></td><td>Bordi leggeri, righe di tabella</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-hover)"></span><code>--kit-hover</code></td><td><code>#f1f5ff</code></td><td><code>#1c2736</code></td><td>Sfondo al passaggio del mouse</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-accent)"></span><code>--kit-accent</code></td><td><code>#2559d8</code></td><td><code>#6ea2ff</code></td><td>Colore di accento (bottoni, link, selezione)</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-accent-ink)"></span><code>--kit-accent-ink</code></td><td><code>#fff</code></td><td><code>#0b1220</code></td><td>Testo sopra l&#x27;accento</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-accent-soft)"></span><code>--kit-accent-soft</code></td><td><code>#e9effd</code></td><td><code>#1b2a45</code></td><td>Sfondo tenue dell&#x27;accento</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-danger)"></span><code>--kit-danger</code></td><td><code>#c0392b</code></td><td><code>#ff7d6e</code></td><td>Errori, valori negativi</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-success)"></span><code>--kit-success</code></td><td><code>#17803f</code></td><td><code>#4fca8b</code></td><td>Esito positivo</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-warning)"></span><code>--kit-warning</code></td><td><code>#b56a00</code></td><td><code>#f0b04e</code></td><td>Avvisi</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-c1)"></span><code>--kit-c1</code></td><td><code>#2f6fe4</code></td><td><code>#6ea2ff</code></td><td>Serie 1 dei grafici</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-c2)"></span><code>--kit-c2</code></td><td><code>#e39320</code></td><td><code>#f2a84c</code></td><td>Serie 2 dei grafici</td></tr>
+</tbody></table></div></div>
+
+<h2 id="personalizzare">Personalizzare</h2>
+<p>Sovrascrivi i token in <code>:root</code> dopo aver caricato <code>kit.css</code>:</p>
+<pre class="kit-code"><code>:root {
+  --kit-accent: light-dark(#0f766e, #5eead4);
+  --kit-accent-soft: light-dark(#e6f6f4, #12312e);
+  --kit-rad: 8px;      /* angoli meno arrotondati */
+  --kit-row: 5px;      /* tabelle più compatte */
+  --kit-ctl: 36px;     /* bottoni e campi più bassi */
+}</code></pre>
+<p>I token si possono cambiare anche su un solo elemento, e valgono per tutto ciò che contiene. Qui un'area con un altro accento:</p>
+<div class="doc-demo">
+  <div class="kit-bar" style="--kit-accent: light-dark(#0f766e, #5eead4); --kit-accent-soft: light-dark(#e6f6f4, #12312e)">
+    <button class="kit-btn kit-btn-primary">Primario</button>
+    <button class="kit-pill is-on">Pill attiva</button>
+    <span class="kit-badge">Badge</span>
+    <a href="#">Un link</a>
+  </div>
+</div>
+<p>Nota: l'attributo <code>style</code> in linea richiede <code>style-src-attr 'unsafe-inline'</code> se il sito ha una Content-Security-Policy; in un file CSS non serve.</p>
+    <nav class="doc-pager" aria-label="Pagina precedente e successiva">
+      <a href="overlays.html"><small>← Precedente</small><b>Dialog e menu</b></a>
+      <a class="doc-next" href="snippets.html"><small>Successiva →</small><b>Snippet VS Code</b></a>
+    </nav>
+  </article>
+</div>
+</div>
+</main>
+<script src="docs.js"></script>
+</body>
+</html>

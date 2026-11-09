@@ -31,7 +31,9 @@ Oppure in locale, copiando i file di `dist/`:
 Se il sito ha una Content-Security-Policy, ricordati di autorizzare `https://cdn.jsdelivr.net`
 in `style-src` e `script-src`.
 
-**Demo e componenti:** https://n1k1tas95.github.io/dashboard-kit/ (in locale: `docs/index.html`).
+**Documentazione:** https://n1k1tas95.github.io/dashboard-kit/ (in locale: `docs/index.html`), con una pagina per argomento:
+introduzione, JavaScript, layout, griglia, utility, bottoni, form, navigazione, schede, tabelle, contenuti, feedback,
+dialog e menu, temi e token, snippet VS Code. Ogni esempio ha il suo codice da copiare.
 
 ## Griglia
 Griglia a 12 colonne con flexbox, con gli stessi nomi di Bootstrap (prefisso `kit-`):
@@ -52,6 +54,15 @@ Griglia a 12 colonne con flexbox, con gli stessi nomi di Bootstrap (prefisso `ki
 
 Il blocco della griglia in `dist/kit.css` è **generato**: per cambiare breakpoint, scala degli spazi o numero di colonne
 modifica le costanti in `tools/gen-grid.py` e lancia `python3 tools/gen-grid.py`.
+
+## Lavorare sul progetto
+- `dist/kit.css`, `dist/kit.js`: il framework, scritto a mano (tranne il blocco della griglia, vedi sopra).
+- `docs/src/*.html`: il **contenuto** delle pagine di documentazione. Le pagine in `docs/*.html` sono **generate**:
+  dopo una modifica lancia `python3 tools/gen-docs.py` (aggiunge menu, indici, link avanti/indietro, tabelle dei token e degli
+  snippet, e gli hash SRI della versione indicata in `VERSION`).
+- Per aggiungere una pagina: crea `docs/src/nome.html` con le righe `<!--title: …-->` e `<!--desc: …-->` e inseriscila in `NAV`
+  dentro `tools/gen-docs.py`.
+- Gli esempi sono `<div class="doc-demo">…</div>`: il codice sotto si genera da solo dal loro contenuto.
 
 ## Cosa c'è
 Layout (header, container, grid, split), card, schede KPI, bottoni, form, segmented, pill, chip, badge,

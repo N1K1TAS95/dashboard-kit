@@ -1,0 +1,37 @@
+<!--title: Schede-->
+<!--desc: Card, schede KPI e riga di statistiche: i contenitori di una dashboard.-->
+<h2 id="card">Card</h2>
+<p>Un contenitore con bordo, angoli arrotondati e ombra leggera (in tema scuro l'ombra sparisce). Ogni parte è facoltativa: <code>kit-card-head</code>, <code>kit-card-body</code>, <code>kit-card-foot</code>.</p>
+<div class="doc-demo">
+  <section class="kit-card">
+    <div class="kit-card-head">Titolo della card</div>
+    <div class="kit-card-body">Il contenuto della card.</div>
+    <div class="kit-card-foot">
+      <button class="kit-btn">Annulla</button>
+      <button class="kit-btn kit-btn-primary">Salva</button>
+    </div>
+  </section>
+</div>
+<p>Senza <code>kit-card-body</code> il contenuto tocca i bordi: va bene per tabelle e grafici a tutta larghezza.</p>
+
+<h2 id="kpi">Scheda KPI</h2>
+<p>Etichetta, valore grande e una variazione. In una riga con <code>kit-row-cols-*</code> aggiungi <code>kit-h-100</code> perché tutte arrivino alla stessa altezza.</p>
+<div class="doc-demo">
+  <div class="kit-row kit-row-cols-2 kit-row-cols-lg-4">
+    <div><div class="kit-card kit-kpi kit-h-100"><small>Documenti</small><b>1.284</b><span class="kit-badge kit-badge-success">+4%</span></div></div>
+    <div><div class="kit-card kit-kpi kit-h-100"><small>Totale</small><b>48.920,10 €</b><span class="kit-badge kit-badge-success">+1,2%</span></div></div>
+    <div><div class="kit-card kit-kpi kit-h-100"><small>Da controllare</small><b>17</b><span class="kit-badge kit-badge-warning">−3</span></div></div>
+    <div><div class="kit-card kit-kpi kit-h-100"><small>Scartate</small><b>2</b><span class="kit-badge kit-badge-danger">+1</span></div></div>
+  </div>
+</div>
+
+<h2 id="statistiche">Riga di statistiche</h2>
+<p>Più compatta delle KPI: tante cifre in una sola card, divise da un filo. Sul telefono si impilano.</p>
+<div class="doc-demo">
+  <section class="kit-card kit-stats">
+    <div class="kit-stat"><small>Documenti</small><b>1.284</b></div>
+    <div class="kit-stat"><small>Totale</small><b>48.920,10 €</b><em>IVA inclusa</em></div>
+    <div class="kit-stat"><small>Ricevute</small><b class="kit-success">32.100 €</b></div>
+    <div class="kit-stat"><small>Emesse</small><b class="kit-danger">16.820 €</b></div>
+  </section>
+</div>

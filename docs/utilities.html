@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Utility — Dashboard Kit</title>
+<meta name="description" content="Classi di una riga, come in Bootstrap: spazi, display, flexbox, dimensioni, testo e visibilità. Quasi tutte usano !important per vincere sui componenti.">
+<script src="../dist/kit.js"></script>
+<link rel="stylesheet" href="../dist/kit.css">
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<!-- Pagina generata da tools/gen-docs.py a partire da docs/src/utilities.html: non modificarla a mano. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+<symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
+</defs></svg>
+<header class="kit-header">
+  <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
+  <span class="kit-spacer"></span>
+  <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
+  <div class="kit-dropdown">
+    <button class="kit-btn" data-kit-toggle="#themeMenu" aria-haspopup="menu" aria-expanded="false"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-d-none kit-d-sm-inline">Tema</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
+    <div class="kit-pop kit-pop-right" id="themeMenu" role="menu" hidden>
+      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-opt-text"><b>Automatico</b><small>Segue il sistema</small></span></div>
+      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg><span class="kit-opt-text"><b>Chiaro</b></span></div>
+      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg><span class="kit-opt-text"><b>Scuro</b></span></div>
+    </div>
+  </div>
+</header>
+<main class="kit-main">
+<div class="kit-container">
+<div class="kit-row kit-gy-0">
+  <aside class="kit-col-12 kit-col-lg-3">
+    <nav class="doc-nav" aria-label="Documentazione">
+      <details class="doc-nav-d" open>
+        <summary class="kit-btn">Menu della documentazione</summary>
+        <div class="doc-nav-body">
+          <div class="doc-nav-group">Per iniziare</div>
+          <a href="index.html">Introduzione</a>
+          <a href="javascript.html">JavaScript</a>
+          <div class="doc-nav-group">Layout</div>
+          <a href="layout.html">Layout</a>
+          <a href="grid.html">Griglia</a>
+          <a href="utilities.html" class="is-current" aria-current="page">Utility</a>
+          <ul class="doc-toc">
+            <li><a href="#spazi">Margini e padding</a></li>
+            <li><a href="#display">Display</a></li>
+            <li><a href="#flex">Flexbox</a></li>
+            <li><a href="#dimensioni">Dimensioni</a></li>
+            <li><a href="#testo">Testo e colore</a></li>
+            <li><a href="#visibilita">Visibilità</a></li>
+          </ul>
+          <div class="doc-nav-group">Componenti</div>
+          <a href="buttons.html">Bottoni</a>
+          <a href="forms.html">Form</a>
+          <a href="navigation.html">Navigazione</a>
+          <a href="cards.html">Schede</a>
+          <a href="tables.html">Tabelle</a>
+          <a href="content.html">Contenuti</a>
+          <a href="feedback.html">Feedback</a>
+          <a href="overlays.html">Dialog e menu</a>
+          <div class="doc-nav-group">Personalizzare</div>
+          <a href="theming.html">Temi e token</a>
+          <a href="snippets.html">Snippet VS Code</a>
+          <div class="doc-nav-group">Esempi</div>
+          <a href="dashboard.html">Dashboard <span class="kit-badge kit-badge-neutral">esempio</span></a>
+        </div>
+      </details>
+    </nav>
+  </aside>
+  <article class="kit-col-12 kit-col-lg-9 doc-content">
+    <h1 class="doc-title">Utility</h1>
+    <p class="doc-lead">Classi di una riga, come in Bootstrap: spazi, display, flexbox, dimensioni, testo e visibilità. Quasi tutte usano <code>!important</code> per vincere sui componenti.</p>
+<h2 id="spazi">Margini e padding</h2>
+<p>Formato <code>kit-{m|p}{lato}-{n}</code>. Lati: <i>nessuno</i> (tutti), <code>t</code> sopra, <code>b</code> sotto, <code>s</code> inizio, <code>e</code> fine, <code>x</code> orizzontale, <code>y</code> verticale. La scala <code>n</code> va da 0 a 5; i margini hanno anche <code>auto</code>.</p>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table">
+  <thead><tr><th>n</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead>
+  <tbody><tr><td>Valore</td><td>0</td><td>4px</td><td>8px</td><td>16px</td><td>24px</td><td>48px</td></tr></tbody>
+</table></div></div>
+<div class="doc-demo">
+  <div class="kit-bar">
+    <div class="kit-card kit-p-0">p-0</div>
+    <div class="kit-card kit-p-1">p-1</div>
+    <div class="kit-card kit-p-2">p-2</div>
+    <div class="kit-card kit-p-3">p-3</div>
+    <div class="kit-card kit-p-4">p-4</div>
+    <div class="kit-card kit-px-5 kit-py-2">px-5 py-2</div>
+  </div>
+</div>
+<div class="doc-demo">
+  <div class="kit-card kit-card-body kit-mt-4 kit-mb-2">kit-mt-4 kit-mb-2</div>
+  <div class="kit-d-flex"><button class="kit-btn">Sinistra</button><button class="kit-btn kit-ms-auto">kit-ms-auto: a destra</button></div>
+</div>
+
+<h2 id="display">Display</h2>
+<p><code>kit-d-{valore}</code> con valore <code>none</code>, <code>inline</code>, <code>block</code>, <code>inline-block</code>, <code>flex</code>, <code>inline-flex</code>, <code>grid</code>. Con un breakpoint si applica da lì in su: <code>kit-d-md-none</code>.</p>
+<div class="doc-demo kit-stack">
+  <div class="kit-card kit-p-3 kit-d-none kit-d-md-block">Visibile da md (768px) in su: <code>kit-d-none kit-d-md-block</code></div>
+  <div class="kit-card kit-p-3 kit-d-md-none">Visibile solo sotto md: <code>kit-d-md-none</code></div>
+  <p class="kit-mute">Ridimensiona la finestra per vedere i due riquadri alternarsi.</p>
+</div>
+
+<h2 id="flex">Flexbox</h2>
+<p>Con <code>kit-d-flex</code> si attivano direzione (<code>kit-flex-row</code>, <code>-column</code>, <code>-row-reverse</code>, <code>-column-reverse</code>), a capo (<code>kit-flex-wrap</code>, <code>-nowrap</code>), <code>kit-justify-content-{start|end|center|between|around|evenly}</code>, <code>kit-align-items-{start|end|center|baseline|stretch}</code>, <code>kit-align-self-*</code>, <code>kit-flex-grow-1</code>, <code>kit-flex-shrink-0</code>, <code>kit-flex-fill</code> e <code>kit-gap-0…5</code>. Direzione, justify e align hanno anche la versione per breakpoint.</p>
+<div class="doc-demo kit-stack">
+  <div class="kit-d-flex kit-justify-content-between kit-align-items-center kit-card kit-p-3">
+    <b>Titolo</b>
+    <span class="kit-badge kit-badge-success">justify-content-between</span>
+  </div>
+  <div class="kit-d-flex kit-gap-3 kit-align-items-center">
+    <button class="kit-btn kit-flex-shrink-0">Non si restringe</button>
+    <div class="kit-card kit-p-3 kit-flex-grow-1">flex-grow-1: occupa lo spazio che resta</div>
+  </div>
+  <div class="kit-d-flex kit-flex-column kit-flex-md-row kit-gap-2">
+    <div class="kit-card kit-p-3 kit-flex-fill">In colonna sul telefono</div>
+    <div class="kit-card kit-p-3 kit-flex-fill">in riga da md in su</div>
+  </div>
+</div>
+
+<h2 id="dimensioni">Dimensioni</h2>
+<p><code>kit-w-100</code>, <code>kit-w-auto</code>, <code>kit-h-100</code>, <code>kit-h-auto</code>. <code>kit-h-100</code> serve spesso per far arrivare una card all'altezza della colonna che la contiene.</p>
+
+<h2 id="testo">Testo e colore</h2>
+<div class="doc-demo">
+  <div class="kit-bar">
+    <span class="kit-mute">kit-mute</span>
+    <span class="kit-accent">kit-accent</span>
+    <span class="kit-success">kit-success</span>
+    <span class="kit-warning">kit-warning</span>
+    <span class="kit-danger">kit-danger</span>
+    <span class="kit-num">1.234,50 (kit-num: cifre allineate)</span>
+  </div>
+  <div class="kit-card kit-p-3 kit-mt-3" style="max-width: 220px"><span class="kit-truncate" style="display:block">kit-truncate taglia con i puntini un testo troppo lungo per lo spazio disponibile</span></div>
+</div>
+<p>Altre: <code>kit-nowrap</code>, <code>kit-center</code>, <code>kit-right</code>.</p>
+
+<h2 id="visibilita">Visibilità</h2>
+<ul>
+  <li><code>kit-hidden</code> e l'attributo <code>hidden</code>: nascondono l'elemento.</li>
+  <li><code>kit-sr</code>: nasconde alla vista ma resta leggibile da screen reader (etichette di sole icone).</li>
+  <li><code>kit-hide-sm</code> (sotto 760px) e <code>kit-only-sm</code> (solo sotto 760px): scorciatoie legate al breakpoint del telefono. Per gli altri breakpoint usa <code>kit-d-*</code>.</li>
+</ul>
+    <nav class="doc-pager" aria-label="Pagina precedente e successiva">
+      <a href="grid.html"><small>← Precedente</small><b>Griglia</b></a>
+      <a class="doc-next" href="buttons.html"><small>Successiva →</small><b>Bottoni</b></a>
+    </nav>
+  </article>
+</div>
+</div>
+</main>
+<script src="docs.js"></script>
+</body>
+</html>

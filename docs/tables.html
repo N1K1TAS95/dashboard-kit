@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Tabelle — Dashboard Kit</title>
+<meta name="description" content="Tabelle compatte con intestazione che resta agganciata, righe selezionabili e numeri allineati.">
+<script src="../dist/kit.js"></script>
+<link rel="stylesheet" href="../dist/kit.css">
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<!-- Pagina generata da tools/gen-docs.py a partire da docs/src/tables.html: non modificarla a mano. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+<symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
+</defs></svg>
+<header class="kit-header">
+  <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
+  <span class="kit-spacer"></span>
+  <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
+  <div class="kit-dropdown">
+    <button class="kit-btn" data-kit-toggle="#themeMenu" aria-haspopup="menu" aria-expanded="false"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-d-none kit-d-sm-inline">Tema</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
+    <div class="kit-pop kit-pop-right" id="themeMenu" role="menu" hidden>
+      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-opt-text"><b>Automatico</b><small>Segue il sistema</small></span></div>
+      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg><span class="kit-opt-text"><b>Chiaro</b></span></div>
+      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg><span class="kit-opt-text"><b>Scuro</b></span></div>
+    </div>
+  </div>
+</header>
+<main class="kit-main">
+<div class="kit-container">
+<div class="kit-row kit-gy-0">
+  <aside class="kit-col-12 kit-col-lg-3">
+    <nav class="doc-nav" aria-label="Documentazione">
+      <details class="doc-nav-d" open>
+        <summary class="kit-btn">Menu della documentazione</summary>
+        <div class="doc-nav-body">
+          <div class="doc-nav-group">Per iniziare</div>
+          <a href="index.html">Introduzione</a>
+          <a href="javascript.html">JavaScript</a>
+          <div class="doc-nav-group">Layout</div>
+          <a href="layout.html">Layout</a>
+          <a href="grid.html">Griglia</a>
+          <a href="utilities.html">Utility</a>
+          <div class="doc-nav-group">Componenti</div>
+          <a href="buttons.html">Bottoni</a>
+          <a href="forms.html">Form</a>
+          <a href="navigation.html">Navigazione</a>
+          <a href="cards.html">Schede</a>
+          <a href="tables.html" class="is-current" aria-current="page">Tabelle</a>
+          <ul class="doc-toc">
+            <li><a href="#base">Tabella</a></li>
+            <li><a href="#righe">Righe cliccabili e selezionate</a></li>
+            <li><a href="#ordinamento">Ordinamento</a></li>
+            <li><a href="#sticky">Intestazione agganciata</a></li>
+          </ul>
+          <a href="content.html">Contenuti</a>
+          <a href="feedback.html">Feedback</a>
+          <a href="overlays.html">Dialog e menu</a>
+          <div class="doc-nav-group">Personalizzare</div>
+          <a href="theming.html">Temi e token</a>
+          <a href="snippets.html">Snippet VS Code</a>
+          <div class="doc-nav-group">Esempi</div>
+          <a href="dashboard.html">Dashboard <span class="kit-badge kit-badge-neutral">esempio</span></a>
+        </div>
+      </details>
+    </nav>
+  </aside>
+  <article class="kit-col-12 kit-col-lg-9 doc-content">
+    <h1 class="doc-title">Tabelle</h1>
+    <p class="doc-lead">Tabelle compatte con intestazione che resta agganciata, righe selezionabili e numeri allineati.</p>
+<h2 id="base">Tabella</h2>
+<p>Metti la tabella in una card, dentro <code>kit-table-wrap</code> che la fa scorrere in orizzontale sugli schermi stretti. <code>kit-num</code> allinea a destra e rende le cifre della stessa larghezza; <code>kit-wrap</code> permette al testo di andare a capo.</p>
+<div class="doc-demo">
+  <section class="kit-card">
+    <div class="kit-table-wrap">
+      <table class="kit-table">
+        <thead><tr><th>Data</th><th>Numero</th><th>Cliente</th><th class="kit-num">Importo</th></tr></thead>
+        <tbody>
+          <tr><td>12/03/2026</td><td>FT-0042</td><td class="kit-wrap">Alfa Servizi S.r.l.<small>P.IVA 01234567890</small></td><td class="kit-num">1.250,00</td></tr>
+          <tr><td>02/03/2026</td><td>FT-0041</td><td class="kit-wrap">Beta Forniture S.p.A.</td><td class="kit-num">830,40</td></tr>
+          <tr><td>21/02/2026</td><td>FT-0040</td><td class="kit-wrap">Gamma Trasporti</td><td class="kit-num kit-danger">−310,00</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<h2 id="righe">Righe cliccabili e selezionate</h2>
+<p><code>kit-table-hover</code> evidenzia la riga sotto il mouse; <code>is-selected</code> sulla <code>&lt;tr&gt;</code> la marca come scelta (utile con il <a href="layout.html#split">pannello affiancato</a>).</p>
+<div class="doc-demo">
+  <section class="kit-card">
+    <div class="kit-table-wrap">
+      <table class="kit-table kit-table-hover">
+        <thead><tr><th>Numero</th><th>Stato</th></tr></thead>
+        <tbody>
+          <tr><td>FT-0042</td><td><span class="kit-badge kit-badge-success">Emessa</span></td></tr>
+          <tr class="is-selected"><td>FT-0041</td><td><span class="kit-badge kit-badge-warning">Ricevuta</span></td></tr>
+          <tr><td>FT-0040</td><td><span class="kit-badge kit-badge-danger">Scartata</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<h2 id="ordinamento">Ordinamento</h2>
+<p>Le intestazioni con <code>aria-sort</code> (<code>ascending</code>, <code>descending</code>, <code>none</code>) diventano cliccabili e quella attiva si colora. L'ordinamento vero lo fa il tuo codice: il kit ne gestisce solo l'aspetto.</p>
+<div class="doc-demo">
+  <section class="kit-card">
+    <div class="kit-table-wrap">
+      <table class="kit-table">
+        <thead><tr><th aria-sort="descending">Data</th><th aria-sort="none">Numero</th><th class="kit-num" aria-sort="none">Importo</th></tr></thead>
+        <tbody><tr><td>12/03/2026</td><td>FT-0042</td><td class="kit-num">1.250,00</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<h2 id="sticky">Intestazione agganciata</h2>
+<p>Di base le intestazioni (<code>&lt;th&gt;</code>) restano incollate sotto <code>.kit-header</code> mentre la pagina scorre. Dentro <code>kit-table-wrap</code> restano invece agganciate al bordo del riquadro, perché è lui a scorrere. La spaziatura delle celle si regola con <code>--kit-row</code> (verticale) e <code>--kit-cell</code> (orizzontale).</p>
+    <nav class="doc-pager" aria-label="Pagina precedente e successiva">
+      <a href="cards.html"><small>← Precedente</small><b>Schede</b></a>
+      <a class="doc-next" href="content.html"><small>Successiva →</small><b>Contenuti</b></a>
+    </nav>
+  </article>
+</div>
+</div>
+</main>
+<script src="docs.js"></script>
+</body>
+</html>

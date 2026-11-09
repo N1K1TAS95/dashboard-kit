@@ -1,0 +1,57 @@
+<!--title: Form-->
+<!--desc: Campi, ricerca, caselle di spunta e select personalizzato. L'altezza di bottoni e campi è la stessa (<code>--kit-ctl</code>), così stanno bene sulla stessa riga.-->
+<h2 id="campi">Campi</h2>
+<p><code>.kit-field</code> è l'etichetta con il campo sotto; <code>.kit-input</code> si applica a <code>&lt;input&gt;</code>. <code>.kit-fields</code> dispone più campi in una griglia che si adatta.</p>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <label class="kit-field">Nome <input class="kit-input" placeholder="Mario Rossi"></label>
+    <label class="kit-field">Data <input class="kit-input" type="date"></label>
+    <label class="kit-field">Importo <input class="kit-input" type="number" step="0.01" placeholder="€"></label>
+    <label class="kit-field kit-field-wide">Nota <input class="kit-input" placeholder="Occupa due colonne (kit-field-wide)"><small>Un testo di aiuto sotto il campo.</small></label>
+  </div>
+</div>
+
+<h2 id="errore">Errore</h2>
+<p>Con <code>aria-invalid="true"</code> il campo prende il bordo rosso. Un messaggio sotto, in <code>&lt;small class="kit-danger"&gt;</code>, spiega cosa correggere.</p>
+<div class="doc-demo">
+  <label class="kit-field">Codice fiscale <input class="kit-input" aria-invalid="true" value="ABC123"><small class="kit-danger">Il codice fiscale deve avere 16 caratteri.</small></label>
+</div>
+
+<h2 id="ricerca">Ricerca</h2>
+<p>Campo con lente e scorciatoia da tastiera. Si allunga per riempire la riga (<code>flex: 1</code>).</p>
+<div class="doc-demo">
+  <div class="kit-bar">
+    <label class="kit-search"><svg class="kit-icon"><use href="#i-search"/></svg><input class="kit-input" type="search" placeholder="Cerca…" aria-label="Cerca"><kbd>/</kbd></label>
+    <button class="kit-btn kit-btn-primary">Cerca</button>
+  </div>
+</div>
+
+<h2 id="casella">Casella di spunta e piè di form</h2>
+<div class="doc-demo">
+  <div class="kit-form-foot">
+    <label class="kit-check"><input type="checkbox" checked> Nascondi duplicati</label>
+    <div class="kit-btn-group">
+      <button class="kit-btn">Azzera</button>
+      <button class="kit-btn kit-btn-primary">Applica</button>
+    </div>
+  </div>
+</div>
+
+<h2 id="select">Select personalizzato</h2>
+<p>Un menu a tendina con voci, gruppi e una seconda riga di testo. Richiede <code>kit.js</code>. Al cambio parte l'evento <code>kit:change</code> (vedi <a href="javascript.html#eventi">JavaScript</a>). Per un <code>&lt;select&gt;</code> normale basta <code>class="kit-input"</code>.</p>
+<div class="doc-demo">
+  <div class="kit-field" style="max-width: 280px">
+    <span>Periodo</span>
+    <div class="kit-select" data-kit-select>
+      <button type="button" class="kit-select-btn"><span class="kit-select-value"></span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
+      <div class="kit-pop" hidden>
+        <div class="kit-pop-group">Trimestri</div>
+        <div class="kit-opt is-on" data-value="q1"><span class="kit-opt-text"><b>1° trimestre</b></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+        <div class="kit-opt" data-value="q2"><span class="kit-opt-text"><b>2° trimestre</b><small>aprile – giugno</small></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+        <div class="kit-opt" data-value="q3"><span class="kit-opt-text"><b>3° trimestre</b></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+      </div>
+    </div>
+    <small data-doc-out>Valore: q1</small>
+  </div>
+</div>
+<p>L'opzione con <code>is-on</code> è quella iniziale. <code>kit-pop-right</code> sul pannello lo allinea a destra del bottone.</p>

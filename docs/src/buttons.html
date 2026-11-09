@@ -1,0 +1,46 @@
+<!--title: Bottoni-->
+<!--desc: Bottoni di tutti i tipi e dimensioni. Un <code>.kit-btn</code> funziona su <code>&lt;button&gt;</code>, <code>&lt;a&gt;</code> e <code>&lt;label&gt;</code>.-->
+<h2 id="varianti">Varianti</h2>
+<div class="doc-demo">
+  <div class="kit-bar">
+    <button class="kit-btn">Predefinito</button>
+    <button class="kit-btn kit-btn-primary">Primario</button>
+    <button class="kit-btn kit-btn-ghost">Ghost</button>
+    <button class="kit-btn kit-btn-danger">Pericolo</button>
+    <button class="kit-btn" disabled>Disabilitato</button>
+  </div>
+</div>
+<p><code>kit-btn-primary</code> per l'azione principale della schermata (una sola per area), <code>kit-btn-ghost</code> per azioni secondarie senza bordo, <code>kit-btn-danger</code> per quelle distruttive.</p>
+
+<h2 id="dimensioni">Dimensioni</h2>
+<p>L'altezza di base è <code>--kit-ctl</code> (40px), la stessa dei campi, così bottoni e input stanno allineati. <code>kit-btn-lg</code> la porta a 48px.</p>
+<div class="doc-demo">
+  <div class="kit-bar">
+    <button class="kit-btn">Normale</button>
+    <button class="kit-btn kit-btn-primary kit-btn-lg">Grande</button>
+  </div>
+</div>
+
+<h2 id="icone">Con icona</h2>
+<p>Metti il <code>&lt;svg class="kit-icon"&gt;</code> prima del testo. Per i bottoni di sola icona aggiungi <code>kit-btn-icon</code> (quadrato) e un <code>aria-label</code>.</p>
+<div class="doc-demo">
+  <div class="kit-bar">
+    <button class="kit-btn kit-btn-primary"><svg class="kit-icon"><use href="#i-download"/></svg>Scarica</button>
+    <button class="kit-btn kit-btn-icon" aria-label="Cerca"><svg class="kit-icon"><use href="#i-search"/></svg></button>
+    <button class="kit-btn kit-btn-ghost kit-btn-icon" aria-label="Scarica"><svg class="kit-icon"><use href="#i-download"/></svg></button>
+  </div>
+</div>
+
+<h2 id="contatore">Con contatore</h2>
+<div class="doc-demo">
+  <button class="kit-btn">Filtri <span class="kit-count">3</span></button>
+</div>
+
+<h2 id="gruppo">Gruppo e link</h2>
+<div class="doc-demo">
+  <div class="kit-btn-group">
+    <button class="kit-btn">Uno</button>
+    <button class="kit-btn">Due</button>
+    <a class="kit-btn" href="#">Un link</a>
+  </div>
+</div>

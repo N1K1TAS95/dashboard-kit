@@ -1,0 +1,41 @@
+<!--title: Navigazione-->
+<!--desc: Tab, controllo segmentato, pill e chip: modi per scegliere cosa mostrare o per filtrare.-->
+<h2 id="tab">Tab</h2>
+<p>Con <code>data-kit-tabs</code> e <code>kit.js</code> le tab mostrano il pannello indicato da <code>data-kit-panel</code> e si muovono con le frecce. Dentro la barra delle tab puoi mettere <code>kit-spacer</code> e dei bottoni a destra.</p>
+<div class="doc-demo">
+  <div class="kit-tabs" data-kit-tabs>
+    <button class="kit-tab is-on" data-kit-panel="#tab-uno">Documenti</button>
+    <button class="kit-tab" data-kit-panel="#tab-due">Clienti</button>
+    <span class="kit-spacer"></span>
+    <button class="kit-btn kit-btn-ghost"><svg class="kit-icon"><use href="#i-download"/></svg>Esporta</button>
+  </div>
+  <section class="kit-card kit-card-body kit-tabpanel" id="tab-uno">Contenuto dei documenti.</section>
+  <section class="kit-card kit-card-body kit-tabpanel" id="tab-due" hidden>Contenuto dei clienti.</section>
+</div>
+
+<h2 id="segmented">Controllo segmentato</h2>
+<p>Poche voci esclusive, per cambiare vista o filtro. La voce attiva ha <code>is-on</code> (o <code>aria-pressed="true"</code>): attivarla è compito del tuo codice.</p>
+<div class="doc-demo">
+  <div class="kit-seg" role="group" aria-label="Direzione" data-doc-seg>
+    <button class="is-on">Tutte</button><button>Ricevute</button><button>Emesse</button>
+  </div>
+</div>
+
+<h2 id="pill">Pill</h2>
+<p>Filtri a scelta, anche con un contatore in <code>&lt;small&gt;</code>.</p>
+<div class="doc-demo">
+  <div class="kit-bar" data-doc-seg>
+    <button class="kit-pill is-on">2026 <small>124</small></button>
+    <button class="kit-pill">2025 <small>98</small></button>
+    <button class="kit-pill">2024 <small>71</small></button>
+  </div>
+</div>
+
+<h2 id="chip">Chip</h2>
+<p>I filtri attivi, rimovibili con un click. Qui l'esempio li toglie davvero.</p>
+<div class="doc-demo">
+  <div class="kit-bar">
+    <button class="kit-chip"><b>Anno</b> 2026 <i>×</i></button>
+    <button class="kit-chip"><b>Importo</b> &gt; 100 € <i>×</i></button>
+  </div>
+</div>
