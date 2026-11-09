@@ -18,7 +18,7 @@
 .doc-content .kit-table td:first-child { white-space: nowrap; }
 
 /* Avvisi nel testo */
-.doc-content .kit-alert { max-width: 75ch; }
+.doc-content .kit-alert { max-width: none; }   /* gli avvisi sono larghi come tabelle ed esempi */
 
 /* ---------- Esempio + codice ---------- */
 .doc-demo {
@@ -41,6 +41,9 @@
 .doc-copy { position: absolute; top: 6px; right: 8px; height: 28px; padding: 0 10px; font-size: 12px; z-index: 1; display: none; }
 .doc-code[open] .doc-copy { display: inline-flex; }
 .doc-code .kit-code { border: 0; border-radius: 0 0 var(--kit-rad) var(--kit-rad); max-height: 380px; background: var(--kit-card); }
+
+/* Tabelle e schede nel testo: stessa distanza sopra e sotto di esempi e codice */
+.doc-content > .kit-card { margin: 12px 0 18px; }
 
 /* Codice statico (non generato) */
 .doc-content > .kit-code, .doc-content section > .kit-code { margin: 12px 0 18px; }
