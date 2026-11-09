@@ -11,9 +11,10 @@
  *   data-kit-tabs                            su .kit-tabs: tab con data-kit-panel="#id"
  *   data-kit-open="#dialogId"                apre un <dialog>
  *   data-kit-close                           dentro un <dialog>, lo chiude
+ *   data-kit-dismiss                         dentro un .kit-alert, lo rimuove (evento "kit:dismiss")
  *
  * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.toast(testo), Kit.init(radice)
- * Eventi: "kit:change" (select), "kit:tab" (tab), "kit:theme" (tema), "kit:layout" (larghezza)
+ * Eventi: "kit:change" (select), "kit:tab" (tab), "kit:theme" (tema), "kit:layout" (larghezza), "kit:dismiss" (avviso chiuso)
  */
 (function () {
     "use strict";
@@ -214,6 +215,17 @@
                 // Il browser darebbe il focus al primo elemento (spesso la X di chiusura, con il suo anello):
                 // lo si sposta sul dialog stesso, salvo che l'autore abbia indicato un [autofocus].
                 if (!dlg.querySelector("[autofocus]")) { dlg.tabIndex = -1; dlg.focus({ preventScroll: true }); }
+            }
+            return;
+        }
+
+        var dismiss = t.closest("[data-kit-dismiss]");
+        if (dismiss) {
+            var al = dismiss.closest(".kit-alert");
+            if (al) {
+                var parent = al.parentNode;
+                al.remove();
+                parent.dispatchEvent(new CustomEvent("kit:dismiss", { bubbles: true }));
             }
             return;
         }

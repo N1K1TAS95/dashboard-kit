@@ -16,8 +16,9 @@
 .doc-content table code { background: none; padding: 0; color: inherit; }
 .doc-content .kit-table td { white-space: normal; vertical-align: top; }
 .doc-content .kit-table td:first-child { white-space: nowrap; }
-.doc-note { border-left: 3px solid var(--kit-accent); background: var(--kit-accent-soft); padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 0 0 14px; max-width: 75ch; font-size: 13.5px; }
-.doc-note.is-warn { border-color: var(--kit-warning); background: color-mix(in srgb, var(--kit-warning) 12%, transparent); }
+
+/* Avvisi nel testo */
+.doc-content .kit-alert { max-width: 75ch; }
 
 /* ---------- Esempio + codice ---------- */
 .doc-demo {

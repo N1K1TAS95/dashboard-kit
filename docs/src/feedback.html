@@ -1,5 +1,44 @@
 <!--title: Feedback-->
-<!--desc: Badge di stato, barre di avanzamento e stati vuoti.-->
+<!--desc: Avvisi, badge di stato, barre di avanzamento e stati vuoti.-->
+<h2 id="avvisi">Avvisi</h2>
+<p>Un messaggio in evidenza dentro la pagina: bordo colorato a sinistra e sfondo tenue. Senza variante è un'informazione; le altre sono <code>-success</code>, <code>-warning</code>, <code>-danger</code> e <code>-neutral</code>.</p>
+<div class="doc-demo kit-stack">
+  <div class="kit-alert" role="status">Le fatture importate restano sul tuo computer.</div>
+  <div class="kit-alert kit-alert-success" role="status">Importazione completata: 24 fatture aggiunte.</div>
+  <div class="kit-alert kit-alert-warning" role="status">3 fatture sono in attesa di una ricevuta dallo SdI.</div>
+  <div class="kit-alert kit-alert-danger" role="alert">Impossibile leggere il file: non è una fattura valida.</div>
+  <div class="kit-alert kit-alert-neutral">Ultimo aggiornamento: oggi alle 09:41.</div>
+</div>
+
+<h3>Con icona</h3>
+<p>Metti un <code>&lt;svg class="kit-icon kit-alert-icon"&gt;</code> come primo figlio: l'avviso lascia lo spazio a sinistra e l'icona prende il colore della variante. Le icone vengono dal tuo sprite SVG; qui <code>i-info</code>, <code>i-ok</code>, <code>i-warn</code> e <code>i-error</code> (le trovi nello sprite di questa documentazione).</p>
+<div class="doc-demo kit-stack">
+  <div class="kit-alert" role="status"><svg class="kit-icon kit-alert-icon"><use href="#i-info"/></svg>Le fatture importate restano sul tuo computer.</div>
+  <div class="kit-alert kit-alert-success" role="status"><svg class="kit-icon kit-alert-icon"><use href="#i-ok"/></svg>Importazione completata: 24 fatture aggiunte.</div>
+  <div class="kit-alert kit-alert-warning" role="status"><svg class="kit-icon kit-alert-icon"><use href="#i-warn"/></svg>3 fatture sono in attesa di una ricevuta dallo SdI.</div>
+  <div class="kit-alert kit-alert-danger" role="alert"><svg class="kit-icon kit-alert-icon"><use href="#i-error"/></svg>Impossibile leggere il file: non è una fattura valida.</div>
+</div>
+<p>Per un avviso importante usa <code>role="alert"</code> (viene letto subito dagli screen reader), per gli altri <code>role="status"</code>.</p>
+
+<h3>Con titolo e link</h3>
+<div class="doc-demo">
+  <div class="kit-alert kit-alert-warning" role="status">
+    <svg class="kit-icon kit-alert-icon"><use href="#i-warn"/></svg>
+    <strong class="kit-alert-title">Scadenza vicina</strong>
+    Hai tempo fino al 30 del mese. <a href="#avvisi">Vai alle fatture da inviare</a>.
+  </div>
+</div>
+
+<h3>Chiudibile</h3>
+<p>Un bottone <code>.kit-alert-close</code> con <code>data-kit-dismiss</code> rimuove l'avviso. L'evento <code>kit:dismiss</code> risale dal contenitore, se ti serve saperlo.</p>
+<div class="doc-demo">
+  <div class="kit-alert kit-alert-success" role="status">
+    Salvato. Puoi chiudere questo messaggio.
+    <button class="kit-alert-close" data-kit-dismiss aria-label="Chiudi"><svg class="kit-icon"><use href="#i-x"/></svg></button>
+  </div>
+</div>
+<p class="kit-alert">Il colore non basta da solo: il testo dell'avviso deve spiegare cosa è successo.</p>
+
 <h2 id="badge">Badge</h2>
 <p>Etichette di stato. Il colore comunica l'esito: verde positivo, giallo da controllare, rosso errore, grigio neutro.</p>
 <div class="doc-demo">
@@ -11,7 +50,7 @@
     <span class="kit-badge kit-badge-neutral">Neutro</span>
   </div>
 </div>
-<p class="doc-note">Non affidare il significato solo al colore: il testo del badge deve bastare da solo.</p>
+<p class="kit-alert">Non affidare il significato solo al colore: il testo del badge deve bastare da solo.</p>
 
 <h2 id="progress">Barra di avanzamento</h2>
 <p>L'avanzamento è la variabile <code>--kit-value</code> (0–100%) sull'elemento interno. Cambiala da JavaScript con <code>el.style.setProperty("--kit-value", "40%")</code>.</p>

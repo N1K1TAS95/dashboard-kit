@@ -861,6 +861,48 @@ kbd {
 .kit-badge-danger { background: color-mix(in srgb, var(--kit-danger) 14%, transparent); color: var(--kit-danger); }
 .kit-badge-neutral { background: var(--kit-line-soft); color: var(--kit-mute); }
 
+/* Avviso: <div class="kit-alert kit-alert-success" role="status"><strong class="kit-alert-title">Titolo</strong>Testo</div>
+   Varianti: (nessuna = info), -success, -warning, -danger, -neutral. Chiudibile: aggiungi un .kit-alert-close con data-kit-dismiss. */
+.kit-alert {
+    --kit-alert-c: var(--kit-accent);
+    position: relative;
+    padding: 10px var(--kit-sp);
+    border-left: 4px solid var(--kit-alert-c);
+    border-radius: var(--kit-rad-sm);
+    background: color-mix(in srgb, var(--kit-alert-c) 13%, var(--kit-card));
+    color: var(--kit-ink);
+    font-size: 13.5px;
+    line-height: 1.5;
+}
+.kit-alert-success { --kit-alert-c: var(--kit-success); }
+.kit-alert-warning { --kit-alert-c: var(--kit-warning); }
+.kit-alert-danger { --kit-alert-c: var(--kit-danger); }
+.kit-alert-neutral { --kit-alert-c: var(--kit-mute); }
+.kit-alert-title { display: block; font-weight: 650; margin-bottom: 2px; }
+.kit-alert a { color: inherit; text-decoration: underline; }
+.kit-alert:has(.kit-alert-close) { padding-right: 44px; }
+/* Icona: <svg class="kit-icon kit-alert-icon"><use href="#i-info"/></svg> come primo figlio; prende il colore della variante */
+.kit-alert > .kit-alert-icon { position: absolute; left: var(--kit-sp); top: 11px; color: var(--kit-alert-c); }
+.kit-alert:has(> .kit-alert-icon) { padding-left: calc(var(--kit-sp) + 18px + 10px); }
+.kit-alert-close {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    border-radius: var(--kit-rad-sm);
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    opacity: .7;
+}
+.kit-alert-close:hover { opacity: 1; background: color-mix(in srgb, var(--kit-alert-c) 18%, transparent); }
+
 /* Contatore dentro un bottone: <button class="kit-btn">Filtri <span class="kit-count">3</span></button> */
 .kit-count {
     background: var(--kit-accent);
