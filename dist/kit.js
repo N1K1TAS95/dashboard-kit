@@ -1,5 +1,5 @@
 /*!
- * Dashboard Kit 0.1.0 — JavaScript opzionale. Nessuna dipendenza, niente innerHTML, niente eval:
+ * Dashboard Kit 0.2.0 — JavaScript opzionale. Nessuna dipendenza, niente innerHTML, niente eval:
  * compatibile con una Content-Security-Policy rigida (script-src 'self').
  *
  * Si attiva da solo con attributi data-kit-*:

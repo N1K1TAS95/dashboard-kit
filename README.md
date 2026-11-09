@@ -9,12 +9,16 @@ Da CDN (jsDelivr), fissando sempre una versione:
 
 ```html
 <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.1.0/dist/kit.css"
-      integrity="sha384-0PxdPdnbHL4DneHj11AiF7rWsiYOHTsr0WrGv5jOkjK+ugFFWMhh/GPx7fatxLW4"
+      href="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.2.0/dist/kit.css"
+      integrity="sha384-EozeyR8WTUpi0WgVs8ZW50Y1QJYjvD/MvOW96ShSHHpCwjPgioUJ1I8Zr2iL16es"
       crossorigin="anonymous">
 <!-- opzionale: tema, select, popover, tab, dialog, toast -->
-<script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.1.0/dist/kit.js"
-        integrity="sha384-4Rrpq/cbUWuEzbDlrLT1lYOgZDnM7gfD6Qbq8qlOz2GIaGbl6zjvKsW4FQ/KtGSj"
+<script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.2.0/dist/kit.js"
+        integrity="sha384-ixOHe2CIF4VFtLQQc3FXoi9e/mcXfHUGekCOAmexZm7+zUApFVSTgP/2ZWm3Jr85"
+        crossorigin="anonymous"></script>
+<!-- opzionale: le icone (sprite SVG inserito nella pagina) -->
+<script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.2.0/dist/kit-icons.js"
+        integrity="sha384-MdfdFM8I/QwNXMFiK+yopZh3jaosSp/5tdkKgowED/4dB3LO7zvxajJCZg8mo7RY"
         crossorigin="anonymous"></script>
 ```
 
@@ -26,14 +30,15 @@ Oppure in locale, copiando i file di `dist/`:
 ```html
 <link rel="stylesheet" href="dist/kit.css">
 <script src="dist/kit.js"></script>
+<script src="dist/kit-icons.js"></script>
 ```
 
 Se il sito ha una Content-Security-Policy, ricordati di autorizzare `https://cdn.jsdelivr.net`
 in `style-src` e `script-src`.
 
 **Documentazione:** https://n1k1tas95.github.io/dashboard-kit/ (in locale: `docs/index.html`), con una pagina per argomento:
-introduzione, JavaScript, layout, griglia, utility, bottoni, form, navigazione, schede, tabelle, contenuti, feedback,
-dialog e menu, temi e token, snippet VS Code. Ogni esempio ha il suo codice da copiare.
+introduzione, JavaScript, layout, griglia, utility, bottoni, form, navigazione, schede, tabelle, contenuti, feedback (avvisi, badge),
+dialog e menu, icone, temi e token, snippet VS Code. Ogni esempio ha il suo codice da copiare.
 
 ## Larghezza del contenuto
 `kit-container` è centrato (largo al massimo `--kit-container-w`, di base 1200px); `kit-container-fluid` è sempre a tutta
