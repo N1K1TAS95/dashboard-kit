@@ -298,6 +298,12 @@
       "</dialog>$0"
     ]
   },
+  "Kit: tooltip": {
+    "prefix": "kit-tip",
+    "scope": "html",
+    "description": "Attributi del tooltip (su qualsiasi elemento)",
+    "body": "data-kit-tip=\"${1:Testo}\" data-kit-tip-pos=\"${2|top,bottom,left,right|}\"$0"
+  },
   "Kit: toast (JS)": {
     "prefix": "kit-toast",
     "scope": "html,javascript,typescript",

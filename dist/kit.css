@@ -18,7 +18,7 @@
  *  10. Tabella
  *  11. Stati vuoti, liste chiave/valore, barra di avanzamento
  *  12. Select, popover, menu
- *  13. Dialog, toast
+ *  13. Dialog, toast, tooltip
  *  14. Utility
  */
 
@@ -1120,7 +1120,7 @@ kbd {
 .kit-opt .kit-opt-check { color: var(--kit-accent); visibility: hidden; }
 .kit-opt.is-on .kit-opt-check { visibility: visible; }
 
-/* ===== 13. Dialog, toast ===== */
+/* ===== 13. Dialog, toast, tooltip ===== */
 /* Il dialog è una card in sovrimpressione: stessa struttura (.kit-card-head / -body / -foot), stessi padding
    (--kit-sp), stessi bordi e raggio; ombra uguale a quella dei menu a comparsa. */
 .kit-dialog {
@@ -1160,6 +1160,44 @@ kbd {
     pointer-events: none;
 }
 .kit-toast.is-on { opacity: 1; }
+
+/* Tooltip, solo CSS: <button class="kit-btn" data-kit-tip="Testo">…</button>
+   Posizione: data-kit-tip-pos="top (default) | bottom | left | right". Appare al passaggio del mouse (con una piccola attesa)
+   e al focus da tastiera; Esc lo nasconde (con kit.js). Il margine trasparente di 6px tra elemento e tooltip fa parte
+   del tooltip, così il mouse può raggiungerlo senza che sparisca. Un elemento con overflow nascosto lo ritaglia. */
+:where([data-kit-tip]) { position: relative; }
+[data-kit-tip]::after {
+    content: attr(data-kit-tip);
+    position: absolute;
+    z-index: 60;
+    left: 50%;
+    bottom: 100%;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: min(240px, calc(100vw - 2*var(--kit-sp)));
+    box-sizing: border-box;
+    padding: 5px 8px;
+    border: 6px solid transparent;
+    border-radius: calc(var(--kit-rad-sm) + 6px);
+    background: var(--kit-ink);
+    background-clip: padding-box;
+    color: var(--kit-bg);
+    font: 500 12.5px/1.4 var(--kit-font);
+    letter-spacing: normal;
+    text-align: left;
+    text-transform: none;
+    white-space: normal;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .12s, visibility 0s .12s;
+}
+[data-kit-tip=""]::after { display: none; }
+[data-kit-tip]:is(:hover, :focus-visible):not([data-kit-tip-hide])::after { opacity: 1; visibility: visible; transition: opacity .12s .35s, visibility 0s .35s; }
+[data-kit-tip]:focus-visible:not([data-kit-tip-hide])::after { transition-delay: 0s; }
+[data-kit-tip-pos="bottom"]::after { bottom: auto; top: 100%; }
+[data-kit-tip-pos="left"]::after { left: auto; right: 100%; bottom: auto; top: 50%; transform: translateY(-50%); }
+[data-kit-tip-pos="right"]::after { left: 100%; bottom: auto; top: 50%; transform: translateY(-50%); }
+@media (prefers-reduced-motion: reduce) { [data-kit-tip]::after { transition: none !important; } }
 
 /* ===== 14. Utility ===== */
 .kit-mute { color: var(--kit-mute); }

@@ -11,6 +11,7 @@
  *   data-kit-tabs                            su .kit-tabs: tab con data-kit-panel="#id"
  *   data-kit-open="#dialogId"                apre un <dialog>
  *   data-kit-close                           dentro un <dialog>, lo chiude
+ *   data-kit-tip="testo"                     tooltip (solo CSS; con kit.js Esc lo nasconde)
  *   data-kit-dismiss                         dentro un .kit-alert, lo rimuove (evento "kit:dismiss")
  *
  * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.toast(testo), Kit.init(radice)
@@ -252,6 +253,20 @@
     });
 
     document.addEventListener("keydown", function (e) {
+        // Esc nasconde i tooltip visibili (finché il mouse o il focus non lasciano l'elemento)
+        if (e.key === "Escape") {
+            document.querySelectorAll("[data-kit-tip]:is(:hover, :focus-visible)").forEach(function (el) {
+                el.setAttribute("data-kit-tip-hide", "");
+                function show() {
+                    el.removeAttribute("data-kit-tip-hide");
+                    el.removeEventListener("mouseleave", show);
+                    el.removeEventListener("blur", show);
+                }
+                el.addEventListener("mouseleave", show);
+                el.addEventListener("blur", show);
+            });
+        }
+
         if (openPop) {
             if (e.key === "Escape") { e.preventDefault(); closePop(true); return; }
             if (e.key === "ArrowDown") { e.preventDefault(); moveActive(openPop.pop, 1); return; }
