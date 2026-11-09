@@ -1,0 +1,289 @@
+{
+  "Kit: pagina base": {
+    "prefix": "kit-page",
+    "scope": "html",
+    "description": "Scheletro di pagina con Dashboard Kit (CSS + JS opzionale)",
+    "body": [
+      "<!doctype html>",
+      "<html lang=\"it\">",
+      "<head>",
+      "  <meta charset=\"utf-8\">",
+      "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">",
+      "  <meta name=\"color-scheme\" content=\"light dark\">",
+      "  <title>${1:Titolo}</title>",
+      "  <script src=\"${2:dist/}kit.js\"></script>",
+      "  <link rel=\"stylesheet\" href=\"${2:dist/}kit.css\">",
+      "</head>",
+      "<body>",
+      "<header class=\"kit-header\">",
+      "  <h1 class=\"kit-brand\">${3:Nome} <span>${4:app}</span></h1>",
+      "</header>",
+      "<main class=\"kit-main\">",
+      "  <div class=\"kit-container kit-stack\">",
+      "    $0",
+      "  </div>",
+      "</main>",
+      "</body>",
+      "</html>"
+    ]
+  },
+  "Kit: header": {
+    "prefix": "kit-header",
+    "scope": "html",
+    "description": "Intestazione fissa con marchio",
+    "body": [
+      "<header class=\"kit-header\">",
+      "  <h1 class=\"kit-brand\">${1:Nome} <span>${2:app}</span></h1>",
+      "  <span class=\"kit-spacer\"></span>",
+      "  $0",
+      "</header>"
+    ]
+  },
+  "Kit: bottone": {
+    "prefix": "kit-btn",
+    "scope": "html",
+    "description": "Bottone (varianti: primary, ghost, danger, icon, lg)",
+    "body": "<button class=\"kit-btn\">${1:Testo}</button>$0"
+  },
+  "Kit: bottone primario": {
+    "prefix": "kit-btn-primary",
+    "scope": "html",
+    "description": "Bottone primario",
+    "body": "<button class=\"kit-btn kit-btn-primary\">${1:Testo}</button>$0"
+  },
+  "Kit: bottone con icona": {
+    "prefix": "kit-btn-icon",
+    "scope": "html",
+    "description": "Bottone quadrato con sola icona (sprite SVG)",
+    "body": [
+      "<button class=\"kit-btn kit-btn-icon\" aria-label=\"${1:Azione}\">",
+      "  <svg class=\"kit-icon\"><use href=\"#i-${2:download}\"/></svg>",
+      "</button>$0"
+    ]
+  },
+  "Kit: card": {
+    "prefix": "kit-card",
+    "scope": "html",
+    "description": "Card con intestazione, corpo e piè di pagina",
+    "body": [
+      "<section class=\"kit-card\">",
+      "  <div class=\"kit-card-head\">${1:Titolo}</div>",
+      "  <div class=\"kit-card-body\">",
+      "    $2",
+      "  </div>",
+      "  <div class=\"kit-card-foot\">",
+      "    <button class=\"kit-btn\">Annulla</button>",
+      "    <button class=\"kit-btn kit-btn-primary\">${3:Salva}</button>",
+      "  </div>",
+      "</section>$0"
+    ]
+  },
+  "Kit: griglia": {
+    "prefix": "kit-grid",
+    "scope": "html",
+    "description": "Griglia responsive (kit-grid-2 / kit-grid-3 per colonne fisse)",
+    "body": [
+      "<div class=\"kit-grid\">",
+      "  <div class=\"kit-card kit-card-body\">${1}</div>",
+      "  <div class=\"kit-card kit-card-body\">${2}</div>",
+      "</div>$0"
+    ]
+  },
+  "Kit: riga": {
+    "prefix": "kit-row",
+    "scope": "html",
+    "description": "Riga flex con spazio e a capo automatico",
+    "body": [
+      "<div class=\"kit-row\">",
+      "  $0",
+      "</div>"
+    ]
+  },
+  "Kit: campo di testo": {
+    "prefix": "kit-field",
+    "scope": "html",
+    "description": "Campo con etichetta",
+    "body": "<label class=\"kit-field\">${1:Etichetta} <input class=\"kit-input\" type=\"${2:text}\" placeholder=\"${3}\"></label>$0"
+  },
+  "Kit: gruppo di campi": {
+    "prefix": "kit-fields",
+    "scope": "html",
+    "description": "Griglia di campi con piè di form",
+    "body": [
+      "<div class=\"kit-fields\">",
+      "  <label class=\"kit-field\">${1:Nome} <input class=\"kit-input\"></label>",
+      "  <label class=\"kit-field\">${2:Data} <input class=\"kit-input\" type=\"date\"></label>",
+      "</div>",
+      "<div class=\"kit-form-foot\">",
+      "  <label class=\"kit-check\"><input type=\"checkbox\"> ${3:Opzione}</label>",
+      "  <button class=\"kit-btn kit-btn-primary\">${4:Invia}</button>",
+      "</div>$0"
+    ]
+  },
+  "Kit: ricerca": {
+    "prefix": "kit-search",
+    "scope": "html",
+    "description": "Campo di ricerca con icona e scorciatoia",
+    "body": [
+      "<label class=\"kit-search\">",
+      "  <svg class=\"kit-icon\"><use href=\"#i-search\"/></svg>",
+      "  <input class=\"kit-input\" type=\"search\" placeholder=\"${1:Cerca…}\" aria-label=\"${1:Cerca}\">",
+      "  <kbd>/</kbd>",
+      "</label>$0"
+    ]
+  },
+  "Kit: segmented": {
+    "prefix": "kit-seg",
+    "scope": "html",
+    "description": "Controllo segmentato (scegli una voce)",
+    "body": [
+      "<div class=\"kit-seg\" role=\"group\" aria-label=\"${1:Filtro}\">",
+      "  <button class=\"is-on\">${2:Tutte}</button><button>${3:Prime}</button><button>${4:Seconde}</button>",
+      "</div>$0"
+    ]
+  },
+  "Kit: pill": {
+    "prefix": "kit-pill",
+    "scope": "html",
+    "description": "Pill selezionabile con contatore",
+    "body": "<button class=\"kit-pill${1: is-on}\">${2:2026} <small>${3:124}</small></button>$0"
+  },
+  "Kit: chip": {
+    "prefix": "kit-chip",
+    "scope": "html",
+    "description": "Chip rimovibile",
+    "body": "<button class=\"kit-chip\"><b>${1:Filtro}</b> ${2:valore} <i>×</i></button>$0"
+  },
+  "Kit: badge": {
+    "prefix": "kit-badge",
+    "scope": "html",
+    "description": "Badge (success, warning, danger, neutral)",
+    "body": "<span class=\"kit-badge kit-badge-${1|success,warning,danger,neutral|}\">${2:Testo}</span>$0"
+  },
+  "Kit: tab": {
+    "prefix": "kit-tabs",
+    "scope": "html",
+    "description": "Tab con pannelli (richiede kit.js)",
+    "body": [
+      "<div class=\"kit-tabs\" data-kit-tabs>",
+      "  <button class=\"kit-tab is-on\" data-kit-panel=\"#${1:p1}\">${2:Prima}</button>",
+      "  <button class=\"kit-tab\" data-kit-panel=\"#${3:p2}\">${4:Seconda}</button>",
+      "</div>",
+      "<section class=\"kit-card kit-tabpanel\" id=\"${1:p1}\">${5}</section>",
+      "<section class=\"kit-card kit-tabpanel\" id=\"${3:p2}\" hidden>${6}</section>$0"
+    ]
+  },
+  "Kit: statistiche": {
+    "prefix": "kit-stats",
+    "scope": "html",
+    "description": "Riga di statistiche",
+    "body": [
+      "<section class=\"kit-card kit-stats\">",
+      "  <div class=\"kit-stat\"><small>${1:Etichetta}</small><b>${2:0}</b></div>",
+      "  <div class=\"kit-stat\"><small>${3:Etichetta}</small><b>${4:0}</b></div>",
+      "</section>$0"
+    ]
+  },
+  "Kit: tabella": {
+    "prefix": "kit-table",
+    "scope": "html",
+    "description": "Tabella con intestazione e riga di esempio",
+    "body": [
+      "<section class=\"kit-card\">",
+      "  <div class=\"kit-table-wrap\">",
+      "    <table class=\"kit-table kit-table-hover\">",
+      "      <thead><tr><th>${1:Colonna}</th><th class=\"kit-num\">${2:Importo}</th></tr></thead>",
+      "      <tbody>",
+      "        <tr><td>${3:Valore}</td><td class=\"kit-num\">${4:0,00}</td></tr>",
+      "      </tbody>",
+      "    </table>",
+      "  </div>",
+      "</section>$0"
+    ]
+  },
+  "Kit: stato vuoto": {
+    "prefix": "kit-empty",
+    "scope": "html",
+    "description": "Messaggio di stato vuoto",
+    "body": [
+      "<div class=\"kit-empty\">",
+      "  <div class=\"kit-empty-icon\">${1:🗂️}</div>",
+      "  <h2>${2:Niente da mostrare}</h2>",
+      "  <p>${3:Descrizione}</p>",
+      "</div>$0"
+    ]
+  },
+  "Kit: chiave/valore": {
+    "prefix": "kit-kv",
+    "scope": "html",
+    "description": "Elenco chiave/valore",
+    "body": [
+      "<dl class=\"kit-kv\">",
+      "  <dt>${1:Chiave}</dt><dd>${2:Valore}</dd>",
+      "  <dt>${3:Chiave}</dt><dd>${4:Valore}</dd>",
+      "</dl>$0"
+    ]
+  },
+  "Kit: avanzamento": {
+    "prefix": "kit-progress",
+    "scope": "html",
+    "description": "Barra di avanzamento (0–100%)",
+    "body": "<div class=\"kit-progress\"><i style=\"--kit-value:${1:50}%\"></i></div>$0"
+  },
+  "Kit: select personalizzato": {
+    "prefix": "kit-select",
+    "scope": "html",
+    "description": "Select con elenco di opzioni (richiede kit.js)",
+    "body": [
+      "<div class=\"kit-select\" data-kit-select>",
+      "  <button type=\"button\" class=\"kit-select-btn\"><span class=\"kit-select-value\"></span><svg class=\"kit-icon\"><use href=\"#i-chev\"/></svg></button>",
+      "  <div class=\"kit-pop\" hidden>",
+      "    <div class=\"kit-opt is-on\" data-value=\"${1:a}\"><span class=\"kit-opt-text\"><b>${2:Prima}</b></span><svg class=\"kit-icon kit-opt-check\"><use href=\"#i-check\"/></svg></div>",
+      "    <div class=\"kit-opt\" data-value=\"${3:b}\"><span class=\"kit-opt-text\"><b>${4:Seconda}</b></span><svg class=\"kit-icon kit-opt-check\"><use href=\"#i-check\"/></svg></div>",
+      "  </div>",
+      "</div>$0"
+    ]
+  },
+  "Kit: menu a comparsa": {
+    "prefix": "kit-dropdown",
+    "scope": "html",
+    "description": "Bottone con menu a comparsa (richiede kit.js)",
+    "body": [
+      "<div class=\"kit-dropdown\">",
+      "  <button class=\"kit-btn\" data-kit-toggle=\"#${1:menu}\" aria-haspopup=\"menu\" aria-expanded=\"false\">${2:Menu}</button>",
+      "  <div class=\"kit-pop kit-pop-right\" id=\"${1:menu}\" role=\"menu\" hidden>",
+      "    <div class=\"kit-opt\" role=\"menuitem\"><span class=\"kit-opt-text\"><b>${3:Voce}</b></span></div>",
+      "  </div>",
+      "</div>$0"
+    ]
+  },
+  "Kit: dialog": {
+    "prefix": "kit-dialog",
+    "scope": "html",
+    "description": "Dialog con bottone di apertura (richiede kit.js)",
+    "body": [
+      "<button class=\"kit-btn kit-btn-primary\" data-kit-open=\"#${1:dlg}\">${2:Apri}</button>",
+      "",
+      "<dialog class=\"kit-dialog\" id=\"${1:dlg}\">",
+      "  <h2>${3:Titolo}</h2>",
+      "  <p class=\"kit-mute\">${4:Testo}</p>",
+      "  <div class=\"kit-card-foot\">",
+      "    <button class=\"kit-btn\" data-kit-close>Annulla</button>",
+      "    <button class=\"kit-btn kit-btn-primary\" data-kit-close>Conferma</button>",
+      "  </div>",
+      "</dialog>$0"
+    ]
+  },
+  "Kit: toast (JS)": {
+    "prefix": "kit-toast",
+    "scope": "html,javascript,typescript",
+    "description": "Messaggio temporaneo (richiede kit.js)",
+    "body": "Kit.toast(\"${1:Salvato!}\");$0"
+  },
+  "Kit: cambia tema (JS)": {
+    "prefix": "kit-theme",
+    "scope": "html,javascript,typescript",
+    "description": "Imposta il tema: auto, light o dark",
+    "body": "Kit.theme.set(\"${1|auto,light,dark|}\");$0"
+  }
+}

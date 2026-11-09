@@ -54,7 +54,7 @@
 
     document.querySelectorAll("h3.doc-h").forEach(function (h) {
         var demo = h.nextElementSibling;
-        if (!demo || demo.querySelector("pre")) return;   // niente snippet per le sezioni che sono già codice
+        if (!demo || demo.querySelector("pre") || demo.hasAttribute("data-doc-skip")) return;   // niente snippet per le sezioni che sono già testo o codice
 
         var code = snippetFor(demo);
         var box = document.createElement("details");
