@@ -18,24 +18,27 @@
 <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
 <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
 <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
 <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
 <symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
 </defs></svg>
 <header class="kit-header">
-  <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
-  <span class="kit-spacer"></span>
-  <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
-  <div class="kit-dropdown">
-    <button class="kit-btn" data-kit-toggle="#themeMenu" aria-haspopup="menu" aria-expanded="false"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-d-none kit-d-sm-inline">Tema</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
-    <div class="kit-pop kit-pop-right" id="themeMenu" role="menu" hidden>
-      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-opt-text"><b>Automatico</b><small>Segue il sistema</small></span></div>
-      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg><span class="kit-opt-text"><b>Chiaro</b></span></div>
-      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg><span class="kit-opt-text"><b>Scuro</b></span></div>
+  <div class="kit-container-boxed">
+    <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
+    <span class="kit-spacer"></span>
+    <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
+    <div class="kit-dropdown">
+      <button class="kit-btn" data-kit-toggle="#themeMenu" aria-haspopup="menu" aria-expanded="false"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-d-none kit-d-sm-inline">Tema</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
+      <div class="kit-pop kit-pop-right" id="themeMenu" role="menu" hidden>
+        <div class="kit-opt" role="menuitemradio" data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-opt-text"><b>Automatico</b><small>Segue il sistema</small></span></div>
+        <div class="kit-opt" role="menuitemradio" data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg><span class="kit-opt-text"><b>Chiaro</b></span></div>
+        <div class="kit-opt" role="menuitemradio" data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg><span class="kit-opt-text"><b>Scuro</b></span></div>
+      </div>
     </div>
   </div>
 </header>
 <main class="kit-main">
-<div class="kit-container">
+<div class="kit-container-boxed">
 <div class="kit-row kit-gy-0">
   <aside class="kit-col-12 kit-col-lg-3">
     <nav class="doc-nav" aria-label="Documentazione">
@@ -49,6 +52,7 @@
           <a href="layout.html" class="is-current" aria-current="page">Layout</a>
           <ul class="doc-toc">
             <li><a href="#struttura">Struttura di una pagina</a></li>
+            <li><a href="#larghezza">Larghezza del contenuto</a></li>
             <li><a href="#stack">Impilare: kit-stack</a></li>
             <li><a href="#bar">Barra di elementi: kit-bar</a></li>
             <li><a href="#split">Pannello affiancato: kit-split</a></li>
@@ -93,8 +97,39 @@
   <li><code>.kit-header</code>: alto <code>--kit-hh</code>, resta incollato in alto (sticky). Le intestazioni di tabella si agganciano subito sotto.</li>
   <li><code>.kit-brand</code>: titolo con il secondo termine, in <code>&lt;span&gt;</code>, colorato con l'accento.</li>
   <li><code>.kit-main</code>: margine interno di 24px (16px sotto 900px) e 80px in fondo.</li>
-  <li><code>.kit-container</code>: larghezza massima di 1200px, centrato.</li>
+  <li><code>.kit-container</code>: contenuto centrato, largo al massimo <code>--kit-container-w</code> (1200px). Vedi <a href="#larghezza">Larghezza del contenuto</a>.</li>
 </ul>
+
+<h2 id="larghezza">Larghezza del contenuto</h2>
+<p>Un contenuto centrato e stretto si legge meglio per testi e form; una dashboard con tabelle e grafici spesso rende di più a tutta larghezza. Il kit permette entrambe le cose, a due livelli.</p>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table">
+  <thead><tr><th>Classe</th><th>Comportamento</th></tr></thead>
+  <tbody>
+    <tr><td><code>kit-container</code></td><td>Centrato, largo al massimo <code>--kit-container-w</code>. Segue l'<b>interruttore globale</b> (sotto): con <code>data-layout="fluid"</code> occupa tutta la finestra.</td></tr>
+    <tr><td><code>kit-container-boxed</code></td><td>Sempre centrato, qualunque sia l'interruttore.</td></tr>
+    <tr><td><code>kit-container-fluid</code></td><td>Sempre a tutta larghezza.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h3>Interruttore globale</h3>
+<p>Metti <code>data-layout="boxed"</code> o <code>"fluid"</code> su <code>&lt;html&gt;</code> per scegliere la larghezza di tutta la pagina (di base <code>boxed</code>). Con <code>kit.js</code> l'utente può cambiarla da un bottone e la scelta viene ricordata, come per il tema. La larghezza cambia solo quando la finestra è più larga di <code>--kit-container-w</code>.</p>
+<pre class="kit-code"><code>&lt;!-- contenuto a tutta larghezza di base --&gt;
+&lt;html lang="it" data-layout="fluid"&gt;
+
+&lt;!-- un bottone che lascia scegliere all'utente (si ricorda) --&gt;
+&lt;button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-layout-toggle aria-label="Contenuto a tutta larghezza"&gt;…&lt;/button&gt;</code></pre>
+<pre class="kit-code"><code>Kit.layout.set("fluid");   // oppure "boxed"; Kit.layout.toggle() alterna</code></pre>
+<p class="doc-note">Queste pagine di documentazione usano <code>kit-container-boxed</code> e restano sempre centrate. Per vedere l'interruttore in azione apri la <a href="dashboard.html">dashboard di esempio</a>: parte a tutta larghezza e ha in alto a destra il bottone con le frecce.</p>
+
+<h3>Intestazione allineata al contenuto</h3>
+<p>Se dentro <code>.kit-header</code> metti un <code>.kit-container</code>, diventa la riga interna dell'intestazione e il suo contenuto si allinea a quello della pagina, sia centrato sia a tutta larghezza. Senza contenitore l'intestazione occupa sempre tutta la finestra.</p>
+<pre class="kit-code"><code>&lt;header class="kit-header"&gt;
+  &lt;div class="kit-container"&gt;
+    &lt;h1 class="kit-brand"&gt;Nome &lt;span&gt;app&lt;/span&gt;&lt;/h1&gt;
+    &lt;span class="kit-spacer"&gt;&lt;/span&gt;
+    &lt;button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-layout-toggle aria-label="Larghezza del contenuto"&gt;…&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/header&gt;</code></pre>
 
 <h2 id="stack">Impilare: kit-stack</h2>
 <p>Dispone i figli in colonna con uno spazio costante (<code>--kit-sp</code>). È il modo più semplice per mettere card una sotto l'altra.</p>

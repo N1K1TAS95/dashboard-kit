@@ -1,13 +1,21 @@
 <!--title: Dialog e menu-->
 <!--desc: Finestre di dialogo, menu a comparsa e messaggi temporanei. Richiedono <code>kit.js</code>.-->
 <h2 id="dialog">Dialog</h2>
-<p>Usa l'elemento nativo <code>&lt;dialog&gt;</code>: il browser gestisce focus, tasto Esc e sfondo oscurato. Il kit aggiunge lo stile e due attributi: <code>data-kit-open</code> per aprirlo, <code>data-kit-close</code> per chiuderlo. Un click sullo sfondo lo chiude. <code>kit-dialog-wide</code> lo allarga a 700px.</p>
+<p>Usa l'elemento nativo <code>&lt;dialog&gt;</code>: il browser gestisce focus, tasto Esc e sfondo oscurato. Il kit aggiunge lo stile e due attributi: <code>data-kit-open</code> per aprirlo, <code>data-kit-close</code> per chiuderlo. Un click sullo sfondo lo chiude.</p>
+<p>Il dialog è una <a href="cards.html#card">card</a> in sovrimpressione: ha le stesse tre parti (<code>kit-card-head</code>, <code>kit-card-body</code>, <code>kit-card-foot</code>), gli stessi padding e lo stesso bordo. Se il contenuto è alto, scorre solo il corpo; titolo e bottoni restano visibili. <code>kit-dialog-wide</code> lo allarga a 700px.</p>
+<p>All'apertura il focus va al dialog stesso, così non compare l'anello sul primo bottone. Per portarlo su un campo metti <code>autofocus</code> su quel campo.</p>
 <div class="doc-demo" data-doc-include="#dlg">
   <button class="kit-btn kit-btn-primary" data-kit-open="#dlg">Apri il dialog</button>
   <dialog class="kit-dialog" id="dlg">
-    <h2>Titolo del dialog</h2>
-    <p class="kit-mute">Si chiude con Esc, con un click sullo sfondo o con i bottoni.</p>
-    <div class="kit-card-foot" style="padding: var(--kit-sp) 0 0; border: 0">
+    <div class="kit-card-head">
+      Titolo del dialog
+      <button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-close aria-label="Chiudi"><svg class="kit-icon"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="kit-card-body">
+      <p class="kit-mute">Si chiude con Esc, con un click sullo sfondo, con la X o con i bottoni.</p>
+      <label class="kit-field">Nome <input class="kit-input" placeholder="Mario Rossi"></label>
+    </div>
+    <div class="kit-card-foot">
       <button class="kit-btn" data-kit-close>Annulla</button>
       <button class="kit-btn kit-btn-primary" data-kit-close>Conferma</button>
     </div>

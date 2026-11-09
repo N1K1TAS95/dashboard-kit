@@ -255,8 +255,13 @@
       "<button class=\"kit-btn kit-btn-primary\" data-kit-open=\"#${1:dlg}\">${2:Apri}</button>",
       "",
       "<dialog class=\"kit-dialog\" id=\"${1:dlg}\">",
-      "  <h2>${3:Titolo}</h2>",
-      "  <p class=\"kit-mute\">${4:Testo}</p>",
+      "  <div class=\"kit-card-head\">",
+      "    ${3:Titolo}",
+      "    <button class=\"kit-btn kit-btn-ghost kit-btn-icon\" data-kit-close aria-label=\"Chiudi\"><svg class=\"kit-icon\"><use href=\"#i-x\"/></svg></button>",
+      "  </div>",
+      "  <div class=\"kit-card-body\">",
+      "    ${4:Contenuto}",
+      "  </div>",
       "  <div class=\"kit-card-foot\">",
       "    <button class=\"kit-btn\" data-kit-close>Annulla</button>",
       "    <button class=\"kit-btn kit-btn-primary\" data-kit-close>Conferma</button>",
@@ -344,6 +349,54 @@
       "<div class=\"kit-row\">",
       "  <div class=\"kit-col-12\"><section class=\"kit-card\">$4</section></div>",
       "</div>$0"
+    ]
+  },
+  "Kit: contenitore": {
+    "prefix": "kit-container",
+    "scope": "html",
+    "description": "Contenitore centrato (segue l'interruttore data-layout; -boxed sempre centrato)",
+    "body": [
+      "<div class=\"kit-container${1|,-boxed|}\">",
+      "  $0",
+      "</div>"
+    ]
+  },
+  "Kit: contenitore a tutta larghezza": {
+    "prefix": "kit-container-fluid",
+    "scope": "html",
+    "description": "Contenitore sempre a tutta larghezza",
+    "body": [
+      "<div class=\"kit-container-fluid\">",
+      "  $0",
+      "</div>"
+    ]
+  },
+  "Kit: bottone larghezza": {
+    "prefix": "kit-layout-toggle",
+    "scope": "html",
+    "description": "Bottone che alterna contenuto centrato / a tutta larghezza (richiede kit.js)",
+    "body": [
+      "<button class=\"kit-btn kit-btn-ghost kit-btn-icon\" data-kit-layout-toggle aria-label=\"Contenuto a tutta larghezza\" title=\"Centrato / a tutta larghezza\"><svg class=\"kit-icon\"><use href=\"#i-expand\"/></svg></button>$0"
+    ]
+  },
+  "Kit: larghezza (JS)": {
+    "prefix": "kit-layout",
+    "scope": "html,javascript,typescript",
+    "description": "Imposta la larghezza: boxed (centrato) o fluid (a tutta larghezza)",
+    "body": "Kit.layout.set(\"${1|boxed,fluid|}\");$0"
+  },
+  "Kit: header con contenitore": {
+    "prefix": "kit-header-container",
+    "scope": "html",
+    "description": "Intestazione il cui contenuto si allinea a quello della pagina",
+    "body": [
+      "<header class=\"kit-header\">",
+      "  <div class=\"kit-container\">",
+      "    <h1 class=\"kit-brand\">${1:Nome} <span>${2:app}</span></h1>",
+      "    <span class=\"kit-spacer\"></span>",
+      "    $0",
+      "  </div>",
+      "</header>"
     ]
   }
 }

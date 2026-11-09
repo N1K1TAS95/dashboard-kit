@@ -18,24 +18,27 @@
 <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
 <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
 <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
 <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
 <symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
 </defs></svg>
 <header class="kit-header">
-  <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
-  <span class="kit-spacer"></span>
-  <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
-  <div class="kit-dropdown">
-    <button class="kit-btn" data-kit-toggle="#themeMenu" aria-haspopup="menu" aria-expanded="false"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-d-none kit-d-sm-inline">Tema</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
-    <div class="kit-pop kit-pop-right" id="themeMenu" role="menu" hidden>
-      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-opt-text"><b>Automatico</b><small>Segue il sistema</small></span></div>
-      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg><span class="kit-opt-text"><b>Chiaro</b></span></div>
-      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg><span class="kit-opt-text"><b>Scuro</b></span></div>
+  <div class="kit-container-boxed">
+    <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
+    <span class="kit-spacer"></span>
+    <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
+    <div class="kit-dropdown">
+      <button class="kit-btn" data-kit-toggle="#themeMenu" aria-haspopup="menu" aria-expanded="false"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-d-none kit-d-sm-inline">Tema</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
+      <div class="kit-pop kit-pop-right" id="themeMenu" role="menu" hidden>
+        <div class="kit-opt" role="menuitemradio" data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-opt-text"><b>Automatico</b><small>Segue il sistema</small></span></div>
+        <div class="kit-opt" role="menuitemradio" data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg><span class="kit-opt-text"><b>Chiaro</b></span></div>
+        <div class="kit-opt" role="menuitemradio" data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg><span class="kit-opt-text"><b>Scuro</b></span></div>
+      </div>
     </div>
   </div>
 </header>
 <main class="kit-main">
-<div class="kit-container">
+<div class="kit-container-boxed">
 <div class="kit-row kit-gy-0">
   <aside class="kit-col-12 kit-col-lg-3">
     <nav class="doc-nav" aria-label="Documentazione">
@@ -90,6 +93,8 @@
   <thead><tr><th>Attributo</th><th>Dove</th><th>Cosa fa</th></tr></thead>
   <tbody>
     <tr><td><code>data-kit-theme-set="auto|light|dark"</code></td><td>un bottone o una voce di menu</td><td>Imposta il tema e lo ricorda.</td></tr>
+    <tr><td><code>data-kit-layout-set="boxed|fluid"</code></td><td>un bottone</td><td>Sceglie contenuto centrato o a tutta larghezza e lo ricorda.</td></tr>
+    <tr><td><code>data-kit-layout-toggle</code></td><td>un bottone</td><td>Alterna le due larghezze.</td></tr>
     <tr><td><code>data-kit-toggle="#id"</code></td><td>un bottone</td><td>Apre o chiude il <code>.kit-pop</code> indicato.</td></tr>
     <tr><td><code>data-kit-select</code></td><td><code>.kit-select</code></td><td>Trasforma l'elenco di opzioni in un select.</td></tr>
     <tr><td><code>data-kit-tabs</code></td><td><code>.kit-tabs</code></td><td>Attiva le tab; ogni <code>.kit-tab</code> ha <code>data-kit-panel="#id"</code>.</td></tr>
@@ -102,6 +107,9 @@
 <pre class="kit-code"><code>Kit.toast("Salvato!");          // messaggio temporaneo (2,5 s; secondo argomento: millisecondi)
 Kit.theme.get();                // "auto" | "light" | "dark"
 Kit.theme.set("dark");          // imposta e salva il tema
+Kit.layout.get();               // "boxed" | "fluid"
+Kit.layout.set("fluid");        // contenuto a tutta larghezza (si ricorda)
+Kit.layout.toggle();            // alterna
 Kit.init(elemento);             // rilegge select e tab di un'area aggiunta dopo il caricamento</code></pre>
 <div class="doc-demo kit-bar" data-doc-js='Kit.toast("Salvato!");'>
   <button class="kit-btn kit-btn-primary" data-doc-toast="Salvato!">Mostra un toast</button>
@@ -118,6 +126,7 @@ Kit.init(elemento);             // rilegge select e tab di un'area aggiunta dopo
     <tr><td><code>kit:change</code></td><td><code>.kit-select</code></td><td><code>{ value }</code>: il <code>data-value</code> scelto</td></tr>
     <tr><td><code>kit:tab</code></td><td><code>.kit-tabs</code></td><td><code>{ tab }</code>: l'elemento della tab attivata</td></tr>
     <tr><td><code>kit:theme</code></td><td><code>&lt;html&gt;</code></td><td>il tema impostato</td></tr>
+    <tr><td><code>kit:layout</code></td><td><code>&lt;html&gt;</code></td><td>la larghezza impostata (<code>boxed</code> o <code>fluid</code>)</td></tr>
   </tbody>
 </table></div></div>
 <pre class="kit-code"><code>document.addEventListener("kit:change", (e) =&gt; {

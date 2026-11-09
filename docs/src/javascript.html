@@ -13,6 +13,8 @@
   <thead><tr><th>Attributo</th><th>Dove</th><th>Cosa fa</th></tr></thead>
   <tbody>
     <tr><td><code>data-kit-theme-set="auto|light|dark"</code></td><td>un bottone o una voce di menu</td><td>Imposta il tema e lo ricorda.</td></tr>
+    <tr><td><code>data-kit-layout-set="boxed|fluid"</code></td><td>un bottone</td><td>Sceglie contenuto centrato o a tutta larghezza e lo ricorda.</td></tr>
+    <tr><td><code>data-kit-layout-toggle</code></td><td>un bottone</td><td>Alterna le due larghezze.</td></tr>
     <tr><td><code>data-kit-toggle="#id"</code></td><td>un bottone</td><td>Apre o chiude il <code>.kit-pop</code> indicato.</td></tr>
     <tr><td><code>data-kit-select</code></td><td><code>.kit-select</code></td><td>Trasforma l'elenco di opzioni in un select.</td></tr>
     <tr><td><code>data-kit-tabs</code></td><td><code>.kit-tabs</code></td><td>Attiva le tab; ogni <code>.kit-tab</code> ha <code>data-kit-panel="#id"</code>.</td></tr>
@@ -26,6 +28,9 @@
 Kit.toast("Salvato!");          // messaggio temporaneo (2,5 s; secondo argomento: millisecondi)
 Kit.theme.get();                // "auto" | "light" | "dark"
 Kit.theme.set("dark");          // imposta e salva il tema
+Kit.layout.get();               // "boxed" | "fluid"
+Kit.layout.set("fluid");        // contenuto a tutta larghezza (si ricorda)
+Kit.layout.toggle();            // alterna
 Kit.init(elemento);             // rilegge select e tab di un'area aggiunta dopo il caricamento
 ```
 <div class="doc-demo kit-bar" data-doc-js='Kit.toast("Salvato!");'>
@@ -43,6 +48,7 @@ Kit.init(elemento);             // rilegge select e tab di un'area aggiunta dopo
     <tr><td><code>kit:change</code></td><td><code>.kit-select</code></td><td><code>{ value }</code>: il <code>data-value</code> scelto</td></tr>
     <tr><td><code>kit:tab</code></td><td><code>.kit-tabs</code></td><td><code>{ tab }</code>: l'elemento della tab attivata</td></tr>
     <tr><td><code>kit:theme</code></td><td><code>&lt;html&gt;</code></td><td>il tema impostato</td></tr>
+    <tr><td><code>kit:layout</code></td><td><code>&lt;html&gt;</code></td><td>la larghezza impostata (<code>boxed</code> o <code>fluid</code>)</td></tr>
   </tbody>
 </table></div></div>
 ```js

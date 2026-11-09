@@ -18,24 +18,27 @@
 <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
 <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
 <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
 <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
 <symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
 </defs></svg>
 <header class="kit-header">
-  <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
-  <span class="kit-spacer"></span>
-  <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
-  <div class="kit-dropdown">
-    <button class="kit-btn" data-kit-toggle="#themeMenu" aria-haspopup="menu" aria-expanded="false"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-d-none kit-d-sm-inline">Tema</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
-    <div class="kit-pop kit-pop-right" id="themeMenu" role="menu" hidden>
-      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-opt-text"><b>Automatico</b><small>Segue il sistema</small></span></div>
-      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg><span class="kit-opt-text"><b>Chiaro</b></span></div>
-      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg><span class="kit-opt-text"><b>Scuro</b></span></div>
+  <div class="kit-container-boxed">
+    <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
+    <span class="kit-spacer"></span>
+    <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
+    <div class="kit-dropdown">
+      <button class="kit-btn" data-kit-toggle="#themeMenu" aria-haspopup="menu" aria-expanded="false"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-d-none kit-d-sm-inline">Tema</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
+      <div class="kit-pop kit-pop-right" id="themeMenu" role="menu" hidden>
+        <div class="kit-opt" role="menuitemradio" data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-opt-text"><b>Automatico</b><small>Segue il sistema</small></span></div>
+        <div class="kit-opt" role="menuitemradio" data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg><span class="kit-opt-text"><b>Chiaro</b></span></div>
+        <div class="kit-opt" role="menuitemradio" data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg><span class="kit-opt-text"><b>Scuro</b></span></div>
+      </div>
     </div>
   </div>
 </header>
 <main class="kit-main">
-<div class="kit-container">
+<div class="kit-container-boxed">
 <div class="kit-row kit-gy-0">
   <aside class="kit-col-12 kit-col-lg-3">
     <nav class="doc-nav" aria-label="Documentazione">
@@ -76,13 +79,21 @@
     <h1 class="doc-title">Dialog e menu</h1>
     <p class="doc-lead">Finestre di dialogo, menu a comparsa e messaggi temporanei. Richiedono <code>kit.js</code>.</p>
 <h2 id="dialog">Dialog</h2>
-<p>Usa l'elemento nativo <code>&lt;dialog&gt;</code>: il browser gestisce focus, tasto Esc e sfondo oscurato. Il kit aggiunge lo stile e due attributi: <code>data-kit-open</code> per aprirlo, <code>data-kit-close</code> per chiuderlo. Un click sullo sfondo lo chiude. <code>kit-dialog-wide</code> lo allarga a 700px.</p>
+<p>Usa l'elemento nativo <code>&lt;dialog&gt;</code>: il browser gestisce focus, tasto Esc e sfondo oscurato. Il kit aggiunge lo stile e due attributi: <code>data-kit-open</code> per aprirlo, <code>data-kit-close</code> per chiuderlo. Un click sullo sfondo lo chiude.</p>
+<p>Il dialog è una <a href="cards.html#card">card</a> in sovrimpressione: ha le stesse tre parti (<code>kit-card-head</code>, <code>kit-card-body</code>, <code>kit-card-foot</code>), gli stessi padding e lo stesso bordo. Se il contenuto è alto, scorre solo il corpo; titolo e bottoni restano visibili. <code>kit-dialog-wide</code> lo allarga a 700px.</p>
+<p>All'apertura il focus va al dialog stesso, così non compare l'anello sul primo bottone. Per portarlo su un campo metti <code>autofocus</code> su quel campo.</p>
 <div class="doc-demo" data-doc-include="#dlg">
   <button class="kit-btn kit-btn-primary" data-kit-open="#dlg">Apri il dialog</button>
   <dialog class="kit-dialog" id="dlg">
-    <h2>Titolo del dialog</h2>
-    <p class="kit-mute">Si chiude con Esc, con un click sullo sfondo o con i bottoni.</p>
-    <div class="kit-card-foot" style="padding: var(--kit-sp) 0 0; border: 0">
+    <div class="kit-card-head">
+      Titolo del dialog
+      <button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-close aria-label="Chiudi"><svg class="kit-icon"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="kit-card-body">
+      <p class="kit-mute">Si chiude con Esc, con un click sullo sfondo, con la X o con i bottoni.</p>
+      <label class="kit-field">Nome <input class="kit-input" placeholder="Mario Rossi"></label>
+    </div>
+    <div class="kit-card-foot">
       <button class="kit-btn" data-kit-close>Annulla</button>
       <button class="kit-btn kit-btn-primary" data-kit-close>Conferma</button>
     </div>

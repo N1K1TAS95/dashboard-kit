@@ -35,6 +35,12 @@ in `style-src` e `script-src`.
 introduzione, JavaScript, layout, griglia, utility, bottoni, form, navigazione, schede, tabelle, contenuti, feedback,
 dialog e menu, temi e token, snippet VS Code. Ogni esempio ha il suo codice da copiare.
 
+## Larghezza del contenuto
+`kit-container` è centrato (largo al massimo `--kit-container-w`, di base 1200px); `kit-container-fluid` è sempre a tutta
+larghezza e `kit-container-boxed` è sempre centrato. L'interruttore globale `<html data-layout="boxed|fluid">` decide per tutti
+i `kit-container`; con `kit.js` l'utente lo cambia da un bottone (`data-kit-layout-toggle`, `Kit.layout.set("fluid")`) e la scelta
+viene ricordata. Un `kit-container` dentro `kit-header` allinea l'intestazione al contenuto.
+
 ## Griglia
 Griglia a 12 colonne con flexbox, con gli stessi nomi di Bootstrap (prefisso `kit-`):
 

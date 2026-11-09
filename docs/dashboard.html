@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="it">
+<html lang="it" data-layout="fluid">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,21 +18,25 @@
 <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
 <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
 <symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
+<symbol id="i-expand" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></symbol>
 </defs></svg>
 
 <header class="kit-header">
-  <h1 class="kit-brand">Dashboard Kit <span>esempio</span></h1>
-  <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="index.html">← Documentazione</a>
-  <span class="kit-spacer"></span>
-  <div class="kit-seg kit-d-none kit-d-lg-inline-flex" role="group" aria-label="Periodo" id="periodo">
-    <button>Mese</button><button>Trimestre</button><button class="is-on">Anno</button>
-  </div>
-  <div class="kit-dropdown">
-    <button class="kit-btn" data-kit-toggle="#themeMenu" aria-haspopup="menu" aria-expanded="false"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-d-none kit-d-sm-inline">Tema</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
-    <div class="kit-pop kit-pop-right" id="themeMenu" role="menu" hidden>
-      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-opt-text"><b>Automatico</b><small>Segue il sistema</small></span></div>
-      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg><span class="kit-opt-text"><b>Chiaro</b></span></div>
-      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg><span class="kit-opt-text"><b>Scuro</b></span></div>
+  <div class="kit-container">
+    <h1 class="kit-brand">Dashboard Kit <span>esempio</span></h1>
+    <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="index.html">← Documentazione</a>
+    <span class="kit-spacer"></span>
+    <div class="kit-seg kit-d-none kit-d-lg-inline-flex" role="group" aria-label="Periodo" id="periodo">
+      <button>Mese</button><button>Trimestre</button><button class="is-on">Anno</button>
+    </div>
+    <button class="kit-btn kit-btn-ghost kit-btn-icon kit-d-none kit-d-xl-inline-flex" data-kit-layout-toggle aria-pressed="true" aria-label="Contenuto a tutta larghezza" title="Contenuto centrato / a tutta larghezza"><svg class="kit-icon"><use href="#i-expand"/></svg></button>
+    <div class="kit-dropdown">
+      <button class="kit-btn" data-kit-toggle="#themeMenu" aria-haspopup="menu" aria-expanded="false"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-d-none kit-d-sm-inline">Tema</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
+      <div class="kit-pop kit-pop-right" id="themeMenu" role="menu" hidden>
+        <div class="kit-opt" role="menuitemradio" data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-opt-text"><b>Automatico</b><small>Segue il sistema</small></span></div>
+        <div class="kit-opt" role="menuitemradio" data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg><span class="kit-opt-text"><b>Chiaro</b></span></div>
+        <div class="kit-opt" role="menuitemradio" data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg><span class="kit-opt-text"><b>Scuro</b></span></div>
+      </div>
     </div>
   </div>
 </header>

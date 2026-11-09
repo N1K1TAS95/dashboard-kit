@@ -4,14 +4,16 @@
  *
  * Si attiva da solo con attributi data-kit-*:
  *   data-kit-theme-set="auto|light|dark"     bottone che imposta il tema
+ *   data-kit-layout-set="boxed|fluid"        bottone che sceglie contenuto centrato o a tutta larghezza
+ *   data-kit-layout-toggle                   bottone che alterna le due larghezze
  *   data-kit-toggle="#id"                    bottone che apre/chiude un .kit-pop
  *   data-kit-select                          su .kit-select: scelta di un valore
  *   data-kit-tabs                            su .kit-tabs: tab con data-kit-panel="#id"
  *   data-kit-open="#dialogId"                apre un <dialog>
  *   data-kit-close                           dentro un <dialog>, lo chiude
  *
- * API: window.Kit.theme.get()/set(), Kit.toast(testo), Kit.init(radice)
- * Eventi: "kit:change" (select), "kit:tab" (tab), "kit:theme" (tema)
+ * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.toast(testo), Kit.init(radice)
+ * Eventi: "kit:change" (select), "kit:tab" (tab), "kit:theme" (tema), "kit:layout" (larghezza)
  */
 (function () {
     "use strict";
@@ -41,6 +43,42 @@
                 b.setAttribute("aria-pressed", String(b.getAttribute("data-kit-theme-set") === v));
             });
             root.dispatchEvent(new CustomEvent("kit:theme", { detail: v }));
+        }
+    };
+
+    /* ---------- Larghezza del contenuto: centrato (boxed) o a tutta larghezza (fluid) ---------- */
+    var LKEY = "kit-layout";
+
+    function readLayout() {
+        try {
+            var v = localStorage.getItem(LKEY);
+            return v === "boxed" || v === "fluid" ? v : null;
+        } catch (e) { return null; }
+    }
+
+    function syncLayoutButtons() {
+        var cur = layout.get();
+        document.querySelectorAll("[data-kit-layout-set]").forEach(function (b) {
+            b.setAttribute("aria-pressed", String(b.getAttribute("data-kit-layout-set") === cur));
+        });
+        document.querySelectorAll("[data-kit-layout-toggle]").forEach(function (b) {
+            b.setAttribute("aria-pressed", String(cur === "fluid"));
+        });
+    }
+
+    var layout = {
+        get: function () {
+            return root.getAttribute("data-layout") === "fluid" ? "fluid" : "boxed";
+        },
+        set: function (v) {
+            v = v === "fluid" ? "fluid" : "boxed";
+            root.setAttribute("data-layout", v);
+            try { localStorage.setItem(LKEY, v); } catch (e) { /* storage non disponibile: vale solo per questa pagina */ }
+            syncLayoutButtons();
+            root.dispatchEvent(new CustomEvent("kit:layout", { detail: v }));
+        },
+        toggle: function () {
+            layout.set(layout.get() === "fluid" ? "boxed" : "fluid");
         }
     };
 
@@ -143,6 +181,11 @@
         var themeBtn = t.closest("[data-kit-theme-set]");
         if (themeBtn) { theme.set(themeBtn.getAttribute("data-kit-theme-set")); closePop(false); return; }
 
+        var layoutBtn = t.closest("[data-kit-layout-set]");
+        if (layoutBtn) { layout.set(layoutBtn.getAttribute("data-kit-layout-set")); return; }
+
+        if (t.closest("[data-kit-layout-toggle]")) { layout.toggle(); return; }
+
         var opt = t.closest(".kit-opt");
         if (opt && opt.closest(".kit-pop") && !opt.hasAttribute("aria-disabled")) { chooseOption(opt); return; }
 
@@ -166,7 +209,12 @@
         var open = t.closest("[data-kit-open]");
         if (open) {
             var dlg = document.querySelector(open.getAttribute("data-kit-open"));
-            if (dlg && dlg.showModal) dlg.showModal();
+            if (dlg && dlg.showModal) {
+                dlg.showModal();
+                // Il browser darebbe il focus al primo elemento (spesso la X di chiusura, con il suo anello):
+                // lo si sposta sul dialog stesso, salvo che l'autore abbia indicato un [autofocus].
+                if (!dlg.querySelector("[autofocus]")) { dlg.tabIndex = -1; dlg.focus({ preventScroll: true }); }
+            }
             return;
         }
 
@@ -234,6 +282,7 @@
             tabs.querySelectorAll(".kit-tab").forEach(function (t) { t.setAttribute("role", "tab"); });
             if (cur) selectTab(tabs, cur);
         });
+        syncLayoutButtons();
         scope.querySelectorAll("[data-kit-theme-set]").forEach(function (b) {
             b.setAttribute("aria-pressed", String(b.getAttribute("data-kit-theme-set") === theme.get()));
         });
@@ -243,8 +292,12 @@
     var saved = readStored();
     if (saved === "light" || saved === "dark") root.setAttribute("data-theme", saved);
 
+    // Idem per la larghezza: la scelta dell'utente vince su quella scritta nell'HTML.
+    var savedLayout = readLayout();
+    if (savedLayout) root.setAttribute("data-layout", savedLayout);
+
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { init(); });
     else init();
 
-    window.Kit = { theme: theme, toast: toast, init: init };
+    window.Kit = { theme: theme, layout: layout, toast: toast, init: init };
 })();

@@ -18,8 +18,45 @@
   <li><code>.kit-header</code>: alto <code>--kit-hh</code>, resta incollato in alto (sticky). Le intestazioni di tabella si agganciano subito sotto.</li>
   <li><code>.kit-brand</code>: titolo con il secondo termine, in <code>&lt;span&gt;</code>, colorato con l'accento.</li>
   <li><code>.kit-main</code>: margine interno di 24px (16px sotto 900px) e 80px in fondo.</li>
-  <li><code>.kit-container</code>: larghezza massima di 1200px, centrato.</li>
+  <li><code>.kit-container</code>: contenuto centrato, largo al massimo <code>--kit-container-w</code> (1200px). Vedi <a href="#larghezza">Larghezza del contenuto</a>.</li>
 </ul>
+
+<h2 id="larghezza">Larghezza del contenuto</h2>
+<p>Un contenuto centrato e stretto si legge meglio per testi e form; una dashboard con tabelle e grafici spesso rende di più a tutta larghezza. Il kit permette entrambe le cose, a due livelli.</p>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table">
+  <thead><tr><th>Classe</th><th>Comportamento</th></tr></thead>
+  <tbody>
+    <tr><td><code>kit-container</code></td><td>Centrato, largo al massimo <code>--kit-container-w</code>. Segue l'<b>interruttore globale</b> (sotto): con <code>data-layout="fluid"</code> occupa tutta la finestra.</td></tr>
+    <tr><td><code>kit-container-boxed</code></td><td>Sempre centrato, qualunque sia l'interruttore.</td></tr>
+    <tr><td><code>kit-container-fluid</code></td><td>Sempre a tutta larghezza.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h3>Interruttore globale</h3>
+<p>Metti <code>data-layout="boxed"</code> o <code>"fluid"</code> su <code>&lt;html&gt;</code> per scegliere la larghezza di tutta la pagina (di base <code>boxed</code>). Con <code>kit.js</code> l'utente può cambiarla da un bottone e la scelta viene ricordata, come per il tema. La larghezza cambia solo quando la finestra è più larga di <code>--kit-container-w</code>.</p>
+```html
+<!-- contenuto a tutta larghezza di base -->
+<html lang="it" data-layout="fluid">
+
+<!-- un bottone che lascia scegliere all'utente (si ricorda) -->
+<button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-layout-toggle aria-label="Contenuto a tutta larghezza">…</button>
+```
+```js
+Kit.layout.set("fluid");   // oppure "boxed"; Kit.layout.toggle() alterna
+```
+<p class="doc-note">Queste pagine di documentazione usano <code>kit-container-boxed</code> e restano sempre centrate. Per vedere l'interruttore in azione apri la <a href="dashboard.html">dashboard di esempio</a>: parte a tutta larghezza e ha in alto a destra il bottone con le frecce.</p>
+
+<h3>Intestazione allineata al contenuto</h3>
+<p>Se dentro <code>.kit-header</code> metti un <code>.kit-container</code>, diventa la riga interna dell'intestazione e il suo contenuto si allinea a quello della pagina, sia centrato sia a tutta larghezza. Senza contenitore l'intestazione occupa sempre tutta la finestra.</p>
+```html
+<header class="kit-header">
+  <div class="kit-container">
+    <h1 class="kit-brand">Nome <span>app</span></h1>
+    <span class="kit-spacer"></span>
+    <button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-layout-toggle aria-label="Larghezza del contenuto">…</button>
+  </div>
+</header>
+```
 
 <h2 id="stack">Impilare: kit-stack</h2>
 <p>Dispone i figli in colonna con uno spazio costante (<code>--kit-sp</code>). È il modo più semplice per mettere card una sotto l'altra.</p>
