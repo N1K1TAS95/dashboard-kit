@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Kit — componenti</title>
+<script src="../dist/kit.js"></script>
+<link rel="stylesheet" href="../dist/kit.css">
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+<symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
+</defs></svg>
+
+<header class="kit-header">
+  <h1 class="kit-brand">Kit <span>componenti</span></h1>
+  <span class="kit-spacer"></span>
+  <div class="kit-dropdown">
+    <button class="kit-btn" data-kit-toggle="#themeMenu" aria-haspopup="menu" aria-expanded="false">
+      <svg class="kit-icon"><use href="#i-auto"/></svg>Tema<svg class="kit-icon"><use href="#i-chev"/></svg>
+    </button>
+    <div class="kit-pop kit-pop-right" id="themeMenu" role="menu" hidden>
+      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-opt-text"><b>Automatico</b><small>Segue il sistema</small></span></div>
+      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg><span class="kit-opt-text"><b>Chiaro</b></span></div>
+      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg><span class="kit-opt-text"><b>Scuro</b></span></div>
+    </div>
+  </div>
+</header>
+
+<main class="kit-main">
+<div class="kit-container kit-stack">
+
+  <section class="kit-card kit-hero">
+    <h2>Kit</h2>
+    <p class="kit-mute">Un piccolo framework CSS per dashboard: un solo file, nessuna dipendenza, tema chiaro e scuro.</p>
+    <pre class="kit-code">&lt;link rel="stylesheet" href="kit.css"&gt;
+&lt;script src="kit.js"&gt;&lt;/script&gt;   &lt;!-- opzionale --&gt;</pre>
+  </section>
+
+  <h3 class="doc-h">Bottoni</h3>
+  <div class="kit-card kit-card-body kit-row">
+    <button class="kit-btn">Predefinito</button>
+    <button class="kit-btn kit-btn-primary">Primario</button>
+    <button class="kit-btn kit-btn-ghost">Ghost</button>
+    <button class="kit-btn kit-btn-danger">Pericolo</button>
+    <button class="kit-btn" disabled>Disabilitato</button>
+    <button class="kit-btn kit-btn-icon" aria-label="Scarica"><svg class="kit-icon"><use href="#i-download"/></svg></button>
+    <button class="kit-btn kit-btn-primary kit-btn-lg">Grande</button>
+    <button class="kit-btn"><svg class="kit-icon"><use href="#i-download"/></svg>Esporta <span class="kit-count">3</span></button>
+  </div>
+
+  <h3 class="doc-h">Ricerca, segmented, pill, chip, badge</h3>
+  <div class="kit-card kit-card-body kit-stack">
+    <div class="kit-row">
+      <label class="kit-search"><svg class="kit-icon"><use href="#i-search"/></svg><input class="kit-input" type="search" placeholder="Cerca…" aria-label="Cerca"><kbd>/</kbd></label>
+      <div class="kit-seg" role="group" aria-label="Direzione" id="segDemo">
+        <button class="is-on">Tutte</button><button>Ricevute</button><button>Emesse</button>
+      </div>
+    </div>
+    <div class="kit-row">
+      <button class="kit-pill is-on">2026 <small>124</small></button>
+      <button class="kit-pill">2025 <small>98</small></button>
+      <button class="kit-pill">2024 <small>71</small></button>
+    </div>
+    <div class="kit-row">
+      <button class="kit-chip"><b>Anno</b> 2026 <i>×</i></button>
+      <button class="kit-chip"><b>Importo</b> &gt; 100 € <i>×</i></button>
+    </div>
+    <div class="kit-row">
+      <span class="kit-badge">Info</span>
+      <span class="kit-badge kit-badge-success">Emessa</span>
+      <span class="kit-badge kit-badge-warning">Ricevuta</span>
+      <span class="kit-badge kit-badge-danger">Errore</span>
+      <span class="kit-badge kit-badge-neutral">Neutro</span>
+    </div>
+  </div>
+
+  <h3 class="doc-h">Form</h3>
+  <div class="kit-card kit-card-body kit-stack">
+    <div class="kit-fields">
+      <label class="kit-field">Nome <input class="kit-input" placeholder="Mario Rossi"></label>
+      <label class="kit-field">Data <input class="kit-input" type="date"></label>
+      <label class="kit-field">Importo <input class="kit-input" type="number" step="0.01" placeholder="€"></label>
+      <label class="kit-field">Campo con errore <input class="kit-input" aria-invalid="true" value="valore non valido"><small class="kit-danger">Questo campo non è valido.</small></label>
+      <div class="kit-field">
+        <span>Select personalizzato</span>
+        <div class="kit-select" data-kit-select id="selDemo">
+          <button type="button" class="kit-select-btn"><span class="kit-select-value"></span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
+          <div class="kit-pop" hidden>
+            <div class="kit-pop-group">Trimestri</div>
+            <div class="kit-opt is-on" data-value="q1"><span class="kit-opt-text"><b>1° trimestre</b></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+            <div class="kit-opt" data-value="q2"><span class="kit-opt-text"><b>2° trimestre</b><small>aprile – giugno</small></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+            <div class="kit-opt" data-value="q3"><span class="kit-opt-text"><b>3° trimestre</b></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+          </div>
+        </div>
+        <small id="selOut">Valore: q1</small>
+      </div>
+    </div>
+    <div class="kit-form-foot">
+      <label class="kit-check"><input type="checkbox" checked> Nascondi duplicati</label>
+      <button class="kit-btn">Azzera</button>
+    </div>
+  </div>
+
+  <h3 class="doc-h">Statistiche</h3>
+  <section class="kit-card kit-stats">
+    <div class="kit-stat"><small>Documenti</small><b>1.284</b></div>
+    <div class="kit-stat"><small>Totale</small><b>48.920,10 €</b><em>IVA inclusa</em></div>
+    <div class="kit-stat"><small>Ricevute</small><b class="kit-success">32.100 €</b></div>
+    <div class="kit-stat"><small>Emesse</small><b class="kit-danger">16.820 €</b></div>
+  </section>
+
+  <h3 class="doc-h">Tab e tabella</h3>
+  <div>
+    <div class="kit-tabs" data-kit-tabs>
+      <button class="kit-tab is-on" data-kit-panel="#p1">Documenti</button>
+      <button class="kit-tab" data-kit-panel="#p2">Clienti</button>
+      <span class="kit-spacer"></span>
+      <button class="kit-btn kit-btn-ghost"><svg class="kit-icon"><use href="#i-download"/></svg>Esporta CSV</button>
+    </div>
+    <section class="kit-card kit-tabpanel" id="p1">
+      <div class="kit-table-wrap">
+        <table class="kit-table kit-table-hover">
+          <thead><tr><th aria-sort="descending">Data</th><th aria-sort="none">Numero</th><th>Cliente</th><th>Stato</th><th class="kit-num">Importo</th></tr></thead>
+          <tbody>
+            <tr><td>12/03/2026</td><td>FT-0042</td><td class="kit-wrap">Alfa Servizi S.r.l.<small>P.IVA 01234567890</small></td><td><span class="kit-badge kit-badge-success">Emessa</span></td><td class="kit-num">1.250,00</td></tr>
+            <tr class="is-selected"><td>02/03/2026</td><td>FT-0041</td><td class="kit-wrap">Beta Forniture S.p.A.</td><td><span class="kit-badge kit-badge-warning">Ricevuta</span></td><td class="kit-num">830,40</td></tr>
+            <tr><td>21/02/2026</td><td>FT-0040</td><td class="kit-wrap">Gamma Trasporti</td><td><span class="kit-badge kit-badge-danger">Scartata</span></td><td class="kit-num kit-danger">−310,00</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section class="kit-card kit-tabpanel" id="p2" hidden>
+      <div class="kit-empty"><div class="kit-empty-icon">🗂️</div><h2>Nessun cliente</h2><p>Apri una cartella per iniziare.</p></div>
+    </section>
+  </div>
+
+  <h3 class="doc-h">Chiave/valore, avanzamento, legenda</h3>
+  <div class="kit-grid">
+    <div class="kit-card kit-card-body">
+      <dl class="kit-kv"><dt>Numero</dt><dd>FT-0042</dd><dt>Data</dt><dd>12/03/2026</dd><dt>Cliente</dt><dd>Alfa Servizi S.r.l.</dd></dl>
+    </div>
+    <div class="kit-card kit-card-body kit-stack">
+      <div class="kit-progress"><i style="--kit-value:62%"></i></div>
+      <div class="kit-legend"><span><i style="background:var(--kit-c1)"></i>Ricevute</span><span><i style="background:var(--kit-c2)"></i>Emesse</span></div>
+    </div>
+  </div>
+
+  <h3 class="doc-h">Dialog e toast</h3>
+  <div class="kit-card kit-card-body kit-row">
+    <button class="kit-btn kit-btn-primary" data-kit-open="#dlg">Apri dialog</button>
+    <button class="kit-btn" id="bToast">Mostra toast</button>
+  </div>
+
+  <h3 class="doc-h">Personalizzazione</h3>
+  <div class="kit-card kit-card-body">
+    <p>Tutto passa dai token CSS. Per cambiare il colore di accento o la densità basta sovrascriverli:</p>
+    <pre class="kit-code">:root {
+    --kit-accent: light-dark(#0f766e, #5eead4);
+    --kit-accent-soft: light-dark(#e6f6f4, #12312e);
+    --kit-rad: 8px;     /* angoli meno arrotondati */
+    --kit-row: 5px;     /* tabelle più compatte */
+}</pre>
+  </div>
+</div>
+</main>
+
+<dialog class="kit-dialog" id="dlg">
+  <h2>Titolo del dialog</h2>
+  <p class="kit-mute">Si chiude con Esc, con un click sullo sfondo o con il bottone.</p>
+  <div class="kit-card-foot" style="padding:var(--kit-sp) 0 0;border:0">
+    <button class="kit-btn" data-kit-close>Annulla</button>
+    <button class="kit-btn kit-btn-primary" data-kit-close>Conferma</button>
+  </div>
+</dialog>
+
+<script src="docs.js"></script>
+</body>
+</html>
