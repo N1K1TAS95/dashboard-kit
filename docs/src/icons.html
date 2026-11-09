@@ -1,0 +1,37 @@
+<!--title: Icone-->
+<!--desc: Le icone del kit: uno sprite SVG da includere con una riga di JavaScript.-->
+<h2 id="uso">Uso</h2>
+<p>Le icone sono tracciati su una griglia 24×24 che prendono il colore del testo (<code>currentColor</code>). Si usano con <code>&lt;svg class="kit-icon"&gt;</code> e <code>&lt;use&gt;</code>; il nome è l'id del simbolo, preceduto da <code>i-</code>.</p>
+<div class="doc-demo">
+  <button class="kit-btn kit-btn-primary"><svg class="kit-icon"><use href="#i-download"/></svg>Scarica</button>
+  <button class="kit-btn kit-btn-icon" aria-label="Modifica"><svg class="kit-icon"><use href="#i-edit"/></svg></button>
+  <button class="kit-btn kit-btn-icon kit-btn-danger" aria-label="Elimina"><svg class="kit-icon"><use href="#i-trash"/></svg></button>
+</div>
+<p>Un'icona da sola, senza testo, ha bisogno di un <code>aria-label</code> sul bottone che la contiene. Se è solo decorativa, aggiungi <code>aria-hidden="true"</code> all'<code>&lt;svg&gt;</code>.</p>
+
+<h2 id="installazione">Installazione</h2>
+<p>Gli sprite non si possono caricare da un altro dominio con un <code>&lt;use&gt;</code> che punta a un file SVG: per questo il kit li inserisce con un piccolo script. Aggiungilo prima di chiudere <code>&lt;/body&gt;</code>:</p>
+```html
+<script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v{{version}}/dist/kit-icons.js"
+        integrity="{{sri-icons}}"
+        crossorigin="anonymous"></script>
+```
+<p>Se preferisci non usare JavaScript, copia il contenuto di <code>dist/kit-icons.svg</code> all'inizio del <code>&lt;body&gt;</code> (è quello che fa questa documentazione) oppure tieni nello sprite solo le icone che ti servono.</p>
+<p class="kit-alert">Se hai già un tuo sprite con gli stessi id, vale il primo che il browser trova: non c'è conflitto, ma controlla che le icone siano quelle che ti aspetti.</p>
+
+<h2 id="dimensioni">Dimensioni e colore</h2>
+<p>L'icona è 18px e prende il colore del testo. Per cambiarla usa <code>width</code>/<code>height</code> e <code>color</code>.</p>
+<div class="doc-demo">
+  <svg class="kit-icon" style="width: 14px; height: 14px"><use href="#i-info"/></svg>
+  <svg class="kit-icon"><use href="#i-info"/></svg>
+  <svg class="kit-icon" style="width: 28px; height: 28px"><use href="#i-info"/></svg>
+  <svg class="kit-icon" style="color: var(--kit-success)"><use href="#i-ok"/></svg>
+  <svg class="kit-icon" style="color: var(--kit-danger)"><use href="#i-error"/></svg>
+</div>
+
+<h2 id="elenco">Elenco</h2>
+<p>Tutte le icone disponibili, con il nome da usare dopo <code>#i-</code>.</p>
+<!--icons-->
+
+<h2 id="nuove">Aggiungere un'icona</h2>
+<p>Le icone sono definite in <code>tools/icons.py</code> (nome → tracciati SVG). Aggiungi una riga, poi esegui <code>python3 tools/icons.py</code>: rigenera <code>dist/kit-icons.svg</code> e <code>dist/kit-icons.js</code>. Disegnale su 24×24, solo con tratto, senza colori fissi.</p>

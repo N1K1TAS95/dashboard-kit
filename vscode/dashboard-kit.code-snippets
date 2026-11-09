@@ -156,6 +156,12 @@
     "description": "Avviso con bordo colorato (success, warning, danger, neutral)",
     "body": "<div class=\"kit-alert kit-alert-${1|success,warning,danger,neutral|}\" role=\"${2|status,alert|}\">${3:Testo dell'avviso}</div>$0"
   },
+  "Kit: icona": {
+    "prefix": "kit-icon",
+    "scope": "html",
+    "description": "Icona dallo sprite (kit-icons.js)",
+    "body": "<svg class=\"kit-icon\"><use href=\"#i-${1|search,plus,x,check,edit,trash,download,upload,refresh,filter,menu,calendar,file,user|}\"/></svg>$0"
+  },
   "Kit: avviso con icona": {
     "prefix": "kit-alert-icon",
     "scope": "html",

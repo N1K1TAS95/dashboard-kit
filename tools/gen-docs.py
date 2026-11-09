@@ -18,6 +18,9 @@ import pathlib
 import re
 import sys
 
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import icons  # noqa: E402  (tools/icons.py: icone e sprite)
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 VERSION = "0.2.0"   # versione che le istruzioni di installazione indicano (tag v<VERSIONE>)
 SRC = ROOT / "docs" / "src"
@@ -29,26 +32,13 @@ NAV = [
     ("Layout", [("layout", "Layout"), ("grid", "Griglia"), ("utilities", "Utility")]),
     ("Componenti", [("buttons", "Bottoni"), ("forms", "Form"), ("navigation", "Navigazione"),
                     ("cards", "Schede"), ("tables", "Tabelle"), ("content", "Contenuti"),
-                    ("feedback", "Feedback"), ("overlays", "Dialog e menu")]),
+                    ("feedback", "Feedback"), ("overlays", "Dialog e menu"), ("icons", "Icone")]),
     ("Personalizzare", [("theming", "Temi e token"), ("snippets", "Snippet VS Code")]),
     ("Esempi", [("dashboard", "Dashboard", "esempio")]),
 ]
 PAGES = [p for _, items in NAV for p in items if len(p) == 2]
 
-SPRITE = """<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
-<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
-<symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
-<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
-<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
-<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
-<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
-<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
-<symbol id="i-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 3 3 5-6"/></symbol>
-<symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3.5 2.5 20h19L12 3.5z"/><path d="M12 10v4.5M12 17.5h.01"/></symbol>
-<symbol id="i-error" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/></symbol>
-<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
-<symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
-</defs></svg>"""
+SPRITE = icons.inline_sprite()
 
 HEADER = """<header class="kit-header">
   <div class="kit-container-boxed">
@@ -212,7 +202,15 @@ def snippets_table():
             '<th>Prefisso</th><th>Componente</th></tr></thead><tbody>\n' + "\n".join(rows) + "\n</tbody></table></div></div>")
 
 
+def icons_grid():
+    cells = "".join(
+        f'<div class="doc-icon"><svg class="kit-icon"><use href="#i-{n}"/></svg><code>{n}</code></div>'
+        for n in icons.ICONS)
+    return f'<div class="doc-icons">{cells}</div>'
+
+
 def main():
+    icons.build()
     names = {p[0] for p in PAGES}
     files = sorted(SRC.glob("*.html"))
     found = {f.stem for f in files}
@@ -224,7 +222,8 @@ def main():
         title, desc = meta(text, "title"), meta(text, "desc")
         body = re.sub(r"<!--(title|desc):.*?-->\n?", "", text, flags=re.S)
         body = markdown_lite(body)
-        body = (body.replace("{{version}}", VERSION).replace("{{sri-css}}", sri("kit.css")).replace("{{sri-js}}", sri("kit.js")))
+        body = (body.replace("{{version}}", VERSION).replace("{{sri-css}}", sri("kit.css")).replace("{{sri-js}}", sri("kit.js")).replace("{{sri-icons}}", sri("kit-icons.js")))
+        body = body.replace("<!--icons-->", icons_grid())
         body = body.replace("<!--tokens-layout-->", tok_layout).replace("<!--tokens-colors-->", tok_colors)
         body = body.replace("<!--snippets-->", snippets_table())
         body = body.strip("\n")   # niente rientro: i blocchi <pre> devono restare com'erano
