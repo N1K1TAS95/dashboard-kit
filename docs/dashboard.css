@@ -1,0 +1,16 @@
+/* Solo per la dashboard di esempio, non fa parte del framework. */
+.dash-select { width: 130px; }
+.dash-item { display: flex; flex-direction: column; gap: 6px; font-size: 13.5px; }
+
+.dash-checks { list-style: none; margin: 0; padding: 0; }
+.dash-check { display: flex; align-items: center; gap: 10px; padding: 10px var(--kit-sp); border-top: 1px solid var(--kit-line-soft); font-size: 13.5px; }
+.dash-check:first-child { border-top: 0; }
+
+/* Grafico a barre: i colori delle serie sono i token --kit-c1 e --kit-c2 */
+.chart { width: 100%; height: auto; display: block; }
+.chart .grid { stroke: var(--kit-line-soft); stroke-width: 1; }
+.chart .lbl { fill: var(--kit-mute); font-size: 11px; font-family: var(--kit-font); }
+.chart .s1, .kit-legend .s1 { fill: var(--kit-c1); background: var(--kit-c1); }
+.chart .s2, .kit-legend .s2 { fill: var(--kit-c2); background: var(--kit-c2); }
+.chart rect { transition: opacity .1s; }
+.chart rect:hover { opacity: .75; }

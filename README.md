@@ -33,8 +33,28 @@ in `style-src` e `script-src`.
 
 **Demo e componenti:** https://n1k1tas95.github.io/dashboard-kit/ (in locale: `docs/index.html`).
 
+## Griglia
+Griglia a 12 colonne con flexbox, con gli stessi nomi di Bootstrap (prefisso `kit-`):
+
+```html
+<div class="kit-row">
+  <div class="kit-col-12 kit-col-md-6 kit-col-xl-3">…</div>
+  <div class="kit-col-12 kit-col-md-6 kit-col-xl-3">…</div>
+</div>
+```
+
+- Breakpoint (mobile first): `sm` 576, `md` 768, `lg` 992, `xl` 1200.
+- Colonne: `kit-col`, `kit-col-auto`, `kit-col-N`, `kit-col-{bp}-N`; `kit-row-cols-N`; `kit-offset-N`; `kit-order-*`.
+- Gutter: `kit-g-0…5`, `kit-gx-*`, `kit-gy-*`. Di base seguono `--kit-sp`.
+- Utility flex e spazi: `kit-d-*`, `kit-flex-*`, `kit-justify-content-*`, `kit-align-items-*`, `kit-gap-*`, `kit-m*-N`, `kit-p*-N`, `kit-w-100`, `kit-h-100`.
+- `kit-bar` è la barra di elementi affiancati (toolbar), diversa da `kit-row` della griglia.
+- Un esempio completo è in `docs/dashboard.html`.
+
+Il blocco della griglia in `dist/kit.css` è **generato**: per cambiare breakpoint, scala degli spazi o numero di colonne
+modifica le costanti in `tools/gen-grid.py` e lancia `python3 tools/gen-grid.py`.
+
 ## Cosa c'è
-Layout (header, container, grid, split), card, bottoni, form, segmented, pill, chip, badge,
+Layout (header, container, grid, split), card, schede KPI, bottoni, form, segmented, pill, chip, badge,
 tab, statistiche, tabella, stati vuoti, chiave/valore, progress, select, popover/menu,
 dialog, toast, utility.
 

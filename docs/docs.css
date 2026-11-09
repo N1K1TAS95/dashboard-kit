@@ -16,3 +16,8 @@
 .doc-code[open] > summary { color: var(--kit-accent); }
 .doc-copy { position: absolute; top: 28px; right: 8px; height: 28px; padding: 0 10px; font-size: 12px; z-index: 1; background: var(--kit-card); border-color: var(--kit-line); }
 .doc-code .kit-code { max-height: 360px; margin-top: 4px; }
+
+/* Palcoscenico degli esempi di griglia: mostra i bordi del contenitore (non fa parte del framework) */
+.doc-stage { background: var(--kit-bg); border: 1px dashed var(--kit-line); border-radius: var(--kit-rad); padding: var(--kit-sp); }
+.doc-stage > p:last-child { margin: 0; }
+.doc-h small { text-transform: none; letter-spacing: 0; font-weight: 400; margin-left: 6px; }

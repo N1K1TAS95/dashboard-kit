@@ -46,7 +46,7 @@
   </section>
 
   <h3 class="doc-h">Bottoni</h3>
-  <div class="kit-card kit-card-body kit-row">
+  <div class="kit-card kit-card-body kit-bar">
     <button class="kit-btn">Predefinito</button>
     <button class="kit-btn kit-btn-primary">Primario</button>
     <button class="kit-btn kit-btn-ghost">Ghost</button>
@@ -59,22 +59,22 @@
 
   <h3 class="doc-h">Ricerca, segmented, pill, chip, badge</h3>
   <div class="kit-card kit-card-body kit-stack">
-    <div class="kit-row">
+    <div class="kit-bar">
       <label class="kit-search"><svg class="kit-icon"><use href="#i-search"/></svg><input class="kit-input" type="search" placeholder="Cerca…" aria-label="Cerca"><kbd>/</kbd></label>
       <div class="kit-seg" role="group" aria-label="Direzione" id="segDemo">
         <button class="is-on">Tutte</button><button>Ricevute</button><button>Emesse</button>
       </div>
     </div>
-    <div class="kit-row">
+    <div class="kit-bar">
       <button class="kit-pill is-on">2026 <small>124</small></button>
       <button class="kit-pill">2025 <small>98</small></button>
       <button class="kit-pill">2024 <small>71</small></button>
     </div>
-    <div class="kit-row">
+    <div class="kit-bar">
       <button class="kit-chip"><b>Anno</b> 2026 <i>×</i></button>
       <button class="kit-chip"><b>Importo</b> &gt; 100 € <i>×</i></button>
     </div>
-    <div class="kit-row">
+    <div class="kit-bar">
       <span class="kit-badge">Info</span>
       <span class="kit-badge kit-badge-success">Emessa</span>
       <span class="kit-badge kit-badge-warning">Ricevuta</span>
@@ -118,6 +118,131 @@
     <div class="kit-stat"><small>Emesse</small><b class="kit-danger">16.820 €</b></div>
   </section>
 
+  <h3 class="doc-h">Griglia: colonne <small>12 colonne, come in Bootstrap</small></h3>
+  <div class="doc-stage kit-stack">
+  <div class="kit-row">
+    <div class="kit-col-4"><div class="kit-card kit-card-body kit-center">kit-col-4</div></div>
+    <div class="kit-col-4"><div class="kit-card kit-card-body kit-center">kit-col-4</div></div>
+    <div class="kit-col-4"><div class="kit-card kit-card-body kit-center">kit-col-4</div></div>
+  </div>
+  <div class="kit-row">
+    <div class="kit-col-8"><div class="kit-card kit-card-body kit-center">kit-col-8</div></div>
+    <div class="kit-col-4"><div class="kit-card kit-card-body kit-center">kit-col-4</div></div>
+  </div>
+  </div>
+  <h3 class="doc-h">Griglia: responsive <small>ridimensiona la finestra: 1 colonna, poi 2, poi 4</small></h3>
+  <div class="doc-stage kit-stack">
+  <div class="kit-row">
+    <div class="kit-col-12 kit-col-md-6 kit-col-xl-3"><div class="kit-card kit-card-body kit-center">12 → md 6 → xl 3</div></div>
+    <div class="kit-col-12 kit-col-md-6 kit-col-xl-3"><div class="kit-card kit-card-body kit-center">12 → md 6 → xl 3</div></div>
+    <div class="kit-col-12 kit-col-md-6 kit-col-xl-3"><div class="kit-card kit-card-body kit-center">12 → md 6 → xl 3</div></div>
+    <div class="kit-col-12 kit-col-md-6 kit-col-xl-3"><div class="kit-card kit-card-body kit-center">12 → md 6 → xl 3</div></div>
+  </div>
+  </div>
+  <h3 class="doc-h">Griglia: colonne flessibili</h3>
+  <div class="doc-stage kit-stack">
+  <div class="kit-row">
+    <div class="kit-col"><div class="kit-card kit-card-body kit-center">kit-col</div></div>
+    <div class="kit-col-auto"><div class="kit-card kit-card-body kit-center">kit-col-auto</div></div>
+    <div class="kit-col"><div class="kit-card kit-card-body kit-center">kit-col</div></div>
+  </div>
+  <div class="kit-row">
+    <div class="kit-col"><div class="kit-card kit-card-body kit-center">kit-col</div></div>
+    <div class="kit-col-6"><div class="kit-card kit-card-body kit-center">kit-col-6</div></div>
+    <div class="kit-col"><div class="kit-card kit-card-body kit-center">kit-col</div></div>
+  </div>
+  </div>
+  <h3 class="doc-h">Griglia: N colonne per riga <small>2 per riga, da md 4</small></h3>
+  <div class="doc-stage kit-stack">
+  <div class="kit-row kit-row-cols-2 kit-row-cols-md-4">
+    <div><div class="kit-card kit-card-body kit-center">1</div></div>
+    <div><div class="kit-card kit-card-body kit-center">2</div></div>
+    <div><div class="kit-card kit-card-body kit-center">3</div></div>
+    <div><div class="kit-card kit-card-body kit-center">4</div></div>
+    <div><div class="kit-card kit-card-body kit-center">5</div></div>
+    <div><div class="kit-card kit-card-body kit-center">6</div></div>
+    <div><div class="kit-card kit-card-body kit-center">7</div></div>
+    <div><div class="kit-card kit-card-body kit-center">8</div></div>
+  </div>
+  </div>
+  <h3 class="doc-h">Griglia: offset e ordine</h3>
+  <div class="doc-stage kit-stack">
+  <div class="kit-row">
+    <div class="kit-col-md-6 kit-offset-md-3"><div class="kit-card kit-card-body kit-center">kit-col-md-6 kit-offset-md-3</div></div>
+  </div>
+  <div class="kit-row">
+    <div class="kit-col-4 kit-order-last"><div class="kit-card kit-card-body kit-center">1° nel codice, ultima (order-last)</div></div>
+    <div class="kit-col-4"><div class="kit-card kit-card-body kit-center">2°</div></div>
+    <div class="kit-col-4 kit-order-first"><div class="kit-card kit-card-body kit-center">3° nel codice, prima (order-first)</div></div>
+  </div>
+  </div>
+  <h3 class="doc-h">Griglia: allineamento e flex</h3>
+  <div class="doc-stage kit-stack">
+  <div class="kit-row kit-align-items-center">
+    <div class="kit-col-4"><div class="kit-card kit-card-body kit-center kit-py-4">kit-align-items-center</div></div>
+    <div class="kit-col-4"><div class="kit-card kit-card-body kit-center">centrata</div></div>
+    <div class="kit-col-4"><div class="kit-card kit-card-body kit-center kit-py-5">centrata</div></div>
+  </div>
+  <div class="kit-d-flex kit-justify-content-between kit-align-items-center">
+    <b>Titolo</b>
+    <span class="kit-badge kit-badge-success">kit-d-flex + justify-content-between</span>
+  </div>
+  <div class="kit-d-flex kit-gap-2 kit-flex-wrap">
+    <button class="kit-btn">Uno</button>
+    <button class="kit-btn kit-ms-auto">kit-ms-auto: spinge a destra</button>
+  </div>
+  </div>
+  <h3 class="doc-h">Griglia: gutter <small>di base seguono --kit-sp, quindi si stringono sul telefono</small></h3>
+  <div class="doc-stage kit-stack">
+  <div class="kit-row kit-g-0">
+    <div class="kit-col-6"><div class="kit-card kit-card-body kit-center">kit-g-0</div></div>
+    <div class="kit-col-6"><div class="kit-card kit-card-body kit-center">kit-g-0</div></div>
+  </div>
+  <div class="kit-row kit-g-4">
+    <div class="kit-col-6"><div class="kit-card kit-card-body kit-center">kit-g-4</div></div>
+    <div class="kit-col-6"><div class="kit-card kit-card-body kit-center">kit-g-4</div></div>
+    <div class="kit-col-6"><div class="kit-card kit-card-body kit-center">kit-g-4</div></div>
+    <div class="kit-col-6"><div class="kit-card kit-card-body kit-center">kit-g-4</div></div>
+  </div>
+  </div>
+  <h3 class="doc-h">Griglia: righe annidate</h3>
+  <div class="doc-stage kit-stack">
+  <div class="kit-row">
+    <div class="kit-col-md-8">
+      <div class="kit-card kit-card-body">
+        <p class="kit-mute">kit-col-md-8, con una riga dentro</p>
+        <div class="kit-row">
+          <div class="kit-col-6"><div class="kit-card kit-card-body kit-center">kit-col-6</div></div>
+          <div class="kit-col-6"><div class="kit-card kit-card-body kit-center">kit-col-6</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="kit-col-md-4"><div class="kit-card kit-card-body kit-center">kit-col-md-4</div></div>
+  </div>
+  </div>
+  <h3 class="doc-h">Griglia: visibilità e spazi <small>ridimensiona la finestra</small></h3>
+  <div class="doc-stage kit-stack">
+  <div class="kit-d-none kit-d-md-block kit-p-3 kit-card">Visibile da md in su (kit-d-none kit-d-md-block)</div>
+  <div class="kit-d-md-none kit-p-3 kit-card">Visibile solo sotto md (kit-d-md-none)</div>
+  <div class="kit-card kit-px-4 kit-py-2 kit-mt-3">Spazi: kit-px-4 kit-py-2 kit-mt-3 (scala 0–5: 0, 4, 8, 16, 24, 48 px)</div>
+  </div>
+  <h3 class="doc-h">Griglia: struttura di una dashboard</h3>
+  <div class="doc-stage kit-stack">
+  <div class="kit-row kit-row-cols-2 kit-row-cols-lg-4">
+    <div><div class="kit-card kit-kpi kit-h-100"><small>Documenti</small><b>1.284</b><span class="kit-badge kit-badge-success">+4%</span></div></div>
+    <div><div class="kit-card kit-kpi kit-h-100"><small>Totale</small><b>48.920 €</b><span class="kit-badge kit-badge-success">+1,2%</span></div></div>
+    <div><div class="kit-card kit-kpi kit-h-100"><small>Da controllare</small><b>17</b><span class="kit-badge kit-badge-warning">−3</span></div></div>
+    <div><div class="kit-card kit-kpi kit-h-100"><small>Scartate</small><b>2</b><span class="kit-badge kit-badge-danger">+1</span></div></div>
+  </div>
+  <div class="kit-row">
+    <div class="kit-col-12 kit-col-xl-8"><section class="kit-card kit-card-body kit-h-100 kit-center kit-mute kit-py-5">Grafico (kit-col-xl-8)</section></div>
+    <div class="kit-col-12 kit-col-xl-4"><section class="kit-card kit-card-body kit-h-100 kit-center kit-mute kit-py-5">Laterale (kit-col-xl-4)</section></div>
+  </div>
+  <div class="kit-row">
+    <div class="kit-col-12"><section class="kit-card kit-card-body kit-center kit-mute">Tabella (kit-col-12)</section></div>
+  </div>
+  </div>
+  <p class="kit-mute">Esempio completo: <a href="dashboard.html">apri la dashboard di esempio</a>.</p>
   <h3 class="doc-h">Tab e tabella</h3>
   <div>
     <div class="kit-tabs" data-kit-tabs>
@@ -155,7 +280,7 @@
   </div>
 
   <h3 class="doc-h">Dialog e toast</h3>
-  <div class="kit-card kit-card-body kit-row" data-doc-include="#dlg" data-doc-js="Kit.toast(&quot;Salvato!&quot;);">
+  <div class="kit-card kit-card-body kit-bar" data-doc-include="#dlg" data-doc-js="Kit.toast(&quot;Salvato!&quot;);">
     <button class="kit-btn kit-btn-primary" data-kit-open="#dlg">Apri dialog</button>
     <button class="kit-btn" id="bToast">Mostra toast</button>
   </div>
@@ -170,11 +295,14 @@
         <thead><tr><th>Prefisso</th><th>Componente</th></tr></thead>
         <tbody>
           <tr><td><code>kit-badge</code></td><td>Badge (success, warning, danger, neutral)</td></tr>
+          <tr><td><code>kit-bar</code></td><td>Barra di elementi affiancati (toolbar, filtri)</td></tr>
           <tr><td><code>kit-btn</code></td><td>Bottone (varianti: primary, ghost, danger, icon, lg)</td></tr>
           <tr><td><code>kit-btn-icon</code></td><td>Bottone quadrato con sola icona (sprite SVG)</td></tr>
           <tr><td><code>kit-btn-primary</code></td><td>Bottone primario</td></tr>
           <tr><td><code>kit-card</code></td><td>Card con intestazione, corpo e piè di pagina</td></tr>
           <tr><td><code>kit-chip</code></td><td>Chip rimovibile</td></tr>
+          <tr><td><code>kit-col</code></td><td>Colonna della griglia (12 su telefono, N/12 da un breakpoint)</td></tr>
+          <tr><td><code>kit-dash</code></td><td>Schema tipico: KPI in alto, grafico + laterale, tabella</td></tr>
           <tr><td><code>kit-dialog</code></td><td>Dialog con bottone di apertura (richiede kit.js)</td></tr>
           <tr><td><code>kit-dropdown</code></td><td>Bottone con menu a comparsa (richiede kit.js)</td></tr>
           <tr><td><code>kit-empty</code></td><td>Messaggio di stato vuoto</td></tr>
@@ -182,11 +310,13 @@
           <tr><td><code>kit-fields</code></td><td>Griglia di campi con piè di form</td></tr>
           <tr><td><code>kit-grid</code></td><td>Griglia responsive (kit-grid-2 / kit-grid-3 per colonne fisse)</td></tr>
           <tr><td><code>kit-header</code></td><td>Intestazione fissa con marchio</td></tr>
+          <tr><td><code>kit-kpi</code></td><td>Scheda con etichetta, valore e variazione</td></tr>
           <tr><td><code>kit-kv</code></td><td>Elenco chiave/valore</td></tr>
           <tr><td><code>kit-page</code></td><td>Scheletro di pagina con Dashboard Kit (CSS + JS opzionale)</td></tr>
           <tr><td><code>kit-pill</code></td><td>Pill selezionabile con contatore</td></tr>
           <tr><td><code>kit-progress</code></td><td>Barra di avanzamento (0–100%)</td></tr>
-          <tr><td><code>kit-row</code></td><td>Riga flex con spazio e a capo automatico</td></tr>
+          <tr><td><code>kit-row</code></td><td>Riga della griglia a 12 colonne</td></tr>
+          <tr><td><code>kit-row-cols</code></td><td>Riga con numero fisso di colonne per riga (2 su telefono, 4 da lg)</td></tr>
           <tr><td><code>kit-search</code></td><td>Campo di ricerca con icona e scorciatoia</td></tr>
           <tr><td><code>kit-seg</code></td><td>Controllo segmentato (scegli una voce)</td></tr>
           <tr><td><code>kit-select</code></td><td>Select con elenco di opzioni (richiede kit.js)</td></tr>

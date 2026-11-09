@@ -89,16 +89,6 @@
       "</div>$0"
     ]
   },
-  "Kit: riga": {
-    "prefix": "kit-row",
-    "scope": "html",
-    "description": "Riga flex con spazio e a capo automatico",
-    "body": [
-      "<div class=\"kit-row\">",
-      "  $0",
-      "</div>"
-    ]
-  },
   "Kit: campo di testo": {
     "prefix": "kit-field",
     "scope": "html",
@@ -285,5 +275,75 @@
     "scope": "html,javascript,typescript",
     "description": "Imposta il tema: auto, light o dark",
     "body": "Kit.theme.set(\"${1|auto,light,dark|}\");$0"
+  },
+  "Kit: barra di elementi": {
+    "prefix": "kit-bar",
+    "scope": "html",
+    "description": "Barra di elementi affiancati (toolbar, filtri)",
+    "body": [
+      "<div class=\"kit-bar\">",
+      "  $0",
+      "</div>"
+    ]
+  },
+  "Kit: riga della griglia": {
+    "prefix": "kit-row",
+    "scope": "html",
+    "description": "Riga della griglia a 12 colonne",
+    "body": [
+      "<div class=\"kit-row\">",
+      "  <div class=\"kit-col-12 kit-col-${1|sm,md,lg,xl|}-6\">$2</div>",
+      "  <div class=\"kit-col-12 kit-col-${1|sm,md,lg,xl|}-6\">$3</div>",
+      "</div>$0"
+    ]
+  },
+  "Kit: colonna": {
+    "prefix": "kit-col",
+    "scope": "html",
+    "description": "Colonna della griglia (12 su telefono, N/12 da un breakpoint)",
+    "body": "<div class=\"kit-col-12 kit-col-${1|sm,md,lg,xl|}-${2|1,2,3,4,5,6,7,8,9,10,11,12|}\">$3</div>$0"
+  },
+  "Kit: righe con N colonne": {
+    "prefix": "kit-row-cols",
+    "scope": "html",
+    "description": "Riga con numero fisso di colonne per riga (2 su telefono, 4 da lg)",
+    "body": [
+      "<div class=\"kit-row kit-row-cols-${1:2} kit-row-cols-${2|sm,md,lg,xl|}-${3:4}\">",
+      "  <div>$4</div>",
+      "  <div>$5</div>",
+      "</div>$0"
+    ]
+  },
+  "Kit: scheda KPI": {
+    "prefix": "kit-kpi",
+    "scope": "html",
+    "description": "Scheda con etichetta, valore e variazione",
+    "body": [
+      "<div class=\"kit-card kit-kpi\">",
+      "  <small>${1:Etichetta}</small>",
+      "  <b>${2:0}</b>",
+      "  <span class=\"kit-badge kit-badge-${3|success,warning,danger,neutral|}\">${4:+0%}</span>",
+      "</div>$0"
+    ]
+  },
+  "Kit: layout dashboard": {
+    "prefix": "kit-dash",
+    "scope": "html",
+    "description": "Schema tipico: KPI in alto, grafico + laterale, tabella",
+    "body": [
+      "<div class=\"kit-row kit-row-cols-2 kit-row-cols-lg-4\">",
+      "  <div><div class=\"kit-card kit-kpi kit-h-100\"><small>${1:KPI}</small><b>0</b></div></div>",
+      "  <div><div class=\"kit-card kit-kpi kit-h-100\"><small>KPI</small><b>0</b></div></div>",
+      "  <div><div class=\"kit-card kit-kpi kit-h-100\"><small>KPI</small><b>0</b></div></div>",
+      "  <div><div class=\"kit-card kit-kpi kit-h-100\"><small>KPI</small><b>0</b></div></div>",
+      "</div>",
+      "<div class=\"kit-row\">",
+      "  <div class=\"kit-col-12 kit-col-xl-8\"><section class=\"kit-card kit-h-100\">$2</section></div>",
+      "  <div class=\"kit-col-12 kit-col-xl-4\"><section class=\"kit-card kit-h-100\">$3</section></div>",
+      "</div>",
+      "<div class=\"kit-row\">",
+      "  <div class=\"kit-col-12\"><section class=\"kit-card\">$4</section></div>",
+      "</div>$0"
+    ]
   }
 }

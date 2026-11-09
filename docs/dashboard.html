@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Dashboard Kit — dashboard di esempio</title>
+<script src="../dist/kit.js"></script>
+<link rel="stylesheet" href="../dist/kit.css">
+<link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+<symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
+</defs></svg>
+
+<header class="kit-header">
+  <h1 class="kit-brand">Dashboard Kit <span>esempio</span></h1>
+  <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="index.html">← Componenti</a>
+  <span class="kit-spacer"></span>
+  <div class="kit-seg kit-d-none kit-d-lg-inline-flex" role="group" aria-label="Periodo" id="periodo">
+    <button>Mese</button><button>Trimestre</button><button class="is-on">Anno</button>
+  </div>
+  <div class="kit-dropdown">
+    <button class="kit-btn" data-kit-toggle="#themeMenu" aria-haspopup="menu" aria-expanded="false"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-d-none kit-d-sm-inline">Tema</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
+    <div class="kit-pop kit-pop-right" id="themeMenu" role="menu" hidden>
+      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-opt-text"><b>Automatico</b><small>Segue il sistema</small></span></div>
+      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg><span class="kit-opt-text"><b>Chiaro</b></span></div>
+      <div class="kit-opt" role="menuitemradio" data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg><span class="kit-opt-text"><b>Scuro</b></span></div>
+    </div>
+  </div>
+</header>
+
+<main class="kit-main">
+<div class="kit-container kit-stack">
+
+  <!-- Filtri: una barra di elementi affiancati (kit-bar) -->
+  <div class="kit-bar">
+    <label class="kit-search"><svg class="kit-icon"><use href="#i-search"/></svg><input class="kit-input" type="search" placeholder="Cerca per numero, cliente, importo…" aria-label="Cerca"><kbd>/</kbd></label>
+    <div class="kit-select dash-select" data-kit-select>
+      <button type="button" class="kit-select-btn"><span class="kit-select-value"></span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
+      <div class="kit-pop kit-pop-right" hidden>
+        <div class="kit-opt is-on" data-value="2026"><span class="kit-opt-text"><b>2026</b></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+        <div class="kit-opt" data-value="2025"><span class="kit-opt-text"><b>2025</b></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+      </div>
+    </div>
+    <button class="kit-btn"><svg class="kit-icon"><use href="#i-download"/></svg><span class="kit-d-none kit-d-sm-inline">Esporta CSV</span></button>
+  </div>
+
+  <!-- KPI: 2 per riga su telefono, 4 da lg. Ogni cella è un div, la card dentro riempie l'altezza (kit-h-100) -->
+  <div class="kit-row kit-row-cols-2 kit-row-cols-lg-4">
+      <div><div class="kit-card kit-kpi kit-h-100"><small>Documenti</small><b>1.284</b><span class="kit-badge kit-badge-success">+4%</span></div></div>
+      <div><div class="kit-card kit-kpi kit-h-100"><small>Totale</small><b>48.920,10 €</b><span class="kit-badge kit-badge-success">+1,2%</span></div></div>
+      <div><div class="kit-card kit-kpi kit-h-100"><small>Da controllare</small><b>17</b><span class="kit-badge kit-badge-warning">−3</span></div></div>
+      <div><div class="kit-card kit-kpi kit-h-100"><small>Scartate</small><b>2</b><span class="kit-badge kit-badge-danger">+1</span></div></div>
+  </div>
+
+  <!-- Grafico + laterale: impilati fino a xl, poi 8/12 e 4/12 -->
+  <div class="kit-row">
+    <div class="kit-col-12 kit-col-xl-8">
+      <section class="kit-card kit-h-100">
+        <div class="kit-card-head kit-d-flex kit-justify-content-between kit-align-items-center kit-flex-wrap kit-gap-2">
+          <span>Andamento mensile <small class="kit-mute">migliaia di €</small></span>
+          <span class="kit-legend"><span><i class="s1"></i>Ricevute</span><span><i class="s2"></i>Emesse</span></span>
+        </div>
+        <div class="kit-card-body">
+    <svg class="chart" viewBox="0 0 600 230" role="img" aria-label="Fatture ricevute ed emesse per mese, in migliaia di euro">
+      <line class="grid" x1="38" x2="592" y1="204.0" y2="204.0"/><text class="lbl" x="32" y="208.0" text-anchor="end">0</text>
+      <line class="grid" x1="38" x2="592" y1="155.5" y2="155.5"/><text class="lbl" x="32" y="159.5" text-anchor="end">20</text>
+      <line class="grid" x1="38" x2="592" y1="107.0" y2="107.0"/><text class="lbl" x="32" y="111.0" text-anchor="end">40</text>
+      <line class="grid" x1="38" x2="592" y1="58.5" y2="58.5"/><text class="lbl" x="32" y="62.5" text-anchor="end">60</text>
+      <line class="grid" x1="38" x2="592" y1="10.0" y2="10.0"/><text class="lbl" x="32" y="14.0" text-anchor="end">80</text>
+      <rect class="s1" x="46.6" y="111.9" width="13" height="92.1" rx="2"><title>Gen: ricevute 38k €</title></rect>
+      <rect class="s2" x="62.6" y="150.7" width="13" height="53.3" rx="2"><title>Gen: emesse 22k €</title></rect>
+      <text class="lbl" x="61.1" y="222" text-anchor="middle">Gen</text>
+      <rect class="s1" x="92.7" y="102.1" width="13" height="101.9" rx="2"><title>Feb: ricevute 42k €</title></rect>
+      <rect class="s2" x="108.7" y="143.4" width="13" height="60.6" rx="2"><title>Feb: emesse 25k €</title></rect>
+      <text class="lbl" x="107.2" y="222" text-anchor="middle">Feb</text>
+      <rect class="s1" x="138.9" y="119.1" width="13" height="84.9" rx="2"><title>Mar: ricevute 35k €</title></rect>
+      <rect class="s2" x="154.9" y="128.8" width="13" height="75.2" rx="2"><title>Mar: emesse 31k €</title></rect>
+      <text class="lbl" x="153.4" y="222" text-anchor="middle">Mar</text>
+      <rect class="s1" x="185.1" y="82.8" width="13" height="121.2" rx="2"><title>Apr: ricevute 50k €</title></rect>
+      <rect class="s2" x="201.1" y="136.1" width="13" height="67.9" rx="2"><title>Apr: emesse 28k €</title></rect>
+      <text class="lbl" x="199.6" y="222" text-anchor="middle">Apr</text>
+      <rect class="s1" x="231.2" y="90.0" width="13" height="114.0" rx="2"><title>Mag: ricevute 47k €</title></rect>
+      <rect class="s2" x="247.2" y="121.5" width="13" height="82.5" rx="2"><title>Mag: emesse 34k €</title></rect>
+      <text class="lbl" x="245.8" y="222" text-anchor="middle">Mag</text>
+      <rect class="s1" x="277.4" y="70.6" width="13" height="133.4" rx="2"><title>Giu: ricevute 55k €</title></rect>
+      <rect class="s2" x="293.4" y="131.2" width="13" height="72.8" rx="2"><title>Giu: emesse 30k €</title></rect>
+      <text class="lbl" x="291.9" y="222" text-anchor="middle">Giu</text>
+      <rect class="s1" x="323.6" y="104.6" width="13" height="99.4" rx="2"><title>Lug: ricevute 41k €</title></rect>
+      <rect class="s2" x="339.6" y="138.5" width="13" height="65.5" rx="2"><title>Lug: emesse 27k €</title></rect>
+      <text class="lbl" x="338.1" y="222" text-anchor="middle">Lug</text>
+      <rect class="s1" x="369.7" y="116.7" width="13" height="87.3" rx="2"><title>Ago: ricevute 36k €</title></rect>
+      <rect class="s2" x="385.7" y="145.8" width="13" height="58.2" rx="2"><title>Ago: emesse 24k €</title></rect>
+      <text class="lbl" x="384.2" y="222" text-anchor="middle">Ago</text>
+      <rect class="s1" x="415.9" y="63.3" width="13" height="140.7" rx="2"><title>Set: ricevute 58k €</title></rect>
+      <rect class="s2" x="431.9" y="109.4" width="13" height="94.6" rx="2"><title>Set: emesse 39k €</title></rect>
+      <text class="lbl" x="430.4" y="222" text-anchor="middle">Set</text>
+      <rect class="s1" x="462.1" y="53.7" width="13" height="150.3" rx="2"><title>Ott: ricevute 62k €</title></rect>
+      <rect class="s2" x="478.1" y="104.6" width="13" height="99.4" rx="2"><title>Ott: emesse 41k €</title></rect>
+      <text class="lbl" x="476.6" y="222" text-anchor="middle">Ott</text>
+      <rect class="s1" x="508.2" y="85.2" width="13" height="118.8" rx="2"><title>Nov: ricevute 49k €</title></rect>
+      <rect class="s2" x="524.2" y="119.1" width="13" height="84.9" rx="2"><title>Nov: emesse 35k €</title></rect>
+      <text class="lbl" x="522.8" y="222" text-anchor="middle">Nov</text>
+      <rect class="s1" x="554.4" y="44.0" width="13" height="160.0" rx="2"><title>Dic: ricevute 66k €</title></rect>
+      <rect class="s2" x="570.4" y="87.6" width="13" height="116.4" rx="2"><title>Dic: emesse 48k €</title></rect>
+      <text class="lbl" x="568.9" y="222" text-anchor="middle">Dic</text>
+    </svg>
+        </div>
+      </section>
+    </div>
+    <div class="kit-col-12 kit-col-xl-4">
+      <section class="kit-card kit-h-100">
+        <div class="kit-card-head">Principali clienti</div>
+        <div class="kit-card-body kit-stack">
+          <div class="dash-item"><div class="kit-d-flex kit-justify-content-between"><span class="kit-truncate">Alfa Servizi S.r.l.</span><b class="kit-num">12.480 €</b></div><div class="kit-progress"><i style="--kit-value:92%"></i></div></div>
+          <div class="dash-item"><div class="kit-d-flex kit-justify-content-between"><span class="kit-truncate">Beta Forniture S.p.A.</span><b class="kit-num">9.640 €</b></div><div class="kit-progress"><i style="--kit-value:71%"></i></div></div>
+          <div class="dash-item"><div class="kit-d-flex kit-justify-content-between"><span class="kit-truncate">Gamma Trasporti</span><b class="kit-num">6.120 €</b></div><div class="kit-progress"><i style="--kit-value:48%"></i></div></div>
+          <div class="dash-item"><div class="kit-d-flex kit-justify-content-between"><span class="kit-truncate">Delta Energia</span><b class="kit-num">4.310 €</b></div><div class="kit-progress"><i style="--kit-value:33%"></i></div></div>
+          <div class="dash-item"><div class="kit-d-flex kit-justify-content-between"><span class="kit-truncate">Epsilon Studio</span><b class="kit-num">2.780 €</b></div><div class="kit-progress"><i style="--kit-value:21%"></i></div></div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Tabella (7/12) + due schede impilate (5/12) -->
+  <div class="kit-row">
+    <div class="kit-col-12 kit-col-lg-7">
+      <section class="kit-card kit-h-100">
+        <div class="kit-card-head">Ultime fatture</div>
+        <div class="kit-table-wrap">
+          <table class="kit-table kit-table-hover">
+            <thead><tr><th>Data</th><th>Numero</th><th>Cliente</th><th>Stato</th><th class="kit-num">Importo</th></tr></thead>
+            <tbody>
+            <tr><td>12/03/2026</td><td>FT-0042</td><td class="kit-wrap">Alfa Servizi S.r.l.</td><td><span class="kit-badge kit-badge-success">Emessa</span></td><td class="kit-num">1.250,00</td></tr>
+            <tr><td>02/03/2026</td><td>FT-0041</td><td class="kit-wrap">Beta Forniture S.p.A.</td><td><span class="kit-badge kit-badge-warning">Ricevuta</span></td><td class="kit-num">830,40</td></tr>
+            <tr><td>21/02/2026</td><td>FT-0040</td><td class="kit-wrap">Gamma Trasporti</td><td><span class="kit-badge kit-badge-danger">Scartata</span></td><td class="kit-num kit-danger">−310,00</td></tr>
+            <tr><td>15/02/2026</td><td>FT-0039</td><td class="kit-wrap">Delta Energia</td><td><span class="kit-badge kit-badge-warning">Ricevuta</span></td><td class="kit-num">2.115,90</td></tr>
+            <tr><td>03/02/2026</td><td>FT-0038</td><td class="kit-wrap">Alfa Servizi S.r.l.</td><td><span class="kit-badge kit-badge-success">Emessa</span></td><td class="kit-num">640,00</td></tr>
+            <tr><td>28/01/2026</td><td>FT-0037</td><td class="kit-wrap">Epsilon Studio</td><td><span class="kit-badge kit-badge-success">Emessa</span></td><td class="kit-num">1.980,00</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+    <div class="kit-col-12 kit-col-lg-5">
+      <div class="kit-stack kit-h-100">
+        <section class="kit-card">
+          <div class="kit-card-head">Da controllare</div>
+          <ul class="dash-checks">
+          <li class="dash-check"><span class="kit-badge kit-badge-danger">FT-0040</span><span>Scartata dal sistema di interscambio</span></li>
+          <li class="dash-check"><span class="kit-badge kit-badge-warning">FT-0039</span><span>Importo molto sopra la media del fornitore</span></li>
+          <li class="dash-check"><span class="kit-badge kit-badge-warning">FT-0033</span><span>Possibile duplicato di FT-0032</span></li>
+          <li class="dash-check"><span class="kit-badge kit-badge-neutral">FT-0029</span><span>Manca la data di scadenza</span></li>
+          </ul>
+        </section>
+        <section class="kit-card kit-flex-grow-1">
+          <div class="kit-card-head">Incassi per trimestre</div>
+          <div class="kit-card-body kit-stack">
+          <div class="dash-item"><div class="kit-d-flex kit-justify-content-between"><span>1° trimestre</span><span class="kit-mute kit-num">78%</span></div><div class="kit-progress"><i style="--kit-value:78%"></i></div></div>
+          <div class="dash-item"><div class="kit-d-flex kit-justify-content-between"><span>2° trimestre</span><span class="kit-mute kit-num">64%</span></div><div class="kit-progress"><i style="--kit-value:64%"></i></div></div>
+          <div class="dash-item"><div class="kit-d-flex kit-justify-content-between"><span>3° trimestre</span><span class="kit-mute kit-num">41%</span></div><div class="kit-progress"><i style="--kit-value:41%"></i></div></div>
+          <div class="dash-item"><div class="kit-d-flex kit-justify-content-between"><span>4° trimestre</span><span class="kit-mute kit-num">12%</span></div><div class="kit-progress"><i style="--kit-value:12%"></i></div></div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+</div>
+</main>
+<script src="dashboard.js"></script>
+</body>
+</html>
