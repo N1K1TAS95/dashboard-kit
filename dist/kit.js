@@ -41,7 +41,10 @@
                 else localStorage.setItem(KEY, v);
             } catch (e) { /* storage non disponibile: il tema vale solo per questa pagina */ }
             document.querySelectorAll("[data-kit-theme-set]").forEach(function (b) {
-                b.setAttribute("aria-pressed", String(b.getAttribute("data-kit-theme-set") === v));
+                var on = b.getAttribute("data-kit-theme-set") === v;
+                // voce di un menu (.kit-opt, role="menuitemradio"): aria-checked e spunta; bottone normale: aria-pressed
+                if (b.classList.contains("kit-opt")) { b.setAttribute("aria-checked", String(on)); b.classList.toggle("is-on", on); }
+                else b.setAttribute("aria-pressed", String(on));
             });
             root.dispatchEvent(new CustomEvent("kit:theme", { detail: v }));
         }
@@ -120,7 +123,7 @@
         closePop(false);
         if (!wasOpen) {
             setPop(pop, btn, true);
-            var first = pop.querySelector(".kit-opt.is-on, .kit-opt");
+            var first = pop.querySelector(".kit-opt.is-on:not([aria-disabled='true']), .kit-opt:not([aria-disabled='true'])");
             if (first) first.classList.add("is-active");
             pop.tabIndex = -1;
             pop.focus({ preventScroll: true });
@@ -129,7 +132,8 @@
 
     /* ---------- Navigazione da tastiera nelle opzioni ---------- */
     function options(pop) {
-        return Array.prototype.slice.call(pop.querySelectorAll(".kit-opt"));
+        // le voci disattivate (aria-disabled) si saltano con le frecce
+        return Array.prototype.slice.call(pop.querySelectorAll(".kit-opt:not([aria-disabled='true'])"));
     }
 
     function moveActive(pop, dir) {
@@ -146,7 +150,7 @@
         var pop = opt.closest(".kit-pop");
         var sel = opt.closest("[data-kit-select]");
         if (sel) {
-            options(pop).forEach(function (o) {
+            Array.prototype.forEach.call(pop.querySelectorAll(".kit-opt"), function (o) {
                 var on = o === opt;
                 o.classList.toggle("is-on", on);
                 o.setAttribute("aria-selected", String(on));
@@ -254,7 +258,8 @@
             if (e.key === "ArrowUp") { e.preventDefault(); moveActive(openPop.pop, -1); return; }
             if (e.key === "Enter" || e.key === " ") {
                 var a = openPop.pop.querySelector(".kit-opt.is-active");
-                if (a) { e.preventDefault(); chooseOption(a); return; }
+                // click() attiva la voce come un click vero: partono anche i suoi gestori e i link
+                if (a) { e.preventDefault(); a.click(); return; }
             }
         }
         // Frecce sinistra/destra tra le tab.

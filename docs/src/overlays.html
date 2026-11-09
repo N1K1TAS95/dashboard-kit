@@ -23,7 +23,7 @@
 </div>
 
 <h2 id="menu">Menu a comparsa</h2>
-<p>Un bottone con <code>data-kit-toggle</code> apre il <code>.kit-pop</code> indicato. Si chiude con Esc o cliccando fuori, e le frecce scorrono le voci. <code>kit-pop-right</code> lo allinea al bordo destro del bottone; nelle voci puoi mettere un'icona, un titolo e una riga in grigio.</p>
+<p><code>.kit-pop</code> è un pannello che si può usare da solo, per qualsiasi menu: azioni di una riga, voci di un bottone, selettore del tema. Un bottone con <code>data-kit-toggle="#id"</code> apre il <code>.kit-pop</code> indicato (dentro un <code>.kit-dropdown</code>, che lo posiziona sotto il bottone). Si chiude con Esc, cliccando fuori o scegliendo una voce; le frecce scorrono le voci, Invio le attiva.</p>
 <div class="doc-demo" style="min-height: 190px">
   <div class="kit-dropdown">
     <button class="kit-btn" data-kit-toggle="#menu-azioni" aria-haspopup="menu" aria-expanded="false">Azioni<svg class="kit-icon"><use href="#i-chev"/></svg></button>
@@ -31,6 +31,79 @@
       <div class="kit-opt" role="menuitem"><svg class="kit-icon"><use href="#i-download"/></svg><span class="kit-opt-text"><b>Esporta CSV</b><small>Tutte le righe filtrate</small></span></div>
       <div class="kit-opt" role="menuitem"><svg class="kit-icon"><use href="#i-search"/></svg><span class="kit-opt-text"><b>Cerca nei documenti</b></span></div>
     </div>
+  </div>
+</div>
+
+<h3 id="menu-voci">Voci: bottoni, link, separatori</h3>
+<p>Una voce <code>.kit-opt</code> può essere un <code>&lt;div&gt;</code>, un <code>&lt;button&gt;</code> o un <code>&lt;a&gt;</code>: usa il bottone per un'azione e il link per cambiare pagina. <code>kit-opt-danger</code> colora le azioni distruttive, <code>kit-pop-sep</code> separa i gruppi, <code>kit-pop-group</code> li intitola e <code>aria-disabled="true"</code> disattiva una voce.</p>
+<div class="doc-demo" style="min-height: 330px">
+  <div class="kit-dropdown">
+    <button class="kit-btn" data-kit-toggle="#menu-voci-1" aria-haspopup="menu" aria-expanded="false">Fattura<svg class="kit-icon"><use href="#i-chev"/></svg></button>
+    <div class="kit-pop" id="menu-voci-1" role="menu" hidden>
+      <div class="kit-pop-group">Documento</div>
+      <button class="kit-opt" role="menuitem" data-doc-toast="Copiato"><svg class="kit-icon"><use href="#i-copy"/></svg><span class="kit-opt-text"><b>Copia numero</b></span></button>
+      <a class="kit-opt" role="menuitem" href="#menu-voci"><svg class="kit-icon"><use href="#i-external"/></svg><span class="kit-opt-text"><b>Apri in una pagina</b></span></a>
+      <button class="kit-opt" role="menuitem" aria-disabled="true"><svg class="kit-icon"><use href="#i-download"/></svg><span class="kit-opt-text"><b>Scarica PDF</b><small>Non disponibile</small></span></button>
+      <div class="kit-pop-sep" role="separator"></div>
+      <button class="kit-opt kit-opt-danger" role="menuitem" data-doc-toast="Eliminata"><svg class="kit-icon"><use href="#i-trash"/></svg><span class="kit-opt-text"><b>Elimina</b></span></button>
+    </div>
+  </div>
+</div>
+
+<h3 id="menu-icona">Bottone di sola icona</h3>
+<p>Il classico menu "altre azioni" di una riga. Con <code>kit-pop-right</code> il pannello si allinea al bordo destro del bottone, così non esce dalla pagina.</p>
+<div class="doc-demo" style="min-height: 190px">
+  <div class="kit-bar" style="justify-content: space-between">
+    <span>Fattura 2026/0142</span>
+    <div class="kit-dropdown">
+      <button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-toggle="#menu-altro" aria-haspopup="menu" aria-expanded="false" aria-label="Altre azioni"><svg class="kit-icon"><use href="#i-more-v"/></svg></button>
+      <div class="kit-pop kit-pop-right" id="menu-altro" role="menu" hidden>
+        <button class="kit-opt" role="menuitem"><svg class="kit-icon"><use href="#i-edit"/></svg><span class="kit-opt-text"><b>Modifica</b></span></button>
+        <button class="kit-opt" role="menuitem"><svg class="kit-icon"><use href="#i-copy"/></svg><span class="kit-opt-text"><b>Duplica</b></span></button>
+        <div class="kit-pop-sep" role="separator"></div>
+        <button class="kit-opt kit-opt-danger" role="menuitem"><svg class="kit-icon"><use href="#i-trash"/></svg><span class="kit-opt-text"><b>Elimina</b></span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3 id="menu-diviso">Bottone diviso</h3>
+<p>L'azione principale a sinistra, la freccia con le alternative a destra. <code>kit-btn-split</code> unisce i due bottoni.</p>
+<div class="doc-demo" style="min-height: 190px">
+  <div class="kit-btn-split">
+    <button class="kit-btn kit-btn-primary"><svg class="kit-icon"><use href="#i-download"/></svg>Esporta CSV</button>
+    <div class="kit-dropdown">
+      <button class="kit-btn kit-btn-primary kit-btn-icon" data-kit-toggle="#menu-diviso-1" aria-haspopup="menu" aria-expanded="false" aria-label="Altri formati"><svg class="kit-icon"><use href="#i-chev"/></svg></button>
+      <div class="kit-pop kit-pop-right" id="menu-diviso-1" role="menu" hidden>
+        <button class="kit-opt" role="menuitem"><span class="kit-opt-text"><b>Esporta Excel</b></span></button>
+        <button class="kit-opt" role="menuitem"><span class="kit-opt-text"><b>Esporta PDF</b></span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3 id="menu-alto">Verso l'alto</h3>
+<p>Vicino al bordo inferiore della pagina aggiungi <code>kit-pop-up</code>: il pannello si apre sopra il bottone.</p>
+<div class="doc-demo" style="padding-top: 190px">
+  <div class="kit-dropdown">
+    <button class="kit-btn" data-kit-toggle="#menu-alto-1" aria-haspopup="menu" aria-expanded="false">Ordina per<svg class="kit-icon"><use href="#i-chev"/></svg></button>
+    <div class="kit-pop kit-pop-up" id="menu-alto-1" role="menu" hidden>
+      <button class="kit-opt" role="menuitem"><span class="kit-opt-text"><b>Data</b></span></button>
+      <button class="kit-opt" role="menuitem"><span class="kit-opt-text"><b>Importo</b></span></button>
+      <button class="kit-opt" role="menuitem"><span class="kit-opt-text"><b>Fornitore</b></span></button>
+    </div>
+  </div>
+</div>
+
+<h3 id="menu-fisso">Sempre visibile</h3>
+<p>Senza bottone e senza <code>hidden</code>, con <code>kit-pop-static</code>, il pannello resta nel flusso della pagina: serve per un menu laterale o un elenco di azioni. Le voci sono bottoni o link normali, quindi si raggiungono con Tab.</p>
+<div class="doc-demo">
+  <div class="kit-pop kit-pop-static" role="menu" style="max-width: 260px">
+    <div class="kit-pop-group">Account</div>
+    <a class="kit-opt" role="menuitem" href="#menu-fisso"><svg class="kit-icon"><use href="#i-user"/></svg><span class="kit-opt-text"><b>Profilo</b></span></a>
+    <a class="kit-opt" role="menuitem" href="#menu-fisso"><svg class="kit-icon"><use href="#i-sliders"/></svg><span class="kit-opt-text"><b>Impostazioni</b></span></a>
+    <div class="kit-pop-sep" role="separator"></div>
+    <button class="kit-opt kit-opt-danger" role="menuitem"><span class="kit-opt-text"><b>Esci</b></span></button>
   </div>
 </div>
 

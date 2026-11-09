@@ -48,9 +48,9 @@ HEADER = """<header class="kit-header">
     <div class="kit-dropdown">
       <button class="kit-btn" data-kit-toggle="#themeMenu" aria-haspopup="menu" aria-expanded="false"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-d-none kit-d-sm-inline">Tema</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
       <div class="kit-pop kit-pop-right" id="themeMenu" role="menu" hidden>
-        <div class="kit-opt" role="menuitemradio" data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-opt-text"><b>Automatico</b><small>Segue il sistema</small></span></div>
-        <div class="kit-opt" role="menuitemradio" data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg><span class="kit-opt-text"><b>Chiaro</b></span></div>
-        <div class="kit-opt" role="menuitemradio" data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg><span class="kit-opt-text"><b>Scuro</b></span></div>
+        <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-opt-text"><b>Automatico</b><small>Segue il sistema</small></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+        <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg><span class="kit-opt-text"><b>Chiaro</b></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+        <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg><span class="kit-opt-text"><b>Scuro</b></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
       </div>
     </div>
   </div>

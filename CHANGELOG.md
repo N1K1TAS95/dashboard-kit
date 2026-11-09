@@ -1,5 +1,12 @@
 # Changelog
 
+## Non ancora rilasciato (0.2.1)
+
+- Menu a comparsa (`kit-pop`) utilizzabile da solo: voci `kit-opt` come `<button>`, `<a>` o `<div>`, `kit-opt-danger`, `kit-pop-sep`, `kit-pop-up` (si apre verso l'alto), `kit-pop-static` (sempre visibile) e `kit-btn-split` (bottone diviso).
+- Le voci disattivate (`aria-disabled="true"`) si saltano con le frecce; Invio attiva la voce come un click vero (gestori e link compresi).
+- Il selettore del tema usa `aria-checked` e la spunta sulla voce attiva (prima `aria-pressed`, non adatto a `menuitemradio`).
+- Documentazione: esempio del selettore del tema in "Temi e token", nuovi esempi di menu in "Dialog e menu".
+
 ## 0.2.0
 
 ### Novità

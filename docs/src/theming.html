@@ -9,6 +9,19 @@
 <button class="kit-btn" data-kit-theme-set="dark">Scuro</button>
 <button class="kit-btn" data-kit-theme-set="auto">Automatico</button>
 ```
+<h3 id="selettore">Selettore del tema (menu)</h3>
+<p>Il menu "Tema" dell'intestazione è un <a href="overlays.html#menu">menu a comparsa</a> (<code>.kit-pop</code>) le cui voci hanno <code>data-kit-theme-set</code>: al click <code>kit.js</code> applica il tema, lo ricorda e chiude il menu. Ogni voce ha un'icona e un titolo, e può avere una riga in grigio; <code>kit-pop-right</code> allinea il pannello al bordo destro, utile in un'intestazione. Questo esempio è collegato davvero al tema della pagina.</p>
+<div class="doc-demo" style="min-height: 210px">
+  <div class="kit-dropdown">
+    <button class="kit-btn" data-kit-toggle="#menu-tema" aria-haspopup="menu" aria-expanded="false"><svg class="kit-icon"><use href="#i-auto"/></svg>Tema<svg class="kit-icon"><use href="#i-chev"/></svg></button>
+    <div class="kit-pop" id="menu-tema" role="menu" hidden>
+      <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-opt-text"><b>Automatico</b><small>Segue il sistema</small></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+      <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg><span class="kit-opt-text"><b>Chiaro</b></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+      <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg><span class="kit-opt-text"><b>Scuro</b></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+    </div>
+  </div>
+</div>
+
 <p>Aggiungi <code>&lt;meta name="color-scheme" content="light dark"&gt;</code> nel <code>&lt;head&gt;</code> per evitare un lampo bianco al caricamento in tema scuro.</p>
 
 <h2 id="layout">Token di layout</h2>

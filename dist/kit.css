@@ -732,6 +732,11 @@ kbd {
 .kit-btn:disabled, .kit-btn[aria-disabled="true"] { opacity: .45; cursor: default; pointer-events: none; }
 
 .kit-btn-group { display: inline-flex; gap: 8px; flex-wrap: wrap; }
+/* Bottone diviso: azione + freccia che apre un menu. <div class="kit-btn-split"><button class="kit-btn">…</button><div class="kit-dropdown"><button class="kit-btn kit-btn-icon" data-kit-toggle="#id">…</button><div class="kit-pop kit-pop-right" id="id" hidden>…</div></div></div> */
+.kit-btn-split { display: inline-flex; }
+.kit-btn-split > .kit-btn { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.kit-btn-split > .kit-dropdown > .kit-btn { border-top-left-radius: 0; border-bottom-left-radius: 0; margin-left: -1px; }
+.kit-btn-split .kit-btn:hover, .kit-btn-split .kit-btn:focus-visible { position: relative; z-index: 1; }
 
 /* ===== 6. Form ===== */
 .kit-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: var(--kit-sp); align-items: start; }
@@ -1076,6 +1081,10 @@ kbd {
 }
 .kit-pop[hidden] { display: none; }
 .kit-pop-right { left: auto; right: 0; }
+.kit-pop-up { top: auto; bottom: calc(100% + 6px); }
+/* Menu sempre visibile, dentro il flusso della pagina (senza bottone che lo apre): <div class="kit-pop kit-pop-static"> */
+.kit-pop-static { position: static; width: auto; min-width: 0; max-height: none; box-shadow: none; }
+.kit-pop-sep { height: 1px; background: var(--kit-line-soft); margin: 6px 4px; flex: none; }
 
 .kit-pop-group { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--kit-mute); padding: 8px 10px 4px; font-weight: 600; }
 .kit-pop-empty { padding: 12px; color: var(--kit-mute); font-size: 13px; text-align: center; }
@@ -1088,9 +1097,19 @@ kbd {
     border-radius: var(--kit-rad-sm);
     cursor: pointer;
     color: var(--kit-ink);
+    font: inherit;
     font-size: 14px;
+    /* la voce può essere un <div>, un <button> o un <a> */
+    width: 100%;
+    border: 0;
+    background: none;
+    text-align: left;
+    text-decoration: none;
 }
 .kit-opt:hover, .kit-opt.is-active { background: var(--kit-hover); }
+.kit-opt:focus-visible { outline: 2px solid var(--kit-accent); outline-offset: -2px; }
+.kit-opt-danger, .kit-opt-danger:hover { color: var(--kit-danger); }
+.kit-opt[aria-disabled="true"], .kit-opt:disabled { opacity: .45; cursor: default; pointer-events: none; }
 .kit-opt.is-on { color: var(--kit-accent); }
 .kit-opt .kit-icon { width: 16px; height: 16px; }
 .kit-opt-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }

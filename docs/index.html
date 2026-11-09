@@ -62,9 +62,9 @@
     <div class="kit-dropdown">
       <button class="kit-btn" data-kit-toggle="#themeMenu" aria-haspopup="menu" aria-expanded="false"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-d-none kit-d-sm-inline">Tema</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
       <div class="kit-pop kit-pop-right" id="themeMenu" role="menu" hidden>
-        <div class="kit-opt" role="menuitemradio" data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-opt-text"><b>Automatico</b><small>Segue il sistema</small></span></div>
-        <div class="kit-opt" role="menuitemradio" data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg><span class="kit-opt-text"><b>Chiaro</b></span></div>
-        <div class="kit-opt" role="menuitemradio" data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg><span class="kit-opt-text"><b>Scuro</b></span></div>
+        <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-opt-text"><b>Automatico</b><small>Segue il sistema</small></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+        <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg><span class="kit-opt-text"><b>Chiaro</b></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+        <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg><span class="kit-opt-text"><b>Scuro</b></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
       </div>
     </div>
   </div>
@@ -117,12 +117,12 @@
 <p>Da CDN (jsDelivr), con la versione fissata e l'attributo <code>integrity</code> (SRI): se il file venisse alterato, il browser lo rifiuta.</p>
 <pre class="kit-code"><code>&lt;link rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.2.0/dist/kit.css"
-      integrity="sha384-EozeyR8WTUpi0WgVs8ZW50Y1QJYjvD/MvOW96ShSHHpCwjPgioUJ1I8Zr2iL16es"
+      integrity="sha384-8jQ+8dC3BhM4o8mEjRyWliXH363++nflF5bXrRiQwnMy81FCyRjAVV9gmnI+E6FY"
       crossorigin="anonymous"&gt;
 
 &lt;!-- opzionale: tema, select, tab, dialog, menu, toast --&gt;
 &lt;script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.2.0/dist/kit.js"
-        integrity="sha384-ixOHe2CIF4VFtLQQc3FXoi9e/mcXfHUGekCOAmexZm7+zUApFVSTgP/2ZWm3Jr85"
+        integrity="sha384-Ql/2rtGFWuJgkHb1XLaPvuce2mLXTz4zYmddd9OSIqcV+xLfZ5NzoH86Nbe+AVoF"
         crossorigin="anonymous"&gt;&lt;/script&gt;</code></pre>
 <p>Oppure in locale: copia <code>dist/kit.css</code> (e <code>dist/kit.js</code>) nel progetto e collegali con un percorso relativo.</p>
 <p class="kit-alert">Se il sito ha una Content-Security-Policy, autorizza <code>https://cdn.jsdelivr.net</code> in <code>style-src</code> e <code>script-src</code>. Evita <code>@main</code> o <code>@latest</code>: non sono versioni fissate e jsDelivr le tiene in cache per ore.</p>
