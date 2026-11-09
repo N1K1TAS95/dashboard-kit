@@ -1078,6 +1078,8 @@ kbd {
 .kit-dialog:focus { outline: none; }
 .kit-dialog-wide { width: min(700px, calc(100vw - 2 * var(--kit-sp))); }
 .kit-dialog::backdrop { background: rgba(0, 0, 0, .4); backdrop-filter: blur(2px); }
+/* Con un dialog modale aperto la pagina sotto non scorre; la barra resta riservata, così il contenuto non si sposta */
+:root:has(.kit-dialog:modal) { overflow: hidden; scrollbar-gutter: stable; }
 .kit-dialog > .kit-card-body { overflow: auto; flex: 1 1 auto; min-height: 0; }
 .kit-dialog > .kit-card-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .kit-dialog > .kit-card-foot, .kit-dialog > .kit-card-head { flex: none; }
