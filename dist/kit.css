@@ -1145,21 +1145,88 @@ kbd {
 .kit-dialog > .kit-card-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .kit-dialog > .kit-card-foot, .kit-dialog > .kit-card-head { flex: none; }
 
-.kit-toast {
+/* Toast: messaggi temporanei, creati da Kit.toast(). Pieni e ben visibili: quello neutro è invertito rispetto al tema
+   (scuro su chiaro e viceversa), gli altri hanno il colore dello stato su tutto lo sfondo. Più toast si impilano
+   in un contenitore .kit-toasts[data-pos] fisso agli angoli o al centro della finestra. */
+.kit-toasts {
     position: fixed;
-    left: 50%;
-    bottom: 24px;
-    transform: translateX(-50%);
-    background: var(--kit-ink);
-    color: var(--kit-bg);
-    padding: 8px 16px;
-    border-radius: var(--kit-rad);
     z-index: 70;
-    opacity: 0;
-    transition: opacity .2s;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-sizing: border-box;
+    width: min(460px, 100%);
+    padding: var(--kit-sp);
     pointer-events: none;
 }
-.kit-toast.is-on { opacity: 1; }
+.kit-toasts[data-pos="bottom"] { bottom: 0; left: 50%; transform: translateX(-50%); }
+.kit-toasts[data-pos="top"] { top: 0; left: 50%; transform: translateX(-50%); }
+.kit-toasts[data-pos="bottom-start"] { bottom: 0; left: 0; }
+.kit-toasts[data-pos="bottom-end"] { bottom: 0; right: 0; }
+.kit-toasts[data-pos="top-start"] { top: 0; left: 0; }
+.kit-toasts[data-pos="top-end"] { top: 0; right: 0; }
+
+.kit-toast {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 60px;
+    padding: 13px var(--kit-sp);
+    background: var(--kit-ink);
+    color: var(--kit-bg);
+    /* bordo sottile: più chiaro dello sfondo nel tema chiaro (testo bianco), più scuro nel tema scuro (testo scuro) */
+    border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+    border-radius: var(--kit-rad);
+    box-shadow: var(--kit-shadow-pop);
+    font-size: 14px;
+    line-height: 1.45;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity .2s, transform .2s;
+    pointer-events: auto;
+}
+.kit-toasts[data-pos^="top"] .kit-toast { transform: translateY(-8px); }
+.kit-toast.is-on { opacity: 1; transform: none; }
+/* Il colore dello stato riempie il toast; il testo usa lo stesso colore "sopra" del bottone primario (chiaro/scuro). */
+.kit-toast-info, .kit-toast-success, .kit-toast-warning, .kit-toast-danger { color: var(--kit-accent-ink); }
+.kit-toast-info { background: var(--kit-accent); }
+.kit-toast-success { background: var(--kit-success); }
+.kit-toast-warning { background: var(--kit-warning); }
+.kit-toast-danger { background: var(--kit-danger); }
+.kit-toast > .kit-toast-icon { width: 22px; height: 22px; flex: none; }
+.kit-toast-body { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; overflow-wrap: anywhere; }
+.kit-toast-title { font-weight: 650; }
+.kit-toast-action {
+    flex: none;
+    height: 32px;
+    padding: 0 12px;
+    border: 1px solid color-mix(in srgb, currentColor 45%, transparent);
+    border-radius: var(--kit-rad-sm);
+    background: none;
+    color: inherit;
+    font: inherit;
+    font-weight: 650;
+    cursor: pointer;
+}
+.kit-toast-action:hover { background: color-mix(in srgb, currentColor 16%, transparent); }
+.kit-toast-close {
+    flex: none;
+    width: 28px;
+    height: 28px;
+    margin: 0 -6px 0 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--kit-rad-sm);
+    background: none;
+    color: inherit;
+    opacity: .75;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+}
+.kit-toast-close:hover { opacity: 1; background: color-mix(in srgb, currentColor 16%, transparent); }
+.kit-toast-action:focus-visible, .kit-toast-close:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .kit-toast { transition: none; transform: none; } }
 
 /* Tooltip, solo CSS: <button class="kit-btn" data-kit-tip="Testo">…</button>
    Posizione: data-kit-tip-pos="top (default) | bottom | left | right". Appare al passaggio del mouse (con una piccola attesa)
@@ -1219,7 +1286,7 @@ kbd {
 @media (min-width: 761px) { .kit-only-sm { display: none !important; } }
 
 @media print {
-    .kit-header, .kit-toast, .kit-tabs { display: none !important; }
+    .kit-header, .kit-toasts, .kit-tabs { display: none !important; }
     body { background: #fff; color: #000; }
     .kit-card { box-shadow: none; }
 }

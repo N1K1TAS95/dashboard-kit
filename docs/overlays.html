@@ -244,10 +244,51 @@
 <p>Un contenitore con <code>overflow</code> nascosto o scorrevole (per esempio <code>.kit-table-wrap</code>) ritaglia il tooltip: in quel caso scegli un lato che resta dentro il contenitore.</p>
 
 <h2 id="toast">Toast</h2>
-<p>Un messaggio breve in basso che sparisce da solo. Si mostra da JavaScript: <code>Kit.toast("testo")</code>.</p>
+<p>Un messaggio breve che compare in basso e sparisce da solo. Si mostra da JavaScript con <code>Kit.toast("testo")</code>; più toast si impilano, fino a quattro alla volta. Il toast neutro è invertito rispetto al tema (scuro su chiaro, chiaro su scuro), quindi si distingue sempre dal contenuto; quelli colorati riempiono tutto lo sfondo.</p>
 <div class="doc-demo" data-doc-js='Kit.toast("Salvato!");'>
   <button class="kit-btn" data-doc-toast="Salvato!">Mostra un toast</button>
 </div>
+
+<h3 id="toast-tipi">Tipi, titolo e icona</h3>
+<p>L'opzione <code>type</code> (<code>info</code>, <code>success</code>, <code>warning</code>, <code>danger</code>) colora tutto il toast e aggiunge l'icona, se nella pagina c'è lo sprite delle <a href="icons.html">icone</a> (<code>kit-icons.js</code>); <code>title</code> aggiunge un titolo. I toast <code>warning</code> e <code>danger</code> sono annunciati subito dagli screen reader (<code>role="alert"</code>), gli altri in modo discreto.</p>
+<div class="doc-demo kit-bar" data-doc-js='Kit.toast("24 fatture aggiunte.", { type: "success", title: "Importazione completata" });
+  Kit.toast("Controlla la partita IVA.", { type: "warning" });
+  Kit.toast("Impossibile leggere il file.", { type: "danger", title: "Errore" });'>
+  <button class="kit-btn" data-doc-toast="Nuova versione disponibile." data-doc-type="info">Info</button>
+  <button class="kit-btn" data-doc-toast="24 fatture aggiunte." data-doc-type="success" data-doc-title="Importazione completata">Successo</button>
+  <button class="kit-btn" data-doc-toast="Controlla la partita IVA." data-doc-type="warning">Avviso</button>
+  <button class="kit-btn" data-doc-toast="Impossibile leggere il file." data-doc-type="danger" data-doc-title="Errore">Errore</button>
+</div>
+
+<h3 id="toast-azione">Azione e chiusura</h3>
+<p>Con <code>action</code> il toast ha un bottone (tipico: "Annulla") e resta visibile finché non lo usi o lo chiudi con la <b>×</b>. <code>duration</code> è in millisecondi (di base 4000); con <code>0</code> il toast non sparisce da solo. Il tempo si ferma mentre il mouse o il focus sono sul toast. <code>Kit.toast</code> restituisce un oggetto con <code>close()</code> per chiuderlo da codice, e <code>Kit.toast.clear()</code> chiude tutti.</p>
+<div class="doc-demo kit-bar" data-doc-js='var t = Kit.toast("Fattura eliminata.", {
+    action: { label: "Annulla", onClick: function () { ripristina(); } }
+  });
+  // t.close() lo chiude da codice
+  Kit.toast("Sincronizzazione in corso…", { duration: 0 });'>
+  <button class="kit-btn" data-doc-toast="Fattura eliminata." data-doc-action="Annulla">Con azione</button>
+  <button class="kit-btn" data-doc-toast="Sincronizzazione in corso…" data-doc-duration="0">Resta finché non lo chiudi</button>
+  <button class="kit-btn kit-btn-ghost" data-doc-toast-clear>Chiudi tutti</button>
+</div>
+
+<h3 id="toast-posizione">Posizione</h3>
+<p><code>position</code> sceglie dove compare: <code>bottom</code> (predefinito), <code>top</code>, <code>bottom-start</code>, <code>bottom-end</code>, <code>top-start</code>, <code>top-end</code>. Gli angoli sono i più usati nelle dashboard, perché non coprono il contenuto centrale.</p>
+<div class="doc-demo kit-bar" data-doc-js='Kit.toast("Salvato!", { type: "success", position: "top-end" });'>
+  <button class="kit-btn" data-doc-toast="In alto al centro" data-doc-pos="top">Alto</button>
+  <button class="kit-btn" data-doc-toast="In alto a destra" data-doc-pos="top-end" data-doc-type="success">Alto a destra</button>
+  <button class="kit-btn" data-doc-toast="In basso a destra" data-doc-pos="bottom-end" data-doc-type="info">Basso a destra</button>
+  <button class="kit-btn" data-doc-toast="In basso a sinistra" data-doc-pos="bottom-start">Basso a sinistra</button>
+</div>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>Opzione</th><th>Valori</th><th>Di base</th></tr></thead><tbody>
+<tr><td><code>type</code></td><td><code>info</code> · <code>success</code> · <code>warning</code> · <code>danger</code></td><td>neutro</td></tr>
+<tr><td><code>title</code></td><td>testo</td><td>nessun titolo</td></tr>
+<tr><td><code>duration</code></td><td>millisecondi; <code>0</code> = non sparisce</td><td><code>4000</code></td></tr>
+<tr><td><code>position</code></td><td>vedi sopra</td><td><code>bottom</code></td></tr>
+<tr><td><code>action</code></td><td><code>{ label, onClick }</code></td><td>nessuna</td></tr>
+<tr><td><code>closable</code></td><td><code>true</code> · <code>false</code></td><td><code>true</code> con azione o <code>duration: 0</code></td></tr>
+</tbody></table></div></div>
+<p class="kit-alert">Il testo del toast è sempre testo semplice: <code>Kit.toast</code> non interpreta mai HTML, quindi si può passare anche un valore inserito dall'utente.</p>
     <nav class="doc-pager" aria-label="Pagina precedente e successiva">
       <a href="feedback.html"><small>← Precedente</small><b>Feedback</b></a>
       <a class="doc-next" href="icons.html"><small>Successiva →</small><b>Icone</b></a>

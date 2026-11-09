@@ -14,7 +14,7 @@
  *   data-kit-tip="testo"                     tooltip (solo CSS; con kit.js Esc lo nasconde)
  *   data-kit-dismiss                         dentro un .kit-alert, lo rimuove (evento "kit:dismiss")
  *
- * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.toast(testo), Kit.init(radice)
+ * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.init(radice)
  * Eventi: "kit:change" (select), "kit:tab" (tab), "kit:theme" (tema), "kit:layout" (larghezza), "kit:dismiss" (avviso chiuso)
  */
 (function () {
@@ -87,21 +87,114 @@
         }
     };
 
-    /* ---------- Toast ---------- */
-    var toastEl, toastTimer;
-    function toast(text, ms) {
-        if (!toastEl) {
-            toastEl = document.createElement("div");
-            toastEl.className = "kit-toast";
-            toastEl.setAttribute("role", "status");
-            toastEl.setAttribute("aria-live", "polite");
-            document.body.appendChild(toastEl);
+    /* ---------- Toast ----------
+       Kit.toast("testo")  oppure  Kit.toast("testo", { type, title, duration, position, action, closable })
+       (il secondo argomento può anche essere solo la durata in ms). Restituisce { close() }.
+       Si costruisce con createElement/textContent: il testo non è mai interpretato come HTML. */
+    var TOAST_MAX = 4;                       // oltre questo numero il più vecchio si chiude
+    var TOAST_POS = { "bottom": 1, "top": 1, "bottom-start": 1, "bottom-end": 1, "top-start": 1, "top-end": 1 };
+    var TOAST_ICON = { info: "i-info", success: "i-ok", warning: "i-warn", danger: "i-error" };
+
+    function toastBox(pos) {
+        var box = document.querySelector('.kit-toasts[data-pos="' + pos + '"]');
+        if (!box) {
+            box = document.createElement("div");
+            box.className = "kit-toasts";
+            box.setAttribute("data-pos", pos);
+            document.body.appendChild(box);
         }
-        toastEl.textContent = text;       // textContent: mai HTML
-        toastEl.classList.add("is-on");
-        clearTimeout(toastTimer);
-        toastTimer = setTimeout(function () { toastEl.classList.remove("is-on"); }, ms || 2500);
+        return box;
     }
+
+    function toast(text, opts) {
+        if (typeof opts === "number") opts = { duration: opts };
+        opts = opts || {};
+        var type = TOAST_ICON[opts.type] ? opts.type : "neutral";
+        var pos = TOAST_POS[opts.position] ? opts.position : "bottom";
+        var duration = typeof opts.duration === "number" ? opts.duration : 4000;     // 0 = resta finché non si chiude
+        var closable = opts.closable !== undefined ? !!opts.closable : (duration === 0 || !!opts.action);
+        var box = toastBox(pos);
+
+        var el = document.createElement("div");
+        el.className = "kit-toast" + (type !== "neutral" ? " kit-toast-" + type : "");
+        el.setAttribute("role", type === "danger" || type === "warning" ? "alert" : "status");
+
+        // L'icona c'è solo se lo sprite (kit-icons.js o il tuo) definisce il simbolo.
+        if (TOAST_ICON[type] && document.getElementById(TOAST_ICON[type])) {
+            var NS = "http://www.w3.org/2000/svg";
+            var svg = document.createElementNS(NS, "svg");
+            svg.setAttribute("class", "kit-icon kit-toast-icon");
+            svg.setAttribute("aria-hidden", "true");
+            var use = document.createElementNS(NS, "use");
+            use.setAttribute("href", "#" + TOAST_ICON[type]);
+            svg.appendChild(use);
+            el.appendChild(svg);
+        }
+
+        var body = document.createElement("div");
+        body.className = "kit-toast-body";
+        if (opts.title) {
+            var t = document.createElement("strong");
+            t.className = "kit-toast-title";
+            t.textContent = String(opts.title);
+            body.appendChild(t);
+        }
+        var msg = document.createElement("span");
+        msg.textContent = String(text);
+        body.appendChild(msg);
+        el.appendChild(body);
+
+        var timer = null, closed = false;
+        function close() {
+            if (closed) return;
+            closed = true;
+            clearTimeout(timer);
+            el.classList.remove("is-on");
+            setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 250);
+        }
+
+        if (opts.action && opts.action.label) {
+            var act = document.createElement("button");
+            act.type = "button";
+            act.className = "kit-toast-action";
+            act.textContent = String(opts.action.label);
+            act.addEventListener("click", function () {
+                if (typeof opts.action.onClick === "function") opts.action.onClick();
+                close();
+            });
+            el.appendChild(act);
+        }
+        if (closable) {
+            var x = document.createElement("button");
+            x.type = "button";
+            x.className = "kit-toast-close";
+            x.setAttribute("aria-label", "Chiudi");
+            x.textContent = "×";
+            x.addEventListener("click", close);
+            el.appendChild(x);
+        }
+
+        // Il timer si ferma mentre il mouse o il focus sono sul toast, così c'è il tempo di leggerlo e usarlo.
+        function arm() { if (duration > 0 && !closed) { clearTimeout(timer); timer = setTimeout(close, duration); } }
+        function hold() { clearTimeout(timer); }
+        el.addEventListener("mouseenter", hold);
+        el.addEventListener("mouseleave", arm);
+        el.addEventListener("focusin", hold);
+        el.addEventListener("focusout", arm);
+
+        while (box.children.length >= TOAST_MAX) box.removeChild(box.firstChild);
+        box.appendChild(el);
+        void el.offsetWidth;              // forza il calcolo dello stile: senza, la transizione d'entrata non parte
+        el.classList.add("is-on");
+        arm();
+        return { close: close };
+    }
+
+    // Kit.toast.clear(): chiude tutti i toast aperti
+    toast.clear = function () {
+        document.querySelectorAll(".kit-toast").forEach(function (el) { el.classList.remove("is-on"); });
+        setTimeout(function () { document.querySelectorAll(".kit-toasts").forEach(function (b) { b.textContent = ""; }); }, 250);
+    };
 
     /* ---------- Popover ---------- */
     var openPop = null;

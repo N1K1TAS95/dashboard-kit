@@ -93,10 +93,18 @@
 })();
 
 /* ---------- Interazioni degli esempi ---------- */
-// <button data-doc-toast="testo">: mostra un toast
+// <button data-doc-toast="testo">: mostra un toast. Opzioni facoltative: data-doc-type, -title, -duration, -pos, -action
 document.addEventListener("click", function (e) {
+    if (e.target instanceof Element && e.target.closest("[data-doc-toast-clear]") && window.Kit) { Kit.toast.clear(); return; }
     var t = e.target instanceof Element && e.target.closest("[data-doc-toast]");
-    if (t && window.Kit) Kit.toast(t.getAttribute("data-doc-toast"));
+    if (!t || !window.Kit) return;
+    var d = t.dataset, o = {};
+    if (d.docType) o.type = d.docType;
+    if (d.docTitle) o.title = d.docTitle;
+    if (d.docDuration !== undefined) o.duration = Number(d.docDuration);
+    if (d.docPos) o.position = d.docPos;
+    if (d.docAction) o.action = { label: d.docAction, onClick: function () { Kit.toast("Operazione annullata", { type: "success", duration: 2000 }); } };
+    Kit.toast(t.getAttribute("data-doc-toast"), o);
 });
 
 // Contenitore con data-doc-seg: una sola voce attiva alla volta (segmented, pill)

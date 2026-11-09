@@ -5,6 +5,7 @@
 - Menu a comparsa (`kit-pop`) utilizzabile da solo: voci `kit-opt` come `<button>`, `<a>` o `<div>`, `kit-opt-danger`, `kit-pop-sep`, `kit-pop-up` (si apre verso l'alto), `kit-pop-static` (sempre visibile) e `kit-btn-split` (bottone diviso).
 - Le voci disattivate (`aria-disabled="true"`) si saltano con le frecce; Invio attiva la voce come un click vero (gestori e link compresi).
 - Il selettore del tema usa `aria-checked` e la spunta sulla voce attiva (prima `aria-pressed`, non adatto a `menuitemradio`).
+- Toast estesi: `Kit.toast(testo, { type, title, duration, position, action, closable })`, più toast impilati (max 4), icona dallo sprite, bottone d'azione ("Annulla"), chiusura con ×, timer in pausa su mouse e focus, `Kit.toast.clear()` e `close()`. Il toast neutro resta invertito rispetto al tema; quelli per tipo riempiono tutto lo sfondo con il colore dello stato; sono più alti (min 60px). Il secondo argomento numerico (durata) funziona ancora; la durata di base passa da 2,5 a 4 secondi.
 - Tooltip solo CSS con `data-kit-tip` e `data-kit-tip-pos` (top, bottom, left, right); compare con il mouse e con il focus, Esc lo nasconde.
 - Documentazione: esempio del selettore del tema in "Temi e token", nuovi esempi di menu in "Dialog e menu".
 
