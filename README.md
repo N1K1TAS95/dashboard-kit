@@ -8,9 +8,18 @@ Un file CSS, nessuna dipendenza, nessuna build. Tema chiaro e scuro con `light-d
 Da CDN (jsDelivr), fissando sempre una versione:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.1.0/dist/kit.css">
-<script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.1.0/dist/kit.js"></script> <!-- opzionale: tema, select, popover, tab, dialog, toast -->
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.1.0/dist/kit.css"
+      integrity="sha384-0PxdPdnbHL4DneHj11AiF7rWsiYOHTsr0WrGv5jOkjK+ugFFWMhh/GPx7fatxLW4"
+      crossorigin="anonymous">
+<!-- opzionale: tema, select, popover, tab, dialog, toast -->
+<script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.1.0/dist/kit.js"
+        integrity="sha384-4Rrpq/cbUWuEzbDlrLT1lYOgZDnM7gfD6Qbq8qlOz2GIaGbl6zjvKsW4FQ/KtGSj"
+        crossorigin="anonymous"></script>
 ```
+
+L'attributo `integrity` (SRI) fa rifiutare al browser un file diverso da quello atteso. Vale solo per la versione indicata:
+a ogni nuova versione l'hash cambia. Per ricalcolarlo: `./sri.sh`.
 
 Oppure in locale, copiando i file di `dist/`:
 
