@@ -22,7 +22,7 @@ Oppure in locale, copiando i file di `dist/`:
 Se il sito ha una Content-Security-Policy, ricordati di autorizzare `https://cdn.jsdelivr.net`
 in `style-src` e `script-src`.
 
-Vedi tutti i componenti in `docs/index.html` (aprilo nel browser).
+**Demo e componenti:** https://n1k1tas95.github.io/dashboard-kit/ (in locale: `docs/index.html`).
 
 ## Cosa c'è
 Layout (header, container, grid, split), card, bottoni, form, segmented, pill, chip, badge,
