@@ -76,7 +76,7 @@ tab, statistiche, tabella, stati vuoti, chiave/valore, progress, select, popover
 dialog, toast, utility.
 
 ## Personalizzare
-Tutto passa dai token `--kit-*` (colori, `--kit-sp`, `--kit-rad`, `--kit-row`, `--kit-ctl`…):
+Tutto passa dai token `--kit-*` (colori, `--kit-sp`, `--kit-rad`, `--kit-rad-sm`, `--kit-row`, `--kit-ctl`…):
 sovrascrivili in `:root`. Tema forzato con `<html data-theme="light|dark">`.
 
 ## Compatibilità
