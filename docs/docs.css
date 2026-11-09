@@ -1,3 +1,18 @@
 /* Solo per la pagina di documentazione, non fa parte del framework. */
 .doc-h { margin: 18px 0 -6px; font-size: 13px; text-transform: uppercase; letter-spacing: .05em; color: var(--kit-mute); }
 .kit-hero .kit-code { text-align: left; margin-top: 16px; }
+
+/* Snippet sotto ogni esempio */
+.doc-code { position: relative; margin-top: -6px; }
+.doc-code > summary {
+    cursor: pointer;
+    display: inline-block;
+    color: var(--kit-mute);
+    font-size: 12.5px;
+    padding: 4px 2px;
+    user-select: none;
+}
+.doc-code > summary:hover { color: var(--kit-accent); }
+.doc-code[open] > summary { color: var(--kit-accent); }
+.doc-copy { position: absolute; top: 28px; right: 8px; height: 28px; padding: 0 10px; font-size: 12px; z-index: 1; background: var(--kit-card); border-color: var(--kit-line); }
+.doc-code .kit-code { max-height: 360px; margin-top: 4px; }
