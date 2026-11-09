@@ -3,10 +3,24 @@
 Framework CSS (+ JS opzionale) per dashboard, estratto da *Fatture Elettroniche Explorer*.
 Un file CSS, nessuna dipendenza, nessuna build. Tema chiaro e scuro con `light-dark()`.
 
+## Uso
+
+Da CDN (jsDelivr), fissando sempre una versione:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.1.0/dist/kit.css">
+<script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.1.0/dist/kit.js"></script> <!-- opzionale: tema, select, popover, tab, dialog, toast -->
+```
+
+Oppure in locale, copiando i file di `dist/`:
+
 ```html
 <link rel="stylesheet" href="dist/kit.css">
-<script src="dist/kit.js"></script> <!-- opzionale: tema, select, popover, tab, dialog, toast -->
+<script src="dist/kit.js"></script>
 ```
+
+Se il sito ha una Content-Security-Policy, ricordati di autorizzare `https://cdn.jsdelivr.net`
+in `style-src` e `script-src`.
 
 Vedi tutti i componenti in `docs/index.html` (aprilo nel browser).
 
