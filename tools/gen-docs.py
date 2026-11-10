@@ -30,6 +30,7 @@ OUT = ROOT / "docs"
 NAV = [
     ("Per iniziare", [("index", "Introduzione"), ("javascript", "JavaScript")]),
     ("Layout", [("layout", "Layout"), ("grid", "Griglia"), ("utilities", "Utility")]),
+    ("Contenuto", [("typography", "Tipografia")]),
     ("Componenti", [("buttons", "Bottoni"), ("forms", "Form"), ("navigation", "Navigazione"),
                     ("cards", "Schede"), ("tables", "Tabelle"), ("content", "Contenuti"),
                     ("feedback", "Feedback"), ("overlays", "Dialog e menu"), ("icons", "Icone")]),

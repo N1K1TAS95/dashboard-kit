@@ -472,5 +472,27 @@
       "</div>",
       "$0"
     ]
+  },
+  "Kit: citazione": {
+    "prefix": "kit-quote",
+    "scope": "html",
+    "description": "Citazione con la fonte",
+    "body": [
+      "<blockquote class=\"kit-quote\">",
+      "  <p>${1:Testo della citazione.}</p>",
+      "  <footer>${2:Fonte}</footer>",
+      "</blockquote>$0"
+    ]
+  },
+  "Kit: testo lungo": {
+    "prefix": "kit-prose",
+    "scope": "html",
+    "description": "Contenitore per testi lunghi: righe comode e interlinea larga",
+    "body": [
+      "<article class=\"kit-prose\">",
+      "  <h2>${1:Titolo}</h2>",
+      "  <p>${2:Testo…}</p>",
+      "</article>$0"
+    ]
   }
 }

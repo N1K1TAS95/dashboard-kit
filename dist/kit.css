@@ -7,6 +7,7 @@
  * Indice
  *   1. Token (colori, spazi, raggi)
  *   2. Base
+ *  2b. Tipografia (titoli, display, lead, citazioni, liste, prose)
  *   3. Layout
  *  3b. Griglia a 12 colonne e utility flex (generata)
  *   4. Card
@@ -38,6 +39,14 @@
     /* Testo: 1rem è la dimensione del testo di base e tutto il resto ne deriva.
        --kit-fs sale da solo sugli schermi grandi; --kit-zoom è la scelta dell'utente (data-kit-fs, vedi kit.js). */
     --kit-fs: 15px;     /* dimensione di base del testo (1rem) */
+    --kit-lh: 1.5;      /* interlinea del testo */
+    --kit-measure: 65ch; /* lunghezza massima di una riga di testo (kit-measure, kit-prose) */
+    --kit-h1: 2.2rem;   /* titolo h1 (e kit-fs-1) */
+    --kit-h2: 1.75rem;  /* titolo h2 (e kit-fs-2) */
+    --kit-h3: 1.4rem;   /* titolo h3 (e kit-fs-3) */
+    --kit-h4: 1.2rem;   /* titolo h4 (e kit-fs-4) */
+    --kit-h5: 1.05rem;  /* titolo h5 (e kit-fs-5) */
+    --kit-h6: 1rem;     /* titolo h6 (e kit-fs-6) */
     --kit-zoom: 1;      /* moltiplicatore scelto dall'utente: 0.875, 1, 1.125, 1.25 */
 
     /* Layout: modifica questi per cambiare il "respiro" di tutta l'interfaccia. */
@@ -108,7 +117,7 @@ html, body { margin: 0; }
 body {
     background: var(--kit-bg);
     color: var(--kit-ink);
-    font: 1rem/1.5 var(--kit-font);
+    font: 1rem/var(--kit-lh) var(--kit-font);
     font-variant-numeric: slashed-zero;   /* lo zero si distingue dalla o */
     -webkit-font-smoothing: antialiased;
 }
@@ -131,6 +140,61 @@ kbd {
 }
 
 .kit-icon { width: 1.2rem; height: 1.2rem; flex: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ===== 2b. Tipografia ===== */
+h1, h2, h3, h4, h5, h6, .kit-h1, .kit-h2, .kit-h3, .kit-h4, .kit-h5, .kit-h6 {
+    margin: 0 0 .5em;
+    font-weight: 650;
+    line-height: 1.25;
+    color: var(--kit-ink);
+    text-wrap: balance;
+}
+h1, .kit-h1 { font-size: var(--kit-h1); letter-spacing: -.02em; }
+h2, .kit-h2 { font-size: var(--kit-h2); letter-spacing: -.015em; }
+h3, .kit-h3 { font-size: var(--kit-h3); letter-spacing: -.01em; }
+h4, .kit-h4 { font-size: var(--kit-h4); }
+h5, .kit-h5 { font-size: var(--kit-h5); }
+h6, .kit-h6 { font-size: var(--kit-h6); }
+:is(h1, h2, h3, h4, h5, h6, .kit-h1, .kit-h2, .kit-h3, .kit-h4, .kit-h5, .kit-h6) small { font-size: .6em; font-weight: 400; color: var(--kit-mute); letter-spacing: 0; }
+
+/* Titoli molto grandi, leggeri, per intestazioni di pagina. */
+.kit-display-1, .kit-display-2, .kit-display-3, .kit-display-4 { margin: 0 0 .3em; font-weight: 300; line-height: 1.1; letter-spacing: -.03em; text-wrap: balance; }
+.kit-display-1 { font-size: 3.75rem; }
+.kit-display-2 { font-size: 3.25rem; }
+.kit-display-3 { font-size: 2.75rem; }
+.kit-display-4 { font-size: 2.25rem; }
+@media (max-width: 576px) {
+    .kit-display-1 { font-size: 2.6rem; }
+    .kit-display-2 { font-size: 2.3rem; }
+    .kit-display-3 { font-size: 2rem; }
+    .kit-display-4 { font-size: 1.75rem; }
+}
+
+.kit-lead { font-size: 1.2rem; line-height: 1.5; }
+
+small, .kit-small { font-size: .875em; }
+mark, .kit-mark { background: color-mix(in srgb, var(--kit-warning) 30%, transparent); color: inherit; padding: .1em .25em; border-radius: 4px; }
+abbr[title] { text-decoration: underline dotted; text-underline-offset: .2em; cursor: help; }
+.kit-initialism { font-size: .875em; text-transform: uppercase; }
+
+/* Citazione: <blockquote class="kit-quote"> con, se serve, <footer> o <figcaption> per la fonte. */
+.kit-quote { margin: 0 0 1em; padding: .2em 0 .2em 1em; border-left: 3px solid var(--kit-accent); font-size: 1.15rem; }
+.kit-quote p { margin: 0 0 .4em; }
+.kit-quote > :last-child { margin-bottom: 0; }
+.kit-quote :is(footer, figcaption) { font-size: .8em; color: var(--kit-mute); }
+.kit-quote :is(footer, figcaption)::before { content: "— "; }
+
+.kit-list-unstyled, .kit-list-inline { list-style: none; padding: 0; margin: 0 0 1em; }
+.kit-list-inline > li { display: inline-block; }
+.kit-list-inline > li:not(:last-child) { margin-right: .9em; }
+
+/* Testo lungo (articoli, guide, note): riga di lunghezza comoda, interlinea larga, ritmo verticale regolare. */
+.kit-prose { max-width: var(--kit-measure); line-height: 1.7; }
+.kit-prose > * { margin-top: 0; margin-bottom: 1em; }
+.kit-prose > :is(h1, h2, h3, h4, h5, h6) { margin-top: 1.8em; margin-bottom: .5em; line-height: 1.25; }
+.kit-prose > :first-child { margin-top: 0; }
+.kit-prose > :is(ul, ol) { padding-left: 1.4em; }
+.kit-prose li + li { margin-top: .35em; }
 
 /* ===== 3. Layout ===== */
 .kit-header {
@@ -1314,11 +1378,46 @@ kbd {
 .kit-success { color: var(--kit-success); }
 .kit-warning { color: var(--kit-warning); }
 .kit-accent { color: var(--kit-accent); }
+.kit-ink { color: var(--kit-ink); }
 .kit-num { font-variant-numeric: slashed-zero tabular-nums; }
 .kit-nowrap { white-space: nowrap; }
 .kit-truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .kit-center { text-align: center; }
 .kit-right { text-align: right; }
+.kit-left { text-align: left; }
+
+/* Testo: dimensione, peso, stile, interlinea, trasformazioni. Con !important, per vincere sui componenti. */
+.kit-fs-1 { font-size: var(--kit-h1) !important; }
+.kit-fs-2 { font-size: var(--kit-h2) !important; }
+.kit-fs-3 { font-size: var(--kit-h3) !important; }
+.kit-fs-4 { font-size: var(--kit-h4) !important; }
+.kit-fs-5 { font-size: var(--kit-h5) !important; }
+.kit-fs-6 { font-size: var(--kit-h6) !important; }
+.kit-fs-sm { font-size: .875em !important; }
+.kit-fs-lg { font-size: 1.2em !important; }
+.kit-fw-light { font-weight: 300 !important; }
+.kit-fw-normal { font-weight: 400 !important; }
+.kit-fw-medium { font-weight: 500 !important; }
+.kit-fw-semibold { font-weight: 600 !important; }
+.kit-fw-bold { font-weight: 700 !important; }
+.kit-fst-italic { font-style: italic !important; }
+.kit-fst-normal { font-style: normal !important; }
+.kit-lh-1 { line-height: 1 !important; }
+.kit-lh-sm { line-height: 1.25 !important; }
+.kit-lh-base { line-height: var(--kit-lh) !important; }
+.kit-lh-lg { line-height: 1.8 !important; }
+.kit-ls-tight { letter-spacing: -.02em !important; }
+.kit-ls-wide { letter-spacing: .05em !important; }
+.kit-uppercase { text-transform: uppercase !important; }
+.kit-lowercase { text-transform: lowercase !important; }
+.kit-capitalize { text-transform: capitalize !important; }
+.kit-mono { font-family: var(--kit-mono) !important; }
+.kit-underline { text-decoration: underline !important; }
+.kit-no-underline { text-decoration: none !important; }
+.kit-line-through { text-decoration: line-through !important; }
+.kit-wrap { white-space: normal !important; }
+.kit-break { overflow-wrap: anywhere !important; }
+.kit-measure { max-width: var(--kit-measure) !important; }
 .kit-hidden, [hidden] { display: none !important; }
 
 /* Nasconde alla vista ma non agli screen reader. */

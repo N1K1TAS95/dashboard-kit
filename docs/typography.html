@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Tipografia — Dashboard Kit</title>
+<meta name="description" content="Titoli, testo corrente, citazioni, liste e le classi per controllare dimensione, peso, interlinea e larghezza delle righe. Tutto parte da pochi token, così si regola da un punto solo.">
+<script src="../dist/kit.js"></script>
+<link rel="stylesheet" href="../dist/kit.css">
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<!-- Pagina generata da tools/gen-docs.py a partire da docs/src/typography.html: non modificarla a mano. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="i-chev-up" viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></symbol>
+<symbol id="i-chev-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
+<symbol id="i-chev-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+<symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5m0 0-6 6m6-6 6 6"/></symbol>
+<symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14m0 0-6-6m6 6 6-6"/></symbol>
+<symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5m0 0 6-6m-6 6 6 6"/></symbol>
+<symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></symbol>
+<symbol id="i-expand" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></symbol>
+<symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V4m0 0L8 8m4-4 4 4M5 20h14"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.5-3.5L4 9m0-5v5h5M4 13a8 8 0 0 0 14.5 3.5L20 15m0 5v-5h-5"/></symbol>
+<symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4zM13.5 6.5l4 4"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></symbol>
+<symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8L3 5z"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h8m4 0h4M4 17h4m4 0h8"/><circle cx="14" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+<symbol id="i-more" viewBox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01"/></symbol>
+<symbol id="i-more-v" viewBox="0 0 24 24"><path d="M12 5h.01M12 12h.01M12 19h.01"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7M6 10v10h4v-6h4v6h4V10"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0 1 16 0"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4l2-2zM10 21h4"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM14 3v5h5"/></symbol>
+<symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6a1 1 0 0 1 1-1h5l2 2h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6z"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-text" viewBox="0 0 24 24"><path d="M4 7V5h16v2M12 5v14M9 19h6"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+<symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+<symbol id="i-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 3 3 5-6"/></symbol>
+<symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3.5 2.5 20h19L12 3.5z"/><path d="M12 10v4.5M12 17.5h.01"/></symbol>
+<symbol id="i-error" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/></symbol>
+</defs></svg>
+<header class="kit-header">
+  <div class="kit-container-boxed">
+    <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
+    <span class="kit-spacer"></span>
+    <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
+    <div class="kit-dropdown">
+      <button class="kit-btn kit-btn-icon" data-kit-toggle="#settings" aria-haspopup="true" aria-expanded="false" aria-label="Impostazioni" title="Impostazioni"><svg class="kit-icon"><use href="#i-sliders"/></svg></button>
+      <div class="kit-pop kit-pop-right kit-settings" id="settings" role="group" aria-label="Impostazioni" hidden>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Tema</span>
+          <div class="kit-seg" role="group" aria-label="Tema">
+            <button data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg>Auto</button>
+            <button data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg>Chiaro</button>
+            <button data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg>Scuro</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Dimensione del testo</span>
+          <div class="kit-seg" role="group" aria-label="Dimensione del testo">
+            <button data-kit-fs-set="sm" aria-label="Piccolo" title="Piccolo (87,5%)">A</button>
+            <button data-kit-fs-set="md" aria-label="Normale" title="Normale (100%)">A</button>
+            <button data-kit-fs-set="lg" aria-label="Grande" title="Grande (112,5%)">A</button>
+            <button data-kit-fs-set="xl" aria-label="Molto grande" title="Molto grande (125%)">A</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Larghezza del contenuto</span>
+          <div class="kit-seg" role="group" aria-label="Larghezza del contenuto">
+            <button data-kit-layout-set="boxed">Centrata</button>
+            <button data-kit-layout-set="fluid">Tutta la pagina</button>
+          </div>
+          <small>Si nota sugli schermi più larghi del contenuto.</small>
+        </div>
+        <div class="kit-settings-foot"><button class="kit-btn kit-btn-ghost" data-kit-reset>Ripristina</button></div>
+      </div>
+    </div>
+  </div>
+</header>
+<main class="kit-main">
+<div class="kit-container-boxed">
+<div class="kit-row kit-gy-0">
+  <aside class="kit-col-12 kit-col-lg-3">
+    <nav class="doc-nav" aria-label="Documentazione">
+      <details class="doc-nav-d" open>
+        <summary class="kit-btn">Menu della documentazione</summary>
+        <div class="doc-nav-body">
+          <div class="doc-nav-group">Per iniziare</div>
+          <a href="index.html">Introduzione</a>
+          <a href="javascript.html">JavaScript</a>
+          <div class="doc-nav-group">Layout</div>
+          <a href="layout.html">Layout</a>
+          <a href="grid.html">Griglia</a>
+          <a href="utilities.html">Utility</a>
+          <div class="doc-nav-group">Contenuto</div>
+          <a href="typography.html" class="is-current" aria-current="page">Tipografia</a>
+          <ul class="doc-toc">
+            <li><a href="#base">Il testo di base</a></li>
+            <li><a href="#titoli">Titoli</a></li>
+            <li><a href="#display">Display</a></li>
+            <li><a href="#lead">Paragrafo d'apertura</a></li>
+            <li><a href="#inline">Testo in linea</a></li>
+            <li><a href="#utility">Classi per controllare il testo</a></li>
+            <li><a href="#citazioni">Citazioni</a></li>
+            <li><a href="#liste">Liste</a></li>
+            <li><a href="#prose">Testi lunghi</a></li>
+            <li><a href="#token">Token tipografici</a></li>
+          </ul>
+          <div class="doc-nav-group">Componenti</div>
+          <a href="buttons.html">Bottoni</a>
+          <a href="forms.html">Form</a>
+          <a href="navigation.html">Navigazione</a>
+          <a href="cards.html">Schede</a>
+          <a href="tables.html">Tabelle</a>
+          <a href="content.html">Contenuti</a>
+          <a href="feedback.html">Feedback</a>
+          <a href="overlays.html">Dialog e menu</a>
+          <a href="icons.html">Icone</a>
+          <div class="doc-nav-group">Personalizzare</div>
+          <a href="theming.html">Temi e token</a>
+          <a href="snippets.html">Snippet VS Code</a>
+          <div class="doc-nav-group">Esempi</div>
+          <a href="dashboard.html">Dashboard <span class="kit-badge kit-badge-neutral">esempio</span></a>
+        </div>
+      </details>
+    </nav>
+  </aside>
+  <article class="kit-col-12 kit-col-lg-9 doc-content">
+    <h1 class="doc-title">Tipografia</h1>
+    <p class="doc-lead">Titoli, testo corrente, citazioni, liste e le classi per controllare dimensione, peso, interlinea e larghezza delle righe. Tutto parte da pochi token, così si regola da un punto solo.</p>
+<h2 id="base">Il testo di base</h2>
+<p>Il kit usa il font <a href="theming.html#testo">Inter</a> a <code>1rem</code> con interlinea <code>--kit-lh</code> (1,5). <code>1rem</code> è la dimensione di base <code>--kit-fs</code>, che cresce con lo schermo e può essere scelta dall'utente (vedi <a href="theming.html#testo">Font e dimensione del testo</a>): tutte le dimensioni qui sotto sono in <code>rem</code> o <code>em</code>, quindi la seguono. Gli zeri sono barrati, per non confonderli con la lettera "o".</p>
+
+<h2 id="titoli">Titoli</h2>
+<p>Gli elementi <code>&lt;h1&gt;</code>…<code>&lt;h6&gt;</code> hanno già lo stile del kit. Le classi <code>kit-h1</code>…<code>kit-h6</code> danno lo stesso aspetto a un altro elemento (un <code>&lt;p&gt;</code>, un <code>&lt;div&gt;</code>) senza cambiare la struttura del documento. Un <code>&lt;small&gt;</code> dentro il titolo diventa un testo secondario in grigio.</p>
+<div class="doc-demo">
+  <h1>h1. Titolo di pagina</h1>
+  <h2>h2. Titolo di sezione</h2>
+  <h3>h3. Titolo di gruppo</h3>
+  <h4>h4. Titolo di blocco</h4>
+  <h5>h5. Titolo piccolo</h5>
+  <h6>h6. Titolo minimo</h6>
+  <h3>Con testo secondario <small>sotto-titolo in grigio</small></h3>
+  <p class="kit-h4">Un paragrafo con l'aspetto di un h4 (kit-h4)</p>
+</div>
+<p>Le dimensioni sono i token <code>--kit-h1</code>…<code>--kit-h6</code>: cambiandoli in <code>:root</code> cambia la scala di tutta la pagina, comprese le classi <code>kit-fs-1</code>…<code>kit-fs-6</code>.</p>
+<pre class="kit-code"><code>:root {
+  --kit-h1: 2.6rem;   /* titoli più grandi */
+  --kit-h2: 2rem;
+}</code></pre>
+
+<h2 id="display">Display</h2>
+<p>Per un titolo di apertura, più grande e più leggero dei normali (<code>kit-display-1</code> è il più grande, <code>kit-display-4</code> il più piccolo). Sotto i 576px si riducono da soli.</p>
+<div class="doc-demo">
+  <p class="kit-display-1">Display 1</p>
+  <p class="kit-display-2">Display 2</p>
+  <p class="kit-display-3">Display 3</p>
+  <p class="kit-display-4">Display 4</p>
+</div>
+
+<h2 id="lead">Paragrafo d'apertura</h2>
+<p>Con <code>kit-lead</code> il primo paragrafo risalta sul resto.</p>
+<div class="doc-demo">
+  <p class="kit-lead">Un paragrafo d'apertura: un po' più grande del testo normale, per introdurre l'argomento.</p>
+  <p>Il testo che segue ha la dimensione normale.</p>
+</div>
+
+<h2 id="inline">Testo in linea</h2>
+<div class="doc-demo">
+  <p>Si può <mark>evidenziare</mark> una parte (<code>&lt;mark&gt;</code>), <del>cancellare</del> (<code>&lt;del&gt;</code>), <ins>inserire</ins> (<code>&lt;ins&gt;</code>), <u>sottolineare</u> (<code>&lt;u&gt;</code>), mettere in <strong>grassetto</strong> o in <em>corsivo</em>, e scrivere in <small>carattere più piccolo</small> (<code>&lt;small&gt;</code>).</p>
+  <p>Le abbreviazioni mostrano il significato al passaggio del mouse: <abbr title="Imposta sul valore aggiunto">IVA</abbr>, e in maiuscoletto con <code>kit-initialism</code>: <abbr class="kit-initialism" title="HyperText Markup Language">html</abbr>.</p>
+  <p>Per un tasto usa <kbd>Ctrl</kbd> + <kbd>K</kbd>; per del codice <code>kit-card</code>.</p>
+</div>
+
+<h2 id="utility">Classi per controllare il testo</h2>
+<p>Tutte con <code>!important</code>, come le <a href="utilities.html">utility</a>, per vincere sullo stile dei componenti.</p>
+
+<h3 id="dimensione">Dimensione</h3>
+<p><code>kit-fs-1</code>…<code>kit-fs-6</code> usano la stessa scala dei titoli; <code>kit-fs-sm</code> e <code>kit-fs-lg</code> sono relative al testo che le contiene (<code>.875em</code> e <code>1.2em</code>), utili dentro un componente.</p>
+<div class="doc-demo">
+  <p class="kit-fs-1 kit-lh-1">kit-fs-1</p>
+  <p class="kit-fs-2 kit-lh-1">kit-fs-2</p>
+  <p class="kit-fs-3 kit-lh-1">kit-fs-3</p>
+  <p class="kit-fs-4 kit-lh-1">kit-fs-4</p>
+  <p class="kit-fs-5 kit-lh-1">kit-fs-5</p>
+  <p class="kit-fs-6 kit-lh-1">kit-fs-6</p>
+  <p>Testo normale, <span class="kit-fs-sm">più piccolo (kit-fs-sm)</span> e <span class="kit-fs-lg">più grande (kit-fs-lg)</span>.</p>
+</div>
+
+<h3 id="peso">Peso e stile</h3>
+<div class="doc-demo">
+  <p class="kit-fw-light">kit-fw-light — leggero (300)</p>
+  <p class="kit-fw-normal">kit-fw-normal — normale (400)</p>
+  <p class="kit-fw-medium">kit-fw-medium — medio (500)</p>
+  <p class="kit-fw-semibold">kit-fw-semibold — semi-grassetto (600)</p>
+  <p class="kit-fw-bold">kit-fw-bold — grassetto (700)</p>
+  <p class="kit-fst-italic">kit-fst-italic — corsivo</p>
+  <p class="kit-fst-italic kit-fst-normal">kit-fst-normal — toglie il corsivo</p>
+</div>
+
+<h3 id="allineamento">Allineamento e a capo</h3>
+<div class="doc-demo">
+  <p class="kit-left">kit-left — a sinistra</p>
+  <p class="kit-center">kit-center — al centro</p>
+  <p class="kit-right">kit-right — a destra</p>
+  <div class="kit-card kit-p-3" style="max-width: 260px">
+    <p class="kit-nowrap kit-mute" style="margin: 0 0 8px; overflow: hidden">kit-nowrap: una riga lunga che non va a capo mai e quindi esce dallo spazio</p>
+    <p class="kit-wrap" style="margin: 0 0 8px">kit-wrap: toglie il divieto di andare a capo e il testo torna nello spazio disponibile.</p>
+    <p class="kit-break" style="margin: 0">kit-break: spezza anche gli identificativi lunghissimi come IT01234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789</p>
+  </div>
+</div>
+
+<h3 id="trasformazioni">Maiuscole, decorazioni e spaziatura</h3>
+<div class="doc-demo">
+  <p class="kit-uppercase">kit-uppercase — tutto maiuscolo</p>
+  <p class="kit-lowercase">KIT-LOWERCASE — TUTTO MINUSCOLO</p>
+  <p class="kit-capitalize">kit-capitalize — iniziali maiuscole</p>
+  <p class="kit-underline">kit-underline — sottolineato</p>
+  <p class="kit-line-through">kit-line-through — barrato</p>
+  <p><a class="kit-no-underline" href="#utility">kit-no-underline — un link senza sottolineatura</a></p>
+  <p class="kit-ls-tight">kit-ls-tight — lettere più vicine</p>
+  <p class="kit-ls-wide kit-uppercase kit-fs-sm">kit-ls-wide — lettere distanziate</p>
+</div>
+
+<h3 id="interlinea">Interlinea</h3>
+<p><code>kit-lh-1</code> (1), <code>kit-lh-sm</code> (1,25), <code>kit-lh-base</code> (il valore di <code>--kit-lh</code>) e <code>kit-lh-lg</code> (1,8). Per cambiarla ovunque basta <code>--kit-lh</code>.</p>
+<div class="doc-demo">
+  <div class="kit-row">
+    <div class="kit-col-12 kit-col-md-6"><p class="kit-lh-sm"><b>kit-lh-sm</b> — Una riga di testo abbastanza lunga da andare a capo almeno una volta, per vedere quanto sono vicine le righe tra loro.</p></div>
+    <div class="kit-col-12 kit-col-md-6"><p class="kit-lh-lg"><b>kit-lh-lg</b> — Una riga di testo abbastanza lunga da andare a capo almeno una volta, per vedere quanto sono vicine le righe tra loro.</p></div>
+  </div>
+</div>
+
+<h3 id="famiglia">Carattere a spaziatura fissa e colore</h3>
+<p><code>kit-mono</code> usa il carattere del codice (<code>--kit-mono</code>), utile per identificativi e importi in colonna. I colori del testo sono in <a href="utilities.html#testo">Utility</a>; <code>kit-ink</code> riporta il colore normale dentro un elemento colorato.</p>
+<div class="doc-demo">
+  <p><span class="kit-mono">FT-0042 · 1.250,00 €</span> · <span class="kit-mute">kit-mute <span class="kit-ink">kit-ink</span></span></p>
+</div>
+
+<h2 id="citazioni">Citazioni</h2>
+<p>Con <code>kit-quote</code> su un <code>&lt;blockquote&gt;</code>: una barra del colore di accento a sinistra. La fonte va in un <code>&lt;footer&gt;</code> (o in un <code>&lt;figcaption&gt;</code> se la citazione sta dentro un <code>&lt;figure&gt;</code>), preceduta da un trattino lungo.</p>
+<div class="doc-demo">
+  <blockquote class="kit-quote">
+    <p>Un buon cruscotto mostra le cose che servono, nel momento in cui servono.</p>
+    <footer>Dalle note del progetto</footer>
+  </blockquote>
+</div>
+
+<h2 id="liste">Liste</h2>
+<div class="doc-demo">
+  <div class="kit-row">
+    <div class="kit-col-12 kit-col-md-4">
+      <p class="kit-fw-semibold kit-mute kit-fs-sm">Normale</p>
+      <ul><li>Fatture ricevute</li><li>Fatture emesse</li><li>Note di credito</li></ul>
+    </div>
+    <div class="kit-col-12 kit-col-md-4">
+      <p class="kit-fw-semibold kit-mute kit-fs-sm">kit-list-unstyled</p>
+      <ul class="kit-list-unstyled"><li>Fatture ricevute</li><li>Fatture emesse</li><li>Note di credito</li></ul>
+    </div>
+    <div class="kit-col-12 kit-col-md-4">
+      <p class="kit-fw-semibold kit-mute kit-fs-sm">kit-list-inline</p>
+      <ul class="kit-list-inline"><li>Ricevute</li><li>Emesse</li><li>Note</li></ul>
+    </div>
+  </div>
+</div>
+<p>Per elenchi di dettagli etichetta/valore c'è <a href="content.html#kv">chiave / valore</a>.</p>
+
+<h2 id="prose">Testi lunghi</h2>
+<p>Un articolo, una guida o delle note si leggono meglio con righe più corte e più spazio tra le righe. <code>kit-prose</code> limita la larghezza a <code>--kit-measure</code> (65 caratteri), porta l'interlinea a 1,7 e distanzia con regolarità paragrafi, titoli ed elenchi, senza che tu debba mettere classi sui singoli elementi. Per limitare solo la larghezza di un blocco c'è <code>kit-measure</code>.</p>
+<div class="doc-demo">
+  <div class="kit-prose">
+    <h3>Come si legge un testo lungo</h3>
+    <p>Quando una riga supera i settanta caratteri circa l'occhio fa fatica a tornare all'inizio della riga successiva. Per questo i testi lunghi non dovrebbero occupare tutta la larghezza di uno schermo grande.</p>
+    <p>Anche l'interlinea conta: righe troppo vicine si confondono, righe troppo lontane si leggono come paragrafi separati.</p>
+    <h4>Alcuni consigli</h4>
+    <ul>
+      <li>Tieni le righe sotto i 65–75 caratteri.</li>
+      <li>Usa un'interlinea tra 1,5 e 1,7.</li>
+      <li>Dai ai titoli più spazio sopra che sotto.</li>
+    </ul>
+  </div>
+</div>
+<pre class="kit-code"><code>&lt;article class="kit-prose"&gt;
+  &lt;h2&gt;Titolo&lt;/h2&gt;
+  &lt;p&gt;Testo…&lt;/p&gt;
+&lt;/article&gt;</code></pre>
+<pre class="kit-code"><code>:root { --kit-measure: 72ch; }   /* righe un po' più lunghe */</code></pre>
+
+<h2 id="token">Token tipografici</h2>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table">
+  <thead><tr><th>Token</th><th>Valore</th><th>Cosa controlla</th></tr></thead>
+  <tbody>
+    <tr><td><code>--kit-font</code></td><td><code>"Kit Inter", system-ui, …</code></td><td>Carattere del testo</td></tr>
+    <tr><td><code>--kit-mono</code></td><td><code>ui-monospace, Consolas, …</code></td><td>Carattere del codice</td></tr>
+    <tr><td><code>--kit-fs</code></td><td><code>15px</code></td><td>Dimensione di base (1rem), cresce con lo schermo</td></tr>
+    <tr><td><code>--kit-zoom</code></td><td><code>1</code></td><td>Moltiplicatore scelto dall'utente</td></tr>
+    <tr><td><code>--kit-lh</code></td><td><code>1.5</code></td><td>Interlinea del testo</td></tr>
+    <tr><td><code>--kit-measure</code></td><td><code>65ch</code></td><td>Lunghezza massima di una riga (<code>kit-prose</code>, <code>kit-measure</code>)</td></tr>
+    <tr><td><code>--kit-h1</code>…<code>--kit-h6</code></td><td><code>2.2rem</code>…<code>1rem</code></td><td>Dimensione dei titoli e di <code>kit-fs-1</code>…<code>kit-fs-6</code></td></tr>
+  </tbody>
+</table></div></div>
+    <nav class="doc-pager" aria-label="Pagina precedente e successiva">
+      <a href="utilities.html"><small>← Precedente</small><b>Utility</b></a>
+      <a class="doc-next" href="buttons.html"><small>Successiva →</small><b>Bottoni</b></a>
+    </nav>
+  </article>
+</div>
+</div>
+</main>
+<script src="docs.js"></script>
+</body>
+</html>

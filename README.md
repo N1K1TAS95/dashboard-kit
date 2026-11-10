@@ -59,6 +59,7 @@ Griglia a 12 colonne con flexbox, con gli stessi nomi di Bootstrap (prefisso `ki
 - Breakpoint (mobile first): `sm` 576, `md` 768, `lg` 992, `xl` 1200.
 - Colonne: `kit-col`, `kit-col-auto`, `kit-col-N`, `kit-col-{bp}-N`; `kit-row-cols-N`; `kit-offset-N`; `kit-order-*`.
 - Gutter: `kit-g-0…5`, `kit-gx-*`, `kit-gy-*`. Di base seguono `--kit-sp`.
+- Tipografia: titoli, `kit-display-*`, `kit-lead`, `kit-quote`, `kit-prose` e utility `kit-fs-*`, `kit-fw-*`, `kit-lh-*`, `kit-uppercase`.
 - Utility flex e spazi: `kit-d-*`, `kit-flex-*`, `kit-justify-content-*`, `kit-align-items-*`, `kit-gap-*`, `kit-m*-N`, `kit-p*-N`, `kit-w-100`, `kit-h-100`.
 - `kit-bar` è la barra di elementi affiancati (toolbar), diversa da `kit-row` della griglia.
 - Un esempio completo è in `docs/dashboard.html`.

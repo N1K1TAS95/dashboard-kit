@@ -108,6 +108,8 @@
           <a href="layout.html">Layout</a>
           <a href="grid.html">Griglia</a>
           <a href="utilities.html">Utility</a>
+          <div class="doc-nav-group">Contenuto</div>
+          <a href="typography.html">Tipografia</a>
           <div class="doc-nav-group">Componenti</div>
           <a href="buttons.html">Bottoni</a>
           <a href="forms.html">Form</a>
@@ -173,9 +175,16 @@ td.codice { font-variant-numeric: slashed-zero tabular-nums; }  /* zero barrato 
 @media (min-width: 2000px) { :root { --kit-fs: 24px; } }   /* o una soglia tutta tua */</code></pre>
 
 <h2 id="layout">Token di layout</h2>
-<p>Regolano il respiro dell'interfaccia. Sotto i 760px <code>--kit-sp</code> scende da 16 a 8px.</p>
+<p>Regolano il respiro dell'interfaccia, la dimensione del testo e la scala dei titoli (vedi <a href="typography.html#token">Tipografia</a>). Sotto i 760px <code>--kit-sp</code> scende da 16 a 8px.</p>
 <div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>Token</th><th>Valore</th><th>Cosa controlla</th></tr></thead><tbody>
 <tr><td><code>--kit-fs</code></td><td><code>15px</code></td><td>dimensione di base del testo (1rem)</td></tr>
+<tr><td><code>--kit-lh</code></td><td><code>1.5</code></td><td>interlinea del testo</td></tr>
+<tr><td><code>--kit-h1</code></td><td><code>2.2rem</code></td><td>titolo h1 (e kit-fs-1)</td></tr>
+<tr><td><code>--kit-h2</code></td><td><code>1.75rem</code></td><td>titolo h2 (e kit-fs-2)</td></tr>
+<tr><td><code>--kit-h3</code></td><td><code>1.4rem</code></td><td>titolo h3 (e kit-fs-3)</td></tr>
+<tr><td><code>--kit-h4</code></td><td><code>1.2rem</code></td><td>titolo h4 (e kit-fs-4)</td></tr>
+<tr><td><code>--kit-h5</code></td><td><code>1.05rem</code></td><td>titolo h5 (e kit-fs-5)</td></tr>
+<tr><td><code>--kit-h6</code></td><td><code>1rem</code></td><td>titolo h6 (e kit-fs-6)</td></tr>
 <tr><td><code>--kit-zoom</code></td><td><code>1</code></td><td>moltiplicatore scelto dall&#x27;utente: 0.875, 1, 1.125, 1.25</td></tr>
 <tr><td><code>--kit-sp</code></td><td><code>16px</code></td><td>spazio unico: margine, distanza tra card, padding interno</td></tr>
 <tr><td><code>--kit-row</code></td><td><code>8px</code></td><td>padding verticale delle righe di tabella</td></tr>

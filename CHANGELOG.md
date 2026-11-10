@@ -7,6 +7,8 @@
 - Dimensione del testo scelta dall'utente: `data-kit-fs="sm|md|lg|xl"` su `<html>`, `data-kit-fs-set` e `data-kit-fs-step` nei bottoni, `Kit.fontSize.get()/set()/step()`, evento `kit:fs`; la scelta viene ricordata.
 - Altezza dei controlli (`--kit-ctl`), intestazione (`--kit-hh`), larghezza del contenuto (`--kit-container-w`) e icone passano da `px` a `rem`, così crescono con il testo.
 - Pannello delle impostazioni (`kit-settings`): un menu a comparsa con tema, dimensione del testo e larghezza, che resta aperto dopo ogni scelta; `data-kit-reset` e `Kit.reset()` ripristinano i valori di partenza (evento `kit:reset`). Sostituisce i menu "Tema" e "Testo" nelle pagine della documentazione e nella dashboard di esempio.
+- Tipografia: stile per `h1`–`h6` (e `kit-h1`–`kit-h6`), `kit-display-1`–`4`, `kit-lead`, `mark`, `small`, `abbr`, `kit-quote`, `kit-list-unstyled` e `kit-list-inline`, `kit-prose` per i testi lunghi. Nuove utility: `kit-fs-1`–`6`, `kit-fs-sm/lg`, `kit-fw-*`, `kit-fst-*`, `kit-lh-*`, `kit-ls-*`, `kit-uppercase/lowercase/capitalize`, `kit-mono`, `kit-underline`, `kit-line-through`, `kit-no-underline`, `kit-wrap`, `kit-break`, `kit-measure`, `kit-left`, `kit-ink`. Token nuovi: `--kit-lh`, `--kit-measure`, `--kit-h1`…`--kit-h6`. Nuova pagina "Tipografia" nella documentazione.
+- **Cambiamento non retrocompatibile:** i titoli `<h1>`–`<h6>` senza classi hanno ora lo stile del kit (dimensioni dai token `--kit-h1`…`--kit-h6`, margine superiore 0, inferiore `.5em`, peso 650) invece di quello del browser. Per tornare al vecchio aspetto in un punto basta sovrascrivere `font-size` e `margin` sull'elemento. Anche `<small>` passa a `.875em`.
 - Nuova icona `text`; nelle pagine della documentazione c'è il menu "Testo".
 
 ## 0.3.0 — 9 novembre 2026

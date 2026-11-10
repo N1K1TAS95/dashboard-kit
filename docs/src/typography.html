@@ -1,0 +1,179 @@
+<!--title: Tipografia-->
+<!--desc: Titoli, testo corrente, citazioni, liste e le classi per controllare dimensione, peso, interlinea e larghezza delle righe. Tutto parte da pochi token, così si regola da un punto solo.-->
+<h2 id="base">Il testo di base</h2>
+<p>Il kit usa il font <a href="theming.html#testo">Inter</a> a <code>1rem</code> con interlinea <code>--kit-lh</code> (1,5). <code>1rem</code> è la dimensione di base <code>--kit-fs</code>, che cresce con lo schermo e può essere scelta dall'utente (vedi <a href="theming.html#testo">Font e dimensione del testo</a>): tutte le dimensioni qui sotto sono in <code>rem</code> o <code>em</code>, quindi la seguono. Gli zeri sono barrati, per non confonderli con la lettera "o".</p>
+
+<h2 id="titoli">Titoli</h2>
+<p>Gli elementi <code>&lt;h1&gt;</code>…<code>&lt;h6&gt;</code> hanno già lo stile del kit. Le classi <code>kit-h1</code>…<code>kit-h6</code> danno lo stesso aspetto a un altro elemento (un <code>&lt;p&gt;</code>, un <code>&lt;div&gt;</code>) senza cambiare la struttura del documento. Un <code>&lt;small&gt;</code> dentro il titolo diventa un testo secondario in grigio.</p>
+<div class="doc-demo">
+  <h1>h1. Titolo di pagina</h1>
+  <h2>h2. Titolo di sezione</h2>
+  <h3>h3. Titolo di gruppo</h3>
+  <h4>h4. Titolo di blocco</h4>
+  <h5>h5. Titolo piccolo</h5>
+  <h6>h6. Titolo minimo</h6>
+  <h3>Con testo secondario <small>sotto-titolo in grigio</small></h3>
+  <p class="kit-h4">Un paragrafo con l'aspetto di un h4 (kit-h4)</p>
+</div>
+<p>Le dimensioni sono i token <code>--kit-h1</code>…<code>--kit-h6</code>: cambiandoli in <code>:root</code> cambia la scala di tutta la pagina, comprese le classi <code>kit-fs-1</code>…<code>kit-fs-6</code>.</p>
+```css
+:root {
+  --kit-h1: 2.6rem;   /* titoli più grandi */
+  --kit-h2: 2rem;
+}
+```
+
+<h2 id="display">Display</h2>
+<p>Per un titolo di apertura, più grande e più leggero dei normali (<code>kit-display-1</code> è il più grande, <code>kit-display-4</code> il più piccolo). Sotto i 576px si riducono da soli.</p>
+<div class="doc-demo">
+  <p class="kit-display-1">Display 1</p>
+  <p class="kit-display-2">Display 2</p>
+  <p class="kit-display-3">Display 3</p>
+  <p class="kit-display-4">Display 4</p>
+</div>
+
+<h2 id="lead">Paragrafo d'apertura</h2>
+<p>Con <code>kit-lead</code> il primo paragrafo risalta sul resto.</p>
+<div class="doc-demo">
+  <p class="kit-lead">Un paragrafo d'apertura: un po' più grande del testo normale, per introdurre l'argomento.</p>
+  <p>Il testo che segue ha la dimensione normale.</p>
+</div>
+
+<h2 id="inline">Testo in linea</h2>
+<div class="doc-demo">
+  <p>Si può <mark>evidenziare</mark> una parte (<code>&lt;mark&gt;</code>), <del>cancellare</del> (<code>&lt;del&gt;</code>), <ins>inserire</ins> (<code>&lt;ins&gt;</code>), <u>sottolineare</u> (<code>&lt;u&gt;</code>), mettere in <strong>grassetto</strong> o in <em>corsivo</em>, e scrivere in <small>carattere più piccolo</small> (<code>&lt;small&gt;</code>).</p>
+  <p>Le abbreviazioni mostrano il significato al passaggio del mouse: <abbr title="Imposta sul valore aggiunto">IVA</abbr>, e in maiuscoletto con <code>kit-initialism</code>: <abbr class="kit-initialism" title="HyperText Markup Language">html</abbr>.</p>
+  <p>Per un tasto usa <kbd>Ctrl</kbd> + <kbd>K</kbd>; per del codice <code>kit-card</code>.</p>
+</div>
+
+<h2 id="utility">Classi per controllare il testo</h2>
+<p>Tutte con <code>!important</code>, come le <a href="utilities.html">utility</a>, per vincere sullo stile dei componenti.</p>
+
+<h3 id="dimensione">Dimensione</h3>
+<p><code>kit-fs-1</code>…<code>kit-fs-6</code> usano la stessa scala dei titoli; <code>kit-fs-sm</code> e <code>kit-fs-lg</code> sono relative al testo che le contiene (<code>.875em</code> e <code>1.2em</code>), utili dentro un componente.</p>
+<div class="doc-demo">
+  <p class="kit-fs-1 kit-lh-1">kit-fs-1</p>
+  <p class="kit-fs-2 kit-lh-1">kit-fs-2</p>
+  <p class="kit-fs-3 kit-lh-1">kit-fs-3</p>
+  <p class="kit-fs-4 kit-lh-1">kit-fs-4</p>
+  <p class="kit-fs-5 kit-lh-1">kit-fs-5</p>
+  <p class="kit-fs-6 kit-lh-1">kit-fs-6</p>
+  <p>Testo normale, <span class="kit-fs-sm">più piccolo (kit-fs-sm)</span> e <span class="kit-fs-lg">più grande (kit-fs-lg)</span>.</p>
+</div>
+
+<h3 id="peso">Peso e stile</h3>
+<div class="doc-demo">
+  <p class="kit-fw-light">kit-fw-light — leggero (300)</p>
+  <p class="kit-fw-normal">kit-fw-normal — normale (400)</p>
+  <p class="kit-fw-medium">kit-fw-medium — medio (500)</p>
+  <p class="kit-fw-semibold">kit-fw-semibold — semi-grassetto (600)</p>
+  <p class="kit-fw-bold">kit-fw-bold — grassetto (700)</p>
+  <p class="kit-fst-italic">kit-fst-italic — corsivo</p>
+  <p class="kit-fst-italic kit-fst-normal">kit-fst-normal — toglie il corsivo</p>
+</div>
+
+<h3 id="allineamento">Allineamento e a capo</h3>
+<div class="doc-demo">
+  <p class="kit-left">kit-left — a sinistra</p>
+  <p class="kit-center">kit-center — al centro</p>
+  <p class="kit-right">kit-right — a destra</p>
+  <div class="kit-card kit-p-3" style="max-width: 260px">
+    <p class="kit-nowrap kit-mute" style="margin: 0 0 8px; overflow: hidden">kit-nowrap: una riga lunga che non va a capo mai e quindi esce dallo spazio</p>
+    <p class="kit-wrap" style="margin: 0 0 8px">kit-wrap: toglie il divieto di andare a capo e il testo torna nello spazio disponibile.</p>
+    <p class="kit-break" style="margin: 0">kit-break: spezza anche gli identificativi lunghissimi come IT01234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789</p>
+  </div>
+</div>
+
+<h3 id="trasformazioni">Maiuscole, decorazioni e spaziatura</h3>
+<div class="doc-demo">
+  <p class="kit-uppercase">kit-uppercase — tutto maiuscolo</p>
+  <p class="kit-lowercase">KIT-LOWERCASE — TUTTO MINUSCOLO</p>
+  <p class="kit-capitalize">kit-capitalize — iniziali maiuscole</p>
+  <p class="kit-underline">kit-underline — sottolineato</p>
+  <p class="kit-line-through">kit-line-through — barrato</p>
+  <p><a class="kit-no-underline" href="#utility">kit-no-underline — un link senza sottolineatura</a></p>
+  <p class="kit-ls-tight">kit-ls-tight — lettere più vicine</p>
+  <p class="kit-ls-wide kit-uppercase kit-fs-sm">kit-ls-wide — lettere distanziate</p>
+</div>
+
+<h3 id="interlinea">Interlinea</h3>
+<p><code>kit-lh-1</code> (1), <code>kit-lh-sm</code> (1,25), <code>kit-lh-base</code> (il valore di <code>--kit-lh</code>) e <code>kit-lh-lg</code> (1,8). Per cambiarla ovunque basta <code>--kit-lh</code>.</p>
+<div class="doc-demo">
+  <div class="kit-row">
+    <div class="kit-col-12 kit-col-md-6"><p class="kit-lh-sm"><b>kit-lh-sm</b> — Una riga di testo abbastanza lunga da andare a capo almeno una volta, per vedere quanto sono vicine le righe tra loro.</p></div>
+    <div class="kit-col-12 kit-col-md-6"><p class="kit-lh-lg"><b>kit-lh-lg</b> — Una riga di testo abbastanza lunga da andare a capo almeno una volta, per vedere quanto sono vicine le righe tra loro.</p></div>
+  </div>
+</div>
+
+<h3 id="famiglia">Carattere a spaziatura fissa e colore</h3>
+<p><code>kit-mono</code> usa il carattere del codice (<code>--kit-mono</code>), utile per identificativi e importi in colonna. I colori del testo sono in <a href="utilities.html#testo">Utility</a>; <code>kit-ink</code> riporta il colore normale dentro un elemento colorato.</p>
+<div class="doc-demo">
+  <p><span class="kit-mono">FT-0042 · 1.250,00 €</span> · <span class="kit-mute">kit-mute <span class="kit-ink">kit-ink</span></span></p>
+</div>
+
+<h2 id="citazioni">Citazioni</h2>
+<p>Con <code>kit-quote</code> su un <code>&lt;blockquote&gt;</code>: una barra del colore di accento a sinistra. La fonte va in un <code>&lt;footer&gt;</code> (o in un <code>&lt;figcaption&gt;</code> se la citazione sta dentro un <code>&lt;figure&gt;</code>), preceduta da un trattino lungo.</p>
+<div class="doc-demo">
+  <blockquote class="kit-quote">
+    <p>Un buon cruscotto mostra le cose che servono, nel momento in cui servono.</p>
+    <footer>Dalle note del progetto</footer>
+  </blockquote>
+</div>
+
+<h2 id="liste">Liste</h2>
+<div class="doc-demo">
+  <div class="kit-row">
+    <div class="kit-col-12 kit-col-md-4">
+      <p class="kit-fw-semibold kit-mute kit-fs-sm">Normale</p>
+      <ul><li>Fatture ricevute</li><li>Fatture emesse</li><li>Note di credito</li></ul>
+    </div>
+    <div class="kit-col-12 kit-col-md-4">
+      <p class="kit-fw-semibold kit-mute kit-fs-sm">kit-list-unstyled</p>
+      <ul class="kit-list-unstyled"><li>Fatture ricevute</li><li>Fatture emesse</li><li>Note di credito</li></ul>
+    </div>
+    <div class="kit-col-12 kit-col-md-4">
+      <p class="kit-fw-semibold kit-mute kit-fs-sm">kit-list-inline</p>
+      <ul class="kit-list-inline"><li>Ricevute</li><li>Emesse</li><li>Note</li></ul>
+    </div>
+  </div>
+</div>
+<p>Per elenchi di dettagli etichetta/valore c'è <a href="content.html#kv">chiave / valore</a>.</p>
+
+<h2 id="prose">Testi lunghi</h2>
+<p>Un articolo, una guida o delle note si leggono meglio con righe più corte e più spazio tra le righe. <code>kit-prose</code> limita la larghezza a <code>--kit-measure</code> (65 caratteri), porta l'interlinea a 1,7 e distanzia con regolarità paragrafi, titoli ed elenchi, senza che tu debba mettere classi sui singoli elementi. Per limitare solo la larghezza di un blocco c'è <code>kit-measure</code>.</p>
+<div class="doc-demo">
+  <div class="kit-prose">
+    <h3>Come si legge un testo lungo</h3>
+    <p>Quando una riga supera i settanta caratteri circa l'occhio fa fatica a tornare all'inizio della riga successiva. Per questo i testi lunghi non dovrebbero occupare tutta la larghezza di uno schermo grande.</p>
+    <p>Anche l'interlinea conta: righe troppo vicine si confondono, righe troppo lontane si leggono come paragrafi separati.</p>
+    <h4>Alcuni consigli</h4>
+    <ul>
+      <li>Tieni le righe sotto i 65–75 caratteri.</li>
+      <li>Usa un'interlinea tra 1,5 e 1,7.</li>
+      <li>Dai ai titoli più spazio sopra che sotto.</li>
+    </ul>
+  </div>
+</div>
+```html
+<article class="kit-prose">
+  <h2>Titolo</h2>
+  <p>Testo…</p>
+</article>
+```
+```css
+:root { --kit-measure: 72ch; }   /* righe un po' più lunghe */
+```
+
+<h2 id="token">Token tipografici</h2>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table">
+  <thead><tr><th>Token</th><th>Valore</th><th>Cosa controlla</th></tr></thead>
+  <tbody>
+    <tr><td><code>--kit-font</code></td><td><code>"Kit Inter", system-ui, …</code></td><td>Carattere del testo</td></tr>
+    <tr><td><code>--kit-mono</code></td><td><code>ui-monospace, Consolas, …</code></td><td>Carattere del codice</td></tr>
+    <tr><td><code>--kit-fs</code></td><td><code>15px</code></td><td>Dimensione di base (1rem), cresce con lo schermo</td></tr>
+    <tr><td><code>--kit-zoom</code></td><td><code>1</code></td><td>Moltiplicatore scelto dall'utente</td></tr>
+    <tr><td><code>--kit-lh</code></td><td><code>1.5</code></td><td>Interlinea del testo</td></tr>
+    <tr><td><code>--kit-measure</code></td><td><code>65ch</code></td><td>Lunghezza massima di una riga (<code>kit-prose</code>, <code>kit-measure</code>)</td></tr>
+    <tr><td><code>--kit-h1</code>…<code>--kit-h6</code></td><td><code>2.2rem</code>…<code>1rem</code></td><td>Dimensione dei titoli e di <code>kit-fs-1</code>…<code>kit-fs-6</code></td></tr>
+  </tbody>
+</table></div></div>
