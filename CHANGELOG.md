@@ -1,6 +1,6 @@
 # Changelog
 
-## Non rilasciato
+## 0.4.0 — 10 novembre 2026
 
 - Font Inter incluso (`dist/fonts/inter-var.woff2`, 65 KB, licenza OFL) con zero barrato: lo zero non si confonde più con la "o". `font-variant-numeric: slashed-zero` è attivo su tutto il testo e sul codice. Il font di sistema resta come riserva.
 - Testo più leggibile: interlinea 1,5 e dimensione minima di circa 13px. Le dimensioni sono in `rem` e la base `--kit-fs` cresce con lo schermo (15px fino a 1279px, poi 16, 17, 19 e 22px da 2560px).
