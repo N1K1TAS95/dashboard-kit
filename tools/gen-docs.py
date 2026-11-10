@@ -133,7 +133,8 @@ def markdown_lite(body):
     blocks = []
 
     def stash(m):
-        blocks.append('<pre class="kit-code"><code>' + html.escape(m.group(2), quote=False) + "</code></pre>")
+        # la lingua dopo i tre apici (html, js, css) serve a kit.js per colorare il codice; senza, la indovina
+        blocks.append('<pre class="kit-code" data-kit-code="' + (m.group(1) or "") + '"><code>' + html.escape(m.group(2), quote=False) + "</code></pre>")
         return f"@@BLOCK{len(blocks) - 1}@@"
 
     body = re.sub(r"```(\w*)\n(.*?)\n```", stash, body, flags=re.S)
@@ -190,7 +191,10 @@ COLOR_DESC = {
     "hover": "Sfondo al passaggio del mouse", "accent": "Colore di accento (bottoni, link, selezione)",
     "accent-ink": "Testo sopra l'accento", "accent-soft": "Sfondo tenue dell'accento",
     "danger": "Errori, valori negativi", "success": "Esito positivo", "warning": "Avvisi",
-    "c1": "Serie 1 dei grafici", "c2": "Serie 2 dei grafici",
+    "c1": "Serie 1 dei grafici", "c2": "Serie 2 dei grafici", "c3": "Serie 3 dei grafici", "c4": "Serie 4 dei grafici",
+    "hl-tag": "Codice: tag e selettori", "hl-attr": "Codice: attributi e proprietà", "hl-str": "Codice: stringhe",
+    "hl-kw": "Codice: parole chiave", "hl-fn": "Codice: funzioni e pseudo-classi", "hl-num": "Codice: numeri e nomi di classe",
+    "hl-com": "Codice: commenti",
 }
 
 

@@ -13,12 +13,35 @@
   </div>
 </div>
 
-<h2 id="codice">Codice</h2>
-<div class="doc-demo">
-  <pre class="kit-code">&lt;div class="kit-card"&gt;
-  …
-&lt;/div&gt;</pre>
+<h2 id="codice">Snippet di codice</h2>
+<p>Un blocco di codice colorato come in un editor: tag, attributi, stringhe, parole chiave, funzioni e commenti. Si scrive un normale <code>&lt;pre class="kit-code"&gt;</code> e con <code>data-kit-code</code> (con <code>kit.js</code>) il codice si colora da solo. Il valore è la lingua: <code>html</code> (anche con <code>&lt;script&gt;</code> e <code>&lt;style&gt;</code> dentro), <code>js</code> o <code>css</code>; senza, <code>kit.js</code> la indovina. Il testo va scritto con le entità (<code>&amp;lt;</code> al posto di <code>&lt;</code>), come in ogni pagina HTML. Senza <code>kit.js</code> il blocco resta leggibile, solo senza colori.</p>
+<div class="doc-demo kit-stack">
+  <pre class="kit-code" data-kit-code="html"><code>&lt;button class="kit-btn kit-btn-primary" data-kit-open="#nuovo"&gt;
+  &lt;svg class="kit-icon"&gt;&lt;use href="#i-plus"/&gt;&lt;/svg&gt; Nuova fattura
+&lt;/button&gt;</code></pre>
+  <pre class="kit-code" data-kit-code="js"><code>// ricarica i documenti e mostra l'esito
+const n = await caricaDocumenti({ anno: 2026, max: 50 });
+Kit.toast(n + " documenti", { type: "success" });</code></pre>
+  <pre class="kit-code" data-kit-code="css"><code>.fattura:hover { background: var(--kit-hover); }
+@media (max-width: 760px) { .fattura { padding: 8px; } }</code></pre>
 </div>
+
+<h3 id="codice-copia">Bottone «Copia»</h3>
+<p>Con <code>data-kit-code-copy</code> il blocco si mette in un <code>kit-snippet</code> e compare il bottone «Copia» (al passaggio del mouse, sempre visibile sul telefono). Il valore dell'attributo è l'etichetta; <code>data-kit-code-copied</code> è quella che appare dopo la copia. Quando il testo è copiato parte l'evento <code>kit:copy</code> con <code>{ text }</code>.</p>
+<div class="doc-demo">
+  <pre class="kit-code" data-kit-code="html" data-kit-code-copy><code>&lt;section class="kit-card"&gt;
+  &lt;div class="kit-card-body"&gt;Ciao&lt;/div&gt;
+&lt;/section&gt;</code></pre>
+</div>
+
+<h3 id="codice-js">Da JavaScript</h3>
+<p><code>Kit.code(pre, { lang, text, copy })</code> colora un blocco e restituisce <code>{ set(testo, lingua), text() }</code>, utile quando il codice cambia (un esempio generato, un'anteprima). <code>Kit.highlight(testo, lingua)</code> restituisce invece un frammento di DOM già colorato, da inserire dove vuoi. Entrambi costruiscono solo nodi di testo e <code>&lt;span&gt;</code>, mai HTML: il codice mostrato non viene eseguito, qualunque cosa contenga. Oltre i 100.000 caratteri il testo resta senza colori, così un testo enorme non rallenta la pagina; una lingua sconosciuta viene indovinata.</p>
+```js
+const blocco = Kit.code("#esempio", { lang: "js", copy: true });
+blocco.set("Kit.toast('Salvato!');");          // cambia il codice mostrato
+elemento.append(Kit.highlight("<b>ciao</b>", "html"));
+```
+<p>I colori sono i token <code>--kit-hl-tag</code>, <code>-attr</code>, <code>-str</code>, <code>-kw</code>, <code>-fn</code>, <code>-num</code> e <code>-com</code> (vedi <a href="theming.html">Temi e token</a>), e cambiano da soli tra tema chiaro e scuro.</p>
 
 <h2 id="legenda">Legenda dei grafici</h2>
 <p>I colori delle serie sono i token <code>--kit-c1</code> e <code>--kit-c2</code>, che cambiano da soli tra tema chiaro e scuro. Nei grafici SVG usali con <code>fill: var(--kit-c1)</code> (vedi la <a href="dashboard.html">dashboard di esempio</a>).</p>

@@ -92,6 +92,14 @@
       "</div>$0"
     ]
   },
+  "Kit: codice": {
+    "prefix": "kit-code",
+    "scope": "html",
+    "description": "Blocco di codice colorato (con bottone Copia)",
+    "body": [
+      "<pre class=\"kit-code\" data-kit-code=\"${1|html,js,css|}\" data-kit-code-copy><code>$2</code></pre>$0"
+    ]
+  },
   "Kit: card": {
     "prefix": "kit-card",
     "scope": "html",

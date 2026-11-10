@@ -174,7 +174,7 @@
 </table></div></div>
 
 <h2 id="api">API</h2>
-<pre class="kit-code"><code>Kit.toast("Salvato!");          // messaggio temporaneo; opzioni: type, title, duration, position, action, progress (vedi Dialog e menu)
+<pre class="kit-code" data-kit-code="js"><code>Kit.toast("Salvato!");          // messaggio temporaneo; opzioni: type, title, duration, position, action, progress (vedi Dialog e menu)
 Kit.toast.clear();              // chiude tutti i toast
 await Kit.confirm("Eliminare?", { danger: true });   // dialog di conferma → true / false (opzioni: text, confirm, cancel, danger, type)
 Kit.undo("Eliminata", { onUndo, onCommit });         // azione subito, con toast "Annulla"; onCommit se non si annulla
@@ -208,7 +208,7 @@ Kit.init(elemento);             // rilegge select e tab di un'area aggiunta dopo
     <tr><td><code>kit:layout</code></td><td><code>&lt;html&gt;</code></td><td>la larghezza impostata (<code>boxed</code> o <code>fluid</code>)</td></tr>
   </tbody>
 </table></div></div>
-<pre class="kit-code"><code>document.addEventListener("kit:change", (e) =&gt; {
+<pre class="kit-code" data-kit-code="js"><code>document.addEventListener("kit:change", (e) =&gt; {
   console.log("Scelto:", e.detail.value);
 });</code></pre>
 

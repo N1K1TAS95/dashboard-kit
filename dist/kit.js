@@ -16,6 +16,7 @@
  *                                            data-kit-split-full (dentro) si apre, chiude e porta a tutta larghezza il pannello
  *   data-kit-file                            su .kit-file o .kit-dropzone: campo file con controllo di tipo e dimensione (data-kit-file-max in MB,
  *                                            data-kit-file-dir per le cartelle, data-kit-file-page per rilasciare ovunque nella pagina)
+ *   data-kit-code="html|js|css"              su <pre class="kit-code">: colora il codice (senza lingua la indovina); data-kit-code-copy aggiunge il bottone «Copia»
  *   data-kit-tabs                            su .kit-tabs: tab con data-kit-panel="#id"
  *   data-kit-nav="#id"                       bottone (hamburger) che apre/chiude il menu a scomparsa di una .kit-navbar
  *   data-kit-open="#dialogId"                apre un <dialog>
@@ -25,8 +26,8 @@
  *   data-kit-tip="testo"                     tooltip (solo CSS; con kit.js Esc lo nasconde)
  *   data-kit-dismiss                         dentro un .kit-alert, lo rimuove (evento "kit:dismiss")
  *
- * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.fontSize.get()/set()/step(), Kit.reset(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.confirm(domanda, opzioni), Kit.undo(testo, opzioni), Kit.split(elemento), Kit.file(elemento, opzioni), Kit.progress(testo, opzioni), Kit.combo(elemento, opzioni), Kit.barChart(elemento, opzioni), Kit.lineChart(…), Kit.donut(…), Kit.sparkline(…), Kit.init(radice)
- * Eventi: "kit:change" (select, combobox), "kit:select" (barra, punto o fetta di un grafico), "kit:tab" (tab), "kit:files" (file scelti o rilasciati), "kit:split" (pannello aperto, chiuso o a tutta larghezza), "kit:theme" (tema), "kit:layout" (larghezza), "kit:fs" (dimensione del testo), "kit:reset" (impostazioni ripristinate), "kit:dismiss" (avviso chiuso)
+ * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.fontSize.get()/set()/step(), Kit.reset(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.confirm(domanda, opzioni), Kit.undo(testo, opzioni), Kit.split(elemento), Kit.file(elemento, opzioni), Kit.progress(testo, opzioni), Kit.combo(elemento, opzioni), Kit.code(elemento, opzioni), Kit.highlight(testo, lingua), Kit.barChart(elemento, opzioni), Kit.lineChart(…), Kit.donut(…), Kit.sparkline(…), Kit.init(radice)
+ * Eventi: "kit:change" (select, combobox), "kit:select" (barra, punto o fetta di un grafico), "kit:tab" (tab), "kit:files" (file scelti o rilasciati), "kit:copy" (codice copiato), "kit:split" (pannello aperto, chiuso o a tutta larghezza), "kit:theme" (tema), "kit:layout" (larghezza), "kit:fs" (dimensione del testo), "kit:reset" (impostazioni ripristinate), "kit:dismiss" (avviso chiuso)
  */
 (function () {
     "use strict";
@@ -1525,6 +1526,234 @@
     });
 
     /* ---------- Inizializzazione ---------- */
+    /* ---------- Snippet di codice ----------
+       <pre class="kit-code" data-kit-code="html|js|css"><code>…</code></pre> colora il codice come in un editor (senza la
+       lingua la indovina); data-kit-code-copy aggiunge il bottone «Copia». Un piccolo evidenziatore per HTML, JavaScript e
+       CSS: costruisce nodi di testo e <span>, mai HTML, quindi il codice mostrato non viene eseguito. */
+    function hlPut(out, cls, text) {
+        if (!text) return;
+        out.appendChild(cls ? mkEl("span", "kit-hl-" + cls, text) : document.createTextNode(text));
+    }
+
+    function hlText(out, text) {   // testo di una pagina: le entità (&amp;, &#8364;) sono evidenziate
+        var re = /&#?\w+;/g, last = 0, m;
+        while ((m = re.exec(text))) {
+            hlPut(out, "", text.slice(last, m.index));
+            hlPut(out, "num", m[0]);
+            last = re.lastIndex;
+        }
+        hlPut(out, "", text.slice(last));
+    }
+
+    // Commento a blocco da `from`: arriva fino a "*/" (se non si chiude, fino alla fine). Con indexOf, non con una regex, per restare lineare.
+    function hlComment(src, from, out) {
+        var end = src.indexOf("*/", from + 2);
+        end = end < 0 ? src.length : end + 2;
+        hlPut(out, "com", src.slice(from, end));
+        return end;
+    }
+
+    function hlJs(src, out) {
+        var re = /(\/\/[^\n]*|\/\*)|("(?:\\.|[^"\\\n])*"|'(?:\\.|[^'\\\n])*'|`(?:\\[\s\S]|[^`\\])*`)|(\b\d[\d.]*\b)|\b(var|let|const|function|return|if|else|for|while|do|new|typeof|instanceof|in|of|this|true|false|null|undefined|class|async|await|try|catch|throw|break|continue|switch|case|default|delete|void)\b|\b([A-Z][\w$]*)|([A-Za-z_$][\w$]*)(?=\s*\()/g;
+        var last = 0, m;
+        while ((m = re.exec(src))) {
+            hlPut(out, "", src.slice(last, m.index));
+            if (m[0] === "/*") { re.lastIndex = hlComment(src, m.index, out); last = re.lastIndex; continue; }
+            hlPut(out, m[1] ? "com" : m[2] ? "str" : m[3] ? "num" : m[4] ? "kw" : m[5] ? "type" : "fn", m[0]);
+            last = re.lastIndex;
+        }
+        hlPut(out, "", src.slice(last));
+    }
+
+    function hlCssValue(src, out) {
+        var re = /(\/\*)|("[^"]*"|'[^']*')|(#[0-9a-fA-F]{3,8}\b)|(-?\d*\.?\d+(?:px|rem|em|%|vh|vw|s|ms|deg|fr|ch)?)|\b(var|calc|color-mix|light-dark|rgba?|hsla?|min|max|clamp)(?=\()|(--[\w-]+)|(!important)/g;
+        var last = 0, m;
+        while ((m = re.exec(src))) {
+            hlPut(out, "", src.slice(last, m.index));
+            if (m[1]) { re.lastIndex = hlComment(src, m.index, out); last = re.lastIndex; continue; }
+            hlPut(out, m[2] ? "str" : (m[3] || m[4]) ? "num" : m[5] ? "fn" : m[6] ? "attr" : "kw", m[0]);
+            last = re.lastIndex;
+        }
+        hlPut(out, "", src.slice(last));
+    }
+
+    function hlCssSelector(seg, out) {
+        var at = seg.match(/^(\s*)(@[\w-]+)([\s\S]*)$/);
+        if (at) { hlPut(out, "", at[1]); hlPut(out, "kw", at[2]); hlCssValue(at[3], out); return; }
+        var re = /(\.[\w-]+|#[\w-]+)|(::?[\w-]+(?:\([^)]{0,200}\))?)|(\[[^\]]{0,200}\])|([A-Za-z][\w-]*)/g;
+        var last = 0, m;
+        while ((m = re.exec(seg))) {
+            hlPut(out, "", seg.slice(last, m.index));
+            hlPut(out, m[2] ? "fn" : m[3] ? "str" : "tag", m[0]);
+            last = re.lastIndex;
+        }
+        hlPut(out, "", seg.slice(last));
+    }
+
+    function hlCss(src, out) {
+        var re = /(\/\*)|([{};])|([^{};\/]+|\/)/g, m;
+        while ((m = re.exec(src))) {
+            if (m[1]) re.lastIndex = hlComment(src, m.index, out);
+            else if (m[2]) hlPut(out, "punct", m[2]);
+            else if (src.charAt(re.lastIndex) === "{") hlCssSelector(m[3], out);
+            else {
+                var d = m[3].match(/^(\s*)(--?[\w-]+)(\s*:)([\s\S]*)$/);
+                if (d) { hlPut(out, "", d[1]); hlPut(out, "attr", d[2]); hlPut(out, "punct", d[3]); hlCssValue(d[4], out); }
+                else hlPut(out, "", m[3]);
+            }
+        }
+    }
+
+    function hlAttrs(str, out) {
+        var re = /(\s+)([^\s=\/>"']+)(?:(\s*=\s*)("[^"]*"|'[^']*'|[^\s"'>]+))?|([\s\S])/g, m;
+        while ((m = re.exec(str))) {
+            if (m[5] !== undefined) { hlPut(out, "", m[5]); continue; }
+            hlPut(out, "", m[1]);
+            hlPut(out, "attr", m[2]);
+            if (m[3]) { hlPut(out, "punct", m[3]); hlPut(out, "str", m[4]); }
+        }
+    }
+
+    // Fine di un tag: il primo ">" fuori dalle virgolette, oppure -1. Una sola passata: un testo pieno di "<a" senza ">" non diventa quadratico.
+    function hlTagEnd(src, from) {
+        var q = "", ch;
+        for (var i = from; i < src.length; i++) {
+            ch = src.charAt(i);
+            if (q) { if (ch === q) q = ""; }
+            else if (ch === '"' || ch === "'") q = ch;
+            else if (ch === ">") return i;
+        }
+        return -1;
+    }
+
+    function hlHtml(src, out) {
+        var re = /<(!--|!doctype|\/?[A-Za-z][\w:-]*)/gi;
+        var lower = src.toLowerCase(), last = 0, m;
+        while ((m = re.exec(src))) {
+            var start = m.index, tok = m[1], end;
+            if (tok === "!--" || tok.toLowerCase() === "!doctype") {
+                end = src.indexOf(tok === "!--" ? "-->" : ">", start + 2);
+                end = end < 0 ? src.length : end + (tok === "!--" ? 3 : 1);
+                hlText(out, src.slice(last, start));
+                hlPut(out, "com", src.slice(start, end));
+                last = re.lastIndex = end;
+                continue;
+            }
+            var close = hlTagEnd(src, re.lastIndex);
+            if (close < 0) break;   // nessun ">" fino alla fine: il resto è testo
+            hlText(out, src.slice(last, start));
+            var closing = tok.charAt(0) === "/", name = closing ? tok.slice(1) : tok;
+            var attrs = src.slice(re.lastIndex, close), self = attrs.slice(-1) === "/";
+            if (self) attrs = attrs.slice(0, -1);
+            hlPut(out, "punct", closing ? "</" : "<");
+            hlPut(out, "tag", name);
+            hlAttrs(attrs, out);
+            hlPut(out, "punct", (self ? "/" : "") + ">");
+            last = re.lastIndex = close + 1;
+            var low = name.toLowerCase();
+            if (!closing && !self && (low === "script" || low === "style")) {
+                var stop = lower.indexOf("</" + low, last);
+                if (stop < 0) stop = src.length;
+                (low === "script" ? hlJs : hlCss)(src.slice(last, stop), out);
+                last = re.lastIndex = stop;
+            }
+        }
+        hlText(out, src.slice(last));
+    }
+
+    function hlDetect(t) {
+        t = t.trim();
+        if (t.charAt(0) === "<") return "html";
+        if (/^(@|:root)/.test(t) || /^[.#\[\w*,\s>+~:-]+\{/.test(t)) return "css";
+        return "js";
+    }
+
+    var HL_MAX = 100000;   // oltre questa lunghezza il testo resta senza colori: la colorazione non deve poter bloccare la pagina
+
+    // Kit.highlight(testo, "html"|"js"|"css") → frammento di DOM col codice colorato (la lingua, se manca o non è nota, si indovina)
+    function highlight(text, lang) {
+        var out = document.createDocumentFragment();
+        text = String(text);
+        if (text.length > HL_MAX) { out.appendChild(document.createTextNode(text)); return out; }
+        lang = String(lang || "").toLowerCase();
+        if (lang === "javascript") lang = "js";
+        if (lang !== "html" && lang !== "js" && lang !== "css") lang = hlDetect(text);
+        (lang === "html" ? hlHtml : lang === "css" ? hlCss : hlJs)(text, out);
+        return out;
+    }
+
+    function copyText(text, done) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(false); });
+            return;
+        }
+        var ta = mkEl("textarea"), ok = false;
+        ta.value = text;
+        ta.setAttribute("readonly", "");
+        ta.style.position = "fixed";
+        ta.style.top = "0";
+        ta.style.left = "-9999px";
+        document.body.appendChild(ta);
+        ta.select();
+        try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+        ta.remove();
+        done(ok);
+    }
+
+    var codeState = new WeakMap();
+
+    // Kit.code(pre, { lang, text, copy, copyLabel, copiedLabel }) → { set(testo, lingua), text() }
+    function code(target, opts) {
+        var el = typeof target === "string" ? document.querySelector(target) : target;
+        if (!el) return null;
+        var pre = el.matches("code") && el.parentNode.matches("pre") ? el.parentNode : el;
+        var st = codeState.get(pre);
+        opts = opts || {};
+        if (st) {
+            if (opts.text !== undefined || opts.lang) st.api.set(opts.text !== undefined ? opts.text : st.text, opts.lang || st.lang);
+            return st.api;
+        }
+        var c = pre.matches("code") ? pre : pre.querySelector("code");
+        if (!c) {
+            c = mkEl("code", "", pre.textContent);
+            pre.textContent = "";
+            pre.appendChild(c);
+        }
+        st = { text: opts.text !== undefined ? String(opts.text) : c.textContent, lang: opts.lang || pre.getAttribute("data-kit-code") || "" };
+        function render() {
+            c.textContent = "";
+            try { c.appendChild(highlight(st.text, st.lang)); }
+            catch (e) { c.textContent = st.text; }   // in caso di errore il codice si mostra senza colori, mai perso
+        }
+        st.api = {
+            set: function (text, lang) { st.text = String(text); if (lang) st.lang = lang; render(); },
+            text: function () { return st.text; }
+        };
+        codeState.set(pre, st);
+        render();
+
+        var wantCopy = opts.copy !== undefined ? opts.copy : pre.hasAttribute("data-kit-code-copy");
+        if (wantCopy && pre.parentNode) {
+            var label = opts.copyLabel || (typeof wantCopy === "string" ? wantCopy : "") || pre.getAttribute("data-kit-code-copy") || "Copia";
+            var done = opts.copiedLabel || pre.getAttribute("data-kit-code-copied") || "Copiato";
+            var wrap = mkEl("div", "kit-snippet");
+            pre.parentNode.insertBefore(wrap, pre);
+            wrap.appendChild(pre);
+            var btn = mkEl("button", "kit-btn kit-btn-ghost kit-snippet-copy", label);
+            btn.type = "button";
+            btn.setAttribute("aria-live", "polite");
+            btn.addEventListener("click", function () {
+                copyText(st.text, function (ok) {
+                    btn.textContent = ok ? done : "—";
+                    if (ok) pre.dispatchEvent(new CustomEvent("kit:copy", { bubbles: true, detail: { text: st.text } }));
+                    setTimeout(function () { btn.textContent = label; }, 1500);
+                });
+            });
+            wrap.appendChild(btn);
+        }
+        return st.api;
+    }
+
     function init(scope) {
         scope = scope || document;
         scope.querySelectorAll("[data-kit-select]").forEach(function (sel) {
@@ -1546,6 +1775,7 @@
         });
         scope.querySelectorAll("[data-kit-combo]").forEach(function (c) { combo(c); });
         scope.querySelectorAll("[data-kit-file]").forEach(function (c) { fileField(c); });
+        scope.querySelectorAll("[data-kit-code]").forEach(function (c) { code(c); });
         scope.querySelectorAll("[data-kit-tabs]").forEach(function (tabs) {
             tabs.setAttribute("role", "tablist");
             var cur = tabs.querySelector(".kit-tab.is-on") || tabs.querySelector(".kit-tab");
@@ -1601,5 +1831,5 @@
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { init(); });
     else init();
 
-    window.Kit = { theme: theme, layout: layout, fontSize: fontSize, reset: reset, toast: toast, undo: undo, confirm: confirmDialog, split: split, file: fileField, progress: progressDialog, combo: combo, barChart: barChart, lineChart: lineChart, donut: donut, sparkline: sparkline, init: init };
+    window.Kit = { theme: theme, layout: layout, fontSize: fontSize, reset: reset, toast: toast, undo: undo, confirm: confirmDialog, split: split, file: fileField, progress: progressDialog, combo: combo, code: code, highlight: highlight, barChart: barChart, lineChart: lineChart, donut: donut, sparkline: sparkline, init: init };
 })();

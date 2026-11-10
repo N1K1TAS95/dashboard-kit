@@ -148,7 +148,7 @@
     <p class="doc-lead">Tutto l'aspetto passa da poche variabili CSS. Cambiandole in <code>:root</code>, o su un singolo elemento, si cambiano colori, densità e angoli di tutta l'interfaccia.</p>
 <h2 id="tema">Tema chiaro e scuro</h2>
 <p>I colori sono scritti una volta sola con <code>light-dark(chiaro, scuro)</code>. Di base il tema segue il sistema; per forzarlo imposta <code>data-theme</code> su <code>&lt;html&gt;</code>. Con <code>kit.js</code> bastano i bottoni con <code>data-kit-theme-set</code> (la scelta viene ricordata); lo stesso vale per il <a href="overlays.html#impostazioni">pannello delle impostazioni</a>, che li riunisce con testo e larghezza.</p>
-<pre class="kit-code"><code>&lt;html lang="it" data-theme="dark"&gt;           &lt;!-- forzato scuro; senza l'attributo segue il sistema --&gt;
+<pre class="kit-code" data-kit-code="html"><code>&lt;html lang="it" data-theme="dark"&gt;           &lt;!-- forzato scuro; senza l'attributo segue il sistema --&gt;
 
 &lt;button class="kit-btn" data-kit-theme-set="light"&gt;Chiaro&lt;/button&gt;
 &lt;button class="kit-btn" data-kit-theme-set="dark"&gt;Scuro&lt;/button&gt;
@@ -170,15 +170,15 @@
 
 <h2 id="testo">Font e dimensione del testo</h2>
 <p>Il kit usa <a href="https://rsms.me/inter/">Inter</a> (licenza OFL, 65 KB, file <code>dist/fonts/inter-var.woff2</code>), pensato per lo schermo e con uno <strong>zero barrato</strong> che non si confonde con la lettera "o". Il file sta accanto a <code>kit.css</code> e si carica da solo; se non è raggiungibile resta il font di sistema. Per usare un altro font basta cambiare <code>--kit-font</code>; per la sola cifra con la barra, <code>font-variant-numeric: slashed-zero</code> funziona con qualsiasi font che la preveda.</p>
-<pre class="kit-code"><code>:root { --kit-font: "IBM Plex Sans", system-ui, sans-serif; }   /* un altro font */
+<pre class="kit-code" data-kit-code="css"><code>:root { --kit-font: "IBM Plex Sans", system-ui, sans-serif; }   /* un altro font */
 td.codice { font-variant-numeric: slashed-zero tabular-nums; }  /* zero barrato e cifre di uguale larghezza */</code></pre>
 <p>Tutte le dimensioni del testo sono in <code>rem</code>, quindi seguono la dimensione di base <code>--kit-fs</code> (<code>1rem</code>). La base cresce da sola con lo schermo: 15px fino a 1279px, poi 16px, 17px (da 1600px), 19px (da 1920px) e 22px (da 2560px). Anche altezza dei controlli, icone, intestazione e larghezza del contenuto sono in <code>rem</code> e crescono insieme al testo.</p>
 <p>L'utente può ingrandire o rimpicciolire tutto: <code>--kit-zoom</code> moltiplica la base e <code>data-kit-fs</code> su <code>&lt;html&gt;</code> lo imposta (<code>md</code> normale, la predefinita; <code>lg</code> grande; <code>xl</code> molto grande). Con <code>kit.js</code> bastano i bottoni con <code>data-kit-fs-set</code> o <code>data-kit-fs-step</code>; la scelta viene ricordata. Anche queste scelte stanno nel <a href="overlays.html#impostazioni">pannello delle impostazioni</a>.</p>
-<pre class="kit-code"><code>&lt;button class="kit-btn" data-kit-fs-step="-1" aria-label="Testo più piccolo"&gt;A−&lt;/button&gt;
+<pre class="kit-code" data-kit-code="html"><code>&lt;button class="kit-btn" data-kit-fs-step="-1" aria-label="Testo più piccolo"&gt;A−&lt;/button&gt;
 &lt;button class="kit-btn" data-kit-fs-step="1"  aria-label="Testo più grande"&gt;A+&lt;/button&gt;
 
 &lt;button class="kit-btn" data-kit-fs-set="xl"&gt;Molto grande&lt;/button&gt;</code></pre>
-<pre class="kit-code"><code>:root { --kit-fs: 16px; }                                   /* base fissa, senza crescita automatica */
+<pre class="kit-code" data-kit-code="css"><code>:root { --kit-fs: 16px; }                                   /* base fissa, senza crescita automatica */
 @media (min-width: 2000px) { :root { --kit-fs: 24px; } }   /* o una soglia tutta tua */</code></pre>
 
 <h2 id="layout">Token di layout</h2>
@@ -221,8 +221,15 @@ td.codice { font-variant-numeric: slashed-zero tabular-nums; }  /* zero barrato 
 <tr><td><span class="doc-swatch" style="background:var(--kit-warning)"></span><code>--kit-warning</code></td><td><code>#8f5200</code></td><td><code>#f0b04e</code></td><td>Avvisi</td></tr>
 <tr><td><span class="doc-swatch" style="background:var(--kit-c1)"></span><code>--kit-c1</code></td><td><code>#2f6fe4</code></td><td><code>#6ea2ff</code></td><td>Serie 1 dei grafici</td></tr>
 <tr><td><span class="doc-swatch" style="background:var(--kit-c2)"></span><code>--kit-c2</code></td><td><code>#e39320</code></td><td><code>#f2a84c</code></td><td>Serie 2 dei grafici</td></tr>
-<tr><td><span class="doc-swatch" style="background:var(--kit-c3)"></span><code>--kit-c3</code></td><td><code>#1b8f82</code></td><td><code>#4ccbbb</code></td><td></td></tr>
-<tr><td><span class="doc-swatch" style="background:var(--kit-c4)"></span><code>--kit-c4</code></td><td><code>#8a4fd1</code></td><td><code>#b88cf0</code></td><td></td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-c3)"></span><code>--kit-c3</code></td><td><code>#1b8f82</code></td><td><code>#4ccbbb</code></td><td>Serie 3 dei grafici</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-c4)"></span><code>--kit-c4</code></td><td><code>#8a4fd1</code></td><td><code>#b88cf0</code></td><td>Serie 4 dei grafici</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-hl-tag)"></span><code>--kit-hl-tag</code></td><td><code>#116329</code></td><td><code>#7ee787</code></td><td>Codice: tag e selettori</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-hl-attr)"></span><code>--kit-hl-attr</code></td><td><code>#0550ae</code></td><td><code>#79c0ff</code></td><td>Codice: attributi e proprietà</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-hl-str)"></span><code>--kit-hl-str</code></td><td><code>#0a3069</code></td><td><code>#a5d6ff</code></td><td>Codice: stringhe</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-hl-kw)"></span><code>--kit-hl-kw</code></td><td><code>#cf222e</code></td><td><code>#ff7b72</code></td><td>Codice: parole chiave</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-hl-fn)"></span><code>--kit-hl-fn</code></td><td><code>#8250df</code></td><td><code>#d2a8ff</code></td><td>Codice: funzioni e pseudo-classi</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-hl-num)"></span><code>--kit-hl-num</code></td><td><code>#953800</code></td><td><code>#ffa657</code></td><td>Codice: numeri e nomi di classe</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-hl-com)"></span><code>--kit-hl-com</code></td><td><code>#6e7781</code></td><td><code>#8b949e</code></td><td>Codice: commenti</td></tr>
 </tbody></table></div></div>
 
 <h2 id="scrollbar">Barre di scorrimento</h2>
@@ -232,12 +239,12 @@ td.codice { font-variant-numeric: slashed-zero tabular-nums; }  /* zero barrato 
     <p>Un riquadro che scorre: la barra a destra è quella del kit.</p><p>Seconda riga.</p><p>Terza riga.</p><p>Quarta riga.</p><p>Quinta riga.</p><p>Sesta riga.</p>
   </div>
 </div>
-<pre class="kit-code"><code>:root { --kit-sb: color-mix(in srgb, var(--kit-accent) 50%, transparent); }   /* un altro colore */
+<pre class="kit-code" data-kit-code="css"><code>:root { --kit-sb: color-mix(in srgb, var(--kit-accent) 50%, transparent); }   /* un altro colore */
 * { scrollbar-width: auto; scrollbar-color: auto; }                          /* oppure quelle del sistema */</code></pre>
 
 <h2 id="personalizzare">Personalizzare</h2>
 <p>Sovrascrivi i token in <code>:root</code> dopo aver caricato <code>kit.css</code>:</p>
-<pre class="kit-code"><code>:root {
+<pre class="kit-code" data-kit-code="css"><code>:root {
   --kit-accent: light-dark(#0f766e, #5eead4);
   --kit-accent-soft: light-dark(#e6f6f4, #12312e);
   --kit-rad: 6px;      /* superfici meno arrotondate */

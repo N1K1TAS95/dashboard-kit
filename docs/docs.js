@@ -73,6 +73,7 @@
 
         var pre = document.createElement("pre");
         pre.className = "kit-code";
+        pre.setAttribute("data-kit-code", "");              // kit.js colora il codice (lo fa in init, dopo questo script)
         var c = document.createElement("code");
         c.textContent = code;                              // textContent: il codice si mostra, non si esegue
         pre.appendChild(c);
@@ -315,3 +316,4 @@ document.addEventListener("kit:files", function (e) {
         }
     });
 })();
+

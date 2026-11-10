@@ -148,7 +148,7 @@
     <p class="doc-lead">Contenitore, intestazione fissa, barre di elementi, impilamento e pannello affiancato: la struttura di una pagina. Per le colonne vedi la <a href="grid.html">griglia</a>.</p>
 <h2 id="struttura">Struttura di una pagina</h2>
 <p>Una pagina è un <code>.kit-header</code> fisso in alto e un <code>.kit-main</code> con dentro un <code>.kit-container</code>. Dentro il container si usano la <a href="grid.html">griglia</a> o <code>.kit-stack</code>.</p>
-<pre class="kit-code"><code>&lt;header class="kit-header"&gt;
+<pre class="kit-code" data-kit-code="html"><code>&lt;header class="kit-header"&gt;
   &lt;h1 class="kit-brand"&gt;Nome &lt;span&gt;app&lt;/span&gt;&lt;/h1&gt;
   &lt;span class="kit-spacer"&gt;&lt;/span&gt;
   &lt;!-- bottoni, menu, tema… --&gt;
@@ -178,17 +178,17 @@
 
 <h3>Interruttore globale</h3>
 <p>Metti <code>data-layout="boxed"</code> o <code>"fluid"</code> su <code>&lt;html&gt;</code> per scegliere la larghezza di tutta la pagina (di base <code>boxed</code>). Con <code>kit.js</code> l'utente può cambiarla da un bottone e la scelta viene ricordata, come per il tema. La larghezza cambia solo quando la finestra è più larga di <code>--kit-container-w</code>.</p>
-<pre class="kit-code"><code>&lt;!-- contenuto a tutta larghezza di base --&gt;
+<pre class="kit-code" data-kit-code="html"><code>&lt;!-- contenuto a tutta larghezza di base --&gt;
 &lt;html lang="it" data-layout="fluid"&gt;
 
 &lt;!-- un bottone che lascia scegliere all'utente (si ricorda) --&gt;
 &lt;button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-layout-toggle aria-label="Contenuto a tutta larghezza"&gt;…&lt;/button&gt;</code></pre>
-<pre class="kit-code"><code>Kit.layout.set("fluid");   // oppure "boxed"; Kit.layout.toggle() alterna</code></pre>
+<pre class="kit-code" data-kit-code="js"><code>Kit.layout.set("fluid");   // oppure "boxed"; Kit.layout.toggle() alterna</code></pre>
 <p class="kit-alert">Queste pagine di documentazione usano <code>kit-container-boxed</code> e restano sempre centrate. Per vedere l'interruttore in azione apri la <a href="dashboard.html">dashboard di esempio</a>: parte a tutta larghezza e ha in alto a destra il bottone con le frecce.</p>
 
 <h3>Intestazione allineata al contenuto</h3>
 <p>Se dentro <code>.kit-header</code> metti un <code>.kit-container</code>, diventa la riga interna dell'intestazione e il suo contenuto si allinea a quello della pagina, sia centrato sia a tutta larghezza. Senza contenitore l'intestazione occupa sempre tutta la finestra.</p>
-<pre class="kit-code"><code>&lt;header class="kit-header"&gt;
+<pre class="kit-code" data-kit-code="html"><code>&lt;header class="kit-header"&gt;
   &lt;div class="kit-container"&gt;
     &lt;h1 class="kit-brand"&gt;Nome &lt;span&gt;app&lt;/span&gt;&lt;/h1&gt;
     &lt;span class="kit-spacer"&gt;&lt;/span&gt;

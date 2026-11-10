@@ -2,6 +2,7 @@
 
 ## Non rilasciato
 
+- Snippet di codice (`data-kit-code` su `<pre class="kit-code">`): il codice HTML (anche con `<script>` e `<style>`), JavaScript e CSS si colora come in un editor, in tema chiaro e scuro; senza la lingua la indovina. Con `data-kit-code-copy` compare il bottone «Copia» (`kit-snippet`, evento `kit:copy`). `Kit.code(pre, { lang, text, copy })` e `Kit.highlight(testo, lingua)`: costruiscono solo nodi di testo e `<span>`, mai HTML; tempi lineari anche con testi ostili e, oltre i 100.000 caratteri, il testo resta senza colori. Token `--kit-hl-tag|attr|str|kw|fn|num|com`. Snippet `kit-code`. La documentazione lo usa per tutti i suoi esempi.
 - Documentazione: ricerca nell'intestazione (tasto «/» o Ctrl/⌘ K). Cerca in titoli, testo e nomi di classi, attributi, token e funzioni (`kit-list`, `data-kit-split`, `--kit-accent`, `Kit.progress`), senza badare agli accenti; ogni parola scritta deve comparire. È un combobox del kit, con indice generato da `tools/gen-docs.py` (`docs/search-index.js`).
 - Interruttore (`kit-switch`): un `<input type="checkbox" role="switch">` con la grafica on/off; `kit-switch-between` per le impostazioni in elenco.
 - Spinner (`kit-spinner`, `-sm`, `-lg`, `-accent`) e skeleton (`kit-skeleton` con `-text`, `-title`, `-circle`, `-block`): indicatori di caricamento, fermi con «riduci animazioni». Snippet `kit-switch` e `kit-skeleton`.

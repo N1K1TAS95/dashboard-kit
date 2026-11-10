@@ -147,21 +147,21 @@
     <p class="doc-lead">Dashboard Kit è un piccolo framework CSS, con JavaScript opzionale, per costruire dashboard. Un solo file, nessuna dipendenza, tema chiaro e scuro, griglia a 12 colonne come Bootstrap.</p>
 <h2 id="installazione">Installazione</h2>
 <p>Da CDN (jsDelivr), con la versione fissata e l'attributo <code>integrity</code> (SRI): se il file venisse alterato, il browser lo rifiuta.</p>
-<pre class="kit-code"><code>&lt;link rel="stylesheet"
+<pre class="kit-code" data-kit-code="html"><code>&lt;link rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.5.0/dist/kit.css"
-      integrity="sha384-TNxl0rYUBybpSMrQdrho2U20t6uJ24auOJ3Idb+/WBw8gIJDOHgiXnWY+YJgev8W"
+      integrity="sha384-1ayRnGzx1qIB64SrJQRzptuzrR3G4LFM7SFNzTYplG6mlfExWdNsEA8exwMHRWKe"
       crossorigin="anonymous"&gt;
 
 &lt;!-- opzionale: tema, select, tab, dialog, menu, toast --&gt;
 &lt;script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.5.0/dist/kit.js"
-        integrity="sha384-FZuLsWjslF0JqMF3/upHRG4wlK829d/HT/jEXP9nfEAb1mTkrJi6B+F2oD6SNsms"
+        integrity="sha384-krt2ONUY0tzD92SkpwiYa+0Z3acj7raVuqog6D2Juglc8tgCS1FE4Fu2aK5eoyr5"
         crossorigin="anonymous"&gt;&lt;/script&gt;</code></pre>
 <p>Oppure in locale: copia <code>dist/kit.css</code> (e <code>dist/kit.js</code>) nel progetto e collegali con un percorso relativo.</p>
 <p class="kit-alert">Se il sito ha una Content-Security-Policy, autorizza <code>https://cdn.jsdelivr.net</code> in <code>style-src</code> e <code>script-src</code>. Evita <code>@main</code> o <code>@latest</code>: non sono versioni fissate e jsDelivr le tiene in cache per ore.</p>
 
 <h2 id="modello">Modello di pagina</h2>
 <p>Lo scheletro minimo con intestazione fissa e contenuto in griglia. Nell'editor lo ottieni scrivendo <code>kit-page</code> + Tab (vedi <a href="snippets.html">Snippet VS Code</a>).</p>
-<pre class="kit-code"><code>&lt;!doctype html&gt;
+<pre class="kit-code" data-kit-code="html"><code>&lt;!doctype html&gt;
 &lt;html lang="it"&gt;
 &lt;head&gt;
   &lt;meta charset="utf-8"&gt;
@@ -188,7 +188,7 @@
 
 <h2 id="icone">Icone</h2>
 <p>Il kit non include icone: <code>.kit-icon</code> dà solo dimensione e tratto a un <code>&lt;svg&gt;</code>. Si usa uno sprite inline nella pagina e lo si richiama con <code>&lt;use&gt;</code>, così le icone prendono il colore del testo.</p>
-<pre class="kit-code"><code>&lt;svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"&gt;&lt;defs&gt;
+<pre class="kit-code" data-kit-code="html"><code>&lt;svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"&gt;&lt;defs&gt;
   &lt;symbol id="i-search" viewBox="0 0 24 24"&gt;&lt;circle cx="11" cy="11" r="7"/&gt;&lt;path d="m20 20-3.5-3.5"/&gt;&lt;/symbol&gt;
 &lt;/defs&gt;&lt;/svg&gt;
 
