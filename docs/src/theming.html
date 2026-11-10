@@ -51,6 +51,18 @@ td.codice { font-variant-numeric: slashed-zero tabular-nums; }  /* zero barrato 
 <p>Ogni colore ha il valore per il tema chiaro e per quello scuro. Le classi del kit usano sempre i token, mai colori fissi: cambiando un token cambia dappertutto.</p>
 <!--tokens-colors-->
 
+<h2 id="scrollbar">Barre di scorrimento</h2>
+<p>Tutte le barre di scorrimento (pagina, tabelle, menu, dialog) sono sottili, con il cursore nel colore del testo secondario e la guida invisibile. Il colore è il token <code>--kit-sb</code>, che segue il tema chiaro e scuro da solo. La classe <code>kit-no-scrollbar</code> nasconde la barra di un elemento che scorre ancora (utile per una riga di tab su schermi stretti).</p>
+<div class="doc-demo">
+  <div class="kit-card kit-p-3" style="height: 130px; overflow: auto; max-width: 360px">
+    <p>Un riquadro che scorre: la barra a destra è quella del kit.</p><p>Seconda riga.</p><p>Terza riga.</p><p>Quarta riga.</p><p>Quinta riga.</p><p>Sesta riga.</p>
+  </div>
+</div>
+```css
+:root { --kit-sb: color-mix(in srgb, var(--kit-accent) 50%, transparent); }   /* un altro colore */
+* { scrollbar-width: auto; scrollbar-color: auto; }                          /* oppure quelle del sistema */
+```
+
 <h2 id="personalizzare">Personalizzare</h2>
 <p>Sovrascrivi i token in <code>:root</code> dopo aver caricato <code>kit.css</code>:</p>
 ```css

@@ -127,6 +127,7 @@
             <li><a href="#testo">Font e dimensione del testo</a></li>
             <li><a href="#layout">Token di layout</a></li>
             <li><a href="#colori">Token di colore</a></li>
+            <li><a href="#scrollbar">Barre di scorrimento</a></li>
             <li><a href="#personalizzare">Personalizzare</a></li>
           </ul>
           <a href="snippets.html">Snippet VS Code</a>
@@ -215,6 +216,16 @@ td.codice { font-variant-numeric: slashed-zero tabular-nums; }  /* zero barrato 
 <tr><td><span class="doc-swatch" style="background:var(--kit-c1)"></span><code>--kit-c1</code></td><td><code>#2f6fe4</code></td><td><code>#6ea2ff</code></td><td>Serie 1 dei grafici</td></tr>
 <tr><td><span class="doc-swatch" style="background:var(--kit-c2)"></span><code>--kit-c2</code></td><td><code>#e39320</code></td><td><code>#f2a84c</code></td><td>Serie 2 dei grafici</td></tr>
 </tbody></table></div></div>
+
+<h2 id="scrollbar">Barre di scorrimento</h2>
+<p>Tutte le barre di scorrimento (pagina, tabelle, menu, dialog) sono sottili, con il cursore nel colore del testo secondario e la guida invisibile. Il colore è il token <code>--kit-sb</code>, che segue il tema chiaro e scuro da solo. La classe <code>kit-no-scrollbar</code> nasconde la barra di un elemento che scorre ancora (utile per una riga di tab su schermi stretti).</p>
+<div class="doc-demo">
+  <div class="kit-card kit-p-3" style="height: 130px; overflow: auto; max-width: 360px">
+    <p>Un riquadro che scorre: la barra a destra è quella del kit.</p><p>Seconda riga.</p><p>Terza riga.</p><p>Quarta riga.</p><p>Quinta riga.</p><p>Sesta riga.</p>
+  </div>
+</div>
+<pre class="kit-code"><code>:root { --kit-sb: color-mix(in srgb, var(--kit-accent) 50%, transparent); }   /* un altro colore */
+* { scrollbar-width: auto; scrollbar-color: auto; }                          /* oppure quelle del sistema */</code></pre>
 
 <h2 id="personalizzare">Personalizzare</h2>
 <p>Sovrascrivi i token in <code>:root</code> dopo aver caricato <code>kit.css</code>:</p>

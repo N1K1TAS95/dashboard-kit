@@ -80,6 +80,9 @@
     --kit-c1: light-dark(#2f6fe4, #6ea2ff);
     --kit-c2: light-dark(#e39320, #f2a84c);
 
+    /* Barre di scorrimento sottili: il cursore è il testo secondario, un po' trasparente; la guida è invisibile. */
+    --kit-sb: color-mix(in srgb, var(--kit-mute) 45%, transparent);
+
     --kit-shadow: light-dark(0 1px 2px rgba(20, 30, 50, .05), 0 6px 20px rgba(20, 30, 50, .05));
     --kit-shadow-pop: 0 16px 48px rgba(0, 0, 0, .35);
 
@@ -113,6 +116,9 @@
 html { font-size: calc(var(--kit-fs) * var(--kit-zoom)); -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 
 html, body { margin: 0; }
+
+/* Barre di scorrimento sottili e nei colori del tema (--kit-sb). Per quelle del sistema: * { scrollbar-width: auto; scrollbar-color: auto; } */
+* { scrollbar-width: thin; scrollbar-color: var(--kit-sb) transparent; }
 
 body {
     background: var(--kit-bg);
@@ -1416,6 +1422,8 @@ abbr[title] { text-decoration: underline dotted; text-underline-offset: .2em; cu
 .kit-no-underline { text-decoration: none !important; }
 .kit-line-through { text-decoration: line-through !important; }
 .kit-wrap { white-space: normal !important; }
+.kit-no-scrollbar { scrollbar-width: none !important; }
+.kit-no-scrollbar::-webkit-scrollbar { display: none; }
 .kit-break { overflow-wrap: anywhere !important; }
 .kit-measure { max-width: var(--kit-measure) !important; }
 .kit-hidden, [hidden] { display: none !important; }
