@@ -2,7 +2,18 @@
 <!--desc: Finestre di dialogo, menu a comparsa e messaggi temporanei. Richiedono <code>kit.js</code>.-->
 <h2 id="dialog">Dialog</h2>
 <p>Usa l'elemento nativo <code>&lt;dialog&gt;</code>: il browser gestisce focus, tasto Esc e sfondo oscurato. Il kit aggiunge lo stile e due attributi: <code>data-kit-open</code> per aprirlo, <code>data-kit-close</code> per chiuderlo. Un click sullo sfondo lo chiude.</p>
-<p>Il dialog è una <a href="cards.html#card">card</a> in sovrimpressione: ha le stesse tre parti (<code>kit-card-head</code>, <code>kit-card-body</code>, <code>kit-card-foot</code>), gli stessi padding e lo stesso bordo. Se il contenuto è alto, scorre solo il corpo; titolo e bottoni restano visibili. <code>kit-dialog-wide</code> lo allarga a 700px.</p>
+<p>Il dialog è una <a href="cards.html#card">card</a> in sovrimpressione: ha le stesse tre parti (<code>kit-card-head</code>, <code>kit-card-body</code>, <code>kit-card-foot</code>), gli stessi padding e lo stesso bordo. Se il contenuto è alto, scorre solo il corpo; titolo e bottoni restano visibili. </p>
+<p>La larghezza si sceglie con una classe: <code>kit-dialog-sm</code> (340px), nessuna classe (440px), <code>kit-dialog-lg</code> (700px, anche <code>kit-dialog-wide</code>), <code>kit-dialog-xl</code> (960px) e <code>kit-dialog-full</code> (tutta la finestra meno i margini). Per un valore tuo imposta <code>--kit-dialog-w</code>: su un solo dialog (<code>style="--kit-dialog-w: 520px"</code>) o su tutti (<code>:root { --kit-dialog-w: 520px }</code>). Sugli schermi stretti il dialog non esce mai dalla finestra.</p>
+<div class="doc-demo">
+    <button class="kit-btn" data-kit-open="#dlg-sm">Piccolo</button>
+    <button class="kit-btn" data-kit-open="#dlg-lg">Largo</button>
+    <button class="kit-btn" data-kit-open="#dlg-xl">Molto largo</button>
+    <button class="kit-btn" data-kit-open="#dlg-custom">520px su misura</button>
+  <dialog class="kit-dialog kit-dialog-sm" id="dlg-sm"><div class="kit-card-head">kit-dialog-sm</div><div class="kit-card-body">340px.</div><div class="kit-card-foot"><button class="kit-btn" data-kit-close>Chiudi</button></div></dialog>
+  <dialog class="kit-dialog kit-dialog-lg" id="dlg-lg"><div class="kit-card-head">kit-dialog-lg</div><div class="kit-card-body">700px.</div><div class="kit-card-foot"><button class="kit-btn" data-kit-close>Chiudi</button></div></dialog>
+  <dialog class="kit-dialog kit-dialog-xl" id="dlg-xl"><div class="kit-card-head">kit-dialog-xl</div><div class="kit-card-body">960px.</div><div class="kit-card-foot"><button class="kit-btn" data-kit-close>Chiudi</button></div></dialog>
+  <dialog class="kit-dialog" id="dlg-custom" style="--kit-dialog-w: 520px"><div class="kit-card-head">--kit-dialog-w: 520px</div><div class="kit-card-body">Larghezza su misura.</div><div class="kit-card-foot"><button class="kit-btn" data-kit-close>Chiudi</button></div></dialog>
+</div>
 <p>All'apertura il focus va al dialog stesso, così non compare l'anello sul primo bottone. Per portarlo su un campo metti <code>autofocus</code> su quel campo.</p>
 <div class="doc-demo" data-doc-include="#dlg">
   <button class="kit-btn kit-btn-primary" data-kit-open="#dlg">Apri il dialog</button>

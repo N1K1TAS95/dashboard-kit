@@ -2,6 +2,7 @@
 
 ## Non rilasciato
 
+- Larghezza dei dialog: `kit-dialog-sm` (340px), `kit-dialog-lg` (700px, uguale a `kit-dialog-wide`), `kit-dialog-xl` (960px) e `kit-dialog-full`; il token `--kit-dialog-w` (predefinito 440px) imposta una larghezza su misura, su un dialog o su tutti. Il dialog non supera mai la finestra.
 - **Cambiamento non retrocompatibile:** la dimensione del testo ha solo 3 scelte e quella predefinita è più piccola. `md` (normale, predefinita) vale ora l'87,5% di prima, `lg` il 100% e `xl` il 112,5%; `sm` è stato tolto (un valore `sm` già salvato torna al normale). Il moltiplicatore predefinito `--kit-zoom` è `.875`. Chi preferiva il testo di prima sceglie «Grande» o imposta `--kit-zoom: 1`.
 
 ## 0.4.0 — 10 novembre 2026

@@ -1353,7 +1353,7 @@ a.kit-brand, .kit-brand a { color: inherit; text-decoration: none; }
     border-radius: var(--kit-rad);
     background: var(--kit-card);
     color: var(--kit-ink);
-    width: min(440px, calc(100vw - 2 * var(--kit-sp)));
+    width: min(var(--kit-dialog-w, 440px), calc(100vw - 2 * var(--kit-sp)));   /* larghezza: --kit-dialog-w o kit-dialog-sm|lg|xl|full */
     max-width: calc(100vw - 2 * var(--kit-sp));
     max-height: calc(100vh - 2 * var(--kit-sp));
     padding: 0;
@@ -1365,7 +1365,10 @@ a.kit-brand, .kit-brand a { color: inherit; text-decoration: none; }
 .kit-dialog { flex-direction: column; }
 .kit-dialog[open] { display: flex; }
 .kit-dialog:focus { outline: none; }
-.kit-dialog-wide { width: min(700px, calc(100vw - 2 * var(--kit-sp))); }
+.kit-dialog-sm { --kit-dialog-w: 340px; }
+.kit-dialog-lg, .kit-dialog-wide { --kit-dialog-w: 700px; }
+.kit-dialog-xl { --kit-dialog-w: 960px; }
+.kit-dialog-full { --kit-dialog-w: 100vw; }
 .kit-dialog::backdrop { background: rgba(0, 0, 0, .4); backdrop-filter: blur(2px); }
 /* Comparsa e scomparsa: il dialog sale di poco e si dissolve, lo sfondo si scurisce. Si usano @starting-style e la
    transizione di display/overlay (Chrome 117+, Safari 17.4+, Firefox 129+): altrove il dialog compare senza animazione. */
