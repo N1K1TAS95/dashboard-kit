@@ -144,12 +144,12 @@
 <p>Da CDN (jsDelivr), con la versione fissata e l'attributo <code>integrity</code> (SRI): se il file venisse alterato, il browser lo rifiuta.</p>
 <pre class="kit-code"><code>&lt;link rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.5.0/dist/kit.css"
-      integrity="sha384-4210L8IXyyB6WZAm5srCcuQr3hz4YQ7pZ9OKmLvm8TNfWw25ATq01IPAgJlmThji"
+      integrity="sha384-46//RUvWfiFpaA53SLuvjVCoo1Vfv1Dcn6Ocu9mUCkh+wKeSDsOzw3/YehtFUVlY"
       crossorigin="anonymous"&gt;
 
 &lt;!-- opzionale: tema, select, tab, dialog, menu, toast --&gt;
 &lt;script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.5.0/dist/kit.js"
-        integrity="sha384-syKr5hGKAfb1+fD/FGe9Us/O7pnloHO9JivonAJIzZoN7/GYgJ0Ee+kOFHLf4djX"
+        integrity="sha384-7498TwY+saReiq2pmOt/vxAGDrQY6qiAVIOJ2sSYHpmnZwYWETdoDyII08Qc80pY"
         crossorigin="anonymous"&gt;&lt;/script&gt;</code></pre>
 <p>Oppure in locale: copia <code>dist/kit.css</code> (e <code>dist/kit.js</code>) nel progetto e collegali con un percorso relativo.</p>
 <p class="kit-alert">Se il sito ha una Content-Security-Policy, autorizza <code>https://cdn.jsdelivr.net</code> in <code>style-src</code> e <code>script-src</code>. Evita <code>@main</code> o <code>@latest</code>: non sono versioni fissate e jsDelivr le tiene in cache per ore.</p>

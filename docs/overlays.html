@@ -122,6 +122,7 @@
           <a href="overlays.html" class="is-current" aria-current="page">Dialog e menu</a>
           <ul class="doc-toc">
             <li><a href="#dialog">Dialog</a></li>
+            <li><a href="#drawer">Drawer</a></li>
             <li><a href="#conferma">Chiedere conferma</a></li>
             <li><a href="#menu">Menu a comparsa</a></li>
             <li><a href="#tooltip">Tooltip</a></li>
@@ -173,6 +174,38 @@
     </div>
   </dialog>
 </div>
+
+<h2 id="drawer">Drawer</h2>
+<p>Un dialog che scivola da un bordo della finestra: per un dettaglio, un filtro avanzato o un modulo lungo, quando si vuole lasciare la pagina in vista. È lo stesso <code>&lt;dialog&gt;</code>, con le stesse parti, gli stessi attributi (<code>data-kit-open</code>, <code>data-kit-close</code>) e gli stessi Esc, click sullo sfondo e focus; si aggiunge solo la classe <code>kit-drawer</code>. Di base arriva da destra; <code>kit-drawer-left</code>, <code>kit-drawer-top</code> e <code>kit-drawer-bottom</code> cambiano il lato. Sullo schermo stretto occupa tutta la larghezza.</p>
+<div class="doc-demo">
+  <button class="kit-btn" data-kit-open="#drw-right">Da destra</button>
+  <button class="kit-btn" data-kit-open="#drw-left">Da sinistra</button>
+  <button class="kit-btn" data-kit-open="#drw-bottom">Dal basso</button>
+  <dialog class="kit-dialog kit-drawer" id="drw-right">
+    <div class="kit-card-head">
+      Filtri
+      <button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-close aria-label="Chiudi"><svg class="kit-icon"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="kit-card-body kit-stack">
+      <label class="kit-field">Cliente <input class="kit-input" placeholder="Rossi Srl"></label>
+      <label class="kit-field">Da <input class="kit-input" type="date"></label>
+      <label class="kit-field">A <input class="kit-input" type="date"></label>
+    </div>
+    <div class="kit-card-foot">
+      <button class="kit-btn" data-kit-close>Annulla</button>
+      <button class="kit-btn kit-btn-primary" data-kit-close>Applica</button>
+    </div>
+  </dialog>
+  <dialog class="kit-dialog kit-drawer kit-drawer-left kit-drawer-sm" id="drw-left">
+    <div class="kit-card-head">Menu<button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-close aria-label="Chiudi"><svg class="kit-icon"><use href="#i-x"/></svg></button></div>
+    <div class="kit-card-body"><p class="kit-mute">Un drawer stretto da sinistra: <code>kit-drawer-left kit-drawer-sm</code>.</p></div>
+  </dialog>
+  <dialog class="kit-dialog kit-drawer kit-drawer-bottom" id="drw-bottom">
+    <div class="kit-card-head">Riepilogo<button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-close aria-label="Chiudi"><svg class="kit-icon"><use href="#i-x"/></svg></button></div>
+    <div class="kit-card-body"><p class="kit-mute">Dal basso, alto al massimo <code>--kit-drawer-h</code> (40% della finestra).</p></div>
+  </dialog>
+</div>
+<p>La larghezza è <code>--kit-drawer-w</code> (420px), o una classe: <code>kit-drawer-sm</code> (320px), <code>kit-drawer-lg</code> (640px), <code>kit-drawer-xl</code> (860px). Per i drawer in alto e in basso l'altezza massima è <code>--kit-drawer-h</code>. L'animazione (0,25 s) si spegne con <code>prefers-reduced-motion</code> e, come quella del dialog, richiede un browser recente. Se il dettaglio deve restare accanto a una lista e non in sovrimpressione, usa il <a href="layout.html#split">pannello affiancato</a>.</p>
 
 <h2 id="conferma">Chiedere conferma</h2>
 <p>Un dialog con «Conferma» e «Annulla» interrompe chi lavora, e se compare troppo spesso si impara a premere «Conferma» senza leggere. Conviene scegliere in base a quanto è grave l'errore.</p>

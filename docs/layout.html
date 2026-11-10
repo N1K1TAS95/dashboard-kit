@@ -214,16 +214,35 @@
 <p class="kit-alert"><code>kit-bar</code> non è la riga della griglia: per le colonne usa <code>kit-row</code>.</p>
 
 <h2 id="split">Pannello affiancato: kit-split</h2>
-<p>Una lista con, accanto, un pannello di dettaglio che si apre quando si seleziona una riga. Il pannello resta fermo mentre la lista scorre; sotto i 900px copre la pagina.</p>
-<pre class="kit-code"><code>&lt;div class="kit-split is-open"&gt;           &lt;!-- is-open: mostra il pannello --&gt;
-  &lt;div&gt;
-    &lt;!-- la lista --&gt;
-  &lt;/div&gt;
-  &lt;aside class="kit-split-panel"&gt;
-    &lt;!-- il dettaglio --&gt;
-  &lt;/aside&gt;
-&lt;/div&gt;</code></pre>
-<p>Si apre e si chiude aggiungendo o togliendo <code>is-open</code>. La larghezza del pannello è <code>--kit-split-w</code> (di base 40%).</p>
+<p>Una lista con, accanto, un pannello di dettaglio che si apre quando si seleziona una riga. Sopra i 900px il pannello sta accanto alla lista e resta fermo mentre questa scorre. Sotto i 900px copre la pagina da destra, con un velo scuro dietro, e un click sul velo lo chiude. Con <code>kit-split-lg</code> al posto di <code>kit-split</code> il passaggio avviene sotto i 1250px, per liste che hanno bisogno di molto spazio.</p>
+<p>Con <code>kit.js</code> bastano tre attributi: <code>data-kit-split-open="#id"</code> su ciò che lo apre (una riga, un bottone), <code>data-kit-split-close</code> e <code>data-kit-split-full</code> dentro il pannello. Il secondo chiude, il terzo alterna «accanto alla lista» e «a tutta larghezza» (la lista sparisce). Con <code>data-kit-split</code> sul contenitore Esc chiude il pannello, oppure lo riporta accanto alla lista se era a tutta larghezza. All'apertura il focus va al pannello e alla chiusura torna a ciò che lo aveva aperto.</p>
+<div class="doc-demo doc-split-demo">
+  <div class="kit-split" id="demo-split" data-kit-split>
+    <div class="kit-card">
+      <div class="kit-table-wrap"><table class="kit-table kit-table-hover"><thead><tr><th>Fattura</th><th>Cliente</th><th class="kit-right">Importo</th></tr></thead><tbody>
+        <tr data-kit-split-open="#demo-split" style="cursor: pointer"><td>2026/014</td><td>Rossi Srl</td><td class="kit-right kit-num">1.240,00 €</td></tr>
+        <tr data-kit-split-open="#demo-split" style="cursor: pointer"><td>2026/015</td><td>Bianchi Spa</td><td class="kit-right kit-num">860,50 €</td></tr>
+        <tr data-kit-split-open="#demo-split" style="cursor: pointer"><td>2026/016</td><td>Verdi Servizi</td><td class="kit-right kit-num">3.075,00 €</td></tr>
+      </tbody></table></div>
+    </div>
+    <aside class="kit-split-panel" aria-label="Dettaglio fattura">
+      <div class="kit-split-head">
+        <div class="kit-split-title"><h3>Fattura 2026/014</h3><small>Rossi Srl</small></div>
+        <button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-split-full aria-label="A tutta larghezza" title="A tutta larghezza"><svg class="kit-icon"><use href="#i-expand"/></svg></button>
+        <button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-split-close aria-label="Chiudi" title="Chiudi (Esc)"><svg class="kit-icon"><use href="#i-x"/></svg></button>
+      </div>
+      <div class="kit-split-body">
+        <dl class="kit-kv"><dt>Data</dt><dd>12/03/2026</dd><dt>Imponibile</dt><dd>1.016,39 €</dd><dt>IVA 22%</dt><dd>223,61 €</dd><dt>Totale</dt><dd>1.240,00 €</dd></dl>
+      </div>
+    </aside>
+  </div>
+</div>
+<p>Il pannello è fatto di <code>kit-split-head</code> (titolo in <code>kit-split-title</code> e bottoni) e <code>kit-split-body</code>, che è la parte che scorre. Larghezza accanto alla lista: <code>--kit-split-w</code> (40%); larghezza quando copre la pagina: <code>--kit-split-overlay-w</code> (860px). Senza JavaScript basta aggiungere o togliere <code>is-open</code> (e <code>is-full</code>) al contenitore.</p>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>JavaScript</th><th>Effetto</th></tr></thead><tbody>
+<tr><td><code>Kit.split("#id")</code></td><td>restituisce <code>{ open(), close(), full(on), isOpen(), isFull() }</code></td></tr>
+<tr><td>evento <code>kit:split</code></td><td>sul contenitore, con <code>{ open, full }</code>: serve per aggiornare la riga selezionata o liberare i dati del dettaglio</td></tr>
+</tbody></table></div></div>
+<p>Il passaggio alla riga precedente o successiva (frecce, «j» e «k») dipende dall'elenco e non è compreso: si scrive con due bottoni e un gestore che richiama la tua funzione di apertura.</p>
 
 <h2 id="spazi">Spaziatura di base</h2>
 <p>Tre token governano il respiro dell'interfaccia (vedi <a href="theming.html">Temi e token</a>): <code>--kit-sp</code> (margini, distanza tra card, padding interno, gutter), <code>--kit-rad</code> (angoli) e <code>--kit-ctl</code> (altezza di bottoni e campi). Sotto i 760px <code>--kit-sp</code> scende da 16 a 8px.</p>

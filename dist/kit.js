@@ -12,6 +12,8 @@
  *   data-kit-toggle="#id"                    bottone che apre/chiude un .kit-pop
  *   data-kit-select                          su .kit-select: scelta di un valore
  *   data-kit-combo                           su .kit-combo: campo di testo con elenco di suggerimenti (opzioni: data-kit-combo-max, -empty, -more)
+ *   data-kit-split                           su .kit-split: Esc lo chiude; con data-kit-split-open="#id" (bottone fuori), data-kit-split-close e
+ *                                            data-kit-split-full (dentro) si apre, chiude e porta a tutta larghezza il pannello
  *   data-kit-tabs                            su .kit-tabs: tab con data-kit-panel="#id"
  *   data-kit-nav="#id"                       bottone (hamburger) che apre/chiude il menu a scomparsa di una .kit-navbar
  *   data-kit-open="#dialogId"                apre un <dialog>
@@ -21,8 +23,8 @@
  *   data-kit-tip="testo"                     tooltip (solo CSS; con kit.js Esc lo nasconde)
  *   data-kit-dismiss                         dentro un .kit-alert, lo rimuove (evento "kit:dismiss")
  *
- * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.fontSize.get()/set()/step(), Kit.reset(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.confirm(domanda, opzioni), Kit.undo(testo, opzioni), Kit.combo(elemento, opzioni), Kit.barChart(elemento, opzioni), Kit.lineChart(…), Kit.donut(…), Kit.sparkline(…), Kit.init(radice)
- * Eventi: "kit:change" (select, combobox), "kit:select" (barra, punto o fetta di un grafico), "kit:tab" (tab), "kit:theme" (tema), "kit:layout" (larghezza), "kit:fs" (dimensione del testo), "kit:reset" (impostazioni ripristinate), "kit:dismiss" (avviso chiuso)
+ * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.fontSize.get()/set()/step(), Kit.reset(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.confirm(domanda, opzioni), Kit.undo(testo, opzioni), Kit.split(elemento), Kit.combo(elemento, opzioni), Kit.barChart(elemento, opzioni), Kit.lineChart(…), Kit.donut(…), Kit.sparkline(…), Kit.init(radice)
+ * Eventi: "kit:change" (select, combobox), "kit:select" (barra, punto o fetta di un grafico), "kit:tab" (tab), "kit:split" (pannello aperto, chiuso o a tutta larghezza), "kit:theme" (tema), "kit:layout" (larghezza), "kit:fs" (dimensione del testo), "kit:reset" (impostazioni ripristinate), "kit:dismiss" (avviso chiuso)
  */
 (function () {
     "use strict";
@@ -1012,6 +1014,44 @@
         });
     }
 
+    /* ---------- Pannello affiancato (kit-split): aprire, chiudere, tutta larghezza ----------
+       Vale anche se is-open è messo a mano; con data-kit-split sul contenitore Esc lo chiude (prima esce da "tutta larghezza"). */
+    var SPLIT = ".kit-split, .kit-split-lg";
+    var splitOpener = new WeakMap();
+
+    function splitSet(sp, open, full) {
+        var was = sp.classList.contains("is-open"), wasFull = sp.classList.contains("is-full");
+        if (open === undefined) open = was;
+        if (!open) full = false;
+        if (full === undefined) full = wasFull;
+        sp.classList.toggle("is-open", open);
+        sp.classList.toggle("is-full", open && full);
+        var panel = sp.querySelector(".kit-split-panel");
+        if (open && !was) {
+            splitOpener.set(sp, document.activeElement);
+            if (panel) { panel.tabIndex = -1; panel.focus({ preventScroll: true }); }
+        }
+        if (!open && was) {
+            var o = splitOpener.get(sp);
+            if (o && o.isConnected && o.focus) o.focus({ preventScroll: true });
+        }
+        if (open !== was || (open && full !== wasFull)) {
+            sp.dispatchEvent(new CustomEvent("kit:split", { bubbles: true, detail: { open: open, full: open && full } }));
+        }
+    }
+
+    function split(target) {
+        var sp = typeof target === "string" ? document.querySelector(target) : target;
+        if (!sp) return null;
+        return {
+            open: function () { splitSet(sp, true); },
+            close: function () { splitSet(sp, false); },
+            full: function (on) { splitSet(sp, true, on !== false); },
+            isOpen: function () { return sp.classList.contains("is-open"); },
+            isFull: function () { return sp.classList.contains("is-full"); }
+        };
+    }
+
     /* ---------- Navbar: menu a scomparsa ---------- */
     function setNav(menu, open) {
         menu.classList.toggle("is-open", open);
@@ -1097,6 +1137,22 @@
         var tab = t.closest("[data-kit-tabs] .kit-tab");
         if (tab) { selectTab(tab.closest("[data-kit-tabs]"), tab); return; }
 
+        var spOpen = t.closest("[data-kit-split-open]");
+        if (spOpen) {
+            var sp1 = document.querySelector(spOpen.getAttribute("data-kit-split-open"));
+            if (sp1) splitSet(sp1, true);
+            return;
+        }
+        var spClose = t.closest("[data-kit-split-close]");
+        if (spClose) { var sp2 = spClose.closest(SPLIT); if (sp2) splitSet(sp2, false); return; }
+        var spFull = t.closest("[data-kit-split-full]");
+        if (spFull) { var sp3 = spFull.closest(SPLIT); if (sp3) splitSet(sp3, true, !sp3.classList.contains("is-full")); return; }
+        // Il velo dietro il pannello (quando copre la lista) è il ::after del contenitore: un click lì è un click sul contenitore.
+        if (t.matches(SPLIT) && t.hasAttribute("data-kit-split") && t.classList.contains("is-open")) {
+            var pn = t.querySelector(".kit-split-panel");
+            if (pn && getComputedStyle(pn).position === "fixed") { splitSet(t, false); return; }
+        }
+
         var open = t.closest("[data-kit-open]");
         if (open) {
             var dlg = document.querySelector(open.getAttribute("data-kit-open"));
@@ -1162,6 +1218,14 @@
                 var a = openPop.pop.querySelector(".kit-opt.is-active");
                 // click() attiva la voce come un click vero: partono anche i suoi gestori e i link
                 if (a) { e.preventDefault(); a.click(); return; }
+            }
+        }
+        // Esc chiude il pannello affiancato (o lo riporta accanto alla lista, se era a tutta larghezza).
+        if (e.key === "Escape" && !e.defaultPrevented && !document.querySelector("dialog[open]") && !(e.target instanceof Element && e.target.closest("input, textarea, select, [contenteditable]"))) {
+            var osp = document.querySelector("[data-kit-split].is-open");
+            if (osp && osp.matches(SPLIT)) {
+                if (osp.classList.contains("is-full")) splitSet(osp, true, false); else splitSet(osp, false);
+                return;
             }
         }
         // Esc chiude il menu a scomparsa della navbar e riporta il focus sul suo bottone.
@@ -1239,5 +1303,5 @@
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { init(); });
     else init();
 
-    window.Kit = { theme: theme, layout: layout, fontSize: fontSize, reset: reset, toast: toast, undo: undo, confirm: confirmDialog, combo: combo, barChart: barChart, lineChart: lineChart, donut: donut, sparkline: sparkline, init: init };
+    window.Kit = { theme: theme, layout: layout, fontSize: fontSize, reset: reset, toast: toast, undo: undo, confirm: confirmDialog, split: split, combo: combo, barChart: barChart, lineChart: lineChart, donut: donut, sparkline: sparkline, init: init };
 })();

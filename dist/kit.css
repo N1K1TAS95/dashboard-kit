@@ -258,15 +258,15 @@ a.kit-brand, .kit-brand a { color: inherit; text-decoration: none; }
 .kit-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
 /* Pannello affiancato alla lista (detail view). Aggiungi .is-open per mostrarlo. */
-.kit-split { display: block; }
-.kit-split.is-open {
+.kit-split, .kit-split-lg { display: block; }
+.kit-split.is-open, .kit-split-lg.is-open {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(320px, var(--kit-split-w, 40%));
     gap: var(--kit-sp);
     align-items: start;
 }
 .kit-split-panel { display: none; }
-.kit-split.is-open .kit-split-panel {
+.kit-split.is-open .kit-split-panel, .kit-split-lg.is-open .kit-split-panel {
     display: flex;
     flex-direction: column;
     position: sticky;
@@ -282,15 +282,42 @@ a.kit-brand, .kit-brand a { color: inherit; text-decoration: none; }
 @media (max-width: 900px) {
     .kit-grid-2, .kit-grid-3 { grid-template-columns: 1fr; }
     .kit-split.is-open { display: block; }
+    .kit-split.is-open::after { content: ""; position: fixed; inset: 0; background: rgba(10, 15, 25, .35); z-index: 49; animation: kit-fade .2s ease; }
     .kit-split.is-open .kit-split-panel {
-        position: fixed;
-        inset: 0;
-        top: var(--kit-hh);
-        height: auto;
-        border-radius: 0;
-        z-index: 50;
+        position: fixed; inset: 0 0 0 auto; height: auto;
+        width: min(var(--kit-split-overlay-w, 860px), 100%);
+        border-radius: 0; z-index: 50; box-shadow: -10px 0 40px rgba(0, 0, 0, .3);
+        animation: kit-slide-in .22s ease;
     }
 }
+/* kit-split-lg: il pannello copre la lista già sotto i 1250px (quando la lista ha bisogno di molto spazio). */
+@media (max-width: 1250px) {
+    .kit-split-lg.is-open { display: block; }
+    .kit-split-lg.is-open::after { content: ""; position: fixed; inset: 0; background: rgba(10, 15, 25, .35); z-index: 49; animation: kit-fade .2s ease; }
+    .kit-split-lg.is-open .kit-split-panel {
+        position: fixed; inset: 0 0 0 auto; height: auto;
+        width: min(var(--kit-split-overlay-w, 860px), 100%);
+        border-radius: 0; z-index: 50; box-shadow: -10px 0 40px rgba(0, 0, 0, .3);
+        animation: kit-slide-in .22s ease;
+    }
+}
+@keyframes kit-fade { from { opacity: 0; } }
+@keyframes kit-slide-in { from { opacity: 0; transform: translateX(40px); } }
+@media (prefers-reduced-motion: reduce) { .kit-split.is-open::after, .kit-split.is-open .kit-split-panel, .kit-split-lg.is-open::after, .kit-split-lg.is-open .kit-split-panel { animation: none !important; } }
+
+/* Parti del pannello: intestazione (titolo e bottoni) e corpo che scorre. */
+.kit-split-panel:focus { outline: none; }
+.kit-split-head { display: flex; align-items: center; gap: 8px; flex: none; padding: 10px var(--kit-sp); border-bottom: 1px solid var(--kit-line); background: var(--kit-card); }
+.kit-split-title { flex: 1; min-width: 0; }
+.kit-split-title > :is(h2, h3, h4) { margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.kit-split-title > small { display: block; color: var(--kit-mute); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.kit-split-body { flex: 1 1 auto; min-height: 0; overflow: auto; padding: var(--kit-sp); }
+/* A tutta larghezza (is-full): la lista sparisce e il pannello occupa la pagina. */
+.kit-split.is-full, .kit-split-lg.is-full { display: block; }
+.kit-split.is-full::after, .kit-split-lg.is-full::after { display: none; }
+.kit-split.is-full > :not(.kit-split-panel), .kit-split-lg.is-full > :not(.kit-split-panel) { display: none; }
+.kit-split.is-full .kit-split-panel, .kit-split-lg.is-full .kit-split-panel { position: static; width: auto; height: auto; overflow: visible; z-index: auto; box-shadow: var(--kit-shadow); border-radius: var(--kit-rad); animation: none; }
+.kit-split.is-full .kit-split-head, .kit-split-lg.is-full .kit-split-head { position: sticky; top: var(--kit-hh); z-index: 6; }
 
 /* ===== 3b. Griglia a 12 colonne e utility flex (stile Bootstrap) =====
    Questo blocco è GENERATO da tools/gen-grid.py: non modificarlo a mano. */
@@ -1436,6 +1463,33 @@ button.kit-donut-row:hover { background: var(--kit-hover); }
     .kit-dialog[open]::backdrop { background: rgba(0, 0, 0, 0); backdrop-filter: blur(0); }
 }
 @media (prefers-reduced-motion: reduce) { .kit-dialog, .kit-dialog::backdrop { transition: none; transform: none; } }
+
+/* Drawer: un dialog che scivola dal bordo della finestra (destra di base). <dialog class="kit-dialog kit-drawer"> con le stesse
+   parti del dialog; larghezza --kit-drawer-w (420px), altezza dei drawer in alto/in basso --kit-drawer-h (40vh). */
+.kit-dialog.kit-drawer {
+    margin: 0 0 0 auto; inset: 0 0 0 auto;
+    width: min(var(--kit-drawer-w, 420px), 100vw); max-width: 100vw;
+    height: 100dvh; max-height: 100dvh;
+    border-radius: 0; border-width: 0 0 0 1px;
+    opacity: 1; transform: translateX(100%);
+    transition: transform .25s ease, overlay .25s allow-discrete, display .25s allow-discrete;
+}
+.kit-dialog.kit-drawer[open] { transform: none; }
+@starting-style { .kit-dialog.kit-drawer[open] { transform: translateX(100%); opacity: 1; } }
+.kit-drawer-left.kit-dialog { margin: 0 auto 0 0; inset: 0 auto 0 0; border-width: 0 1px 0 0; transform: translateX(-100%); }
+.kit-drawer-left.kit-dialog[open] { transform: none; }
+@starting-style { .kit-drawer-left.kit-dialog[open] { transform: translateX(-100%); opacity: 1; } }
+.kit-drawer-top.kit-dialog, .kit-drawer-bottom.kit-dialog { width: 100vw; height: auto; max-height: min(var(--kit-drawer-h, 40vh), 100dvh); }
+.kit-drawer-top.kit-dialog { margin: 0 0 auto 0; inset: 0 0 auto 0; border-width: 0 0 1px 0; transform: translateY(-100%); }
+.kit-drawer-bottom.kit-dialog { margin: auto 0 0 0; inset: auto 0 0 0; border-width: 1px 0 0 0; transform: translateY(100%); }
+.kit-drawer-top.kit-dialog[open], .kit-drawer-bottom.kit-dialog[open] { transform: none; }
+@starting-style {
+    .kit-drawer-top.kit-dialog[open] { transform: translateY(-100%); opacity: 1; }
+    .kit-drawer-bottom.kit-dialog[open] { transform: translateY(100%); opacity: 1; }
+}
+.kit-drawer-sm { --kit-drawer-w: 320px; }
+.kit-drawer-lg { --kit-drawer-w: 640px; }
+.kit-drawer-xl { --kit-drawer-w: 860px; }
 
 /* Dialog di conferma, creato da Kit.confirm() o da data-kit-confirm: icona, domanda, spiegazione, eventuale campo
    da compilare, e due bottoni. Con danger il bottone di conferma è rosso e l'icona è di avviso. */

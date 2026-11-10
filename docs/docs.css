@@ -87,3 +87,9 @@
 .doc-demo-nav > .kit-header { position: relative; top: auto; border: 0; border-radius: var(--kit-rad) var(--kit-rad) 0 0; }
 
 .doc-demo-nav [class*="kit-container"] { outline: 1px dashed var(--kit-accent); outline-offset: -1px; }
+
+/* Esempio del pannello affiancato: dentro la pagina di documentazione il pannello non deve coprire tutto. */
+.doc-demo.doc-split-demo { overflow: visible; }
+.doc-demo.doc-split-demo .kit-split-panel { position: static; height: 20rem; animation: none; }
+.doc-demo.doc-split-demo .kit-split::after { display: none; }
+.doc-demo.doc-split-demo .kit-split.is-full .kit-split-head { position: static; }
