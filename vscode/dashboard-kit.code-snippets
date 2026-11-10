@@ -72,6 +72,26 @@
       "</ul>$0"
     ]
   },
+  "Kit: interruttore": {
+    "prefix": "kit-switch",
+    "scope": "html",
+    "description": "Interruttore on/off",
+    "body": [
+      "<label class=\"kit-switch\"><input type=\"checkbox\" role=\"switch\"> ${1:Testo}</label>$0"
+    ]
+  },
+  "Kit: skeleton": {
+    "prefix": "kit-skeleton",
+    "scope": "html",
+    "description": "Segnaposto di caricamento",
+    "body": [
+      "<div aria-busy=\"true\">",
+      "  <div class=\"kit-skeleton kit-skeleton-title\" aria-hidden=\"true\"></div>",
+      "  <div class=\"kit-skeleton kit-skeleton-text\" aria-hidden=\"true\"></div>",
+      "  <div class=\"kit-skeleton kit-skeleton-text\" aria-hidden=\"true\"></div>",
+      "</div>$0"
+    ]
+  },
   "Kit: card": {
     "prefix": "kit-card",
     "scope": "html",

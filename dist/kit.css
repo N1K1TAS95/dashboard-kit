@@ -970,6 +970,29 @@ a.kit-list-item:hover, button.kit-list-item:hover, .kit-list-action:hover { back
 .kit-check { display: flex; align-items: center; gap: 8px; color: var(--kit-ink); font-size: 1rem; cursor: pointer; }
 .kit-check input { width: 1.2rem; height: 1.2rem; margin: 0; accent-color: var(--kit-accent); }
 
+/* Interruttore on/off: <label class="kit-switch"><input type="checkbox" role="switch"> Testo</label>. */
+.kit-switch { display: inline-flex; align-items: center; gap: 10px; color: var(--kit-ink); font-size: 1rem; cursor: pointer; }
+.kit-switch > input {
+    appearance: none; -webkit-appearance: none; flex: none; position: relative; margin: 0; cursor: pointer;
+    width: 2.4rem; height: 1.4rem; border-radius: 99px;
+    background: color-mix(in srgb, var(--kit-mute) 35%, var(--kit-card));
+    border: 1px solid transparent;
+    transition: background-color .15s;
+}
+.kit-switch > input::before {
+    content: ""; position: absolute; top: 50%; left: 3px; width: 1rem; height: 1rem; border-radius: 50%;
+    background: #fff; box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
+    transform: translateY(-50%); transition: transform .15s;
+}
+.kit-switch > input:checked { background: var(--kit-accent); }
+.kit-switch > input:checked::before { transform: translate(calc(1.4rem - 8px), -50%); }
+.kit-switch > input:focus-visible { outline: 2px solid var(--kit-accent); outline-offset: 2px; }
+.kit-switch:has(> input:disabled) { opacity: .5; cursor: default; }
+.kit-switch > input:disabled { cursor: default; }
+/* il testo a sinistra e l'interruttore all'estremo destro (impostazioni in elenco) */
+.kit-switch-between { display: flex; justify-content: space-between; }
+@media (prefers-reduced-motion: reduce) { .kit-switch > input, .kit-switch > input::before { transition: none; } }
+
 .kit-form-foot {
     display: flex;
     align-items: center;
@@ -1255,6 +1278,35 @@ a.kit-list-item:hover, button.kit-list-item:hover, .kit-list-action:hover { back
     font-size: 1.6rem; font-weight: 650; pointer-events: none;
 }
 .kit-drop-veil.is-on { display: flex; }
+/* Spinner: un anello che gira, nel colore del testo. Dentro bottoni e testo si ridimensiona con il font. */
+.kit-spinner {
+    display: inline-block; flex: none; vertical-align: -.2em;
+    width: 1.2em; height: 1.2em; border-radius: 50%;
+    border: .15em solid color-mix(in srgb, currentColor 25%, transparent);
+    border-top-color: currentColor;
+    animation: kit-spin .7s linear infinite;
+}
+.kit-spinner-sm { width: .9em; height: .9em; }
+.kit-spinner-lg { width: 2.4em; height: 2.4em; border-width: .2em; }
+.kit-spinner-accent { color: var(--kit-accent); }
+@keyframes kit-spin { to { transform: rotate(360deg); } }
+
+/* Skeleton: segnaposto con un riflesso che scorre, in attesa dei dati. Il contenitore porta aria-busy="true";
+   i segnaposto sono solo decorativi (aria-hidden). */
+.kit-skeleton {
+    display: block; border-radius: var(--kit-rad-sm);
+    background: linear-gradient(90deg, transparent 20%, color-mix(in srgb, var(--kit-mute) 20%, transparent) 50%, transparent 80%) 0 0 / 250% 100% no-repeat,
+                color-mix(in srgb, var(--kit-mute) 14%, transparent);
+    animation: kit-shimmer 1.4s ease-in-out infinite;
+}
+.kit-skeleton-text { height: 1em; border-radius: 4px; margin-bottom: .6em; }
+.kit-skeleton-text:last-child { width: 60%; margin-bottom: 0; }
+.kit-skeleton-title { height: 1.4em; width: 45%; border-radius: 4px; margin-bottom: .8em; }
+.kit-skeleton-circle { width: 2.667rem; height: 2.667rem; border-radius: 50%; }
+.kit-skeleton-block { height: 8rem; }
+@keyframes kit-shimmer { from { background-position: 150% 0, 0 0; } to { background-position: -50% 0, 0 0; } }
+@media (prefers-reduced-motion: reduce) { .kit-skeleton { animation: none; } }
+
 /* Avanzamento a pieno schermo (Kit.progress): un dialog senza chiusura. */
 .kit-busy::backdrop { background: rgba(10, 15, 25, .5); }
 .kit-busy-text { overflow-wrap: anywhere; }
@@ -1791,10 +1843,24 @@ button.kit-donut-row:hover { background: var(--kit-hover); }
 @media (max-width: 760px) { .kit-hide-sm { display: none !important; } }
 @media (min-width: 761px) { .kit-only-sm { display: none !important; } }
 
+/* Stampa: sempre sul chiaro, senza intestazione, avvisi, schede e comandi; i colori di badge e grafici restano.
+   .kit-no-print nasconde un elemento; .kit-print-only lo mostra solo in stampa; .kit-print-break va a pagina nuova;
+   .kit-print-avoid non si spezza tra due pagine (card, liste e righe di tabella già non si spezzano). */
+.kit-print-only { display: none !important; }
 @media print {
-    .kit-header, .kit-toasts, .kit-tabs { display: none !important; }
-    body { background: #fff; color: #000; }
-    .kit-card { box-shadow: none; }
+    :root, :root[data-theme] { color-scheme: light; }
+    body { background: #fff; color: #000; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    .kit-header, .kit-toasts, .kit-tabs, .kit-no-print, .kit-drop-veil,,
+    .kit-split-lg.is-open::after, .kit-split.is-open::after { display: none !important; }
+    .kit-print-only { display: revert !important; }
+    .kit-main { padding: 0; }
+    .kit-container, .kit-container-boxed { max-width: none; }
+    .kit-card, .kit-list, .kit-kpi { box-shadow: none; break-inside: avoid; }
+    .kit-table-wrap { overflow: visible; }
+    .kit-table thead { display: table-header-group; }
+    .kit-table tr { break-inside: avoid; }
+    .kit-print-break { break-before: page; }
+    .kit-print-avoid { break-inside: avoid; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -37,6 +37,15 @@
   </div>
 </div>
 
+<h2 id="interruttore">Interruttore</h2>
+<p>Un on/off che ha effetto subito, al contrario della casella di spunta che si conferma con un pulsante. È un normale <code>&lt;input type="checkbox"&gt;</code> con <code>role="switch"</code>: <code>checked</code>, <code>disabled</code> e l'evento <code>change</code> funzionano come sempre. <code>kit-switch-between</code> mette il testo a sinistra e l'interruttore all'estremo destro.</p>
+<div class="doc-demo kit-stack">
+  <label class="kit-switch"><input type="checkbox" role="switch" checked> Nascondi duplicati</label>
+  <label class="kit-switch"><input type="checkbox" role="switch"> Mostra anche le scartate</label>
+  <label class="kit-switch"><input type="checkbox" role="switch" disabled> Non disponibile</label>
+  <label class="kit-switch kit-switch-between"><span>Notifiche</span><input type="checkbox" role="switch" checked></label>
+</div>
+
 <h2 id="select">Select personalizzato</h2>
 <p>Un menu a tendina con voci, gruppi e una seconda riga di testo. Richiede <code>kit.js</code>. Al cambio parte l'evento <code>kit:change</code> (vedi <a href="javascript.html#eventi">JavaScript</a>). Per un <code>&lt;select&gt;</code> normale basta <code>class="kit-input"</code>.</p>
 <div class="doc-demo">

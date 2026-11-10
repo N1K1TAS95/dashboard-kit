@@ -114,6 +114,7 @@
             <li><a href="#dimensioni">Dimensioni</a></li>
             <li><a href="#testo">Testo e colore</a></li>
             <li><a href="#visibilita">Visibilità</a></li>
+            <li><a href="#stampa">Stampa</a></li>
           </ul>
           <div class="doc-nav-group">Contenuto</div>
           <a href="typography.html">Tipografia</a>
@@ -210,6 +211,15 @@
   <li><code>kit-sr</code>: nasconde alla vista ma resta leggibile da screen reader (etichette di sole icone).</li>
   <li><code>kit-hide-sm</code> (sotto 760px) e <code>kit-only-sm</code> (solo sotto 760px): scorciatoie legate al breakpoint del telefono. Per gli altri breakpoint usa <code>kit-d-*</code>.</li>
 </ul>
+
+<h2 id="stampa">Stampa</h2>
+<p>Il kit prepara la pagina alla stampa: sempre sul chiaro (anche se a schermo è scura), senza intestazione, avvisi e schede, senza ombre, con i margini della pagina azzerati. I colori di badge e grafici si conservano. Card, liste, schede KPI e righe di tabella non si spezzano tra due pagine, e l'intestazione della tabella si ripete su ogni pagina.</p>
+<ul>
+  <li><code>kit-no-print</code>: l'elemento non si stampa (pulsanti, filtri, barre degli strumenti).</li>
+  <li><code>kit-print-only</code>: l'elemento si vede solo in stampa (titolo del documento, data, note).</li>
+  <li><code>kit-print-break</code>: va a pagina nuova; <code>kit-print-avoid</code>: non si spezza tra due pagine.</li>
+</ul>
+<p>La dimensione del foglio e i margini restano all'app: <code>@page { size: A4; margin: 14mm }</code> nel tuo CSS.</p>
     <nav class="doc-pager" aria-label="Pagina precedente e successiva">
       <a href="grid.html"><small>← Precedente</small><b>Griglia</b></a>
       <a class="doc-next" href="typography.html"><small>Successiva →</small><b>Tipografia</b></a>

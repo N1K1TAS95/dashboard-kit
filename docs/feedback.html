@@ -123,6 +123,8 @@
             <li><a href="#avvisi">Avvisi</a></li>
             <li><a href="#badge">Badge</a></li>
             <li><a href="#progress">Barra di avanzamento</a></li>
+            <li><a href="#spinner">Spinner</a></li>
+            <li><a href="#skeleton">Skeleton</a></li>
             <li><a href="#avanzamento">Avanzamento a pieno schermo</a></li>
             <li><a href="#vuoto">Stato vuoto</a></li>
           </ul>
@@ -198,6 +200,30 @@
   <div class="kit-progress"><i style="--kit-value: 25%"></i></div>
   <div class="kit-progress"><i style="--kit-value: 62%"></i></div>
   <div class="kit-progress"><i style="--kit-value: 100%"></i></div>
+</div>
+
+<h2 id="spinner">Spinner</h2>
+<p>Un anello che gira, nel colore del testo e grande quanto il font: dentro un bottone o accanto a una frase non serve altro. <code>kit-spinner-sm</code> e <code>-lg</code> cambiano la dimensione, <code>kit-spinner-accent</code> usa il colore d'accento. Aggiungi <code>role="status"</code> e un <code>aria-label</code>, oppure un testo accanto, perché chi usa uno screen reader sappia che si sta caricando.</p>
+<div class="doc-demo"><div class="kit-bar">
+  <span class="kit-spinner kit-spinner-accent" role="status" aria-label="Caricamento"></span>
+  <span class="kit-spinner kit-spinner-lg kit-spinner-accent" role="status" aria-label="Caricamento"></span>
+  <button class="kit-btn kit-btn-primary" disabled><span class="kit-spinner kit-spinner-sm"></span> Importazione…</button>
+  <span class="kit-mute"><span class="kit-spinner kit-spinner-sm"></span> Carico i documenti…</span>
+</div></div>
+
+<h2 id="skeleton">Skeleton</h2>
+<p>Segnaposto con un riflesso che scorre, per riservare lo spazio mentre i dati arrivano. Metti <code>aria-busy="true"</code> sul contenitore e <code>aria-hidden="true"</code> sui segnaposto, che sono solo decorativi. Parti: <code>kit-skeleton-text</code> (riga di testo, l'ultima più corta), <code>-title</code>, <code>-circle</code> e <code>-block</code>.</p>
+<div class="doc-demo">
+  <section class="kit-card" aria-busy="true">
+    <div class="kit-card-body kit-d-flex kit-gap-3" style="align-items:flex-start">
+      <span class="kit-skeleton kit-skeleton-circle" aria-hidden="true"></span>
+      <div style="flex:1;min-width:0">
+        <div class="kit-skeleton kit-skeleton-title" aria-hidden="true"></div>
+        <div class="kit-skeleton kit-skeleton-text" aria-hidden="true"></div>
+        <div class="kit-skeleton kit-skeleton-text" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
 </div>
 
 <h2 id="avanzamento">Avanzamento a pieno schermo</h2>

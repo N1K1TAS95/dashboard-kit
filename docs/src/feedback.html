@@ -60,6 +60,30 @@
   <div class="kit-progress"><i style="--kit-value: 100%"></i></div>
 </div>
 
+<h2 id="spinner">Spinner</h2>
+<p>Un anello che gira, nel colore del testo e grande quanto il font: dentro un bottone o accanto a una frase non serve altro. <code>kit-spinner-sm</code> e <code>-lg</code> cambiano la dimensione, <code>kit-spinner-accent</code> usa il colore d'accento. Aggiungi <code>role="status"</code> e un <code>aria-label</code>, oppure un testo accanto, perché chi usa uno screen reader sappia che si sta caricando.</p>
+<div class="doc-demo"><div class="kit-bar">
+  <span class="kit-spinner kit-spinner-accent" role="status" aria-label="Caricamento"></span>
+  <span class="kit-spinner kit-spinner-lg kit-spinner-accent" role="status" aria-label="Caricamento"></span>
+  <button class="kit-btn kit-btn-primary" disabled><span class="kit-spinner kit-spinner-sm"></span> Importazione…</button>
+  <span class="kit-mute"><span class="kit-spinner kit-spinner-sm"></span> Carico i documenti…</span>
+</div></div>
+
+<h2 id="skeleton">Skeleton</h2>
+<p>Segnaposto con un riflesso che scorre, per riservare lo spazio mentre i dati arrivano. Metti <code>aria-busy="true"</code> sul contenitore e <code>aria-hidden="true"</code> sui segnaposto, che sono solo decorativi. Parti: <code>kit-skeleton-text</code> (riga di testo, l'ultima più corta), <code>-title</code>, <code>-circle</code> e <code>-block</code>.</p>
+<div class="doc-demo">
+  <section class="kit-card" aria-busy="true">
+    <div class="kit-card-body kit-d-flex kit-gap-3" style="align-items:flex-start">
+      <span class="kit-skeleton kit-skeleton-circle" aria-hidden="true"></span>
+      <div style="flex:1;min-width:0">
+        <div class="kit-skeleton kit-skeleton-title" aria-hidden="true"></div>
+        <div class="kit-skeleton kit-skeleton-text" aria-hidden="true"></div>
+        <div class="kit-skeleton kit-skeleton-text" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
 <h2 id="avanzamento">Avanzamento a pieno schermo</h2>
 <p>Per un'operazione lunga (leggere una cartella, importare un file) che blocca il resto della pagina. <code>Kit.progress(testo, opzioni)</code> apre un dialog con il testo e la barra e restituisce <code>{ update(testo, valore), close() }</code>. Il valore va da 0 a 1; senza valore (<code>null</code>) la barra scorre da sola, per quando non si sa quanto manca. Esc e un click sullo sfondo non lo chiudono: lo chiudi tu con <code>close()</code>, oppure con <code>onCancel</code> compare «Annulla» (e Esc vale come Annulla). Con <code>delay</code> (in ms) compare solo se l'operazione dura più di così, così le operazioni veloci non lampeggiano.</p>
 <div class="doc-demo kit-bar" data-doc-js='const p = Kit.progress("Lettura delle fatture…", { value: 0, delay: 200,
