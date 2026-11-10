@@ -70,6 +70,20 @@
   </ul>
 </div>
 
+<h3 id="lista-card">A card separate e compatta</h3>
+<p><code>kit-list-cards</code> stacca le voci: ognuna diventa una card con il suo bordo, con uno spazio in mezzo. Funziona anche con voci cliccabili, attive e con gli stati. <code>kit-list-sm</code> riduce lo spazio sopra e sotto ogni voce e si combina con le altre varianti.</p>
+<div class="doc-demo">
+  <div class="kit-list kit-list-cards">
+    <a class="kit-list-item is-active" href="#lista-card" aria-current="true"><span class="kit-list-main"><b>Rossi S.r.l.</b><small>Fattura 24/118</small></span><span class="kit-badge">Da pagare</span></a>
+    <a class="kit-list-item" href="#lista-card"><span class="kit-list-main"><b>Bianchi &amp; C.</b><small>Fattura 24/119</small></span><span class="kit-badge kit-badge-success">Pagata</span></a>
+    <div class="kit-list-item kit-list-item-danger"><span class="kit-list-main"><b>Verdi S.p.A.</b><small>Scartata dal SdI</small></span></div>
+  </div>
+  <ul class="kit-list kit-list-sm">
+    <li class="kit-list-item">Voce compatta</li>
+    <li class="kit-list-item">Un'altra voce compatta <span class="kit-badge">2</span></li>
+  </ul>
+</div>
+
 <h3 id="lista-varianti">Numerata, in orizzontale, senza riquadro</h3>
 <p><code>kit-list-numbered</code> mette il numero davanti a ogni voce. <code>kit-list-horizontal</code> le dispone in riga, di pari larghezza (sotto i 760px tornano impilate). <code>kit-list-flush</code> toglie bordo, angoli e ombra: serve dentro una card, che ha già il suo riquadro.</p>
 <div class="doc-demo">

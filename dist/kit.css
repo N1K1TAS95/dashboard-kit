@@ -864,6 +864,17 @@ a.kit-list-item:hover, button.kit-list-item:hover, .kit-list-action:hover { back
 .kit-list-item-danger { background: color-mix(in srgb, var(--kit-danger) 10%, transparent); color: var(--kit-danger); }
 /* senza riquadro: per le liste dentro una card, un menu o un pannello */
 .kit-list-flush { border: 0; border-radius: 0; box-shadow: none; background: none; margin-bottom: 0; }
+/* a card separate: ogni voce è una card a sé, con uno spazio in mezzo */
+.kit-list-cards { gap: 8px; background: none; border: 0; border-radius: 0; box-shadow: none; overflow: visible; }
+.kit-list-cards > .kit-list-item { background: var(--kit-card); border: 1px solid var(--kit-line); border-radius: var(--kit-rad); box-shadow: var(--kit-shadow); }
+.kit-list-cards > .kit-list-item + .kit-list-item { border-top: 1px solid var(--kit-line); }
+.kit-list-cards > a.kit-list-item:hover, .kit-list-cards > button.kit-list-item:hover, .kit-list-cards > .kit-list-action:hover { background: var(--kit-hover); }
+.kit-list-cards > .kit-list-item.is-active, .kit-list-cards > .kit-list-item[aria-current]:not([aria-current="false"]) { background: var(--kit-accent-soft); }
+.kit-list-cards > .kit-list-item-success { background: linear-gradient(color-mix(in srgb, var(--kit-success) 10%, transparent), color-mix(in srgb, var(--kit-success) 10%, transparent)), var(--kit-card); }
+.kit-list-cards > .kit-list-item-warning { background: linear-gradient(color-mix(in srgb, var(--kit-warning) 12%, transparent), color-mix(in srgb, var(--kit-warning) 12%, transparent)), var(--kit-card); }
+.kit-list-cards > .kit-list-item-danger { background: linear-gradient(color-mix(in srgb, var(--kit-danger) 10%, transparent), color-mix(in srgb, var(--kit-danger) 10%, transparent)), var(--kit-card); }
+/* compatta: meno spazio sopra e sotto */
+.kit-list-sm > .kit-list-item { padding-block: 6px; }
 /* numerata: il numero compare prima di ogni voce */
 .kit-list-numbered { counter-reset: kit-li; }
 .kit-list-numbered > .kit-list-item::before { counter-increment: kit-li; content: counter(kit-li); flex: none; min-width: 1.5em; color: var(--kit-mute); font-variant-numeric: tabular-nums; }
