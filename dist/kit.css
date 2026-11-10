@@ -1117,6 +1117,18 @@ kbd {
 .kit-pop-sep { height: 1px; background: var(--kit-line-soft); margin: 6px 4px; flex: none; }
 
 .kit-pop-group { font-size: 0.857rem; text-transform: uppercase; letter-spacing: .05em; color: var(--kit-mute); padding: 8px 10px 4px; font-weight: 600; }
+/* Pannello delle impostazioni: un .kit-pop con più gruppi di scelte (tema, testo, larghezza), che resta aperto. */
+.kit-settings { width: 21rem; max-width: calc(100vw - 2 * var(--kit-sp)); max-height: none; padding: 14px; gap: 14px; }
+.kit-settings-row { display: flex; flex-direction: column; gap: 6px; }
+.kit-settings-label { font-size: 0.857rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--kit-mute); }
+.kit-settings-row > small { font-size: 0.857rem; color: var(--kit-mute); }
+.kit-settings .kit-seg { display: flex; }
+.kit-settings .kit-seg > button { flex: 1; justify-content: center; padding: 0 6px; }
+.kit-settings [data-kit-fs-set="sm"] { font-size: 0.8em; }
+.kit-settings [data-kit-fs-set="lg"] { font-size: 1.15em; }
+.kit-settings [data-kit-fs-set="xl"] { font-size: 1.3em; }
+.kit-settings-foot { display: flex; justify-content: flex-end; border-top: 1px solid var(--kit-line-soft); padding-top: 10px; margin: 0 -14px -4px; padding-left: 14px; padding-right: 14px; }
+
 .kit-pop-empty { padding: 12px; color: var(--kit-mute); font-size: 0.929rem; text-align: center; }
 
 .kit-opt {

@@ -6,6 +6,7 @@
  *   data-kit-theme-set="auto|light|dark"     bottone che imposta il tema
  *   data-kit-fs-set="sm|md|lg|xl"            bottone che imposta la dimensione del testo (87,5% · 100% · 112,5% · 125%)
  *   data-kit-fs-step="1|-1"                  bottone che ingrandisce o rimpicciolisce il testo di un passo
+ *   data-kit-reset                           bottone che ripristina tema, testo e larghezza
  *   data-kit-layout-set="boxed|fluid"        bottone che sceglie contenuto centrato o a tutta larghezza
  *   data-kit-layout-toggle                   bottone che alterna le due larghezze
  *   data-kit-toggle="#id"                    bottone che apre/chiude un .kit-pop
@@ -16,8 +17,8 @@
  *   data-kit-tip="testo"                     tooltip (solo CSS; con kit.js Esc lo nasconde)
  *   data-kit-dismiss                         dentro un .kit-alert, lo rimuove (evento "kit:dismiss")
  *
- * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.fontSize.get()/set()/step(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.init(radice)
- * Eventi: "kit:change" (select), "kit:tab" (tab), "kit:theme" (tema), "kit:layout" (larghezza), "kit:fs" (dimensione del testo), "kit:dismiss" (avviso chiuso)
+ * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.fontSize.get()/set()/step(), Kit.reset(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.init(radice)
+ * Eventi: "kit:change" (select), "kit:tab" (tab), "kit:theme" (tema), "kit:layout" (larghezza), "kit:fs" (dimensione del testo), "kit:reset" (impostazioni ripristinate), "kit:dismiss" (avviso chiuso)
  */
 (function () {
     "use strict";
@@ -101,6 +102,7 @@
 
     /* ---------- Larghezza del contenuto: centrato (boxed) o a tutta larghezza (fluid) ---------- */
     var LKEY = "kit-layout";
+    var authoredLayout = root.getAttribute("data-layout") === "fluid" ? "fluid" : "boxed";   // quella scritta nell'HTML
 
     function readLayout() {
         try {
@@ -134,6 +136,20 @@
             layout.set(layout.get() === "fluid" ? "boxed" : "fluid");
         }
     };
+
+    /* ---------- Ripristino: tema automatico, testo normale, larghezza scritta nell'HTML ---------- */
+    function reset() {
+        theme.set("auto");
+        fontSize.set("md");
+        try { localStorage.removeItem(LKEY); } catch (e) { /* storage non disponibile */ }
+        root.setAttribute("data-layout", authoredLayout);
+        syncLayoutButtons();
+        root.dispatchEvent(new CustomEvent("kit:layout", { detail: authoredLayout }));
+        root.dispatchEvent(new CustomEvent("kit:reset"));
+    }
+
+    // Dentro un pannello di impostazioni (.kit-settings) il menu resta aperto: si cambiano più cose di fila.
+    function keepOpen(btn) { return !!btn.closest(".kit-settings"); }
 
     /* ---------- Toast ----------
        Kit.toast("testo")  oppure  Kit.toast("testo", { type, title, duration, position, action, closable })
@@ -326,13 +342,15 @@
         if (!(t instanceof Element)) return;
 
         var themeBtn = t.closest("[data-kit-theme-set]");
-        if (themeBtn) { theme.set(themeBtn.getAttribute("data-kit-theme-set")); closePop(false); return; }
+        if (themeBtn) { theme.set(themeBtn.getAttribute("data-kit-theme-set")); if (!keepOpen(themeBtn)) closePop(false); return; }
 
         var fsBtn = t.closest("[data-kit-fs-set]");
-        if (fsBtn) { fontSize.set(fsBtn.getAttribute("data-kit-fs-set")); closePop(false); return; }
+        if (fsBtn) { fontSize.set(fsBtn.getAttribute("data-kit-fs-set")); if (!keepOpen(fsBtn)) closePop(false); return; }
 
         var fsStep = t.closest("[data-kit-fs-step]");
         if (fsStep) { fontSize.step(parseInt(fsStep.getAttribute("data-kit-fs-step"), 10) || 0); return; }
+
+        if (t.closest("[data-kit-reset]")) { reset(); return; }
 
         var layoutBtn = t.closest("[data-kit-layout-set]");
         if (layoutBtn) { layout.set(layoutBtn.getAttribute("data-kit-layout-set")); return; }
@@ -483,5 +501,5 @@
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { init(); });
     else init();
 
-    window.Kit = { theme: theme, layout: layout, fontSize: fontSize, toast: toast, init: init };
+    window.Kit = { theme: theme, layout: layout, fontSize: fontSize, reset: reset, toast: toast, init: init };
 })();

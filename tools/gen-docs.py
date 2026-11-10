@@ -46,20 +46,34 @@ HEADER = """<header class="kit-header">
     <span class="kit-spacer"></span>
     <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
     <div class="kit-dropdown">
-      <button class="kit-btn" data-kit-toggle="#textMenu" aria-haspopup="menu" aria-expanded="false" aria-label="Dimensione del testo"><svg class="kit-icon"><use href="#i-text"/></svg><span class="kit-d-none kit-d-sm-inline">Testo</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
-      <div class="kit-pop kit-pop-right" id="textMenu" role="menu" hidden>
-        <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-fs-set="sm"><span class="kit-opt-text"><b>Piccolo</b><small>87,5%</small></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
-        <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-fs-set="md"><span class="kit-opt-text"><b>Normale</b><small>100%, cresce con lo schermo</small></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
-        <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-fs-set="lg"><span class="kit-opt-text"><b>Grande</b><small>112,5%</small></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
-        <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-fs-set="xl"><span class="kit-opt-text"><b>Molto grande</b><small>125%</small></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
-      </div>
-    </div>
-    <div class="kit-dropdown">
-      <button class="kit-btn" data-kit-toggle="#themeMenu" aria-haspopup="menu" aria-expanded="false"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-d-none kit-d-sm-inline">Tema</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
-      <div class="kit-pop kit-pop-right" id="themeMenu" role="menu" hidden>
-        <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-opt-text"><b>Automatico</b><small>Segue il sistema</small></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
-        <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg><span class="kit-opt-text"><b>Chiaro</b></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
-        <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg><span class="kit-opt-text"><b>Scuro</b></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+      <button class="kit-btn kit-btn-icon" data-kit-toggle="#settings" aria-haspopup="true" aria-expanded="false" aria-label="Impostazioni" title="Impostazioni"><svg class="kit-icon"><use href="#i-sliders"/></svg></button>
+      <div class="kit-pop kit-pop-right kit-settings" id="settings" role="group" aria-label="Impostazioni" hidden>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Tema</span>
+          <div class="kit-seg" role="group" aria-label="Tema">
+            <button data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg>Auto</button>
+            <button data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg>Chiaro</button>
+            <button data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg>Scuro</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Dimensione del testo</span>
+          <div class="kit-seg" role="group" aria-label="Dimensione del testo">
+            <button data-kit-fs-set="sm" aria-label="Piccolo" title="Piccolo (87,5%)">A</button>
+            <button data-kit-fs-set="md" aria-label="Normale" title="Normale (100%)">A</button>
+            <button data-kit-fs-set="lg" aria-label="Grande" title="Grande (112,5%)">A</button>
+            <button data-kit-fs-set="xl" aria-label="Molto grande" title="Molto grande (125%)">A</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Larghezza del contenuto</span>
+          <div class="kit-seg" role="group" aria-label="Larghezza del contenuto">
+            <button data-kit-layout-set="boxed">Centrata</button>
+            <button data-kit-layout-set="fluid">Tutta la pagina</button>
+          </div>
+          <small>Si nota sugli schermi più larghi del contenuto.</small>
+        </div>
+        <div class="kit-settings-foot"><button class="kit-btn kit-btn-ghost" data-kit-reset>Ripristina</button></div>
       </div>
     </div>
   </div>

@@ -6,6 +6,7 @@
 - Testo più leggibile: interlinea 1,5 e dimensione minima di circa 13px. Le dimensioni sono in `rem` e la base `--kit-fs` cresce con lo schermo (15px fino a 1279px, poi 16, 17, 19 e 22px da 2560px).
 - Dimensione del testo scelta dall'utente: `data-kit-fs="sm|md|lg|xl"` su `<html>`, `data-kit-fs-set` e `data-kit-fs-step` nei bottoni, `Kit.fontSize.get()/set()/step()`, evento `kit:fs`; la scelta viene ricordata.
 - Altezza dei controlli (`--kit-ctl`), intestazione (`--kit-hh`), larghezza del contenuto (`--kit-container-w`) e icone passano da `px` a `rem`, così crescono con il testo.
+- Pannello delle impostazioni (`kit-settings`): un menu a comparsa con tema, dimensione del testo e larghezza, che resta aperto dopo ogni scelta; `data-kit-reset` e `Kit.reset()` ripristinano i valori di partenza (evento `kit:reset`). Sostituisce i menu "Tema" e "Testo" nelle pagine della documentazione e nella dashboard di esempio.
 - Nuova icona `text`; nelle pagine della documentazione c'è il menu "Testo".
 
 ## 0.3.0 — 9 novembre 2026

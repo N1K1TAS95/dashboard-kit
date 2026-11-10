@@ -1,7 +1,7 @@
 <!--title: Temi e token-->
 <!--desc: Tutto l'aspetto passa da poche variabili CSS. Cambiandole in <code>:root</code>, o su un singolo elemento, si cambiano colori, densità e angoli di tutta l'interfaccia.-->
 <h2 id="tema">Tema chiaro e scuro</h2>
-<p>I colori sono scritti una volta sola con <code>light-dark(chiaro, scuro)</code>. Di base il tema segue il sistema; per forzarlo imposta <code>data-theme</code> su <code>&lt;html&gt;</code>. Con <code>kit.js</code> bastano i bottoni con <code>data-kit-theme-set</code> (la scelta viene ricordata); il menu "Tema" in alto a destra di queste pagine è fatto così.</p>
+<p>I colori sono scritti una volta sola con <code>light-dark(chiaro, scuro)</code>. Di base il tema segue il sistema; per forzarlo imposta <code>data-theme</code> su <code>&lt;html&gt;</code>. Con <code>kit.js</code> bastano i bottoni con <code>data-kit-theme-set</code> (la scelta viene ricordata); lo stesso vale per il <a href="overlays.html#impostazioni">pannello delle impostazioni</a>, che li riunisce con testo e larghezza.</p>
 ```html
 <html lang="it" data-theme="dark">           <!-- forzato scuro; senza l'attributo segue il sistema -->
 
@@ -31,7 +31,7 @@
 td.codice { font-variant-numeric: slashed-zero tabular-nums; }  /* zero barrato e cifre di uguale larghezza */
 ```
 <p>Tutte le dimensioni del testo sono in <code>rem</code>, quindi seguono la dimensione di base <code>--kit-fs</code> (<code>1rem</code>). La base cresce da sola con lo schermo: 15px fino a 1279px, poi 16px, 17px (da 1600px), 19px (da 1920px) e 22px (da 2560px). Anche altezza dei controlli, icone, intestazione e larghezza del contenuto sono in <code>rem</code> e crescono insieme al testo.</p>
-<p>L'utente può ingrandire o rimpicciolire tutto: <code>--kit-zoom</code> moltiplica la base e <code>data-kit-fs</code> su <code>&lt;html&gt;</code> lo imposta (<code>sm</code> 87,5%, <code>md</code> 100%, <code>lg</code> 112,5%, <code>xl</code> 125%). Con <code>kit.js</code> bastano i bottoni con <code>data-kit-fs-set</code> o <code>data-kit-fs-step</code>; la scelta viene ricordata. Il menu "Testo" in alto a destra di queste pagine è fatto così.</p>
+<p>L'utente può ingrandire o rimpicciolire tutto: <code>--kit-zoom</code> moltiplica la base e <code>data-kit-fs</code> su <code>&lt;html&gt;</code> lo imposta (<code>sm</code> 87,5%, <code>md</code> 100%, <code>lg</code> 112,5%, <code>xl</code> 125%). Con <code>kit.js</code> bastano i bottoni con <code>data-kit-fs-set</code> o <code>data-kit-fs-step</code>; la scelta viene ricordata. Anche queste scelte stanno nel <a href="overlays.html#impostazioni">pannello delle impostazioni</a>.</p>
 ```html
 <button class="kit-btn" data-kit-fs-step="-1" aria-label="Testo più piccolo">A−</button>
 <button class="kit-btn" data-kit-fs-step="1"  aria-label="Testo più grande">A+</button>

@@ -433,5 +433,44 @@
       "  </div>",
       "</header>"
     ]
+  },
+  "Kit: pannello impostazioni": {
+    "prefix": "kit-settings",
+    "scope": "html",
+    "description": "Pannello delle impostazioni: tema, dimensione del testo, larghezza (richiede kit.js)",
+    "body": [
+      "<div class=\"kit-dropdown\">",
+      "  <button class=\"kit-btn\" data-kit-toggle=\"#${1:impostazioni}\" aria-haspopup=\"true\" aria-expanded=\"false\" aria-label=\"Impostazioni\"><svg class=\"kit-icon\"><use href=\"#i-sliders\"/></svg><span class=\"kit-d-none kit-d-sm-inline\">${2:Impostazioni}</span><svg class=\"kit-icon\"><use href=\"#i-chev\"/></svg></button>",
+      "  <div class=\"kit-pop kit-pop-right kit-settings\" id=\"${1:impostazioni}\" role=\"group\" aria-label=\"Impostazioni\" hidden>",
+      "    <div class=\"kit-settings-row\">",
+      "      <span class=\"kit-settings-label\">Tema</span>",
+      "      <div class=\"kit-seg\" role=\"group\" aria-label=\"Tema\">",
+      "        <button data-kit-theme-set=\"auto\"><svg class=\"kit-icon\"><use href=\"#i-auto\"/></svg>Auto</button>",
+      "        <button data-kit-theme-set=\"light\"><svg class=\"kit-icon\"><use href=\"#i-sun\"/></svg>Chiaro</button>",
+      "        <button data-kit-theme-set=\"dark\"><svg class=\"kit-icon\"><use href=\"#i-moon\"/></svg>Scuro</button>",
+      "      </div>",
+      "    </div>",
+      "    <div class=\"kit-settings-row\">",
+      "      <span class=\"kit-settings-label\">Dimensione del testo</span>",
+      "      <div class=\"kit-seg\" role=\"group\" aria-label=\"Dimensione del testo\">",
+      "        <button data-kit-fs-set=\"sm\" aria-label=\"Piccolo\" title=\"Piccolo (87,5%)\">A</button>",
+      "        <button data-kit-fs-set=\"md\" aria-label=\"Normale\" title=\"Normale (100%)\">A</button>",
+      "        <button data-kit-fs-set=\"lg\" aria-label=\"Grande\" title=\"Grande (112,5%)\">A</button>",
+      "        <button data-kit-fs-set=\"xl\" aria-label=\"Molto grande\" title=\"Molto grande (125%)\">A</button>",
+      "      </div>",
+      "    </div>",
+      "    <div class=\"kit-settings-row\">",
+      "      <span class=\"kit-settings-label\">Larghezza del contenuto</span>",
+      "      <div class=\"kit-seg\" role=\"group\" aria-label=\"Larghezza del contenuto\">",
+      "        <button data-kit-layout-set=\"boxed\">Centrata</button>",
+      "        <button data-kit-layout-set=\"fluid\">Tutta la pagina</button>",
+      "      </div>",
+      "      <small>Si nota sugli schermi più larghi del contenuto.</small>",
+      "    </div>",
+      "    <div class=\"kit-settings-foot\"><button class=\"kit-btn kit-btn-ghost\" data-kit-reset>Ripristina</button></div>",
+      "  </div>",
+      "</div>",
+      "$0"
+    ]
   }
 }

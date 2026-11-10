@@ -177,3 +177,39 @@
 <tr><td><code>closable</code></td><td><code>true</code> · <code>false</code></td><td><code>true</code> con azione o <code>duration: 0</code></td></tr>
 </tbody></table></div></div>
 <p class="kit-alert">Il testo del toast è sempre testo semplice: <code>Kit.toast</code> non interpreta mai HTML, quindi si può passare anche un valore inserito dall'utente.</p>
+
+<h2 id="impostazioni">Pannello delle impostazioni</h2>
+<p>Un solo menu per le preferenze dell'utente: <strong>tema</strong> (automatico, chiaro, scuro), <strong>dimensione del testo</strong> e <strong>larghezza del contenuto</strong>, più "Ripristina". È un <a href="#menu">menu a comparsa</a> con la classe <code>kit-settings</code>, fatto di gruppi <code>kit-seg</code> i cui bottoni usano gli attributi di <code>kit.js</code> che già conosci (<code>data-kit-theme-set</code>, <code>data-kit-fs-set</code>, <code>data-kit-layout-set</code>). A differenza di un menu normale resta aperto dopo ogni scelta, così si cambiano più cose di fila; si chiude con Esc o cliccando fuori. Tutte le scelte vengono ricordate. Le righe sono indipendenti: togli quelle che non ti servono. <code>data-kit-reset</code> (o <code>Kit.reset()</code>) riporta tutto al valore di partenza: tema del sistema, testo normale, larghezza scritta nell'HTML. È il menu "Impostazioni" in alto a destra di queste pagine.</p>
+<div class="doc-demo" style="min-height: 430px">
+  <div class="kit-dropdown">
+    <button class="kit-btn" data-kit-toggle="#demo-settings" aria-haspopup="true" aria-expanded="false"><svg class="kit-icon"><use href="#i-sliders"/></svg><span class="kit-d-none kit-d-sm-inline">Impostazioni</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
+    <div class="kit-pop kit-pop-right kit-settings" id="demo-settings" role="group" aria-label="Impostazioni" hidden>
+      <div class="kit-settings-row">
+        <span class="kit-settings-label">Tema</span>
+        <div class="kit-seg" role="group" aria-label="Tema">
+          <button data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg>Auto</button>
+          <button data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg>Chiaro</button>
+          <button data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg>Scuro</button>
+        </div>
+      </div>
+      <div class="kit-settings-row">
+        <span class="kit-settings-label">Dimensione del testo</span>
+        <div class="kit-seg" role="group" aria-label="Dimensione del testo">
+          <button data-kit-fs-set="sm" aria-label="Piccolo" title="Piccolo (87,5%)">A</button>
+          <button data-kit-fs-set="md" aria-label="Normale" title="Normale (100%)">A</button>
+          <button data-kit-fs-set="lg" aria-label="Grande" title="Grande (112,5%)">A</button>
+          <button data-kit-fs-set="xl" aria-label="Molto grande" title="Molto grande (125%)">A</button>
+        </div>
+      </div>
+      <div class="kit-settings-row">
+        <span class="kit-settings-label">Larghezza del contenuto</span>
+        <div class="kit-seg" role="group" aria-label="Larghezza del contenuto">
+          <button data-kit-layout-set="boxed">Centrata</button>
+          <button data-kit-layout-set="fluid">Tutta la pagina</button>
+        </div>
+        <small>Si nota sugli schermi più larghi del contenuto.</small>
+      </div>
+      <div class="kit-settings-foot"><button class="kit-btn kit-btn-ghost" data-kit-reset>Ripristina</button></div>
+    </div>
+  </div>
+</div>
