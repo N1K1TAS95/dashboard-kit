@@ -79,7 +79,7 @@ modifica le costanti in `tools/gen-grid.py` e lancia `python3 tools/gen-grid.py`
 ## Cosa c'è
 Layout (header, container, grid, split), navbar (voci, menu a tendina, menu a scomparsa), card, schede KPI, bottoni, form, segmented, pill, chip, badge,
 tab, statistiche, tabella, stati vuoti, chiave/valore, progress, select, popover/menu,
-dialog, toast, utility.
+dialog (anche di conferma), toast con annulla, utility.
 
 ## Personalizzare
 Tutto passa dai token `--kit-*` (colori, `--kit-sp`, `--kit-rad`, `--kit-rad-sm`, `--kit-row`, `--kit-ctl`…):

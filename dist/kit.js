@@ -15,10 +15,12 @@
  *   data-kit-nav="#id"                       bottone (hamburger) che apre/chiude il menu a scomparsa di una .kit-navbar
  *   data-kit-open="#dialogId"                apre un <dialog>
  *   data-kit-close                           dentro un <dialog>, lo chiude
+ *   data-kit-confirm="Domanda?"              su un bottone, link o form: prima chiede conferma (opzioni: data-kit-confirm-text,
+ *                                            -ok, -cancel, -danger, -type="testo da digitare")
  *   data-kit-tip="testo"                     tooltip (solo CSS; con kit.js Esc lo nasconde)
  *   data-kit-dismiss                         dentro un .kit-alert, lo rimuove (evento "kit:dismiss")
  *
- * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.fontSize.get()/set()/step(), Kit.reset(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.init(radice)
+ * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.fontSize.get()/set()/step(), Kit.reset(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.confirm(domanda, opzioni), Kit.undo(testo, opzioni), Kit.init(radice)
  * Eventi: "kit:change" (select), "kit:tab" (tab), "kit:theme" (tema), "kit:layout" (larghezza), "kit:fs" (dimensione del testo), "kit:reset" (impostazioni ripristinate), "kit:dismiss" (avviso chiuso)
  */
 (function () {
@@ -153,7 +155,7 @@
     function keepOpen(btn) { return !!btn.closest(".kit-settings"); }
 
     /* ---------- Toast ----------
-       Kit.toast("testo")  oppure  Kit.toast("testo", { type, title, duration, position, action, closable, progress })
+       Kit.toast("testo")  oppure  Kit.toast("testo", { type, title, duration, position, action, closable, progress, onClose })
        (il secondo argomento può anche essere solo la durata in ms). Restituisce { close() }.
        Si costruisce con createElement/textContent: il testo non è mai interpretato come HTML. */
     var TOAST_MAX = 6;                       // oltre questo numero il più vecchio si chiude
@@ -227,11 +229,13 @@
         el.appendChild(body);
 
         var timer = null, closed = false;
+        var onClose = typeof opts.onClose === "function" ? opts.onClose : null;     // chiamata una volta, quando il toast esce
         // Il toast che esce si dissolve fuori dal flusso (position: absolute, dove si trova): i vicini si spostano subito.
         function leave() {
             if (closed) return;
             closed = true;
             clearTimeout(timer);
+            if (onClose) setTimeout(onClose, 0);
             if (barAnim) barAnim.pause();
             // Uscendo dal flusso il contenitore si restringe e (se è ancorato in basso) si sposta: il toast va quindi
             // ancorato a dove si trova sullo schermo adesso, non alla sua posizione dentro il contenitore.
@@ -309,10 +313,174 @@
         return { close: close };
     }
 
+    /* ---------- Annulla invece di chiedere conferma ----------
+       Kit.undo("Fattura eliminata", { onUndo, onCommit, duration, label, type, position })
+       L'azione si considera fatta subito nell'interfaccia; onCommit (quella vera, definitiva) parte quando il toast
+       sparisce senza che l'utente abbia premuto "Annulla" (scadenza, chiusura con la ×, pagina chiusa o ricaricata).
+       Restituisce { undo(), commit() }. */
+    function undo(text, opts) {
+        opts = opts || {};
+        var done = false, handle = null;
+        function commit() {
+            if (done) return;
+            done = true;
+            window.removeEventListener("pagehide", commit);
+            if (typeof opts.onCommit === "function") opts.onCommit();
+        }
+        function undoNow() {
+            if (done) return;
+            done = true;
+            window.removeEventListener("pagehide", commit);
+            if (typeof opts.onUndo === "function") opts.onUndo();
+        }
+        window.addEventListener("pagehide", commit);
+        handle = toast(text, {
+            type: opts.type,
+            position: opts.position,
+            duration: typeof opts.duration === "number" ? opts.duration : 6000,
+            action: { label: opts.label || "Annulla", onClick: undoNow },
+            onClose: commit
+        });
+        return { undo: function () { undoNow(); handle.close(); }, commit: function () { commit(); handle.close(); } };
+    }
+
     // Kit.toast.clear(): chiude tutti i toast aperti
     toast.clear = function () {
         document.querySelectorAll(".kit-toast").forEach(function (el) { if (el.kitClose) el.kitClose(); else el.remove(); });
     };
+
+    /* ---------- Conferma ----------
+       Kit.confirm("Eliminare 12 fatture?", { text, confirm, cancel, danger, type }) → Promise<boolean>
+       Un <dialog> modale creato al volo (role="alertdialog"): Esc, click sullo sfondo e "Annulla" danno false.
+       Con danger il bottone di conferma è rosso e il focus parte su "Annulla", così un Invio distratto non fa danni.
+       Con type: "testo" l'utente deve digitare quel testo per abilitare la conferma (il focus parte sul campo). */
+    var confirmSeq = 0;
+    function mkEl(tag, cls, text) {
+        var n = document.createElement(tag);
+        if (cls) n.className = cls;
+        if (text !== undefined) n.textContent = text;
+        return n;
+    }
+
+    function confirmDialog(title, opts) {
+        if (typeof opts === "string") opts = { text: opts };
+        opts = opts || {};
+        var danger = !!opts.danger, typed = opts.type ? String(opts.type) : "";
+        var id = "kit-confirm-" + (++confirmSeq);
+
+        var dlg = mkEl("dialog", "kit-dialog kit-confirm" + (danger ? " kit-confirm-danger" : ""));
+        dlg.setAttribute("role", "alertdialog");
+        dlg.setAttribute("aria-labelledby", id + "-t");
+
+        var body = mkEl("div", "kit-card-body");
+        var iconId = danger ? "i-warn" : "i-info";
+        if (document.getElementById(iconId)) {
+            var NS = "http://www.w3.org/2000/svg";
+            var wrap = mkEl("span", "kit-confirm-icon");
+            var svg = document.createElementNS(NS, "svg");
+            svg.setAttribute("class", "kit-icon");
+            svg.setAttribute("aria-hidden", "true");
+            var use = document.createElementNS(NS, "use");
+            use.setAttribute("href", "#" + iconId);
+            svg.appendChild(use);
+            wrap.appendChild(svg);
+            body.appendChild(wrap);
+        }
+        var txt = mkEl("div", "kit-confirm-text");
+        var h = mkEl("strong", "kit-confirm-title", String(title || "Confermi l'azione?"));
+        h.id = id + "-t";
+        txt.appendChild(h);
+        if (opts.text) {
+            var p = mkEl("p", "", String(opts.text));
+            p.id = id + "-d";
+            txt.appendChild(p);
+            dlg.setAttribute("aria-describedby", id + "-d");
+        }
+        var input = null;
+        if (typed) {
+            var lab = mkEl("label", "kit-field");
+            lab.appendChild(document.createTextNode("Per confermare scrivi "));
+            lab.appendChild(mkEl("b", "", typed));
+            input = mkEl("input", "kit-input");
+            input.type = "text";
+            input.autocomplete = "off";
+            input.spellcheck = false;
+            input.setAttribute("autocapitalize", "off");
+            lab.appendChild(input);
+            txt.appendChild(lab);
+        }
+        body.appendChild(txt);
+        dlg.appendChild(body);
+
+        var foot = mkEl("div", "kit-card-foot");
+        var cancel = mkEl("button", "kit-btn", String(opts.cancel || "Annulla"));
+        cancel.type = "button";
+        var ok = mkEl("button", "kit-btn " + (danger ? "kit-btn-danger-solid" : "kit-btn-primary"), String(opts.confirm || "Conferma"));
+        ok.type = "button";
+        if (typed) ok.disabled = true;
+        foot.appendChild(cancel);
+        foot.appendChild(ok);
+        dlg.appendChild(foot);
+
+        // il focus parte sul campo, su "Annulla" se l'azione è pericolosa, altrimenti sulla conferma
+        (input || (danger ? cancel : ok)).setAttribute("autofocus", "");
+
+        return new Promise(function (resolve) {
+            cancel.addEventListener("click", function () { dlg.close("cancel"); });
+            ok.addEventListener("click", function () { dlg.close("ok"); });
+            if (input) {
+                input.addEventListener("input", function () { ok.disabled = input.value.trim() !== typed; });
+                input.addEventListener("keydown", function (e) {
+                    if (e.key === "Enter") { e.preventDefault(); if (!ok.disabled) ok.click(); }
+                });
+            }
+            dlg.addEventListener("close", function () {
+                resolve(dlg.returnValue === "ok");
+                setTimeout(function () { if (dlg.parentNode) dlg.parentNode.removeChild(dlg); }, 300);   // dopo l'animazione d'uscita
+            });
+            document.body.appendChild(dlg);
+            dlg.showModal();
+        });
+    }
+
+    // data-kit-confirm: la conferma si chiede prima di qualunque altra azione dell'elemento (anche i tuoi gestori di click).
+    var passing = null;   // l'elemento che ha appena avuto conferma: il suo click o invio va lasciato passare
+
+    function confirmFor(el) {
+        var a = function (n) { return el.getAttribute("data-kit-confirm" + n); };
+        return confirmDialog(a("") || undefined, {
+            text: a("-text"),
+            confirm: a("-ok"),
+            cancel: a("-cancel"),
+            danger: el.hasAttribute("data-kit-confirm-danger"),
+            type: a("-type")
+        });
+    }
+
+    document.addEventListener("click", function (e) {
+        var t = e.target instanceof Element && e.target.closest("[data-kit-confirm]");
+        if (!t || t.tagName === "FORM" || t === passing) return;
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        confirmFor(t).then(function (yes) {
+            if (!yes) return;
+            passing = t;
+            try { t.click(); } finally { passing = null; }
+        });
+    }, true);
+
+    document.addEventListener("submit", function (e) {
+        var f = e.target;
+        if (!(f instanceof HTMLFormElement) || !f.hasAttribute("data-kit-confirm") || f === passing) return;
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        var sub = e.submitter;
+        confirmFor(f).then(function (yes) {
+            if (!yes) return;
+            passing = f;
+            try { f.requestSubmit(sub || undefined); } finally { passing = null; }
+        });
+    }, true);
 
     /* ---------- Popover ---------- */
     var openPop = null;
@@ -600,5 +768,5 @@
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { init(); });
     else init();
 
-    window.Kit = { theme: theme, layout: layout, fontSize: fontSize, reset: reset, toast: toast, init: init };
+    window.Kit = { theme: theme, layout: layout, fontSize: fontSize, reset: reset, toast: toast, undo: undo, confirm: confirmDialog, init: init };
 })();

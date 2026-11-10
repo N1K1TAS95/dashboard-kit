@@ -122,6 +122,7 @@
           <a href="overlays.html" class="is-current" aria-current="page">Dialog e menu</a>
           <ul class="doc-toc">
             <li><a href="#dialog">Dialog</a></li>
+            <li><a href="#conferma">Chiedere conferma</a></li>
             <li><a href="#menu">Menu a comparsa</a></li>
             <li><a href="#tooltip">Tooltip</a></li>
             <li><a href="#toast">Toast</a></li>
@@ -161,6 +162,78 @@
     </div>
   </dialog>
 </div>
+
+<h2 id="conferma">Chiedere conferma</h2>
+<p>Un dialog con «Conferma» e «Annulla» interrompe chi lavora, e se compare troppo spesso si impara a premere «Conferma» senza leggere. Conviene scegliere in base a quanto è grave l'errore.</p>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>Se l'azione…</th><th>Usa</th></tr></thead><tbody>
+<tr><td>si può disfare (archiviare, spostare, eliminare con cestino)</td><td><a href="#annulla">Annulla</a>: l'azione parte subito e il toast offre «Annulla»</td></tr>
+<tr><td>non si può disfare (eliminare per sempre, inviare, pagare)</td><td><a href="#conferma-js">Conferma</a> con <code>Kit.confirm</code> o <code>data-kit-confirm</code></td></tr>
+<tr><td>è molto grave o riguarda molti dati (cancellare un archivio)</td><td>Conferma <a href="#conferma-nome">digitando il nome</a></td></tr>
+</tbody></table></div></div>
+<p>In ogni caso: scrivi sul bottone di conferma il verbo preciso («Elimina 12 fatture», non «OK»), e dì nel testo che cosa succede.</p>
+
+<h3 id="conferma-js">Kit.confirm</h3>
+<p><code>Kit.confirm(domanda, opzioni)</code> apre il dialog da solo, senza HTML, e restituisce una promessa: <code>true</code> se l'utente conferma, <code>false</code> con «Annulla», Esc o un click sullo sfondo. Con <code>danger: true</code> il bottone è rosso e il focus parte su «Annulla», così un Invio distratto non fa danni; senza, il focus è su «Conferma».</p>
+<div class="doc-demo kit-bar" data-doc-js='var ok = await Kit.confirm("Archiviare la fattura?", {
+    text: "Potrai ritrovarla nell&apos;archivio.",
+    confirm: "Archivia"
+  });
+  if (ok) archivia();
+
+  await Kit.confirm("Eliminare 12 fatture?", {
+    text: "L&apos;operazione non si può annullare.",
+    confirm: "Elimina 12 fatture",
+    danger: true
+  });'>
+  <button class="kit-btn" data-doc-run="confirm-base">Conferma semplice</button>
+  <button class="kit-btn kit-btn-danger" data-doc-run="confirm-danger">Azione pericolosa</button>
+</div>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>Opzione</th><th>Valori</th><th>Di base</th></tr></thead><tbody>
+<tr><td>1° argomento</td><td>la domanda (titolo del dialog)</td><td><code>Confermi l'azione?</code></td></tr>
+<tr><td><code>text</code></td><td>spiegazione sotto la domanda</td><td>nessuna</td></tr>
+<tr><td><code>confirm</code> · <code>cancel</code></td><td>testo dei due bottoni</td><td><code>Conferma</code> · <code>Annulla</code></td></tr>
+<tr><td><code>danger</code></td><td><code>true</code>: bottone rosso, icona di avviso, focus su «Annulla»</td><td><code>false</code></td></tr>
+<tr><td><code>type</code></td><td>testo da digitare per abilitare la conferma</td><td>nessuno</td></tr>
+</tbody></table></div></div>
+<p class="kit-alert">Il testo è sempre testo semplice, mai HTML: puoi passare anche un nome inserito dall'utente. Il dialog è un <code>&lt;dialog&gt;</code> con <code>role="alertdialog"</code>: Tab resta dentro, Esc annulla e alla chiusura il focus torna sul bottone che l'aveva aperto.</p>
+
+<h3 id="conferma-nome">Digitando il nome</h3>
+<p>Per le azioni davvero irreversibili, <code>type</code> chiede di scrivere un testo (di solito il nome di ciò che si elimina): finché non coincide, «Conferma» resta disattivato. Maiuscole e minuscole contano; gli spazi ai bordi no. Invio nel campo conferma, se il testo è giusto.</p>
+<div class="doc-demo kit-bar" data-doc-js='var ok = await Kit.confirm("Eliminare l&apos;archivio 2024?", {
+    text: "Verranno cancellate 312 fatture. Non si può annullare.",
+    confirm: "Elimina l&apos;archivio",
+    danger: true,
+    type: "Archivio 2024"
+  });'>
+  <button class="kit-btn kit-btn-danger" data-doc-run="confirm-type">Elimina l'archivio…</button>
+</div>
+
+<h3 id="conferma-attributo">Senza JavaScript: data-kit-confirm</h3>
+<p>Metti <code>data-kit-confirm="Domanda?"</code> su un bottone, un link o un <code>&lt;form&gt;</code>: il click (o l'invio del form) apre il dialog e, solo se l'utente conferma, l'azione prosegue come se non ci fosse stato nulla in mezzo. La conferma passa <em>prima</em> dei tuoi gestori di click, che partono solo dopo il «sì». Le altre opzioni sono attributi: <code>data-kit-confirm-text</code>, <code>-ok</code>, <code>-cancel</code>, <code>-danger</code> (senza valore) e <code>-type</code>.</p>
+<div class="doc-demo kit-bar">
+  <button class="kit-btn kit-btn-danger" data-kit-confirm="Eliminare la fattura 2026/014?" data-kit-confirm-text="Resterà nel cestino per 30 giorni." data-kit-confirm-ok="Elimina fattura" data-kit-confirm-danger data-doc-toast="Fattura eliminata" data-doc-type="success">Elimina fattura</button>
+  <button class="kit-btn" data-kit-confirm="Inviare le fatture al Sistema di Interscambio?" data-kit-confirm-ok="Invia" data-doc-toast="Fatture inviate" data-doc-type="success">Invia</button>
+</div>
+
+<h3 id="annulla">Annulla invece di chiedere</h3>
+<p>Per le azioni che si possono disfare, chiedere prima è la scelta peggiore: rallenta tutti per proteggere pochi. <code>Kit.undo</code> fa il contrario: l'interfaccia cambia subito e un toast con la barra del tempo offre «Annulla». Quando il tempo scade (o il toast si chiude, o la pagina viene lasciata) parte <code>onCommit</code>, l'azione vera e definitiva; con «Annulla» parte <code>onUndo</code> e <code>onCommit</code> non parte mai.</p>
+<div class="doc-demo" data-doc-js='riga.hidden = true;                          // l&apos;interfaccia cambia subito
+  Kit.undo("Fattura eliminata", {
+    onUndo:   function () { riga.hidden = false; },
+    onCommit: function () { elimina(id); },     // solo se non si annulla
+    duration: 6000                               // di base 6000 ms
+  });'>
+  <div class="kit-bar" id="doc-undo-row">
+    <span>Fattura 2026/014 · Rossi S.r.l.</span>
+    <span class="kit-spacer"></span>
+    <button class="kit-btn kit-btn-danger" data-doc-run="undo">Elimina</button>
+  </div>
+  <p class="kit-mute" id="doc-undo-note" hidden>La fattura è sparita: ora guarda il toast.</p>
+</div>
+<p>Opzioni: <code>onUndo</code>, <code>onCommit</code>, <code>duration</code> (di base 6000 ms), <code>label</code> (di base «Annulla»), <code>type</code> e <code>position</code> come nei <a href="#toast">toast</a>. Restituisce <code>{ undo(), commit() }</code> per decidere da codice. Se <code>onCommit</code> deve arrivare a un server, ricorda che alla chiusura della pagina il browser può interrompere la richiesta: usa <code>fetch</code> con <code>keepalive: true</code>.</p>
+
+<h3 id="dialog-animazione">Animazione</h3>
+<p>Tutti i <code>kit-dialog</code> compaiono e scompaiono con una breve dissolvenza (0,18 s), con un leggero scivolamento verso l'alto e lo sfondo che si scurisce. Si disattiva da sola con <code>prefers-reduced-motion</code>. Serve un browser recente (Chrome 117, Safari 17.4, Firefox 129): negli altri il dialog compare e scompare senza animazione, ma funziona uguale.</p>
 
 <h2 id="menu">Menu a comparsa</h2>
 <p><code>.kit-pop</code> è un pannello che si può usare da solo, per qualsiasi menu: azioni di una riga, voci di un bottone, selettore del tema. Un bottone con <code>data-kit-toggle="#id"</code> apre il <code>.kit-pop</code> indicato (dentro un <code>.kit-dropdown</code>, che lo posiziona sotto il bottone). Si chiude con Esc, cliccando fuori o scegliendo una voce; le frecce scorrono le voci, Invio le attiva.</p>

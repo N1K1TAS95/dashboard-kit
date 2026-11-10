@@ -107,6 +107,38 @@ document.addEventListener("click", function (e) {
     Kit.toast(t.getAttribute("data-doc-toast"), o);
 });
 
+// <button data-doc-run="nome">: esegue l'esempio con quel nome (il codice mostrato sotto l'esempio è quello di data-doc-js)
+var DOC_RUN = {
+    "confirm-base": function () {
+        Kit.confirm("Archiviare la fattura?", { text: "Potrai ritrovarla nell'archivio.", confirm: "Archivia" }).then(function (ok) {
+            Kit.toast(ok ? "Fattura archiviata" : "Annullato", { type: ok ? "success" : undefined, duration: 2500 });
+        });
+    },
+    "confirm-danger": function () {
+        Kit.confirm("Eliminare 12 fatture?", { text: "L'operazione non si può annullare.", confirm: "Elimina 12 fatture", danger: true }).then(function (ok) {
+            Kit.toast(ok ? "12 fatture eliminate" : "Annullato", { type: ok ? "danger" : undefined, duration: 2500 });
+        });
+    },
+    "confirm-type": function () {
+        Kit.confirm("Eliminare l'archivio 2024?", { text: "Verranno cancellate 312 fatture. Non si può annullare.", confirm: "Elimina l'archivio", danger: true, type: "Archivio 2024" }).then(function (ok) {
+            Kit.toast(ok ? "Archivio eliminato" : "Annullato", { type: ok ? "danger" : undefined, duration: 2500 });
+        });
+    },
+    "undo": function (btn) {
+        var row = btn.closest("#doc-undo-row"), note = document.getElementById("doc-undo-note");
+        row.hidden = true;
+        note.hidden = false;
+        Kit.undo("Fattura eliminata", {
+            onUndo: function () { row.hidden = false; note.hidden = true; },
+            onCommit: function () { note.hidden = true; row.hidden = false; Kit.toast("Eliminata definitivamente", { type: "danger", duration: 2500 }); }
+        });
+    }
+};
+document.addEventListener("click", function (e) {
+    var b = e.target instanceof Element && e.target.closest("[data-doc-run]");
+    if (b && window.Kit && DOC_RUN[b.getAttribute("data-doc-run")]) DOC_RUN[b.getAttribute("data-doc-run")](b);
+});
+
 // Contenitore con data-doc-seg: una sola voce attiva alla volta (segmented, pill)
 document.addEventListener("click", function (e) {
     var box = e.target instanceof Element && e.target.closest("[data-doc-seg]");

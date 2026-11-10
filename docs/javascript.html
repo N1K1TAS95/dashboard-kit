@@ -163,6 +163,7 @@
     <tr><td><code>data-kit-select</code></td><td><code>.kit-select</code></td><td>Trasforma l'elenco di opzioni in un select.</td></tr>
     <tr><td><code>data-kit-tabs</code></td><td><code>.kit-tabs</code></td><td>Attiva le tab; ogni <code>.kit-tab</code> ha <code>data-kit-panel="#id"</code>.</td></tr>
     <tr><td><code>data-kit-open="#id"</code></td><td>un bottone</td><td>Apre il <code>&lt;dialog&gt;</code> indicato.</td></tr>
+    <tr><td><code>data-kit-confirm="Domanda?"</code></td><td>un bottone, un link o un <code>&lt;form&gt;</code></td><td>Prima chiede conferma in un dialog; l'azione prosegue solo se l'utente conferma. Vedi <a href="overlays.html#conferma">Chiedere conferma</a>.</td></tr>
     <tr><td><code>data-kit-close</code></td><td>dentro un <code>&lt;dialog&gt;</code></td><td>Chiude il dialog.</td></tr>
   </tbody>
 </table></div></div>
@@ -170,6 +171,8 @@
 <h2 id="api">API</h2>
 <pre class="kit-code"><code>Kit.toast("Salvato!");          // messaggio temporaneo; opzioni: type, title, duration, position, action, progress (vedi Dialog e menu)
 Kit.toast.clear();              // chiude tutti i toast
+await Kit.confirm("Eliminare?", { danger: true });   // dialog di conferma → true / false (opzioni: text, confirm, cancel, danger, type)
+Kit.undo("Eliminata", { onUndo, onCommit });         // azione subito, con toast "Annulla"; onCommit se non si annulla
 Kit.theme.get();                // "auto" | "light" | "dark"
 Kit.theme.set("dark");          // imposta e salva il tema
 Kit.fontSize.get();             // "sm" | "md" | "lg" | "xl"

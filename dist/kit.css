@@ -826,6 +826,9 @@ a.kit-brand, .kit-brand a { color: inherit; text-decoration: none; }
 
 .kit-btn-danger { color: var(--kit-danger); }
 .kit-btn-danger:hover { border-color: var(--kit-danger); color: var(--kit-danger); }
+/* Bottone pieno per l'azione distruttiva (quella che il dialog di conferma chiede di confermare) */
+.kit-btn-danger-solid, .kit-btn-danger-solid:hover { background: var(--kit-danger); border-color: var(--kit-danger); color: var(--kit-accent-ink); }
+.kit-btn-danger-solid:hover { filter: brightness(1.08); }
 
 .kit-btn-icon { width: var(--kit-ctl); padding: 0; }
 .kit-btn-lg { height: 3.2rem; padding: 0 22px; font-size: 1.071rem; }
@@ -1359,10 +1362,44 @@ a.kit-brand, .kit-brand a { color: inherit; text-decoration: none; }
     overflow: hidden;
     box-shadow: var(--kit-shadow-pop);
 }
-.kit-dialog[open] { display: flex; flex-direction: column; }
+/* flex-direction sta sulla regola base, non su [open]: durante l'animazione d'uscita [open] non c'è più e il contenuto
+   altrimenti si dispone in riga e si schiaccia. */
+.kit-dialog { flex-direction: column; }
+.kit-dialog[open] { display: flex; }
 .kit-dialog:focus { outline: none; }
 .kit-dialog-wide { width: min(700px, calc(100vw - 2 * var(--kit-sp))); }
 .kit-dialog::backdrop { background: rgba(0, 0, 0, .4); backdrop-filter: blur(2px); }
+/* Comparsa e scomparsa: il dialog sale di poco e si dissolve, lo sfondo si scurisce. Si usano @starting-style e la
+   transizione di display/overlay (Chrome 117+, Safari 17.4+, Firefox 129+): altrove il dialog compare senza animazione. */
+.kit-dialog {
+    opacity: 0;
+    transform: translateY(12px) scale(.97);
+    transition: opacity .18s ease, transform .18s ease, overlay .18s allow-discrete, display .18s allow-discrete;
+}
+.kit-dialog[open] { opacity: 1; transform: none; }
+.kit-dialog::backdrop {
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0);
+    transition: background .18s ease, backdrop-filter .18s ease, overlay .18s allow-discrete, display .18s allow-discrete;
+}
+.kit-dialog[open]::backdrop { background: rgba(0, 0, 0, .4); backdrop-filter: blur(2px); }
+@starting-style {
+    .kit-dialog[open] { opacity: 0; transform: translateY(12px) scale(.97); }
+    .kit-dialog[open]::backdrop { background: rgba(0, 0, 0, 0); backdrop-filter: blur(0); }
+}
+@media (prefers-reduced-motion: reduce) { .kit-dialog, .kit-dialog::backdrop { transition: none; transform: none; } }
+
+/* Dialog di conferma, creato da Kit.confirm() o da data-kit-confirm: icona, domanda, spiegazione, eventuale campo
+   da compilare, e due bottoni. Con danger il bottone di conferma è rosso e l'icona è di avviso. */
+.kit-confirm > .kit-card-body { display: flex; gap: 14px; align-items: flex-start; }
+.kit-confirm-icon { flex: none; width: 2.6rem; height: 2.6rem; border-radius: 50%; display: grid; place-items: center; background: var(--kit-accent-soft); color: var(--kit-accent); }
+.kit-confirm-danger .kit-confirm-icon { background: color-mix(in srgb, var(--kit-danger) 14%, transparent); color: var(--kit-danger); }
+.kit-confirm-icon .kit-icon { width: 1.4rem; height: 1.4rem; }
+.kit-confirm-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.kit-confirm-title { font-size: 1.143rem; font-weight: 650; line-height: 1.3; overflow-wrap: anywhere; }
+.kit-confirm-text > p { margin: 0; color: var(--kit-mute); overflow-wrap: anywhere; }
+.kit-confirm-text .kit-field { margin-top: 6px; }
+.kit-confirm-text .kit-field b { color: var(--kit-ink); font-family: var(--kit-mono, ui-monospace, monospace); font-weight: 600; overflow-wrap: anywhere; }
 /* Con un dialog modale aperto la pagina sotto non scorre; la barra resta riservata, così il contenuto non si sposta */
 :root:has(.kit-dialog:modal) { overflow: hidden; scrollbar-gutter: stable; }
 .kit-dialog > .kit-card-body { overflow: auto; flex: 1 1 auto; min-height: 0; }
