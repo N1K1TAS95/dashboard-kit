@@ -119,6 +119,7 @@
             <li><a href="#card">Card</a></li>
             <li><a href="#kpi">Scheda KPI</a></li>
             <li><a href="#statistiche">Riga di statistiche</a></li>
+            <li><a href="#lista">Lista</a></li>
           </ul>
           <a href="tables.html">Tabelle</a>
           <a href="charts.html">Grafici</a>
@@ -171,6 +172,62 @@
     <div class="kit-stat"><small>Totale</small><b>48.920,10 €</b><em>IVA inclusa</em></div>
     <div class="kit-stat"><small>Ricevute</small><b class="kit-success">32.100 €</b></div>
     <div class="kit-stat"><small>Emesse</small><b class="kit-danger">16.820 €</b></div>
+  </section>
+</div>
+
+<h2 id="lista">Lista</h2>
+<p>Voci impilate nello stesso riquadro, come tante card unite: <code>kit-list</code> sul contenitore, <code>kit-list-item</code> su ogni voce. Il contenitore può essere <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code> o <code>&lt;div&gt;</code>; le voci <code>&lt;li&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;button&gt;</code> o <code>&lt;div&gt;</code>. Un badge o un'icona dentro la voce si allineano da soli; <code>kit-list-main</code> raccoglie titolo e descrizione e occupa lo spazio libero.</p>
+<div class="doc-demo">
+  <ul class="kit-list">
+    <li class="kit-list-item">Fatture ricevute</li>
+    <li class="kit-list-item">Fatture emesse <span class="kit-badge">12</span></li>
+    <li class="kit-list-item">
+      <span class="kit-list-main"><b>Note di credito</b><small>Ultima importata ieri</small></span>
+      <span class="kit-badge kit-badge-warning">3</span>
+    </li>
+  </ul>
+</div>
+
+<h3 id="lista-azioni">Voci cliccabili</h3>
+<p>Con <code>&lt;a&gt;</code> o <code>&lt;button&gt;</code> la voce si evidenzia al passaggio del mouse. <code>is-active</code> (o <code>aria-current</code>) segna quella selezionata, <code>aria-disabled="true"</code> quella non disponibile. Il contenitore, in questo caso, è un <code>&lt;div&gt;</code>.</p>
+<div class="doc-demo">
+  <div class="kit-list">
+    <a class="kit-list-item is-active" href="#lista-azioni" aria-current="true"><svg class="kit-icon"><use href="#i-info"/></svg>Panoramica</a>
+    <a class="kit-list-item" href="#lista-azioni"><svg class="kit-icon"><use href="#i-download"/></svg>Esportazioni</a>
+    <button class="kit-list-item" type="button"><svg class="kit-icon"><use href="#i-edit"/></svg>Impostazioni</button>
+    <a class="kit-list-item" href="#lista-azioni" aria-disabled="true"><svg class="kit-icon"><use href="#i-trash"/></svg>Cestino</a>
+  </div>
+</div>
+
+<h3 id="lista-stati">Stati</h3>
+<p>Per segnalare l'esito di una voce: <code>kit-list-item-success</code>, <code>-warning</code> e <code>-danger</code> danno uno sfondo tenue e il testo colorato.</p>
+<div class="doc-demo">
+  <ul class="kit-list">
+    <li class="kit-list-item kit-list-item-success">Importazione completata</li>
+    <li class="kit-list-item kit-list-item-warning">2 documenti da controllare</li>
+    <li class="kit-list-item kit-list-item-danger">1 file scartato</li>
+  </ul>
+</div>
+
+<h3 id="lista-varianti">Numerata, in orizzontale, senza riquadro</h3>
+<p><code>kit-list-numbered</code> mette il numero davanti a ogni voce. <code>kit-list-horizontal</code> le dispone in riga, di pari larghezza (sotto i 760px tornano impilate). <code>kit-list-flush</code> toglie bordo, angoli e ombra: serve dentro una card, che ha già il suo riquadro.</p>
+<div class="doc-demo">
+  <ol class="kit-list kit-list-numbered">
+    <li class="kit-list-item">Scegli i file</li>
+    <li class="kit-list-item">Controlla l'anteprima</li>
+    <li class="kit-list-item">Conferma l'importazione</li>
+  </ol>
+  <ul class="kit-list kit-list-horizontal">
+    <li class="kit-list-item">Bozza</li>
+    <li class="kit-list-item">Inviata</li>
+    <li class="kit-list-item">Pagata</li>
+  </ul>
+  <section class="kit-card">
+    <div class="kit-card-head">Ultime attività</div>
+    <ul class="kit-list kit-list-flush">
+      <li class="kit-list-item"><span class="kit-list-main"><b>Rossi S.r.l.</b><small>Fattura 24/118</small></span><span>1.250,00 €</span></li>
+      <li class="kit-list-item"><span class="kit-list-main"><b>Bianchi &amp; C.</b><small>Fattura 24/119</small></span><span>380,40 €</span></li>
+    </ul>
   </section>
 </div>
     <nav class="doc-pager" aria-label="Pagina precedente e successiva">

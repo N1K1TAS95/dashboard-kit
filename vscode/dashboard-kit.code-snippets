@@ -61,6 +61,17 @@
       "</button>$0"
     ]
   },
+  "Kit: lista": {
+    "prefix": "kit-list",
+    "scope": "html",
+    "description": "Lista di voci impilate (card unite)",
+    "body": [
+      "<ul class=\"kit-list\">",
+      "  <li class=\"kit-list-item\">${1:Prima voce}</li>",
+      "  <li class=\"kit-list-item\">${2:Seconda voce}</li>",
+      "</ul>$0"
+    ]
+  },
   "Kit: card": {
     "prefix": "kit-card",
     "scope": "html",
