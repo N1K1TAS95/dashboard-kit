@@ -9,8 +9,11 @@
 /* Grafico a barre: i colori delle serie sono i token --kit-c1 e --kit-c2 */
 /* L'SVG scala con la scheda: con il contenuto a tutta larghezza un limite d'altezza evita barre ed etichette enormi */
 .chart { width: 100%; height: auto; max-height: 320px; display: block; margin-inline: auto; }
+/* Sotto i 600px (la larghezza del disegno) il grafico scorre invece di rimpicciolirsi: così le etichette restano leggibili */
+.chart { min-width: 600px; }
+.kit-card-body:has(> .chart) { overflow-x: auto; }
 .chart .grid { stroke: var(--kit-line-soft); stroke-width: 1; }
-.chart .lbl { fill: var(--kit-mute); font-size: 11px; font-family: var(--kit-font); }
+.chart .lbl { fill: var(--kit-mute); font-size: 12px; font-family: var(--kit-font); }
 .chart .s1, .kit-legend .s1 { fill: var(--kit-c1); background: var(--kit-c1); }
 .chart .s2, .kit-legend .s2 { fill: var(--kit-c2); background: var(--kit-c2); }
 .chart rect { transition: opacity .1s; }

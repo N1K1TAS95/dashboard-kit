@@ -11,7 +11,7 @@
 .doc-content > h3 { font-size: 1.071rem; margin: 24px 0 6px; }
 .doc-content > p, .doc-content > ul, .doc-content > ol { max-width: 75ch; line-height: 1.6; }
 .doc-content > p { margin: 0 0 12px; }
-.doc-content code:not(pre code) { background: var(--kit-accent-soft); color: var(--kit-accent); padding: 1px 6px; border-radius: 5px; font-size: 0.893rem; }
+.doc-content code:not(pre code) { overflow-wrap: anywhere; background: var(--kit-accent-soft); color: var(--kit-accent); padding: 1px 6px; border-radius: 5px; font-size: 0.893rem; }
 .doc-content pre code { font: inherit; }
 .doc-content table code { background: none; padding: 0; color: inherit; }
 .doc-content .kit-table td { white-space: normal; vertical-align: top; }

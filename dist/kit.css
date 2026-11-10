@@ -63,7 +63,7 @@
     --kit-bg: light-dark(#f4f5f8, #0f1319);
     --kit-card: light-dark(#fff, #171d26);
     --kit-ink: light-dark(#18202c, #e8edf4);
-    --kit-mute: light-dark(#6a7587, #8d99ab);
+    --kit-mute: light-dark(#5f6a7c, #8d99ab);
     --kit-line: light-dark(#e4e8ee, #262e3a);
     --kit-line-soft: light-dark(#eef1f5, #1f2630);
     --kit-hover: light-dark(#f1f5ff, #1c2736);
@@ -72,9 +72,9 @@
     --kit-accent-ink: light-dark(#fff, #0b1220);
     --kit-accent-soft: light-dark(#e9effd, #1b2a45);
 
-    --kit-danger: light-dark(#c0392b, #ff7d6e);
-    --kit-success: light-dark(#17803f, #4fca8b);
-    --kit-warning: light-dark(#b56a00, #f0b04e);
+    --kit-danger: light-dark(#b0301f, #ff7d6e);
+    --kit-success: light-dark(#147236, #4fca8b);
+    --kit-warning: light-dark(#8f5200, #f0b04e);
 
     /* Serie di colori per grafici. */
     --kit-c1: light-dark(#2f6fe4, #6ea2ff);
@@ -947,9 +947,9 @@ abbr[title] { text-decoration: underline dotted; text-underline-offset: .2em; cu
     line-height: 1.2rem;
     text-align: center;
     border-radius: 50%;
-    background: rgba(127, 127, 127, .2);
+    background: color-mix(in srgb, currentColor 8%, transparent);
 }
-.kit-chip:hover i { background: var(--kit-danger); color: #fff; }
+.kit-chip:hover i { background: var(--kit-danger); color: var(--kit-accent-ink); }
 
 .kit-badge {
     display: inline-block;
@@ -1118,6 +1118,7 @@ abbr[title] { text-decoration: underline dotted; text-underline-offset: .2em; cu
     padding: 12px;
     overflow: auto;
     font: 0.857rem/1.55 var(--kit-mono);
+    font-variant-numeric: slashed-zero;   /* la scorciatoia font: azzera le varianti numeriche */
     white-space: pre;
     margin: 0;
 }
@@ -1362,17 +1363,18 @@ abbr[title] { text-decoration: underline dotted; text-underline-offset: .2em; cu
     background-clip: padding-box;
     color: var(--kit-bg);
     font: 500 0.893rem/1.4 var(--kit-font);
+    font-variant-numeric: slashed-zero;
     letter-spacing: normal;
     text-align: left;
     text-transform: none;
     white-space: normal;
+    display: none;       /* a riposo non occupa spazio: un tooltip invisibile ma presente allargherebbe la pagina vicino al bordo */
     opacity: 0;
-    visibility: hidden;
-    transition: opacity .12s, visibility 0s .12s;
+    transition: opacity .12s, display .12s allow-discrete;
 }
-[data-kit-tip=""]::after { display: none; }
-[data-kit-tip]:is(:hover, :focus-visible):not([data-kit-tip-hide])::after { opacity: 1; visibility: visible; transition: opacity .12s .35s, visibility 0s .35s; }
-[data-kit-tip]:focus-visible:not([data-kit-tip-hide])::after { transition-delay: 0s; }
+[data-kit-tip]:not([data-kit-tip=""]):is(:hover, :focus-visible):not([data-kit-tip-hide])::after { display: block; opacity: 1; transition: opacity .12s, display 0s .35s allow-discrete; }
+[data-kit-tip]:not([data-kit-tip=""]):focus-visible:not([data-kit-tip-hide])::after { transition-delay: 0s; }
+@starting-style { [data-kit-tip]:not([data-kit-tip=""]):is(:hover, :focus-visible):not([data-kit-tip-hide])::after { opacity: 0; } }
 [data-kit-tip-pos="bottom"]::after { bottom: auto; top: 100%; }
 [data-kit-tip-pos="left"]::after { left: auto; right: 100%; bottom: auto; top: 50%; transform: translateY(-50%); }
 [data-kit-tip-pos="right"]::after { left: 100%; bottom: auto; top: 50%; transform: translateY(-50%); }
