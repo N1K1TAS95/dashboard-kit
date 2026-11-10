@@ -85,3 +85,5 @@
 /* ---------- Navbar negli esempi: dentro il riquadro, non incollata alla finestra ---------- */
 .doc-demo-nav { padding: 0; overflow: visible; }
 .doc-demo-nav > .kit-header { position: relative; top: auto; border: 0; border-radius: var(--kit-rad) var(--kit-rad) 0 0; }
+
+.doc-demo-nav [class*="kit-container"] { outline: 1px dashed var(--kit-accent); outline-offset: -1px; }

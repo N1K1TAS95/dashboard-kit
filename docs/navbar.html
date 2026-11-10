@@ -122,7 +122,7 @@
             <li><a href="#azioni">Ricerca, tema e azioni</a></li>
             <li><a href="#breakpoint">Quando si apre in linea</a></li>
             <li><a href="#menu-a-scomparsa">Menu a scomparsa</a></li>
-            <li><a href="#contenitore">Allineata al contenuto</a></li>
+            <li><a href="#contenitore">Allineata al contenuto: kit-container</a></li>
             <li><a href="#verticale">Elenco verticale</a></li>
             <li><a href="#accessibilita">Accessibilità</a></li>
           </ul>
@@ -274,15 +274,52 @@
   <li>Il bottone ha <code>aria-expanded</code> e <code>aria-controls</code>, aggiornati da <code>kit.js</code>.</li>
 </ul>
 
-<h2 id="contenitore">Allineata al contenuto</h2>
-<p>Come per l'intestazione normale, metti un <code>.kit-container</code> dentro la navbar per allineare logo e voci al contenuto della pagina. Il menu a scomparsa resta comunque largo quanto la finestra.</p>
-<pre class="kit-code"><code>&lt;header class="kit-header kit-navbar kit-navbar-expand-md"&gt;
-  &lt;div class="kit-container"&gt;
-    &lt;a class="kit-brand" href="/"&gt;…&lt;/a&gt;
-    &lt;nav class="kit-navbar-menu" id="nav"&gt;…&lt;/nav&gt;
-    &lt;button class="kit-navbar-toggler …"&gt;…&lt;/button&gt;
-  &lt;/div&gt;
-&lt;/header&gt;</code></pre>
+<h2 id="contenitore">Allineata al contenuto: kit-container</h2>
+<p>Come per l'intestazione normale, metti un contenitore dentro la navbar: la barra resta larga quanto la finestra (con lo sfondo e il bordo), ma logo, voci e azioni si allineano al contenuto della pagina. Il contenitore diventa la riga interna della navbar. Il menu a scomparsa resta largo quanto la finestra.</p>
+<table class="kit-table">
+  <thead><tr><th>Classe</th><th>Effetto sulla navbar</th></tr></thead>
+  <tbody>
+    <tr><td><code>kit-container</code></td><td>Centrata, con larghezza massima <code>--kit-container-w</code>. Segue l'interruttore globale <code>data-layout="boxed|fluid"</code>: con <code>fluid</code> occupa tutta la finestra, come il contenuto.</td></tr>
+    <tr><td><code>kit-container-boxed</code></td><td>Sempre centrata, qualunque sia l'interruttore.</td></tr>
+    <tr><td><code>kit-container-fluid</code></td><td>Sempre a tutta larghezza.</td></tr>
+    <tr><td>nessuno</td><td>Tutta la finestra, con il solo margine laterale dell'intestazione.</td></tr>
+  </tbody>
+</table>
+<p>Negli esempi la larghezza massima è ridotta a 36rem, solo per mostrare lo stacco; il riquadro tratteggiato è il contenitore. Il primo è <code>kit-container-boxed</code>, il secondo <code>kit-container-fluid</code>.</p>
+<div class="doc-demo doc-demo-nav" style="min-height: 120px">
+  <header class="kit-header kit-navbar kit-navbar-expand-md" style="--kit-container-w: 36rem">
+    <div class="kit-container-boxed">
+      <a class="kit-brand" href="#contenitore">Boxed</a>
+      <nav class="kit-navbar-menu" id="nav-c1" aria-label="Principale">
+        <ul class="kit-nav">
+          <li><a class="kit-nav-link" href="#contenitore" aria-current="page">Home</a></li>
+          <li><a class="kit-nav-link" href="#contenitore">Documenti</a></li>
+        </ul>
+        <span class="kit-spacer"></span>
+        <button class="kit-btn kit-btn-primary">Nuovo</button>
+      </nav>
+      <button class="kit-btn kit-btn-ghost kit-btn-icon kit-navbar-toggler" data-kit-nav="#nav-c1" aria-controls="nav-c1" aria-expanded="false" aria-label="Menu"><svg class="kit-icon"><use href="#i-menu"/></svg></button>
+    </div>
+  </header>
+</div>
+<div class="doc-demo doc-demo-nav" style="min-height: 120px">
+  <header class="kit-header kit-navbar kit-navbar-expand-md" style="--kit-container-w: 36rem">
+    <div class="kit-container-fluid">
+      <a class="kit-brand" href="#contenitore">Fluid</a>
+      <nav class="kit-navbar-menu" id="nav-c2" aria-label="Principale">
+        <ul class="kit-nav">
+          <li><a class="kit-nav-link" href="#contenitore" aria-current="page">Home</a></li>
+          <li><a class="kit-nav-link" href="#contenitore">Documenti</a></li>
+        </ul>
+        <span class="kit-spacer"></span>
+        <button class="kit-btn kit-btn-primary">Nuovo</button>
+      </nav>
+      <button class="kit-btn kit-btn-ghost kit-btn-icon kit-navbar-toggler" data-kit-nav="#nav-c2" aria-controls="nav-c2" aria-expanded="false" aria-label="Menu"><svg class="kit-icon"><use href="#i-menu"/></svg></button>
+    </div>
+  </header>
+</div>
+<p>Il contenitore va dentro la navbar e il contenuto della pagina (<code>.kit-main</code>) usa lo stesso: così navbar e pagina restano allineate, anche quando l'utente cambia larghezza dalle <a href="theming.html">impostazioni</a>.</p>
+<div class="kit-alert">Il menu a scomparsa (<code>kit-navbar-menu</code>) si posiziona rispetto alla navbar, non al contenitore: per questo resta a tutta larghezza.</div>
 
 <h2 id="verticale">Elenco verticale</h2>
 <p><code>kit-nav-col</code> dispone le voci in colonna: per un menu laterale, o per un elenco di sezioni.</p>
