@@ -59,6 +59,11 @@
   <div class="kit-container-boxed">
     <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
     <span class="kit-spacer"></span>
+    <div class="kit-combo doc-search" role="search">
+      <svg class="kit-icon"><use href="#i-search"/></svg>
+      <input class="kit-input" type="text" placeholder="Cerca…" aria-label="Cerca nella documentazione" spellcheck="false">
+      <kbd aria-hidden="true">/</kbd>
+    </div>
     <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
     <div class="kit-dropdown">
       <button class="kit-btn kit-btn-icon" data-kit-toggle="#settings" aria-haspopup="true" aria-expanded="false" aria-label="Impostazioni" title="Impostazioni"><svg class="kit-icon"><use href="#i-sliders"/></svg></button>
@@ -345,6 +350,7 @@
 </div>
 </div>
 </main>
+<script src="search-index.js"></script>
 <script src="docs.js"></script>
 </body>
 </html>

@@ -93,3 +93,20 @@
 .doc-demo.doc-split-demo .kit-split-panel { position: static; height: 20rem; animation: none; }
 .doc-demo.doc-split-demo .kit-split::after { display: none; }
 .doc-demo.doc-split-demo .kit-split.is-full .kit-split-head { position: static; }
+
+/* ---------- Ricerca nell'intestazione ---------- */
+.doc-search { flex: 0 1 20rem; min-width: 0; }
+.doc-search > .kit-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--kit-mute); pointer-events: none; z-index: 1; }
+.doc-search > .kit-input { padding: 0 2.8rem 0 38px; }
+.doc-search > kbd { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); pointer-events: none; }
+.doc-search .kit-combo-btn { display: none; }
+.doc-search:focus-within > kbd { display: none; }
+.doc-search > .kit-pop { width: min(34rem, calc(100vw - 2 * var(--kit-sp))); right: 0; left: auto; max-height: min(26rem, 70vh); }
+.doc-search .kit-opt-text small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.kit-brand { white-space: nowrap; }
+@media (max-width: 760px) {
+    .doc-search > kbd { display: none; }
+    .doc-search { flex-basis: 12rem; }
+    /* sul telefono l'elenco occupa tutta la larghezza, sotto l'intestazione */
+    .doc-search > .kit-pop { position: fixed; left: var(--kit-sp); right: var(--kit-sp); top: calc(var(--kit-hh) - 6px); width: auto; min-width: 0; max-width: none; }
+}

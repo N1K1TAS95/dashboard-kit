@@ -45,6 +45,11 @@ HEADER = """<header class="kit-header">
   <div class="kit-container-boxed">
     <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
     <span class="kit-spacer"></span>
+    <div class="kit-combo doc-search" role="search">
+      <svg class="kit-icon"><use href="#i-search"/></svg>
+      <input class="kit-input" type="text" placeholder="Cerca…" aria-label="Cerca nella documentazione" spellcheck="false">
+      <kbd aria-hidden="true">/</kbd>
+    </div>
     <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
     <div class="kit-dropdown">
       <button class="kit-btn kit-btn-icon" data-kit-toggle="#settings" aria-haspopup="true" aria-expanded="false" aria-label="Impostazioni" title="Impostazioni"><svg class="kit-icon"><use href="#i-sliders"/></svg></button>
@@ -110,6 +115,7 @@ PAGE = """<!doctype html>
 </div>
 </div>
 </main>
+<script src="search-index.js"></script>
 <script src="docs.js"></script>
 </body>
 </html>
@@ -232,6 +238,37 @@ def icons_grid():
     return f'<div class="doc-icons">{cells}</div>'
 
 
+def plain(fragment):
+    """Testo di un frammento HTML: senza tag, con le entità risolte e gli spazi ridotti."""
+    fragment = re.sub(r"<(script|style|svg)\b.*?</\1>", " ", fragment, flags=re.S)
+    return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", fragment))).strip()
+
+
+CLASS_RE = re.compile(r"--kit-[a-z0-9-]+|(?:data-)?kit-[a-z0-9-]+|Kit\.[A-Za-z]+")
+
+
+def search_entries(page, page_title, desc, body):
+    """Una voce per ogni sezione (h2 e h3 con id) più una per la pagina: [pagina, titolo pagina, id, titolo,
+    testo, classi]. Le classi (kit-*, data-kit-*, --kit-*, Kit.*) sono quelle usate nella sezione."""
+    parts = re.split(r'(<h[23] id="[^"]+">.*?</h[23]>)', body, flags=re.S)
+    entries = []
+
+    def add(anchor, title, chunk, extra=""):
+        classes = []
+        for c in CLASS_RE.findall(chunk):
+            c = c.rstrip("-")
+            if c not in classes:
+                classes.append(c)
+        text = (extra + " " + plain(chunk)).strip()
+        entries.append([page, page_title, anchor, title, text[:1200], " ".join(classes[:60])])
+
+    add("", page_title, parts[0], plain(desc))
+    for i in range(1, len(parts), 2):
+        m = re.match(r'<h[23] id="([^"]+)">(.*?)</h[23]>', parts[i], re.S)
+        add(m.group(1), plain(m.group(2)), parts[i + 1] if i + 1 < len(parts) else "")
+    return entries
+
+
 def main():
     icons.build()
     names = {p[0] for p in PAGES}
@@ -240,6 +277,7 @@ def main():
     if names != found:
         sys.exit(f"Pagine in NAV senza sorgente: {sorted(names - found)}; sorgenti non in NAV: {sorted(found - names)}")
     tok_layout, tok_colors = tokens_table()
+    index = []
     for f in files:
         text = f.read_text(encoding="utf-8")
         title, desc = meta(text, "title"), meta(text, "desc")
@@ -256,7 +294,12 @@ def main():
                 .replace("%%NAV%%", build_nav(f.stem, toc_for(body))).replace("%%PAGER%%", build_pager(f.stem))
                 .replace("%%BODY%%", body))
         (OUT / f"{f.stem}.html").write_text(page, encoding="utf-8")
-    print(f"ok: {len(files)} pagine in docs/")
+        index += search_entries(f.stem, title, desc, body)
+    index.append(["dashboard", "Dashboard", "", "Dashboard", "Esempio completo: una dashboard costruita con il kit.", "kit-header kit-card kit-kpi kit-table"])
+    (OUT / "search-index.js").write_text(
+        "/* Indice della ricerca, generato da tools/gen-docs.py: non modificarlo a mano. */\n"
+        "window.DOC_SEARCH = " + json.dumps(index, ensure_ascii=False, separators=(",", ":")) + ";\n", encoding="utf-8")
+    print(f"ok: {len(files)} pagine in docs/, {len(index)} voci di ricerca")
 
 
 if __name__ == "__main__":

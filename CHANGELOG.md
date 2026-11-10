@@ -2,6 +2,7 @@
 
 ## Non rilasciato
 
+- Documentazione: ricerca nell'intestazione (tasto «/» o Ctrl/⌘ K). Cerca in titoli, testo e nomi di classi, attributi, token e funzioni (`kit-list`, `data-kit-split`, `--kit-accent`, `Kit.progress`), senza badare agli accenti; ogni parola scritta deve comparire. È un combobox del kit, con indice generato da `tools/gen-docs.py` (`docs/search-index.js`).
 - Interruttore (`kit-switch`): un `<input type="checkbox" role="switch">` con la grafica on/off; `kit-switch-between` per le impostazioni in elenco.
 - Spinner (`kit-spinner`, `-sm`, `-lg`, `-accent`) e skeleton (`kit-skeleton` con `-text`, `-title`, `-circle`, `-block`): indicatori di caricamento, fermi con «riduci animazioni». Snippet `kit-switch` e `kit-skeleton`.
 - Stampa: il kit stampa sempre sul chiaro, senza intestazione, avvisi, schede e ombre, con i colori di badge e grafici; card, liste, KPI e righe di tabella non si spezzano e l'intestazione della tabella si ripete. Nuove classi `kit-no-print`, `kit-print-only`, `kit-print-break` e `kit-print-avoid`.

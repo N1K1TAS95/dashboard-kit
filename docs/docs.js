@@ -247,3 +247,71 @@ document.addEventListener("kit:files", function (e) {
     var n = e.detail.files.length, r = e.detail.rejected.length;
     out.textContent = (n ? n + (n === 1 ? " file accettato" : " file accettati") : "Nessun file") + (r ? ", " + r + " scartat" + (r === 1 ? "o" : "i") : "") + ".";
 });
+
+// Ricerca: l'indice (search-index.js) lo genera tools/gen-docs.py. Il campo è un combobox del kit.
+(function () {
+    var wrap = document.querySelector(".doc-search");
+    var data = window.DOC_SEARCH;
+    if (!wrap || !data || !window.Kit) return;
+    function norm(t) { return String(t).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase(); }
+    var entries = data.map(function (e) {
+        return { page: e[0], pageTitle: e[1], id: e[2], title: e[3], classes: e[5].split(" ").filter(Boolean),
+                 nTitle: norm(e[3]), nPage: norm(e[1]), nClasses: norm(e[5]), nText: norm(e[4]) };
+    });
+    var pages = entries.filter(function (e) { return !e.id; });
+
+    function score(e, tokens) {
+        var total = 0;
+        for (var i = 0; i < tokens.length; i++) {
+            var t = tokens[i], s = 0;
+            if (e.nTitle.indexOf(t) === 0) s = 40;
+            else if (e.nTitle.indexOf(" " + t) >= 0) s = 30;
+            else if (e.nTitle.indexOf(t) >= 0) s = 22;
+            if (e.classes.some(function (c) { return norm(c) === t; })) s = Math.max(s, 36);
+            else if (e.nClasses.indexOf(t) >= 0) s = Math.max(s, 14);
+            if (e.nPage.indexOf(t) >= 0) s = Math.max(s, 8);
+            if (!s && e.nText.indexOf(t) >= 0) s = 3;
+            if (!s) return 0;
+            total += s;
+        }
+        return total + (e.id ? 0 : 4);
+    }
+
+    function hint(e, tokens) {
+        var hit = e.classes.filter(function (c) { var n = norm(c); return tokens.some(function (t) { return n.indexOf(t) >= 0; }); });
+        var from = e.id ? e.pageTitle : "Pagina";
+        return hit.length ? from + " · " + hit.slice(0, 3).join(", ") : from;
+    }
+
+    function find(q) {
+        var tokens = norm(q).split(/\s+/).filter(Boolean);
+        var list;
+        if (!tokens.length) list = pages;
+        else {
+            list = entries.map(function (e, i) { return { e: e, s: score(e, tokens), i: i }; })
+                .filter(function (r) { return r.s > 0; })
+                .sort(function (a, b) { return b.s - a.s || a.i - b.i; })
+                .map(function (r) { return r.e; });
+        }
+        return list.map(function (e) {
+            return { value: e.page + ".html" + (e.id ? "#" + e.id : ""), label: e.title, hint: hint(e, tokens) };
+        });
+    }
+
+    var input = wrap.querySelector("input");
+    Kit.combo(wrap, { items: find, filter: false, max: 12, autoActive: true, empty: "Nessun risultato", more: "Altri {n} risultati: scrivi di più per restringere", buttonLabel: "Mostra le pagine" });
+    wrap.addEventListener("kit:change", function (e) {
+        var url = e.detail.value;
+        input.value = "";
+        input.blur();
+        location.href = url;
+    });
+    document.addEventListener("keydown", function (e) {
+        var typing = /^(INPUT|TEXTAREA|SELECT)$/.test((e.target.tagName || "")) || e.target.isContentEditable;
+        if ((e.key === "/" && !typing && !e.metaKey && !e.ctrlKey && !e.altKey) || ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k")) {
+            e.preventDefault();
+            input.focus();
+            input.select();
+        }
+    });
+})();
