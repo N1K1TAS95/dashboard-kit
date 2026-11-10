@@ -14,6 +14,8 @@
  *   data-kit-combo                           su .kit-combo: campo di testo con elenco di suggerimenti (opzioni: data-kit-combo-max, -empty, -more)
  *   data-kit-split                           su .kit-split: Esc lo chiude; con data-kit-split-open="#id" (bottone fuori), data-kit-split-close e
  *                                            data-kit-split-full (dentro) si apre, chiude e porta a tutta larghezza il pannello
+ *   data-kit-file                            su .kit-file o .kit-dropzone: campo file con controllo di tipo e dimensione (data-kit-file-max in MB,
+ *                                            data-kit-file-dir per le cartelle, data-kit-file-page per rilasciare ovunque nella pagina)
  *   data-kit-tabs                            su .kit-tabs: tab con data-kit-panel="#id"
  *   data-kit-nav="#id"                       bottone (hamburger) che apre/chiude il menu a scomparsa di una .kit-navbar
  *   data-kit-open="#dialogId"                apre un <dialog>
@@ -23,8 +25,8 @@
  *   data-kit-tip="testo"                     tooltip (solo CSS; con kit.js Esc lo nasconde)
  *   data-kit-dismiss                         dentro un .kit-alert, lo rimuove (evento "kit:dismiss")
  *
- * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.fontSize.get()/set()/step(), Kit.reset(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.confirm(domanda, opzioni), Kit.undo(testo, opzioni), Kit.split(elemento), Kit.combo(elemento, opzioni), Kit.barChart(elemento, opzioni), Kit.lineChart(…), Kit.donut(…), Kit.sparkline(…), Kit.init(radice)
- * Eventi: "kit:change" (select, combobox), "kit:select" (barra, punto o fetta di un grafico), "kit:tab" (tab), "kit:split" (pannello aperto, chiuso o a tutta larghezza), "kit:theme" (tema), "kit:layout" (larghezza), "kit:fs" (dimensione del testo), "kit:reset" (impostazioni ripristinate), "kit:dismiss" (avviso chiuso)
+ * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.fontSize.get()/set()/step(), Kit.reset(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.confirm(domanda, opzioni), Kit.undo(testo, opzioni), Kit.split(elemento), Kit.file(elemento, opzioni), Kit.progress(testo, opzioni), Kit.combo(elemento, opzioni), Kit.barChart(elemento, opzioni), Kit.lineChart(…), Kit.donut(…), Kit.sparkline(…), Kit.init(radice)
+ * Eventi: "kit:change" (select, combobox), "kit:select" (barra, punto o fetta di un grafico), "kit:tab" (tab), "kit:files" (file scelti o rilasciati), "kit:split" (pannello aperto, chiuso o a tutta larghezza), "kit:theme" (tema), "kit:layout" (larghezza), "kit:fs" (dimensione del testo), "kit:reset" (impostazioni ripristinate), "kit:dismiss" (avviso chiuso)
  */
 (function () {
     "use strict";
@@ -1052,6 +1054,279 @@
         };
     }
 
+    /* ---------- Campo file e zona di rilascio ----------
+       <div class="kit-file" data-kit-file><input type="file" accept=".xml" multiple></div>        campo compatto
+       <div class="kit-dropzone" data-kit-file><input type="file" multiple> …testo…</div>          zona di rilascio
+       Controlla tipo e dimensione, accetta cartelle (data-kit-file-dir o webkitdirectory) e, con data-kit-file-page,
+       i file rilasciati in qualsiasi punto della pagina. Evento "kit:files" con { files, items, rejected }. */
+    var fileState = new WeakMap();
+    var pageFileZone = null, pageDragN = 0, dropVeil = null;
+
+    var FILE_MSG = {
+        type: "{name}: tipo di file non accettato ({accept}).",
+        size: "{name}: supera i {max} MB.",
+        count: "{name}: si può scegliere un solo file.",
+        folder: "{name}: le cartelle non sono ammesse."
+    };
+
+    function fmtSize(n) {
+        if (n < 1024) return n + " B";
+        if (n < 1048576) return (n / 1024).toFixed(n < 10240 ? 1 : 0).replace(".", ",") + " kB";
+        return (n / 1048576).toFixed(n < 10485760 ? 1 : 0).replace(".", ",") + " MB";
+    }
+
+    function acceptTest(accept) {
+        var toks = (accept || "").split(",").map(function (s) { return s.trim().toLowerCase(); }).filter(Boolean);
+        if (!toks.length) return function () { return true; };
+        return function (f) {
+            var name = f.name.toLowerCase(), type = (f.type || "").toLowerCase();
+            return toks.some(function (t) {
+                if (t.charAt(0) === ".") return name.slice(-t.length) === t;
+                if (t.slice(-2) === "/*") return type.indexOf(t.slice(0, -1)) === 0;
+                return type === t;
+            });
+        };
+    }
+
+    // Legge i file di una cartella rilasciata (webkitGetAsEntry), con il loro percorso.
+    function readEntry(entry, path) {
+        return new Promise(function (resolve) {
+            if (!entry) return resolve([]);
+            if (entry.isFile) {
+                entry.file(function (f) { resolve([{ file: f, path: path + f.name, fromDir: path !== "" }]); }, function () { resolve([]); });
+            } else if (entry.isDirectory) {
+                var reader = entry.createReader(), out = [];
+                (function next() {
+                    reader.readEntries(function (batch) {
+                        if (!batch.length) {
+                            Promise.all(out).then(function (lists) { resolve([].concat.apply([], lists)); });
+                            return;
+                        }
+                        batch.forEach(function (en) { out.push(readEntry(en, path + entry.name + "/")); });
+                        next();
+                    }, function () { resolve([]); });
+                })();
+            } else resolve([]);
+        });
+    }
+
+    function fileUI(wrap, st) {
+        var input = st.input, n = st.items.length, name = st.nameEl;
+        wrap.classList.toggle("has-files", n > 0);
+        if (st.clearBtn) st.clearBtn.hidden = n === 0;
+        var text;
+        if (!n) text = st.empty;
+        else {
+            var total = st.items.reduce(function (a, i) { return a + i.file.size; }, 0);
+            var dir = st.items[0].path.indexOf("/") > 0 ? st.items[0].path.split("/")[0] : "";
+            if (dir) text = dir + " · " + n + " file (" + fmtSize(total) + ")";
+            else if (n === 1) text = st.items[0].file.name + " (" + fmtSize(total) + ")";
+            else text = n + " file (" + fmtSize(total) + ")";
+        }
+        name.textContent = text;
+        name.title = n > 1 ? st.items.slice(0, 20).map(function (i) { return i.path; }).join("\n") : "";
+        st.err.textContent = st.errors.join(" ");
+        st.err.hidden = !st.errors.length;
+        wrap.classList.toggle("is-invalid", st.errors.length > 0);
+        if (st.errors.length) input.setAttribute("aria-invalid", "true"); else input.removeAttribute("aria-invalid");
+    }
+
+    function fileApply(wrap, st, found) {
+        var ok = [], rejected = [];
+        var test = acceptTest(st.input.getAttribute("accept"));
+        found.forEach(function (it) {
+            var why = null;
+            if (it.isDir) { if (!st.dir) why = "folder"; }
+            else if (!test(it.file)) why = it.fromDir ? "skip" : "type";   // nelle cartelle i file di altro tipo si ignorano in silenzio
+            else if (st.max && it.file.size > st.max * 1048576) why = "size";
+            else if (!st.input.multiple && !st.dir && ok.length >= 1) why = "count";
+            if (!why) ok.push(it);
+            else if (why !== "skip") rejected.push({ file: it.file, path: it.path, reason: why });
+        });
+        st.errors = rejected.map(function (r) {
+            return st.msg[r.reason].replace("{name}", r.path || r.file.name).replace("{accept}", st.input.getAttribute("accept") || "").replace("{max}", String(st.max));
+        });
+        st.items = ok;
+        // il campo del form deve contenere gli stessi file (serve per l'invio normale del form)
+        try {
+            var dt = new DataTransfer();
+            st.items.forEach(function (i) { dt.items.add(i.file); });
+            st.input.files = dt.files;
+        } catch (e) { /* browser senza DataTransfer: resta la scelta nativa */ }
+        fileUI(wrap, st);
+        var detail = { files: st.items.map(function (i) { return i.file; }), items: st.items.slice(), rejected: rejected };
+        wrap.dispatchEvent(new CustomEvent("kit:files", { bubbles: true, detail: detail }));
+        if (typeof st.onFiles === "function") st.onFiles(detail);
+    }
+
+    // Un rilascio: i dati del DataTransfer vanno letti subito, prima di qualsiasi attesa.
+    function fileDrop(wrap, st, dt) {
+        var ents = [];
+        var items = dt.items ? Array.prototype.slice.call(dt.items).filter(function (i) { return i.kind === "file"; }) : [];
+        items.forEach(function (i) { ents.push(i.webkitGetAsEntry ? i.webkitGetAsEntry() : null); });
+        var plain = Array.prototype.slice.call(dt.files || []);
+        var jobs;
+        if (ents.length && ents.every(Boolean)) {
+            jobs = ents.map(function (en) {
+                if (en.isDirectory && !st.dir) return Promise.resolve([{ file: { name: en.name, size: 0, type: "" }, path: en.name, isDir: true }]);
+                return readEntry(en, "");
+            });
+        } else jobs = [Promise.resolve(plain.map(function (f) { return { file: f, path: f.name }; }))];
+        Promise.all(jobs).then(function (lists) { fileApply(wrap, st, [].concat.apply([], lists)); });
+    }
+
+    function fileField(target, opts) {
+        var wrap = typeof target === "string" ? document.querySelector(target) : target;
+        if (!wrap) return null;
+        var st = fileState.get(wrap);
+        if (st) return st.api;
+        opts = opts || {};
+        var input = wrap.querySelector('input[type="file"]');
+        if (!input) return null;
+        var d = wrap.dataset, zone = wrap.classList.contains("kit-dropzone");
+        st = {
+            input: input, items: [], errors: [], onFiles: opts.onFiles,
+            dir: opts.directory != null ? !!opts.directory : (input.hasAttribute("webkitdirectory") || d.kitFileDir !== undefined),
+            max: opts.max != null ? opts.max : (parseFloat(d.kitFileMax) || 0),
+            empty: opts.empty || d.kitFileEmpty || (zone ? "" : "Nessun file"),
+            msg: Object.assign({}, FILE_MSG, opts.messages || {})
+        };
+        wrap.classList.add("is-ready");
+        if (!input.id) input.id = "kit-file-" + (++comboUid);
+
+        st.nameEl = wrap.querySelector(".kit-file-name") || mkEl("span", "kit-file-name");
+        st.err = wrap.querySelector(".kit-file-error") || mkEl("small", "kit-file-error kit-danger");
+        st.err.hidden = true;
+        st.err.setAttribute("role", "alert");
+        if (!zone) {
+            var pick = wrap.querySelector(".kit-file-btn");
+            if (!pick) {
+                pick = mkEl("button", "kit-btn kit-file-btn", opts.button || d.kitFileButton || (st.dir ? "Scegli cartella…" : "Scegli file…"));
+                pick.type = "button";
+                wrap.insertBefore(pick, input.nextSibling);
+            }
+            pick.addEventListener("click", function () { input.click(); });
+            if (!st.nameEl.parentNode) wrap.insertBefore(st.nameEl, pick.nextSibling);
+            st.clearBtn = wrap.querySelector(".kit-file-clear");
+            if (!st.clearBtn) {
+                st.clearBtn = mkEl("button", "kit-btn kit-btn-ghost kit-btn-icon kit-file-clear");
+                st.clearBtn.type = "button";
+                st.clearBtn.setAttribute("aria-label", opts.clearLabel || d.kitFileClear || "Rimuovi la scelta");
+                var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg"), use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+                svg.setAttribute("class", "kit-icon");
+                use.setAttribute("href", "#i-x");
+                svg.appendChild(use);
+                st.clearBtn.appendChild(svg);
+                wrap.insertBefore(st.clearBtn, st.nameEl.nextSibling);
+            }
+            st.clearBtn.hidden = true;
+            st.clearBtn.addEventListener("click", function () { fileApply(wrap, st, []); });
+            wrap.appendChild(st.err);
+        } else {
+            if (!st.nameEl.parentNode) wrap.appendChild(st.nameEl);
+            if (!wrap.contains(st.err)) wrap.appendChild(st.err);
+        }
+        st.nameEl.textContent = st.empty;
+
+        input.addEventListener("change", function () {
+            var list = Array.prototype.slice.call(input.files || []);
+            fileApply(wrap, st, list.map(function (f) { return { file: f, path: f.webkitRelativePath || f.name, fromDir: !!f.webkitRelativePath }; }));
+        });
+        wrap.addEventListener("dragenter", function (e) { if (hasFiles(e)) { e.preventDefault(); wrap.classList.add("is-over"); } });
+        wrap.addEventListener("dragover", function (e) { if (hasFiles(e)) { e.preventDefault(); wrap.classList.add("is-over"); } });
+        wrap.addEventListener("dragleave", function (e) { if (!wrap.contains(e.relatedTarget)) wrap.classList.remove("is-over"); });
+        wrap.addEventListener("drop", function (e) {
+            if (!hasFiles(e)) return;
+            e.preventDefault();
+            e.stopPropagation();   // se c'è anche la zona "di pagina", il rilascio vale una volta sola
+            wrap.classList.remove("is-over");
+            endPageDrag();
+            fileDrop(wrap, st, e.dataTransfer);
+        });
+        if (d.kitFilePage !== undefined) { pageFileZone = { wrap: wrap, st: st, text: d.kitFilePage || "Rilascia qui per caricare" }; }
+        st.api = {
+            files: function () { return st.items.map(function (i) { return i.file; }); },
+            items: function () { return st.items.slice(); },
+            clear: function () { fileApply(wrap, st, []); }
+        };
+        fileState.set(wrap, st);
+        fileUI(wrap, st);
+        return st.api;
+    }
+
+    function hasFiles(e) {
+        var t = e.dataTransfer && e.dataTransfer.types;
+        return !!t && Array.prototype.indexOf.call(t, "Files") >= 0;
+    }
+
+    function endPageDrag() {
+        pageDragN = 0;
+        if (dropVeil) dropVeil.classList.remove("is-on");
+    }
+
+    /* ---------- Avanzamento a pieno schermo ----------
+       var p = Kit.progress("Lettura…", { value: 0.2, onCancel }); p.update("Lettura 40 di 200", 0.4); p.close(); */
+    function progressDialog(text, opts) {
+        opts = opts || {};
+        var dlg = mkEl("dialog", "kit-dialog kit-dialog-sm kit-busy");
+        dlg.setAttribute("aria-live", "polite");
+        var body = mkEl("div", "kit-card-body kit-stack");
+        var label = mkEl("div", "kit-busy-text", text || "");
+        var bar = mkEl("div", "kit-progress");
+        var fill = mkEl("i", "");
+        bar.appendChild(fill);
+        body.appendChild(label);
+        body.appendChild(bar);
+        dlg.appendChild(body);
+        var cancelBtn = null;
+        if (typeof opts.onCancel === "function") {
+            var foot = mkEl("div", "kit-card-foot");
+            cancelBtn = mkEl("button", "kit-btn", opts.cancel || "Annulla");
+            cancelBtn.type = "button";
+            foot.appendChild(cancelBtn);
+            dlg.appendChild(foot);
+        }
+        var closed = false, shown = false, timer = null;
+        function setValue(v) {
+            if (v == null) { bar.classList.add("kit-progress-indeterminate"); bar.removeAttribute("role"); fill.style.removeProperty("--kit-value"); return; }
+            bar.classList.remove("kit-progress-indeterminate");
+            var pct = Math.max(0, Math.min(1, v)) * 100;
+            fill.style.setProperty("--kit-value", pct + "%");
+            bar.setAttribute("role", "progressbar");
+            bar.setAttribute("aria-valuenow", String(Math.round(pct)));
+            bar.setAttribute("aria-valuemin", "0");
+            bar.setAttribute("aria-valuemax", "100");
+        }
+        function close() {
+            if (closed) return;
+            closed = true;
+            clearTimeout(timer);
+            if (shown && dlg.open) dlg.close();
+            setTimeout(function () { dlg.remove(); }, 300);
+        }
+        function cancel() { if (typeof opts.onCancel === "function") opts.onCancel(); close(); }
+        function show() {
+            if (closed) return;
+            document.body.appendChild(dlg);
+            dlg.showModal();
+            dlg.tabIndex = -1;
+            if (!cancelBtn) dlg.focus({ preventScroll: true });
+            shown = true;
+        }
+        // Esc non chiude l'avanzamento, a meno che ci sia un modo per annullare l'operazione.
+        dlg.addEventListener("cancel", function (e) { e.preventDefault(); if (cancelBtn) cancel(); });
+        if (cancelBtn) cancelBtn.addEventListener("click", cancel);
+        setValue(opts.value);
+        if (opts.delay > 0) timer = setTimeout(show, opts.delay); else show();
+        return {
+            update: function (t, v) {
+                if (t != null) label.textContent = t;
+                if (v !== undefined) setValue(v);
+            },
+            close: close
+        };
+    }
+
     /* ---------- Navbar: menu a scomparsa ---------- */
     function setNav(menu, open) {
         menu.classList.toggle("is-open", open);
@@ -1188,7 +1463,7 @@
         if (openPop && !openPop.pop.contains(t) && !(t.closest("[data-kit-combo]") && t.closest("[data-kit-combo]").contains(openPop.pop))) closePop(false);
 
         // Click sullo sfondo (::backdrop) di un dialog: lo chiude.
-        if (t instanceof HTMLDialogElement && t.classList.contains("kit-dialog")) {
+        if (t instanceof HTMLDialogElement && t.classList.contains("kit-dialog") && !t.classList.contains("kit-busy")) {
             var r = t.getBoundingClientRect();
             if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) t.close();
         }
@@ -1270,6 +1545,7 @@
             });
         });
         scope.querySelectorAll("[data-kit-combo]").forEach(function (c) { combo(c); });
+        scope.querySelectorAll("[data-kit-file]").forEach(function (c) { fileField(c); });
         scope.querySelectorAll("[data-kit-tabs]").forEach(function (tabs) {
             tabs.setAttribute("role", "tablist");
             var cur = tabs.querySelector(".kit-tab.is-on") || tabs.querySelector(".kit-tab");
@@ -1288,6 +1564,28 @@
         });
     }
 
+    // Rilascio di file in qualsiasi punto della pagina (zona con data-kit-file-page).
+    document.addEventListener("dragenter", function (e) {
+        if (!pageFileZone || !hasFiles(e)) return;
+        e.preventDefault();
+        pageDragN++;
+        if (!dropVeil) {
+            dropVeil = mkEl("div", "kit-drop-veil");
+            dropVeil.setAttribute("aria-hidden", "true");
+            document.body.appendChild(dropVeil);
+        }
+        dropVeil.textContent = pageFileZone.text;
+        dropVeil.classList.add("is-on");
+    });
+    document.addEventListener("dragover", function (e) { if (pageFileZone && hasFiles(e)) e.preventDefault(); });
+    document.addEventListener("dragleave", function () { if (pageFileZone && --pageDragN <= 0) endPageDrag(); });
+    document.addEventListener("drop", function (e) {
+        if (!pageFileZone || !hasFiles(e)) return;
+        e.preventDefault();
+        endPageDrag();
+        if (pageFileZone.wrap.isConnected) fileDrop(pageFileZone.wrap, pageFileZone.st, e.dataTransfer);
+    });
+
     // Applica subito il tema salvato (evita il lampo se lo script è nel <head>).
     var saved = readStored();
     if (saved === "light" || saved === "dark") root.setAttribute("data-theme", saved);
@@ -1303,5 +1601,5 @@
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { init(); });
     else init();
 
-    window.Kit = { theme: theme, layout: layout, fontSize: fontSize, reset: reset, toast: toast, undo: undo, confirm: confirmDialog, split: split, combo: combo, barChart: barChart, lineChart: lineChart, donut: donut, sparkline: sparkline, init: init };
+    window.Kit = { theme: theme, layout: layout, fontSize: fontSize, reset: reset, toast: toast, undo: undo, confirm: confirmDialog, split: split, file: fileField, progress: progressDialog, combo: combo, barChart: barChart, lineChart: lineChart, donut: donut, sparkline: sparkline, init: init };
 })();

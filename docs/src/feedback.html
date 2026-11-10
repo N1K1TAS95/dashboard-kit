@@ -60,6 +60,25 @@
   <div class="kit-progress"><i style="--kit-value: 100%"></i></div>
 </div>
 
+<h2 id="avanzamento">Avanzamento a pieno schermo</h2>
+<p>Per un'operazione lunga (leggere una cartella, importare un file) che blocca il resto della pagina. <code>Kit.progress(testo, opzioni)</code> apre un dialog con il testo e la barra e restituisce <code>{ update(testo, valore), close() }</code>. Il valore va da 0 a 1; senza valore (<code>null</code>) la barra scorre da sola, per quando non si sa quanto manca. Esc e un click sullo sfondo non lo chiudono: lo chiudi tu con <code>close()</code>, oppure con <code>onCancel</code> compare «Annulla» (e Esc vale come Annulla). Con <code>delay</code> (in ms) compare solo se l'operazione dura più di così, così le operazioni veloci non lampeggiano.</p>
+<div class="doc-demo kit-bar" data-doc-js='const p = Kit.progress("Lettura delle fatture…", { value: 0, delay: 200,
+  onCancel: () => Kit.toast("Lettura annullata") });
+for (let i = 1; i &lt;= 40; i++) {
+  await leggiFattura(i);
+  p.update("Lettura " + i + " di 40", i / 40);
+}
+p.close();'>
+  <button class="kit-btn" data-doc-run="progress-bar">Con avanzamento</button>
+  <button class="kit-btn" data-doc-run="progress-indet">Senza valore</button>
+</div>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>Opzione</th><th>Valori</th><th>Di base</th></tr></thead><tbody>
+<tr><td>1° argomento</td><td>il testo sopra la barra</td><td>vuoto</td></tr>
+<tr><td><code>value</code></td><td>da 0 a 1, o <code>null</code> per la barra che scorre</td><td><code>null</code></td></tr>
+<tr><td><code>delay</code></td><td>millisecondi prima di mostrarlo</td><td><code>0</code></td></tr>
+<tr><td><code>onCancel</code> · <code>cancel</code></td><td>funzione chiamata se l'utente annulla · testo del bottone</td><td>nessuna: non si può annullare · <code>Annulla</code></td></tr>
+</tbody></table></div></div>
+
 <h2 id="vuoto">Stato vuoto</h2>
 <p>Quando una lista o una tabella non ha ancora nulla da mostrare, spiega perché e cosa fare.</p>
 <div class="doc-demo">

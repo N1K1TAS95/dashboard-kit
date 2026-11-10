@@ -124,6 +124,19 @@ var DOC_RUN = {
             Kit.toast(ok ? "Archivio eliminato" : "Annullato", { type: ok ? "danger" : undefined, duration: 2500 });
         });
     },
+    "progress-bar": function () {
+        var t, i = 0;
+        var p = Kit.progress("Lettura delle fatture…", { value: 0, onCancel: function () { clearInterval(t); Kit.toast("Lettura annullata", { duration: 2000 }); } });
+        t = setInterval(function () {
+            i++;
+            p.update("Lettura " + i + " di 20", i / 20);
+            if (i >= 20) { clearInterval(t); p.close(); }
+        }, 120);
+    },
+    "progress-indet": function () {
+        var p = Kit.progress("Un momento…", { onCancel: function () {} });
+        setTimeout(function () { p.close(); }, 2200);
+    },
     "undo": function (btn) {
         var row = btn.closest("#doc-undo-row"), note = document.getElementById("doc-undo-note");
         row.hidden = true;
@@ -224,4 +237,13 @@ var DOC_INIT = {
 if (window.Kit) document.querySelectorAll("[data-doc-init]").forEach(function (d) {
     var f = DOC_INIT[d.getAttribute("data-doc-init")];
     if (f) f(d);
+});
+
+// Campo file e zona di rilascio: riassunto di ciò che è stato scelto
+document.addEventListener("kit:files", function (e) {
+    var demo = e.target.closest(".doc-demo");
+    var out = demo && demo.querySelector("[data-doc-out]");
+    if (!out) return;
+    var n = e.detail.files.length, r = e.detail.rejected.length;
+    out.textContent = (n ? n + (n === 1 ? " file accettato" : " file accettati") : "Nessun file") + (r ? ", " + r + " scartat" + (r === 1 ? "o" : "i") : "") + ".";
 });
