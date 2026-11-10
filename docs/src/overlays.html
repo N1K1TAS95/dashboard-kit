@@ -132,7 +132,7 @@
 <p>Un contenitore con <code>overflow</code> nascosto o scorrevole (per esempio <code>.kit-table-wrap</code>) ritaglia il tooltip: in quel caso scegli un lato che resta dentro il contenitore.</p>
 
 <h2 id="toast">Toast</h2>
-<p>Un messaggio breve che compare in basso e sparisce da solo. Si mostra da JavaScript con <code>Kit.toast("testo")</code>; più toast si impilano, fino a quattro alla volta. Il toast neutro è invertito rispetto al tema (scuro su chiaro, chiaro su scuro), quindi si distingue sempre dal contenuto; quelli colorati riempiono tutto lo sfondo.</p>
+<p>Un messaggio breve che compare in basso e sparisce da solo. Si mostra da JavaScript con <code>Kit.toast("testo")</code>; più toast si impilano, fino a sei alla volta. Il toast neutro è invertito rispetto al tema (scuro su chiaro, chiaro su scuro), quindi si distingue sempre dal contenuto; quelli colorati riempiono tutto lo sfondo.</p>
 <div class="doc-demo" data-doc-js='Kit.toast("Salvato!");'>
   <button class="kit-btn" data-doc-toast="Salvato!">Mostra un toast</button>
 </div>
@@ -149,7 +149,7 @@
 </div>
 
 <h3 id="toast-azione">Azione e chiusura</h3>
-<p>Con <code>action</code> il toast ha un bottone (tipico: "Annulla") e resta visibile finché non lo usi o lo chiudi con la <b>×</b>. <code>duration</code> è in millisecondi (di base 4000); con <code>0</code> il toast non sparisce da solo. Il tempo si ferma mentre il mouse o il focus sono sul toast. <code>Kit.toast</code> restituisce un oggetto con <code>close()</code> per chiuderlo da codice, e <code>Kit.toast.clear()</code> chiude tutti.</p>
+<p>Con <code>action</code> il toast ha un bottone (tipico: "Annulla") e resta visibile finché non lo usi o lo chiudi con la <b>×</b>. <code>duration</code> è in millisecondi (di base 4000); con <code>0</code> il toast non sparisce da solo. Una barra in fondo al toast mostra quanto manca alla chiusura (si toglie con <code>progress: false</code>). Il tempo si ferma mentre il mouse o il focus sono sul toast, e la barra torna piena: quando li lasci il conto riparte da capo. <code>Kit.toast</code> restituisce un oggetto con <code>close()</code> per chiuderlo da codice, e <code>Kit.toast.clear()</code> chiude tutti.</p>
 <div class="doc-demo kit-bar" data-doc-js='var t = Kit.toast("Fattura eliminata.", {
     action: { label: "Annulla", onClick: function () { ripristina(); } }
   });
@@ -174,6 +174,7 @@
 <tr><td><code>duration</code></td><td>millisecondi; <code>0</code> = non sparisce</td><td><code>4000</code></td></tr>
 <tr><td><code>position</code></td><td>vedi sopra</td><td><code>bottom</code></td></tr>
 <tr><td><code>action</code></td><td><code>{ label, onClick }</code></td><td>nessuna</td></tr>
+<tr><td><code>progress</code></td><td><code>true</code> · <code>false</code></td><td><code>true</code> (barra del tempo residuo, se <code>duration</code> &gt; 0)</td></tr>
 <tr><td><code>closable</code></td><td><code>true</code> · <code>false</code></td><td><code>true</code> con azione o <code>duration: 0</code></td></tr>
 </tbody></table></div></div>
 <p class="kit-alert">Il testo del toast è sempre testo semplice: <code>Kit.toast</code> non interpreta mai HTML, quindi si può passare anche un valore inserito dall'utente.</p>

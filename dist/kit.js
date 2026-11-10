@@ -153,10 +153,10 @@
     function keepOpen(btn) { return !!btn.closest(".kit-settings"); }
 
     /* ---------- Toast ----------
-       Kit.toast("testo")  oppure  Kit.toast("testo", { type, title, duration, position, action, closable })
+       Kit.toast("testo")  oppure  Kit.toast("testo", { type, title, duration, position, action, closable, progress })
        (il secondo argomento può anche essere solo la durata in ms). Restituisce { close() }.
        Si costruisce con createElement/textContent: il testo non è mai interpretato come HTML. */
-    var TOAST_MAX = 4;                       // oltre questo numero il più vecchio si chiude
+    var TOAST_MAX = 6;                       // oltre questo numero il più vecchio si chiude
     var TOAST_POS = { "bottom": 1, "top": 1, "bottom-start": 1, "bottom-end": 1, "top-start": 1, "top-end": 1 };
     var TOAST_ICON = { info: "i-info", success: "i-ok", warning: "i-warn", danger: "i-error" };
 
@@ -169,6 +169,23 @@
             document.body.appendChild(box);
         }
         return box;
+    }
+
+    // Quando un toast entra o esce, gli altri scorrono al loro nuovo posto invece di scattare (FLIP: si misura la
+    // posizione prima, si cambia il DOM, poi ogni vicino parte dalla vecchia posizione e arriva alla nuova).
+    function flip(box, change) {
+        var items = Array.prototype.filter.call(box.children, function (e) { return !e.classList.contains("is-leaving"); });
+        // Posizione sullo schermo senza le transizioni in corso: sopra del contenitore + posizione nel contenitore
+        // (nei contenitori ancorati in basso è il contenitore a spostarsi, non i figli).
+        function y(e) { return box.getBoundingClientRect().top + e.offsetTop; }
+        var before = items.map(y);
+        change();
+        if (!box.animate || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
+        items.forEach(function (e, i) {
+            if (!e.isConnected || e.classList.contains("is-leaving")) return;
+            var d = before[i] - y(e);
+            if (d) e.animate([{ transform: "translateY(" + d + "px)" }, { transform: "translateY(0)" }], { duration: 220, easing: "cubic-bezier(.2,.8,.2,1)" });
+        });
     }
 
     function toast(text, opts) {
@@ -210,13 +227,28 @@
         el.appendChild(body);
 
         var timer = null, closed = false;
-        function close() {
+        // Il toast che esce si dissolve fuori dal flusso (position: absolute, dove si trova): i vicini si spostano subito.
+        function leave() {
             if (closed) return;
             closed = true;
             clearTimeout(timer);
+            if (barAnim) barAnim.pause();
+            // Uscendo dal flusso il contenitore si restringe e (se è ancorato in basso) si sposta: il toast va quindi
+            // ancorato a dove si trova sullo schermo adesso, non alla sua posizione dentro il contenitore.
+            var box = el.parentNode, screenTop = box.getBoundingClientRect().top + el.offsetTop;
+            el.style.left = el.offsetLeft + "px";
+            el.style.width = el.offsetWidth + "px";
             el.classList.remove("is-on");
+            el.classList.add("is-leaving");
+            el.style.top = (screenTop - box.getBoundingClientRect().top) + "px";
             setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 250);
         }
+        function close() {
+            if (closed || !el.parentNode) return;
+            flip(el.parentNode, leave);
+        }
+        el.kitLeave = leave;
+        el.kitClose = close;
 
         if (opts.action && opts.action.label) {
             var act = document.createElement("button");
@@ -240,15 +272,37 @@
         }
 
         // Il timer si ferma mentre il mouse o il focus sono sul toast, così c'è il tempo di leggerlo e usarlo.
-        function arm() { if (duration > 0 && !closed) { clearTimeout(timer); timer = setTimeout(close, duration); } }
-        function hold() { clearTimeout(timer); }
+        // La barra in fondo si accorcia fino alla chiusura (opzione progress: false la toglie). Quando il tempo si
+        // ferma e riparte da capo, anche la barra torna piena e riparte.
+        var bar = null, barAnim = null;
+        if (duration > 0 && opts.progress !== false) {
+            bar = document.createElement("span");
+            bar.className = "kit-toast-bar";
+            bar.setAttribute("aria-hidden", "true");
+            el.appendChild(bar);
+        }
+        function runBar() {
+            if (!bar || !bar.animate) return;
+            if (barAnim) barAnim.cancel();
+            barAnim = bar.animate([{ transform: "scaleX(1)" }, { transform: "scaleX(0)" }], { duration: duration, easing: "linear", fill: "forwards" });
+        }
+        function stopBar() { if (barAnim) { barAnim.cancel(); barAnim = null; } }
+        function arm() { if (duration > 0 && !closed) { clearTimeout(timer); timer = setTimeout(close, duration); runBar(); } }
+        function hold() { clearTimeout(timer); stopBar(); }
         el.addEventListener("mouseenter", hold);
         el.addEventListener("mouseleave", arm);
         el.addEventListener("focusin", hold);
         el.addEventListener("focusout", arm);
 
-        while (box.children.length >= TOAST_MAX) box.removeChild(box.firstChild);
-        box.appendChild(el);
+        flip(box, function () {
+            // oltre TOAST_MAX il più vecchio esce (con la stessa dissolvenza)
+            var live = Array.prototype.filter.call(box.children, function (e) { return !e.classList.contains("is-leaving"); });
+            while (live.length >= TOAST_MAX) { var old = live.shift(); if (old.kitLeave) old.kitLeave(); else box.removeChild(old); }
+            box.appendChild(el);
+            // Su schermi bassi sei toast possono non starci: esce il più vecchio finché la pila entra nella finestra.
+            live.push(el);
+            while (live.length > 1 && box.offsetHeight > window.innerHeight) { var o = live.shift(); if (o.kitLeave) o.kitLeave(); else box.removeChild(o); }
+        });
         void el.offsetWidth;              // forza il calcolo dello stile: senza, la transizione d'entrata non parte
         el.classList.add("is-on");
         arm();
@@ -257,8 +311,7 @@
 
     // Kit.toast.clear(): chiude tutti i toast aperti
     toast.clear = function () {
-        document.querySelectorAll(".kit-toast").forEach(function (el) { el.classList.remove("is-on"); });
-        setTimeout(function () { document.querySelectorAll(".kit-toasts").forEach(function (b) { b.textContent = ""; }); }, 250);
+        document.querySelectorAll(".kit-toast").forEach(function (el) { if (el.kitClose) el.kitClose(); else el.remove(); });
     };
 
     /* ---------- Popover ---------- */

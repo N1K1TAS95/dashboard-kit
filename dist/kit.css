@@ -1408,9 +1408,12 @@ a.kit-brand, .kit-brand a { color: inherit; text-decoration: none; }
     transform: translateY(8px);
     transition: opacity .2s, transform .2s;
     pointer-events: auto;
+    position: relative;
+    overflow: hidden;
 }
 .kit-toasts[data-pos^="top"] .kit-toast { transform: translateY(-8px); }
 .kit-toast.is-on { opacity: 1; transform: none; }
+.kit-toast.is-leaving { position: absolute; pointer-events: none; }
 /* Il colore dello stato riempie il toast; il testo usa lo stesso colore "sopra" del bottone primario (chiaro/scuro). */
 .kit-toast-info, .kit-toast-success, .kit-toast-warning, .kit-toast-danger { color: var(--kit-accent-ink); }
 .kit-toast-info { background: var(--kit-accent); }
@@ -1432,6 +1435,7 @@ a.kit-brand, .kit-brand a { color: inherit; text-decoration: none; }
     font-weight: 650;
     cursor: pointer;
 }
+.kit-toast-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: currentColor; opacity: .4; transform-origin: left center; pointer-events: none; }
 .kit-toast-action:hover { background: color-mix(in srgb, currentColor 16%, transparent); }
 .kit-toast-close {
     flex: none;
