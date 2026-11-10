@@ -22,7 +22,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import icons  # noqa: E402  (tools/icons.py: icone e sprite)
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-VERSION = "0.4.0"   # versione che le istruzioni di installazione indicano (tag v<VERSIONE>)
+VERSION = "0.5.0"   # versione che le istruzioni di installazione indicano (tag v<VERSIONE>)
 SRC = ROOT / "docs" / "src"
 OUT = ROOT / "docs"
 
