@@ -4,14 +4,14 @@
 
 /* ---------- Contenuto ---------- */
 .doc-content { min-width: 0; }
-.doc-title { font-size: 30px; letter-spacing: -.02em; margin: 0 0 6px; }
-.doc-lead { font-size: 16px; color: var(--kit-mute); margin: 0 0 28px; max-width: 70ch; }
-.doc-content h2 { font-size: 21px; letter-spacing: -.01em; margin: 40px 0 6px; scroll-margin-top: calc(var(--kit-hh) + 16px); padding-top: 4px; }
+.doc-title { font-size: 2.143rem; letter-spacing: -.02em; margin: 0 0 6px; }
+.doc-lead { font-size: 1.143rem; color: var(--kit-mute); margin: 0 0 28px; max-width: 70ch; }
+.doc-content h2 { font-size: 1.5rem; letter-spacing: -.01em; margin: 40px 0 6px; scroll-margin-top: calc(var(--kit-hh) + 16px); padding-top: 4px; }
 .doc-content h2:first-of-type { margin-top: 0; }
-.doc-content h3 { font-size: 15px; margin: 24px 0 6px; }
+.doc-content h3 { font-size: 1.071rem; margin: 24px 0 6px; }
 .doc-content p, .doc-content ul, .doc-content ol { max-width: 75ch; line-height: 1.6; }
 .doc-content p { margin: 0 0 12px; }
-.doc-content code:not(pre code) { background: var(--kit-accent-soft); color: var(--kit-accent); padding: 1px 6px; border-radius: 5px; font-size: 12.5px; }
+.doc-content code:not(pre code) { background: var(--kit-accent-soft); color: var(--kit-accent); padding: 1px 6px; border-radius: 5px; font-size: 0.893rem; }
 .doc-content pre code { font: inherit; }
 .doc-content table code { background: none; padding: 0; color: inherit; }
 .doc-content .kit-table td { white-space: normal; vertical-align: top; }
@@ -35,10 +35,10 @@
 .doc-demo > p:last-child { margin-bottom: 0; }
 
 .doc-code { position: relative; border: 1px solid var(--kit-line); border-top: 0; border-radius: 0 0 var(--kit-rad) var(--kit-rad); background: var(--kit-card); margin-bottom: 18px; }
-.doc-code > summary { cursor: pointer; color: var(--kit-mute); font-size: 12.5px; padding: 8px 14px; user-select: none; }
+.doc-code > summary { cursor: pointer; color: var(--kit-mute); font-size: 0.893rem; padding: 8px 14px; user-select: none; }
 .doc-code > summary:hover, .doc-code[open] > summary { color: var(--kit-accent); }
 .doc-code[open] > summary { border-bottom: 1px solid var(--kit-line-soft); }
-.doc-copy { position: absolute; top: 6px; right: 8px; height: 28px; padding: 0 10px; font-size: 12px; z-index: 1; display: none; }
+.doc-copy { position: absolute; top: 6px; right: 8px; height: 28px; padding: 0 10px; font-size: 0.857rem; z-index: 1; display: none; }
 .doc-code[open] .doc-copy { display: inline-flex; }
 .doc-code .kit-code { border: 0; border-radius: 0 0 var(--kit-rad) var(--kit-rad); max-height: 380px; background: var(--kit-card); }
 
@@ -60,13 +60,13 @@
 .doc-nav-d:not([open]) > summary::after { content: "▸"; }
 @media (min-width: 992px) { .doc-nav-d > summary { display: none; } }
 
-.doc-nav-group { font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--kit-mute); font-weight: 650; padding: 14px 10px 4px; }
+.doc-nav-group { font-size: 0.857rem; text-transform: uppercase; letter-spacing: .06em; color: var(--kit-mute); font-weight: 650; padding: 14px 10px 4px; }
 .doc-nav-group:first-child { padding-top: 0; }
 .doc-nav a { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 5px 10px; border-radius: var(--kit-rad-sm); color: var(--kit-ink); text-decoration: none; }
 .doc-nav a:hover { background: var(--kit-hover); }
 .doc-nav a.is-current { background: var(--kit-accent-soft); color: var(--kit-accent); font-weight: 600; }
 .doc-toc { list-style: none; margin: 2px 0 6px 12px; padding: 0 0 0 8px; border-left: 1px solid var(--kit-line); }
-.doc-toc a { font-size: 13px; color: var(--kit-mute); padding: 3px 8px; font-weight: 400; }
+.doc-toc a { font-size: 0.929rem; color: var(--kit-mute); padding: 3px 8px; font-weight: 400; }
 .doc-toc a:hover { color: var(--kit-ink); }
 
 /* ---------- Avanti / indietro ---------- */
@@ -80,4 +80,4 @@
 .doc-icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: var(--kit-sp); margin: 12px 0 18px; }
 .doc-icon { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: var(--kit-sp) 8px; background: var(--kit-card); border: 1px solid var(--kit-line); border-radius: var(--kit-rad); }
 .doc-icon .kit-icon { width: 24px; height: 24px; }
-.doc-icon code { font-size: 12px; color: var(--kit-mute); background: none; padding: 0; }
+.doc-icon code { font-size: 0.857rem; color: var(--kit-mute); background: none; padding: 0; }

@@ -24,6 +24,25 @@
 
 <p>Aggiungi <code>&lt;meta name="color-scheme" content="light dark"&gt;</code> nel <code>&lt;head&gt;</code> per evitare un lampo bianco al caricamento in tema scuro.</p>
 
+<h2 id="testo">Font e dimensione del testo</h2>
+<p>Il kit usa <a href="https://rsms.me/inter/">Inter</a> (licenza OFL, 65 KB, file <code>dist/fonts/inter-var.woff2</code>), pensato per lo schermo e con uno <strong>zero barrato</strong> che non si confonde con la lettera "o". Il file sta accanto a <code>kit.css</code> e si carica da solo; se non è raggiungibile resta il font di sistema. Per usare un altro font basta cambiare <code>--kit-font</code>; per la sola cifra con la barra, <code>font-variant-numeric: slashed-zero</code> funziona con qualsiasi font che la preveda.</p>
+```css
+:root { --kit-font: "IBM Plex Sans", system-ui, sans-serif; }   /* un altro font */
+td.codice { font-variant-numeric: slashed-zero tabular-nums; }  /* zero barrato e cifre di uguale larghezza */
+```
+<p>Tutte le dimensioni del testo sono in <code>rem</code>, quindi seguono la dimensione di base <code>--kit-fs</code> (<code>1rem</code>). La base cresce da sola con lo schermo: 15px fino a 1279px, poi 16px, 17px (da 1600px), 19px (da 1920px) e 22px (da 2560px). Anche altezza dei controlli, icone, intestazione e larghezza del contenuto sono in <code>rem</code> e crescono insieme al testo.</p>
+<p>L'utente può ingrandire o rimpicciolire tutto: <code>--kit-zoom</code> moltiplica la base e <code>data-kit-fs</code> su <code>&lt;html&gt;</code> lo imposta (<code>sm</code> 87,5%, <code>md</code> 100%, <code>lg</code> 112,5%, <code>xl</code> 125%). Con <code>kit.js</code> bastano i bottoni con <code>data-kit-fs-set</code> o <code>data-kit-fs-step</code>; la scelta viene ricordata. Il menu "Testo" in alto a destra di queste pagine è fatto così.</p>
+```html
+<button class="kit-btn" data-kit-fs-step="-1" aria-label="Testo più piccolo">A−</button>
+<button class="kit-btn" data-kit-fs-step="1"  aria-label="Testo più grande">A+</button>
+
+<button class="kit-btn" data-kit-fs-set="xl">Molto grande</button>
+```
+```css
+:root { --kit-fs: 16px; }                                   /* base fissa, senza crescita automatica */
+@media (min-width: 2000px) { :root { --kit-fs: 24px; } }   /* o una soglia tutta tua */
+```
+
 <h2 id="layout">Token di layout</h2>
 <p>Regolano il respiro dell'interfaccia. Sotto i 760px <code>--kit-sp</code> scende da 16 a 8px.</p>
 <!--tokens-layout-->

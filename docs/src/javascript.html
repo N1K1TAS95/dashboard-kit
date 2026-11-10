@@ -13,6 +13,8 @@
   <thead><tr><th>Attributo</th><th>Dove</th><th>Cosa fa</th></tr></thead>
   <tbody>
     <tr><td><code>data-kit-theme-set="auto|light|dark"</code></td><td>un bottone o una voce di menu</td><td>Imposta il tema e lo ricorda.</td></tr>
+    <tr><td><code>data-kit-fs-set="sm|md|lg|xl"</code></td><td>un bottone o una voce di menu</td><td>Imposta la dimensione del testo di tutta la pagina e la ricorda.</td></tr>
+    <tr><td><code>data-kit-fs-step="1|-1"</code></td><td>un bottone</td><td>Ingrandisce (<code>1</code>) o rimpicciolisce (<code>-1</code>) il testo di un passo; si disattiva agli estremi.</td></tr>
     <tr><td><code>data-kit-layout-set="boxed|fluid"</code></td><td>un bottone</td><td>Sceglie contenuto centrato o a tutta larghezza e lo ricorda.</td></tr>
     <tr><td><code>data-kit-layout-toggle</code></td><td>un bottone</td><td>Alterna le due larghezze.</td></tr>
     <tr><td><code>data-kit-toggle="#id"</code></td><td>un bottone</td><td>Apre o chiude il <code>.kit-pop</code> indicato.</td></tr>
@@ -29,6 +31,9 @@ Kit.toast("Salvato!");          // messaggio temporaneo; opzioni: type, title, d
 Kit.toast.clear();              // chiude tutti i toast
 Kit.theme.get();                // "auto" | "light" | "dark"
 Kit.theme.set("dark");          // imposta e salva il tema
+Kit.fontSize.get();             // "sm" | "md" | "lg" | "xl"
+Kit.fontSize.set("lg");         // imposta e salva la dimensione del testo
+Kit.fontSize.step(1);           // un passo più grande (-1: più piccolo)
 Kit.layout.get();               // "boxed" | "fluid"
 Kit.layout.set("fluid");        // contenuto a tutta larghezza (si ricorda)
 Kit.layout.toggle();            // alterna
@@ -49,6 +54,7 @@ Kit.init(elemento);             // rilegge select e tab di un'area aggiunta dopo
     <tr><td><code>kit:change</code></td><td><code>.kit-select</code></td><td><code>{ value }</code>: il <code>data-value</code> scelto</td></tr>
     <tr><td><code>kit:tab</code></td><td><code>.kit-tabs</code></td><td><code>{ tab }</code>: l'elemento della tab attivata</td></tr>
     <tr><td><code>kit:theme</code></td><td><code>&lt;html&gt;</code></td><td>il tema impostato</td></tr>
+    <tr><td><code>kit:fs</code></td><td><code>&lt;html&gt;</code></td><td>la dimensione del testo impostata (<code>sm</code>, <code>md</code>, <code>lg</code> o <code>xl</code>)</td></tr>
     <tr><td><code>kit:layout</code></td><td><code>&lt;html&gt;</code></td><td>la larghezza impostata (<code>boxed</code> o <code>fluid</code>)</td></tr>
   </tbody>
 </table></div></div>

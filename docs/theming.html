@@ -47,6 +47,7 @@
 <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6a1 1 0 0 1 1-1h5l2 2h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6z"/></symbol>
 <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
 <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-text" viewBox="0 0 24 24"><path d="M4 7V5h16v2M12 5v14M9 19h6"/></symbol>
 <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
 <symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
 <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
@@ -59,6 +60,15 @@
     <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
     <span class="kit-spacer"></span>
     <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
+    <div class="kit-dropdown">
+      <button class="kit-btn" data-kit-toggle="#textMenu" aria-haspopup="menu" aria-expanded="false" aria-label="Dimensione del testo"><svg class="kit-icon"><use href="#i-text"/></svg><span class="kit-d-none kit-d-sm-inline">Testo</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
+      <div class="kit-pop kit-pop-right" id="textMenu" role="menu" hidden>
+        <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-fs-set="sm"><span class="kit-opt-text"><b>Piccolo</b><small>87,5%</small></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+        <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-fs-set="md"><span class="kit-opt-text"><b>Normale</b><small>100%, cresce con lo schermo</small></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+        <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-fs-set="lg"><span class="kit-opt-text"><b>Grande</b><small>112,5%</small></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+        <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-fs-set="xl"><span class="kit-opt-text"><b>Molto grande</b><small>125%</small></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+      </div>
+    </div>
     <div class="kit-dropdown">
       <button class="kit-btn" data-kit-toggle="#themeMenu" aria-haspopup="menu" aria-expanded="false"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-d-none kit-d-sm-inline">Tema</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
       <div class="kit-pop kit-pop-right" id="themeMenu" role="menu" hidden>
@@ -98,6 +108,7 @@
           <a href="theming.html" class="is-current" aria-current="page">Temi e token</a>
           <ul class="doc-toc">
             <li><a href="#tema">Tema chiaro e scuro</a></li>
+            <li><a href="#testo">Font e dimensione del testo</a></li>
             <li><a href="#layout">Token di layout</a></li>
             <li><a href="#colori">Token di colore</a></li>
             <li><a href="#personalizzare">Personalizzare</a></li>
@@ -134,17 +145,32 @@
 
 <p>Aggiungi <code>&lt;meta name="color-scheme" content="light dark"&gt;</code> nel <code>&lt;head&gt;</code> per evitare un lampo bianco al caricamento in tema scuro.</p>
 
+<h2 id="testo">Font e dimensione del testo</h2>
+<p>Il kit usa <a href="https://rsms.me/inter/">Inter</a> (licenza OFL, 65 KB, file <code>dist/fonts/inter-var.woff2</code>), pensato per lo schermo e con uno <strong>zero barrato</strong> che non si confonde con la lettera "o". Il file sta accanto a <code>kit.css</code> e si carica da solo; se non è raggiungibile resta il font di sistema. Per usare un altro font basta cambiare <code>--kit-font</code>; per la sola cifra con la barra, <code>font-variant-numeric: slashed-zero</code> funziona con qualsiasi font che la preveda.</p>
+<pre class="kit-code"><code>:root { --kit-font: "IBM Plex Sans", system-ui, sans-serif; }   /* un altro font */
+td.codice { font-variant-numeric: slashed-zero tabular-nums; }  /* zero barrato e cifre di uguale larghezza */</code></pre>
+<p>Tutte le dimensioni del testo sono in <code>rem</code>, quindi seguono la dimensione di base <code>--kit-fs</code> (<code>1rem</code>). La base cresce da sola con lo schermo: 15px fino a 1279px, poi 16px, 17px (da 1600px), 19px (da 1920px) e 22px (da 2560px). Anche altezza dei controlli, icone, intestazione e larghezza del contenuto sono in <code>rem</code> e crescono insieme al testo.</p>
+<p>L'utente può ingrandire o rimpicciolire tutto: <code>--kit-zoom</code> moltiplica la base e <code>data-kit-fs</code> su <code>&lt;html&gt;</code> lo imposta (<code>sm</code> 87,5%, <code>md</code> 100%, <code>lg</code> 112,5%, <code>xl</code> 125%). Con <code>kit.js</code> bastano i bottoni con <code>data-kit-fs-set</code> o <code>data-kit-fs-step</code>; la scelta viene ricordata. Il menu "Testo" in alto a destra di queste pagine è fatto così.</p>
+<pre class="kit-code"><code>&lt;button class="kit-btn" data-kit-fs-step="-1" aria-label="Testo più piccolo"&gt;A−&lt;/button&gt;
+&lt;button class="kit-btn" data-kit-fs-step="1"  aria-label="Testo più grande"&gt;A+&lt;/button&gt;
+
+&lt;button class="kit-btn" data-kit-fs-set="xl"&gt;Molto grande&lt;/button&gt;</code></pre>
+<pre class="kit-code"><code>:root { --kit-fs: 16px; }                                   /* base fissa, senza crescita automatica */
+@media (min-width: 2000px) { :root { --kit-fs: 24px; } }   /* o una soglia tutta tua */</code></pre>
+
 <h2 id="layout">Token di layout</h2>
 <p>Regolano il respiro dell'interfaccia. Sotto i 760px <code>--kit-sp</code> scende da 16 a 8px.</p>
 <div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>Token</th><th>Valore</th><th>Cosa controlla</th></tr></thead><tbody>
+<tr><td><code>--kit-fs</code></td><td><code>15px</code></td><td>dimensione di base del testo (1rem)</td></tr>
+<tr><td><code>--kit-zoom</code></td><td><code>1</code></td><td>moltiplicatore scelto dall&#x27;utente: 0.875, 1, 1.125, 1.25</td></tr>
 <tr><td><code>--kit-sp</code></td><td><code>16px</code></td><td>spazio unico: margine, distanza tra card, padding interno</td></tr>
 <tr><td><code>--kit-row</code></td><td><code>8px</code></td><td>padding verticale delle righe di tabella</td></tr>
 <tr><td><code>--kit-cell</code></td><td><code>12px</code></td><td>padding orizzontale tra le colonne</td></tr>
 <tr><td><code>--kit-rad</code></td><td><code>12px</code></td><td>raggio delle superfici: card, dialog, menu, codice, toast</td></tr>
 <tr><td><code>--kit-rad-sm</code></td><td><code>8px</code></td><td>raggio dei controlli: bottoni, campi, segmented, voci dei menu</td></tr>
-<tr><td><code>--kit-hh</code></td><td><code>72px</code></td><td>altezza dell&#x27;intestazione</td></tr>
-<tr><td><code>--kit-ctl</code></td><td><code>40px</code></td><td>altezza di bottoni e campi</td></tr>
-<tr><td><code>--kit-container-w</code></td><td><code>1200px</code></td><td>larghezza massima del contenuto centrato (.kit-container)</td></tr>
+<tr><td><code>--kit-hh</code></td><td><code>4.8rem</code></td><td>altezza dell&#x27;intestazione</td></tr>
+<tr><td><code>--kit-ctl</code></td><td><code>2.667rem</code></td><td>altezza di bottoni e campi</td></tr>
+<tr><td><code>--kit-container-w</code></td><td><code>80rem</code></td><td>larghezza massima del contenuto centrato (.kit-container)</td></tr>
 </tbody></table></div></div>
 
 <h2 id="colori">Token di colore</h2>

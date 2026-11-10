@@ -1,5 +1,13 @@
 # Changelog
 
+## Non rilasciato
+
+- Font Inter incluso (`dist/fonts/inter-var.woff2`, 65 KB, licenza OFL) con zero barrato: lo zero non si confonde più con la "o". `font-variant-numeric: slashed-zero` è attivo su tutto il testo e sul codice. Il font di sistema resta come riserva.
+- Testo più leggibile: interlinea 1,5 e dimensione minima di circa 13px. Le dimensioni sono in `rem` e la base `--kit-fs` cresce con lo schermo (15px fino a 1279px, poi 16, 17, 19 e 22px da 2560px).
+- Dimensione del testo scelta dall'utente: `data-kit-fs="sm|md|lg|xl"` su `<html>`, `data-kit-fs-set` e `data-kit-fs-step` nei bottoni, `Kit.fontSize.get()/set()/step()`, evento `kit:fs`; la scelta viene ricordata.
+- Altezza dei controlli (`--kit-ctl`), intestazione (`--kit-hh`), larghezza del contenuto (`--kit-container-w`) e icone passano da `px` a `rem`, così crescono con il testo.
+- Nuova icona `text`; nelle pagine della documentazione c'è il menu "Testo".
+
 ## 0.3.0 — 9 novembre 2026
 
 - Menu a comparsa (`kit-pop`) utilizzabile da solo: voci `kit-opt` come `<button>`, `<a>` o `<div>`, `kit-opt-danger`, `kit-pop-sep`, `kit-pop-up` (si apre verso l'alto), `kit-pop-static` (sempre visibile) e `kit-btn-split` (bottone diviso).

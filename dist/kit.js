@@ -4,6 +4,8 @@
  *
  * Si attiva da solo con attributi data-kit-*:
  *   data-kit-theme-set="auto|light|dark"     bottone che imposta il tema
+ *   data-kit-fs-set="sm|md|lg|xl"            bottone che imposta la dimensione del testo (87,5% · 100% · 112,5% · 125%)
+ *   data-kit-fs-step="1|-1"                  bottone che ingrandisce o rimpicciolisce il testo di un passo
  *   data-kit-layout-set="boxed|fluid"        bottone che sceglie contenuto centrato o a tutta larghezza
  *   data-kit-layout-toggle                   bottone che alterna le due larghezze
  *   data-kit-toggle="#id"                    bottone che apre/chiude un .kit-pop
@@ -14,8 +16,8 @@
  *   data-kit-tip="testo"                     tooltip (solo CSS; con kit.js Esc lo nasconde)
  *   data-kit-dismiss                         dentro un .kit-alert, lo rimuove (evento "kit:dismiss")
  *
- * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.init(radice)
- * Eventi: "kit:change" (select), "kit:tab" (tab), "kit:theme" (tema), "kit:layout" (larghezza), "kit:dismiss" (avviso chiuso)
+ * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.fontSize.get()/set()/step(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.init(radice)
+ * Eventi: "kit:change" (select), "kit:tab" (tab), "kit:theme" (tema), "kit:layout" (larghezza), "kit:fs" (dimensione del testo), "kit:dismiss" (avviso chiuso)
  */
 (function () {
     "use strict";
@@ -48,6 +50,52 @@
                 else b.setAttribute("aria-pressed", String(on));
             });
             root.dispatchEvent(new CustomEvent("kit:theme", { detail: v }));
+        }
+    };
+
+    /* ---------- Dimensione del testo: sm, md (predefinita), lg, xl ---------- */
+    var FKEY = "kit-fs";
+    var FS_STEPS = ["sm", "md", "lg", "xl"];
+
+    function readFs() {
+        try {
+            var v = localStorage.getItem(FKEY);
+            return FS_STEPS.indexOf(v) >= 0 ? v : null;
+        } catch (e) { return null; }
+    }
+
+    function syncFsButtons() {
+        var cur = fontSize.get(), i = FS_STEPS.indexOf(cur);
+        document.querySelectorAll("[data-kit-fs-set]").forEach(function (b) {
+            var on = b.getAttribute("data-kit-fs-set") === cur;
+            if (b.classList.contains("kit-opt")) { b.setAttribute("aria-checked", String(on)); b.classList.toggle("is-on", on); }
+            else b.setAttribute("aria-pressed", String(on));
+        });
+        document.querySelectorAll("[data-kit-fs-step]").forEach(function (b) {
+            var d = parseInt(b.getAttribute("data-kit-fs-step"), 10) || 0;
+            b.disabled = i + d < 0 || i + d >= FS_STEPS.length;
+        });
+    }
+
+    var fontSize = {
+        get: function () {
+            var v = root.getAttribute("data-kit-fs");
+            return FS_STEPS.indexOf(v) >= 0 ? v : "md";
+        },
+        set: function (v) {
+            if (FS_STEPS.indexOf(v) < 0) v = "md";
+            if (v === "md") root.removeAttribute("data-kit-fs");
+            else root.setAttribute("data-kit-fs", v);
+            try {
+                if (v === "md") localStorage.removeItem(FKEY);
+                else localStorage.setItem(FKEY, v);
+            } catch (e) { /* storage non disponibile: vale solo per questa pagina */ }
+            syncFsButtons();
+            root.dispatchEvent(new CustomEvent("kit:fs", { detail: v }));
+        },
+        step: function (d) {
+            var i = FS_STEPS.indexOf(fontSize.get()) + (d < 0 ? -1 : 1);
+            fontSize.set(FS_STEPS[Math.max(0, Math.min(FS_STEPS.length - 1, i))]);
         }
     };
 
@@ -280,6 +328,12 @@
         var themeBtn = t.closest("[data-kit-theme-set]");
         if (themeBtn) { theme.set(themeBtn.getAttribute("data-kit-theme-set")); closePop(false); return; }
 
+        var fsBtn = t.closest("[data-kit-fs-set]");
+        if (fsBtn) { fontSize.set(fsBtn.getAttribute("data-kit-fs-set")); closePop(false); return; }
+
+        var fsStep = t.closest("[data-kit-fs-step]");
+        if (fsStep) { fontSize.step(parseInt(fsStep.getAttribute("data-kit-fs-step"), 10) || 0); return; }
+
         var layoutBtn = t.closest("[data-kit-layout-set]");
         if (layoutBtn) { layout.set(layoutBtn.getAttribute("data-kit-layout-set")); return; }
 
@@ -408,6 +462,7 @@
             if (cur) selectTab(tabs, cur);
         });
         syncLayoutButtons();
+        syncFsButtons();
         scope.querySelectorAll("[data-kit-theme-set]").forEach(function (b) {
             b.setAttribute("aria-pressed", String(b.getAttribute("data-kit-theme-set") === theme.get()));
         });
@@ -417,6 +472,10 @@
     var saved = readStored();
     if (saved === "light" || saved === "dark") root.setAttribute("data-theme", saved);
 
+    // Idem per la dimensione del testo.
+    var savedFs = readFs();
+    if (savedFs) root.setAttribute("data-kit-fs", savedFs);
+
     // Idem per la larghezza: la scelta dell'utente vince su quella scritta nell'HTML.
     var savedLayout = readLayout();
     if (savedLayout) root.setAttribute("data-layout", savedLayout);
@@ -424,5 +483,5 @@
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { init(); });
     else init();
 
-    window.Kit = { theme: theme, layout: layout, toast: toast, init: init };
+    window.Kit = { theme: theme, layout: layout, fontSize: fontSize, toast: toast, init: init };
 })();

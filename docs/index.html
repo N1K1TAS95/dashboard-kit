@@ -47,6 +47,7 @@
 <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6a1 1 0 0 1 1-1h5l2 2h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6z"/></symbol>
 <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
 <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-text" viewBox="0 0 24 24"><path d="M4 7V5h16v2M12 5v14M9 19h6"/></symbol>
 <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
 <symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
 <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
@@ -59,6 +60,15 @@
     <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
     <span class="kit-spacer"></span>
     <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
+    <div class="kit-dropdown">
+      <button class="kit-btn" data-kit-toggle="#textMenu" aria-haspopup="menu" aria-expanded="false" aria-label="Dimensione del testo"><svg class="kit-icon"><use href="#i-text"/></svg><span class="kit-d-none kit-d-sm-inline">Testo</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
+      <div class="kit-pop kit-pop-right" id="textMenu" role="menu" hidden>
+        <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-fs-set="sm"><span class="kit-opt-text"><b>Piccolo</b><small>87,5%</small></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+        <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-fs-set="md"><span class="kit-opt-text"><b>Normale</b><small>100%, cresce con lo schermo</small></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+        <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-fs-set="lg"><span class="kit-opt-text"><b>Grande</b><small>112,5%</small></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+        <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-fs-set="xl"><span class="kit-opt-text"><b>Molto grande</b><small>125%</small></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+      </div>
+    </div>
     <div class="kit-dropdown">
       <button class="kit-btn" data-kit-toggle="#themeMenu" aria-haspopup="menu" aria-expanded="false"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-d-none kit-d-sm-inline">Tema</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
       <div class="kit-pop kit-pop-right" id="themeMenu" role="menu" hidden>
@@ -117,12 +127,12 @@
 <p>Da CDN (jsDelivr), con la versione fissata e l'attributo <code>integrity</code> (SRI): se il file venisse alterato, il browser lo rifiuta.</p>
 <pre class="kit-code"><code>&lt;link rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.3.0/dist/kit.css"
-      integrity="sha384-rYOBUC95LW2FuBzndpkN5V7GGFYQpgBQCoupFbFM/ESTm6xLEfHpI8+fXy2z3/i9"
+      integrity="sha384-50K99a8MbOND9S4LAdPUabLW2c52WEedaDP2wnnsGgoNVNPJSPvk+r6ZwoVF/9bW"
       crossorigin="anonymous"&gt;
 
 &lt;!-- opzionale: tema, select, tab, dialog, menu, toast --&gt;
 &lt;script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.3.0/dist/kit.js"
-        integrity="sha384-SFNV1cnEZ+0TcsCHriPxqgVDcd2cAhnlR0SE1cx5NKDE4hyCa5Tn3JG2tO9nkgJ7"
+        integrity="sha384-dYRQGyhugswSVGSzS0k97FxPOQfvHHXxfh8reWh9wITS3ui7P3m25T+5LJ6a/kgR"
         crossorigin="anonymous"&gt;&lt;/script&gt;</code></pre>
 <p>Oppure in locale: copia <code>dist/kit.css</code> (e <code>dist/kit.js</code>) nel progetto e collegali con un percorso relativo.</p>
 <p class="kit-alert">Se il sito ha una Content-Security-Policy, autorizza <code>https://cdn.jsdelivr.net</code> in <code>style-src</code> e <code>script-src</code>. Evita <code>@main</code> o <code>@latest</code>: non sono versioni fissate e jsDelivr le tiene in cache per ore.</p>

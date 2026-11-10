@@ -46,6 +46,15 @@ HEADER = """<header class="kit-header">
     <span class="kit-spacer"></span>
     <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
     <div class="kit-dropdown">
+      <button class="kit-btn" data-kit-toggle="#textMenu" aria-haspopup="menu" aria-expanded="false" aria-label="Dimensione del testo"><svg class="kit-icon"><use href="#i-text"/></svg><span class="kit-d-none kit-d-sm-inline">Testo</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
+      <div class="kit-pop kit-pop-right" id="textMenu" role="menu" hidden>
+        <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-fs-set="sm"><span class="kit-opt-text"><b>Piccolo</b><small>87,5%</small></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+        <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-fs-set="md"><span class="kit-opt-text"><b>Normale</b><small>100%, cresce con lo schermo</small></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+        <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-fs-set="lg"><span class="kit-opt-text"><b>Grande</b><small>112,5%</small></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+        <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-fs-set="xl"><span class="kit-opt-text"><b>Molto grande</b><small>125%</small></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+      </div>
+    </div>
+    <div class="kit-dropdown">
       <button class="kit-btn" data-kit-toggle="#themeMenu" aria-haspopup="menu" aria-expanded="false"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-d-none kit-d-sm-inline">Tema</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
       <div class="kit-pop kit-pop-right" id="themeMenu" role="menu" hidden>
         <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-opt-text"><b>Automatico</b><small>Segue il sistema</small></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
@@ -177,7 +186,7 @@ def tokens_table():
             inner = value[len("light-dark("):-1]
             light, dark = [x.strip() for x in inner.split(",", 1)] if "," in inner and "(" not in inner else (inner, "")
             colors.append((name, light, dark))
-        elif re.fullmatch(r"\d+px", value):
+        elif re.fullmatch(r"[\d.]+(px|rem)?", value):
             layout.append((name, value, note))
     rows = []
     for n, v, note in layout:
