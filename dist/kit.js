@@ -11,6 +11,7 @@
  *   data-kit-layout-toggle                   bottone che alterna le due larghezze
  *   data-kit-toggle="#id"                    bottone che apre/chiude un .kit-pop
  *   data-kit-select                          su .kit-select: scelta di un valore
+ *   data-kit-combo                           su .kit-combo: campo di testo con elenco di suggerimenti (opzioni: data-kit-combo-max, -empty, -more)
  *   data-kit-tabs                            su .kit-tabs: tab con data-kit-panel="#id"
  *   data-kit-nav="#id"                       bottone (hamburger) che apre/chiude il menu a scomparsa di una .kit-navbar
  *   data-kit-open="#dialogId"                apre un <dialog>
@@ -20,8 +21,8 @@
  *   data-kit-tip="testo"                     tooltip (solo CSS; con kit.js Esc lo nasconde)
  *   data-kit-dismiss                         dentro un .kit-alert, lo rimuove (evento "kit:dismiss")
  *
- * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.fontSize.get()/set()/step(), Kit.reset(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.confirm(domanda, opzioni), Kit.undo(testo, opzioni), Kit.init(radice)
- * Eventi: "kit:change" (select), "kit:tab" (tab), "kit:theme" (tema), "kit:layout" (larghezza), "kit:fs" (dimensione del testo), "kit:reset" (impostazioni ripristinate), "kit:dismiss" (avviso chiuso)
+ * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.fontSize.get()/set()/step(), Kit.reset(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.confirm(domanda, opzioni), Kit.undo(testo, opzioni), Kit.combo(elemento, opzioni), Kit.barChart(elemento, opzioni), Kit.lineChart(…), Kit.donut(…), Kit.sparkline(…), Kit.init(radice)
+ * Eventi: "kit:change" (select, combobox), "kit:select" (barra, punto o fetta di un grafico), "kit:tab" (tab), "kit:theme" (tema), "kit:layout" (larghezza), "kit:fs" (dimensione del testo), "kit:reset" (impostazioni ripristinate), "kit:dismiss" (avviso chiuso)
  */
 (function () {
     "use strict";
@@ -487,7 +488,10 @@
 
     function setPop(pop, btn, open) {
         pop.hidden = !open;
-        if (btn) btn.setAttribute("aria-expanded", String(open));
+        if (btn) {
+            btn.setAttribute("aria-expanded", String(open));
+            if (!open) btn.removeAttribute("aria-activedescendant");
+        }
         openPop = open ? { pop: pop, btn: btn } : null;
     }
 
@@ -524,10 +528,14 @@
         i = i < 0 ? (dir > 0 ? 0 : list.length - 1) : (i + dir + list.length) % list.length;
         list[i].classList.add("is-active");
         list[i].scrollIntoView({ block: "nearest" });
+        // nel combobox il focus resta nel campo: la voce attiva si segnala con aria-activedescendant
+        if (openPop && openPop.btn && openPop.btn.getAttribute("role") === "combobox" && list[i].id) openPop.btn.setAttribute("aria-activedescendant", list[i].id);
     }
 
     function chooseOption(opt) {
         var pop = opt.closest(".kit-pop");
+        var cb = opt.closest("[data-kit-combo]");
+        if (cb) { comboChoose(cb, opt); closePop(true); return; }
         var sel = opt.closest("[data-kit-select]");
         if (sel) {
             Array.prototype.forEach.call(pop.querySelectorAll(".kit-opt"), function (o) {
@@ -542,6 +550,466 @@
             sel.dispatchEvent(new CustomEvent("kit:change", { bubbles: true, detail: { value: sel.dataset.value } }));
         }
         closePop(true);
+    }
+
+    /* ---------- Combobox: campo di testo con elenco di suggerimenti ----------
+       <div class="kit-combo" data-kit-combo><input class="kit-input"></div>
+       Le voci si danno con Kit.combo(el, { items }) oppure come .kit-opt dentro un .kit-pop già scritto nell'HTML. */
+    var comboState = new WeakMap();
+    var comboUid = 0;
+
+    function normItem(x) {
+        if (x !== null && typeof x === "object") {
+            var label = x.label != null ? String(x.label) : String(x.value);
+            return { value: x.value != null ? String(x.value) : label, label: label, hint: x.hint ? String(x.hint) : "" };
+        }
+        return { value: String(x), label: String(x), hint: "" };
+    }
+
+    function comboRender(st) {
+        var q = st.input.value.trim().toLowerCase();
+        var src = typeof st.items === "function" ? st.items(q) : st.items;
+        var all = (src || []).map(normItem);
+        var hit = (q && st.filter) ? all.filter(function (i) { return (i.label + " " + i.hint + " " + i.value).toLowerCase().indexOf(q) >= 0; }) : all;
+        st.pop.textContent = "";
+        hit.slice(0, st.max).forEach(function (i, n) {
+            var o = mkEl("div", "kit-opt");
+            o.id = st.id + "-" + n;
+            o.setAttribute("role", "option");
+            o.setAttribute("aria-selected", String(i.value === st.input.value));
+            o.dataset.value = i.value;
+            var box = mkEl("span", "kit-opt-text");
+            box.appendChild(mkEl("b", "", i.label));
+            if (i.hint) box.appendChild(mkEl("small", "", i.hint));
+            o.appendChild(box);
+            st.pop.appendChild(o);
+        });
+        if (hit.length > st.max) st.pop.appendChild(mkEl("div", "kit-pop-empty", st.more.replace("{n}", String(hit.length - st.max))));
+        if (!hit.length && st.empty) st.pop.appendChild(mkEl("div", "kit-pop-empty", st.empty));
+        var first = st.pop.querySelector(".kit-opt");
+        if (first && st.autoActive) first.classList.add("is-active");
+        return st.pop.childNodes.length > 0;
+    }
+
+    function comboOpen(st) {
+        if (!comboRender(st)) { if (!st.pop.hidden) closePop(false); return; }
+        if (st.pop.hidden) { closePop(false); setPop(st.pop, st.input, true); }
+        var a = st.pop.querySelector(".kit-opt.is-active");
+        if (a) st.input.setAttribute("aria-activedescendant", a.id); else st.input.removeAttribute("aria-activedescendant");
+    }
+
+    function comboChoose(wrap, opt) {
+        var st = comboState.get(wrap);
+        if (!st) return;
+        var b = opt.querySelector(".kit-opt-text b");
+        st.choosing = true;
+        st.input.value = opt.dataset.value || "";
+        // l'evento "input" fa sapere a chi ascolta il campo che il valore è cambiato
+        st.input.dispatchEvent(new Event("input", { bubbles: true }));
+        st.choosing = false;
+        wrap.dispatchEvent(new CustomEvent("kit:change", { bubbles: true, detail: { value: st.input.value, label: (b || opt).textContent.trim() } }));
+    }
+
+    function combo(target, opts) {
+        var wrap = typeof target === "string" ? document.querySelector(target) : target;
+        if (!wrap) return null;
+        if (wrap.matches("input")) {
+            var inp0 = wrap;
+            wrap = mkEl("div", "kit-combo");
+            inp0.parentNode.insertBefore(wrap, inp0);
+            wrap.appendChild(inp0);
+        }
+        opts = opts || {};
+        var st = comboState.get(wrap);
+        if (st) {
+            if (opts.items) st.items = opts.items;
+            return st.api;
+        }
+        wrap.classList.add("kit-combo");
+        wrap.setAttribute("data-kit-combo", "");
+        var d = wrap.dataset;
+        var input = wrap.querySelector("input");
+        var pop = wrap.querySelector(".kit-pop");
+        if (!input) return null;
+        var items = opts.items;
+        if (!items && pop) {
+            items = Array.prototype.map.call(pop.querySelectorAll(".kit-opt"), function (o) {
+                var b = o.querySelector("b"), s = o.querySelector("small");
+                var label = (b || o).textContent.trim();
+                return { value: o.dataset.value || label, label: label, hint: s ? s.textContent.trim() : "" };
+            });
+        }
+        if (!pop) { pop = mkEl("div", "kit-pop"); wrap.appendChild(pop); }
+        pop.hidden = true;
+        pop.setAttribute("role", "listbox");
+        var id = "kit-combo-" + (++comboUid);
+        pop.id = pop.id || id + "-list";
+        input.setAttribute("role", "combobox");
+        input.setAttribute("aria-autocomplete", "list");
+        input.setAttribute("aria-expanded", "false");
+        input.setAttribute("aria-controls", pop.id);
+        input.setAttribute("autocomplete", "off");
+        var chev = wrap.querySelector(".kit-combo-btn");
+        if (!chev) {
+            chev = mkEl("button", "kit-combo-btn");
+            chev.type = "button";
+            chev.tabIndex = -1;
+            chev.setAttribute("aria-label", opts.buttonLabel || d.kitComboLabel || "Mostra l'elenco");
+            var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svg.setAttribute("class", "kit-icon");
+            var use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+            use.setAttribute("href", "#i-chev");
+            svg.appendChild(use);
+            chev.appendChild(svg);
+            wrap.insertBefore(chev, pop);
+        }
+        st = {
+            input: input, pop: pop, id: id, items: items || [], choosing: false,
+            max: opts.max || parseInt(d.kitComboMax, 10) || 50,
+            filter: opts.filter !== false,
+            autoActive: opts.autoActive !== false,
+            empty: opts.empty !== undefined ? opts.empty : (d.kitComboEmpty || "Nessun risultato"),
+            more: opts.more || d.kitComboMore || "Altri {n} risultati: continua a scrivere per restringere"
+        };
+        st.api = {
+            setItems: function (list) { st.items = list; if (!pop.hidden) comboOpen(st); },
+            open: function () { input.focus(); comboOpen(st); },
+            close: function () { if (!pop.hidden) closePop(false); }
+        };
+        comboState.set(wrap, st);
+
+        input.addEventListener("input", function () { if (!st.choosing) comboOpen(st); });
+        input.addEventListener("keydown", function (e) {
+            if ((e.key === "ArrowDown" || e.key === "ArrowUp") && pop.hidden) {
+                e.preventDefault();
+                e.stopPropagation();   // altrimenti la freccia varrebbe due volte (apre e sposta)
+                comboOpen(st);
+            }
+        });
+        chev.addEventListener("mousedown", function (e) { e.preventDefault(); });
+        chev.addEventListener("click", function () {
+            if (!pop.hidden) closePop(false);
+            else { input.focus(); comboOpen(st); }
+        });
+        // il mouse sulle voci non deve togliere il focus al campo
+        pop.addEventListener("mousedown", function (e) { e.preventDefault(); });
+        wrap.addEventListener("focusout", function (e) {
+            if (!wrap.contains(e.relatedTarget) && openPop && openPop.pop === pop) closePop(false);
+        });
+        return st.api;
+    }
+
+    /* ---------- Grafici: barre, linee, ciambella, sparkline ----------
+       Kit.barChart(el, { data: [{ label, group, values: [..] }], series: [{ name, color }], stacked, format, onSelect, ... })
+       Kit.lineChart(el, { stesse opzioni; values può contenere null (buco), area, zero, markers })
+       Kit.donut(el, { data: [{ label, value, color }], centerValue, centerLabel, format, onSelect })
+       Kit.sparkline(el, { values, type: "line" | "bar", color, area })
+       Disegnano un SVG (senza innerHTML), seguono il tema e la dimensione del testo. */
+    var SVG_NS = "http://www.w3.org/2000/svg";
+    var charts = new WeakMap();
+
+    function svgEl(name, attrs, text) {
+        var e = document.createElementNS(SVG_NS, name);
+        for (var k in attrs) if (attrs[k] != null) e.setAttribute(k, attrs[k]);
+        if (text != null) e.textContent = text;
+        return e;
+    }
+
+    function niceTop(max) {
+        var e = Math.pow(10, Math.floor(Math.log10(max))), f = max / e;
+        return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 2.5 ? 2.5 : f <= 5 ? 5 : 10) * e;
+    }
+
+    function compactNumber(v) {
+        var nf = new Intl.NumberFormat(root.lang || undefined, { maximumFractionDigits: 2 });
+        var a = Math.abs(v);
+        return a >= 1e6 ? nf.format(v / 1e6) + " M" : a >= 1e3 ? nf.format(v / 1e3) + " k" : nf.format(v);
+    }
+
+    function colorOf(s, i) { return s.color || "var(--kit-c" + (i % 4 + 1) + ")"; }
+
+    function resolveEl(el) { return typeof el === "string" ? document.querySelector(el) : el; }
+
+    /* Il ciclo di vita è uguale per tutti: un grafico per elemento, richiamare la funzione lo aggiorna. */
+    function mountChart(el, opts, build) {
+        var prev = charts.get(el);
+        if (prev) { prev.update(opts); return prev; }
+        var o = {};
+        var inst = build(el, o);
+        var api = {
+            update: function (next) {
+                if (next) for (var k in next) o[k] = next[k];
+                inst.draw(true);
+            },
+            destroy: function () {
+                if (inst.destroy) inst.destroy();
+                charts.delete(el);
+                el.textContent = "";
+                el.className = el.className.replace(/\bkit-(chart-click|chart|donut|spark)\b/g, "").trim();
+            }
+        };
+        charts.set(el, api);
+        api.update(opts || {});
+        return api;
+    }
+
+    function cartesian(el, opts, kind) {
+        el = resolveEl(el);
+        if (!el) return null;
+        return mountChart(el, opts, function (el, o) {
+            var scrollEnd = true, lastW = 0;
+            var legend = mkEl("div", "kit-legend");
+            var scroller = mkEl("div", "kit-chart-scroll");
+            el.classList.add("kit-chart");
+            el.textContent = "";
+            el.appendChild(legend);
+            el.appendChild(scroller);
+            var isLine = kind === "line";
+
+            function draw(fresh) {
+                if (fresh) scrollEnd = o.scrollEnd !== false;
+                var data = o.data || [];
+                var series = o.series && o.series.length ? o.series : [{ name: o.name || "Totale" }];
+                var fmt = o.format || function (v) { return new Intl.NumberFormat(root.lang || undefined).format(v); };
+                var axisFmt = o.axisFormat || compactNumber;
+                var u = (parseFloat(getComputedStyle(el).fontSize) || 14) / 14;
+                var L = Math.round(58 * u), R = Math.round((isLine ? 14 : 6) * u), T = Math.round(10 * u), B = Math.round(34 * u);
+                var H = Math.round((o.height || 260) * u), ph = H - B - T, n = data.length;
+                var avail = Math.max(scroller.clientWidth, 300);
+                var slot = Math.max((o.minSlot || 34) * u, (avail - L - R) / Math.max(n, 1));
+                var W = Math.max(avail, Math.ceil(L + R + slot * n));
+                var ns = series.length;
+                var stacked = !isLine && o.stacked === true && ns > 1;
+                var interactive = typeof o.onSelect === "function";
+
+                legend.textContent = "";
+                legend.hidden = !(o.legend === true || (o.legend !== false && ns > 1));
+                series.forEach(function (s, i) {
+                    var sp = mkEl("span", "");
+                    var sw = mkEl("i", "");
+                    sw.style.background = colorOf(s, i);
+                    sp.appendChild(sw);
+                    sp.appendChild(document.createTextNode(s.name || ""));
+                    legend.appendChild(sp);
+                });
+                if (o.legendNote) legend.appendChild(mkEl("span", "", o.legendNote));
+
+                scroller.textContent = "";
+                el.classList.toggle("kit-chart-click", interactive);
+                if (!n) { scroller.appendChild(mkEl("div", "kit-pop-empty", o.empty || "Nessun dato")); return; }
+
+                // Scala verticale. Barre: da 0 a un valore tondo. Linee: dal minimo al massimo (con margine), a meno di zero:true.
+                var ticks = o.ticks || 4, lo = 0, hi, step;
+                var vmin = Infinity, vmax = 0;
+                data.forEach(function (d) {
+                    var sum = 0;
+                    series.forEach(function (s, j) {
+                        var v = d.values[j];
+                        if (v == null) return;
+                        if (v < vmin) vmin = v;
+                        if (stacked) sum += Math.max(0, v); else if (v > vmax) vmax = v;
+                    });
+                    if (stacked && sum > vmax) vmax = sum;
+                });
+                if (!isFinite(vmin)) vmin = 0;
+                if (isLine && o.zero !== true && o.min == null) {
+                    lo = vmin; hi = vmax;
+                    if (hi - lo < 1e-9) { lo -= Math.abs(lo) * .05 || 1; hi += Math.abs(hi) * .05 || 1; }
+                    else { var pad = (hi - lo) * .12; lo -= pad; hi += pad; }
+                    step = niceTop((hi - lo) / ticks);
+                    lo = Math.floor(lo / step) * step;
+                    ticks = Math.max(1, Math.ceil((hi - lo) / step - 1e-9));
+                    hi = lo + step * ticks;
+                } else {
+                    lo = o.min != null ? o.min : 0;
+                    hi = o.max || niceTop(Math.max(1, vmax));
+                    step = (hi - lo) / ticks;
+                }
+                var Y = function (v) { return T + ph - (v - lo) / (hi - lo) * ph; };
+                var X = function (i) { return L + i * slot + slot / 2; };
+
+                var svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, width: W, height: H, role: interactive ? "group" : "img", "aria-label": o.label || (isLine ? "Grafico a linee" : "Grafico a barre") });
+                for (var t = 0; t <= ticks; t++) {
+                    var gy = Y(lo + step * t);
+                    svg.appendChild(svgEl("line", { "class": "kit-chart-grid", x1: L, x2: W - R, y1: gy, y2: gy }));
+                    svg.appendChild(svgEl("text", { "class": "kit-chart-axis", x: L - 8, y: gy + 4, "text-anchor": "end" }, axisFmt(lo + step * t)));
+                }
+                // etichette sotto l'asse
+                data.forEach(function (d, i) {
+                    svg.appendChild(svgEl("text", { "class": "kit-chart-label", x: X(i), y: T + ph + 14 * u, "text-anchor": "middle" }, d.label));
+                    if (d.group && (i === 0 || d.group !== data[i - 1].group)) {
+                        svg.appendChild(svgEl("text", { "class": "kit-chart-group", x: L + i * slot + 4, y: H - 3 * u }, d.group));
+                    }
+                });
+
+                function tip(d, s, j, v) {
+                    return d.label + (d.group ? " " + d.group : "") + (ns > 1 ? " · " + (s.name || "") : "") + ": " + fmt(v);
+                }
+                function mark(node, d, s, j, v, i, cls) {
+                    var text = tip(d, s, j, v);
+                    node.setAttribute("class", cls);
+                    node.setAttribute("data-i", i);
+                    node.setAttribute("data-s", j);
+                    node.appendChild(svgEl("title", {}, text));
+                    if (interactive) { node.setAttribute("tabindex", "0"); node.setAttribute("role", "button"); node.setAttribute("aria-label", text); }
+                    svg.appendChild(node);
+                }
+
+                if (!isLine) {
+                    var bw = Math.min(slot - 8, 64 * u);
+                    data.forEach(function (d, i) {
+                        var x0 = L + i * slot + (slot - bw) / 2, w1 = stacked ? bw : bw / ns, acc = 0;
+                        series.forEach(function (s, j) {
+                            var v = Math.max(0, d.values[j] || 0);
+                            var h = Math.max(v ? 1 : 0, v / (hi - lo) * ph);
+                            var y = stacked ? T + ph - (acc + v) / (hi - lo) * ph : T + ph - h;
+                            acc += v;
+                            mark(svgEl("rect", { x: stacked ? x0 : x0 + j * w1, y: y, width: Math.max(1, w1 - (ns > 1 && !stacked ? 1 : 0)), height: h, rx: stacked ? 0 : 2, fill: colorOf(s, j) }), d, s, j, v, i, "kit-chart-bar");
+                        });
+                    });
+                } else {
+                    series.forEach(function (s, j) {
+                        var col = colorOf(s, j), segs = [], cur = [];
+                        data.forEach(function (d, i) {
+                            var v = d.values[j];
+                            if (v == null) { if (cur.length) segs.push(cur); cur = []; } else cur.push([X(i), Y(v)]);
+                        });
+                        if (cur.length) segs.push(cur);
+                        segs.forEach(function (sg) {
+                            if (sg.length < 2) return;
+                            var pts = sg.map(function (p, k) { return (k ? "L" : "M") + p[0] + " " + p[1]; }).join(" ");
+                            if (o.area) svg.appendChild(svgEl("path", { "class": "kit-chart-area", fill: col, d: pts + " L" + sg[sg.length - 1][0] + " " + Y(lo) + " L" + sg[0][0] + " " + Y(lo) + " Z" }));
+                            svg.appendChild(svgEl("path", { "class": "kit-chart-line", stroke: col, d: pts }));
+                        });
+                        // punti: cerchio, quadrato, triangolo… così le serie si distinguono anche senza colore
+                        if (o.markers !== false) data.forEach(function (d, i) {
+                            var v = d.values[j];
+                            if (v == null) return;
+                            var x = X(i), y = Y(v), m = j % 3, node;
+                            if (m === 0) node = svgEl("circle", { cx: x, cy: y, r: 4.5 * u, fill: col });
+                            else if (m === 1) node = svgEl("rect", { x: x - 4 * u, y: y - 4 * u, width: 8 * u, height: 8 * u, fill: col });
+                            else node = svgEl("polygon", { points: x + "," + (y - 5 * u) + " " + (x + 5 * u) + "," + (y + 4 * u) + " " + (x - 5 * u) + "," + (y + 4 * u), fill: col });
+                            mark(node, d, s, j, v, i, "kit-chart-pt");
+                        });
+                    });
+                }
+                scroller.appendChild(svg);
+                if (scrollEnd && W > avail) scroller.scrollLeft = scroller.scrollWidth;
+            }
+
+            function pick(target) {
+                var r = target instanceof Element && target.closest(".kit-chart-bar, .kit-chart-pt");
+                if (!r || typeof o.onSelect !== "function") return;
+                var i = +r.getAttribute("data-i"), s = +r.getAttribute("data-s");
+                o.onSelect(o.data[i], i, s);
+                el.dispatchEvent(new CustomEvent("kit:select", { bubbles: true, detail: { index: i, series: s, item: o.data[i] } }));
+            }
+            scroller.addEventListener("click", function (e) { pick(e.target); });
+            scroller.addEventListener("keydown", function (e) {
+                if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(e.target); }
+            });
+
+            var ro = typeof ResizeObserver === "function" ? new ResizeObserver(function () {
+                var w = el.clientWidth;
+                if (w && w !== lastW) { lastW = w; scrollEnd = false; draw(false); }
+            }) : null;
+            if (ro) ro.observe(el);
+            function onFs() { scrollEnd = false; draw(false); }
+            root.addEventListener("kit:fs", onFs);
+            return { draw: draw, destroy: function () { if (ro) ro.disconnect(); root.removeEventListener("kit:fs", onFs); } };
+        });
+    }
+
+    function barChart(el, opts) { return cartesian(el, opts, "bar"); }
+    function lineChart(el, opts) { return cartesian(el, opts, "line"); }
+
+    function donut(el, opts) {
+        el = resolveEl(el);
+        if (!el) return null;
+        return mountChart(el, opts, function (el, o) {
+            el.classList.add("kit-donut");
+            function draw() {
+                var data = (o.data || []).filter(function (d) { return d.value > 0; });
+                var fmt = o.format || function (v) { return new Intl.NumberFormat(root.lang || undefined).format(v); };
+                var total = data.reduce(function (a, d) { return a + d.value; }, 0);
+                var interactive = typeof o.onSelect === "function";
+                el.textContent = "";
+                el.classList.toggle("kit-chart-click", interactive);
+                if (!total) { el.appendChild(mkEl("div", "kit-pop-empty", o.empty || "Nessun dato")); return; }
+                var pct = new Intl.NumberFormat(root.lang || undefined, { style: "percent", maximumFractionDigits: 1 });
+                var r = 40, w = o.thickness || 16, C = 2 * Math.PI * r, acc = 0;
+                var svg = svgEl("svg", { "class": "kit-donut-svg", viewBox: "0 0 100 100", role: "img", "aria-label": o.label || "Grafico a ciambella" });
+                var legend = mkEl("div", "kit-donut-legend");
+                data.forEach(function (d, i) {
+                    var col = d.color || "var(--kit-c" + (i % 4 + 1) + ")";
+                    var len = d.value / total * C, gap = data.length > 1 ? Math.min(1.2, len * .3) : 0;
+                    var text = d.label + ": " + fmt(d.value) + " (" + pct.format(d.value / total) + ")";
+                    var seg = svgEl("circle", { "class": "kit-donut-seg", cx: 50, cy: 50, r: r, fill: "none", stroke: col, "stroke-width": w,
+                        "stroke-dasharray": (len - gap) + " " + (C - len + gap), "stroke-dashoffset": -acc, transform: "rotate(-90 50 50)", "data-i": i });
+                    seg.appendChild(svgEl("title", {}, text));
+                    svg.appendChild(seg);
+                    acc += len;
+                    var row = mkEl(interactive ? "button" : "div", "kit-donut-row");
+                    if (interactive) { row.type = "button"; row.setAttribute("data-i", i); }
+                    var sw = mkEl("i", ""); sw.style.background = col;
+                    row.appendChild(sw);
+                    row.appendChild(mkEl("span", "kit-donut-name", d.label));
+                    row.appendChild(mkEl("b", "", fmt(d.value)));
+                    row.appendChild(mkEl("small", "", pct.format(d.value / total)));
+                    legend.appendChild(row);
+                });
+                var cv = o.centerValue != null ? o.centerValue : fmt(total);
+                svg.appendChild(svgEl("text", { "class": "kit-donut-value", x: 50, y: o.centerLabel === "" ? 54 : 50, "text-anchor": "middle" }, String(cv)));
+                if (o.centerLabel !== "") svg.appendChild(svgEl("text", { "class": "kit-donut-label", x: 50, y: 61, "text-anchor": "middle" }, o.centerLabel || "Totale"));
+                el.appendChild(svg);
+                if (o.legend !== false) el.appendChild(legend);
+                var dd = data;
+                el.onclick = function (e) {
+                    var t = e.target instanceof Element && e.target.closest("[data-i]");
+                    if (!t || !interactive) return;
+                    var i = +t.getAttribute("data-i");
+                    o.onSelect(dd[i], i);
+                    el.dispatchEvent(new CustomEvent("kit:select", { bubbles: true, detail: { index: i, item: dd[i] } }));
+                };
+            }
+            return { draw: draw };
+        });
+    }
+
+    function sparkline(el, opts) {
+        el = resolveEl(el);
+        if (!el) return null;
+        return mountChart(el, opts, function (el, o) {
+            el.classList.add("kit-spark");
+            function draw() {
+                var vals = (o.values || []).filter(function (v) { return v != null; });
+                var type = o.type === "bar" ? "bar" : "line";
+                el.textContent = "";
+                if (!vals.length) return;
+                var W = 100, H = 30, pad = 2;
+                var lo = type === "bar" ? Math.min(0, Math.min.apply(null, vals)) : Math.min.apply(null, vals);
+                var hi = Math.max.apply(null, vals);
+                if (hi - lo < 1e-9) { hi = lo + 1; }
+                var col = o.color || "var(--kit-c1)";
+                var Y = function (v) { return H - pad - (v - lo) / (hi - lo) * (H - 2 * pad); };
+                var svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, preserveAspectRatio: "none", role: "img", "aria-label": o.label || "Andamento" });
+                var n = vals.length;
+                if (type === "bar") {
+                    var bw = W / n;
+                    vals.forEach(function (v, i) {
+                        var y = Y(Math.max(v, 0)), y0 = Y(Math.min(0, lo) < 0 ? 0 : lo);
+                        svg.appendChild(svgEl("rect", { x: i * bw + bw * .15, y: Math.min(y, y0), width: bw * .7, height: Math.max(1, Math.abs(y0 - y)), fill: col }));
+                    });
+                } else {
+                    var pts = vals.map(function (v, i) { return [n === 1 ? W / 2 : pad + i * (W - 2 * pad) / (n - 1), Y(v)]; });
+                    var d = pts.map(function (p, i) { return (i ? "L" : "M") + p[0] + " " + p[1]; }).join(" ");
+                    if (o.area !== false) svg.appendChild(svgEl("path", { "class": "kit-chart-area", fill: col, d: d + " L" + pts[n - 1][0] + " " + H + " L" + pts[0][0] + " " + H + " Z" }));
+                    svg.appendChild(svgEl("path", { "class": "kit-chart-line", stroke: col, d: d }));
+                }
+                el.appendChild(svg);
+            }
+            return { draw: draw };
+        });
     }
 
     /* ---------- Navbar: menu a scomparsa ---------- */
@@ -660,7 +1128,8 @@
         }
 
         // Click fuori da un popover aperto: lo chiude.
-        if (openPop && !openPop.pop.contains(t)) closePop(false);
+        // (un click nel campo di un combobox non lo chiude)
+        if (openPop && !openPop.pop.contains(t) && !(t.closest("[data-kit-combo]") && t.closest("[data-kit-combo]").contains(openPop.pop))) closePop(false);
 
         // Click sullo sfondo (::backdrop) di un dialog: lo chiude.
         if (t instanceof HTMLDialogElement && t.classList.contains("kit-dialog")) {
@@ -688,7 +1157,8 @@
             if (e.key === "Escape") { e.preventDefault(); closePop(true); return; }
             if (e.key === "ArrowDown") { e.preventDefault(); moveActive(openPop.pop, 1); return; }
             if (e.key === "ArrowUp") { e.preventDefault(); moveActive(openPop.pop, -1); return; }
-            if (e.key === "Enter" || e.key === " ") {
+            // nel campo di un combobox lo spazio è un carattere come gli altri
+            if (e.key === "Enter" || (e.key === " " && !(e.target instanceof Element && e.target.closest("[data-kit-combo]")))) {
                 var a = openPop.pop.querySelector(".kit-opt.is-active");
                 // click() attiva la voce come un click vero: partono anche i suoi gestori e i link
                 if (a) { e.preventDefault(); a.click(); return; }
@@ -735,6 +1205,7 @@
                 o.setAttribute("aria-selected", String(o.classList.contains("is-on")));
             });
         });
+        scope.querySelectorAll("[data-kit-combo]").forEach(function (c) { combo(c); });
         scope.querySelectorAll("[data-kit-tabs]").forEach(function (tabs) {
             tabs.setAttribute("role", "tablist");
             var cur = tabs.querySelector(".kit-tab.is-on") || tabs.querySelector(".kit-tab");
@@ -768,5 +1239,5 @@
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { init(); });
     else init();
 
-    window.Kit = { theme: theme, layout: layout, fontSize: fontSize, reset: reset, toast: toast, undo: undo, confirm: confirmDialog, init: init };
+    window.Kit = { theme: theme, layout: layout, fontSize: fontSize, reset: reset, toast: toast, undo: undo, confirm: confirmDialog, combo: combo, barChart: barChart, lineChart: lineChart, donut: donut, sparkline: sparkline, init: init };
 })();

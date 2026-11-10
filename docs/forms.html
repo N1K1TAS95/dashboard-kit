@@ -118,11 +118,13 @@
             <li><a href="#ricerca">Ricerca</a></li>
             <li><a href="#casella">Casella di spunta e piè di form</a></li>
             <li><a href="#select">Select personalizzato</a></li>
+            <li><a href="#combobox">Combobox</a></li>
           </ul>
           <a href="navigation.html">Navigazione</a>
           <a href="navbar.html">Navbar</a>
           <a href="cards.html">Schede</a>
           <a href="tables.html">Tabelle</a>
+          <a href="charts.html">Grafici</a>
           <a href="content.html">Contenuti</a>
           <a href="feedback.html">Feedback</a>
           <a href="overlays.html">Dialog e menu</a>
@@ -194,6 +196,47 @@
   </div>
 </div>
 <p>L'opzione con <code>is-on</code> è quella iniziale. <code>kit-pop-right</code> sul pannello lo allinea a destra del bottone.</p>
+
+<h2 id="combobox">Combobox</h2>
+<p>Un campo di testo con un elenco di suggerimenti che si restringe mentre si scrive. A differenza del <a href="#select">select</a> si può anche scrivere un valore che non è nell'elenco. Richiede <code>kit.js</code>. Frecce su e giù scorrono le voci, Invio sceglie quella evidenziata (all'apertura è la prima), Esc chiude, Tab esce. La scelta scrive il valore nel campo e fa partire <code>input</code> e <code>kit:change</code> (<code>{ value, label }</code>).</p>
+<p>Le voci si scrivono nell'HTML, come <code>kit-opt</code> dentro un <code>kit-pop</code>; il bottone con la freccia si aggiunge da solo.</p>
+<div class="doc-demo">
+  <div class="kit-field" style="max-width: 320px">
+    <span>Regime fiscale</span>
+    <div class="kit-combo" data-kit-combo>
+      <input class="kit-input" placeholder="Scrivi o scegli…" aria-label="Regime fiscale">
+      <div class="kit-pop" hidden>
+        <div class="kit-opt" data-value="RF01"><span class="kit-opt-text"><b>RF01</b><small>Ordinario</small></span></div>
+        <div class="kit-opt" data-value="RF02"><span class="kit-opt-text"><b>RF02</b><small>Contribuenti minimi</small></span></div>
+        <div class="kit-opt" data-value="RF19"><span class="kit-opt-text"><b>RF19</b><small>Forfettario</small></span></div>
+      </div>
+    </div>
+    <small data-doc-out>Valore: –</small>
+  </div>
+</div>
+<p>Per un elenco lungo o calcolato dai dati si usa <code>Kit.combo</code>. <code>items</code> è un array (o una funzione che lo restituisce) di stringhe oppure di oggetti <code>{ value, label, hint }</code>. Il filtro cerca in etichetta, nota e valore; se ci sono più di <code>max</code> voci ne mostra <code>max</code> e invita a scrivere ancora.</p>
+<div class="doc-demo" data-doc-init="combo-js" data-doc-js='const clienti = [
+  { value: "Rossi Mario Srl", hint: "IT01234567890" },
+  { value: "Bianchi Autotrasporti", hint: "IT09876543210" },
+  /* … centinaia di voci … */
+];
+Kit.combo("#cliente", { items: clienti, max: 8 });
+// per cambiare l&apos;elenco in seguito: api.setItems(nuoviClienti)'>
+  <div class="kit-field" style="max-width: 320px">
+    <span>Cliente (240 voci, ne mostra 8)</span>
+    <div id="cliente"><input class="kit-input" placeholder="Cerca un cliente…" aria-label="Cliente"></div>
+    <small data-doc-out>Valore: –</small>
+  </div>
+</div>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>Opzione</th><th>Attributo</th><th>Di base</th></tr></thead><tbody>
+<tr><td><code>items</code></td><td>(solo JavaScript) array o funzione che riceve il testo scritto</td><td>le <code>kit-opt</code> già nell'HTML</td></tr>
+<tr><td><code>max</code></td><td><code>data-kit-combo-max</code></td><td><code>50</code></td></tr>
+<tr><td><code>empty</code></td><td><code>data-kit-combo-empty</code></td><td><code>Nessun risultato</code> (<code>""</code> per non mostrare niente)</td></tr>
+<tr><td><code>more</code></td><td><code>data-kit-combo-more</code></td><td><code>Altri {n} risultati: continua a scrivere per restringere</code></td></tr>
+<tr><td><code>filter</code></td><td>–</td><td><code>true</code>; con <code>false</code> la funzione <code>items</code> filtra da sola (utile per cercare su un server)</td></tr>
+<tr><td><code>autoActive</code></td><td>–</td><td><code>true</code>: Invio sceglie la prima voce; con <code>false</code> serve prima una freccia</td></tr>
+</tbody></table></div></div>
+<p><code>Kit.combo</code> restituisce <code>{ setItems(lista), open(), close() }</code>. Il campo ha <code>role="combobox"</code> e <code>aria-activedescendant</code>; le voci hanno <code>role="option"</code>.</p>
     <nav class="doc-pager" aria-label="Pagina precedente e successiva">
       <a href="buttons.html"><small>← Precedente</small><b>Bottoni</b></a>
       <a class="doc-next" href="navigation.html"><small>Successiva →</small><b>Navigazione</b></a>

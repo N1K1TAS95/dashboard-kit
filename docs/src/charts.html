@@ -1,0 +1,107 @@
+<!--title: Grafici-->
+<!--desc: Barre, linee, ciambella e sparkline in SVG, senza librerie. Richiedono <code>kit.js</code>.-->
+<h2 id="barre">Grafico a barre</h2>
+<p><code>Kit.barChart(elemento, opzioni)</code> disegna un grafico a barre in SVG dentro l'elemento. L'asse verticale ha valori tondi (1, 2, 2,5, 5, 10 per una potenza di dieci) con le migliaia abbreviate in «k» e «M». Ogni barra ha un tooltip. Se le barre sono molte il grafico scorre in orizzontale e parte dalla fine, cioè dai dati più recenti. Colori, testi e griglia seguono il tema e la dimensione del testo; il grafico si ridisegna da solo quando la finestra cambia larghezza.</p>
+<p>Ogni elemento di <code>data</code> ha un'etichetta (<code>label</code>), un valore per ogni serie (<code>values</code>) e, facoltativo, un <code>group</code>: è scritto sotto la barra solo quando cambia, ed è comodo per l'anno.</p>
+<div class="doc-demo" data-doc-init="chart-base" data-doc-js='Kit.barChart("#grafico", {
+  label: "Fatturato mensile",
+  data: [
+    { label: "Nov", group: "2025", values: [4210] },
+    { label: "Dic", group: "2025", values: [3890] },
+    { label: "Gen", group: "2026", values: [5120] },
+    /* … */
+  ],
+  series: [{ name: "Fatturato" }],
+  format: (v) => v.toLocaleString("it-IT", { style: "currency", currency: "EUR" })
+});'>
+  <div id="grafico"></div>
+</div>
+
+<h2 id="serie">Più serie e clic</h2>
+<p>Con più serie (<code>series</code>) ogni mese ha una barra per serie e compare la legenda. I colori di base sono <code>--kit-c1</code>…<code>--kit-c4</code>; per un altro colore c'è <code>color</code> nella serie. Con <code>onSelect</code> le barre diventano bottoni raggiungibili con Tab, attivabili con Invio o spazio; in più l'elemento riceve l'evento <code>kit:select</code> con <code>{ index, series, item }</code>.</p>
+<div class="doc-demo" data-doc-init="chart-series" data-doc-js='Kit.barChart("#grafico2", {
+  label: "Emesso e ricevuto",
+  data: mesi,           // { label, group, values: [emesso, ricevuto] }
+  series: [{ name: "Emesso" }, { name: "Ricevuto" }],
+  legendNote: "· clicca una barra per vedere le fatture di quel mese",
+  onSelect: (mese, i, serie) => Kit.toast("Mese: " + mese.label + " " + mese.group)
+});'>
+  <div id="grafico2"></div>
+</div>
+
+<h2 id="impilate">Barre impilate</h2>
+<p><code>stacked: true</code> mette le serie una sopra l'altra: ogni mese ha una sola barra, alta quanto la somma. Utile per vedere come si compone un totale.</p>
+<div class="doc-demo" data-doc-init="chart-stacked" data-doc-js='Kit.barChart("#grafico3", {
+  label: "Spese per categoria",
+  stacked: true,
+  data: mesi,            // values: [carburante, manutenzione, assicurazioni]
+  series: [{ name: "Carburante" }, { name: "Manutenzione" }, { name: "Assicurazioni" }]
+});'>
+  <div id="grafico3"></div>
+</div>
+
+<h2 id="linee">Linee</h2>
+<p><code>Kit.lineChart</code> prende le stesse opzioni delle barre. Un valore <code>null</code> lascia un buco nella linea (il mese senza dati). L'asse parte dal valore più basso, non da zero, così le variazioni si vedono; <code>zero: true</code> lo riporta a zero. Ogni serie ha un simbolo diverso (cerchio, quadrato, triangolo), così si distingue anche senza i colori. <code>area: true</code> colora lo spazio sotto la linea, <code>markers: false</code> toglie i punti.</p>
+<div class="doc-demo" data-doc-init="chart-line" data-doc-js='Kit.lineChart("#grafico4", {
+  label: "Prezzo medio al litro",
+  data: mesi,            // values: [gasolio, benzina]; null = nessun rifornimento
+  series: [{ name: "Gasolio" }, { name: "Benzina" }],
+  format: (v) => v.toFixed(3).replace(".", ",") + " €/l",
+  axisFormat: (v) => v.toFixed(2).replace(".", ",") + " €"
+});'>
+  <div id="grafico4"></div>
+</div>
+<div class="doc-demo" data-doc-init="chart-area" data-doc-js='Kit.lineChart("#grafico5", {
+  label: "Fatture ricevute",
+  area: true, markers: false, zero: true, height: 180,
+  data: mesi,            // values: [numero di fatture]
+  series: [{ name: "Fatture" }]
+});'>
+  <div id="grafico5"></div>
+</div>
+
+<h2 id="ciambella">Ciambella</h2>
+<p><code>Kit.donut</code> mostra le parti di un totale. Al centro c'è il totale (o il testo di <code>centerValue</code> e <code>centerLabel</code>), a fianco una legenda con valore e percentuale. Con <code>onSelect</code> le righe della legenda diventano bottoni. Le fette con valore zero non compaiono.</p>
+<div class="doc-demo" data-doc-init="chart-donut" data-doc-js='Kit.donut("#grafico-ciambella", {
+  label: "Spese per categoria",
+  data: [
+    { label: "Carburante", value: 8420 },
+    { label: "Manutenzione", value: 3150 },
+    { label: "Assicurazioni", value: 2800 },
+    { label: "Altro", value: 640, color: "var(--kit-mute)" }
+  ],
+  format: (v) => v.toLocaleString("it-IT", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }),
+  centerLabel: "Spese 2026"
+});'>
+  <div id="grafico-ciambella"></div>
+</div>
+
+<h2 id="sparkline">Sparkline</h2>
+<p><code>Kit.sparkline</code> è un grafico minuscolo, senza assi, da mettere accanto a un numero, per esempio in una <a href="cards.html#kpi">scheda KPI</a>. Prende <code>values</code> e, facoltativi, <code>type</code> (<code>"line"</code> o <code>"bar"</code>), <code>color</code>, <code>area</code> (<code>false</code> la toglie) e <code>label</code>. La dimensione è quella dell'elemento: si cambia con CSS (di base 6rem × 1,9rem).</p>
+<div class="doc-demo" data-doc-init="chart-spark" data-doc-js='Kit.sparkline("#spark1", { values: [12, 14, 11, 16, 18, 17, 22], label: "Fatture negli ultimi 7 mesi" });
+Kit.sparkline("#spark2", { values: [5, 3, 6, 2, 4, 7, 5], type: "bar", color: "var(--kit-c2)" });'>
+  <div class="kit-stats">
+    <div class="kit-kpi"><div class="kit-mute">Fatture</div><div class="kit-fs-3 kit-fw-bold">22</div><div id="spark1"></div></div>
+    <div class="kit-kpi"><div class="kit-mute">Rifornimenti</div><div class="kit-fs-3 kit-fw-bold">5</div><div id="spark2"></div></div>
+  </div>
+</div>
+
+<h2 id="opzioni">Opzioni di barre e linee</h2>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>Opzione</th><th>Valori</th><th>Di base</th></tr></thead><tbody>
+<tr><td><code>data</code></td><td>array di <code>{ label, group?, values: [n, …] }</code></td><td>–</td></tr>
+<tr><td><code>series</code></td><td>array di <code>{ name, color? }</code></td><td>una serie «Totale»</td></tr>
+<tr><td><code>label</code></td><td>descrizione per chi usa uno screen reader</td><td><code>Grafico a barre</code></td></tr>
+<tr><td><code>format</code></td><td>funzione per i valori nei tooltip</td><td>numero con i separatori della lingua della pagina</td></tr>
+<tr><td><code>axisFormat</code></td><td>funzione per i valori dell'asse</td><td>abbreviazione con «k» e «M»</td></tr>
+<tr><td><code>height</code> · <code>ticks</code> · <code>minSlot</code></td><td>altezza in px, numero di linee, larghezza minima di una colonna in px</td><td><code>260</code> · <code>4</code> · <code>34</code></td></tr>
+<tr><td><code>max</code></td><td>valore massimo dell'asse</td><td>calcolato dai dati, arrotondato</td></tr>
+<tr><td><code>legend</code> · <code>legendNote</code></td><td><code>true</code>/<code>false</code> · testo aggiunto alla legenda</td><td>legenda solo con più serie</td></tr>
+<tr><td><code>stacked</code></td><td>(barre) serie impilate</td><td><code>false</code></td></tr>
+<tr><td><code>area</code> · <code>markers</code> · <code>zero</code></td><td>(linee) area colorata · punti · asse da zero</td><td><code>false</code> · <code>true</code> · <code>false</code></td></tr>
+<tr><td><code>min</code></td><td>valore minimo dell'asse</td><td>0 per le barre, calcolato per le linee</td></tr>
+<tr><td><code>scrollEnd</code></td><td>parte dall'ultima barra quando scorre</td><td><code>true</code></td></tr>
+<tr><td><code>onSelect</code></td><td><code>(elemento, indice, serie) =&gt; …</code></td><td>nessuno: le barre non sono cliccabili</td></tr>
+<tr><td><code>empty</code></td><td>testo se <code>data</code> è vuoto</td><td><code>Nessun dato</code></td></tr>
+</tbody></table></div></div>
+<p>La funzione restituisce <code>{ update(opzioni), destroy() }</code>. Richiamarla sullo stesso elemento aggiorna il grafico esistente: <code>Kit.barChart(el, { data: nuoviDati })</code> cambia solo i dati. I valori negativi non sono supportati nelle barre (sono disegnati come zero). Tutte e quattro le funzioni (<code>barChart</code>, <code>lineChart</code>, <code>donut</code>, <code>sparkline</code>) funzionano così e restituiscono <code>{ update, destroy }</code>.</p>
+<p>La classe <code>kit-chart</code> è aggiunta da sola. Per il resto si usano i token: <code>--kit-c1</code>…<code>--kit-c4</code> per le serie, <code>--kit-line</code> per la griglia e <code>--kit-mute</code> per le scritte. Le classi <code>kit-chart-bar</code>, <code>kit-chart-axis</code>, <code>kit-chart-label</code> e <code>kit-chart-group</code> permettono di ritoccare i singoli pezzi.</p>

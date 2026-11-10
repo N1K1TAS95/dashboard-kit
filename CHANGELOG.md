@@ -1,5 +1,10 @@
 # Changelog
 
+## Non rilasciato
+
+- Combobox (`kit-combo`, `data-kit-combo`, `Kit.combo(el, { items, max, empty, more, filter, autoActive })`): campo di testo con elenco di suggerimenti che si restringe mentre si scrive. Voci scritte nell'HTML o date da JavaScript (stringhe o `{ value, label, hint }`, array o funzione), limite di voci mostrate con invito a scrivere ancora, frecce/Invio/Esc/Tab, `role="combobox"` e `aria-activedescendant`. Si può scrivere anche un valore fuori elenco. Evento `kit:change` con `{ value, label }`.
+- Grafici in SVG, senza librerie: `Kit.barChart` (anche impilato con `stacked`), `Kit.lineChart` (valori `null` = buco, `area`, `zero`, simboli diversi per serie), `Kit.donut` (ciambella con legenda) e `Kit.sparkline` (barre o linea minuscola per le schede KPI). Barre e linee: SVG con asse a valori tondi (k e M), una o più serie con legenda, etichette di gruppo (per esempio l'anno), scorrimento orizzontale a partire dall'ultima barra, tooltip, barre cliccabili con tastiera (`onSelect`, evento `kit:select`), ridisegno al cambio di larghezza e di dimensione del testo. Token nuovi `--kit-c3` e `--kit-c4`. Nuova pagina «Grafici» nella documentazione.
+
 ## 0.5.0 — 10 novembre 2026
 
 - Larghezza dei dialog: `kit-dialog-sm` (340px), `kit-dialog-lg` (700px, uguale a `kit-dialog-wide`), `kit-dialog-xl` (960px) e `kit-dialog-full`; il token `--kit-dialog-w` (predefinito 440px) imposta una larghezza su misura, su un dialog o su tutti. Il dialog non supera mai la finestra.

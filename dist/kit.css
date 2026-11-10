@@ -79,6 +79,8 @@
     /* Serie di colori per grafici. */
     --kit-c1: light-dark(#2f6fe4, #6ea2ff);
     --kit-c2: light-dark(#e39320, #f2a84c);
+    --kit-c3: light-dark(#1b8f82, #4ccbbb);
+    --kit-c4: light-dark(#8a4fd1, #b88cf0);
 
     /* Barre di scorrimento sottili: il cursore è il testo secondario, un po' trasparente; la guida è invisibile. */
     --kit-sb: color-mix(in srgb, var(--kit-mute) 45%, transparent);
@@ -1132,6 +1134,39 @@ a.kit-brand, .kit-brand a { color: inherit; text-decoration: none; }
 .kit-legend { display: flex; gap: 14px; font-size: 0.857rem; color: var(--kit-mute); flex-wrap: wrap; }
 .kit-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; }
 
+/* Grafico a barre (Kit.barChart): un .kit-chart con la legenda sopra e l'SVG che scorre in orizzontale se le barre sono molte. */
+.kit-chart { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.kit-chart-scroll { overflow-x: auto; min-width: 0; }
+.kit-chart svg { display: block; max-width: none; }
+.kit-chart-grid { stroke: var(--kit-line); }
+.kit-chart-axis, .kit-chart-label { fill: var(--kit-mute); font-size: 0.786rem; }
+.kit-chart-group { fill: var(--kit-ink); font-size: 0.786rem; font-weight: 700; }
+.kit-chart-bar, .kit-chart-pt { transition: opacity .12s; }
+.kit-chart-line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.kit-chart-area { opacity: .14; stroke: none; }
+.kit-chart-click .kit-chart-bar, .kit-chart-click .kit-chart-pt { cursor: pointer; }
+.kit-chart-click .kit-chart-bar:hover, .kit-chart-click .kit-chart-pt:hover { opacity: .8; }
+.kit-chart-bar:focus-visible, .kit-chart-pt:focus-visible { outline: 2px solid var(--kit-accent); outline-offset: 1px; }
+
+/* Ciambella (Kit.donut): grafico a sinistra, legenda con valori e percentuali a destra. */
+.kit-donut { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; min-width: 0; }
+.kit-donut-svg { width: 11rem; height: 11rem; flex: none; }
+.kit-donut-seg { transition: opacity .12s; }
+.kit-chart-click .kit-donut-seg { cursor: pointer; }
+.kit-donut-value { fill: var(--kit-ink); font-size: 13px; font-weight: 700; }
+.kit-donut-label { fill: var(--kit-mute); font-size: 6.5px; }
+.kit-donut-legend { flex: 1; min-width: 12rem; display: flex; flex-direction: column; gap: 2px; }
+.kit-donut-row { display: flex; align-items: baseline; gap: 8px; padding: 4px 6px; border-radius: var(--kit-rad-sm); font: inherit; color: inherit; background: none; border: 0; text-align: left; width: 100%; }
+button.kit-donut-row { cursor: pointer; }
+button.kit-donut-row:hover { background: var(--kit-hover); }
+.kit-donut-row i { flex: none; width: 10px; height: 10px; border-radius: 2px; align-self: center; }
+.kit-donut-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.kit-donut-row small { color: var(--kit-mute); min-width: 3.5em; text-align: right; }
+/* Sparkline (Kit.sparkline): un grafico minuscolo, da mettere accanto a un numero. */
+.kit-spark { display: inline-block; width: 6rem; height: 1.9rem; vertical-align: middle; }
+.kit-spark svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.kit-spark .kit-chart-line { vector-effect: non-scaling-stroke; }
+
 /* ===== 12. Select, popover, menu =====
    HTML:
    <div class="kit-select" data-kit-select>
@@ -1163,6 +1198,18 @@ a.kit-brand, .kit-brand a { color: inherit; text-decoration: none; }
 .kit-select-value { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .kit-select-btn .kit-icon { width: 1.067rem; height: 1.067rem; color: var(--kit-mute); transition: transform .15s; }
 .kit-select-btn[aria-expanded="true"] .kit-icon { transform: rotate(180deg); }
+
+/* Combobox: campo di testo (.kit-input) con il bottone che apre l'elenco; l'elenco è un .kit-pop con voci .kit-opt. */
+.kit-combo { position: relative; min-width: 0; }
+.kit-combo > .kit-input { padding-right: 2.5rem; }
+.kit-combo-btn {
+    position: absolute; top: 0; right: 0; height: var(--kit-ctl); width: 2.5rem;
+    display: grid; place-items: center; padding: 0; border: 0; background: none; color: var(--kit-mute); cursor: pointer;
+    border-radius: 0 var(--kit-rad-sm) var(--kit-rad-sm) 0;
+}
+.kit-combo-btn:hover { color: var(--kit-ink); }
+.kit-combo-btn .kit-icon { width: 1.067rem; height: 1.067rem; transition: transform .15s; }
+.kit-combo:has(> input[aria-expanded="true"]) .kit-combo-btn .kit-icon { transform: rotate(180deg); }
 
 .kit-pop {
     position: absolute;

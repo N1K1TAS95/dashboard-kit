@@ -280,6 +280,35 @@
       "</div>$0"
     ]
   },
+  "Kit: combobox": {
+    "prefix": "kit-combo",
+    "scope": "html",
+    "description": "Campo con elenco di suggerimenti (richiede kit.js)",
+    "body": [
+      "<div class=\"kit-combo\" data-kit-combo>",
+      "  <input class=\"kit-input\" placeholder=\"${1:Scrivi o scegli…}\" aria-label=\"${2:Campo}\">",
+      "  <div class=\"kit-pop\" hidden>",
+      "    <div class=\"kit-opt\" data-value=\"${3:a}\"><span class=\"kit-opt-text\"><b>${4:Prima}</b><small>${5:nota}</small></span></div>",
+      "    <div class=\"kit-opt\" data-value=\"${6:b}\"><span class=\"kit-opt-text\"><b>${7:Seconda}</b></span></div>",
+      "  </div>",
+      "</div>$0"
+    ]
+  },
+  "Kit: grafico a barre": {
+    "prefix": "kit-chart",
+    "scope": "html",
+    "description": "Grafico a barre in SVG (richiede kit.js)",
+    "body": [
+      "<div id=\"${1:grafico}\"></div>",
+      "<script>",
+      "  Kit.barChart(\"#${1:grafico}\", {",
+      "    label: \"${2:Andamento mensile}\",",
+      "    data: [{ label: \"${3:Gen}\", group: \"${4:2026}\", values: [${5:100}] }],",
+      "    series: [{ name: \"${6:Totale}\" }]",
+      "  });",
+      "</script>$0"
+    ]
+  },
   "Kit: menu a comparsa": {
     "prefix": "kit-dropdown",
     "scope": "html",

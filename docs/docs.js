@@ -160,3 +160,68 @@ document.addEventListener("kit:change", function (e) {
     var out = demo && demo.querySelector("[data-doc-out]");
     if (out) out.textContent = "Valore: " + e.detail.value;
 });
+
+// Esempi che si disegnano da soli al caricamento (data-doc-init="nome"); il codice mostrato è quello di data-doc-js.
+var DOC_INIT = {
+    "combo-js": function (demo) {
+        var nomi = ["Rossi", "Bianchi", "Verdi", "Neri", "Gallo", "Conti", "Greco", "Fontana", "Moretti", "Barbieri"];
+        var tipi = ["Srl", "Spa", "Autotrasporti", "Edilizia", "Servizi", "Trasporti"];
+        var items = [];
+        for (var i = 0; i < 240; i++) {
+            items.push({ value: nomi[i % 10] + " " + tipi[(i * 7) % 6] + (i > 59 ? " " + (Math.floor(i / 60) + 1) : ""), hint: "IT" + String(10000000000 + i * 7919).slice(0, 11) });
+        }
+        Kit.combo(demo.querySelector("#cliente"), { items: items, max: 8 });
+    },
+    "chart-base": function () {
+        var mesi = ["Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott", "Nov", "Dic"];
+        var data = [];
+        for (var i = 0; i < 14; i++) {
+            var m = (i + 10) % 12, anno = 2025 + Math.floor((i + 10) / 12);
+            data.push({ label: mesi[m], group: String(anno), values: [3200 + ((i * 937) % 2600) + i * 120] });
+        }
+        Kit.barChart("#grafico", { label: "Fatturato mensile", data: data, series: [{ name: "Fatturato" }],
+            format: function (v) { return v.toLocaleString("it-IT", { style: "currency", currency: "EUR" }); } });
+    },
+    "chart-series": function () {
+        var mesi = ["Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott", "Nov", "Dic"];
+        var data = mesi.map(function (m, i) { return { label: m, group: i === 0 ? "2026" : "", values: [2500 + ((i * 713) % 1900), 1800 + ((i * 1151) % 2300)] }; });
+        Kit.barChart("#grafico2", { label: "Emesso e ricevuto", data: data, series: [{ name: "Emesso" }, { name: "Ricevuto" }],
+            legendNote: "· clicca una barra per vedere le fatture di quel mese",
+            format: function (v) { return v.toLocaleString("it-IT", { style: "currency", currency: "EUR" }); },
+            onSelect: function (d) { Kit.toast("Mese: " + d.label + " 2026", { duration: 2000 }); } });
+    },
+    "chart-stacked": function () {
+        var mesi = ["Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott", "Nov", "Dic"];
+        Kit.barChart("#grafico3", { label: "Spese per categoria", stacked: true,
+            data: mesi.map(function (m, i) { return { label: m, values: [700 + ((i * 331) % 500), 150 + ((i * 577) % 600), i % 3 === 0 ? 700 : 0] }; }),
+            series: [{ name: "Carburante" }, { name: "Manutenzione" }, { name: "Assicurazioni" }],
+            format: function (v) { return v.toLocaleString("it-IT", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }); } });
+    },
+    "chart-line": function () {
+        var mesi = ["Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott", "Nov", "Dic"];
+        Kit.lineChart("#grafico4", { label: "Prezzo medio al litro",
+            data: mesi.map(function (m, i) { return { label: m, group: i === 0 ? "2026" : "", values: [1.62 + Math.sin(i / 2) * .07 + i * .004, i === 4 || i === 5 ? null : 1.78 + Math.cos(i / 2.5) * .06] }; }),
+            series: [{ name: "Gasolio" }, { name: "Benzina" }],
+            format: function (v) { return v.toFixed(3).replace(".", ",") + " €/l"; },
+            axisFormat: function (v) { return v.toFixed(2).replace(".", ",") + " €"; } });
+    },
+    "chart-area": function () {
+        var mesi = ["Gen", "Feb", "Mar", "Apr", "Mag", "Giu", "Lug", "Ago", "Set", "Ott", "Nov", "Dic"];
+        Kit.lineChart("#grafico5", { label: "Fatture ricevute", area: true, markers: false, zero: true, height: 180,
+            data: mesi.map(function (m, i) { return { label: m, values: [18 + Math.round(Math.sin(i / 1.7) * 7 + i)] }; }),
+            series: [{ name: "Fatture" }] });
+    },
+    "chart-donut": function () {
+        Kit.donut("#grafico-ciambella", { label: "Spese per categoria", centerLabel: "Spese 2026",
+            data: [{ label: "Carburante", value: 8420 }, { label: "Manutenzione", value: 3150 }, { label: "Assicurazioni", value: 2800 }, { label: "Altro", value: 640, color: "var(--kit-mute)" }],
+            format: function (v) { return v.toLocaleString("it-IT", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }); } });
+    },
+    "chart-spark": function () {
+        Kit.sparkline("#spark1", { values: [12, 14, 11, 16, 18, 17, 22], label: "Fatture negli ultimi 7 mesi" });
+        Kit.sparkline("#spark2", { values: [5, 3, 6, 2, 4, 7, 5], type: "bar", color: "var(--kit-c2)" });
+    }
+};
+if (window.Kit) document.querySelectorAll("[data-doc-init]").forEach(function (d) {
+    var f = DOC_INIT[d.getAttribute("data-doc-init")];
+    if (f) f(d);
+});
