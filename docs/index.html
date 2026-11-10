@@ -74,10 +74,9 @@
         <div class="kit-settings-row">
           <span class="kit-settings-label">Dimensione del testo</span>
           <div class="kit-seg" role="group" aria-label="Dimensione del testo">
-            <button data-kit-fs-set="sm" aria-label="Piccolo" title="Piccolo (87,5%)">A</button>
-            <button data-kit-fs-set="md" aria-label="Normale" title="Normale (100%)">A</button>
-            <button data-kit-fs-set="lg" aria-label="Grande" title="Grande (112,5%)">A</button>
-            <button data-kit-fs-set="xl" aria-label="Molto grande" title="Molto grande (125%)">A</button>
+            <button data-kit-fs-set="md" aria-label="Normale" title="Normale">A</button>
+            <button data-kit-fs-set="lg" aria-label="Grande" title="Grande">A</button>
+            <button data-kit-fs-set="xl" aria-label="Molto grande" title="Molto grande">A</button>
           </div>
         </div>
         <div class="kit-settings-row">
@@ -144,12 +143,12 @@
 <p>Da CDN (jsDelivr), con la versione fissata e l'attributo <code>integrity</code> (SRI): se il file venisse alterato, il browser lo rifiuta.</p>
 <pre class="kit-code"><code>&lt;link rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.4.0/dist/kit.css"
-      integrity="sha384-Hh4rqfwYzp3du0W2G6Q0QSANIIa6AciD12nrDJucuhJTNtQwnVm9oRD6T43mxEbm"
+      integrity="sha384-Wm7GL2AkWnifrQQgbgotVCQpOHSdhS5penPizaAde6VpQlFK3W4MUj/A+xGpxRPu"
       crossorigin="anonymous"&gt;
 
 &lt;!-- opzionale: tema, select, tab, dialog, menu, toast --&gt;
 &lt;script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.4.0/dist/kit.js"
-        integrity="sha384-gMtJolOvh2jo5ByXE/VpNHFG31qCRDIppSROI+55BeHi0uTrxNEnUwHbHw/flJLp"
+        integrity="sha384-0NDm0k5gaT/IqqO9M8ze9sLzSaWB/aDfqMsuZDPxq4ZbQhRjQ6KpWWZFrkwOOU67"
         crossorigin="anonymous"&gt;&lt;/script&gt;</code></pre>
 <p>Oppure in locale: copia <code>dist/kit.css</code> (e <code>dist/kit.js</code>) nel progetto e collegali con un percorso relativo.</p>
 <p class="kit-alert">Se il sito ha una Content-Security-Policy, autorizza <code>https://cdn.jsdelivr.net</code> in <code>style-src</code> e <code>script-src</code>. Evita <code>@main</code> o <code>@latest</code>: non sono versioni fissate e jsDelivr le tiene in cache per ore.</p>

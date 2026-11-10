@@ -47,7 +47,7 @@
     --kit-h4: 1.2rem;   /* titolo h4 (e kit-fs-4) */
     --kit-h5: 1.05rem;  /* titolo h5 (e kit-fs-5) */
     --kit-h6: 1rem;     /* titolo h6 (e kit-fs-6) */
-    --kit-zoom: 1;      /* moltiplicatore scelto dall'utente: 0.875, 1, 1.125, 1.25 */
+    --kit-zoom: .875;   /* moltiplicatore scelto dall'utente: 0.875 (normale), 1, 1.125 */
 
     /* Layout: modifica questi per cambiare il "respiro" di tutta l'interfaccia. */
     --kit-sp: 16px;     /* spazio unico: margine, distanza tra card, padding interno */
@@ -105,10 +105,9 @@
 @media (min-width: 1920px) { :root { --kit-fs: 19px; } }
 @media (min-width: 2560px) { :root { --kit-fs: 22px; } }
 
-:root[data-kit-fs="sm"] { --kit-zoom: .875; }
-:root[data-kit-fs="md"] { --kit-zoom: 1; }
-:root[data-kit-fs="lg"] { --kit-zoom: 1.125; }
-:root[data-kit-fs="xl"] { --kit-zoom: 1.25; }
+:root[data-kit-fs="md"] { --kit-zoom: .875; }
+:root[data-kit-fs="lg"] { --kit-zoom: 1; }
+:root[data-kit-fs="xl"] { --kit-zoom: 1.125; }
 
 /* ===== 2. Base ===== */
 *, *::before, *::after { box-sizing: border-box; }
@@ -1199,7 +1198,6 @@ a.kit-brand, .kit-brand a { color: inherit; text-decoration: none; }
 .kit-settings-row > small { font-size: 0.857rem; color: var(--kit-mute); }
 .kit-settings .kit-seg { display: flex; }
 .kit-settings .kit-seg > button { flex: 1; justify-content: center; padding: 0 6px; }
-.kit-settings [data-kit-fs-set="sm"] { font-size: 0.8em; }
 .kit-settings [data-kit-fs-set="lg"] { font-size: 1.15em; }
 .kit-settings [data-kit-fs-set="xl"] { font-size: 1.3em; }
 .kit-settings-foot { display: flex; justify-content: flex-end; border-top: 1px solid var(--kit-line-soft); padding-top: 10px; margin: 0 -14px -4px; padding-left: 14px; padding-right: 14px; }

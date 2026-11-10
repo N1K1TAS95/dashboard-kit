@@ -4,7 +4,7 @@
  *
  * Si attiva da solo con attributi data-kit-*:
  *   data-kit-theme-set="auto|light|dark"     bottone che imposta il tema
- *   data-kit-fs-set="sm|md|lg|xl"            bottone che imposta la dimensione del testo (87,5% · 100% · 112,5% · 125%)
+ *   data-kit-fs-set="md|lg|xl"               bottone che imposta la dimensione del testo (normale · grande · molto grande)
  *   data-kit-fs-step="1|-1"                  bottone che ingrandisce o rimpicciolisce il testo di un passo
  *   data-kit-reset                           bottone che ripristina tema, testo e larghezza
  *   data-kit-layout-set="boxed|fluid"        bottone che sceglie contenuto centrato o a tutta larghezza
@@ -57,9 +57,9 @@
         }
     };
 
-    /* ---------- Dimensione del testo: sm, md (predefinita), lg, xl ---------- */
+    /* ---------- Dimensione del testo: md (predefinita), lg, xl ---------- */
     var FKEY = "kit-fs";
-    var FS_STEPS = ["sm", "md", "lg", "xl"];
+    var FS_STEPS = ["md", "lg", "xl"];
 
     function readFs() {
         try {

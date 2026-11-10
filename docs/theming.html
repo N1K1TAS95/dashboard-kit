@@ -74,10 +74,9 @@
         <div class="kit-settings-row">
           <span class="kit-settings-label">Dimensione del testo</span>
           <div class="kit-seg" role="group" aria-label="Dimensione del testo">
-            <button data-kit-fs-set="sm" aria-label="Piccolo" title="Piccolo (87,5%)">A</button>
-            <button data-kit-fs-set="md" aria-label="Normale" title="Normale (100%)">A</button>
-            <button data-kit-fs-set="lg" aria-label="Grande" title="Grande (112,5%)">A</button>
-            <button data-kit-fs-set="xl" aria-label="Molto grande" title="Molto grande (125%)">A</button>
+            <button data-kit-fs-set="md" aria-label="Normale" title="Normale">A</button>
+            <button data-kit-fs-set="lg" aria-label="Grande" title="Grande">A</button>
+            <button data-kit-fs-set="xl" aria-label="Molto grande" title="Molto grande">A</button>
           </div>
         </div>
         <div class="kit-settings-row">
@@ -168,7 +167,7 @@
 <pre class="kit-code"><code>:root { --kit-font: "IBM Plex Sans", system-ui, sans-serif; }   /* un altro font */
 td.codice { font-variant-numeric: slashed-zero tabular-nums; }  /* zero barrato e cifre di uguale larghezza */</code></pre>
 <p>Tutte le dimensioni del testo sono in <code>rem</code>, quindi seguono la dimensione di base <code>--kit-fs</code> (<code>1rem</code>). La base cresce da sola con lo schermo: 15px fino a 1279px, poi 16px, 17px (da 1600px), 19px (da 1920px) e 22px (da 2560px). Anche altezza dei controlli, icone, intestazione e larghezza del contenuto sono in <code>rem</code> e crescono insieme al testo.</p>
-<p>L'utente può ingrandire o rimpicciolire tutto: <code>--kit-zoom</code> moltiplica la base e <code>data-kit-fs</code> su <code>&lt;html&gt;</code> lo imposta (<code>sm</code> 87,5%, <code>md</code> 100%, <code>lg</code> 112,5%, <code>xl</code> 125%). Con <code>kit.js</code> bastano i bottoni con <code>data-kit-fs-set</code> o <code>data-kit-fs-step</code>; la scelta viene ricordata. Anche queste scelte stanno nel <a href="overlays.html#impostazioni">pannello delle impostazioni</a>.</p>
+<p>L'utente può ingrandire o rimpicciolire tutto: <code>--kit-zoom</code> moltiplica la base e <code>data-kit-fs</code> su <code>&lt;html&gt;</code> lo imposta (<code>md</code> normale, la predefinita; <code>lg</code> grande; <code>xl</code> molto grande). Con <code>kit.js</code> bastano i bottoni con <code>data-kit-fs-set</code> o <code>data-kit-fs-step</code>; la scelta viene ricordata. Anche queste scelte stanno nel <a href="overlays.html#impostazioni">pannello delle impostazioni</a>.</p>
 <pre class="kit-code"><code>&lt;button class="kit-btn" data-kit-fs-step="-1" aria-label="Testo più piccolo"&gt;A−&lt;/button&gt;
 &lt;button class="kit-btn" data-kit-fs-step="1"  aria-label="Testo più grande"&gt;A+&lt;/button&gt;
 
@@ -187,7 +186,7 @@ td.codice { font-variant-numeric: slashed-zero tabular-nums; }  /* zero barrato 
 <tr><td><code>--kit-h4</code></td><td><code>1.2rem</code></td><td>titolo h4 (e kit-fs-4)</td></tr>
 <tr><td><code>--kit-h5</code></td><td><code>1.05rem</code></td><td>titolo h5 (e kit-fs-5)</td></tr>
 <tr><td><code>--kit-h6</code></td><td><code>1rem</code></td><td>titolo h6 (e kit-fs-6)</td></tr>
-<tr><td><code>--kit-zoom</code></td><td><code>1</code></td><td>moltiplicatore scelto dall&#x27;utente: 0.875, 1, 1.125, 1.25</td></tr>
+<tr><td><code>--kit-zoom</code></td><td><code>.875</code></td><td>moltiplicatore scelto dall&#x27;utente: 0.875 (normale), 1, 1.125</td></tr>
 <tr><td><code>--kit-sp</code></td><td><code>16px</code></td><td>spazio unico: margine, distanza tra card, padding interno</td></tr>
 <tr><td><code>--kit-row</code></td><td><code>8px</code></td><td>padding verticale delle righe di tabella</td></tr>
 <tr><td><code>--kit-cell</code></td><td><code>12px</code></td><td>padding orizzontale tra le colonne</td></tr>

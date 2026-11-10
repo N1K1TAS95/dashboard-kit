@@ -1,5 +1,9 @@
 # Changelog
 
+## Non rilasciato
+
+- **Cambiamento non retrocompatibile:** la dimensione del testo ha solo 3 scelte e quella predefinita è più piccola. `md` (normale, predefinita) vale ora l'87,5% di prima, `lg` il 100% e `xl` il 112,5%; `sm` è stato tolto (un valore `sm` già salvato torna al normale). Il moltiplicatore predefinito `--kit-zoom` è `.875`. Chi preferiva il testo di prima sceglie «Grande» o imposta `--kit-zoom: 1`.
+
 ## 0.4.0 — 10 novembre 2026
 
 - Font Inter incluso (`dist/fonts/inter-var.woff2`, 65 KB, licenza OFL) con zero barrato: lo zero non si confonde più con la "o". `font-variant-numeric: slashed-zero` è attivo su tutto il testo e sul codice. Il font di sistema resta come riserva.
