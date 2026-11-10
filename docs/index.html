@@ -121,6 +121,7 @@
           <a href="buttons.html">Bottoni</a>
           <a href="forms.html">Form</a>
           <a href="navigation.html">Navigazione</a>
+          <a href="navbar.html">Navbar</a>
           <a href="cards.html">Schede</a>
           <a href="tables.html">Tabelle</a>
           <a href="content.html">Contenuti</a>
@@ -143,12 +144,12 @@
 <p>Da CDN (jsDelivr), con la versione fissata e l'attributo <code>integrity</code> (SRI): se il file venisse alterato, il browser lo rifiuta.</p>
 <pre class="kit-code"><code>&lt;link rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.3.0/dist/kit.css"
-      integrity="sha384-gTFapIoxRkRfDYZQPVv1o0NFvbMa7paIeC/HO+OHjsLdJpa/kcEV0s8xuGsxdzm/"
+      integrity="sha384-UF2Rv3R3MDU67eHo4CijKwwLW1ujYEhhGr+g6jDe6mfR9atB4REWFrIgi/Dc8iDK"
       crossorigin="anonymous"&gt;
 
 &lt;!-- opzionale: tema, select, tab, dialog, menu, toast --&gt;
 &lt;script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.3.0/dist/kit.js"
-        integrity="sha384-NG2uaK/o8oOp3I5Ff71uJBlM3nIPp3Qr/isEQf7WjOtz7DS7y/dKozZ88C0ptVUP"
+        integrity="sha384-4DFsufS/3+eYgykvBdZzbLL25zv8TknzwXkpA2M24rxfbRYnt2a8xEe0vGVN0tl9"
         crossorigin="anonymous"&gt;&lt;/script&gt;</code></pre>
 <p>Oppure in locale: copia <code>dist/kit.css</code> (e <code>dist/kit.js</code>) nel progetto e collegali con un percorso relativo.</p>
 <p class="kit-alert">Se il sito ha una Content-Security-Policy, autorizza <code>https://cdn.jsdelivr.net</code> in <code>style-src</code> e <code>script-src</code>. Evita <code>@main</code> o <code>@latest</code>: non sono versioni fissate e jsDelivr le tiene in cache per ore.</p>

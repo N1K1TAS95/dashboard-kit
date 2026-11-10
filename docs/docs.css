@@ -81,3 +81,7 @@
 .doc-icon { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: var(--kit-sp) 8px; background: var(--kit-card); border: 1px solid var(--kit-line); border-radius: var(--kit-rad); }
 .doc-icon .kit-icon { width: 24px; height: 24px; }
 .doc-icon code { font-size: 0.857rem; color: var(--kit-mute); background: none; padding: 0; }
+
+/* ---------- Navbar negli esempi: dentro il riquadro, non incollata alla finestra ---------- */
+.doc-demo-nav { padding: 0; overflow: visible; }
+.doc-demo-nav > .kit-header { position: relative; top: auto; border: 0; border-radius: var(--kit-rad) var(--kit-rad) 0 0; }

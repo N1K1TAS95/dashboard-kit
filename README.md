@@ -37,7 +37,7 @@ Se il sito ha una Content-Security-Policy, ricordati di autorizzare `https://cdn
 in `style-src` e `script-src`.
 
 **Documentazione:** https://n1k1tas95.github.io/dashboard-kit/ (in locale: `docs/index.html`), con una pagina per argomento:
-introduzione, JavaScript, layout, griglia, utility, bottoni, form, navigazione, schede, tabelle, contenuti, feedback (avvisi, badge),
+introduzione, JavaScript, layout, griglia, utility, bottoni, form, navigazione, navbar, schede, tabelle, contenuti, feedback (avvisi, badge),
 dialog e menu, icone, temi e token, snippet VS Code. Ogni esempio ha il suo codice da copiare.
 
 ## Larghezza del contenuto
@@ -77,7 +77,7 @@ modifica le costanti in `tools/gen-grid.py` e lancia `python3 tools/gen-grid.py`
 - Gli esempi sono `<div class="doc-demo">…</div>`: il codice sotto si genera da solo dal loro contenuto.
 
 ## Cosa c'è
-Layout (header, container, grid, split), card, schede KPI, bottoni, form, segmented, pill, chip, badge,
+Layout (header, container, grid, split), navbar (voci, menu a tendina, menu a scomparsa), card, schede KPI, bottoni, form, segmented, pill, chip, badge,
 tab, statistiche, tabella, stati vuoti, chiave/valore, progress, select, popover/menu,
 dialog, toast, utility.
 

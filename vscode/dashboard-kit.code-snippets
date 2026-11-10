@@ -179,6 +179,23 @@
       "</div>$0"
     ]
   },
+  "Kit: navbar": {
+    "prefix": "kit-navbar",
+    "scope": "html",
+    "description": "Navbar con voci e menu a scomparsa (richiede kit.js)",
+    "body": [
+      "<header class=\"kit-header kit-navbar kit-navbar-expand-${1|md,sm,lg,xl|}\">",
+      "  <a class=\"kit-brand\" href=\"/\">${2:Nome} <span>${3:app}</span></a>",
+      "  <nav class=\"kit-navbar-menu\" id=\"${4:menu}\" aria-label=\"Principale\">",
+      "    <ul class=\"kit-nav\">",
+      "      <li><a class=\"kit-nav-link\" href=\"/\" aria-current=\"page\">Home</a></li>",
+      "      <li><a class=\"kit-nav-link\" href=\"#\">${5:Voce}</a></li>",
+      "    </ul>",
+      "  </nav>",
+      "  <button class=\"kit-btn kit-btn-ghost kit-btn-icon kit-navbar-toggler\" data-kit-nav=\"#${4:menu}\" aria-controls=\"${4:menu}\" aria-expanded=\"false\" aria-label=\"Menu\"><svg class=\"kit-icon\"><use href=\"#i-menu\"/></svg></button>",
+      "</header>$0"
+    ]
+  },
   "Kit: tab": {
     "prefix": "kit-tabs",
     "scope": "html",

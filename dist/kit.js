@@ -12,6 +12,7 @@
  *   data-kit-toggle="#id"                    bottone che apre/chiude un .kit-pop
  *   data-kit-select                          su .kit-select: scelta di un valore
  *   data-kit-tabs                            su .kit-tabs: tab con data-kit-panel="#id"
+ *   data-kit-nav="#id"                       bottone (hamburger) che apre/chiude il menu a scomparsa di una .kit-navbar
  *   data-kit-open="#dialogId"                apre un <dialog>
  *   data-kit-close                           dentro un <dialog>, lo chiude
  *   data-kit-tip="testo"                     tooltip (solo CSS; con kit.js Esc lo nasconde)
@@ -322,6 +323,23 @@
         closePop(true);
     }
 
+    /* ---------- Navbar: menu a scomparsa ---------- */
+    function setNav(menu, open) {
+        menu.classList.toggle("is-open", open);
+        document.querySelectorAll('[data-kit-nav="#' + menu.id + '"]').forEach(function (b) { b.setAttribute("aria-expanded", String(open)); });
+        if (!open) closePop(false);
+    }
+
+    function openNavs() { return Array.prototype.slice.call(document.querySelectorAll(".kit-navbar-menu.is-open")); }
+
+    window.addEventListener("resize", function () {
+        // Se il menu è diventato visibile in linea (il bottone è nascosto), lo stato "aperto" non serve più.
+        openNavs().forEach(function (m) {
+            var b = document.querySelector('[data-kit-nav="#' + m.id + '"]');
+            if (b && b.offsetParent === null) setNav(m, false);
+        });
+    });
+
     /* ---------- Tab ---------- */
     function selectTab(tabs, tab) {
         tabs.querySelectorAll(".kit-tab").forEach(function (t) {
@@ -340,6 +358,19 @@
     document.addEventListener("click", function (e) {
         var t = e.target;
         if (!(t instanceof Element)) return;
+
+        var navBtn = t.closest("[data-kit-nav]");
+        if (navBtn) {
+            var menu = document.querySelector(navBtn.getAttribute("data-kit-nav"));
+            if (menu) { closePop(false); setNav(menu, !menu.classList.contains("is-open")); }
+            return;
+        }
+        // Un click fuori dalla barra, o su un link del menu, chiude il menu a scomparsa.
+        openNavs().forEach(function (m) {
+            var bar = m.closest(".kit-navbar") || m.parentNode;
+            var link = t.closest("a[href]");
+            if (!bar.contains(t) || (link && m.contains(link))) setNav(m, false);
+        });
 
         var themeBtn = t.closest("[data-kit-theme-set]");
         if (themeBtn) { theme.set(themeBtn.getAttribute("data-kit-theme-set")); if (!keepOpen(themeBtn)) closePop(false); return; }
@@ -442,6 +473,16 @@
                 if (a) { e.preventDefault(); a.click(); return; }
             }
         }
+        // Esc chiude il menu a scomparsa della navbar e riporta il focus sul suo bottone.
+        if (e.key === "Escape") {
+            var om = openNavs()[0];
+            if (om) {
+                setNav(om, false);
+                var ob = document.querySelector('[data-kit-nav="#' + om.id + '"]');
+                if (ob && ob.offsetParent !== null) ob.focus();
+                return;
+            }
+        }
         // Frecce sinistra/destra tra le tab.
         var tab = e.target instanceof Element && e.target.closest("[data-kit-tabs] .kit-tab");
         if (tab && (e.key === "ArrowLeft" || e.key === "ArrowRight")) {
@@ -478,6 +519,11 @@
             var cur = tabs.querySelector(".kit-tab.is-on") || tabs.querySelector(".kit-tab");
             tabs.querySelectorAll(".kit-tab").forEach(function (t) { t.setAttribute("role", "tab"); });
             if (cur) selectTab(tabs, cur);
+        });
+        scope.querySelectorAll("[data-kit-nav]").forEach(function (b) {
+            b.setAttribute("aria-expanded", "false");
+            var id = b.getAttribute("data-kit-nav");
+            if (id.charAt(0) === "#" && !b.hasAttribute("aria-controls")) b.setAttribute("aria-controls", id.slice(1));
         });
         syncLayoutButtons();
         syncFsButtons();

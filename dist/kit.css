@@ -227,6 +227,7 @@ abbr[title] { text-decoration: underline dotted; text-underline-offset: .2em; cu
     white-space: nowrap;
 }
 .kit-brand span { color: var(--kit-accent); }
+a.kit-brand, .kit-brand a { color: inherit; text-decoration: none; }
 
 /* Margine della pagina = distanza tra le card = padding delle card: tutto --kit-sp. */
 .kit-main { padding: var(--kit-sp) var(--kit-sp) 80px; }
@@ -1232,6 +1233,116 @@ abbr[title] { text-decoration: underline dotted; text-underline-offset: .2em; cu
 /* La spunta si vede solo sull'opzione selezionata. */
 .kit-opt .kit-opt-check { color: var(--kit-accent); visibility: hidden; }
 .kit-opt.is-on .kit-opt-check { visibility: visible; }
+
+/* ===== 12b. Navbar =====
+   Intestazione con voci, menu a tendina e menu a scomparsa su schermi piccoli.
+   <header class="kit-header kit-navbar kit-navbar-expand-md">
+     <div class="kit-container">
+       <a class="kit-brand" href="#">Nome <span>app</span></a>
+       <nav class="kit-navbar-menu" id="menu" aria-label="Principale">
+         <ul class="kit-nav">
+           <li><a class="kit-nav-link" href="#" aria-current="page">Home</a></li>
+           <li class="kit-dropdown"><button class="kit-nav-link" data-kit-toggle="#m1">Voce <svg…/></button><div class="kit-pop" id="m1" hidden>…</div></li>
+         </ul>
+         <span class="kit-spacer"></span> …azioni nel menu…
+       </nav>
+       <div class="kit-navbar-actions">…sempre visibili…</div>
+       <button class="kit-btn kit-btn-ghost kit-btn-icon kit-navbar-toggler" data-kit-nav="#menu" aria-controls="menu" aria-expanded="false" aria-label="Menu">…</button>
+     </div>
+   </header>
+   Senza kit-navbar-expand-* il menu resta sempre a scomparsa; con -sm/-md/-lg/-xl si apre in linea da quella larghezza in su. */
+.kit-navbar-toggler { margin-left: auto; }
+/* Azioni sempre visibili (tema, utente): dopo il menu, prima del bottone */
+.kit-navbar-actions { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+.kit-navbar-actions + .kit-navbar-toggler { margin-left: 0; }
+.kit-navbar-menu {
+    display: none;
+    position: absolute;
+    z-index: 35;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: var(--kit-sp);
+    background: var(--kit-card);
+    border-bottom: 1px solid var(--kit-line);
+    box-shadow: var(--kit-shadow-pop);
+    max-height: calc(100vh - var(--kit-hh));
+    overflow: auto;
+}
+.kit-navbar-menu.is-open { display: flex; }
+.kit-navbar-menu > .kit-spacer { display: none; }
+.kit-navbar-menu .kit-input, .kit-navbar-menu .kit-btn { max-width: 100%; }
+
+.kit-nav { display: flex; align-items: center; gap: 2px; margin: 0; padding: 0; list-style: none; min-width: 0; }
+.kit-nav > li { display: flex; min-width: 0; }
+.kit-nav-col, .kit-navbar-menu .kit-nav { flex-direction: column; align-items: stretch; }
+.kit-nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: var(--kit-ctl);
+    padding: 0 12px;
+    border: 0;
+    border-radius: var(--kit-rad-sm);
+    background: none;
+    color: var(--kit-mute);
+    font: inherit;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.kit-nav-link:hover { color: var(--kit-ink); background: var(--kit-hover); }
+.kit-nav-link.is-active, .kit-nav-link[aria-current] { color: var(--kit-accent); background: var(--kit-accent-soft); }
+.kit-nav-link:focus-visible { outline: 2px solid var(--kit-accent); outline-offset: -2px; }
+.kit-nav-link:disabled, .kit-nav-link[aria-disabled="true"] { opacity: .45; pointer-events: none; }
+.kit-nav-link .kit-icon { width: 1.067rem; height: 1.067rem; flex: none; }
+.kit-nav-link[aria-expanded] > .kit-icon:last-child { transition: transform .15s; }
+.kit-nav-link[aria-expanded="true"] > .kit-icon:last-child { transform: rotate(180deg); }
+.kit-navbar-menu .kit-nav-link, .kit-nav-col .kit-nav-link { width: 100%; justify-content: flex-start; }
+.kit-navbar-menu .kit-nav-link[aria-expanded] > .kit-icon:last-child { margin-left: auto; }
+.kit-navbar-menu .kit-dropdown { width: 100%; flex-direction: column; }
+/* Nel menu a scomparsa le voci a tendina si aprono in linea, sotto la voce */
+.kit-navbar-menu .kit-pop { position: static; width: auto; max-width: none; max-height: none; background: none; border: 0; box-shadow: none; padding: 2px 0 0 12px; }
+@media (min-width: 576px) {
+    .kit-navbar-expand-sm .kit-navbar-toggler { display: none; }
+    .kit-navbar-expand-sm .kit-navbar-menu { display: flex; position: static; flex: 1; flex-direction: row; align-items: center; min-width: 0; padding: 0; background: none; border: 0; box-shadow: none; max-height: none; overflow: visible; }
+    .kit-navbar-expand-sm .kit-navbar-menu > .kit-spacer { display: block; }
+    .kit-navbar-expand-sm .kit-navbar-menu .kit-nav { flex-direction: row; align-items: center; }
+    .kit-navbar-expand-sm .kit-navbar-menu .kit-nav-link { width: auto; }
+    .kit-navbar-expand-sm .kit-navbar-menu .kit-dropdown { width: auto; }
+    .kit-navbar-expand-sm .kit-navbar-menu .kit-pop { position: absolute; width: max-content; max-width: min(520px, calc(100vw - 32px)); max-height: 340px; background: var(--kit-card); border: 1px solid var(--kit-line); box-shadow: var(--kit-shadow-pop); padding: 6px; margin: 0; }
+}
+@media (min-width: 768px) {
+    .kit-navbar-expand-md .kit-navbar-toggler { display: none; }
+    .kit-navbar-expand-md .kit-navbar-menu { display: flex; position: static; flex: 1; flex-direction: row; align-items: center; min-width: 0; padding: 0; background: none; border: 0; box-shadow: none; max-height: none; overflow: visible; }
+    .kit-navbar-expand-md .kit-navbar-menu > .kit-spacer { display: block; }
+    .kit-navbar-expand-md .kit-navbar-menu .kit-nav { flex-direction: row; align-items: center; }
+    .kit-navbar-expand-md .kit-navbar-menu .kit-nav-link { width: auto; }
+    .kit-navbar-expand-md .kit-navbar-menu .kit-dropdown { width: auto; }
+    .kit-navbar-expand-md .kit-navbar-menu .kit-pop { position: absolute; width: max-content; max-width: min(520px, calc(100vw - 32px)); max-height: 340px; background: var(--kit-card); border: 1px solid var(--kit-line); box-shadow: var(--kit-shadow-pop); padding: 6px; margin: 0; }
+}
+@media (min-width: 992px) {
+    .kit-navbar-expand-lg .kit-navbar-toggler { display: none; }
+    .kit-navbar-expand-lg .kit-navbar-menu { display: flex; position: static; flex: 1; flex-direction: row; align-items: center; min-width: 0; padding: 0; background: none; border: 0; box-shadow: none; max-height: none; overflow: visible; }
+    .kit-navbar-expand-lg .kit-navbar-menu > .kit-spacer { display: block; }
+    .kit-navbar-expand-lg .kit-navbar-menu .kit-nav { flex-direction: row; align-items: center; }
+    .kit-navbar-expand-lg .kit-navbar-menu .kit-nav-link { width: auto; }
+    .kit-navbar-expand-lg .kit-navbar-menu .kit-dropdown { width: auto; }
+    .kit-navbar-expand-lg .kit-navbar-menu .kit-pop { position: absolute; width: max-content; max-width: min(520px, calc(100vw - 32px)); max-height: 340px; background: var(--kit-card); border: 1px solid var(--kit-line); box-shadow: var(--kit-shadow-pop); padding: 6px; margin: 0; }
+}
+@media (min-width: 1200px) {
+    .kit-navbar-expand-xl .kit-navbar-toggler { display: none; }
+    .kit-navbar-expand-xl .kit-navbar-menu { display: flex; position: static; flex: 1; flex-direction: row; align-items: center; min-width: 0; padding: 0; background: none; border: 0; box-shadow: none; max-height: none; overflow: visible; }
+    .kit-navbar-expand-xl .kit-navbar-menu > .kit-spacer { display: block; }
+    .kit-navbar-expand-xl .kit-navbar-menu .kit-nav { flex-direction: row; align-items: center; }
+    .kit-navbar-expand-xl .kit-navbar-menu .kit-nav-link { width: auto; }
+    .kit-navbar-expand-xl .kit-navbar-menu .kit-dropdown { width: auto; }
+    .kit-navbar-expand-xl .kit-navbar-menu .kit-pop { position: absolute; width: max-content; max-width: min(520px, calc(100vw - 32px)); max-height: 340px; background: var(--kit-card); border: 1px solid var(--kit-line); box-shadow: var(--kit-shadow-pop); padding: 6px; margin: 0; }
+}
 
 /* ===== 13. Dialog, toast, tooltip ===== */
 /* Il dialog è una card in sovrimpressione: stessa struttura (.kit-card-head / -body / -foot), stessi padding
