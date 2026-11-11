@@ -1,0 +1,133 @@
+<!--title: Sidebar-->
+<!--desc: La barra di navigazione a sinistra, con intestazione, voci, sottovoci, account e utility in fondo. A comparsa sugli schermi piccoli, compatta (solo icone) su quelli grandi.-->
+<h2 id="base">Struttura</h2>
+<p>La sidebar sta dentro <code>.kit-app</code>, accanto a <code>.kit-app-main</code>: a sinistra la barra a tutta altezza, a destra la colonna con l'intestazione (<code>.kit-header</code>) e il contenuto (<code>.kit-main</code>). La barra ha tre parti: <code>kit-sidebar-head</code> (logo), <code>kit-sidebar-body</code> (le voci, scorre da sola se sono tante) e <code>kit-sidebar-foot</code> (account e utility, sempre in fondo).</p>
+<div class="doc-demo doc-demo-side">
+  <div class="kit-app">
+    <aside class="kit-sidebar" aria-label="Principale (esempio)">
+      <div class="kit-sidebar-head">
+        <a class="kit-brand" href="#base"><svg class="kit-icon"><use href="#i-folder"/></svg><span class="kit-side-text">Fatture <span>app</span></span></a>
+      </div>
+      <nav class="kit-sidebar-body" aria-label="Sezioni">
+        <ul class="kit-side-nav">
+          <li><a class="kit-side-link" href="#base" aria-current="page"><svg class="kit-icon"><use href="#i-home"/></svg><span class="kit-side-text">Panoramica</span></a></li>
+          <li><a class="kit-side-link" href="#base"><svg class="kit-icon"><use href="#i-bell"/></svg><span class="kit-side-text">Avvisi</span><span class="kit-badge kit-badge-danger">3</span></a></li>
+        </ul>
+        <div class="kit-side-title">Documenti</div>
+        <ul class="kit-side-nav">
+          <li><a class="kit-side-link" href="#base"><svg class="kit-icon"><use href="#i-file"/></svg><span class="kit-side-text">Fatture</span></a></li>
+          <li><a class="kit-side-link" href="#base"><svg class="kit-icon"><use href="#i-calendar"/></svg><span class="kit-side-text">Scadenze</span></a></li>
+          <li><a class="kit-side-link" href="#base" aria-disabled="true"><svg class="kit-icon"><use href="#i-folder"/></svg><span class="kit-side-text">Archivio</span></a></li>
+        </ul>
+      </nav>
+      <div class="kit-sidebar-foot">
+        <button class="kit-side-user" type="button">
+          <span class="kit-side-avatar" aria-hidden="true">MR</span>
+          <span class="kit-side-user-text"><b>Maria Rossi</b><small>maria@esempio.it</small></span>
+        </button>
+      </div>
+    </aside>
+    <div class="kit-app-main">
+      <header class="kit-header"><h2 class="kit-fs-4 kit-m-0">Panoramica</h2></header>
+      <main class="kit-main"><p class="kit-mute">Il contenuto della pagina.</p></main>
+    </div>
+  </div>
+</div>
+<ul>
+  <li>Ogni voce è <code>kit-side-link</code> su un <code>&lt;a&gt;</code> o un <code>&lt;button&gt;</code>: icona, poi il testo dentro <code>&lt;span class="kit-side-text"&gt;</code> (serve, perché nella versione compatta sparisce), poi un eventuale badge.</li>
+  <li>La pagina corrente si segna con <code>aria-current="page"</code> (o <code>is-active</code>); una voce non disponibile con <code>aria-disabled="true"</code>.</li>
+  <li><code>kit-side-title</code> è il titolo di un gruppo di voci; nella versione compatta diventa una linea di separazione.</li>
+  <li>Dai a <code>&lt;aside&gt;</code> un <code>id</code> e un <code>aria-label</code>.</li>
+</ul>
+
+<h2 id="intestazione">Insieme all'intestazione</h2>
+<p>L'intestazione resta quella di sempre (<code>kit-header</code>), ma sta dentro <code>kit-app-main</code>, sopra al contenuto. Il bottone che apre la sidebar vive lì: <code>data-kit-sidebar-toggle</code> con, se serve, il selettore della barra. Il logo sta in testa alla sidebar, con la stessa altezza dell'intestazione (<code>--kit-hh</code>), così le due linee di separazione si incontrano.</p>
+<pre class="kit-code" data-kit-code="html">&lt;div class="kit-app kit-app-expand-lg"&gt;
+  &lt;aside class="kit-sidebar" id="sidebar" aria-label="Principale"&gt; … &lt;/aside&gt;
+  &lt;div class="kit-app-main"&gt;
+    &lt;header class="kit-header"&gt;
+      &lt;button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-sidebar-toggle="#sidebar"
+              aria-controls="sidebar" aria-expanded="false" aria-label="Menu laterale"&gt;
+        &lt;svg class="kit-icon"&gt;&lt;use href="#i-menu"/&gt;&lt;/svg&gt;
+      &lt;/button&gt;
+      …
+    &lt;/header&gt;
+    &lt;main class="kit-main"&gt; … &lt;/main&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+<p>Un esempio completo, da provare ridimensionando la finestra: <a href="dashboard-sidebar.html">dashboard con sidebar</a>.</p>
+
+<h2 id="breakpoint">Quando sta in linea</h2>
+<table class="kit-table">
+  <thead><tr><th>Classe su <code>kit-app</code></th><th>In linea da</th></tr></thead>
+  <tbody>
+    <tr><td><code>kit-app-expand-md</code></td><td>768px</td></tr>
+    <tr><td><code>kit-app-expand-lg</code></td><td>992px</td></tr>
+    <tr><td><code>kit-app-expand-xl</code></td><td>1200px</td></tr>
+    <tr><td>nessuna</td><td>mai: è sempre a comparsa</td></tr>
+  </tbody>
+</table>
+<p>Sotto quel punto la sidebar esce dal flusso e sta fuori dallo schermo; il bottone <code>data-kit-sidebar-toggle</code> la fa scivolare da sinistra, con lo sfondo che si scurisce. Si comporta come un dialog: il resto della pagina non si raggiunge (<code>inert</code>), il focus passa alla barra, e si chiude con <kbd>Esc</kbd>, con un click sullo sfondo o scegliendo un link, riportando il focus al bottone. Se la finestra si allarga oltre il punto di rottura, lo stato «aperto» si azzera.</p>
+
+<h2 id="compatta">Compatta, solo icone</h2>
+<p>Sugli schermi grandi lo stesso bottone comprime la barra a una colonna di icone (larga <code>--kit-side-wc</code>) e la riespande. La scelta è <code>&lt;html data-kit-sidebar="collapsed|expanded"&gt;</code> e viene ricordata, come tema e dimensione del testo. Per partire compatta basta scrivere l'attributo nell'HTML.</p>
+<ul>
+  <li>Spariscono testi, badge, frecce e sottovoci; ogni voce riceve da sola il proprio nome come <code>title</code> (il tooltip del browser).</li>
+  <li>Premere una voce con sottovoci la riespande.</li>
+  <li><code>Kit.reset()</code> e il bottone <code>data-kit-reset</code> riportano lo stato scritto nell'HTML.</li>
+</ul>
+
+<h2 id="sottovoci">Voci con sottovoci</h2>
+<p>Una voce con un sottomenu è un <code>&lt;details class="kit-side-details"&gt;</code> con <code>&lt;summary class="kit-side-link"&gt;</code>: funziona anche senza JavaScript e con la tastiera. La freccia è <code>kit-side-chev</code>; le sottovoci sono un secondo <code>kit-side-nav kit-side-sub</code>.</p>
+<div class="doc-demo doc-demo-side doc-demo-side-sm">
+  <div class="kit-app">
+    <aside class="kit-sidebar" aria-label="Sottovoci (esempio)">
+      <nav class="kit-sidebar-body" aria-label="Sezioni">
+        <ul class="kit-side-nav">
+          <li>
+            <details class="kit-side-details" open>
+              <summary class="kit-side-link"><svg class="kit-icon"><use href="#i-file"/></svg><span class="kit-side-text">Fatture</span><svg class="kit-icon kit-side-chev"><use href="#i-chev"/></svg></summary>
+              <ul class="kit-side-nav kit-side-sub">
+                <li><a class="kit-side-link" href="#sottovoci" aria-current="page"><span class="kit-side-text">Ricevute</span></a></li>
+                <li><a class="kit-side-link" href="#sottovoci"><span class="kit-side-text">Emesse</span></a></li>
+              </ul>
+            </details>
+          </li>
+          <li><a class="kit-side-link" href="#sottovoci"><svg class="kit-icon"><use href="#i-user"/></svg><span class="kit-side-text">Clienti</span></a></li>
+        </ul>
+      </nav>
+    </aside>
+  </div>
+</div>
+
+<h2 id="account">Account e utility in fondo</h2>
+<p>In <code>kit-sidebar-foot</code> vanno le utility (<code>kit-side-tools</code>: bottoni a icona, impostazioni, aiuto) e l'account. L'account è <code>kit-side-user</code> con <code>kit-side-avatar</code> (le iniziali) e <code>kit-side-user-text</code> (nome e riga secondaria); il suo menu è un normale <a href="overlays.html">menu a comparsa</a> aperto verso l'alto con <code>kit-pop-up</code>.</p>
+<pre class="kit-code" data-kit-code="html">&lt;div class="kit-sidebar-foot"&gt;
+  &lt;div class="kit-dropdown"&gt;
+    &lt;button class="kit-side-user" data-kit-toggle="#account" aria-haspopup="menu" aria-expanded="false"&gt;
+      &lt;span class="kit-side-avatar" aria-hidden="true"&gt;MR&lt;/span&gt;
+      &lt;span class="kit-side-user-text"&gt;&lt;b&gt;Maria Rossi&lt;/b&gt;&lt;small&gt;maria@esempio.it&lt;/small&gt;&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div class="kit-pop kit-pop-up" id="account" role="menu" hidden&gt;
+      &lt;a class="kit-opt" role="menuitem" href="#"&gt;Profilo&lt;/a&gt;
+      &lt;button class="kit-opt kit-opt-danger" role="menuitem"&gt;Esci&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+
+<h2 id="js">JavaScript</h2>
+<table class="kit-table">
+  <thead><tr><th>Cosa</th><th>Effetto</th></tr></thead>
+  <tbody>
+    <tr><td><code>data-kit-sidebar-toggle="#id"</code></td><td>Bottone: apre o chiude la sidebar a comparsa, oppure comprime o espande quella in linea. Senza valore agisce sulla prima <code>.kit-sidebar</code>. <code>aria-expanded</code> si aggiorna da solo.</td></tr>
+    <tr><td><code>Kit.sidebar.get()</code> · <code>set("collapsed|expanded")</code> · <code>toggle()</code></td><td>Lo stato compatto, ricordato.</td></tr>
+    <tr><td><code>Kit.sidebar.open(selettore)</code> · <code>close(selettore)</code></td><td>La sidebar a comparsa; non fanno nulla se è in linea.</td></tr>
+    <tr><td>evento <code>kit:sidebar</code></td><td>Sulla sidebar (risale): <code>detail</code> è <code>{ collapsed, open }</code>.</td></tr>
+  </tbody>
+</table>
+
+<h2 id="token">Token e stampa</h2>
+<ul>
+  <li><code>--kit-side-w</code> (16,5rem): larghezza della barra; <code>--kit-side-wc</code> (4,667rem): larghezza di quella compatta. Si possono sovrascrivere su <code>:root</code> o su un singolo <code>.kit-app</code>.</li>
+  <li>In stampa la sidebar sparisce, come l'intestazione.</li>
+</ul>

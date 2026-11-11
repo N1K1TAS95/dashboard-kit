@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="it" data-layout="fluid">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Dashboard Kit — dashboard con sidebar</title>
+<script src="../dist/kit.js"></script>
+<link rel="stylesheet" href="../dist/kit.css">
+</head>
+<body>
+<script src="../dist/kit-icons.js"></script>
+
+<div class="kit-app kit-app-expand-lg">
+
+  <!-- Barra laterale: in linea da 992px in su, a comparsa sotto. Il bottone nell'intestazione la apre o la comprime. -->
+  <aside class="kit-sidebar" id="sidebar" aria-label="Principale">
+    <div class="kit-sidebar-head">
+      <a class="kit-brand" href="dashboard-sidebar.html"><svg class="kit-icon"><use href="#i-folder"/></svg><span class="kit-side-text">Fatture <span>app</span></span></a>
+    </div>
+
+    <nav class="kit-sidebar-body" aria-label="Sezioni">
+      <ul class="kit-side-nav">
+        <li><a class="kit-side-link" href="#" aria-current="page"><svg class="kit-icon"><use href="#i-home"/></svg><span class="kit-side-text">Panoramica</span></a></li>
+        <li><a class="kit-side-link" href="#"><svg class="kit-icon"><use href="#i-bell"/></svg><span class="kit-side-text">Avvisi</span><span class="kit-badge kit-badge-danger">3</span></a></li>
+      </ul>
+
+      <div class="kit-side-title">Documenti</div>
+      <ul class="kit-side-nav">
+        <li>
+          <details class="kit-side-details" open>
+            <summary class="kit-side-link"><svg class="kit-icon"><use href="#i-file"/></svg><span class="kit-side-text">Fatture</span><svg class="kit-icon kit-side-chev"><use href="#i-chev"/></svg></summary>
+            <ul class="kit-side-nav kit-side-sub">
+              <li><a class="kit-side-link" href="#"><span class="kit-side-text">Ricevute</span></a></li>
+              <li><a class="kit-side-link" href="#"><span class="kit-side-text">Emesse</span></a></li>
+              <li><a class="kit-side-link" href="#"><span class="kit-side-text">Note di credito</span></a></li>
+            </ul>
+          </details>
+        </li>
+        <li><a class="kit-side-link" href="#"><svg class="kit-icon"><use href="#i-folder"/></svg><span class="kit-side-text">Archivio</span></a></li>
+        <li><a class="kit-side-link" href="#"><svg class="kit-icon"><use href="#i-calendar"/></svg><span class="kit-side-text">Scadenze</span></a></li>
+      </ul>
+
+      <div class="kit-side-title">Anagrafiche</div>
+      <ul class="kit-side-nav">
+        <li><a class="kit-side-link" href="#"><svg class="kit-icon"><use href="#i-user"/></svg><span class="kit-side-text">Clienti</span></a></li>
+        <li><a class="kit-side-link" href="#" aria-disabled="true"><svg class="kit-icon"><use href="#i-user"/></svg><span class="kit-side-text">Fornitori</span></a></li>
+      </ul>
+    </nav>
+
+    <!-- In fondo: utility e account. Il menu dell'account si apre verso l'alto. -->
+    <div class="kit-sidebar-foot">
+      <div class="kit-side-tools">
+        <a class="kit-btn kit-btn-ghost kit-btn-icon" href="index.html" aria-label="Documentazione" title="Documentazione"><svg class="kit-icon"><use href="#i-info"/></svg></a>
+        <div class="kit-dropdown" style="width:auto">
+          <button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-toggle="#settings" aria-haspopup="true" aria-expanded="false" aria-label="Impostazioni" title="Impostazioni"><svg class="kit-icon"><use href="#i-sliders"/></svg></button>
+          <div class="kit-pop kit-pop-up kit-settings" id="settings" role="group" aria-label="Impostazioni" hidden>
+            <div class="kit-settings-row">
+              <span class="kit-settings-label">Tema</span>
+              <div class="kit-seg" role="group" aria-label="Tema">
+                <button data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg>Auto</button>
+                <button data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg>Chiaro</button>
+                <button data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg>Scuro</button>
+              </div>
+            </div>
+            <div class="kit-settings-row">
+              <span class="kit-settings-label">Dimensione del testo</span>
+              <div class="kit-seg" role="group" aria-label="Dimensione del testo">
+                <button data-kit-fs-set="md" aria-label="Normale" title="Normale">A</button>
+                <button data-kit-fs-set="lg" aria-label="Grande" title="Grande">A</button>
+                <button data-kit-fs-set="xl" aria-label="Molto grande" title="Molto grande">A</button>
+              </div>
+            </div>
+            <div class="kit-settings-foot"><button class="kit-btn kit-btn-ghost" data-kit-reset>Ripristina</button></div>
+          </div>
+        </div>
+      </div>
+      <div class="kit-dropdown">
+        <button class="kit-side-user" data-kit-toggle="#account" aria-haspopup="menu" aria-expanded="false">
+          <span class="kit-side-avatar" aria-hidden="true">MR</span>
+          <span class="kit-side-user-text"><b>Maria Rossi</b><small>maria@esempio.it</small></span>
+          <svg class="kit-icon kit-side-chev" aria-hidden="true"><use href="#i-chev-up"/></svg>
+        </button>
+        <div class="kit-pop kit-pop-up" id="account" role="menu" hidden>
+          <a class="kit-opt" role="menuitem" href="#">Profilo</a>
+          <a class="kit-opt" role="menuitem" href="#">Fatturazione</a>
+          <div class="kit-pop-sep"></div>
+          <button class="kit-opt kit-opt-danger" role="menuitem">Esci</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="kit-app-main">
+    <header class="kit-header">
+      <button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-sidebar-toggle="#sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Menu laterale"><svg class="kit-icon"><use href="#i-menu"/></svg></button>
+      <h1 class="kit-fs-4 kit-m-0">Panoramica</h1>
+      <span class="kit-spacer"></span>
+      <label class="kit-search kit-d-none kit-d-md-flex"><svg class="kit-icon"><use href="#i-search"/></svg><input class="kit-input" type="search" placeholder="Cerca…" aria-label="Cerca"></label>
+      <button class="kit-btn kit-btn-primary"><svg class="kit-icon"><use href="#i-plus"/></svg><span class="kit-d-none kit-d-sm-inline">Nuova fattura</span></button>
+    </header>
+
+    <main class="kit-main">
+      <div class="kit-container kit-stack">
+        <div class="kit-row kit-row-cols-2 kit-row-cols-xl-4">
+          <div><div class="kit-card kit-kpi kit-h-100"><small>Documenti</small><b>1.284</b><span class="kit-badge kit-badge-success">+4%</span></div></div>
+          <div><div class="kit-card kit-kpi kit-h-100"><small>Totale</small><b>48.920,10 €</b><span class="kit-badge kit-badge-success">+1,2%</span></div></div>
+          <div><div class="kit-card kit-kpi kit-h-100"><small>Da controllare</small><b>17</b><span class="kit-badge kit-badge-warning">−3</span></div></div>
+          <div><div class="kit-card kit-kpi kit-h-100"><small>Scartate</small><b>2</b><span class="kit-badge kit-badge-danger">+1</span></div></div>
+        </div>
+
+        <section class="kit-card">
+          <div class="kit-card-head">Ultime fatture</div>
+          <div class="kit-table-wrap">
+            <table class="kit-table">
+              <thead><tr><th>Numero</th><th>Cliente</th><th>Data</th><th class="kit-right">Importo</th><th>Stato</th></tr></thead>
+              <tbody>
+                <tr><td>2026/0412</td><td>Bianchi S.r.l.</td><td>10/11/2026</td><td class="kit-right">1.220,00 €</td><td><span class="kit-badge kit-badge-success">Pagata</span></td></tr>
+                <tr><td>2026/0411</td><td>Verdi &amp; C.</td><td>09/11/2026</td><td class="kit-right">380,50 €</td><td><span class="kit-badge kit-badge-warning">In attesa</span></td></tr>
+                <tr><td>2026/0410</td><td>Neri Impianti</td><td>07/11/2026</td><td class="kit-right">5.904,00 €</td><td><span class="kit-badge kit-badge-danger">Scaduta</span></td></tr>
+                <tr><td>2026/0409</td><td>Gialli Group</td><td>05/11/2026</td><td class="kit-right">742,30 €</td><td><span class="kit-badge kit-badge-success">Pagata</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+</div>
+</body>
+</html>

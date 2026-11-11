@@ -31,11 +31,11 @@ NAV = [
     ("Per iniziare", [("index", "Introduzione"), ("javascript", "JavaScript")]),
     ("Layout", [("layout", "Layout"), ("grid", "Griglia"), ("utilities", "Utility")]),
     ("Contenuto", [("typography", "Tipografia")]),
-    ("Componenti", [("buttons", "Bottoni"), ("forms", "Form"), ("navigation", "Navigazione"), ("navbar", "Navbar"),
+    ("Componenti", [("buttons", "Bottoni"), ("forms", "Form"), ("navigation", "Navigazione"), ("navbar", "Navbar"), ("sidebar", "Sidebar"),
                     ("cards", "Schede"), ("tables", "Tabelle"), ("charts", "Grafici"), ("content", "Contenuti"),
                     ("feedback", "Feedback"), ("overlays", "Dialog e menu"), ("icons", "Icone")]),
     ("Personalizzare", [("theming", "Temi e token"), ("snippets", "Snippet VS Code")]),
-    ("Esempi", [("dashboard", "Dashboard", "esempio")]),
+    ("Esempi", [("dashboard", "Dashboard", "esempio"), ("dashboard-sidebar", "Dashboard con sidebar", "esempio")]),
 ]
 PAGES = [p for _, items in NAV for p in items if len(p) == 2]
 
@@ -300,6 +300,7 @@ def main():
         (OUT / f"{f.stem}.html").write_text(page, encoding="utf-8")
         index += search_entries(f.stem, title, desc, body)
     index.append(["dashboard", "Dashboard", "", "Dashboard", "Esempio completo: una dashboard costruita con il kit.", "kit-header kit-card kit-kpi kit-table"])
+    index.append(["dashboard-sidebar", "Dashboard con sidebar", "", "Dashboard con sidebar", "Esempio completo: sidebar a sinistra con intestazione, sottovoci, account e utility.", "kit-app kit-sidebar kit-side-link kit-header"])
     (OUT / "search-index.js").write_text(
         "/* Indice della ricerca, generato da tools/gen-docs.py: non modificarlo a mano. */\n"
         "window.DOC_SEARCH = " + json.dumps(index, ensure_ascii=False, separators=(",", ":")) + ";\n", encoding="utf-8")

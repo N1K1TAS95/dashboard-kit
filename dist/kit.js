@@ -9,6 +9,7 @@
  *   data-kit-reset                           bottone che ripristina tema, testo e larghezza
  *   data-kit-layout-set="boxed|fluid"        bottone che sceglie contenuto centrato o a tutta larghezza
  *   data-kit-layout-toggle                   bottone che alterna le due larghezze
+ *   data-kit-sidebar-toggle                  bottone che apre la .kit-sidebar a comparsa (schermi piccoli) o la comprime a sole icone (schermi grandi, scelta ricordata)
  *   data-kit-toggle="#id"                    bottone che apre/chiude un .kit-pop
  *   data-kit-select                          su .kit-select: scelta di un valore; su un <select>: lo sostituisce con il menu del kit (opzioni: data-kit-search, -empty, -placeholder)
  *   data-kit-combo                           su .kit-combo: campo di testo con elenco di suggerimenti (opzioni: data-kit-combo-max, -empty, -more)
@@ -26,8 +27,8 @@
  *   data-kit-tip="testo"                     tooltip (solo CSS; con kit.js Esc lo nasconde)
  *   data-kit-dismiss                         dentro un .kit-alert, lo rimuove (evento "kit:dismiss")
  *
- * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.fontSize.get()/set()/step(), Kit.reset(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.confirm(domanda, opzioni), Kit.undo(testo, opzioni), Kit.split(elemento), Kit.file(elemento, opzioni), Kit.progress(testo, opzioni), Kit.combo(elemento, opzioni), Kit.select(elemento, opzioni), Kit.code(elemento, opzioni), Kit.highlight(testo, lingua), Kit.barChart(elemento, opzioni), Kit.lineChart(…), Kit.donut(…), Kit.sparkline(…), Kit.init(radice)
- * Eventi: "kit:change" (select, combobox), "kit:select" (barra, punto o fetta di un grafico), "kit:tab" (tab), "kit:files" (file scelti o rilasciati), "kit:copy" (codice copiato), "kit:split" (pannello aperto, chiuso o a tutta larghezza), "kit:theme" (tema), "kit:layout" (larghezza), "kit:fs" (dimensione del testo), "kit:reset" (impostazioni ripristinate), "kit:dismiss" (avviso chiuso)
+ * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.sidebar.get()/set()/toggle()/open()/close(), Kit.fontSize.get()/set()/step(), Kit.reset(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.confirm(domanda, opzioni), Kit.undo(testo, opzioni), Kit.split(elemento), Kit.file(elemento, opzioni), Kit.progress(testo, opzioni), Kit.combo(elemento, opzioni), Kit.select(elemento, opzioni), Kit.code(elemento, opzioni), Kit.highlight(testo, lingua), Kit.barChart(elemento, opzioni), Kit.lineChart(…), Kit.donut(…), Kit.sparkline(…), Kit.init(radice)
+ * Eventi: "kit:change" (select, combobox), "kit:select" (barra, punto o fetta di un grafico), "kit:tab" (tab), "kit:files" (file scelti o rilasciati), "kit:copy" (codice copiato), "kit:split" (pannello aperto, chiuso o a tutta larghezza), "kit:theme" (tema), "kit:layout" (larghezza), "kit:sidebar" (sidebar compressa, espansa, aperta o chiusa), "kit:fs" (dimensione del testo), "kit:reset" (impostazioni ripristinate), "kit:dismiss" (avviso chiuso)
  */
 (function () {
     "use strict";
@@ -146,6 +147,91 @@
         }
     };
 
+    /* ---------- Sidebar: a comparsa sugli schermi piccoli, compatta (solo icone) su quelli grandi ----------
+       <aside class="kit-sidebar"> dentro .kit-app. Il bottone data-kit-sidebar-toggle (opz. ="#id") la apre/chiude quando è a comparsa
+       e la comprime/espande quando è in linea. Lo stato compatto è <html data-kit-sidebar="collapsed|expanded"> e si ricorda. */
+    var SIDEKEY = "kit-sidebar";
+    var authoredSide = root.getAttribute("data-kit-sidebar") === "collapsed" ? "collapsed" : "expanded";
+    var sideOpener = null;       // chi ha aperto la sidebar a comparsa: il focus torna lì alla chiusura
+
+    function readSide() {
+        try {
+            var v = localStorage.getItem(SIDEKEY);
+            return v === "collapsed" || v === "expanded" ? v : null;
+        } catch (e) { return null; }
+    }
+    function sideBar(sel) { return document.querySelector(sel || ".kit-sidebar"); }
+    // A comparsa = fuori dal flusso (position: fixed); in linea = sticky nella colonna.
+    function sideDrawer(sb) { return getComputedStyle(sb).position === "fixed"; }
+
+    function sideSync() {
+        var collapsed = root.getAttribute("data-kit-sidebar") === "collapsed";
+        document.querySelectorAll(".kit-sidebar").forEach(function (sb) {
+            var drawer = sideDrawer(sb);
+            var open = sb.classList.contains("is-open");
+            if (open && !drawer) { sb.classList.remove("is-open"); open = false; }   // la finestra si è allargata
+            // il resto della pagina non si raggiunge mentre la sidebar a comparsa è aperta
+            Array.prototype.forEach.call(sb.parentNode.children, function (c) {
+                if (c !== sb) { if (open) c.setAttribute("inert", ""); else c.removeAttribute("inert"); }
+            });
+            // compatta: i testi spariscono, quindi ogni voce porta il suo nome come title
+            sb.querySelectorAll(".kit-side-link, .kit-side-user").forEach(function (a) {
+                if (collapsed && !drawer) {
+                    if (!a.hasAttribute("title")) {
+                        var tx = a.querySelector(".kit-side-text, .kit-side-user-text > :first-child");
+                        var label = tx ? tx.textContent.trim() : "";
+                        if (label) { a.setAttribute("title", label); a.setAttribute("data-kit-autotitle", ""); }
+                    }
+                } else if (a.hasAttribute("data-kit-autotitle")) {
+                    a.removeAttribute("title");
+                    a.removeAttribute("data-kit-autotitle");
+                }
+            });
+            document.querySelectorAll("[data-kit-sidebar-toggle]").forEach(function (b) {
+                var target = sideBar(b.getAttribute("data-kit-sidebar-toggle"));
+                if (target !== sb) return;
+                b.setAttribute("aria-expanded", String(drawer ? open : !collapsed));
+            });
+        });
+    }
+
+    function sideNotify(sb) {
+        sb.dispatchEvent(new CustomEvent("kit:sidebar", { bubbles: true, detail: { collapsed: sidebar.get() === "collapsed", open: sb.classList.contains("is-open") } }));
+    }
+
+    var sidebar = {
+        get: function () { return root.getAttribute("data-kit-sidebar") === "collapsed" ? "collapsed" : "expanded"; },
+        set: function (v) {
+            v = v === "collapsed" ? "collapsed" : "expanded";
+            root.setAttribute("data-kit-sidebar", v);
+            try { localStorage.setItem(SIDEKEY, v); } catch (e) { /* storage non disponibile: vale solo per questa pagina */ }
+            sideSync();
+            var sb = sideBar();
+            if (sb) sideNotify(sb);
+        },
+        toggle: function () { sidebar.set(sidebar.get() === "collapsed" ? "expanded" : "collapsed"); },
+        // Sidebar a comparsa. open(opener) ricorda chi l'ha aperta per riportargli il focus.
+        open: function (sel, opener) {
+            var sb = sideBar(sel);
+            if (!sb || !sideDrawer(sb) || sb.classList.contains("is-open")) return;
+            sideOpener = opener || document.activeElement;
+            sb.classList.add("is-open");
+            sideSync();
+            sb.tabIndex = -1;
+            sb.focus({ preventScroll: true });
+            sideNotify(sb);
+        },
+        close: function (sel) {
+            var sb = sideBar(sel);
+            if (!sb || !sb.classList.contains("is-open")) return;
+            sb.classList.remove("is-open");
+            sideSync();
+            if (sideOpener && sideOpener.isConnected && sideOpener.focus) sideOpener.focus({ preventScroll: true });
+            sideOpener = null;
+            sideNotify(sb);
+        }
+    };
+
     /* ---------- Ripristino: tema automatico, testo normale, larghezza scritta nell'HTML ---------- */
     function reset() {
         theme.set("auto");
@@ -154,6 +240,9 @@
         root.setAttribute("data-layout", authoredLayout);
         syncLayoutButtons();
         root.dispatchEvent(new CustomEvent("kit:layout", { detail: authoredLayout }));
+        try { localStorage.removeItem(SIDEKEY); } catch (e) { /* storage non disponibile */ }
+        root.setAttribute("data-kit-sidebar", authoredSide);
+        sideSync();
         root.dispatchEvent(new CustomEvent("kit:reset"));
     }
 
@@ -1543,6 +1632,24 @@
         var t = e.target;
         if (!(t instanceof Element)) return;
 
+        var sideBtn = t.closest("[data-kit-sidebar-toggle]");
+        if (sideBtn) {
+            var sbT = sideBar(sideBtn.getAttribute("data-kit-sidebar-toggle"));
+            if (!sbT) return;
+            if (!sideDrawer(sbT)) sidebar.toggle();
+            else if (sbT.classList.contains("is-open")) sidebar.close();
+            else sidebar.open(sideBtn.getAttribute("data-kit-sidebar-toggle"), sideBtn);
+            return;
+        }
+        var sbIn = t.closest(".kit-sidebar");
+        if (sbIn) {
+            // compatta: la voce con sottovoci espande la sidebar; scelta una pagina, quella a comparsa si chiude
+            if (!sideDrawer(sbIn) && sidebar.get() === "collapsed" && t.closest("summary")) sidebar.set("expanded");
+            else if (sideDrawer(sbIn) && sbIn.classList.contains("is-open") && t.closest("a[href]")) sidebar.close();
+        } else {
+            var sbOpen = document.querySelector(".kit-sidebar.is-open");
+            if (sbOpen) sidebar.close();            // click fuori (sullo sfondo scuro)
+        }
         var navBtn = t.closest("[data-kit-nav]");
         if (navBtn) {
             var menu = document.querySelector(navBtn.getAttribute("data-kit-nav"));
@@ -1685,6 +1792,11 @@
                 if (osp.classList.contains("is-full")) splitSet(osp, true, false); else splitSet(osp, false);
                 return;
             }
+        }
+        // Esc chiude la sidebar a comparsa e riporta il focus su chi l'ha aperta.
+        if (e.key === "Escape" && !e.defaultPrevented && !document.querySelector("dialog[open]") && document.querySelector(".kit-sidebar.is-open")) {
+            sidebar.close();
+            return;
         }
         // Esc chiude il menu a scomparsa della navbar e riporta il focus sul suo bottone.
         if (e.key === "Escape") {
@@ -1972,6 +2084,12 @@
         });
         syncLayoutButtons();
         syncFsButtons();
+        scope.querySelectorAll("[data-kit-sidebar-toggle]").forEach(function (b) {
+            var sel = b.getAttribute("data-kit-sidebar-toggle");
+            var sb = sideBar(sel);
+            if (sb && sb.id && !b.hasAttribute("aria-controls")) b.setAttribute("aria-controls", sb.id);
+        });
+        sideSync();
         scope.querySelectorAll("[data-kit-theme-set]").forEach(function (b) {
             b.setAttribute("aria-pressed", String(b.getAttribute("data-kit-theme-set") === theme.get()));
         });
@@ -2011,8 +2129,13 @@
     var savedLayout = readLayout();
     if (savedLayout) root.setAttribute("data-layout", savedLayout);
 
+    // Idem per la sidebar compatta o espansa.
+    var savedSide = readSide();
+    if (savedSide) root.setAttribute("data-kit-sidebar", savedSide);
+    window.addEventListener("resize", sideSync);
+
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { init(); });
     else init();
 
-    window.Kit = { theme: theme, layout: layout, fontSize: fontSize, reset: reset, toast: toast, undo: undo, confirm: confirmDialog, split: split, file: fileField, progress: progressDialog, combo: combo, select: nativeSelect, code: code, highlight: highlight, barChart: barChart, lineChart: lineChart, donut: donut, sparkline: sparkline, init: init };
+    window.Kit = { theme: theme, layout: layout, sidebar: sidebar, fontSize: fontSize, reset: reset, toast: toast, undo: undo, confirm: confirmDialog, split: split, file: fileField, progress: progressDialog, combo: combo, select: nativeSelect, code: code, highlight: highlight, barChart: barChart, lineChart: lineChart, donut: donut, sparkline: sparkline, init: init };
 })();

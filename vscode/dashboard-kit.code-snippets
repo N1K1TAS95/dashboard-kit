@@ -235,6 +235,33 @@
       "</header>$0"
     ]
   },
+  "Kit: sidebar": {
+    "prefix": "kit-sidebar",
+    "scope": "html",
+    "description": "Pagina con sidebar a sinistra e intestazione (richiede kit.js)",
+    "body": [
+      "<div class=\"kit-app kit-app-expand-${1|lg,md,xl|}\">",
+      "  <aside class=\"kit-sidebar\" id=\"${2:sidebar}\" aria-label=\"Principale\">",
+      "    <div class=\"kit-sidebar-head\">",
+      "      <a class=\"kit-brand\" href=\"/\"><span class=\"kit-side-text\">${3:Nome} <span>${4:app}</span></span></a>",
+      "    </div>",
+      "    <nav class=\"kit-sidebar-body\" aria-label=\"Sezioni\">",
+      "      <ul class=\"kit-side-nav\">",
+      "        <li><a class=\"kit-side-link\" href=\"/\" aria-current=\"page\"><svg class=\"kit-icon\"><use href=\"#i-home\"/></svg><span class=\"kit-side-text\">Home</span></a></li>",
+      "        <li><a class=\"kit-side-link\" href=\"#\"><svg class=\"kit-icon\"><use href=\"#i-file\"/></svg><span class=\"kit-side-text\">${5:Voce}</span></a></li>",
+      "      </ul>",
+      "    </nav>",
+      "    <div class=\"kit-sidebar-foot\">$6</div>",
+      "  </aside>",
+      "  <div class=\"kit-app-main\">",
+      "    <header class=\"kit-header\">",
+      "      <button class=\"kit-btn kit-btn-ghost kit-btn-icon\" data-kit-sidebar-toggle=\"#${2:sidebar}\" aria-controls=\"${2:sidebar}\" aria-expanded=\"false\" aria-label=\"Menu laterale\"><svg class=\"kit-icon\"><use href=\"#i-menu\"/></svg></button>",
+      "    </header>",
+      "    <main class=\"kit-main\">$0</main>",
+      "  </div>",
+      "</div>"
+    ]
+  },
   "Kit: tab": {
     "prefix": "kit-tabs",
     "scope": "html",

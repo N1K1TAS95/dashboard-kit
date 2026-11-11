@@ -1,5 +1,10 @@
 # Changelog
 
+## Non rilasciato
+
+- Sidebar (`kit-app`, `kit-sidebar`): barra di navigazione a sinistra a tutta altezza, con `kit-app-main` (intestazione + contenuto) accanto. Parti `kit-sidebar-head` (logo), `kit-sidebar-body` (voci, scorre da sola) e `kit-sidebar-foot` (utility e account in fondo); voci `kit-side-link` (`aria-current`, `aria-disabled`, badge), gruppi `kit-side-title`, sottovoci con `<details class="kit-side-details">` e `kit-side-sub`, account `kit-side-user` / `kit-side-avatar` con menu verso l'alto. In linea da `kit-app-expand-md|lg|xl`; sotto, o senza la classe, è a comparsa da sinistra con sfondo scuro, `inert` sul resto della pagina, focus alla barra, chiusura con Esc, click fuori o scelta di un link. Su schermi grandi si comprime a sole icone (`<html data-kit-sidebar="collapsed">`, ricordato; ogni voce prende il nome come `title`). `data-kit-sidebar-toggle="#id"`, `Kit.sidebar.get()/set()/toggle()/open()/close()`, evento `kit:sidebar` con `{ collapsed, open }`; `Kit.reset()` la riporta allo stato scritto nell'HTML. Token `--kit-side-w` e `--kit-side-wc`. Snippet `kit-sidebar`. Nuova pagina «Sidebar» ed esempio «Dashboard con sidebar» nella documentazione.
+- Corretto: in stampa il selettore di `.kit-header`, `.kit-toasts`, `.kit-tabs` e degli altri elementi da nascondere aveva una virgola doppia, quindi il browser scartava l'intera regola e non venivano nascosti.
+
 ## 0.7.0 — 11 novembre 2026
 
 - Select da un `<select>` nativo: `data-kit-select` su un `<select>` (o `Kit.select(el, { search, empty, placeholder })`) lo nasconde e gli mette accanto il bottone e il menu del kit. Il `<select>` resta la fonte dei dati (`value`, form, `required`, evento `change`; parte anche `kit:change` con `{ value, label }`). `<optgroup>` per i gruppi, `data-kit-hint` per la seconda riga, `data-kit-short` per un testo più breve sul bottone, campo di ricerca dalle 21 voci in su (`data-kit-search="N|off"`). Cambiare le opzioni o `disabled` aggiorna il bottone da solo; dopo un `select.value = …` da codice si chiama `api.sync()`. `Kit.select` restituisce `{ sync, open, close }`. Il menu si sposta a sinistra se uscirebbe dallo schermo.

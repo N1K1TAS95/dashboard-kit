@@ -110,3 +110,11 @@
     /* sul telefono l'elenco occupa tutta la larghezza, sotto l'intestazione */
     .doc-search > .kit-pop { position: fixed; left: var(--kit-sp); right: var(--kit-sp); top: calc(var(--kit-hh) - 6px); width: auto; min-width: 0; max-width: none; }
 }
+
+/* ---------- Sidebar negli esempi: sempre in linea, dentro il riquadro (non a comparsa sulla finestra) ---------- */
+.doc-demo-side { padding: 0; overflow: hidden; }
+.doc-demo-side .kit-app { display: grid; grid-template-columns: 15rem minmax(0, 1fr); min-height: 0; }
+.doc-demo-side .kit-sidebar { position: relative; z-index: auto; transform: none; visibility: visible; box-shadow: none; height: 24rem; width: auto; transition: none; }
+.doc-demo-side .kit-app-main .kit-header { position: static; }
+.doc-demo-side-sm .kit-app { grid-template-columns: minmax(0, 15rem); }
+.doc-demo-side-sm .kit-sidebar { height: auto; border-right: 0; }

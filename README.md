@@ -37,7 +37,7 @@ Se il sito ha una Content-Security-Policy, ricordati di autorizzare `https://cdn
 in `style-src` e `script-src`.
 
 **Documentazione:** https://n1k1tas95.github.io/dashboard-kit/ (in locale: `docs/index.html`), con una pagina per argomento:
-introduzione, JavaScript, layout, griglia, utility, bottoni, form, navigazione, navbar, schede, tabelle, contenuti, feedback (avvisi, badge),
+introduzione, JavaScript, layout, griglia, utility, bottoni, form, navigazione, navbar, sidebar, schede, tabelle, contenuti, feedback (avvisi, badge),
 dialog e menu, icone, temi e token, snippet VS Code. Ogni esempio ha il suo codice da copiare.
 
 ## Larghezza del contenuto

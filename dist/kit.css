@@ -58,6 +58,8 @@
     --kit-hh: 4.8rem;   /* altezza dell'intestazione */
     --kit-ctl: 2.667rem; /* altezza di bottoni e campi */
     --kit-container-w: 80rem;  /* larghezza massima del contenuto centrato (.kit-container) */
+    --kit-side-w: 16.5rem;     /* larghezza della sidebar (.kit-sidebar) */
+    --kit-side-wc: 4.667rem;   /* larghezza della sidebar compatta, solo icone */
 
     /* Colori: light-dark(chiaro, scuro). */
     --kit-bg: light-dark(#f4f5f8, #0f1319);
@@ -1606,6 +1608,166 @@ button.kit-donut-row:hover { background: var(--kit-hover); }
     .kit-navbar-expand-xl .kit-navbar-menu .kit-pop { position: absolute; width: max-content; max-width: min(520px, calc(100vw - 32px)); max-height: 340px; background: var(--kit-card); border: 1px solid var(--kit-line); box-shadow: var(--kit-shadow-pop); padding: 6px; margin: 0; }
 }
 
+/* ===== 12b. Sidebar (barra laterale) =====
+   Disposizione: la sidebar occupa tutta l'altezza a sinistra, a destra c'è una colonna con l'intestazione (.kit-header) e il contenuto.
+   <div class="kit-app kit-app-expand-lg">
+     <aside class="kit-sidebar" id="sidebar" aria-label="Principale">
+       <div class="kit-sidebar-head"><a class="kit-brand" href="#"><svg class="kit-icon">…</svg><span class="kit-side-text">Nome <span>app</span></span></a></div>
+       <nav class="kit-sidebar-body" aria-label="Sezioni">
+         <div class="kit-side-title">Titolo del gruppo</div>
+         <ul class="kit-side-nav">
+           <li><a class="kit-side-link" href="#" aria-current="page"><svg class="kit-icon">…</svg><span class="kit-side-text">Home</span></a></li>
+           <li><details class="kit-side-details"><summary class="kit-side-link"><svg…/><span class="kit-side-text">Voce</span><svg class="kit-icon kit-side-chev">…</svg></summary>
+               <ul class="kit-side-nav kit-side-sub"><li><a class="kit-side-link" href="#"><span class="kit-side-text">Sottovoce</span></a></li></ul></details></li>
+         </ul>
+       </nav>
+       <div class="kit-sidebar-foot">…account e utility…</div>
+     </aside>
+     <div class="kit-app-main">
+       <header class="kit-header"><button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-sidebar-toggle aria-label="Menu">…</button> …</header>
+       <main class="kit-main">…</main>
+     </div>
+   </div>
+   Senza kit-app-expand-* la sidebar è sempre a comparsa; con -md/-lg/-xl sta in linea da quella larghezza in su e,
+   sotto, scivola da sinistra. Con kit.js il bottone data-kit-sidebar-toggle la apre (schermi piccoli) o la comprime
+   a sole icone (schermi grandi, scelta ricordata: <html data-kit-sidebar="collapsed">). */
+.kit-app { display: block; min-height: 100vh; }
+.kit-app-main { min-width: 0; }
+.kit-sidebar {
+    position: fixed;
+    z-index: 50;
+    inset: 0 auto 0 0;
+    width: min(var(--kit-side-w), 86vw);
+    display: flex;
+    flex-direction: column;
+    background: var(--kit-card);
+    border-right: 1px solid var(--kit-line);
+    transform: translateX(-100%);
+    visibility: hidden;
+    transition: transform .22s ease, visibility 0s linear .22s, box-shadow .22s ease;
+}
+.kit-sidebar:focus { outline: none; }
+.kit-sidebar.is-open {
+    transform: none;
+    visibility: visible;
+    transition: transform .22s ease, visibility 0s, box-shadow .22s ease;
+    box-shadow: 0 0 0 100vmax rgba(10, 15, 25, .35), var(--kit-shadow-pop);   /* lo sfondo scuro è l'ombra: nessun elemento in più */
+}
+.kit-sidebar-head {
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: var(--kit-hh);
+    padding: 0 calc(var(--kit-sp) + 4px);
+    border-bottom: 1px solid var(--kit-line);
+}
+.kit-sidebar-head .kit-brand { margin: 0; min-width: 0; }
+.kit-sidebar-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: 12px; }
+.kit-sidebar-foot { flex: none; position: relative; padding: 12px; border-top: 1px solid var(--kit-line); display: flex; flex-direction: column; gap: 8px; }
+.kit-side-tools { display: flex; align-items: center; gap: 6px; }
+
+.kit-side-title { padding: 14px 12px 4px; color: var(--kit-mute); font-size: .8rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.kit-sidebar-body > .kit-side-title:first-child { padding-top: 4px; }
+.kit-side-nav { display: flex; flex-direction: column; gap: 2px; margin: 0; padding: 0; list-style: none; }
+.kit-side-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    height: var(--kit-ctl);
+    padding: 0 12px;
+    border: 0;
+    border-radius: var(--kit-rad-sm);
+    background: none;
+    color: var(--kit-mute);
+    font: inherit;
+    font-weight: 500;
+    text-align: left;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.kit-side-link:hover { color: var(--kit-ink); background: var(--kit-hover); }
+.kit-side-link.is-active, .kit-side-link[aria-current] { color: var(--kit-accent); background: var(--kit-accent-soft); }
+.kit-side-link:focus-visible { outline: 2px solid var(--kit-accent); outline-offset: -2px; }
+.kit-side-link:disabled, .kit-side-link[aria-disabled="true"] { opacity: .45; pointer-events: none; }
+.kit-side-link > .kit-icon { width: 1.2rem; height: 1.2rem; flex: none; }
+.kit-side-text { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.kit-side-link > .kit-badge { flex: none; }
+.kit-side-chev { margin-left: auto; transition: transform .15s; }
+details[open] > summary > .kit-side-chev { transform: rotate(180deg); }
+
+/* Voci con sottovoci: <details> e <summary class="kit-side-link"> */
+.kit-side-details > summary { list-style: none; }
+.kit-side-details > summary::-webkit-details-marker { display: none; }
+.kit-side-sub { margin: 2px 0 2px 1.4rem; padding-left: 8px; border-left: 1px solid var(--kit-line); }
+.kit-side-sub .kit-side-link { height: calc(var(--kit-ctl) - .3rem); font-weight: 400; }
+
+/* Account: bottone con iniziali, nome e riga secondaria; il menu si apre verso l'alto (kit-pop-up) */
+.kit-side-user { display: flex; align-items: center; gap: 10px; width: 100%; padding: 6px 8px; border: 0; border-radius: var(--kit-rad-sm); background: none; color: var(--kit-ink); font: inherit; text-align: left; cursor: pointer; }
+.kit-side-user:hover { background: var(--kit-hover); }
+.kit-side-user:focus-visible { outline: 2px solid var(--kit-accent); outline-offset: -2px; }
+.kit-side-avatar { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 2.267rem; height: 2.267rem; border-radius: 50%; background: var(--kit-accent-soft); color: var(--kit-accent); font-size: .867rem; font-weight: 700; }
+.kit-side-user-text { display: flex; flex-direction: column; min-width: 0; flex: 1; line-height: 1.3; }
+.kit-side-user-text > * { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.kit-side-user-text > small { color: var(--kit-mute); }
+.kit-sidebar-foot .kit-dropdown { display: block; width: 100%; }
+.kit-sidebar-foot .kit-pop { min-width: 14rem; }
+
+@media (min-width: 768px) {
+    .kit-app-expand-md { display: grid; grid-template-columns: var(--kit-side-w) minmax(0, 1fr); transition: grid-template-columns .2s ease; }
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-md { grid-template-columns: var(--kit-side-wc) minmax(0, 1fr); }
+    .kit-app-expand-md > .kit-sidebar { position: sticky; z-index: 31; top: 0; align-self: start; width: auto; height: var(--kit-app-h, 100dvh); transform: none; visibility: visible; box-shadow: none; transition: none; }
+    /* compatta: solo icone */
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-md .kit-sidebar-head { justify-content: center; padding: 0; }
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-md .kit-sidebar-body, :root[data-kit-sidebar="collapsed"] .kit-app-expand-md .kit-sidebar-foot { padding-inline: 10px; }
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-md .kit-side-text,
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-md .kit-side-link > .kit-badge,
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-md .kit-side-chev,
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-md .kit-side-user-text,
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-md .kit-side-details > :not(summary) { display: none; }
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-md .kit-side-title { height: 0; padding: 0; margin: 8px 6px; border-top: 1px solid var(--kit-line); overflow: hidden; font-size: 0; }
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-md .kit-side-link { justify-content: center; padding: 0; }
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-md .kit-side-user { justify-content: center; padding: 6px 0; }
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-md .kit-side-tools { flex-direction: column; }
+}
+@media (min-width: 992px) {
+    .kit-app-expand-lg { display: grid; grid-template-columns: var(--kit-side-w) minmax(0, 1fr); transition: grid-template-columns .2s ease; }
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-lg { grid-template-columns: var(--kit-side-wc) minmax(0, 1fr); }
+    .kit-app-expand-lg > .kit-sidebar { position: sticky; z-index: 31; top: 0; align-self: start; width: auto; height: var(--kit-app-h, 100dvh); transform: none; visibility: visible; box-shadow: none; transition: none; }
+    /* compatta: solo icone */
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-lg .kit-sidebar-head { justify-content: center; padding: 0; }
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-lg .kit-sidebar-body, :root[data-kit-sidebar="collapsed"] .kit-app-expand-lg .kit-sidebar-foot { padding-inline: 10px; }
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-lg .kit-side-text,
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-lg .kit-side-link > .kit-badge,
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-lg .kit-side-chev,
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-lg .kit-side-user-text,
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-lg .kit-side-details > :not(summary) { display: none; }
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-lg .kit-side-title { height: 0; padding: 0; margin: 8px 6px; border-top: 1px solid var(--kit-line); overflow: hidden; font-size: 0; }
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-lg .kit-side-link { justify-content: center; padding: 0; }
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-lg .kit-side-user { justify-content: center; padding: 6px 0; }
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-lg .kit-side-tools { flex-direction: column; }
+}
+@media (min-width: 1200px) {
+    .kit-app-expand-xl { display: grid; grid-template-columns: var(--kit-side-w) minmax(0, 1fr); transition: grid-template-columns .2s ease; }
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-xl { grid-template-columns: var(--kit-side-wc) minmax(0, 1fr); }
+    .kit-app-expand-xl > .kit-sidebar { position: sticky; z-index: 31; top: 0; align-self: start; width: auto; height: var(--kit-app-h, 100dvh); transform: none; visibility: visible; box-shadow: none; transition: none; }
+    /* compatta: solo icone */
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-xl .kit-sidebar-head { justify-content: center; padding: 0; }
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-xl .kit-sidebar-body, :root[data-kit-sidebar="collapsed"] .kit-app-expand-xl .kit-sidebar-foot { padding-inline: 10px; }
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-xl .kit-side-text,
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-xl .kit-side-link > .kit-badge,
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-xl .kit-side-chev,
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-xl .kit-side-user-text,
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-xl .kit-side-details > :not(summary) { display: none; }
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-xl .kit-side-title { height: 0; padding: 0; margin: 8px 6px; border-top: 1px solid var(--kit-line); overflow: hidden; font-size: 0; }
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-xl .kit-side-link { justify-content: center; padding: 0; }
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-xl .kit-side-user { justify-content: center; padding: 6px 0; }
+    :root[data-kit-sidebar="collapsed"] .kit-app-expand-xl .kit-side-tools { flex-direction: column; }
+}
+@media print { .kit-sidebar { display: none !important; } .kit-app { display: block !important; } }
+
 /* ===== 13. Dialog, toast, tooltip ===== */
 /* Il dialog è una card in sovrimpressione: stessa struttura (.kit-card-head / -body / -foot), stessi padding
    (--kit-sp), stessi bordi e raggio; ombra uguale a quella dei menu a comparsa. */
@@ -1884,7 +2046,7 @@ button.kit-donut-row:hover { background: var(--kit-hover); }
 @media print {
     :root, :root[data-theme] { color-scheme: light; }
     body { background: #fff; color: #000; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-    .kit-header, .kit-toasts, .kit-tabs, .kit-no-print, .kit-drop-veil,,
+    .kit-header, .kit-sidebar, .kit-toasts, .kit-tabs, .kit-no-print, .kit-drop-veil,
     .kit-split-lg.is-open::after, .kit-split.is-open::after { display: none !important; }
     .kit-print-only { display: revert !important; }
     .kit-main { padding: 0; }
