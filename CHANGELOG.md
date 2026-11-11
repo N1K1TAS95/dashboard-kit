@@ -1,5 +1,10 @@
 # Changelog
 
+## Non rilasciato
+
+- Select da un `<select>` nativo: `data-kit-select` su un `<select>` (o `Kit.select(el, { search, empty, placeholder })`) lo nasconde e gli mette accanto il bottone e il menu del kit. Il `<select>` resta la fonte dei dati (`value`, form, `required`, evento `change`; parte anche `kit:change` con `{ value, label }`). `<optgroup>` per i gruppi, `data-kit-hint` per la seconda riga, `data-kit-short` per un testo più breve sul bottone, campo di ricerca dalle 21 voci in su (`data-kit-search="N|off"`). Cambiare le opzioni o `disabled` aggiorna il bottone da solo; dopo un `select.value = …` da codice si chiama `api.sync()`. `Kit.select` restituisce `{ sync, open, close }`. Il menu si sposta a sinistra se uscirebbe dallo schermo.
+- Il campo di ricerca di un menu accetta lo spazio; Tab chiude il menu con ricerca.
+
 ## 0.6.0 — 10 novembre 2026
 
 - Snippet di codice (`data-kit-code` su `<pre class="kit-code">`): il codice HTML (anche con `<script>` e `<style>`), JavaScript e CSS si colora come in un editor, in tema chiaro e scuro; senza la lingua la indovina. Con `data-kit-code-copy` compare il bottone «Copia» (`kit-snippet`, evento `kit:copy`). `Kit.code(pre, { lang, text, copy })` e `Kit.highlight(testo, lingua)`: costruiscono solo nodi di testo e `<span>`, mai HTML; tempi lineari anche con testi ostili e, oltre i 100.000 caratteri, il testo resta senza colori. Token `--kit-hl-tag|attr|str|kw|fn|num|com`. Snippet `kit-code`. La documentazione lo usa per tutti i suoi esempi.

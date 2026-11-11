@@ -20,7 +20,7 @@
     <tr><td><code>data-kit-layout-toggle</code></td><td>un bottone</td><td>Alterna le due larghezze.</td></tr>
     <tr><td><code>data-kit-nav="#id"</code></td><td>il bottone di una <a href="navbar.html">navbar</a></td><td>Apre o chiude il menu a scomparsa indicato (<code>.kit-navbar-menu</code>); Esc o un click fuori lo chiudono.</td></tr>
     <tr><td><code>data-kit-toggle="#id"</code></td><td>un bottone</td><td>Apre o chiude il <code>.kit-pop</code> indicato.</td></tr>
-    <tr><td><code>data-kit-select</code></td><td><code>.kit-select</code></td><td>Trasforma l'elenco di opzioni in un select.</td></tr>
+    <tr><td><code>data-kit-select</code></td><td><code>.kit-select</code></td><td>Trasforma l'elenco di opzioni in un select. Su un <code>&lt;select&gt;</code> nativo lo sostituisce con il menu del kit (<a href="forms.html#select-nativo">dettagli</a>).</td></tr>
     <tr><td><code>data-kit-tabs</code></td><td><code>.kit-tabs</code></td><td>Attiva le tab; ogni <code>.kit-tab</code> ha <code>data-kit-panel="#id"</code>.</td></tr>
     <tr><td><code>data-kit-open="#id"</code></td><td>un bottone</td><td>Apre il <code>&lt;dialog&gt;</code> indicato.</td></tr>
     <tr><td><code>data-kit-confirm="Domanda?"</code></td><td>un bottone, un link o un <code>&lt;form&gt;</code></td><td>Prima chiede conferma in un dialog; l'azione prosegue solo se l'utente conferma. Vedi <a href="overlays.html#conferma">Chiedere conferma</a>.</td></tr>
@@ -57,7 +57,7 @@ Kit.init(elemento);             // rilegge select e tab di un'area aggiunta dopo
 <div class="kit-card"><div class="kit-table-wrap"><table class="kit-table">
   <thead><tr><th>Evento</th><th>Su</th><th><code>detail</code></th></tr></thead>
   <tbody>
-    <tr><td><code>kit:change</code></td><td><code>.kit-select</code></td><td><code>{ value }</code>: il <code>data-value</code> scelto</td></tr>
+    <tr><td><code>kit:change</code></td><td><code>.kit-select</code></td><td><code>{ value }</code>: il <code>data-value</code> scelto (per un select nativo anche <code>label</code>)</td></tr>
     <tr><td><code>kit:tab</code></td><td><code>.kit-tabs</code></td><td><code>{ tab }</code>: l'elemento della tab attivata</td></tr>
     <tr><td><code>kit:theme</code></td><td><code>&lt;html&gt;</code></td><td>il tema impostato</td></tr>
     <tr><td><code>kit:fs</code></td><td><code>&lt;html&gt;</code></td><td>la dimensione del testo impostata (<code>sm</code>, <code>md</code>, <code>lg</code> o <code>xl</code>)</td></tr>

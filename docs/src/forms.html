@@ -65,6 +65,26 @@
 </div>
 <p>L'opzione con <code>is-on</code> è quella iniziale. <code>kit-pop-right</code> sul pannello lo allinea a destra del bottone.</p>
 
+<h3 id="select-nativo">Da un select nativo</h3>
+<p>Se i dati sono già in un <code>&lt;select&gt;</code> (anche generato dal server, dentro un form, con <code>required</code>) basta aggiungergli <code>data-kit-select</code>: il kit lo nasconde e gli mette accanto bottone e menu. Il <code>&lt;select&gt;</code> resta la fonte dei dati: <code>value</code>, l'invio del form e l'evento <code>change</code> funzionano come sempre (parte anche <code>kit:change</code>, con <code>{ value, label }</code>). Si usano i <code>&lt;optgroup&gt;</code> per i gruppi; <code>data-kit-hint</code> su un'opzione aggiunge una seconda riga e <code>data-kit-short</code> un testo più breve per il bottone. Dalle 21 voci in su il menu ha un campo di ricerca (<code>data-kit-search="8"</code> cambia la soglia, <code>data-kit-search=""</code> lo mette sempre, <code>data-kit-search="off"</code> mai). Le opzioni e <code>disabled</code> si possono cambiare dopo: il kit se ne accorge.</p>
+<div class="doc-demo">
+  <div class="kit-field" style="max-width: 280px">
+    <label for="sel-nat">Tipo di documento</label>
+    <select id="sel-nat" data-kit-select>
+      <optgroup label="Fatture">
+        <option value="TD01" selected data-kit-hint="Fattura">TD01</option>
+        <option value="TD04" data-kit-hint="Nota di credito">TD04</option>
+      </optgroup>
+      <optgroup label="Altro">
+        <option value="TD16" data-kit-hint="Integrazione">TD16</option>
+        <option value="TD99" disabled>Non disponibile</option>
+      </optgroup>
+    </select>
+    <small data-doc-out>Valore: TD01</small>
+  </div>
+</div>
+<p>Da JavaScript: <code>Kit.select(el, { search, empty, placeholder })</code> fa lo stesso per un select aggiunto in seguito (<code>Kit.init(radice)</code> lo fa per tutti quelli dentro <code>radice</code>) e restituisce <code>{ sync(), open(), close() }</code>. Se si cambia <code>select.value</code> da codice, si chiama <code>sync()</code> per aggiornare il bottone (<code>change</code> lanciato a mano lo fa già).</p>
+
 <h2 id="file">Campo file</h2>
 <p>Un campo per scegliere uno o più file: bottone, nome del file scelto e «×» per rimuovere. Richiede <code>kit.js</code> (senza, resta il campo nativo del browser). Si scrive un normale <code>&lt;input type="file"&gt;</code> dentro <code>kit-file</code> con <code>data-kit-file</code>; <code>accept</code> e <code>multiple</code> funzionano come sempre. Il kit controlla il tipo e, con <code>data-kit-file-max</code> (in MB), la dimensione, e mostra l'errore sotto il campo. I file restano anche nel campo del form, quindi l'invio normale funziona.</p>
 <div class="doc-demo">
