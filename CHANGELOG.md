@@ -1,6 +1,6 @@
 # Changelog
 
-## Non rilasciato
+## 0.7.0 — 11 novembre 2026
 
 - Select da un `<select>` nativo: `data-kit-select` su un `<select>` (o `Kit.select(el, { search, empty, placeholder })`) lo nasconde e gli mette accanto il bottone e il menu del kit. Il `<select>` resta la fonte dei dati (`value`, form, `required`, evento `change`; parte anche `kit:change` con `{ value, label }`). `<optgroup>` per i gruppi, `data-kit-hint` per la seconda riga, `data-kit-short` per un testo più breve sul bottone, campo di ricerca dalle 21 voci in su (`data-kit-search="N|off"`). Cambiare le opzioni o `disabled` aggiorna il bottone da solo; dopo un `select.value = …` da codice si chiama `api.sync()`. `Kit.select` restituisce `{ sync, open, close }`. Il menu si sposta a sinistra se uscirebbe dallo schermo.
 - Il campo di ricerca di un menu accetta lo spazio; Tab chiude il menu con ricerca.
