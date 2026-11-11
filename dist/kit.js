@@ -174,19 +174,19 @@
             Array.prototype.forEach.call(sb.parentNode.children, function (c) {
                 if (c !== sb) { if (open) c.setAttribute("inert", ""); else c.removeAttribute("inert"); }
             });
-            // compatta: i testi spariscono, quindi ogni voce porta il suo nome come title
-            sb.querySelectorAll(".kit-side-link, .kit-side-user").forEach(function (a) {
+            // compatta: i testi spariscono (display: none), quindi ogni voce porta il suo nome come aria-label
+            sb.querySelectorAll(SIDETIP).forEach(function (a) {
                 if (collapsed && !drawer) {
-                    if (!a.hasAttribute("title")) {
-                        var tx = a.querySelector(".kit-side-text, .kit-side-user-text > :first-child");
-                        var label = tx ? tx.textContent.trim() : "";
-                        if (label) { a.setAttribute("title", label); a.setAttribute("data-kit-autotitle", ""); }
+                    if (!a.hasAttribute("aria-label") && !a.hasAttribute("aria-labelledby")) {
+                        var label = sideLabel(a);
+                        if (label) { a.setAttribute("aria-label", label); a.setAttribute("data-kit-autolabel", ""); }
                     }
-                } else if (a.hasAttribute("data-kit-autotitle")) {
-                    a.removeAttribute("title");
-                    a.removeAttribute("data-kit-autotitle");
+                } else if (a.hasAttribute("data-kit-autolabel")) {
+                    a.removeAttribute("aria-label");
+                    a.removeAttribute("data-kit-autolabel");
                 }
             });
+            if (!collapsed || drawer) sideTipHide();
             document.querySelectorAll("[data-kit-sidebar-toggle]").forEach(function (b) {
                 var target = sideBar(b.getAttribute("data-kit-sidebar-toggle"));
                 if (target !== sb) return;
@@ -194,6 +194,63 @@
             });
         });
     }
+
+    /* Sidebar compatta: il nome di ogni voce compare subito accanto all'icona (mouse e tastiera). È un elemento fuori dalla
+       sidebar, in position: fixed, perché il corpo della sidebar scorre e taglierebbe un tooltip in CSS. */
+    var SIDETIP = ".kit-side-link, .kit-side-user, .kit-side-tools .kit-btn, .kit-sidebar-head .kit-brand";
+    var sideTipEl = null, sideTipFor = null;
+
+    function sideLabel(el) {
+        var tx = el.querySelector(".kit-side-text, .kit-side-user-text > :first-child");
+        var label = tx ? tx.textContent.trim() : (el.getAttribute("aria-label") || el.getAttribute("data-kit-label") || el.getAttribute("title") || "").trim();
+        var badge = el.querySelector(".kit-badge");
+        if (tx && badge && badge.textContent.trim()) label += " (" + badge.textContent.trim() + ")";
+        return label;
+    }
+    function sideTipHide() {
+        if (sideTipEl) { sideTipEl.classList.remove("is-on"); sideTipEl.hidden = true; }
+        if (sideTipFor && sideTipFor.hasAttribute("data-kit-title")) {   // il title nativo tolto per non avere due suggerimenti
+            sideTipFor.setAttribute("title", sideTipFor.getAttribute("data-kit-title"));
+            sideTipFor.removeAttribute("data-kit-title");
+        }
+        sideTipFor = null;
+    }
+    function sideTipShow(el) {
+        var sb = el.closest(".kit-sidebar");
+        if (!sb || root.getAttribute("data-kit-sidebar") !== "collapsed" || sideDrawer(sb)) return;
+        if (el.closest(".kit-pop") || el.getAttribute("aria-expanded") === "true") return;
+        var label = sideLabel(el);
+        if (!label) return;
+        if (sideTipFor === el) return;
+        sideTipHide();
+        sideTipFor = el;
+        if (el.hasAttribute("title")) { el.setAttribute("data-kit-title", el.getAttribute("title")); el.removeAttribute("title"); }
+        if (!sideTipEl) {
+            sideTipEl = mkEl("div", "kit-side-tip");
+            sideTipEl.setAttribute("role", "tooltip");
+            document.body.appendChild(sideTipEl);
+        }
+        sideTipEl.textContent = label;
+        sideTipEl.hidden = false;
+        var r = el.getBoundingClientRect();
+        sideTipEl.style.left = Math.round(r.right + 10) + "px";
+        sideTipEl.style.top = Math.round(r.top + r.height / 2) + "px";
+        void sideTipEl.offsetWidth;                 // fa partire la dissolvenza
+        sideTipEl.classList.add("is-on");
+    }
+    document.addEventListener("mouseover", function (e) {
+        var t = e.target instanceof Element ? e.target.closest(SIDETIP) : null;
+        if (t && t.closest(".kit-sidebar")) sideTipShow(t); else if (sideTipFor) sideTipHide();
+    });
+    document.addEventListener("focusin", function (e) {
+        var t = e.target instanceof Element ? e.target.closest(SIDETIP) : null;
+        if (t && t.closest(".kit-sidebar") && t.matches(":focus-visible")) sideTipShow(t); else if (sideTipFor) sideTipHide();
+    });
+    document.addEventListener("focusout", function () { if (sideTipFor) sideTipHide(); });
+    document.addEventListener("mouseleave", function () { if (sideTipFor) sideTipHide(); });
+    document.addEventListener("click", function () { if (sideTipFor) sideTipHide(); });
+    document.addEventListener("scroll", function () { if (sideTipFor) sideTipHide(); }, true);
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && sideTipFor) sideTipHide(); });
 
     function sideNotify(sb) {
         sb.dispatchEvent(new CustomEvent("kit:sidebar", { bubbles: true, detail: { collapsed: sidebar.get() === "collapsed", open: sb.classList.contains("is-open") } }));

@@ -72,7 +72,7 @@
 <h2 id="compatta">Compatta, solo icone</h2>
 <p>Sugli schermi grandi lo stesso bottone comprime la barra a una colonna di icone (larga <code>--kit-side-wc</code>) e la riespande. La scelta è <code>&lt;html data-kit-sidebar="collapsed|expanded"&gt;</code> e viene ricordata, come tema e dimensione del testo. Per partire compatta basta scrivere l'attributo nell'HTML.</p>
 <ul>
-  <li>Spariscono testi, badge, frecce e sottovoci; ogni voce riceve da sola il proprio nome come <code>title</code> (il tooltip del browser).</li>
+  <li>Spariscono testi, badge, frecce e sottovoci. Passando il mouse o spostando il focus con Tab su un'icona, il suo nome compare subito accanto (con il numero del badge, per esempio «Avvisi (3)»); vale per le voci, per le utility e per l'account. Il nome si prende dal <code>kit-side-text</code> della voce o, per i bottoni a icona, dal loro <code>aria-label</code>. Ogni voce riceve da sola anche un <code>aria-label</code>, perché il testo nascosto non arriva agli screen reader.</li>
   <li>Premere una voce con sottovoci la riespande.</li>
   <li><code>Kit.reset()</code> e il bottone <code>data-kit-reset</code> riportano lo stato scritto nell'HTML.</li>
 </ul>

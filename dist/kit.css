@@ -1712,6 +1712,27 @@ details[open] > summary > .kit-side-chev { transform: rotate(180deg); }
 .kit-side-sub { margin: 2px 0 2px 1.4rem; padding-left: 8px; border-left: 1px solid var(--kit-line); }
 .kit-side-sub .kit-side-link { height: calc(var(--kit-ctl) - .3rem); font-weight: 400; }
 
+/* Sidebar compatta: il nome della voce accanto all'icona (creato da kit.js, fuori dalla sidebar) */
+.kit-side-tip {
+    position: fixed;
+    z-index: 60;
+    transform: translate(-4px, -50%);
+    padding: 6px 10px;
+    border-radius: var(--kit-rad-sm);
+    background: var(--kit-ink);
+    color: var(--kit-bg);
+    font-size: .9rem;
+    font-weight: 500;
+    line-height: 1.3;
+    white-space: nowrap;
+    pointer-events: none;
+    box-shadow: var(--kit-shadow-pop);
+    opacity: 0;
+    transition: opacity .12s ease, transform .12s ease;
+}
+.kit-side-tip::before { content: ""; position: absolute; right: 100%; top: 50%; margin-top: -5px; border: 5px solid transparent; border-right-color: var(--kit-ink); border-left-width: 0; }
+.kit-side-tip.is-on { opacity: 1; transform: translate(0, -50%); }
+.kit-side-tip[hidden] { display: none; }
 /* Account: bottone con iniziali, nome e riga secondaria; il menu si apre verso l'alto (kit-pop-up) */
 .kit-side-user { display: flex; align-items: center; gap: 10px; width: 100%; padding: 6px 12px; border: 0; border-radius: var(--kit-rad-sm); background: none; color: var(--kit-ink); font: inherit; text-align: left; cursor: pointer; }
 .kit-side-user:hover { background: var(--kit-hover); }
