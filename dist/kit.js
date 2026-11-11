@@ -233,7 +233,7 @@
         sideTipEl.textContent = label;
         sideTipEl.hidden = false;
         var r = el.getBoundingClientRect();
-        sideTipEl.style.left = Math.round(r.right + 10) + "px";
+        sideTipEl.style.left = Math.round(r.right) + "px";      // lo spazio verso l'icona è il bordo trasparente del suggerimento
         sideTipEl.style.top = Math.round(r.top + r.height / 2) + "px";
         void sideTipEl.offsetWidth;                 // fa partire la dissolvenza
         sideTipEl.classList.add("is-on");

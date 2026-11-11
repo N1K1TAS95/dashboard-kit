@@ -1712,27 +1712,6 @@ details[open] > summary > .kit-side-chev { transform: rotate(180deg); }
 .kit-side-sub { margin: 2px 0 2px 1.4rem; padding-left: 8px; border-left: 1px solid var(--kit-line); }
 .kit-side-sub .kit-side-link { height: calc(var(--kit-ctl) - .3rem); font-weight: 400; }
 
-/* Sidebar compatta: il nome della voce accanto all'icona (creato da kit.js, fuori dalla sidebar) */
-.kit-side-tip {
-    position: fixed;
-    z-index: 60;
-    transform: translate(-4px, -50%);
-    padding: 6px 10px;
-    border-radius: var(--kit-rad-sm);
-    background: var(--kit-ink);
-    color: var(--kit-bg);
-    font-size: .9rem;
-    font-weight: 500;
-    line-height: 1.3;
-    white-space: nowrap;
-    pointer-events: none;
-    box-shadow: var(--kit-shadow-pop);
-    opacity: 0;
-    transition: opacity .12s ease, transform .12s ease;
-}
-.kit-side-tip::before { content: ""; position: absolute; right: 100%; top: 50%; margin-top: -5px; border: 5px solid transparent; border-right-color: var(--kit-ink); border-left-width: 0; }
-.kit-side-tip.is-on { opacity: 1; transform: translate(0, -50%); }
-.kit-side-tip[hidden] { display: none; }
 /* Account: bottone con iniziali, nome e riga secondaria; il menu si apre verso l'alto (kit-pop-up) */
 .kit-side-user { display: flex; align-items: center; gap: 10px; width: 100%; padding: 6px 12px; border: 0; border-radius: var(--kit-rad-sm); background: none; color: var(--kit-ink); font: inherit; text-align: left; cursor: pointer; }
 .kit-side-user:hover { background: var(--kit-hover); }
@@ -1975,31 +1954,41 @@ details[open] > summary > .kit-side-chev { transform: rotate(180deg); }
 
 /* Tooltip, solo CSS: <button class="kit-btn" data-kit-tip="Testo">…</button>
    Posizione: data-kit-tip-pos="top (default) | bottom | left | right". Appare al passaggio del mouse (con una piccola attesa)
-   e al focus da tastiera; Esc lo nasconde (con kit.js). Il margine trasparente di 6px tra elemento e tooltip fa parte
-   del tooltip, così il mouse può raggiungerlo senza che sparisca. Un elemento con overflow nascosto lo ritaglia. */
+   e al focus da tastiera; Esc lo nasconde (con kit.js). Il bordo trasparente di 8px tra elemento e tooltip fa parte del
+   tooltip, così il mouse può raggiungerlo senza che sparisca; la freccetta è disegnata in quello spazio, sullo sfondo.
+   Un elemento con overflow nascosto lo ritaglia. Lo stesso aspetto ha il nome delle voci della sidebar compatta (.kit-side-tip). */
 :where([data-kit-tip]) { position: relative; }
-[data-kit-tip]::after {
-    content: attr(data-kit-tip);
-    position: absolute;
+[data-kit-tip]::after, .kit-side-tip {
     z-index: 60;
-    left: 50%;
-    bottom: 100%;
-    transform: translateX(-50%);
+    box-sizing: border-box;
     width: max-content;
     max-width: min(240px, calc(100vw - 2*var(--kit-sp)));
-    box-sizing: border-box;
-    padding: 5px 8px;
-    border: 6px solid transparent;
-    border-radius: calc(var(--kit-rad-sm) + 6px);
-    background: var(--kit-ink);
-    background-clip: padding-box;
+    padding: 6px 10px;
+    border: 8px solid transparent;
+    border-radius: calc(var(--kit-rad-sm) + 8px);
+    background-color: var(--kit-ink);
+    background-repeat: no-repeat;
+    background-origin: border-box;
+    background-clip: border-box, padding-box;       /* la freccetta (1° livello) esce nel bordo; il colore (2°) resta nel riquadro */
     color: var(--kit-bg);
-    font: 500 0.893rem/1.4 var(--kit-font);
+    box-shadow: var(--kit-shadow-pop);
+    font: 500 0.9rem/1.4 var(--kit-font);
     font-variant-numeric: slashed-zero;
     letter-spacing: normal;
     text-align: left;
     text-transform: none;
     white-space: normal;
+    /* freccetta verso il basso (tooltip sopra l'elemento): triangolo 10×5 con la punta in basso al centro */
+    background-image: conic-gradient(from -45deg at 50% 100%, var(--kit-ink) 0 90deg, transparent 0), none;
+    background-position: center bottom 3px, 0 0;
+    background-size: 10px 5px, auto;
+}
+[data-kit-tip]::after {
+    content: attr(data-kit-tip);
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    transform: translateX(-50%);
     display: none;       /* a riposo non occupa spazio: un tooltip invisibile ma presente allargherebbe la pagina vicino al bordo */
     opacity: 0;
     transition: opacity .12s, display .12s allow-discrete;
@@ -2007,9 +1996,36 @@ details[open] > summary > .kit-side-chev { transform: rotate(180deg); }
 [data-kit-tip]:not([data-kit-tip=""]):is(:hover, :focus-visible):not([data-kit-tip-hide])::after { display: block; opacity: 1; transition: opacity .12s, display 0s .35s allow-discrete; }
 [data-kit-tip]:not([data-kit-tip=""]):focus-visible:not([data-kit-tip-hide])::after { transition-delay: 0s; }
 @starting-style { [data-kit-tip]:not([data-kit-tip=""]):is(:hover, :focus-visible):not([data-kit-tip-hide])::after { opacity: 0; } }
-[data-kit-tip-pos="bottom"]::after { bottom: auto; top: 100%; }
-[data-kit-tip-pos="left"]::after { left: auto; right: 100%; bottom: auto; top: 50%; transform: translateY(-50%); }
-[data-kit-tip-pos="right"]::after { left: 100%; bottom: auto; top: 50%; transform: translateY(-50%); }
+[data-kit-tip-pos="bottom"]::after {
+    bottom: auto; top: 100%;
+    background-image: conic-gradient(from 135deg at 50% 0, var(--kit-ink) 0 90deg, transparent 0), none;
+    background-position: center top 3px, 0 0;
+}
+[data-kit-tip-pos="left"]::after {
+    left: auto; right: 100%; bottom: auto; top: 50%; transform: translateY(-50%);
+    background-image: conic-gradient(from 225deg at 100% 50%, var(--kit-ink) 0 90deg, transparent 0), none;
+    background-position: right 3px center, 0 0;
+    background-size: 5px 10px, auto;
+}
+[data-kit-tip-pos="right"]::after {
+    left: 100%; bottom: auto; top: 50%; transform: translateY(-50%);
+    background-image: conic-gradient(from 45deg at 0 50%, var(--kit-ink) 0 90deg, transparent 0), none;
+    background-position: left 3px center, 0 0;
+    background-size: 5px 10px, auto;
+}
+/* Nome delle voci della sidebar compatta (creato da kit.js, fuori dalla sidebar): a destra dell'icona, freccetta a sinistra */
+.kit-side-tip {
+    position: fixed;
+    transform: translateY(-50%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .12s ease;
+    background-image: conic-gradient(from 45deg at 0 50%, var(--kit-ink) 0 90deg, transparent 0), none;
+    background-position: left 3px center, 0 0;
+    background-size: 5px 10px, auto;
+}
+.kit-side-tip.is-on { opacity: 1; }
+.kit-side-tip[hidden] { display: none; }
 @media (prefers-reduced-motion: reduce) { [data-kit-tip]::after { transition: none !important; } }
 
 /* ===== 14. Utility ===== */
