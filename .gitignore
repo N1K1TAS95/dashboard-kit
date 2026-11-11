@@ -1,0 +1,12 @@
+# macOS
+.DS_Store
+._*
+
+# Editor e IDE
+.idea/
+.vscode/
+*.swp
+
+# Python (tools/*.py)
+__pycache__/
+*.pyc
