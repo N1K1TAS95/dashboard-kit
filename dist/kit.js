@@ -20,6 +20,9 @@
  *   data-kit-code="html|js|css"              su <pre class="kit-code">: colora il codice (senza lingua la indovina); data-kit-code-copy aggiunge il bottone «Copia»
  *   data-kit-accordion="single"              su .kit-accordion: un solo <details> aperto per volta (senza valore, ognuno si apre per conto suo)
  *   data-kit-sort                            su .kit-table: le intestazioni (<th>) ordinano le righe (con ="multi", Shift o Ctrl/⌘ + clic ordina per più colonne; numeri, date e testo si riconoscono da soli; data-kit-type e data-kit-value per forzarli, data-kit-nosort per escludere una colonna)
+ *   data-kit-validate                        su un <form>: al submit controlla i campi con le regole HTML, segna is-invalid, scrive i messaggi in .kit-feedback-invalid e porta il focus sul primo errore (="ok" segna anche is-valid; messaggi con data-kit-msg e data-kit-msg-required|type|pattern|min|max|minlength|maxlength|step)
+ *   data-kit-password                        su un bottone accanto a un campo password: mostra o nasconde il testo
+ *   data-kit-count="#campo"                  su un elemento di testo: mostra «n / maxlength» dei caratteri scritti nel campo
  *   data-kit-datepicker                      su <input type="date|datetime-local|time">: calendario (o scelta dell'ora) del kit; si scrive e si legge gg/mm/aaaa, il valore inviato è in ISO (data-kit-min, -max, -disable, -step; data-kit-timepicker per la sola ora)
  *   data-kit-daterange                       su un contenitore con due <input type="date"> (dal, al): intervallo con calendario a due mesi e scelte rapide (data-kit-presets)
  *   data-kit-fix="2|3|4"                     su .kit-table-fix: blocca le prime 2, 3 o 4 colonne (la sola prima si blocca con la classe, senza JavaScript)
@@ -35,8 +38,8 @@
  *   data-kit-tip="testo"                     tooltip (solo CSS; con kit.js Esc lo nasconde)
  *   data-kit-dismiss                         dentro un .kit-alert, lo rimuove (evento "kit:dismiss")
  *
- * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.sidebar.get()/set()/toggle()/open()/close(), Kit.fontSize.get()/set()/step(), Kit.reset(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.confirm(domanda, opzioni), Kit.undo(testo, opzioni), Kit.split(elemento), Kit.file(elemento, opzioni), Kit.progress(testo, opzioni), Kit.combo(elemento, opzioni), Kit.select(elemento, opzioni), Kit.code(elemento, opzioni), Kit.highlight(testo, lingua), Kit.barChart(elemento, opzioni), Kit.lineChart(…), Kit.donut(…), Kit.sparkline(…), Kit.table(tabella, opzioni), Kit.paginate(tabella, righe), Kit.accordion(elemento, opzioni), Kit.datepicker(campo, opzioni), Kit.daterange(contenitore, opzioni), Kit.date.parse/format/today, Kit.init(radice)
- * Eventi: "kit:change" (select, combobox), "kit:select" (barra, punto o fetta di un grafico), "kit:tab" (tab), "kit:files" (file scelti o rilasciati), "kit:copy" (codice copiato), "kit:sort" (tabella ordinata), "kit:filter" (tabella filtrata), "kit:page" (pagina della tabella cambiata), "kit:accordion" (voce dell'accordion aperta o chiusa), "kit:change" anche per date e ore ({ value } o { from, to }), "kit:split" (pannello aperto, chiuso o a tutta larghezza), "kit:theme" (tema), "kit:layout" (larghezza), "kit:sidebar" (sidebar compressa, espansa, aperta o chiusa), "kit:fs" (dimensione del testo), "kit:reset" (impostazioni ripristinate), "kit:dismiss" (avviso chiuso)
+ * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.sidebar.get()/set()/toggle()/open()/close(), Kit.fontSize.get()/set()/step(), Kit.reset(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.confirm(domanda, opzioni), Kit.undo(testo, opzioni), Kit.split(elemento), Kit.file(elemento, opzioni), Kit.progress(testo, opzioni), Kit.combo(elemento, opzioni), Kit.select(elemento, opzioni), Kit.code(elemento, opzioni), Kit.highlight(testo, lingua), Kit.barChart(elemento, opzioni), Kit.lineChart(…), Kit.donut(…), Kit.sparkline(…), Kit.table(tabella, opzioni), Kit.paginate(tabella, righe), Kit.accordion(elemento, opzioni), Kit.datepicker(campo, opzioni), Kit.daterange(contenitore, opzioni), Kit.validate(form), Kit.validate.reset(form), Kit.date.parse/format/today, Kit.init(radice)
+ * Eventi: "kit:change" (select, combobox), "kit:select" (barra, punto o fetta di un grafico), "kit:tab" (tab), "kit:files" (file scelti o rilasciati), "kit:copy" (codice copiato), "kit:sort" (tabella ordinata), "kit:filter" (tabella filtrata), "kit:page" (pagina della tabella cambiata), "kit:accordion" (voce dell'accordion aperta o chiusa), "kit:invalid" (form con campi non validi), "kit:change" anche per date e ore ({ value } o { from, to }), "kit:split" (pannello aperto, chiuso o a tutta larghezza), "kit:theme" (tema), "kit:layout" (larghezza), "kit:sidebar" (sidebar compressa, espansa, aperta o chiusa), "kit:fs" (dimensione del testo), "kit:reset" (impostazioni ripristinate), "kit:dismiss" (avviso chiuso)
  */
 (function () {
     "use strict";
@@ -3437,6 +3440,180 @@
         if (!(host && host.contains(t) && t instanceof Element && t.closest(".kit-date-btn, input"))) dtActive.close(false);
     });
 
+    /* ---------- Form: mostra/nascondi password, contatore dei caratteri, validazione ----------
+       <button type="button" class="kit-control-end" data-kit-password aria-label="Mostra la password">…</button>
+       <span class="kit-counter" data-kit-count="#nota"></span>                       (usa maxlength del campo)
+       <form data-kit-validate>   al submit controlla i campi con le regole HTML (required, pattern, min, maxlength…), segna i campi
+       con is-invalid, scrive il messaggio nel .kit-feedback-invalid (lo crea se manca) e porta il focus sul primo errore.
+       data-kit-validate="ok" segna anche is-valid. Messaggi: data-kit-msg o data-kit-msg-required|type|pattern|min|max|minlength|maxlength|step sul campo. */
+    document.addEventListener("click", function (e) {
+        var b = e.target instanceof Element ? e.target.closest("[data-kit-password]") : null;
+        if (!b) return;
+        var inp = b.getAttribute("data-kit-password") ? document.querySelector(b.getAttribute("data-kit-password")) : (b.closest(".kit-control, .kit-input-group, .kit-field") || b.parentNode).querySelector("input");
+        if (!inp) return;
+        var show = inp.type === "password";
+        inp.type = show ? "text" : "password";
+        b.setAttribute("aria-pressed", String(show));
+        b.setAttribute("aria-label", show ? (b.getAttribute("data-kit-label-hide") || "Nascondi la password") : (b.getAttribute("data-kit-label-show") || "Mostra la password"));
+    });
+
+    function counterUpdate(c) {
+        var inp = document.querySelector(c.getAttribute("data-kit-count"));
+        if (!inp) return;
+        var n = inp.value.length, max = inp.maxLength > 0 ? inp.maxLength : 0;
+        c.textContent = max ? n + " / " + max : String(n);
+        c.classList.toggle("is-near", max > 0 && n >= max * 0.9 && n < max);
+        c.classList.toggle("is-full", max > 0 && n >= max);
+    }
+    function counterFor(inp) {
+        document.querySelectorAll("[data-kit-count]").forEach(function (c) {
+            var sel = c.getAttribute("data-kit-count");
+            try { if (inp.matches(sel)) counterUpdate(c); } catch (err) { /* selettore non valido */ }
+        });
+    }
+
+    var VAL_KEYS = [["valueMissing", "Required"], ["typeMismatch", "Type"], ["patternMismatch", "Pattern"], ["tooShort", "Minlength"], ["tooLong", "Maxlength"], ["rangeUnderflow", "Min"], ["rangeOverflow", "Max"], ["stepMismatch", "Step"]];
+    var valUid = 0;
+
+    function valMsg(c) {
+        var d = c.dataset, v = c.validity;
+        if (v.customError) return c.validationMessage;     // setCustomValidity (per esempio il calendario) vince su tutto
+        for (var i = 0; i < VAL_KEYS.length; i++) if (v[VAL_KEYS[i][0]] && d["kitMsg" + VAL_KEYS[i][1]]) return d["kitMsg" + VAL_KEYS[i][1]];
+        return d.kitMsg || c.validationMessage;
+    }
+    function valBox(c) {
+        if (c.type === "radio") return c.closest(".kit-field, fieldset, .kit-check-group") || c.parentNode;
+        return c.closest(".kit-field") || c.closest(".kit-check, .kit-switch") || c.closest("[data-kit-native]") || c;
+    }
+    function valControls(box) {
+        if (box.matches("input, select, textarea")) return box.willValidate ? [box] : [];
+        return Array.prototype.filter.call(box.querySelectorAll("input, select, textarea"), function (c) { return c.willValidate && c.type !== "hidden"; });
+    }
+    function valFocusTarget(c) {
+        var w = c.closest("[data-kit-native]");
+        if (w) return w.querySelector(".kit-select-btn") || c;
+        var f = c.closest(".kit-file.is-ready");
+        if (f) return f.querySelector(".kit-file-btn") || c;
+        return c;
+    }
+    function valDescribe(c, id, on) {
+        var cur = (c.getAttribute("aria-describedby") || "").split(/\s+/).filter(Boolean), i = cur.indexOf(id);
+        if (on && i < 0) cur.push(id);
+        if (!on && i >= 0) cur.splice(i, 1);
+        if (cur.length) c.setAttribute("aria-describedby", cur.join(" ")); else c.removeAttribute("aria-describedby");
+    }
+    /* Stato di un campo (o gruppo): show = mostra gli errori; ok = segna anche is-valid. Restituisce il primo controllo non valido. */
+    function valBoxUpdate(box, show, ok) {
+        var list = valControls(box), bad = null;
+        list.forEach(function (c) { if (!bad && !c.validity.valid) bad = c; });
+        if (!show) return bad;
+        box.classList.toggle("is-invalid", !!bad);
+        box.classList.toggle("is-valid", !bad && !!ok && list.length > 0);
+        list.forEach(function (c) { if (c === bad) c.setAttribute("aria-invalid", "true"); else if (c.getAttribute("aria-invalid") === "true") c.removeAttribute("aria-invalid"); });
+        var host = box.matches("input, select, textarea") ? box.parentNode : box;
+        var fb = host.querySelector(".kit-feedback-invalid");
+        if (bad) {
+            if (!fb) {
+                fb = mkEl("small", "kit-feedback kit-feedback-invalid");
+                fb.setAttribute("data-kit-auto", "");
+                if (box.matches("input, select, textarea")) box.parentNode.insertBefore(fb, box.nextSibling); else box.appendChild(fb);
+            }
+            if (!fb.id) fb.id = "kit-fb-" + (++valUid);
+            if (fb.hasAttribute("data-kit-auto") || !fb.textContent.trim()) fb.textContent = valMsg(bad);
+            fb.hidden = false;
+            list.forEach(function (c) { valDescribe(c, fb.id, c === bad); });
+        } else if (fb) {
+            list.forEach(function (c) { if (fb.id) valDescribe(c, fb.id, false); });
+            if (fb.hasAttribute("data-kit-auto")) fb.remove(); else fb.hidden = true;
+        }
+        var okfb = host.querySelector(".kit-feedback-valid");
+        if (okfb) okfb.hidden = !!bad || !ok;
+        return bad;
+    }
+    function valForm(form, opts) {
+        if (typeof form === "string") form = document.querySelector(form);
+        if (!form) return true;
+        opts = opts || {};
+        var ok = opts.ok !== undefined ? opts.ok : form.getAttribute("data-kit-validate") === "ok", seen = [], first = null, fields = [];
+        Array.prototype.forEach.call(form.elements, function (c) {
+            if (!c.willValidate || c.type === "hidden") return;
+            var box = valBox(c);
+            if (seen.indexOf(box) >= 0) return;
+            seen.push(box);
+            var bad = valBoxUpdate(box, true, ok);
+            if (bad) { fields.push(bad); if (!first) first = bad; }
+        });
+        if (fields.length) {
+            if (opts.focus !== false) valFocusTarget(first).focus();
+            form.dispatchEvent(new CustomEvent("kit:invalid", { bubbles: true, detail: { fields: fields } }));
+        }
+        return fields.length === 0;
+    }
+    valForm.reset = function (form) {
+        if (typeof form === "string") form = document.querySelector(form);
+        if (!form) return;
+        form.querySelectorAll(".is-invalid, .is-valid").forEach(function (b) { b.classList.remove("is-invalid", "is-valid"); });
+        form.querySelectorAll('[aria-invalid="true"]').forEach(function (c) { c.removeAttribute("aria-invalid"); });
+        form.querySelectorAll(".kit-feedback-invalid, .kit-feedback-valid").forEach(function (fb) { if (fb.hasAttribute("data-kit-auto")) fb.remove(); else fb.hidden = true; });
+    };
+
+    function valForm0(c) { return c instanceof Element && c.form && c.form.hasAttribute("data-kit-validate") ? c.form : null; }
+    document.addEventListener("submit", function (e) {
+        var f = e.target;
+        if (!(f instanceof HTMLFormElement) || !f.hasAttribute("data-kit-validate")) return;
+        f.noValidate = true;
+        if (!valForm(f)) { e.preventDefault(); e.stopPropagation(); }
+    }, true);
+    document.addEventListener("input", function (e) {
+        var c = e.target;
+        if (c instanceof Element && c.matches("input, textarea")) counterFor(c);
+        var f = valForm0(c);
+        if (!f) return;
+        c.setAttribute("data-kit-dirty", "");
+        var box = valBox(c);
+        if (box.classList.contains("is-invalid")) valBoxUpdate(box, true, f.getAttribute("data-kit-validate") === "ok");   // sparisce l'errore appena è corretto
+    });
+    document.addEventListener("change", function (e) {
+        var c = e.target, f = valForm0(c);
+        if (!f) return;
+        c.setAttribute("data-kit-dirty", "");
+        var box = valBox(c);
+        if (box.classList.contains("is-invalid") || c.type === "radio" || c.type === "checkbox" || c.tagName === "SELECT") valBoxUpdate(box, true, f.getAttribute("data-kit-validate") === "ok");
+    });
+    document.addEventListener("focusout", function (e) {
+        var c = e.target, f = valForm0(c);
+        if (!f || !c.hasAttribute("data-kit-dirty")) return;       // un campo mai toccato non diventa rosso solo perché ci si passa sopra
+        var to = e.relatedTarget;
+        if (to instanceof Element && c.closest(".kit-date, .kit-daterange, .kit-combo, .kit-select, .kit-file") && c.closest(".kit-date, .kit-daterange, .kit-combo, .kit-select, .kit-file").contains(to)) return;   // il focus passa al calendario o al menu dello stesso campo
+        valBoxUpdate(valBox(c), true, f.getAttribute("data-kit-validate") === "ok");
+    });
+    document.addEventListener("reset", function (e) {
+        var f = e.target;
+        if (!(f instanceof HTMLFormElement)) return;
+        setTimeout(function () {
+            if (f.hasAttribute("data-kit-validate")) { valForm.reset(f); f.querySelectorAll("[data-kit-dirty]").forEach(function (c) { c.removeAttribute("data-kit-dirty"); }); }
+            f.querySelectorAll("[data-kit-count]").forEach(counterUpdate);
+            document.querySelectorAll("[data-kit-count]").forEach(function (c) { var i = document.querySelector(c.getAttribute("data-kit-count")); if (i && i.form === f) counterUpdate(c); });
+        }, 0);
+    });
+    function formsInit(scope) {
+        scope.querySelectorAll("[data-kit-count]").forEach(counterUpdate);
+        scope.querySelectorAll("[data-kit-password]").forEach(function (b) {
+            if (b.tagName === "BUTTON" && !b.getAttribute("type")) b.type = "button";
+            if (!b.hasAttribute("aria-pressed")) b.setAttribute("aria-pressed", "false");
+            if (!b.hasAttribute("aria-label")) b.setAttribute("aria-label", b.getAttribute("data-kit-label-show") || "Mostra la password");
+        });
+        var forms = Array.prototype.slice.call(scope.querySelectorAll("form[data-kit-validate]"));
+        if (scope instanceof HTMLFormElement && scope.hasAttribute("data-kit-validate")) forms.push(scope);
+        forms.forEach(function (f) {
+            f.noValidate = true;
+            f.querySelectorAll(".kit-feedback-invalid, .kit-feedback-valid").forEach(function (fb) {
+                var box = fb.closest(".kit-field") || fb.parentNode;
+                if (!box.classList.contains("is-invalid") && !box.classList.contains("is-valid") && !box.querySelector('[aria-invalid="true"]')) fb.hidden = true;
+            });
+        });
+    }
+
     /* ---------- Colonne fisse (kit-table-fix data-kit-fix="2|3|4") ----------
        Le larghezze cumulate delle prime colonne diventano --kit-fix-1, -2, -3: sono il "left" delle colonne successive.
        Si rimisurano quando la tabella cambia dimensione (finestra, testo più grande, righe nuove). */
@@ -3467,6 +3644,7 @@
         scope.querySelectorAll("[data-kit-accordion]").forEach(function (a) { accordion(a); });
         scope.querySelectorAll("input[data-kit-datepicker], input[data-kit-timepicker]").forEach(function (i) { datePicker(i); });
         scope.querySelectorAll("[data-kit-daterange]").forEach(function (w) { dateRange(w); });
+        formsInit(scope);
         scope.querySelectorAll("table[data-kit-sort], table[data-kit-page]").forEach(function (t) { tblTable(t); });
         scope.querySelectorAll("[data-kit-filter]").forEach(function (i) { tblFilterInput(i); });
         scope.querySelectorAll("select[data-kit-select]").forEach(function (s) { nativeSelect(s); });
@@ -3575,5 +3753,5 @@
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { init(); });
     else init();
 
-    window.Kit = { theme: theme, layout: layout, sidebar: sidebar, fontSize: fontSize, reset: reset, toast: toast, undo: undo, confirm: confirmDialog, split: split, file: fileField, progress: progressDialog, combo: combo, select: nativeSelect, code: code, highlight: highlight, barChart: barChart, lineChart: lineChart, donut: donut, sparkline: sparkline, table: tblTable, paginate: tblPaginate, accordion: accordion, datepicker: datePicker, daterange: dateRange, date: { parse: parseDate, parseTime: parseTime, format: fmtDate, today: todayIso, labels: DT }, init: init };
+    window.Kit = { theme: theme, layout: layout, sidebar: sidebar, fontSize: fontSize, reset: reset, toast: toast, undo: undo, confirm: confirmDialog, split: split, file: fileField, progress: progressDialog, combo: combo, select: nativeSelect, code: code, highlight: highlight, barChart: barChart, lineChart: lineChart, donut: donut, sparkline: sparkline, table: tblTable, paginate: tblPaginate, accordion: accordion, datepicker: datePicker, daterange: dateRange, validate: valForm, date: { parse: parseDate, parseTime: parseTime, format: fmtDate, today: todayIso, labels: DT }, init: init };
 })();

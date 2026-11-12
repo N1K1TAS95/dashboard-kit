@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Form: layout e stati — Dashboard Kit</title>
+<meta name="description" content="Etichette, testo di aiuto, campo obbligatorio, form in colonna, in griglia, orizzontali e in sezioni, stati valido e non valido con messaggi, validazione automatica, dimensioni, icone dentro i campi, gruppi di campi, etichetta che sale, caselle a scheda e gli altri controlli.">
+<script src="../dist/kit.js"></script>
+<link rel="stylesheet" href="../dist/kit.css">
+<link rel="stylesheet" href="docs.css">
+</head>
+<body>
+<!-- Pagina generata da tools/gen-docs.py a partire da docs/src/form-layout.html: non modificarla a mano. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="i-chev-up" viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></symbol>
+<symbol id="i-chev-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
+<symbol id="i-chev-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+<symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5m0 0-6 6m6-6 6 6"/></symbol>
+<symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14m0 0-6-6m6 6 6-6"/></symbol>
+<symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5m0 0 6-6m-6 6 6 6"/></symbol>
+<symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></symbol>
+<symbol id="i-expand" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></symbol>
+<symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V4m0 0L8 8m4-4 4 4M5 20h14"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.5-3.5L4 9m0-5v5h5M4 13a8 8 0 0 0 14.5 3.5L20 15m0 5v-5h-5"/></symbol>
+<symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4zM13.5 6.5l4 4"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></symbol>
+<symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8L3 5z"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h8m4 0h4M4 17h4m4 0h8"/><circle cx="14" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+<symbol id="i-more" viewBox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01"/></symbol>
+<symbol id="i-more-v" viewBox="0 0 24 24"><path d="M12 5h.01M12 12h.01M12 19h.01"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7M6 10v10h4v-6h4v6h4V10"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0 1 16 0"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4l2-2zM10 21h4"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM14 3v5h5"/></symbol>
+<symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6a1 1 0 0 1 1-1h5l2 2h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6z"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-text" viewBox="0 0 24 24"><path d="M4 7V5h16v2M12 5v14M9 19h6"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+<symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+<symbol id="i-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 3 3 5-6"/></symbol>
+<symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3.5 2.5 20h19L12 3.5z"/><path d="M12 10v4.5M12 17.5h.01"/></symbol>
+<symbol id="i-error" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/></symbol>
+</defs></svg>
+<header class="kit-header">
+  <div class="kit-container-boxed">
+    <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
+    <span class="kit-spacer"></span>
+    <div class="kit-combo doc-search" role="search">
+      <svg class="kit-icon"><use href="#i-search"/></svg>
+      <input class="kit-input" type="text" placeholder="Cerca…" aria-label="Cerca nella documentazione" spellcheck="false">
+      <kbd aria-hidden="true">/</kbd>
+    </div>
+    <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
+    <div class="kit-dropdown">
+      <button class="kit-btn kit-btn-icon" data-kit-toggle="#settings" aria-haspopup="true" aria-expanded="false" aria-label="Impostazioni" title="Impostazioni"><svg class="kit-icon"><use href="#i-sliders"/></svg></button>
+      <div class="kit-pop kit-pop-right kit-settings" id="settings" role="group" aria-label="Impostazioni" hidden>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Tema</span>
+          <div class="kit-seg" role="group" aria-label="Tema">
+            <button data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg>Auto</button>
+            <button data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg>Chiaro</button>
+            <button data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg>Scuro</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Dimensione del testo</span>
+          <div class="kit-seg" role="group" aria-label="Dimensione del testo">
+            <button data-kit-fs-set="md" aria-label="Normale" title="Normale">A</button>
+            <button data-kit-fs-set="lg" aria-label="Grande" title="Grande">A</button>
+            <button data-kit-fs-set="xl" aria-label="Molto grande" title="Molto grande">A</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Larghezza del contenuto</span>
+          <div class="kit-seg" role="group" aria-label="Larghezza del contenuto">
+            <button data-kit-layout-set="boxed">Centrata</button>
+            <button data-kit-layout-set="fluid">Tutta la pagina</button>
+          </div>
+          <small>Si nota sugli schermi più larghi del contenuto.</small>
+        </div>
+        <div class="kit-settings-foot"><button class="kit-btn kit-btn-ghost" data-kit-reset>Ripristina</button></div>
+      </div>
+    </div>
+  </div>
+</header>
+<main class="kit-main">
+<div class="kit-container-boxed">
+<div class="kit-row kit-gy-0">
+  <aside class="kit-col-12 kit-col-lg-3">
+    <nav class="doc-nav" aria-label="Documentazione">
+      <details class="doc-nav-d" open>
+        <summary class="kit-btn">Menu della documentazione</summary>
+        <div class="doc-nav-body">
+          <div class="doc-nav-group">Per iniziare</div>
+          <a href="index.html">Introduzione</a>
+          <a href="javascript.html">JavaScript</a>
+          <div class="doc-nav-group">Layout</div>
+          <a href="layout.html">Layout</a>
+          <a href="grid.html">Griglia</a>
+          <a href="utilities.html">Utility</a>
+          <div class="doc-nav-group">Contenuto</div>
+          <a href="typography.html">Tipografia</a>
+          <div class="doc-nav-group">Componenti</div>
+          <a href="buttons.html">Bottoni</a>
+          <a href="forms.html">Form</a>
+          <a href="form-layout.html" class="is-current" aria-current="page">Form: layout e stati</a>
+          <ul class="doc-toc">
+            <li><a href="#etichette">Etichette, aiuto e campi obbligatori</a></li>
+            <li><a href="#layout">Layout</a></li>
+            <li><a href="#stati">Stati: valido, non valido, avviso</a></li>
+            <li><a href="#validazione">Validazione nel browser</a></li>
+            <li><a href="#dimensioni">Dimensioni</a></li>
+            <li><a href="#icone">Icone dentro i campi</a></li>
+            <li><a href="#gruppi">Gruppi di campi</a></li>
+            <li><a href="#float">Etichetta che sale</a></li>
+            <li><a href="#check">Caselle, radio e schede</a></li>
+            <li><a href="#controlli">Altri controlli</a></li>
+            <li><a href="#django">Con Django</a></li>
+          </ul>
+          <a href="dates.html">Date e orari</a>
+          <a href="navigation.html">Navigazione</a>
+          <a href="navbar.html">Navbar</a>
+          <a href="sidebar.html">Sidebar</a>
+          <a href="cards.html">Schede</a>
+          <a href="tables.html">Tabelle</a>
+          <a href="charts.html">Grafici</a>
+          <a href="content.html">Contenuti</a>
+          <a href="feedback.html">Feedback</a>
+          <a href="overlays.html">Dialog e menu</a>
+          <a href="icons.html">Icone</a>
+          <div class="doc-nav-group">Personalizzare</div>
+          <a href="theming.html">Temi e token</a>
+          <a href="snippets.html">Snippet VS Code</a>
+          <div class="doc-nav-group">Esempi</div>
+          <a href="dashboard.html">Dashboard <span class="kit-badge kit-badge-neutral">esempio</span></a>
+          <a href="dashboard-sidebar.html">Dashboard con sidebar <span class="kit-badge kit-badge-neutral">esempio</span></a>
+        </div>
+      </details>
+    </nav>
+  </aside>
+  <article class="kit-col-12 kit-col-lg-9 doc-content">
+    <h1 class="doc-title">Form: layout e stati</h1>
+    <p class="doc-lead">Etichette, testo di aiuto, campo obbligatorio, form in colonna, in griglia, orizzontali e in sezioni, stati valido e non valido con messaggi, validazione automatica, dimensioni, icone dentro i campi, gruppi di campi, etichetta che sale, caselle a scheda e gli altri controlli.</p>
+<h2 id="etichette">Etichette, aiuto e campi obbligatori</h2>
+<p>Un campo è un <code>.kit-field</code>: può essere una <code>&lt;label&gt;</code> che racchiude il campo (come nella pagina <a href="forms.html">Form</a>) oppure un <code>&lt;div&gt;</code> con una <code>&lt;label class="kit-label" for="…"&gt;</code> e il campo accanto. La seconda forma serve quando sotto al campo ci sono aiuto e messaggi, e per il layout orizzontale; è anche quella che Django genera. <code>.kit-hint</code> è il testo di aiuto, che si collega al campo con <code>aria-describedby</code>.</p>
+<p><code>.kit-required</code> sull'etichetta aggiunge l'asterisco rosso; <code>.kit-optional</code> aggiunge «(facoltativo)», che si cambia con <code>--kit-optional-text</code>. L'attributo <code>required</code> del campo resta quello che conta per il browser e per il server.</p>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <div class="kit-field">
+      <label class="kit-label kit-required" for="fl-mail">Email</label>
+      <input class="kit-input" id="fl-mail" type="email" placeholder="nome@azienda.it" required aria-describedby="fl-mail-h">
+      <div class="kit-hint" id="fl-mail-h">Ti scriviamo solo per la conferma.</div>
+    </div>
+    <div class="kit-field">
+      <label class="kit-label kit-optional" for="fl-tel">Telefono</label>
+      <input class="kit-input" id="fl-tel" type="tel" placeholder="+39 …">
+      <div class="kit-hint">Con il prefisso internazionale.</div>
+    </div>
+  </div>
+</div>
+
+<h2 id="layout">Layout</h2>
+<h3 id="colonna">In colonna e in griglia</h3>
+<p><code>.kit-form</code> mette i campi in colonna con lo spazio del kit (<code>--kit-sp</code>). Per più campi sulla stessa riga ci sono due strade: <code>.kit-fields</code> (griglia che si adatta, <code>kit-field-wide</code> occupa due colonne) oppure la <a href="grid.html">griglia a 12 colonne</a> con <code>.kit-row</code> e <code>.kit-col-*</code>, come in Bootstrap, per decidere la larghezza di ogni campo e a che punto vanno a capo.</p>
+<div class="doc-demo">
+  <form class="kit-form">
+    <div class="kit-row">
+      <div class="kit-col-12 kit-col-md-6"><div class="kit-field"><label class="kit-label" for="g-nome">Nome</label><input class="kit-input" id="g-nome" placeholder="Mario"></div></div>
+      <div class="kit-col-12 kit-col-md-6"><div class="kit-field"><label class="kit-label" for="g-cogn">Cognome</label><input class="kit-input" id="g-cogn" placeholder="Rossi"></div></div>
+      <div class="kit-col-12"><div class="kit-field"><label class="kit-label" for="g-ind">Indirizzo</label><input class="kit-input" id="g-ind" placeholder="Via, numero"></div></div>
+      <div class="kit-col-6 kit-col-md-5"><div class="kit-field"><label class="kit-label" for="g-cit">Città</label><input class="kit-input" id="g-cit"></div></div>
+      <div class="kit-col-6 kit-col-md-4"><div class="kit-field"><label class="kit-label" for="g-pr">Provincia</label><select class="kit-input" id="g-pr"><option>Milano</option><option>Torino</option><option>Roma</option></select></div></div>
+      <div class="kit-col-12 kit-col-md-3"><div class="kit-field"><label class="kit-label" for="g-cap">CAP</label><input class="kit-input" id="g-cap" inputmode="numeric" placeholder="20100"></div></div>
+    </div>
+  </form>
+</div>
+
+<h3 id="orizzontale">Orizzontale</h3>
+<p><code>.kit-form-h</code> sul form (o <code>.kit-field-h</code> su un solo campo) mette l'etichetta a sinistra e il campo, l'aiuto e i messaggi a destra. La larghezza dell'etichetta è <code>--kit-label-w</code> (<code>11rem</code>). Sotto i 576 px i campi tornano in colonna. Serve la forma con <code>&lt;div class="kit-field"&gt;</code> e <code>.kit-label</code>.</p>
+<div class="doc-demo">
+  <form class="kit-form kit-form-h">
+    <div class="kit-field"><label class="kit-label" for="h-rag">Ragione sociale</label><input class="kit-input" id="h-rag" value="Rossi Mario Srl"></div>
+    <div class="kit-field"><label class="kit-label" for="h-iva">Partita IVA</label><input class="kit-input" id="h-iva" value="01234567890"><div class="kit-hint">11 cifre, senza il prefisso IT.</div></div>
+    <div class="kit-field"><label class="kit-label" for="h-note">Note</label><textarea class="kit-input" id="h-note" rows="3"></textarea></div>
+    <div class="kit-form-foot kit-form-foot-end"><button type="button" class="kit-btn">Annulla</button><button type="button" class="kit-btn kit-btn-primary">Salva</button></div>
+  </form>
+</div>
+
+<h3 id="inline">In linea</h3>
+<p><code>.kit-form-inline</code> allinea campi e bottoni su una riga che va a capo da sola: per filtri e ricerche.</p>
+<div class="doc-demo">
+  <form class="kit-form-inline">
+    <div class="kit-field"><label class="kit-label" for="i-q">Cerca</label><input class="kit-input" id="i-q" placeholder="Numero o cliente"></div>
+    <div class="kit-field"><label class="kit-label" for="i-st">Stato</label><select class="kit-input" id="i-st"><option>Tutti</option><option>Pagate</option><option>Da pagare</option></select></div>
+    <button type="button" class="kit-btn kit-btn-primary">Filtra</button>
+  </form>
+</div>
+
+<h3 id="sezioni">Sezioni e gruppi</h3>
+<p><code>.kit-form-section</code> divide un form lungo in blocchi, con titolo e spiegazione a sinistra e i campi a destra (da 768 px; sotto sono in colonna). Per raggruppare campi collegati, o dei radio, si usa <code>&lt;fieldset class="kit-fieldset"&gt;</code> con la <code>&lt;legend&gt;</code>: un <code>disabled</code> sul fieldset disattiva tutto il gruppo.</p>
+<div class="doc-demo">
+  <form class="kit-form">
+    <section class="kit-form-section">
+      <div><h3 class="kit-form-section-title">Profilo</h3><p class="kit-form-section-desc">Come ti vedono gli altri utenti.</p></div>
+      <div class="kit-form-section-body">
+        <div class="kit-field"><label class="kit-label" for="s-nome">Nome visibile</label><input class="kit-input" id="s-nome" value="Mario R."></div>
+        <div class="kit-field"><label class="kit-label" for="s-bio">Bio</label><textarea class="kit-input" id="s-bio" rows="3" maxlength="120"></textarea><div class="kit-field-foot"><span class="kit-hint">Una riga su di te.</span><span class="kit-counter" data-kit-count="#s-bio"></span></div></div>
+      </div>
+    </section>
+    <section class="kit-form-section">
+      <div><h3 class="kit-form-section-title">Notifiche</h3><p class="kit-form-section-desc">Quando ricevere un'email.</p></div>
+      <div class="kit-form-section-body">
+        <fieldset class="kit-fieldset">
+          <legend>Avvisami quando</legend>
+          <label class="kit-check"><input type="checkbox" checked> arriva una fattura</label>
+          <label class="kit-check"><input type="checkbox"> una fattura scade</label>
+        </fieldset>
+      </div>
+    </section>
+  </form>
+</div>
+
+<h2 id="stati">Stati: valido, non valido, avviso</h2>
+<p><code>is-valid</code>, <code>is-invalid</code> e <code>is-warning</code> si mettono sul campo, oppure sul suo <code>.kit-field</code> e vale per tutto quello che contiene: bordo, anello di focus e, per i gruppi, tutte le parti. <code>aria-invalid="true"</code> vale come <code>is-invalid</code> (e serve ai lettori di schermo). Il messaggio è un <code>.kit-feedback</code> con <code>-valid</code>, <code>-invalid</code> o <code>-warning</code>, che si può far precedere da un'icona. Gli stati funzionano anche su select, combobox, campo file, zona di rilascio e intervallo di date.</p>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <div class="kit-field is-valid">
+      <label class="kit-label" for="st-ok">Codice cliente</label>
+      <input class="kit-input" id="st-ok" value="CL-2041">
+      <div class="kit-feedback kit-feedback-valid"><svg class="kit-icon"><use href="#i-check"/></svg>Codice libero.</div>
+    </div>
+    <div class="kit-field is-invalid">
+      <label class="kit-label" for="st-ko">Email</label>
+      <input class="kit-input" id="st-ko" value="mario@" aria-invalid="true" aria-describedby="st-ko-m">
+      <div class="kit-feedback kit-feedback-invalid" id="st-ko-m"><svg class="kit-icon"><use href="#i-error"/></svg>Scrivi un indirizzo completo.</div>
+    </div>
+    <div class="kit-field is-warning">
+      <label class="kit-label" for="st-w">Prezzo</label>
+      <input class="kit-input" id="st-w" value="0,00">
+      <div class="kit-feedback kit-feedback-warning"><svg class="kit-icon"><use href="#i-warn"/></svg>Il prezzo è zero.</div>
+    </div>
+  </div>
+</div>
+<p>Con le classi su un <code>.kit-field</code> anche le altre parti reagiscono, senza altro markup:</p>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <div class="kit-field is-invalid">
+      <span class="kit-label">Tipo di documento</span>
+      <div class="kit-select" data-kit-select>
+        <button type="button" class="kit-select-btn is-empty"><span class="kit-select-value">Scegli…</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
+        <div class="kit-pop" hidden><div class="kit-opt" data-value="a"><span class="kit-opt-text"><b>Fattura</b></span></div><div class="kit-opt" data-value="b"><span class="kit-opt-text"><b>Nota di credito</b></span></div></div>
+      </div>
+      <div class="kit-feedback kit-feedback-invalid">Scegli un tipo.</div>
+    </div>
+    <div class="kit-field is-invalid">
+      <span class="kit-label">Periodo</span>
+      <div class="kit-daterange" data-kit-daterange><input class="kit-input" type="date" aria-label="Dal"><input class="kit-input" type="date" aria-label="Al"></div>
+      <div class="kit-feedback kit-feedback-invalid">Indica il periodo.</div>
+    </div>
+    <div class="kit-field is-invalid">
+      <span class="kit-label">Condizioni</span>
+      <label class="kit-check"><input type="checkbox"> Accetto le condizioni di vendita</label>
+      <div class="kit-feedback kit-feedback-invalid">Devi accettare per continuare.</div>
+    </div>
+  </div>
+</div>
+<p>Per un controllo solo CSS dopo che l'utente ha toccato il campo, <code>class="kit-validate"</code> sul form usa <code>:user-invalid</code>: il bordo diventa rosso (e con <code>kit-validate-ok</code> verde) quando le regole HTML non sono rispettate. Non scrive messaggi: per quelli c'è la validazione qui sotto.</p>
+
+<h2 id="validazione">Validazione nel browser</h2>
+<p><code>data-kit-validate</code> su un <code>&lt;form&gt;</code> (richiede <code>kit.js</code>) controlla i campi con le regole HTML che già conosci (<code>required</code>, <code>type="email"</code>, <code>pattern</code>, <code>min</code>, <code>max</code>, <code>minlength</code>…): al submit marca <code>is-invalid</code>, scrive il messaggio nel <code>.kit-feedback-invalid</code> (se non c'è lo crea), collega il messaggio al campo con <code>aria-describedby</code>, porta il focus sul primo errore e blocca l'invio, htmx compreso. Un campo diventa rosso al blur solo se l'utente ci ha scritto, e l'errore sparisce appena il valore è corretto. Con <code>data-kit-validate="ok"</code> i campi giusti prendono <code>is-valid</code>.</p>
+<p>I messaggi sono quelli del browser (nella sua lingua). Per scrivere i tuoi: <code>data-kit-msg</code> sul campo per qualunque errore, oppure <code>data-kit-msg-required</code>, <code>-type</code>, <code>-pattern</code>, <code>-min</code>, <code>-max</code>, <code>-minlength</code>, <code>-maxlength</code>, <code>-step</code>. Funziona con i campi del kit: calendario (le sue regole di <code>min</code>, <code>max</code> e giorni esclusi), select, caselle e radio, file.</p>
+<div class="doc-demo">
+  <form class="kit-form" data-kit-validate="ok" autocomplete="off">
+    <div class="kit-field">
+      <label class="kit-label kit-required" for="v-mail">Email</label>
+      <input class="kit-input" id="v-mail" name="email" type="email" required data-kit-msg-required="Scrivi la tua email." data-kit-msg-type="Manca qualcosa: nome@dominio.it">
+      <div class="kit-feedback kit-feedback-valid">Perfetto.</div>
+    </div>
+    <div class="kit-field">
+      <label class="kit-label kit-required" for="v-pw">Password</label>
+      <div class="kit-control">
+        <input class="kit-input" id="v-pw" name="pw" type="password" required minlength="8" data-kit-msg-minlength="Almeno 8 caratteri." data-kit-msg-required="Scegli una password.">
+        <button type="button" class="kit-control-end" data-kit-password><svg class="kit-icon"><use href="#i-eye"/></svg></button>
+      </div>
+    </div>
+    <div class="kit-field">
+      <label class="kit-label kit-required" for="v-d">Data di consegna</label>
+      <input class="kit-input" id="v-d" type="date" required data-kit-datepicker data-kit-min="oggi" data-kit-msg-required="Scegli la data.">
+    </div>
+    <div class="kit-field">
+      <label class="kit-check"><input type="checkbox" name="cond" required data-kit-msg-required="Devi accettare per continuare."> Accetto le condizioni</label>
+    </div>
+    <div class="kit-form-foot"><button type="reset" class="kit-btn">Azzera</button><button type="submit" class="kit-btn kit-btn-primary">Invia</button></div>
+  </form>
+</div>
+<p>Da JavaScript: <code>Kit.validate(form)</code> esegue lo stesso controllo e restituisce <code>true</code> o <code>false</code> (opzioni <code>{ ok, focus }</code>); <code>Kit.validate.reset(form)</code> toglie stati e messaggi (lo fa da solo anche il <code>reset</code> del form). Se ci sono errori il form lancia <code>kit:invalid</code> con <code>{ fields }</code>, l'elenco dei campi non validi. Il server resta l'ultima parola: gli errori che manda indietro si mostrano con <code>is-invalid</code> e <code>.kit-feedback-invalid</code> scritti nell'HTML, e il kit li lascia come sono.</p>
+
+<h2 id="dimensioni">Dimensioni</h2>
+<p><code>kit-input-sm</code> e <code>kit-input-lg</code> su un campo; <code>kit-field-sm|lg</code> su un campo con i suoi bottoni e select; <code>kit-form-sm|lg</code> su tutto il form; <code>kit-input-group-sm|lg</code> su un gruppo. Cambiano <code>--kit-ctl</code> (l'altezza condivisa da campi e bottoni), quindi stanno sempre alla stessa altezza. <code>kit-btn-sm</code> è il bottone corrispondente.</p>
+<div class="doc-demo">
+  <div class="kit-form">
+    <input class="kit-input kit-input-sm" placeholder="Piccolo" aria-label="Piccolo">
+    <input class="kit-input" placeholder="Normale" aria-label="Normale">
+    <input class="kit-input kit-input-lg" placeholder="Grande" aria-label="Grande">
+    <div class="kit-input-group kit-input-group-lg"><input class="kit-input" placeholder="Gruppo grande" aria-label="Gruppo grande"><button type="button" class="kit-btn kit-btn-primary">Cerca</button></div>
+  </div>
+</div>
+
+<h2 id="icone">Icone dentro i campi</h2>
+<p><code>.kit-control</code> avvolge il campo e lascia posto a un'icona a sinistra (<code>.kit-control-start</code>) e a un'icona o un bottone a destra (<code>.kit-control-end</code>): il campo si fa spazio da solo. Con <code>is-valid</code>, <code>is-invalid</code> o <code>is-warning</code> sul <code>.kit-control</code> (o sul suo <code>.kit-field</code>) compare a destra l'icona dell'esito, disegnata dal CSS: spunta, croce o punto esclamativo, quindi senza immagini. <code>data-kit-password</code> su un bottone mostra e nasconde la password (<code>aria-pressed</code> e il testo per i lettori di schermo cambiano da soli).</p>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <div class="kit-field"><label class="kit-label" for="ic-q">Cerca</label>
+      <div class="kit-control"><span class="kit-control-start"><svg class="kit-icon"><use href="#i-search"/></svg></span><input class="kit-input" id="ic-q" placeholder="Cerca un cliente…"></div></div>
+    <div class="kit-field"><label class="kit-label" for="ic-pw">Password</label>
+      <div class="kit-control"><input class="kit-input" id="ic-pw" type="password" value="segreta123"><button type="button" class="kit-control-end" data-kit-password><svg class="kit-icon"><use href="#i-eye"/></svg></button></div></div>
+    <div class="kit-field is-valid"><label class="kit-label" for="ic-ok">Utente</label>
+      <div class="kit-control"><span class="kit-control-start"><svg class="kit-icon"><use href="#i-user"/></svg></span><input class="kit-input" id="ic-ok" value="mario.rossi"></div></div>
+    <div class="kit-field is-invalid"><label class="kit-label" for="ic-ko">Email</label>
+      <div class="kit-control"><span class="kit-control-start"><svg class="kit-icon"><use href="#i-info"/></svg></span><input class="kit-input" id="ic-ko" value="mario@" aria-invalid="true"></div>
+      <div class="kit-feedback kit-feedback-invalid">Indirizzo incompleto.</div></div>
+    <div class="kit-field is-warning"><label class="kit-label" for="ic-w">Importo</label>
+      <div class="kit-control"><input class="kit-input" id="ic-w" value="0,00"></div>
+      <div class="kit-feedback kit-feedback-warning">Controlla l'importo.</div></div>
+  </div>
+</div>
+
+<h2 id="gruppi">Gruppi di campi</h2>
+<p><code>.kit-input-group</code> attacca testo (<code>.kit-input-text</code>), icone, campi e bottoni in un unico blocco con i bordi uniti. Vale anche con un select nativo, un <code>.kit-select</code>, un combobox o un campo con calendario. Gli stati (<code>is-invalid</code>…) colorano tutte le parti.</p>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <div class="kit-field kit-field-wide"><label class="kit-label" for="gr-imp">Importo</label>
+      <div class="kit-input-group"><span class="kit-input-text">€</span><input class="kit-input" id="gr-imp" inputmode="decimal" value="1.250,00"><span class="kit-input-text">IVA esclusa</span></div></div>
+    <div class="kit-field kit-field-wide"><label class="kit-label" for="gr-url">Sito</label>
+      <div class="kit-input-group"><span class="kit-input-text">https://</span><input class="kit-input" id="gr-url" placeholder="azienda"><span class="kit-input-text">.it</span></div></div>
+    <div class="kit-field"><label class="kit-label" for="gr-c">Codice sconto</label>
+      <div class="kit-input-group"><input class="kit-input" id="gr-c" placeholder="PRIMAVERA"><button type="button" class="kit-btn kit-btn-primary">Applica</button></div></div>
+    <div class="kit-field"><label class="kit-label" for="gr-s">Prezzo e valuta</label>
+      <div class="kit-input-group"><input class="kit-input" id="gr-s" value="99,00"><select class="kit-input" aria-label="Valuta" style="max-width: 6rem"><option>EUR</option><option>USD</option></select></div></div>
+    <div class="kit-field is-invalid"><label class="kit-label" for="gr-i">Utente</label>
+      <div class="kit-input-group"><span class="kit-input-text">@</span><input class="kit-input" id="gr-i" value="mario rossi" aria-invalid="true"></div>
+      <div class="kit-feedback kit-feedback-invalid">Niente spazi.</div></div>
+  </div>
+</div>
+
+<h2 id="float">Etichetta che sale</h2>
+<p><code>.kit-float</code>: l'etichetta sta dentro il campo e, a campo pieno o con il focus, sale e si rimpicciolisce. Solo CSS. Il campo viene <b>prima</b> dell'etichetta e ha <code>placeholder=" "</code> (uno spazio). Vale per input, textarea e select. Non si usa sui campi con il calendario.</p>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <div class="kit-float"><input class="kit-input" id="f-n" placeholder=" "><label for="f-n">Nome e cognome</label></div>
+    <div class="kit-float"><input class="kit-input" id="f-m" type="email" placeholder=" " value="mario@azienda.it"><label for="f-m">Email</label></div>
+    <div class="kit-float"><select class="kit-input" id="f-s"><option>Milano</option><option>Torino</option></select><label for="f-s">Sede</label></div>
+    <div class="kit-float kit-field-wide"><textarea class="kit-input" id="f-t" placeholder=" "></textarea><label for="f-t">Messaggio</label></div>
+  </div>
+</div>
+
+<h2 id="check">Caselle, radio e schede</h2>
+<p><code>.kit-check</code> vale per caselle e radio. <code>.kit-check-text</code> aggiunge una riga di spiegazione sotto; <code>.kit-check-group</code> li dispone in colonna e <code>kit-check-inline</code> in riga; <code>.kit-check-card</code> li trasforma in schede selezionabili (<code>.kit-check-cards</code> le mette in griglia). Il gruppo si racchiude in un <code>fieldset</code> con la <code>legend</code>. Lo stato <code>is-invalid</code> segna il bordo del radio o della scheda.</p>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <fieldset class="kit-check-group">
+      <legend>Consegna</legend>
+      <label class="kit-check"><input type="radio" name="cons" checked> <span class="kit-check-text">Standard<small>2–3 giorni lavorativi</small></span></label>
+      <label class="kit-check"><input type="radio" name="cons"> <span class="kit-check-text">Espressa<small>Il giorno dopo, +5 €</small></span></label>
+      <label class="kit-check"><input type="radio" name="cons" disabled> Ritiro in sede</label>
+    </fieldset>
+    <fieldset class="kit-check-group">
+      <legend>Opzioni</legend>
+      <div class="kit-check-inline">
+        <label class="kit-check"><input type="checkbox" checked> Regalo</label>
+        <label class="kit-check"><input type="checkbox"> Fattura</label>
+        <label class="kit-check"><input type="checkbox"> Assicurazione</label>
+      </div>
+    </fieldset>
+  </div>
+  <fieldset class="kit-check-group" style="margin-top: var(--kit-sp)">
+    <legend>Piano</legend>
+    <div class="kit-check-cards">
+      <label class="kit-check kit-check-card"><input type="radio" name="piano" checked><span class="kit-check-text"><b>Base</b><small>Fino a 3 utenti</small></span></label>
+      <label class="kit-check kit-check-card"><input type="radio" name="piano"><span class="kit-check-text"><b>Team</b><small>Fino a 20 utenti</small></span></label>
+      <label class="kit-check kit-check-card"><input type="radio" name="piano"><span class="kit-check-text"><b>Azienda</b><small>Utenti illimitati</small></span></label>
+    </div>
+  </fieldset>
+</div>
+
+<h2 id="controlli">Altri controlli</h2>
+<p><code>.kit-input</code> si applica anche a <code>&lt;textarea&gt;</code> (altezza libera, ridimensionabile; <code>kit-textarea-auto</code> la fa crescere con il testo dove il browser lo permette), a un <code>&lt;select&gt;</code> nativo (con la freccia disegnata dal CSS), a <code>type="file"</code> e <code>type="color"</code>. <code>.kit-range</code> è per <code>type="range"</code>. <code>readonly</code> e <code>disabled</code> hanno un fondo diverso; <code>.kit-input-plain</code> mostra un valore come testo, senza cornice. <code>data-kit-count="#id"</code> su un testo scrive «n / maxlength» e diventa giallo vicino al limite e rosso al limite.</p>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <div class="kit-field"><label class="kit-label" for="o-t">Messaggio</label><textarea class="kit-input" id="o-t" rows="3" maxlength="60" placeholder="Scrivi qui…"></textarea><div class="kit-field-foot"><span class="kit-hint">Massimo 60 caratteri.</span><span class="kit-counter" data-kit-count="#o-t"></span></div></div>
+    <div class="kit-field"><label class="kit-label" for="o-s">Select nativo</label><select class="kit-input" id="o-s"><option>Una</option><option>Due</option><option>Tre</option></select></div>
+    <div class="kit-field"><label class="kit-label" for="o-f">File</label><input class="kit-input" id="o-f" type="file"></div>
+    <div class="kit-field"><label class="kit-label" for="o-c">Colore</label><input class="kit-input" id="o-c" type="color" value="#2f5fd0"></div>
+    <div class="kit-field"><label class="kit-label" for="o-r">Quantità</label><input class="kit-range" id="o-r" type="range" min="0" max="10" value="4"></div>
+    <div class="kit-field"><label class="kit-label" for="o-ro">Sola lettura</label><input class="kit-input" id="o-ro" value="FT-2026-0041" readonly></div>
+    <div class="kit-field"><label class="kit-label" for="o-d">Disattivato</label><input class="kit-input" id="o-d" value="Non modificabile" disabled></div>
+    <div class="kit-field"><span class="kit-label">Come testo</span><div class="kit-input kit-input-plain">mario@azienda.it</div></div>
+  </div>
+</div>
+
+<h2 id="django">Con Django</h2>
+<p>I nomi delle classi sono quelli che Django scrive nei widget; i messaggi di errore di <code>form.errors</code> vanno in un <code>.kit-feedback-invalid</code>. Un filtro o un template tag, o un widget con <code>attrs</code>, mette le classi sul campo.</p>
+<pre class="kit-code" data-kit-code="python"><code># forms.py
+class ContattoForm(forms.Form):
+    nome = forms.CharField(widget=forms.TextInput(attrs={"class": "kit-input"}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={"class": "kit-input"}))
+    messaggio = forms.CharField(max_length=300, widget=forms.Textarea(attrs={"class": "kit-input", "rows": 4}))</code></pre>
+<pre class="kit-code" data-kit-code="html"><code>&lt;!-- _campo.html: {% include "_campo.html" with field=form.email %} --&gt;
+&lt;div class="kit-field{% if field.errors %} is-invalid{% endif %}"&gt;
+  &lt;label class="kit-label{% if field.field.required %} kit-required{% endif %}" for="{{ field.id_for_label }}"&gt;{{ field.label }}&lt;/label&gt;
+  {{ field }}
+  {% if field.help_text %}&lt;div class="kit-hint"&gt;{{ field.help_text }}&lt;/div&gt;{% endif %}
+  {% for e in field.errors %}&lt;div class="kit-feedback kit-feedback-invalid"&gt;{{ e }}&lt;/div&gt;{% endfor %}
+&lt;/div&gt;</code></pre>
+<p>Il campo errato riceve il bordo dalla classe <code>is-invalid</code> del <code>.kit-field</code>; per dire anche ai lettori di schermo che è sbagliato, <code>aria-invalid="true"</code> si aggiunge dal widget, o con <code>data-kit-validate</code> sul form lo scrive <code>kit.js</code> al primo controllo. Con htmx i frammenti inseriti si inizializzano da soli.</p>
+    <nav class="doc-pager" aria-label="Pagina precedente e successiva">
+      <a href="forms.html"><small>← Precedente</small><b>Form</b></a>
+      <a class="doc-next" href="dates.html"><small>Successiva →</small><b>Date e orari</b></a>
+    </nav>
+  </article>
+</div>
+</div>
+</main>
+<script src="search-index.js"></script>
+<script src="docs.js"></script>
+</body>
+</html>

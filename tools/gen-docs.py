@@ -31,7 +31,7 @@ NAV = [
     ("Per iniziare", [("index", "Introduzione"), ("javascript", "JavaScript")]),
     ("Layout", [("layout", "Layout"), ("grid", "Griglia"), ("utilities", "Utility")]),
     ("Contenuto", [("typography", "Tipografia")]),
-    ("Componenti", [("buttons", "Bottoni"), ("forms", "Form"), ("dates", "Date e orari"), ("navigation", "Navigazione"), ("navbar", "Navbar"), ("sidebar", "Sidebar"),
+    ("Componenti", [("buttons", "Bottoni"), ("forms", "Form"), ("form-layout", "Form: layout e stati"), ("dates", "Date e orari"), ("navigation", "Navigazione"), ("navbar", "Navbar"), ("sidebar", "Sidebar"),
                     ("cards", "Schede"), ("tables", "Tabelle"), ("charts", "Grafici"), ("content", "Contenuti"),
                     ("feedback", "Feedback"), ("overlays", "Dialog e menu"), ("icons", "Icone")]),
     ("Personalizzare", [("theming", "Temi e token"), ("snippets", "Snippet VS Code")]),

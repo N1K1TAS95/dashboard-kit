@@ -1089,6 +1089,410 @@ a.kit-list-item:hover, button.kit-list-item:hover, .kit-list-action:hover { back
     padding-top: var(--kit-sp);
 }
 
+/* ===== Form: etichette, layout, stati, icone nei campi, gruppi ===== */
+/* Etichette e testo di aiuto. .kit-field vale anche su un <div>: l'etichetta allora è <label class="kit-label" for="…">. */
+.kit-label { display: block; font-size: 0.929rem; font-weight: 550; color: var(--kit-mute); }
+.kit-required::after { content: " *"; color: var(--kit-danger); font-weight: 600; }
+.kit-optional::after { content: var(--kit-optional-text, " (facoltativo)"); font-weight: 400; opacity: .8; }
+.kit-hint { font-size: 0.893rem; font-weight: 400; line-height: 1.4; color: var(--kit-mute); }
+.kit-field .kit-check, .kit-field .kit-switch { font-weight: 400; }
+/* Messaggi di esito sotto il campo: kit-feedback-valid | -invalid | -warning (con un'icona facoltativa davanti al testo). */
+.kit-feedback { display: flex; align-items: flex-start; gap: 6px; font-size: 0.893rem; font-weight: 450; line-height: 1.4; }
+.kit-feedback[hidden] { display: none; }
+.kit-feedback > .kit-icon { width: 1rem; height: 1rem; margin-top: .1em; }
+.kit-feedback-valid { color: var(--kit-success); }
+.kit-feedback-invalid { color: var(--kit-danger); }
+.kit-feedback-warning { color: var(--kit-warning); }
+/* Contatore dei caratteri e riga sotto il campo (aiuto a sinistra, contatore a destra) */
+.kit-counter { font-size: 0.857rem; font-weight: 400; color: var(--kit-mute); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.kit-counter.is-near { color: var(--kit-warning); }
+.kit-counter.is-full { color: var(--kit-danger); }
+.kit-field-foot { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.kit-field-foot > .kit-counter { margin-left: auto; }
+
+/* Layout. .kit-form mette i campi in colonna con lo spazio giusto; .kit-fields (sopra) li dispone in griglia; kit-row e kit-col-* funzionano anche qui. */
+.kit-form { display: grid; gap: var(--kit-sp); min-width: 0; }
+.kit-form-inline { display: flex; flex-wrap: wrap; gap: var(--kit-sp); align-items: flex-end; }
+.kit-form-inline > .kit-field { flex: 1 1 11rem; }
+.kit-form-inline > .kit-btn, .kit-form-inline > .kit-btn-group { flex: none; }
+.kit-form-foot-end { justify-content: flex-end; }
+/* Orizzontale: etichetta a sinistra (--kit-label-w), campo, aiuto e messaggi a destra. Sotto i 576px torna in colonna. */
+@media (min-width: 576px) {
+    .kit-field-h, .kit-form-h .kit-field { display: grid; grid-template-columns: var(--kit-label-w, 11rem) minmax(0, 1fr); column-gap: var(--kit-sp); row-gap: 6px; align-items: start; }
+    .kit-field-h > .kit-label, .kit-form-h .kit-field > .kit-label { grid-column: 1; padding-top: calc((var(--kit-ctl) - 1.4em) / 2); }
+    .kit-field-h > :not(.kit-label), .kit-form-h .kit-field > :not(.kit-label) { grid-column: 2; }
+    .kit-field-h.kit-field-center > .kit-label, .kit-form-h.kit-field-center .kit-field > .kit-label { padding-top: 0; align-self: center; }
+}
+/* Gruppo di campi con titolo (<fieldset class="kit-fieldset"><legend>…) */
+.kit-fieldset { border: 0; margin: 0; padding: 0; min-width: 0; display: grid; gap: 10px; }
+.kit-fieldset > legend { padding: 0; margin-bottom: 6px; font-size: 0.929rem; font-weight: 550; color: var(--kit-mute); }
+.kit-fieldset:disabled { opacity: .6; }
+/* Sezione di form: titolo e spiegazione a sinistra, campi a destra (da 768px), righe di separazione tra le sezioni */
+.kit-form-section { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--kit-sp); padding-block: var(--kit-sp); border-top: 1px solid var(--kit-line-soft); }
+.kit-form-section:first-child { border-top: 0; padding-top: 0; }
+.kit-form-section-title { margin: 0; font-size: 1.071rem; font-weight: 650; }
+.kit-form-section-desc { margin: 4px 0 0; font-size: 0.929rem; color: var(--kit-mute); max-width: 36ch; }
+.kit-form-section-body { display: grid; gap: var(--kit-sp); align-content: start; min-width: 0; }
+@media (min-width: 768px) { .kit-form-section { grid-template-columns: minmax(12rem, 1fr) minmax(0, 2fr); column-gap: calc(var(--kit-sp) * 2); } }
+
+/* Dimensioni: su un campo, su un gruppo, su un .kit-field o su tutto il form (kit-form-sm / -lg). Cambiano --kit-ctl, quindi anche bottoni e select dentro. */
+.kit-input-sm, .kit-input-group-sm, .kit-field-sm, .kit-form-sm, .kit-btn-sm { --kit-ctl: 2.2rem; }
+.kit-input-lg, .kit-input-group-lg, .kit-field-lg, .kit-form-lg { --kit-ctl: 3.2rem; }
+.kit-input-sm, .kit-field-sm .kit-input, .kit-form-sm .kit-input, .kit-input-group-sm .kit-input, .kit-input-group-sm .kit-input-text { font-size: 0.929rem; padding-inline: 10px; }
+.kit-input-lg, .kit-field-lg .kit-input, .kit-form-lg .kit-input, .kit-input-group-lg .kit-input, .kit-input-group-lg .kit-input-text { font-size: 1.143rem; padding-inline: 14px; }
+.kit-field-sm .kit-select-btn, .kit-form-sm .kit-select-btn { font-size: 0.929rem; padding-inline: 10px; }
+.kit-field-lg .kit-select-btn, .kit-form-lg .kit-select-btn { font-size: 1.143rem; padding-inline: 14px; }
+.kit-btn-sm { padding: 0 10px; font-size: 0.929rem; }
+.kit-form-sm .kit-btn, .kit-field-sm .kit-btn, .kit-input-group-sm .kit-btn { padding-inline: 10px; font-size: 0.929rem; }
+.kit-form-lg .kit-btn, .kit-field-lg .kit-btn, .kit-input-group-lg .kit-btn { padding-inline: 18px; font-size: 1.143rem; }
+
+/* Altri controlli: textarea, select nativo, file, colore, sola lettura, disattivato, testo semplice */
+textarea.kit-input { height: auto; min-height: calc(var(--kit-ctl) * 2); padding-block: 9px; line-height: 1.45; resize: vertical; }
+.kit-textarea-auto { field-sizing: content; }
+select.kit-input {
+    appearance: none; -webkit-appearance: none; padding-right: 2.4rem; cursor: pointer;
+    background-image: linear-gradient(45deg, transparent 50%, var(--kit-mute) 50%), linear-gradient(135deg, var(--kit-mute) 50%, transparent 50%);
+    background-position: calc(100% - 18px) 55%, calc(100% - 13px) 55%; background-size: 5px 5px, 5px 5px; background-repeat: no-repeat;
+}
+select.kit-input[multiple], select.kit-input[size]:not([size="1"]) { height: auto; padding-block: 6px; background-image: none; padding-right: 12px; cursor: default; }
+input[type="file"].kit-input { padding: 0 8px 0 0; line-height: calc(var(--kit-ctl) - 2px); color: var(--kit-mute); cursor: pointer; }
+input[type="file"].kit-input::file-selector-button {
+    height: calc(var(--kit-ctl) - 2px); margin: 0 10px 0 0; padding: 0 14px; border: 0; border-right: 1px solid var(--kit-line); border-radius: 0;
+    background: var(--kit-hover); color: var(--kit-ink); font: inherit; cursor: pointer;
+}
+input[type="color"].kit-input { width: 3.4rem; padding: 4px; cursor: pointer; }
+.kit-range { width: 100%; height: var(--kit-ctl); margin: 0; accent-color: var(--kit-accent); cursor: pointer; }
+.kit-range:focus-visible { outline: 2px solid var(--kit-accent); outline-offset: 2px; border-radius: 4px; }
+.kit-input[readonly] { background: color-mix(in srgb, var(--kit-mute) 8%, var(--kit-bg)); }
+.kit-input:disabled { background: color-mix(in srgb, var(--kit-mute) 12%, var(--kit-bg)); opacity: .7; cursor: not-allowed; }
+.kit-input-plain, .kit-input-plain:hover, .kit-input-plain:focus { border-color: transparent; background: none; box-shadow: none; padding-inline: 0; height: auto; min-height: var(--kit-ctl); display: flex; align-items: center; }
+
+/* Gruppo di campi: testo, icona, campo e bottone attaccati. <div class="kit-input-group"><span class="kit-input-text">€</span><input class="kit-input"><button class="kit-btn">…</button></div> */
+.kit-input-group { display: flex; align-items: stretch; min-width: 0; width: 100%; }
+.kit-input-group > .kit-input { flex: 1 1 auto; width: 1%; min-width: 0; }
+.kit-input-group > .kit-select, .kit-input-group > .kit-combo, .kit-input-group > .kit-date, .kit-input-group > .kit-control { flex: 1 1 auto; width: 1%; min-width: 0; }
+.kit-input-group > .kit-btn { flex: none; }
+.kit-input-text {
+    display: flex; align-items: center; gap: 6px; flex: none; padding: 0 12px; height: var(--kit-ctl);
+    border: 1px solid var(--kit-line); border-radius: var(--kit-rad-sm); white-space: nowrap;
+    background: color-mix(in srgb, var(--kit-mute) 10%, var(--kit-card)); color: var(--kit-mute); font-size: 1.036rem; font-weight: 400;
+}
+.kit-input-text .kit-icon { width: 1.1rem; height: 1.1rem; }
+.kit-input-group > :not(:first-child) { margin-left: -1px; border-top-left-radius: 0; border-bottom-left-radius: 0; }
+.kit-input-group > :not(:last-child) { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.kit-input-group > .kit-select:not(:first-child) .kit-select-btn, .kit-input-group > .kit-control:not(:first-child) > .kit-input, .kit-input-group > .kit-combo:not(:first-child) > .kit-input, .kit-input-group > .kit-date:not(:first-child) > .kit-input { border-top-left-radius: 0; border-bottom-left-radius: 0; }
+.kit-input-group > .kit-select:not(:last-child) .kit-select-btn, .kit-input-group > .kit-control:not(:last-child) > .kit-input, .kit-input-group > .kit-combo:not(:last-child) > .kit-input, .kit-input-group > .kit-date:not(:last-child) > .kit-input { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.kit-input-group > .kit-select:not(:first-child), .kit-input-group > .kit-control:not(:first-child), .kit-input-group > .kit-combo:not(:first-child), .kit-input-group > .kit-date:not(:first-child) { margin-left: -1px; border-radius: 0; }
+.kit-input-group > :is(.kit-input, .kit-btn):is(:hover, :focus, :focus-visible), .kit-input-group .kit-select-btn:is(:hover, :focus-visible) { position: relative; z-index: 1; }
+
+/* Icone dentro il campo: <div class="kit-control"><span class="kit-control-start"><svg class="kit-icon">…</svg></span><input class="kit-input"><button class="kit-control-end" aria-label="…">…</button></div>
+   Con is-valid / is-invalid / is-warning sul .kit-control (o sul .kit-field) compare da sola l'icona dell'esito, disegnata dal CSS. */
+.kit-control { position: relative; min-width: 0; display: block; }
+.kit-control > .kit-input { width: 100%; }
+.kit-control-start, .kit-control-end { position: absolute; top: 0; height: var(--kit-ctl); width: 2.5rem; display: grid; place-items: center; padding: 0; color: var(--kit-mute); }
+.kit-control-start { left: 0; pointer-events: none; }
+.kit-control-end { right: 0; border: 0; background: none; border-radius: 0 var(--kit-rad-sm) var(--kit-rad-sm) 0; }
+.kit-control-end:not(button) { pointer-events: none; }
+button.kit-control-end { cursor: pointer; }
+button.kit-control-end:hover { color: var(--kit-ink); }
+button.kit-control-end:focus-visible { outline: 2px solid var(--kit-accent); outline-offset: -2px; }
+.kit-control-start .kit-icon, .kit-control-end .kit-icon { width: 1.1rem; height: 1.1rem; }
+.kit-control:has(> .kit-control-start) > .kit-input { padding-left: 2.5rem; }
+.kit-control:has(> .kit-control-end) > .kit-input { padding-right: 2.5rem; }
+/* mostra/nascondi password: <button class="kit-control-end" data-kit-password>…occhio…</button> (la barra sull'occhio la disegna il CSS) */
+.kit-btn[data-kit-password] { position: relative; }
+[data-kit-password][aria-pressed="true"]::after { content: ""; position: absolute; left: 50%; top: 50%; width: 1.35rem; height: 2px; margin: -1px 0 0 -.675rem; border-radius: 2px; background: currentColor; transform: rotate(-45deg); box-shadow: 0 0 0 1.5px var(--kit-bg); pointer-events: none; }
+
+/* Etichetta che sale: <div class="kit-float"><input class="kit-input" placeholder=" " id="x"><label for="x">Nome</label></div> (anche textarea e select) */
+.kit-float { position: relative; min-width: 0; }
+.kit-float > .kit-input { --kit-ctl: 3.5rem; padding-top: 1.25rem; padding-bottom: .3rem; }
+.kit-float > textarea.kit-input { min-height: 6rem; padding-top: 1.6rem; }
+.kit-float > label {
+    position: absolute; left: 13px; top: 0; height: 3.5rem; display: flex; align-items: center; max-width: calc(100% - 26px);
+    overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 1.036rem; font-weight: 400; color: var(--kit-mute); pointer-events: none;
+    transform-origin: left top; transition: transform .12s ease, color .12s ease;
+}
+.kit-float > textarea ~ label { height: 3.2rem; }
+.kit-float > .kit-input::placeholder { color: transparent; }
+.kit-float > .kit-input:focus::placeholder { color: var(--kit-mute); }
+.kit-float > .kit-input:focus ~ label, .kit-float > .kit-input:not(:placeholder-shown) ~ label, .kit-float > select ~ label { transform: translateY(-.62rem) scale(.78); }
+.kit-float > .kit-input:focus ~ label { color: var(--kit-accent); }
+@media (prefers-reduced-motion: reduce) { .kit-float > label { transition: none; } }
+
+/* Caselle e radio: testo con spiegazione, gruppi in colonna o in riga, schede selezionabili */
+.kit-check:has(.kit-check-text small) { align-items: flex-start; }
+.kit-check:has(.kit-check-text small) > input { margin-top: .15rem; }
+.kit-check-text small { display: block; margin-top: 2px; font-size: 0.893rem; font-weight: 400; line-height: 1.4; color: var(--kit-mute); }
+.kit-check:has(> input:disabled) { opacity: .5; cursor: default; }
+.kit-check > input:disabled { cursor: default; }
+.kit-check-group { display: grid; gap: 10px; border: 0; margin: 0; padding: 0; min-width: 0; }
+.kit-check-group > legend { padding: 0; margin-bottom: 4px; font-size: 0.929rem; font-weight: 550; color: var(--kit-mute); }
+.kit-check-inline { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+.kit-check-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 10px; }
+.kit-check-card { padding: 12px 14px; border: 1px solid var(--kit-line); border-radius: var(--kit-rad-sm); background: var(--kit-card); align-items: flex-start; transition: border-color .12s, background-color .12s; }
+.kit-check-card:hover { border-color: color-mix(in srgb, var(--kit-accent) 50%, var(--kit-line)); }
+.kit-check-card:has(> input:checked) { border-color: var(--kit-accent); background: var(--kit-accent-soft); }
+.kit-check-card:has(> input:focus-visible) { outline: 2px solid var(--kit-accent); outline-offset: 2px; }
+.kit-check-card > input { margin-top: .15rem; }
+.kit-check-card .kit-check-text b { font-weight: 600; }
+.kit-check:is(.is-invalid) > input, .is-invalid .kit-check > input, .kit-check > input[aria-invalid="true"] { outline: 2px solid var(--kit-danger); outline-offset: 1px; border-radius: 3px; }
+.kit-check:is(.is-invalid) { color: var(--kit-danger); }
+.kit-check.is-valid > input, .is-valid .kit-check > input { accent-color: var(--kit-success); }
+.kit-check-card.is-invalid, .is-invalid .kit-check-card { border-color: var(--kit-danger); }
+
+/* Stati: is-valid, is-invalid, is-warning, sul campo, sul suo .kit-field o sul gruppo che lo contiene (.kit-select, .kit-combo, .kit-file, .kit-control, .kit-input-group…). aria-invalid="true" vale come is-invalid. */
+.kit-input.is-valid,
+.is-valid .kit-input,
+.kit-select-btn.is-valid,
+.is-valid .kit-select-btn,
+.kit-daterange.is-valid,
+.is-valid .kit-daterange,
+.kit-file-btn.is-valid,
+.is-valid .kit-file-btn,
+.kit-dropzone.is-valid,
+.is-valid .kit-dropzone,
+.kit-input-text.is-valid,
+.is-valid .kit-input-text { border-color: var(--kit-success); }
+.kit-input.is-valid:focus,
+.is-valid .kit-input:focus,
+.kit-input.is-valid:focus-within,
+.is-valid .kit-input:focus-within,
+.kit-input.is-valid[aria-expanded="true"],
+.is-valid .kit-input[aria-expanded="true"],
+.kit-input.is-valid:focus-visible,
+.is-valid .kit-input:focus-visible,
+.kit-select-btn.is-valid:focus,
+.is-valid .kit-select-btn:focus,
+.kit-select-btn.is-valid:focus-within,
+.is-valid .kit-select-btn:focus-within,
+.kit-select-btn.is-valid[aria-expanded="true"],
+.is-valid .kit-select-btn[aria-expanded="true"],
+.kit-select-btn.is-valid:focus-visible,
+.is-valid .kit-select-btn:focus-visible,
+.kit-daterange.is-valid:focus,
+.is-valid .kit-daterange:focus,
+.kit-daterange.is-valid:focus-within,
+.is-valid .kit-daterange:focus-within,
+.kit-daterange.is-valid[aria-expanded="true"],
+.is-valid .kit-daterange[aria-expanded="true"],
+.kit-daterange.is-valid:focus-visible,
+.is-valid .kit-daterange:focus-visible,
+.kit-file-btn.is-valid:focus,
+.is-valid .kit-file-btn:focus,
+.kit-file-btn.is-valid:focus-within,
+.is-valid .kit-file-btn:focus-within,
+.kit-file-btn.is-valid[aria-expanded="true"],
+.is-valid .kit-file-btn[aria-expanded="true"],
+.kit-file-btn.is-valid:focus-visible,
+.is-valid .kit-file-btn:focus-visible,
+.kit-dropzone.is-valid:focus,
+.is-valid .kit-dropzone:focus,
+.kit-dropzone.is-valid:focus-within,
+.is-valid .kit-dropzone:focus-within,
+.kit-dropzone.is-valid[aria-expanded="true"],
+.is-valid .kit-dropzone[aria-expanded="true"],
+.kit-dropzone.is-valid:focus-visible,
+.is-valid .kit-dropzone:focus-visible,
+.kit-input-text.is-valid:focus,
+.is-valid .kit-input-text:focus,
+.kit-input-text.is-valid:focus-within,
+.is-valid .kit-input-text:focus-within,
+.kit-input-text.is-valid[aria-expanded="true"],
+.is-valid .kit-input-text[aria-expanded="true"],
+.kit-input-text.is-valid:focus-visible,
+.is-valid .kit-input-text:focus-visible { border-color: var(--kit-success); box-shadow: 0 0 0 3px color-mix(in srgb, var(--kit-success) 22%, transparent); }
+.kit-input.is-invalid,
+.is-invalid .kit-input,
+.kit-input[aria-invalid="true"],
+.kit-select-btn.is-invalid,
+.is-invalid .kit-select-btn,
+.kit-select-btn[aria-invalid="true"],
+.kit-daterange.is-invalid,
+.is-invalid .kit-daterange,
+.kit-daterange[aria-invalid="true"],
+.kit-file-btn.is-invalid,
+.is-invalid .kit-file-btn,
+.kit-file-btn[aria-invalid="true"],
+.kit-dropzone.is-invalid,
+.is-invalid .kit-dropzone,
+.kit-dropzone[aria-invalid="true"],
+.kit-input-text.is-invalid,
+.is-invalid .kit-input-text,
+.kit-input-text[aria-invalid="true"] { border-color: var(--kit-danger); }
+.kit-input.is-invalid:focus,
+.is-invalid .kit-input:focus,
+.kit-input[aria-invalid="true"]:focus,
+.kit-input.is-invalid:focus-within,
+.is-invalid .kit-input:focus-within,
+.kit-input[aria-invalid="true"]:focus-within,
+.kit-input.is-invalid[aria-expanded="true"],
+.is-invalid .kit-input[aria-expanded="true"],
+.kit-input[aria-invalid="true"][aria-expanded="true"],
+.kit-input.is-invalid:focus-visible,
+.is-invalid .kit-input:focus-visible,
+.kit-input[aria-invalid="true"]:focus-visible,
+.kit-select-btn.is-invalid:focus,
+.is-invalid .kit-select-btn:focus,
+.kit-select-btn[aria-invalid="true"]:focus,
+.kit-select-btn.is-invalid:focus-within,
+.is-invalid .kit-select-btn:focus-within,
+.kit-select-btn[aria-invalid="true"]:focus-within,
+.kit-select-btn.is-invalid[aria-expanded="true"],
+.is-invalid .kit-select-btn[aria-expanded="true"],
+.kit-select-btn[aria-invalid="true"][aria-expanded="true"],
+.kit-select-btn.is-invalid:focus-visible,
+.is-invalid .kit-select-btn:focus-visible,
+.kit-select-btn[aria-invalid="true"]:focus-visible,
+.kit-daterange.is-invalid:focus,
+.is-invalid .kit-daterange:focus,
+.kit-daterange[aria-invalid="true"]:focus,
+.kit-daterange.is-invalid:focus-within,
+.is-invalid .kit-daterange:focus-within,
+.kit-daterange[aria-invalid="true"]:focus-within,
+.kit-daterange.is-invalid[aria-expanded="true"],
+.is-invalid .kit-daterange[aria-expanded="true"],
+.kit-daterange[aria-invalid="true"][aria-expanded="true"],
+.kit-daterange.is-invalid:focus-visible,
+.is-invalid .kit-daterange:focus-visible,
+.kit-daterange[aria-invalid="true"]:focus-visible,
+.kit-file-btn.is-invalid:focus,
+.is-invalid .kit-file-btn:focus,
+.kit-file-btn[aria-invalid="true"]:focus,
+.kit-file-btn.is-invalid:focus-within,
+.is-invalid .kit-file-btn:focus-within,
+.kit-file-btn[aria-invalid="true"]:focus-within,
+.kit-file-btn.is-invalid[aria-expanded="true"],
+.is-invalid .kit-file-btn[aria-expanded="true"],
+.kit-file-btn[aria-invalid="true"][aria-expanded="true"],
+.kit-file-btn.is-invalid:focus-visible,
+.is-invalid .kit-file-btn:focus-visible,
+.kit-file-btn[aria-invalid="true"]:focus-visible,
+.kit-dropzone.is-invalid:focus,
+.is-invalid .kit-dropzone:focus,
+.kit-dropzone[aria-invalid="true"]:focus,
+.kit-dropzone.is-invalid:focus-within,
+.is-invalid .kit-dropzone:focus-within,
+.kit-dropzone[aria-invalid="true"]:focus-within,
+.kit-dropzone.is-invalid[aria-expanded="true"],
+.is-invalid .kit-dropzone[aria-expanded="true"],
+.kit-dropzone[aria-invalid="true"][aria-expanded="true"],
+.kit-dropzone.is-invalid:focus-visible,
+.is-invalid .kit-dropzone:focus-visible,
+.kit-dropzone[aria-invalid="true"]:focus-visible,
+.kit-input-text.is-invalid:focus,
+.is-invalid .kit-input-text:focus,
+.kit-input-text[aria-invalid="true"]:focus,
+.kit-input-text.is-invalid:focus-within,
+.is-invalid .kit-input-text:focus-within,
+.kit-input-text[aria-invalid="true"]:focus-within,
+.kit-input-text.is-invalid[aria-expanded="true"],
+.is-invalid .kit-input-text[aria-expanded="true"],
+.kit-input-text[aria-invalid="true"][aria-expanded="true"],
+.kit-input-text.is-invalid:focus-visible,
+.is-invalid .kit-input-text:focus-visible,
+.kit-input-text[aria-invalid="true"]:focus-visible { border-color: var(--kit-danger); box-shadow: 0 0 0 3px color-mix(in srgb, var(--kit-danger) 22%, transparent); }
+.kit-input.is-warning,
+.is-warning .kit-input,
+.kit-select-btn.is-warning,
+.is-warning .kit-select-btn,
+.kit-daterange.is-warning,
+.is-warning .kit-daterange,
+.kit-file-btn.is-warning,
+.is-warning .kit-file-btn,
+.kit-dropzone.is-warning,
+.is-warning .kit-dropzone,
+.kit-input-text.is-warning,
+.is-warning .kit-input-text { border-color: var(--kit-warning); }
+.kit-input.is-warning:focus,
+.is-warning .kit-input:focus,
+.kit-input.is-warning:focus-within,
+.is-warning .kit-input:focus-within,
+.kit-input.is-warning[aria-expanded="true"],
+.is-warning .kit-input[aria-expanded="true"],
+.kit-input.is-warning:focus-visible,
+.is-warning .kit-input:focus-visible,
+.kit-select-btn.is-warning:focus,
+.is-warning .kit-select-btn:focus,
+.kit-select-btn.is-warning:focus-within,
+.is-warning .kit-select-btn:focus-within,
+.kit-select-btn.is-warning[aria-expanded="true"],
+.is-warning .kit-select-btn[aria-expanded="true"],
+.kit-select-btn.is-warning:focus-visible,
+.is-warning .kit-select-btn:focus-visible,
+.kit-daterange.is-warning:focus,
+.is-warning .kit-daterange:focus,
+.kit-daterange.is-warning:focus-within,
+.is-warning .kit-daterange:focus-within,
+.kit-daterange.is-warning[aria-expanded="true"],
+.is-warning .kit-daterange[aria-expanded="true"],
+.kit-daterange.is-warning:focus-visible,
+.is-warning .kit-daterange:focus-visible,
+.kit-file-btn.is-warning:focus,
+.is-warning .kit-file-btn:focus,
+.kit-file-btn.is-warning:focus-within,
+.is-warning .kit-file-btn:focus-within,
+.kit-file-btn.is-warning[aria-expanded="true"],
+.is-warning .kit-file-btn[aria-expanded="true"],
+.kit-file-btn.is-warning:focus-visible,
+.is-warning .kit-file-btn:focus-visible,
+.kit-dropzone.is-warning:focus,
+.is-warning .kit-dropzone:focus,
+.kit-dropzone.is-warning:focus-within,
+.is-warning .kit-dropzone:focus-within,
+.kit-dropzone.is-warning[aria-expanded="true"],
+.is-warning .kit-dropzone[aria-expanded="true"],
+.kit-dropzone.is-warning:focus-visible,
+.is-warning .kit-dropzone:focus-visible,
+.kit-input-text.is-warning:focus,
+.is-warning .kit-input-text:focus,
+.kit-input-text.is-warning:focus-within,
+.is-warning .kit-input-text:focus-within,
+.kit-input-text.is-warning[aria-expanded="true"],
+.is-warning .kit-input-text[aria-expanded="true"],
+.kit-input-text.is-warning:focus-visible,
+.is-warning .kit-input-text:focus-visible { border-color: var(--kit-warning); box-shadow: 0 0 0 3px color-mix(in srgb, var(--kit-warning) 22%, transparent); }
+/* icona dell'esito dentro il campo (.kit-control) */
+.kit-control.is-valid::after,
+.is-valid .kit-control::after,
+.kit-control.is-invalid::after,
+.is-invalid .kit-control::after,
+.kit-control.is-warning::after,
+.is-warning .kit-control::after {
+    content: "?"; position: absolute; right: .7rem; top: calc((var(--kit-ctl) - 1.3rem) / 2); width: 1.3rem; height: 1.3rem; border-radius: 50%;
+    display: grid; place-items: center; font: 700 .75rem/1 system-ui, sans-serif; color: var(--kit-accent-ink); pointer-events: none;
+}
+.kit-control.is-valid::after,
+.is-valid .kit-control::after { content: "\2713"; content: "\2713" / ""; background: var(--kit-success); }
+.kit-control.is-invalid::after,
+.is-invalid .kit-control::after { content: "\2715"; content: "\2715" / ""; background: var(--kit-danger); }
+.kit-control.is-warning::after,
+.is-warning .kit-control::after { content: "!"; content: "!" / ""; background: var(--kit-warning); }
+.kit-control.is-valid > .kit-input,
+.is-valid .kit-control > .kit-input,
+.kit-control.is-invalid > .kit-input,
+.is-invalid .kit-control > .kit-input,
+.kit-control.is-warning > .kit-input,
+.is-warning .kit-control > .kit-input { padding-right: 2.6rem; }
+.kit-control.is-valid:has(> .kit-control-end)::after,
+.is-valid .kit-control:has(> .kit-control-end)::after,
+.kit-control.is-invalid:has(> .kit-control-end)::after,
+.is-invalid .kit-control:has(> .kit-control-end)::after,
+.kit-control.is-warning:has(> .kit-control-end)::after,
+.is-warning .kit-control:has(> .kit-control-end)::after { right: 2.7rem; }
+.kit-control.is-valid:has(> .kit-control-end) > .kit-input,
+.is-valid .kit-control:has(> .kit-control-end) > .kit-input,
+.kit-control.is-invalid:has(> .kit-control-end) > .kit-input,
+.is-invalid .kit-control:has(> .kit-control-end) > .kit-input,
+.kit-control.is-warning:has(> .kit-control-end) > .kit-input,
+.is-warning .kit-control:has(> .kit-control-end) > .kit-input { padding-right: 4.2rem; }
+
+/* Validazione solo CSS dopo che l'utente ha toccato il campo: <form class="kit-validate"> (con kit-validate-ok anche il verde). */
+.kit-validate .kit-input:user-invalid { border-color: var(--kit-danger); }
+.kit-validate .kit-input:user-invalid:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--kit-danger) 22%, transparent); }
+.kit-validate-ok .kit-input:user-valid { border-color: var(--kit-success); }
+.kit-validate-ok .kit-input:user-valid:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--kit-success) 22%, transparent); }
+@media print { .kit-control-end, [data-kit-password] { display: none; } }
+
 /* ===== 7. Segmented, pill, chip, badge ===== */
 .kit-seg {
     display: inline-flex;
@@ -1932,7 +2336,6 @@ details[open] > summary > .kit-side-chev { transform: rotate(180deg); }
 .kit-input::-webkit-datetime-edit-hour-field:focus, .kit-input::-webkit-datetime-edit-minute-field:focus, .kit-input::-webkit-datetime-edit-ampm-field:focus {
     background: var(--kit-accent-soft); color: var(--kit-ink); border-radius: 3px; outline: none;
 }
-.kit-input:disabled { opacity: .55; cursor: default; }
 
 /* 2) Campo con il calendario: <input class="kit-input" type="date" data-kit-datepicker>. kit.js lo avvolge in .kit-date e aggiunge il bottone. */
 .kit-date { position: relative; min-width: 0; }

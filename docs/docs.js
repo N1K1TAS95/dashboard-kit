@@ -168,6 +168,14 @@ document.addEventListener("click", function (e) {
     if (chip) chip.remove();
 });
 
+// Form di prova negli esempi: l'invio non deve lasciare la pagina (se è valido, un toast lo conferma)
+document.addEventListener("submit", function (e) {
+    var f = e.target;
+    if (!(f instanceof HTMLFormElement) || !f.closest(".doc-demo")) return;
+    e.preventDefault();
+    if (window.Kit && f.hasAttribute("data-kit-validate")) Kit.toast("Tutto valido: il form sarebbe partito.", { type: "success" });
+});
+
 // Select: mostra il valore scelto nell'elemento [data-doc-out] dello stesso esempio
 document.addEventListener("kit:change", function (e) {
     var demo = e.target.closest(".doc-demo");

@@ -135,18 +135,15 @@
     "body": "<label class=\"kit-field\">${1:Etichetta} <input class=\"kit-input\" type=\"${2:text}\" placeholder=\"${3}\"></label>$0"
   },
   "Kit: gruppo di campi": {
-    "prefix": "kit-fields",
+    "prefix": "kit-input-group",
     "scope": "html",
-    "description": "Griglia di campi con piè di form",
+    "description": "Campo con testo o bottone attaccato",
     "body": [
-      "<div class=\"kit-fields\">",
-      "  <label class=\"kit-field\">${1:Nome} <input class=\"kit-input\"></label>",
-      "  <label class=\"kit-field\">${2:Data} <input class=\"kit-input\" type=\"date\"></label>",
-      "</div>",
-      "<div class=\"kit-form-foot\">",
-      "  <label class=\"kit-check\"><input type=\"checkbox\"> ${3:Opzione}</label>",
-      "  <button class=\"kit-btn kit-btn-primary\">${4:Invia}</button>",
-      "</div>$0"
+      "<div class=\"kit-input-group\">",
+      "  <span class=\"kit-input-text\">${1:€}</span>",
+      "  <input class=\"kit-input\" name=\"${2:importo}\" aria-label=\"${3:Importo}\">",
+      "  <button type=\"button\" class=\"kit-btn kit-btn-primary\">${4:Applica}</button>",
+      "</div>"
     ]
   },
   "Kit: ricerca": {
@@ -697,6 +694,85 @@
       "<label class=\"kit-field\">${1:Ora}",
       "  <input class=\"kit-input\" type=\"time\" name=\"${2:ora}\" data-kit-timepicker data-kit-step=\"${3:5}\">",
       "</label>"
+    ]
+  },
+  "Kit: form in colonna": {
+    "prefix": "kit-form",
+    "scope": "html",
+    "description": "Form con campi in colonna e validazione nel browser",
+    "body": [
+      "<form class=\"kit-form\" data-kit-validate>",
+      "  <div class=\"kit-field\">",
+      "    <label class=\"kit-label kit-required\" for=\"${1:id}\">${2:Etichetta}</label>",
+      "    <input class=\"kit-input\" id=\"${1:id}\" name=\"${3:nome}\" required>",
+      "    <div class=\"kit-hint\">${4:Testo di aiuto}</div>",
+      "  </div>",
+      "  <div class=\"kit-form-foot kit-form-foot-end\">",
+      "    <button type=\"reset\" class=\"kit-btn\">Azzera</button>",
+      "    <button type=\"submit\" class=\"kit-btn kit-btn-primary\">Invia</button>",
+      "  </div>",
+      "</form>"
+    ]
+  },
+  "Kit: campo con etichetta, aiuto e messaggio": {
+    "prefix": "kit-field",
+    "scope": "html",
+    "description": "Campo con etichetta, aiuto e messaggio di errore",
+    "body": [
+      "<div class=\"kit-field is-invalid\">",
+      "  <label class=\"kit-label\" for=\"${1:id}\">${2:Etichetta}</label>",
+      "  <input class=\"kit-input\" id=\"${1:id}\" name=\"${3:nome}\" aria-invalid=\"true\" aria-describedby=\"${1:id}-m\">",
+      "  <div class=\"kit-feedback kit-feedback-invalid\" id=\"${1:id}-m\">${4:Messaggio di errore}</div>",
+      "</div>"
+    ]
+  },
+  "Kit: form orizzontale": {
+    "prefix": "kit-form-h",
+    "scope": "html",
+    "description": "Form con l'etichetta a sinistra",
+    "body": [
+      "<form class=\"kit-form kit-form-h\">",
+      "  <div class=\"kit-field\">",
+      "    <label class=\"kit-label\" for=\"${1:id}\">${2:Etichetta}</label>",
+      "    <input class=\"kit-input\" id=\"${1:id}\" name=\"${3:nome}\">",
+      "  </div>",
+      "</form>"
+    ]
+  },
+  "Kit: campo con icona": {
+    "prefix": "kit-control",
+    "scope": "html",
+    "description": "Campo con icona a sinistra e bottone a destra (anche mostra/nascondi password)",
+    "body": [
+      "<div class=\"kit-control\">",
+      "  <span class=\"kit-control-start\"><svg class=\"kit-icon\"><use href=\"#i-${1:search}\"/></svg></span>",
+      "  <input class=\"kit-input\" name=\"${2:nome}\" aria-label=\"${3:Etichetta}\">",
+      "</div>"
+    ]
+  },
+  "Kit: etichetta che sale": {
+    "prefix": "kit-float",
+    "scope": "html",
+    "description": "Campo con l'etichetta dentro che sale",
+    "body": [
+      "<div class=\"kit-float\">",
+      "  <input class=\"kit-input\" id=\"${1:id}\" name=\"${2:nome}\" placeholder=\" \">",
+      "  <label for=\"${1:id}\">${3:Etichetta}</label>",
+      "</div>"
+    ]
+  },
+  "Kit: schede selezionabili": {
+    "prefix": "kit-check-cards",
+    "scope": "html",
+    "description": "Radio a schede",
+    "body": [
+      "<fieldset class=\"kit-check-group\">",
+      "  <legend>${1:Scegli}</legend>",
+      "  <div class=\"kit-check-cards\">",
+      "    <label class=\"kit-check kit-check-card\"><input type=\"radio\" name=\"${2:piano}\" checked><span class=\"kit-check-text\"><b>${3:Base}</b><small>${4:Descrizione}</small></span></label>",
+      "    <label class=\"kit-check kit-check-card\"><input type=\"radio\" name=\"${2:piano}\"><span class=\"kit-check-text\"><b>${5:Team}</b><small>${6:Descrizione}</small></span></label>",
+      "  </div>",
+      "</fieldset>"
     ]
   }
 }
