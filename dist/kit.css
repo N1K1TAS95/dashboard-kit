@@ -1216,11 +1216,12 @@ a.kit-list-item:hover, button.kit-list-item:hover, .kit-list-action:hover { back
 .kit-table th[aria-sort] { cursor: pointer; }
 .kit-table th[aria-sort]:hover { color: var(--kit-ink); }
 .kit-table th[aria-sort="ascending"], .kit-table th[aria-sort="descending"] { color: var(--kit-accent); }
-/* Con kit.js (data-kit-sort) il contenuto dell'intestazione diventa un bottone, con la freccia dell'ordine a destra. */
+/* Con kit.js (data-kit-sort) il contenuto dell'intestazione diventa un bottone, con la freccia dell'ordine a destra. Si può scrivere
+   anche a mano (<a> o <button class="kit-sort-btn"> dentro un <th aria-sort>), per l'ordinamento fatto dal server. */
 .kit-sort-btn {
     display: inline-flex; align-items: center; gap: 6px;
     padding: 0; border: 0; background: none; cursor: pointer;
-    font: inherit; color: inherit; text-transform: inherit; letter-spacing: inherit; text-align: inherit;
+    font: inherit; color: inherit; text-transform: inherit; letter-spacing: inherit; text-align: inherit; text-decoration: none;
 }
 .kit-sort-btn::after { content: "\2195"; font-size: .9em; opacity: .35; text-transform: none; }
 .kit-sort-btn:hover::after { opacity: .7; }

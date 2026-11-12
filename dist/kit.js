@@ -21,6 +21,7 @@
  *   data-kit-sort                            su .kit-table: le intestazioni (<th>) ordinano le righe (con ="multi", Shift o Ctrl/⌘ + clic ordina per più colonne; numeri, date e testo si riconoscono da soli; data-kit-type e data-kit-value per forzarli, data-kit-nosort per escludere una colonna)
  *   data-kit-filter="#tabella"               su un campo di testo: mostra solo le righe che contengono tutte le parole scritte
  *   data-kit-page="N"                        su .kit-table: mostra N righe per volta, con la paginazione sotto (data-kit-empty cambia il testo «Nessun risultato»)
+ *   (htmx)                                   i frammenti inseriti da htmx si inizializzano da soli (evento htmx:load)
  *   data-kit-tabs                            su .kit-tabs: tab con data-kit-panel="#id"
  *   data-kit-nav="#id"                       bottone (hamburger) che apre/chiude il menu a scomparsa di una .kit-navbar
  *   data-kit-open="#dialogId"                apre un <dialog>
@@ -2554,6 +2555,25 @@
     var savedSide = readSide();
     if (savedSide) root.setAttribute("data-kit-sidebar", savedSide);
     window.addEventListener("resize", sideSync);
+
+    // htmx: ogni frammento inserito da htmx lancia "htmx:load"; lo si inizializza (una sola volta per contenitore, anche se i
+    // nodi inseriti sono tanti). init() si può ripetere senza duplicare niente, e parte dal contenitore perché il nodo stesso
+    // (per esempio una tabella sostituita con outerHTML) non rientra nelle ricerche che fa su ciò che contiene.
+    var htmxQueue = null;
+    document.addEventListener("htmx:load", function (e) {
+        var t = e.target;
+        if (!(t instanceof Element) || t === document.body || t === root) return;
+        var scope = t.parentNode instanceof Element ? t.parentNode : t;
+        if (!htmxQueue) {
+            htmxQueue = new Set();
+            Promise.resolve().then(function () {
+                var list = htmxQueue;
+                htmxQueue = null;
+                list.forEach(function (el) { if (el.isConnected) init(el); });
+            });
+        }
+        htmxQueue.add(scope);
+    });
 
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { init(); });
     else init();

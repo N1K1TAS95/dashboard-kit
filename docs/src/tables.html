@@ -169,6 +169,104 @@
   </nav>
 </div>
 
+<h2 id="htmx">Con Django e htmx</h2>
+<p>Quando i record sono tanti la paginazione, l'ordine e il filtro li fa il server, una pagina per volta, e <code>data-kit-sort</code>, <code>data-kit-filter</code> e <code>data-kit-page</code> non servono: lavorano sulle righe già presenti. Si usa solo il CSS (<code>kit-pagination</code>, <code>kit-sort-btn</code>, <code>aria-sort</code>) e htmx sostituisce il blocco. Se <code>kit.js</code> c'è, i frammenti inseriti da htmx si inizializzano da soli (evento <code>htmx:load</code>): select, combobox, tab, codice colorato e tabelle ordinabili dentro la risposta funzionano senza chiamare <code>Kit.init</code>.</p>
+<p>Lo schema: un contenitore con un id (<code>#fatture</code>) che è il <code>hx-target</code> e contiene la card con tabella e barra; il campo di ricerca sta <em>fuori</em>, così non viene sostituito e il cursore resta dov'è. <code>hx-boost</code> sul contenitore trasforma i link normali (intestazioni, pagine) in richieste htmx con la cronologia del browser; i link continuano a funzionare anche senza JavaScript.</p>
+<p>La pagina intera (<code>fatture/elenco.html</code>) contiene il campo e il contenitore; la vista risponde col solo frammento (<code>fatture/_tabella.html</code>) alle richieste htmx.</p>
+
+```html
+<!-- fatture/elenco.html -->
+<input class="kit-input" type="search" name="q" value="{{ q }}" placeholder="Cerca nelle fatture…" aria-label="Cerca nelle fatture"
+       hx-get="{% url 'fatture' %}" hx-trigger="input changed delay:300ms, search"
+       hx-target="#fatture" hx-push-url="true" hx-include="#fatture [name=sort]" hx-indicator="#fatture">
+
+<div id="fatture" hx-boost="true" hx-target="#fatture" hx-swap="innerHTML" hx-indicator="#fatture">
+  {% include "fatture/_tabella.html" %}
+</div>
+```
+
+```html
+<!-- fatture/_tabella.html -->
+<input type="hidden" name="sort" value="{{ sort }}">
+<section class="kit-card">
+  <div class="kit-table-wrap">
+    <table class="kit-table">
+      <thead><tr>
+        <th aria-sort="{% if sort == 'cliente' %}ascending{% elif sort == '-cliente' %}descending{% else %}none{% endif %}">
+          <a class="kit-sort-btn" id="ord-cliente"
+             href="{% if sort == 'cliente' %}{% querystring sort='-cliente' page=None %}{% else %}{% querystring sort='cliente' page=None %}{% endif %}">Cliente</a>
+        </th>
+        <!-- le altre colonne uguali; senza kit-sort-btn e aria-sort una colonna non è ordinabile -->
+      </tr></thead>
+      <tbody>
+        {% for f in page %}
+          <tr><td>{{ f.cliente }}</td></tr>
+        {% empty %}
+          <tr class="kit-table-empty"><td colspan="4">Nessun risultato</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <nav class="kit-pagination" aria-label="Paginazione">
+    <p class="kit-pagination-info">{{ page.start_index }}–{{ page.end_index }} di {{ page.paginator.count }}</p>
+    {% if page.paginator.num_pages > 1 %}
+    <div class="kit-pagination-pages">
+      {% if page.has_previous %}
+        <a class="kit-btn kit-btn-ghost kit-btn-icon" id="fatture-prev" href="{% querystring page=page.previous_page_number %}" aria-label="Pagina precedente">‹</a>
+      {% else %}
+        <span class="kit-btn kit-btn-ghost kit-btn-icon" aria-disabled="true">‹</span>
+      {% endif %}
+      {% for n in pages %}
+        {% if n == page.paginator.ELLIPSIS %}
+          <span class="kit-pagination-gap" aria-hidden="true">…</span>
+        {% elif n == page.number %}
+          <a class="kit-btn" href="{% querystring page=n %}" aria-current="page" aria-label="Pagina {{ n }}">{{ n }}</a>
+        {% else %}
+          <a class="kit-btn kit-btn-ghost" href="{% querystring page=n %}" aria-label="Pagina {{ n }}">{{ n }}</a>
+        {% endif %}
+      {% endfor %}
+      {% if page.has_next %}
+        <a class="kit-btn kit-btn-ghost kit-btn-icon" id="fatture-next" href="{% querystring page=page.next_page_number %}" aria-label="Pagina successiva">›</a>
+      {% else %}
+        <span class="kit-btn kit-btn-ghost kit-btn-icon" aria-disabled="true">›</span>
+      {% endif %}
+    </div>
+    {% endif %}
+  </nav>
+</section>
+```
+
+```python
+# fatture/views.py
+from django.core.paginator import Paginator
+from django.db.models import Q
+from django.shortcuts import render
+
+ORDINI = {"data": "data", "cliente": "cliente__nome", "importo": "importo"}
+
+def fatture(request):
+    qs = Fattura.objects.select_related("cliente")
+    q = request.GET.get("q", "").strip()
+    if q:
+        qs = qs.filter(Q(numero__icontains=q) | Q(cliente__nome__icontains=q))
+    sort = request.GET.get("sort", "-data")
+    campo = ORDINI.get(sort.lstrip("-"))
+    if campo:
+        qs = qs.order_by(("-" if sort.startswith("-") else "") + campo, "pk")   # "pk" tiene stabile l'ordine tra una pagina e l'altra
+    page = Paginator(qs, 10).get_page(request.GET.get("page"))
+    pages = list(page.paginator.get_elided_page_range(page.number, on_each_side=1, on_ends=1))
+    # htmx chiede il frammento, ma il tasto «indietro» senza cronologia in cache vuole la pagina intera
+    parziale = request.headers.get("HX-Request") and not request.headers.get("HX-History-Restore-Request")
+    return render(request, "fatture/_tabella.html" if parziale else "fatture/elenco.html",
+                  {"page": page, "pages": pages, "q": q, "sort": sort})
+```
+
+```css
+/* mentre la richiesta è in corso htmx mette .htmx-request sull'elemento di hx-indicator */
+#fatture.htmx-request { opacity: .55; pointer-events: none; transition: opacity .2s; }
+```
+<p>Qualche dettaglio che conta: <code>{% querystring %}</code> (Django 5.1) tiene gli altri parametri dell'indirizzo, quindi la ricerca e l'ordine restano mentre si cambia pagina, e <code>page=None</code> toglie la pagina quando cambia l'ordine; prima di 5.1 serve un template tag equivalente. Gli <code>id</code> sui link precedente e successivo servono a htmx, che dopo la sostituzione rimette il focus sull'elemento con lo stesso id: chi naviga da tastiera non lo perde. Per le intestazioni, <code>kit-sort-btn</code> funziona anche su un <code>&lt;a&gt;</code>; con l'ordinamento su più colonne scritto dal server il numero di priorità è un <code>&lt;span class="kit-sort-n"&gt;2&lt;/span&gt;</code> dentro il link.</p>
+
 <h2 id="api">JavaScript</h2>
 <p>Gli attributi bastano nella maggior parte dei casi. Se le righe cambiano dopo il caricamento (una tabella riempita da una richiesta) si chiama <code>api.refresh()</code>; per il resto <code>Kit.table(tabella, opzioni)</code> fa tutto da codice e <code>Kit.paginate(tabella, righe)</code> è la scorciatoia per la sola paginazione. Entrambe restituiscono lo stesso oggetto.</p>
 <div class="doc-demo" data-doc-nocode>

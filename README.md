@@ -10,11 +10,11 @@ Da CDN (jsDelivr), fissando sempre una versione:
 ```html
 <link rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.9.0/dist/kit.css"
-      integrity="sha384-n4ZAze22k2WAznucX6cb3p7CDVqTB6HbZFrk6dPHlF7SnYvzOIDDSbg7gJKrXJyO"
+      integrity="sha384-sp5WaS+HxkcZpyHcBDhpt3Z4ptiYawf1DN2W/oAZJR9DSWGk1rlb5sk6sXE8E+6Y"
       crossorigin="anonymous">
 <!-- opzionale: tema, select, popover, tab, dialog, toast -->
 <script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.9.0/dist/kit.js"
-        integrity="sha384-Bd1YPu1NsWrLL1tINt1mtbgwkXnErZLmmJXr+zsRan4aghjVkYNaZrJ90X1gAV8X"
+        integrity="sha384-L+7jevOS6WD6/9avDOtAa+s1/Zik0zcF4gYSi2C0cjKlZZMPz7dYG1zCkC1+tYGL"
         crossorigin="anonymous"></script>
 <!-- opzionale: le icone (sprite SVG inserito nella pagina) -->
 <script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.9.0/dist/kit-icons.js"
