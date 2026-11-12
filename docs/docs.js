@@ -172,7 +172,9 @@ document.addEventListener("click", function (e) {
 document.addEventListener("kit:change", function (e) {
     var demo = e.target.closest(".doc-demo");
     var out = demo && demo.querySelector("[data-doc-out]");
-    if (out) out.textContent = "Valore: " + e.detail.value;
+    if (!out) return;
+    var d = e.detail;
+    out.textContent = "Valore: " + (d.value !== undefined ? d.value || "–" : (d.from || "–") + " → " + (d.to || "–"));
 });
 
 // Esempi che si disegnano da soli al caricamento (data-doc-init="nome"); il codice mostrato è quello di data-doc-js.

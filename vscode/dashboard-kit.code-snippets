@@ -657,5 +657,46 @@
       "  <p>${2:Testo…}</p>",
       "</article>$0"
     ]
+  },
+  "Kit: campo data con calendario": {
+    "prefix": "kit-date",
+    "scope": "html",
+    "description": "Campo data con il calendario del kit (gg/mm/aaaa, valore ISO)",
+    "body": [
+      "<label class=\"kit-field\">${1:Data}",
+      "  <input class=\"kit-input\" type=\"date\" name=\"${2:data}\" data-kit-datepicker>",
+      "</label>"
+    ]
+  },
+  "Kit: intervallo di date": {
+    "prefix": "kit-daterange",
+    "scope": "html",
+    "description": "Intervallo dal-al con calendario a due mesi e scelte rapide",
+    "body": [
+      "<div class=\"kit-daterange\" data-kit-daterange>",
+      "  <input class=\"kit-input\" type=\"date\" name=\"${1:dal}\" aria-label=\"Dal\">",
+      "  <input class=\"kit-input\" type=\"date\" name=\"${2:al}\" aria-label=\"Al\">",
+      "</div>"
+    ]
+  },
+  "Kit: data e ora": {
+    "prefix": "kit-datetime",
+    "scope": "html",
+    "description": "Campo data e ora con calendario e colonne di ore e minuti",
+    "body": [
+      "<label class=\"kit-field\">${1:Data e ora}",
+      "  <input class=\"kit-input\" type=\"datetime-local\" name=\"${2:quando}\" data-kit-datepicker data-kit-step=\"${3:15}\">",
+      "</label>"
+    ]
+  },
+  "Kit: campo ora": {
+    "prefix": "kit-time",
+    "scope": "html",
+    "description": "Campo ora (hh:mm) con selettore di ore e minuti",
+    "body": [
+      "<label class=\"kit-field\">${1:Ora}",
+      "  <input class=\"kit-input\" type=\"time\" name=\"${2:ora}\" data-kit-timepicker data-kit-step=\"${3:5}\">",
+      "</label>"
+    ]
   }
 }

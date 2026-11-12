@@ -1046,7 +1046,7 @@ a.kit-list-item:hover, button.kit-list-item:hover, .kit-list-action:hover { back
 .kit-input:hover { border-color: color-mix(in srgb, var(--kit-accent) 50%, var(--kit-line)); }
 .kit-input:focus { border-color: var(--kit-accent); box-shadow: 0 0 0 3px var(--kit-accent-soft); outline: none; }
 .kit-input[aria-invalid="true"] { border-color: var(--kit-danger); }
-.kit-input::-webkit-calendar-picker-indicator { opacity: .6; cursor: pointer; }
+.kit-input::-webkit-calendar-picker-indicator { opacity: .6; cursor: pointer; }   /* date e orari: vedi «Date e orari» più sotto */
 
 .kit-search { position: relative; flex: 1; min-width: 260px; }
 .kit-search > .kit-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--kit-mute); pointer-events: none; }
@@ -1917,6 +1917,168 @@ details[open] > summary > .kit-side-chev { transform: rotate(180deg); }
     :root[data-kit-sidebar="collapsed"] .kit-app-expand-xl .kit-side-tools { flex-direction: column; }
 }
 @media print { .kit-sidebar { display: none !important; } .kit-app { display: block !important; } }
+
+/* ===== Date e orari ===== */
+/* 1) Campi nativi: date, time, datetime-local, month e week prendono l'aspetto di .kit-input (anche su iOS, dove altrimenti
+   il testo è centrato e un campo vuoto si schiaccia). Senza JavaScript restano il selettore del browser. */
+.kit-input[type="date"], .kit-input[type="time"], .kit-input[type="datetime-local"], .kit-input[type="month"], .kit-input[type="week"] {
+    -webkit-appearance: none; appearance: none;
+    min-width: 0; min-height: var(--kit-ctl); line-height: 1.2; text-align: left; font-family: inherit; font-variant-numeric: tabular-nums;
+}
+.kit-input::-webkit-date-and-time-value { text-align: left; min-height: 1.2em; margin: 0; }
+.kit-input::-webkit-datetime-edit { padding: 0; }
+.kit-input::-webkit-datetime-edit-fields-wrapper { padding: 0; }
+.kit-input::-webkit-datetime-edit-day-field:focus, .kit-input::-webkit-datetime-edit-month-field:focus, .kit-input::-webkit-datetime-edit-year-field:focus,
+.kit-input::-webkit-datetime-edit-hour-field:focus, .kit-input::-webkit-datetime-edit-minute-field:focus, .kit-input::-webkit-datetime-edit-ampm-field:focus {
+    background: var(--kit-accent-soft); color: var(--kit-ink); border-radius: 3px; outline: none;
+}
+.kit-input:disabled { opacity: .55; cursor: default; }
+
+/* 2) Campo con il calendario: <input class="kit-input" type="date" data-kit-datepicker>. kit.js lo avvolge in .kit-date e aggiunge il bottone. */
+.kit-date { position: relative; min-width: 0; }
+.kit-date > .kit-input { padding-right: 2.5rem; }
+.kit-date-btn {
+    position: absolute; top: 0; right: 0; height: var(--kit-ctl); width: 2.5rem;
+    display: grid; place-items: center; padding: 0; border: 0; background: none; color: var(--kit-mute); cursor: pointer;
+    border-radius: 0 var(--kit-rad-sm) var(--kit-rad-sm) 0;
+}
+.kit-date-btn:hover, .kit-date-btn[aria-expanded="true"] { color: var(--kit-accent); }
+.kit-date-btn:focus-visible { outline: 2px solid var(--kit-accent); outline-offset: -2px; }
+.kit-date-btn:disabled { opacity: .45; cursor: default; }
+.kit-date-btn .kit-icon { width: 1.1rem; height: 1.1rem; }
+
+/* Intervallo: due campi in un'unica cornice. Funziona anche con le sole date native (senza kit.js). */
+.kit-daterange {
+    position: relative; display: flex; align-items: stretch; min-width: 0; height: var(--kit-ctl);
+    border: 1px solid var(--kit-line); border-radius: var(--kit-rad-sm); background: var(--kit-bg);
+}
+.kit-daterange:hover { border-color: color-mix(in srgb, var(--kit-accent) 50%, var(--kit-line)); }
+.kit-daterange:focus-within { border-color: var(--kit-accent); box-shadow: 0 0 0 3px var(--kit-accent-soft); }
+.kit-daterange > .kit-input { flex: 1 1 0; width: 0; min-width: 0; height: 100%; border: 0; border-radius: 0; background: none; box-shadow: none; }
+.kit-daterange > .kit-input ~ .kit-input { border-left: 1px solid var(--kit-line-soft); }
+.kit-daterange > .kit-input:first-of-type { border-radius: var(--kit-rad-sm) 0 0 var(--kit-rad-sm); }
+.kit-daterange > .kit-date-btn { position: static; flex: none; height: auto; }
+.kit-daterange > .kit-input[aria-invalid="true"] { color: var(--kit-danger); }
+.kit-daterange:has(> .kit-input[aria-invalid="true"]) { border-color: var(--kit-danger); }
+
+/* Il calendario: un popover (livello superiore, quindi non lo taglia nessun contenitore) posizionato da kit.js.
+   Sugli schermi stretti diventa un foglio che sale dal basso, con bersagli da 44px. */
+.kit-datepop {
+    --kit-dp-cell: 2.6rem;
+    position: fixed; z-index: 70; inset: auto; top: 0; left: 0; margin: 0;
+    width: max-content; max-width: calc(100vw - 16px); max-height: calc(100vh - 16px); overflow: auto;
+    background: var(--kit-card); color: var(--kit-ink); border: 1px solid var(--kit-line); border-radius: var(--kit-rad); box-shadow: var(--kit-shadow-pop);
+    padding: 10px; font-size: 1rem; font-weight: 400; line-height: var(--kit-lh); text-align: left; letter-spacing: normal; text-transform: none;
+    overscroll-behavior: contain;
+}
+.kit-datepop[hidden] { display: none; }
+.kit-datepop-top { display: none; align-items: center; justify-content: space-between; gap: 8px; padding: 4px 2px 8px; font-weight: 600; }
+.kit-datepop-body { display: flex; gap: 14px; align-items: flex-start; }
+.kit-datepop-cals { display: flex; gap: 22px; }
+.kit-cal { width: calc(7 * var(--kit-dp-cell)); min-width: 0; }
+.kit-cal-head { display: flex; align-items: center; justify-content: space-between; gap: 4px; margin-bottom: 4px; }
+.kit-cal-nav, .kit-cal-title {
+    height: var(--kit-dp-cell); border: 0; border-radius: var(--kit-rad-sm); background: none; color: var(--kit-ink); font: inherit; cursor: pointer;
+}
+.kit-cal-nav { width: var(--kit-dp-cell); display: grid; place-items: center; padding: 0; flex: none; color: var(--kit-mute); }
+.kit-cal-nav[hidden], .kit-cal-nav.is-void { visibility: hidden; }
+.kit-cal-nav .kit-icon { width: 1.1rem; height: 1.1rem; }
+.kit-cal-title { flex: 1; font-weight: 650; padding: 0 8px; text-transform: capitalize; }
+.kit-cal-nav:hover, .kit-cal-title:hover { background: var(--kit-hover); color: var(--kit-ink); }
+.kit-cal-nav:disabled { opacity: .3; cursor: default; background: none; }
+.kit-cal-nav:focus-visible, .kit-cal-title:focus-visible, .kit-cal-day:focus-visible, .kit-cal-pick button:focus-visible, .kit-timeopt:focus-visible, .kit-datepop-presets button:focus-visible {
+    outline: 2px solid var(--kit-accent); outline-offset: -2px;
+}
+.kit-cal-grid { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.kit-cal-grid th { height: calc(var(--kit-dp-cell) * .8); font-size: .857rem; font-weight: 600; color: var(--kit-mute); text-transform: lowercase; text-align: center; padding: 0; border: 0; background: none; }
+.kit-cal-grid td { padding: 1px 0; text-align: center; position: relative; }
+.kit-cal-day {
+    width: 100%; max-width: var(--kit-dp-cell); height: calc(var(--kit-dp-cell) - 2px); margin: 0 auto; padding: 0;
+    border: 0; border-radius: var(--kit-rad-sm); background: none; color: var(--kit-ink); font: inherit; font-variant-numeric: tabular-nums; cursor: pointer;
+    display: block; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+}
+.kit-cal-day:hover { background: var(--kit-hover); }
+.kit-cal-day.is-out { color: var(--kit-mute); opacity: .6; }
+.kit-cal-day.is-today { box-shadow: inset 0 0 0 1px var(--kit-accent); font-weight: 650; }
+.kit-cal-day[aria-disabled="true"] { opacity: .3; cursor: default; background: none; text-decoration: line-through; }
+.kit-cal-day.is-on, .kit-cal-day.is-on:hover { background: var(--kit-accent); color: var(--kit-accent-ink); opacity: 1; font-weight: 650; }
+/* intervallo: la fascia tra i due estremi è un colore continuo che attraversa le celle */
+.kit-cal-grid td.is-range { background: var(--kit-accent-soft); }
+.kit-cal-grid td.is-start { background: linear-gradient(to right, transparent 50%, var(--kit-accent-soft) 50%); }
+.kit-cal-grid td.is-end { background: linear-gradient(to left, transparent 50%, var(--kit-accent-soft) 50%); }
+.kit-cal-grid td.is-start.is-end { background: none; }
+.kit-cal-grid td.is-range .kit-cal-day:hover { background: color-mix(in srgb, var(--kit-accent) 18%, var(--kit-accent-soft)); }
+
+/* mesi e anni */
+.kit-cal-pick { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 2px 0; }
+.kit-cal-pick button {
+    height: calc(var(--kit-dp-cell) * 1.25); border: 0; border-radius: var(--kit-rad-sm); background: none; color: var(--kit-ink); font: inherit; cursor: pointer;
+    text-transform: capitalize; font-variant-numeric: tabular-nums;
+}
+.kit-cal-pick button:hover { background: var(--kit-hover); }
+.kit-cal-pick button.is-now { box-shadow: inset 0 0 0 1px var(--kit-accent); }
+.kit-cal-pick button.is-on { background: var(--kit-accent); color: var(--kit-accent-ink); font-weight: 650; }
+.kit-cal-pick button:disabled { opacity: .3; cursor: default; }
+
+/* scelte rapide dell'intervallo */
+.kit-datepop-presets { display: flex; flex-direction: column; gap: 2px; flex: none; min-width: 9.5rem; padding-right: 12px; border-right: 1px solid var(--kit-line-soft); }
+.kit-datepop-presets button {
+    padding: 0 10px; height: calc(var(--kit-dp-cell) - 4px); border: 0; border-radius: var(--kit-rad-sm); background: none; color: var(--kit-ink);
+    font: inherit; text-align: left; white-space: nowrap; cursor: pointer;
+}
+.kit-datepop-presets button:hover { background: var(--kit-hover); }
+.kit-datepop-presets button.is-on { background: var(--kit-accent-soft); color: var(--kit-accent); font-weight: 600; }
+.kit-datepop-presets button:disabled { opacity: .35; cursor: default; }
+
+/* ore e minuti */
+.kit-timecols { display: flex; gap: 6px; flex: none; }
+.kit-timecol { width: 4rem; height: calc(var(--kit-dp-cell) * 7); overflow-y: auto; overscroll-behavior: contain; scroll-snap-type: y proximity; display: flex; flex-direction: column; gap: 1px; border-radius: var(--kit-rad-sm); }
+.kit-timecol-wrap { display: flex; flex-direction: column; gap: 2px; }
+.kit-timecol-wrap > b { font-size: .857rem; font-weight: 600; color: var(--kit-mute); text-align: center; height: calc(var(--kit-dp-cell) * .8); line-height: calc(var(--kit-dp-cell) * .8); }
+.kit-timeopt {
+    flex: none; height: calc(var(--kit-dp-cell) - 2px); border: 0; border-radius: var(--kit-rad-sm); background: none; color: var(--kit-ink);
+    font: inherit; font-variant-numeric: tabular-nums; cursor: pointer; scroll-snap-align: center;
+}
+.kit-timeopt:hover { background: var(--kit-hover); }
+.kit-timeopt.is-on { background: var(--kit-accent); color: var(--kit-accent-ink); font-weight: 650; }
+.kit-timeopt:disabled { opacity: .3; cursor: default; }
+.kit-datepop-time { padding-left: 14px; border-left: 1px solid var(--kit-line-soft); }
+
+.kit-datepop-hint { margin: 0 0 6px; padding: 0 4px; font-size: .893rem; color: var(--kit-mute); }
+.kit-datepop-foot { display: flex; justify-content: space-between; gap: 8px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--kit-line-soft); }
+.kit-datepop-foot .kit-btn { height: calc(var(--kit-ctl) - 6px); padding: 0 12px; }
+.kit-datepop-foot .kit-btn:only-child { margin-left: auto; }
+
+/* Schermi stretti: foglio dal basso. Su un tablet o un telefono (puntatore "grossolano") le celle diventano di 44px. */
+@media (pointer: coarse) {
+    .kit-datepop { --kit-dp-cell: 44px; }
+    .kit-date > .kit-input[data-kit-dp-input], .kit-daterange > .kit-input[data-kit-dp-input] { font-size: max(16px, 1.036rem); }   /* sotto i 16px iOS ingrandisce la pagina */
+    .kit-date-btn { width: 3rem; }
+    .kit-date > .kit-input { padding-right: 3rem; }
+}
+.kit-datepop.is-sheet {
+    top: auto; left: 0; right: 0; bottom: 0; width: auto; max-width: none; max-height: 92dvh;
+    border-width: 1px 0 0; border-radius: 16px 16px 0 0; padding: 6px 12px calc(12px + env(safe-area-inset-bottom));
+    --kit-dp-cell: 44px;
+}
+.kit-datepop.is-sheet::backdrop { background: rgb(0 0 0 / .45); }
+.kit-datepop.is-sheet .kit-datepop-top { display: flex; }
+.kit-datepop.is-sheet .kit-datepop-top::before { content: ""; position: absolute; left: 50%; top: 6px; width: 36px; height: 4px; margin-left: -18px; border-radius: 4px; background: var(--kit-line); }
+.kit-datepop.is-sheet .kit-datepop-top { padding-top: 14px; position: relative; }
+.kit-datepop.is-sheet .kit-datepop-body { flex-direction: column; gap: 10px; align-items: stretch; }
+.kit-datepop.is-sheet .kit-cal { width: 100%; }
+.kit-datepop.is-sheet .kit-datepop-presets { flex-direction: row; overflow-x: auto; min-width: 0; padding: 0 0 8px; border: 0; border-bottom: 1px solid var(--kit-line-soft); -webkit-overflow-scrolling: touch; }
+.kit-datepop.is-sheet .kit-datepop-presets button { flex: none; height: 38px; border: 1px solid var(--kit-line); border-radius: 99px; }
+.kit-datepop.is-sheet .kit-datepop-time { padding: 8px 0 0; border: 0; border-top: 1px solid var(--kit-line-soft); }
+.kit-datepop.is-sheet .kit-timecols { width: 100%; }
+.kit-datepop.is-sheet .kit-timecol-wrap { flex: 1; }
+.kit-datepop.is-sheet .kit-timecol { width: 100%; height: calc(var(--kit-dp-cell) * 4); }
+.kit-datepop.is-sheet .kit-datepop-foot .kit-btn { height: var(--kit-ctl); flex: 1; }
+@media (prefers-reduced-motion: no-preference) {
+    .kit-datepop.is-sheet { animation: kit-sheet-up .18s ease-out; }
+    @keyframes kit-sheet-up { from { transform: translateY(28px); opacity: 0; } }
+}
+@media print { .kit-datepop, .kit-date-btn { display: none !important; } }
 
 /* ===== 13. Dialog, toast, tooltip ===== */
 /* Il dialog è una card in sovrimpressione: stessa struttura (.kit-card-head / -body / -foot), stessi padding

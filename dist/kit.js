@@ -20,6 +20,8 @@
  *   data-kit-code="html|js|css"              su <pre class="kit-code">: colora il codice (senza lingua la indovina); data-kit-code-copy aggiunge il bottone «Copia»
  *   data-kit-accordion="single"              su .kit-accordion: un solo <details> aperto per volta (senza valore, ognuno si apre per conto suo)
  *   data-kit-sort                            su .kit-table: le intestazioni (<th>) ordinano le righe (con ="multi", Shift o Ctrl/⌘ + clic ordina per più colonne; numeri, date e testo si riconoscono da soli; data-kit-type e data-kit-value per forzarli, data-kit-nosort per escludere una colonna)
+ *   data-kit-datepicker                      su <input type="date|datetime-local|time">: calendario (o scelta dell'ora) del kit; si scrive e si legge gg/mm/aaaa, il valore inviato è in ISO (data-kit-min, -max, -disable, -step; data-kit-timepicker per la sola ora)
+ *   data-kit-daterange                       su un contenitore con due <input type="date"> (dal, al): intervallo con calendario a due mesi e scelte rapide (data-kit-presets)
  *   data-kit-fix="2|3|4"                     su .kit-table-fix: blocca le prime 2, 3 o 4 colonne (la sola prima si blocca con la classe, senza JavaScript)
  *   data-kit-filter="#tabella"               su un campo di testo: mostra solo le righe che contengono tutte le parole scritte
  *   data-kit-page="N"                        su .kit-table: mostra N righe per volta, con la paginazione sotto (data-kit-empty cambia il testo «Nessun risultato»)
@@ -33,8 +35,8 @@
  *   data-kit-tip="testo"                     tooltip (solo CSS; con kit.js Esc lo nasconde)
  *   data-kit-dismiss                         dentro un .kit-alert, lo rimuove (evento "kit:dismiss")
  *
- * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.sidebar.get()/set()/toggle()/open()/close(), Kit.fontSize.get()/set()/step(), Kit.reset(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.confirm(domanda, opzioni), Kit.undo(testo, opzioni), Kit.split(elemento), Kit.file(elemento, opzioni), Kit.progress(testo, opzioni), Kit.combo(elemento, opzioni), Kit.select(elemento, opzioni), Kit.code(elemento, opzioni), Kit.highlight(testo, lingua), Kit.barChart(elemento, opzioni), Kit.lineChart(…), Kit.donut(…), Kit.sparkline(…), Kit.table(tabella, opzioni), Kit.paginate(tabella, righe), Kit.accordion(elemento, opzioni), Kit.init(radice)
- * Eventi: "kit:change" (select, combobox), "kit:select" (barra, punto o fetta di un grafico), "kit:tab" (tab), "kit:files" (file scelti o rilasciati), "kit:copy" (codice copiato), "kit:sort" (tabella ordinata), "kit:filter" (tabella filtrata), "kit:page" (pagina della tabella cambiata), "kit:accordion" (voce dell'accordion aperta o chiusa), "kit:split" (pannello aperto, chiuso o a tutta larghezza), "kit:theme" (tema), "kit:layout" (larghezza), "kit:sidebar" (sidebar compressa, espansa, aperta o chiusa), "kit:fs" (dimensione del testo), "kit:reset" (impostazioni ripristinate), "kit:dismiss" (avviso chiuso)
+ * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.sidebar.get()/set()/toggle()/open()/close(), Kit.fontSize.get()/set()/step(), Kit.reset(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.confirm(domanda, opzioni), Kit.undo(testo, opzioni), Kit.split(elemento), Kit.file(elemento, opzioni), Kit.progress(testo, opzioni), Kit.combo(elemento, opzioni), Kit.select(elemento, opzioni), Kit.code(elemento, opzioni), Kit.highlight(testo, lingua), Kit.barChart(elemento, opzioni), Kit.lineChart(…), Kit.donut(…), Kit.sparkline(…), Kit.table(tabella, opzioni), Kit.paginate(tabella, righe), Kit.accordion(elemento, opzioni), Kit.datepicker(campo, opzioni), Kit.daterange(contenitore, opzioni), Kit.date.parse/format/today, Kit.init(radice)
+ * Eventi: "kit:change" (select, combobox), "kit:select" (barra, punto o fetta di un grafico), "kit:tab" (tab), "kit:files" (file scelti o rilasciati), "kit:copy" (codice copiato), "kit:sort" (tabella ordinata), "kit:filter" (tabella filtrata), "kit:page" (pagina della tabella cambiata), "kit:accordion" (voce dell'accordion aperta o chiusa), "kit:change" anche per date e ore ({ value } o { from, to }), "kit:split" (pannello aperto, chiuso o a tutta larghezza), "kit:theme" (tema), "kit:layout" (larghezza), "kit:sidebar" (sidebar compressa, espansa, aperta o chiusa), "kit:fs" (dimensione del testo), "kit:reset" (impostazioni ripristinate), "kit:dismiss" (avviso chiuso)
  */
 (function () {
     "use strict";
@@ -2508,6 +2510,931 @@
         };
     }
 
+    /* ---------- Date e orari: calendario, intervallo, data e ora, ora ----------
+       <input class="kit-input" type="date" name="data" data-kit-datepicker>          calendario (anche type="datetime-local" o "time")
+       <div class="kit-daterange" data-kit-daterange><input type="date" name="da"><input type="date" name="a"></div>
+       Il campo visibile è di testo e mostra gg/mm/aaaa; il valore che parte con il form è sempre in ISO (aaaa-mm-gg), in un campo
+       nascosto che prende il name. Le date sono stringhe ISO e i calcoli si fanno in UTC: nessun fuso orario di mezzo. */
+    var DT = {
+        months: ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"],
+        days: ["lun", "mar", "mer", "gio", "ven", "sab", "dom"],
+        daysLong: ["lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato", "domenica"],
+        presets: { oggi: "Oggi", ieri: "Ieri", "7": "Ultimi 7 giorni", "30": "Ultimi 30 giorni", "90": "Ultimi 90 giorni", mese: "Questo mese", "mese-scorso": "Mese scorso", anno: "Quest'anno", "anno-scorso": "Anno scorso" },
+        t: {
+            open: "Apri il calendario", openTime: "Scegli l'ora", pickDate: "Scegli la data", pickDateTime: "Scegli data e ora", pickTime: "Scegli l'ora", pickRange: "Scegli il periodo",
+            today: "Oggi", clear: "Cancella", done: "Fatto", close: "Chiudi",
+            prev: "Mese precedente", next: "Mese successivo", prevYear: "Anno precedente", nextYear: "Anno successivo", prevYears: "Anni precedenti", nextYears: "Anni successivi",
+            invalid: "Scrivi la data come gg/mm/aaaa", invalidDT: "Scrivi data e ora come gg/mm/aaaa hh:mm", invalidTime: "Scrivi l'ora come hh:mm",
+            min: "Il valore non può essere precedente a {d}", max: "Il valore non può essere successivo a {d}", unavailable: "Questa data non è disponibile",
+            order: "La data finale è precedente a quella iniziale", from: "Scegli la data di inizio", to: "Scegli la data di fine",
+            hour: "Ore", minute: "Minuti", phDate: "gg/mm/aaaa", phDT: "gg/mm/aaaa hh:mm", phTime: "hh:mm"
+        }
+    };
+    var DTNS = "http://www.w3.org/2000/svg";
+    var DTIC = {
+        cal: [["rect", { x: 4, y: 5, width: 16, height: 15, rx: 2 }], ["path", { d: "M4 10h16M8 3v4M16 3v4" }]],
+        clock: [["circle", { cx: 12, cy: 12, r: 9 }], ["path", { d: "M12 7v5l3 2" }]],
+        left: [["path", { d: "m15 6-6 6 6 6" }]],
+        right: [["path", { d: "m9 6 6 6-6 6" }]],
+        x: [["path", { d: "M6 6l12 12M18 6 6 18" }]]
+    };
+    var dtMap = new WeakMap();
+    var dtActive = null;
+    var dtUid = 0;
+
+    function dtIcon(shapes) {
+        var s = document.createElementNS(DTNS, "svg");
+        s.setAttribute("class", "kit-icon");
+        s.setAttribute("viewBox", "0 0 24 24");
+        s.setAttribute("aria-hidden", "true");
+        shapes.forEach(function (sh) {
+            var e = document.createElementNS(DTNS, sh[0]);
+            Object.keys(sh[1]).forEach(function (k) { e.setAttribute(k, sh[1][k]); });
+            s.appendChild(e);
+        });
+        return s;
+    }
+
+    function p2(n) { return (n < 10 ? "0" : "") + n; }
+    function isoOf(y, m, d) { return ("000" + y).slice(-4) + "-" + p2(m) + "-" + p2(d); }
+    function dim(y, m) { return new Date(Date.UTC(y, m, 0)).getUTCDate(); }
+    function isoParts(s) { return [+s.slice(0, 4), +s.slice(5, 7), +s.slice(8, 10)]; }
+    function dtOkYear(iso) { var y = +iso.slice(0, 4); return y >= 1000 && y <= 9999; }
+    function addDays(iso, n) {
+        var a = isoParts(iso), d = new Date(Date.UTC(a[0], a[1] - 1, a[2] + n));
+        return isoOf(d.getUTCFullYear(), d.getUTCMonth() + 1, d.getUTCDate());
+    }
+    function addMonths(iso, n) {
+        var a = isoParts(iso), t = a[0] * 12 + (a[1] - 1) + n, y = Math.floor(t / 12), m = t % 12 + 1;
+        return isoOf(y, m, Math.min(a[2], dim(y, m)));
+    }
+    function monthStart(iso) { return iso.slice(0, 8) + "01"; }
+    function monthEnd(iso) { var a = isoParts(iso); return isoOf(a[0], a[1], dim(a[0], a[1])); }
+    function dowMon(iso) { var a = isoParts(iso); return (new Date(Date.UTC(a[0], a[1] - 1, a[2])).getUTCDay() + 6) % 7; }
+    function todayIso() { var n = new Date(); return isoOf(n.getFullYear(), n.getMonth() + 1, n.getDate()); }
+    function validYmd(y, m, d) { return y >= 1000 && y <= 9999 && m >= 1 && m <= 12 && d >= 1 && d <= dim(y, m); }
+    function fmtDate(iso) { return iso ? iso.slice(8, 10) + "/" + iso.slice(5, 7) + "/" + iso.slice(0, 4) : ""; }
+    function dayLabel(iso) { var a = isoParts(iso); return DT.daysLong[dowMon(iso)] + " " + a[2] + " " + DT.months[a[1] - 1] + " " + a[0]; }
+
+    /* Accetta gg/mm/aaaa (anche con . - o spazio, anche g/m/aa o ggmmaaaa) e aaaa-mm-gg. "" se vuoto, null se non è una data vera. */
+    function parseDate(text) {
+        var s = String(text == null ? "" : text).trim(), m, y, mo, d;
+        if (!s) return "";
+        if ((m = /^(\d{4})-(\d{1,2})-(\d{1,2})$/.exec(s))) { y = +m[1]; mo = +m[2]; d = +m[3]; }
+        else if ((m = /^(\d{1,2})[\/.\-\s](\d{1,2})[\/.\-\s](\d{4}|\d{2})$/.exec(s)) || (m = /^(\d{2})(\d{2})(\d{4}|\d{2})$/.exec(s))) {
+            d = +m[1]; mo = +m[2]; y = +m[3];
+            if (m[3].length === 2) y += y < 70 ? 2000 : 1900;
+        } else return null;
+        return validYmd(y, mo, d) ? isoOf(y, mo, d) : null;
+    }
+    /* "9", "9:30", "9.30", "930", "09:30:15" → "09:30" */
+    function parseTime(text) {
+        var s = String(text == null ? "" : text).trim(), m;
+        if (!s) return "";
+        if (!((m = /^(\d{1,2})(?:[:.,hH\s](\d{2}))?(?::\d{2})?$/.exec(s)) || (m = /^(\d{1,2})(\d{2})$/.exec(s)))) return null;
+        var h = +m[1], mi = +(m[2] || 0);
+        return h < 24 && mi < 60 ? p2(h) + ":" + p2(mi) : null;
+    }
+    /* "12/11/2026 09:30", "2026-11-12T09:30" → "2026-11-12T09:30"; la sola data vale mezzanotte */
+    function parseDateTime(text) {
+        var s = String(text == null ? "" : text).trim();
+        if (!s) return "";
+        var m = /^(\S+?)(?:[T\s]+(.+))?$/.exec(s);
+        if (!m) return null;
+        var d = parseDate(m[1]), t = m[2] ? parseTime(m[2]) : "00:00";
+        return d && t !== null ? d + "T" + t : null;
+    }
+    /* limiti: ISO, "oggi" o uno scarto in giorni da oggi ("+7", "-30") */
+    function dtBound(raw, kind, isMax) {
+        raw = String(raw || "").trim().toLowerCase();
+        if (!raw) return "";
+        if (kind === "time") return parseTime(raw) || "";
+        var d;
+        if (raw === "oggi" || raw === "today") d = todayIso();
+        else if (/^[+-]\d+$/.test(raw)) d = addDays(todayIso(), +raw);
+        else d = parseDate(raw.slice(0, 10));
+        if (!d) return "";
+        if (kind === "date") return d;
+        var tp = raw.length > 10 ? parseTime(raw.slice(11)) : "";
+        return d + "T" + (tp || (isMax ? "23:59" : "00:00"));
+    }
+    /* giorni non selezionabili: "sab,dom,2026-12-25" oppure una funzione (iso) => true */
+    function dtDisable(spec) {
+        if (typeof spec === "function") return spec;
+        var wd = {}, dates = {};
+        String(spec || "").split(/[\s,;]+/).forEach(function (w) {
+            if (!w) return;
+            var i = DT.days.indexOf(w.toLowerCase().slice(0, 3));
+            if (i >= 0) wd[i] = true; else { var iso = parseDate(w); if (iso) dates[iso] = true; }
+        });
+        return function (iso) { return !!(wd[dowMon(iso)] || dates[iso]); };
+    }
+    function dtPreset(key) {
+        var t = todayIso(), a = isoParts(t);
+        switch (key) {
+            case "oggi": return [t, t];
+            case "ieri": return [addDays(t, -1), addDays(t, -1)];
+            case "7": case "30": case "90": return [addDays(t, 1 - +key), t];
+            case "mese": return [monthStart(t), monthEnd(t)];
+            case "mese-scorso": var pm = addMonths(monthStart(t), -1); return [pm, monthEnd(pm)];
+            case "anno": return [isoOf(a[0], 1, 1), isoOf(a[0], 12, 31)];
+            case "anno-scorso": return [isoOf(a[0] - 1, 1, 1), isoOf(a[0] - 1, 12, 31)];
+        }
+        return null;
+    }
+
+    /* ----- Il popup (uno per campo) ----- */
+    function dtPop(cfg) {
+        var T = DT.t, mode = cfg.mode, hasCal = mode !== "time", hasTime = mode === "time" || mode === "datetime";
+        var pop = mkEl("div", "kit-datepop");
+        var S = { open: false, sub: "days", view: "", focus: "", yearBase: 0, step: "from", hover: "", sheet: false, panes: 1, hintEl: null, lockOv: null, raf: 0 };
+        var hasPopover = typeof pop.showPopover === "function";
+        pop.id = "kit-dp-" + (++dtUid);
+        pop.setAttribute("role", "dialog");
+        pop.setAttribute("aria-label", cfg.label);
+        if (hasPopover) pop.setAttribute("popover", "manual");
+        pop.hidden = true;
+        var api = { pop: pop, isOpen: function () { return S.open; } };
+
+        function bounds() { return cfg.bounds(); }
+        function blocked(iso) {
+            var b = bounds();
+            return !!((b.min && iso < b.min) || (b.max && iso > b.max) || cfg.disabled(iso));
+        }
+        function clampDay(iso) {
+            var b = bounds();
+            if (b.min && iso < b.min) return b.min;
+            if (b.max && iso > b.max) return b.max;
+            return iso;
+        }
+        function sheetNow() { return window.matchMedia("(max-width: 575.98px)").matches; }
+        function panesNow() { return mode === "range" && !sheetNow() && document.documentElement.clientWidth >= 720 ? 2 : 1; }
+        function lastDay() { return monthEnd(addMonths(S.view, S.panes - 1)); }
+
+        function btn(cls, text, act) {
+            var b = mkEl("button", cls, text);
+            b.type = "button";
+            if (act) b.dataset.act = act;
+            return b;
+        }
+        function navBtn(dir, show, dis, label) {
+            var b = btn("kit-cal-nav" + (show ? "" : " is-void"), undefined, dir);
+            b.setAttribute("aria-label", label);
+            b.appendChild(dtIcon(dir === "prev" ? DTIC.left : DTIC.right));
+            if (!show) { b.tabIndex = -1; b.disabled = true; b.setAttribute("aria-hidden", "true"); } else b.disabled = !!dis;
+            return b;
+        }
+        function head(title, titleAct, showPrev, showNext, prevDis, nextDis, lp, ln) {
+            var h = mkEl("div", "kit-cal-head");
+            h.appendChild(navBtn("prev", showPrev, prevDis, lp));
+            var tb = btn("kit-cal-title", title, titleAct);
+            tb.setAttribute("aria-live", "polite");
+            h.appendChild(tb);
+            h.appendChild(navBtn("next", showNext, nextDis, ln));
+            return h;
+        }
+
+        /* valore corrente in forma comoda: {date, time} oppure {from, to} */
+        function cur() { return cfg.get(); }
+        function isSel(iso) {
+            var v = cur();
+            return mode === "range" ? (iso === v.from || iso === v.to) : iso === v.date;
+        }
+
+        function fixFocus() {
+            var first = S.view, last = lastDay();
+            if (S.focus && S.focus >= first && S.focus <= last) return;
+            var v = cur(), c = mode === "range" ? (v.from || v.to) : v.date;
+            if (c && c >= first && c <= last) S.focus = c;
+            else {
+                var t = todayIso();
+                S.focus = t >= first && t <= last ? t : first;
+            }
+        }
+
+        function paneDays(first, idx) {
+            var a = isoParts(first), title = DT.months[a[1] - 1] + " " + a[0], b = bounds();
+            var pane = mkEl("div", "kit-cal");
+            pane.appendChild(head(title, "months", idx === 0, idx === S.panes - 1,
+                idx === 0 && !!b.min && addDays(first, -1) < b.min, idx === S.panes - 1 && !!b.max && addMonths(first, 1) > b.max, T.prev, T.next));
+            var table = mkEl("table", "kit-cal-grid");
+            table.setAttribute("role", "grid");
+            table.setAttribute("aria-label", title);
+            var tr = mkEl("tr");
+            DT.days.forEach(function (d, i) {
+                var th = mkEl("th", "", d);
+                th.scope = "col";
+                th.abbr = DT.daysLong[i];
+                tr.appendChild(th);
+            });
+            var thead = mkEl("thead");
+            thead.appendChild(tr);
+            table.appendChild(thead);
+            var tbody = mkEl("tbody"), start = addDays(first, -dowMon(first)), today = todayIso(), ym = first.slice(0, 7);
+            for (var r = 0; r < 6; r++) {
+                var row = mkEl("tr");
+                for (var c = 0; c < 7; c++) {
+                    var iso = addDays(start, r * 7 + c), out = iso.slice(0, 7) !== ym, td = mkEl("td");
+                    td.setAttribute("role", "gridcell");
+                    if (out && S.panes > 1) { row.appendChild(td); continue; }
+                    td.dataset.d = iso;
+                    var d = mkEl("button", "kit-cal-day" + (out ? " is-out" : "") + (iso === today ? " is-today" : ""), String(+iso.slice(8)));
+                    d.type = "button";
+                    d.dataset.d = iso;
+                    d.tabIndex = iso === S.focus ? 0 : -1;
+                    d.setAttribute("aria-label", dayLabel(iso));
+                    if (iso === today) d.setAttribute("aria-current", "date");
+                    if (blocked(iso)) d.setAttribute("aria-disabled", "true");
+                    if (isSel(iso)) { d.classList.add("is-on"); td.setAttribute("aria-selected", "true"); }
+                    td.appendChild(d);
+                    row.appendChild(td);
+                }
+                tbody.appendChild(row);
+            }
+            table.appendChild(tbody);
+            pane.appendChild(table);
+            return pane;
+        }
+
+        function pickGrid(items, onCls) {
+            var g = mkEl("div", "kit-cal-pick");
+            items.forEach(function (it) {
+                var b = mkEl("button", onCls(it) + (it.now ? " is-now" : ""), it.label);
+                b.type = "button";
+                Object.keys(it.data).forEach(function (k) { b.dataset[k] = it.data[k]; });
+                if (it.on) b.classList.add("is-on");
+                if (it.off) b.disabled = true;
+                g.appendChild(b);
+            });
+            return g;
+        }
+        function paneMonths() {
+            var y = +S.view.slice(0, 4), m0 = +S.view.slice(5, 7), pane = mkEl("div", "kit-cal"), b = bounds(), c = cur(), cv = mode === "range" ? c.from : c.date, now = todayIso();
+            pane.appendChild(head(String(y), "years", true, true, !!b.min && y <= +b.min.slice(0, 4), !!b.max && y >= +b.max.slice(0, 4), T.prevYear, T.nextYear));
+            pane.appendChild(pickGrid(DT.months.map(function (n, i) {
+                var first = isoOf(y, i + 1, 1);
+                return {
+                    label: n.slice(0, 3), data: { m: String(i + 1) }, on: !!cv && cv.slice(0, 7) === first.slice(0, 7), now: now.slice(0, 7) === first.slice(0, 7),
+                    off: !!((b.min && monthEnd(first) < b.min) || (b.max && first > b.max))
+                };
+            }), function () { return ""; }));
+            return pane;
+        }
+        function paneYears() {
+            var base = S.yearBase, pane = mkEl("div", "kit-cal"), b = bounds(), c = cur(), cv = mode === "range" ? c.from : c.date, ny = +todayIso().slice(0, 4), items = [];
+            pane.appendChild(head(base + " – " + (base + 11), "days", true, true, base <= 1000, base + 11 >= 9999, T.prevYears, T.nextYears));
+            for (var y = base; y < base + 12; y++) {
+                items.push({
+                    label: String(y), data: { y: String(y) }, on: !!cv && +cv.slice(0, 4) === y, now: y === ny,
+                    off: y < 1000 || y > 9999 || !!((b.min && y < +b.min.slice(0, 4)) || (b.max && y > +b.max.slice(0, 4)))
+                });
+            }
+            pane.appendChild(pickGrid(items, function () { return ""; }));
+            return pane;
+        }
+
+        function timeCol(label, n, step, sel, key) {
+            var wrap = mkEl("div", "kit-timecol-wrap");
+            wrap.appendChild(mkEl("b", "", label));
+            var list = mkEl("div", "kit-timecol");
+            list.setAttribute("role", "listbox");
+            list.setAttribute("aria-label", label);
+            for (var v = 0; v < n; v += step) {
+                var o = mkEl("button", "kit-timeopt" + (p2(v) === sel ? " is-on" : ""), p2(v));
+                o.type = "button";
+                o.dataset.t = key;
+                o.dataset.v = p2(v);
+                o.setAttribute("role", "option");
+                o.setAttribute("aria-selected", String(p2(v) === sel));
+                o.tabIndex = -1;
+                list.appendChild(o);
+            }
+            wrap.appendChild(list);
+            return wrap;
+        }
+        function timeEl() {
+            var tm = cur().time || "", box = mkEl("div", "kit-timecols" + (hasCal ? " kit-datepop-time" : ""));
+            box.appendChild(timeCol(T.hour, 24, 1, tm.slice(0, 2), "h"));
+            box.appendChild(timeCol(T.minute, 60, cfg.step, tm.slice(3, 5), "m"));
+            return box;
+        }
+        function timeSync() {
+            var tm = cur().time || "", h = tm.slice(0, 2), mi = tm.slice(3, 5);
+            pop.querySelectorAll(".kit-timecol").forEach(function (col) {
+                var any = null;
+                Array.prototype.forEach.call(col.children, function (o) {
+                    var on = o.dataset.v === (o.dataset.t === "h" ? h : mi);
+                    o.classList.toggle("is-on", on);
+                    o.setAttribute("aria-selected", String(on));
+                    o.tabIndex = -1;
+                    if (on) any = o;
+                });
+                (any || col.firstChild).tabIndex = 0;
+            });
+        }
+        function timeScroll() {
+            pop.querySelectorAll(".kit-timecol").forEach(function (col) {
+                var on = col.querySelector(".is-on");
+                if (on) col.scrollTop = on.offsetTop - col.offsetTop - (col.clientHeight - on.offsetHeight) / 2;
+            });
+        }
+
+        function presetsEl() {
+            var box = mkEl("div", "kit-datepop-presets"), v = cur();
+            box.setAttribute("role", "group");
+            cfg.presets.forEach(function (k) {
+                var r = dtPreset(k);
+                if (!r) return;
+                var b = bounds(), from = b.min && r[0] < b.min ? b.min : r[0], to = b.max && r[1] > b.max ? b.max : r[1];
+                var e = mkEl("button", "", DT.presets[k] || k);
+                e.type = "button";
+                e.dataset.preset = k;
+                if (from > to) e.disabled = true;
+                else if (v.from === from && v.to === to) e.classList.add("is-on");
+                box.appendChild(e);
+            });
+            return box;
+        }
+        function footEl() {
+            var left = [], right = [];
+            if (mode === "date") {
+                var td = btn("kit-btn kit-btn-ghost", T.today, "today");
+                if (blocked(todayIso())) td.disabled = true;
+                left.push(td);
+            }
+            if (!cfg.required()) (mode === "date" ? right : left).push(btn("kit-btn kit-btn-ghost", T.clear, "clear"));
+            if (mode === "datetime" || mode === "time") right.push(btn("kit-btn kit-btn-primary", T.done, "done"));
+            if (!left.length && !right.length) return null;
+            var f = mkEl("div", "kit-datepop-foot");
+            left.concat(right).forEach(function (b) { f.appendChild(b); });
+            return f;
+        }
+        function hintText() { return S.step === "to" ? T.to : T.from; }
+
+        function paintRange() {
+            if (mode !== "range") return;
+            var v = cur(), from = v.from, end = v.to || (S.step === "to" && from && S.hover > from ? S.hover : "");
+            pop.querySelectorAll(".kit-cal-grid td[data-d]").forEach(function (td) {
+                var d = td.dataset.d;
+                td.classList.toggle("is-range", !!(from && end && d > from && d < end));
+                td.classList.toggle("is-start", !!(from && end && d === from));
+                td.classList.toggle("is-end", !!(from && end && d === end));
+                if (td.firstChild) td.firstChild.classList.toggle("is-on", d === from || d === v.to);
+            });
+            if (S.hintEl) S.hintEl.textContent = hintText();
+        }
+
+        function render(focusSel) {
+            var scrolls = Array.prototype.map.call(pop.querySelectorAll(".kit-timecol"), function (c) { return c.scrollTop; });
+            pop.textContent = "";
+            pop.classList.toggle("is-sheet", S.sheet);
+            if (hasCal && S.sub === "days") fixFocus();
+            var top = mkEl("div", "kit-datepop-top");
+            top.appendChild(mkEl("span", "", cfg.label));
+            var x = btn("kit-btn kit-btn-ghost kit-btn-icon", undefined, "close");
+            x.setAttribute("aria-label", T.close);
+            x.appendChild(dtIcon(DTIC.x));
+            top.appendChild(x);
+            pop.appendChild(top);
+            S.hintEl = null;
+            if (mode === "range") { S.hintEl = mkEl("p", "kit-datepop-hint", hintText()); pop.appendChild(S.hintEl); }
+            var body = mkEl("div", "kit-datepop-body");
+            if (mode === "range" && cfg.presets.length) body.appendChild(presetsEl());
+            if (hasCal) {
+                var cals = mkEl("div", "kit-datepop-cals");
+                if (S.sub === "days") for (var i = 0; i < S.panes; i++) cals.appendChild(paneDays(addMonths(S.view, i), i));
+                else cals.appendChild(S.sub === "months" ? paneMonths() : paneYears());
+                body.appendChild(cals);
+            }
+            if (hasTime) body.appendChild(timeEl());
+            pop.appendChild(body);
+            if (hasTime) timeSync();
+            var foot = footEl();
+            if (foot) pop.appendChild(foot);
+            paintRange();
+            Array.prototype.forEach.call(pop.querySelectorAll(".kit-timecol"), function (c, i) { if (scrolls[i] != null) c.scrollTop = scrolls[i]; });
+            if (focusSel) {
+                var el = pop.querySelector(focusSel);
+                if (el && !el.disabled) el.focus({ preventScroll: true });
+            }
+        }
+
+        function place() {
+            if (S.sheet) { pop.style.top = ""; pop.style.left = ""; pop.style.maxHeight = ""; return; }
+            var a = cfg.anchor.getBoundingClientRect(), vw = document.documentElement.clientWidth, vh = window.innerHeight;
+            pop.style.maxHeight = "";
+            pop.style.top = "0px";
+            pop.style.left = "0px";
+            var w = pop.offsetWidth, h = pop.offsetHeight;
+            var left = Math.max(8, Math.min(a.left, vw - w - 8)), below = vh - a.bottom - 14, above = a.top - 14, top;
+            if (h <= below) top = a.bottom + 6;
+            else if (h <= above) top = a.top - 6 - h;
+            else if (below >= above) { top = a.bottom + 6; pop.style.maxHeight = Math.max(160, below) + "px"; }   // né sopra né sotto c'è posto: si usa il lato più largo e il popup scorre
+            else { pop.style.maxHeight = Math.max(160, above) + "px"; top = Math.max(8, a.top - 6 - pop.offsetHeight); }
+            pop.style.left = left + "px";
+            pop.style.top = top + "px";
+        }
+        function relayout() {
+            if (!S.open) return;
+            if (!cfg.anchor.isConnected) { close(false); return; }
+            var sh = sheetNow(), pn = panesNow();
+            if (sh !== S.sheet || pn !== S.panes) {
+                var ae = document.activeElement, d = ae && pop.contains(ae) ? ae.dataset.d : "";
+                S.sheet = sh;
+                S.panes = pn;
+                lock(sh);
+                render(d ? 'button[data-d="' + d + '"]' : null);
+            }
+            place();
+        }
+        function onWin(e) {
+            if (e.type === "scroll" && e.target instanceof Node && pop.contains(e.target)) return;
+            if (S.raf) return;
+            S.raf = requestAnimationFrame(function () { S.raf = 0; relayout(); });
+        }
+        function lock(on) {
+            if (on && S.lockOv === null) { S.lockOv = root.style.overflow; root.style.overflow = "hidden"; }
+            else if (!on && S.lockOv !== null) { root.style.overflow = S.lockOv; S.lockOv = null; }
+        }
+
+        function open(o) {
+            if (S.open || cfg.readonly()) return;
+            o = o || {};
+            if (dtActive && dtActive !== api) dtActive.close(false);
+            closePop(false);
+            S.sheet = sheetNow();
+            S.panes = panesNow();
+            S.sub = "days";
+            S.step = o.step || "from";
+            S.hover = "";
+            var v = cur(), c = mode === "range" ? (S.step === "to" && v.from ? v.from : v.from || v.to) : v.date;
+            S.focus = c || clampDay(todayIso());
+            S.view = monthStart(S.focus);
+            if (hasCal) fixFocus();
+            render(null);
+            pop.hidden = false;
+            if (hasPopover) { try { pop.showPopover(); } catch (e) { /* già aperto */ } }
+            S.open = true;
+            dtActive = api;
+            lock(S.sheet);
+            place();
+            window.addEventListener("resize", onWin);
+            window.addEventListener("scroll", onWin, true);
+            cfg.onToggle(true);
+            if (hasCal) {
+                var d = pop.querySelector('button[data-d="' + S.focus + '"]');
+                if (d) d.focus({ preventScroll: true });
+            }
+            if (hasTime) { timeScroll(); if (!hasCal) { var s0 = pop.querySelector('.kit-timeopt[tabindex="0"]'); if (s0) s0.focus({ preventScroll: true }); } }
+        }
+        function close(returnFocus) {
+            if (!S.open) return;
+            S.open = false;
+            if (dtActive === api) dtActive = null;
+            window.removeEventListener("resize", onWin);
+            window.removeEventListener("scroll", onWin, true);
+            lock(false);
+            if (hasPopover) { try { pop.hidePopover(); } catch (e) { /* già chiuso */ } }
+            pop.hidden = true;
+            cfg.onToggle(false);
+            if (returnFocus) {
+                var i = cfg.input();
+                if (i && i.getAttribute("inputmode") === "none") i = cfg.button;   // sul telefono il campo aprirebbe la tastiera
+                if (i && i.isConnected) i.focus({ preventScroll: true });
+            }
+        }
+        api.open = open;
+        api.close = close;
+        api.render = function () { if (S.open) render(null); };
+
+        /* ----- azioni ----- */
+        function showMonthOf(iso, spec) {
+            S.focus = iso;
+            if (iso < S.view) S.view = monthStart(iso);
+            else if (iso > lastDay()) S.view = addMonths(monthStart(iso), -(S.panes - 1));
+            render(spec);
+        }
+        function pickDay(iso) {
+            if (blocked(iso)) return;
+            var sel = 'button[data-d="' + iso + '"]';
+            if (mode === "range") {
+                var v = cur();
+                if (S.step === "to" && v.from && iso >= v.from) { cfg.set({ from: v.from, to: iso }, true); close(true); return; }
+                cfg.set({ from: iso, to: "" }, false);
+                S.step = "to";
+                S.hover = iso;
+                S.focus = iso;
+                if (iso.slice(0, 7) < S.view.slice(0, 7) || iso > lastDay()) showMonthOf(iso, sel); else paintRange();
+                return;
+            }
+            cfg.set({ date: iso }, true);
+            if (mode === "date") { close(true); return; }
+            S.focus = iso;
+            if (iso < S.view || iso > lastDay()) showMonthOf(iso, sel); else render(sel);
+        }
+        function nav(dir) {
+            if (S.sub === "days") {
+                var f = addMonths(S.focus, dir), v = addMonths(S.view, dir);
+                if (!dtOkYear(f) || !dtOkYear(v)) return;
+                S.focus = f; S.view = v;
+            } else if (S.sub === "months") {
+                var y = +S.view.slice(0, 4) + dir;
+                if (y < 1000 || y > 9999) return;
+                S.view = isoOf(y, +S.view.slice(5, 7), 1);
+                S.focus = S.view;
+            } else {
+                S.yearBase = Math.max(1000, Math.min(9988, S.yearBase + dir * 12));
+            }
+            render('[data-act="' + (dir < 0 ? "prev" : "next") + '"]:not(:disabled)');
+            if (!pop.contains(document.activeElement)) {
+                var d = pop.querySelector('.kit-cal-day[tabindex="0"], .kit-cal-pick button:not(:disabled)');
+                if (d) d.focus({ preventScroll: true });
+            }
+        }
+        function pickTime(key, val) {
+            var tm = cur().time || "", h = key === "h" ? val : (tm.slice(0, 2) || "00"), m = key === "m" ? val : (tm.slice(3, 5) || "00");
+            var hadDate = mode === "datetime" && !!cur().date;
+            cfg.set({ time: h + ":" + m }, true);
+            if (mode === "datetime" && !hadDate) { S.focus = cur().date; showMonthOf(S.focus, '.kit-timeopt[data-t="' + key + '"][data-v="' + val + '"]'); }
+            else timeSync();
+        }
+
+        pop.addEventListener("click", function (e) {
+            e.preventDefault();   // un click dentro il popup non deve arrivare alla <label> che lo contiene
+            var t = e.target instanceof Element ? e.target.closest("button") : null;
+            if (!t || !pop.contains(t) || t.disabled) return;
+            var ds = t.dataset;
+            if (ds.d) { pickDay(ds.d); return; }
+            if (ds.m) {
+                var y = +S.view.slice(0, 4), mo = +ds.m, fd = +S.focus.slice(8, 10);
+                S.sub = "days";
+                S.view = isoOf(y, mo, 1);
+                S.focus = clampDay(isoOf(y, mo, Math.min(fd, dim(y, mo))));
+                render(null);
+                var nd = pop.querySelector('button[data-d="' + S.focus + '"]');
+                if (nd) nd.focus({ preventScroll: true });
+                return;
+            }
+            if (ds.y) {
+                S.sub = "months";
+                S.view = isoOf(+ds.y, +S.view.slice(5, 7), 1);
+                render(".kit-cal-pick button.is-on, .kit-cal-pick button");
+                return;
+            }
+            if (ds.t) { pickTime(ds.t, ds.v); return; }
+            if (ds.preset) {
+                var r = dtPreset(ds.preset), b = bounds();
+                if (r) cfg.set({ from: b.min && r[0] < b.min ? b.min : r[0], to: b.max && r[1] > b.max ? b.max : r[1] }, true);
+                close(true);
+                return;
+            }
+            switch (ds.act) {
+                case "prev": nav(-1); break;
+                case "next": nav(1); break;
+                case "months":
+                    S.sub = "months";
+                    render(".kit-cal-title");
+                    break;
+                case "years":
+                    var yy = +S.view.slice(0, 4);
+                    S.sub = "years";
+                    S.yearBase = Math.max(1000, Math.min(9988, yy - (yy % 12)));
+                    render(".kit-cal-title");
+                    break;
+                case "days":
+                    S.sub = "days";
+                    render(null);
+                    var dd = pop.querySelector('.kit-cal-day[tabindex="0"]');
+                    if (dd) dd.focus({ preventScroll: true });
+                    break;
+                case "today": pickDay(todayIso()); break;
+                case "clear":
+                    cfg.set(mode === "range" ? { from: "", to: "" } : mode === "time" ? { time: "" } : { date: "", time: "" }, true);
+                    close(true);
+                    break;
+                case "done": case "close": close(true); break;
+            }
+        });
+
+        pop.addEventListener("mouseover", function (e) {
+            if (mode !== "range" || S.step !== "to" || !(e.target instanceof Element)) return;
+            var b = e.target.closest(".kit-cal-day");
+            if (b && b.dataset.d !== S.hover) { S.hover = b.dataset.d; paintRange(); }
+        });
+        pop.addEventListener("focusin", function (e) {
+            if (mode !== "range" || S.step !== "to" || !(e.target instanceof Element)) return;
+            var b = e.target.closest(".kit-cal-day");
+            if (b && b.dataset.d !== S.hover) { S.hover = b.dataset.d; paintRange(); }
+        });
+
+        pop.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(true); return; }
+            if (e.key === "Tab") {
+                var f = Array.prototype.filter.call(pop.querySelectorAll("button"), function (b) { return !b.disabled && b.tabIndex >= 0 && b.offsetParent !== null; });
+                if (!f.length) return;
+                var edge = e.shiftKey ? f[0] : f[f.length - 1];
+                if (document.activeElement === edge) {
+                    if (S.sheet) { e.preventDefault(); (e.shiftKey ? f[f.length - 1] : f[0]).focus({ preventScroll: true }); }
+                    else { close(false); var i = cfg.input(); if (i && i.getAttribute("inputmode") !== "none") i.focus({ preventScroll: true }); }   // il Tab prosegue dal campo
+                }
+                return;
+            }
+            var t = e.target instanceof Element ? e.target : null;
+            if (!t) return;
+            var n = null;
+            if (t.dataset.d) {
+                var d = t.dataset.d;
+                switch (e.key) {
+                    case "ArrowLeft": n = addDays(d, -1); break;
+                    case "ArrowRight": n = addDays(d, 1); break;
+                    case "ArrowUp": n = addDays(d, -7); break;
+                    case "ArrowDown": n = addDays(d, 7); break;
+                    case "Home": n = addDays(d, -dowMon(d)); break;
+                    case "End": n = addDays(d, 6 - dowMon(d)); break;
+                    case "PageUp": n = addMonths(d, e.shiftKey ? -12 : -1); break;
+                    case "PageDown": n = addMonths(d, e.shiftKey ? 12 : 1); break;
+                }
+                if (n) {
+                    e.preventDefault();
+                    if (!dtOkYear(n)) return;
+                    var nb = pop.querySelector('button[data-d="' + n + '"]');
+                    if (nb) { t.tabIndex = -1; nb.tabIndex = 0; S.focus = n; nb.focus({ preventScroll: true }); }
+                    else showMonthOf(n, 'button[data-d="' + n + '"]');
+                }
+            } else if (t.closest(".kit-cal-pick")) {
+                var list = Array.prototype.filter.call(t.parentNode.children, function (b) { return !b.disabled; }), i2 = list.indexOf(t), step = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -3, ArrowDown: 3 }[e.key];
+                if (step && list[i2 + step]) { e.preventDefault(); list[i2 + step].focus({ preventScroll: true }); }
+            } else if (t.dataset.t) {
+                var col = t.parentNode, opts = Array.prototype.slice.call(col.children), i3 = opts.indexOf(t), nx = null;
+                if (e.key === "ArrowDown") nx = opts[i3 + 1];
+                else if (e.key === "ArrowUp") nx = opts[i3 - 1];
+                else if (e.key === "Home") nx = opts[0];
+                else if (e.key === "End") nx = opts[opts.length - 1];
+                else if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+                    var cols = pop.querySelectorAll(".kit-timecol"), oc = cols[e.key === "ArrowRight" ? 1 : 0];
+                    if (oc && oc !== col) nx = oc.querySelector('.kit-timeopt[tabindex="0"]') || oc.firstChild;
+                }
+                if (nx) { e.preventDefault(); nx.focus({ preventScroll: true }); }
+            }
+        });
+
+        return api;
+    }
+
+    /* ----- Un campo di testo (data, data e ora, ora) ----- */
+    function dtSlot(input, kind, role) {
+        var d = input.dataset, s = { input: input, kind: kind, role: role || "", value: "", hidden: null, bad: false, other: null, disabled: function () { return false; } };
+        s.rawMin = d.kitMin || input.getAttribute("min") || "";
+        s.rawMax = d.kitMax || input.getAttribute("max") || "";
+        s.min = function () { return dtBound(s.rawMin, kind, false); };
+        s.max = function () { return dtBound(s.rawMax, kind, true); };
+        s.parse = kind === "time" ? parseTime : kind === "datetime" ? parseDateTime : parseDate;
+        s.fmt = function (v) {
+            if (!v) return "";
+            return kind === "time" ? v : kind === "datetime" ? fmtDate(v.slice(0, 10)) + " " + v.slice(11, 16) : fmtDate(v);
+        };
+        var start = s.parse(input.value);
+        s.value = start || "";
+        if (kind !== "time") {
+            s.hidden = document.createElement("input");
+            s.hidden.type = "hidden";
+            if (input.name) { s.hidden.name = input.name; input.removeAttribute("name"); }
+            if (input.getAttribute("form")) s.hidden.setAttribute("form", input.getAttribute("form"));
+            s.hidden.defaultValue = s.value;
+            s.hidden.value = s.value;
+            s.hidden.disabled = input.disabled;
+            input.parentNode.insertBefore(s.hidden, input.nextSibling);
+        }
+        input.type = "text";
+        input.setAttribute("inputmode", window.matchMedia("(pointer: coarse)").matches ? "none" : "numeric");
+        input.setAttribute("autocomplete", "off");
+        input.setAttribute("autocapitalize", "off");
+        input.setAttribute("spellcheck", "false");
+        input.setAttribute("aria-haspopup", "dialog");
+        input.setAttribute("aria-expanded", "false");
+        input.setAttribute("data-kit-dp-input", "");
+        if (!input.getAttribute("placeholder")) input.setAttribute("placeholder", kind === "time" ? DT.t.phTime : kind === "datetime" ? DT.t.phDT : DT.t.phDate);
+        input.defaultValue = s.fmt(s.value);
+        input.value = s.fmt(s.value);
+        return s;
+    }
+    function dtValidate(s) {
+        var T = DT.t, msg = "", v = s.value;
+        if (s.bad) msg = s.kind === "time" ? T.invalidTime : s.kind === "datetime" ? T.invalidDT : T.invalid;
+        else if (v) {
+            var mn = s.min(), mx = s.max();
+            if (mn && v < mn) msg = T.min.replace("{d}", s.fmt(mn));
+            else if (mx && v > mx) msg = T.max.replace("{d}", s.fmt(mx));
+            else if (s.kind !== "time" && s.disabled(v.slice(0, 10))) msg = T.unavailable;
+            else if (s.role === "to" && s.other && s.other.value && v < s.other.value) msg = T.order;
+        }
+        s.input.setCustomValidity(msg);
+        return msg;
+    }
+    function dtMark(s) { if (dtValidate(s)) s.input.setAttribute("aria-invalid", "true"); else s.input.removeAttribute("aria-invalid"); }
+    function dtWrite(s, val) {
+        s.value = val || "";
+        s.bad = false;
+        if (s.hidden) s.hidden.value = s.value;
+        s.input.value = s.fmt(s.value);
+        dtMark(s);
+        if (s.other) dtMark(s.other);
+    }
+    function dtFromText(s) {
+        var p = s.parse(s.input.value);
+        s.bad = p === null;
+        s.value = p || "";
+        if (s.hidden) s.hidden.value = s.value;
+        dtValidate(s);
+        if (s.other) dtValidate(s.other);
+    }
+
+    /* Collega uno o due campi (slots) a un popup. host = elemento che contiene i campi e il bottone. */
+    function dtMount(host, slots, mode, o) {
+        var s0 = slots[0], d = (mode === "range" ? host : s0.input).dataset, field = { el: host, silent: false };
+        var presets = o.presets != null ? o.presets : d.kitPresets != null ? d.kitPresets : "7,30,mese,mese-scorso,anno";
+        if (typeof presets === "string") presets = /^(none|no|nessuno)$/i.test(presets.trim()) ? [] : presets.split(/[\s,;]+/).filter(Boolean);
+        var stepRaw = o.step || parseInt(d.kitStep, 10) || (s0.input.step ? Math.round(parseFloat(s0.input.step) / 60) : 0) || 1;
+        var disable = dtDisable(o.disable != null ? o.disable : d.kitDisable);
+        slots.forEach(function (s) { s.disabled = disable; });
+        var T = DT.t, label = mode === "range" ? T.pickRange : mode === "datetime" ? T.pickDateTime : mode === "time" ? T.pickTime : T.pickDate;
+        var btn = mkEl("button", "kit-date-btn");
+        btn.type = "button";
+        btn.tabIndex = -1;
+        btn.setAttribute("aria-label", mode === "time" ? T.openTime : T.open);
+        btn.setAttribute("aria-haspopup", "dialog");
+        btn.setAttribute("aria-expanded", "false");
+        btn.appendChild(dtIcon(mode === "time" ? DTIC.clock : DTIC.cal));
+        host.appendChild(btn);
+
+        var idx = 0, dp;
+        function emit(changed, detail) {
+            field.silent = true;
+            changed.forEach(function (s) {
+                s.input.dispatchEvent(new Event("input", { bubbles: true }));
+                s.input.dispatchEvent(new Event("change", { bubbles: true }));
+            });
+            field.silent = false;
+            host.dispatchEvent(new CustomEvent("kit:change", { bubbles: true, detail: detail }));
+        }
+        function detail() {
+            if (mode === "range") return { from: slots[0].value, to: slots[1].value };
+            return { value: s0.value, display: s0.input.value };
+        }
+        var cfg = {
+            button: btn, mode: mode, label: label, anchor: host, step: Math.max(1, Math.min(30, stepRaw)),
+            presets: presets, disabled: disable,
+            input: function () { return slots[idx].input; },
+            required: function () { return slots.some(function (s) { return s.input.required; }); },
+            readonly: function () { return slots.some(function (s) { return s.input.disabled || s.input.readOnly; }); },
+            bounds: function () {
+                if (mode === "time") return { min: "", max: "" };
+                var mn = s0.min(), mx = s0.max();
+                return { min: mn.slice(0, 10), max: mx.slice(0, 10) };
+            },
+            get: function () {
+                if (mode === "range") return { from: slots[0].value, to: slots[1].value };
+                if (mode === "date") return { date: s0.value };
+                if (mode === "time") return { time: s0.value };
+                return { date: s0.value.slice(0, 10), time: s0.value.slice(11, 16) };
+            },
+            set: function (patch, doEmit) {
+                var changed = [];
+                if (mode === "range") {
+                    if ("from" in patch) { dtWrite(slots[0], patch.from); changed.push(slots[0]); }
+                    if ("to" in patch) { dtWrite(slots[1], patch.to); changed.push(slots[1]); }
+                } else if (mode === "datetime") {
+                    var c = cfg.get(), date = "date" in patch ? patch.date : c.date, time = "time" in patch ? patch.time : c.time;
+                    if (date || time) {
+                        if (!date) { var b = cfg.bounds(), t = todayIso(); date = b.min && t < b.min ? b.min : b.max && t > b.max ? b.max : t; }
+                        time = time || "00:00";
+                    }
+                    dtWrite(s0, date ? date + "T" + time : "");
+                    changed.push(s0);
+                } else {
+                    dtWrite(s0, mode === "time" ? patch.time : patch.date);
+                    changed.push(s0);
+                }
+                if (doEmit) emit(changed, detail());
+            },
+            onToggle: function (on) {
+                btn.setAttribute("aria-expanded", String(on));
+                slots.forEach(function (s) { s.input.setAttribute("aria-expanded", String(on)); s.input.setAttribute("aria-controls", dp.pop.id); });
+            }
+        };
+        dp = dtPop(cfg);
+        host.appendChild(dp.pop);
+
+        function openFor(i) {
+            idx = i;
+            var v = cfg.get();
+            dp.open({ step: mode === "range" && i === 1 && v.from ? "to" : "from" });
+        }
+        btn.addEventListener("click", function () {
+            if (dp.isOpen()) { dp.close(false); return; }
+            var v = cfg.get();
+            openFor(mode === "range" && v.from && !v.to ? 1 : 0);
+        });
+        slots.forEach(function (s, i) {
+            var inp = s.input;
+            inp.addEventListener("input", function (e) {
+                var v = inp.value;
+                if (e.inputType && e.inputType.indexOf("insert") === 0 && inp.selectionStart === v.length) {
+                    var nv = null;
+                    if (s.kind === "time") { if (/^\d{2}$/.test(v)) nv = v + ":"; }
+                    else if (/^\d{2}$/.test(v) || /^\d{2}\/\d{2}$/.test(v)) nv = v + "/";
+                    else if (s.kind === "datetime" && /^\d{2}\/\d{2}\/\d{4}$/.test(v)) nv = v + " ";
+                    else if (s.kind === "datetime" && /^\d{2}\/\d{2}\/\d{4} \d{2}$/.test(v)) nv = v + ":";
+                    if (nv) inp.value = nv;
+                }
+                dtFromText(s);
+            });
+            inp.addEventListener("change", function () {
+                if (field.silent) return;
+                dtFromText(s);
+                if (s.value) inp.value = s.fmt(s.value);
+                dtMark(s);
+                if (s.other) dtMark(s.other);
+                host.dispatchEvent(new CustomEvent("kit:change", { bubbles: true, detail: detail() }));
+            });
+            inp.addEventListener("keydown", function (e) {
+                if (e.key === "ArrowDown" || (e.altKey && e.key === "ArrowDown")) { e.preventDefault(); openFor(i); }
+            });
+            inp.addEventListener("click", function () {
+                // sul telefono il campo non apre la tastiera: un tocco apre il calendario
+                if (inp.getAttribute("inputmode") === "none" && !dp.isOpen()) openFor(i);
+            });
+            var form = inp.form;
+            if (form) {
+                form.addEventListener("reset", function () { setTimeout(function () { if (inp.isConnected) { dtFromText(s); dtMark(s); } }, 0); });
+                form.addEventListener("formdata", function (e) { if (s.hidden && s.hidden.name && (inp.disabled || s.hidden.disabled)) e.formData.delete(s.hidden.name); });
+            }
+        });
+        // un clic fuori dal popup lo chiude
+        var api = {
+            el: host, open: function () { openFor(0); }, close: function () { dp.close(false); },
+            get: function () { return mode === "range" ? { from: slots[0].value, to: slots[1].value } : s0.value; },
+            set: function (v, doEmit) {
+                if (mode === "range") { v = v || {}; cfg.set({ from: parseDate(v.from) || "", to: parseDate(v.to) || "" }, !!doEmit); }
+                else { var p = s0.parse(v); cfg.set(mode === "time" ? { time: p || "" } : mode === "datetime" ? { date: p ? p.slice(0, 10) : "", time: p ? p.slice(11, 16) : "" } : { date: p || "" }, !!doEmit); }
+            },
+            clear: function (doEmit) { api.set(mode === "range" ? {} : "", doEmit); },
+            input: s0.input
+        };
+        return api;
+    }
+
+    /* Calendario, data e ora, ora: <input data-kit-datepicker> (il tipo si capisce da type="date|datetime-local|time"). */
+    function datePicker(target, opts) {
+        var input = typeof target === "string" ? document.querySelector(target) : target;
+        if (!input || !input.matches || !input.matches("input") || input.type === "hidden") return null;
+        var prev = dtMap.get(input);
+        if (prev) return prev;
+        opts = opts || {};
+        var kind = opts.type || input.getAttribute("data-kit-datepicker");
+        if (kind !== "date" && kind !== "datetime" && kind !== "time") {
+            kind = input.type === "time" || input.hasAttribute("data-kit-timepicker") ? "time" : input.type === "datetime-local" ? "datetime" : "date";
+        }
+        var wrap = mkEl("div", "kit-date");
+        input.parentNode.insertBefore(wrap, input);
+        wrap.appendChild(input);
+        var slot = dtSlot(input, kind);
+        var api = dtMount(wrap, [slot], kind, opts);
+        dtMap.set(input, api);
+        return api;
+    }
+    /* Intervallo: <div class="kit-daterange" data-kit-daterange> con due <input type="date"> (dal, al). */
+    function dateRange(target, opts) {
+        var wrap = typeof target === "string" ? document.querySelector(target) : target;
+        if (!wrap) return null;
+        var prev = dtMap.get(wrap);
+        if (prev) return prev;
+        var inputs = Array.prototype.filter.call(wrap.querySelectorAll("input"), function (i) { return i.type !== "hidden"; }).slice(0, 2);
+        if (inputs.length < 2) return null;
+        opts = opts || {};
+        wrap.classList.add("kit-daterange");
+        var a = dtSlot(inputs[0], "date", "from"), b = dtSlot(inputs[1], "date", "to");
+        a.other = b;
+        b.other = a;
+        var api = dtMount(wrap, [a, b], "range", opts);
+        dtMap.set(wrap, api);
+        return api;
+    }
+    /* Un clic fuori dal popup aperto lo chiude (sul bordo scuro del foglio per telefono il bersaglio è il popup stesso). */
+    document.addEventListener("click", function (e) {
+        if (!dtActive) return;
+        var pop = dtActive.pop, t = e.target;
+        if (!(t instanceof Node)) return;
+        if (t === pop) {
+            var r = pop.getBoundingClientRect();
+            if (e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom) return;
+            dtActive.close(false);
+            return;
+        }
+        var host = pop.parentNode;
+        if (!pop.contains(t) && !(host && host.contains(t) && t instanceof Element && t.closest(".kit-date-btn, input"))) dtActive.close(false);
+    });
+
     /* ---------- Colonne fisse (kit-table-fix data-kit-fix="2|3|4") ----------
        Le larghezze cumulate delle prime colonne diventano --kit-fix-1, -2, -3: sono il "left" delle colonne successive.
        Si rimisurano quando la tabella cambia dimensione (finestra, testo più grande, righe nuove). */
@@ -2536,6 +3463,8 @@
         scope = scope || document;
         scope.querySelectorAll("table.kit-table-fix[data-kit-fix]").forEach(fixTable);
         scope.querySelectorAll("[data-kit-accordion]").forEach(function (a) { accordion(a); });
+        scope.querySelectorAll("input[data-kit-datepicker], input[data-kit-timepicker]").forEach(function (i) { datePicker(i); });
+        scope.querySelectorAll("[data-kit-daterange]").forEach(function (w) { dateRange(w); });
         scope.querySelectorAll("table[data-kit-sort], table[data-kit-page]").forEach(function (t) { tblTable(t); });
         scope.querySelectorAll("[data-kit-filter]").forEach(function (i) { tblFilterInput(i); });
         scope.querySelectorAll("select[data-kit-select]").forEach(function (s) { nativeSelect(s); });
@@ -2644,5 +3573,5 @@
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { init(); });
     else init();
 
-    window.Kit = { theme: theme, layout: layout, sidebar: sidebar, fontSize: fontSize, reset: reset, toast: toast, undo: undo, confirm: confirmDialog, split: split, file: fileField, progress: progressDialog, combo: combo, select: nativeSelect, code: code, highlight: highlight, barChart: barChart, lineChart: lineChart, donut: donut, sparkline: sparkline, table: tblTable, paginate: tblPaginate, accordion: accordion, init: init };
+    window.Kit = { theme: theme, layout: layout, sidebar: sidebar, fontSize: fontSize, reset: reset, toast: toast, undo: undo, confirm: confirmDialog, split: split, file: fileField, progress: progressDialog, combo: combo, select: nativeSelect, code: code, highlight: highlight, barChart: barChart, lineChart: lineChart, donut: donut, sparkline: sparkline, table: tblTable, paginate: tblPaginate, accordion: accordion, datepicker: datePicker, daterange: dateRange, date: { parse: parseDate, parseTime: parseTime, format: fmtDate, today: todayIso, labels: DT }, init: init };
 })();
