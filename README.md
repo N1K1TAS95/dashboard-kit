@@ -14,7 +14,7 @@ Da CDN (jsDelivr), fissando sempre una versione:
       crossorigin="anonymous">
 <!-- opzionale: tema, select, popover, tab, dialog, toast -->
 <script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.9.0/dist/kit.js"
-        integrity="sha384-89JrFux10wrAEBSOxp2NHawwSzx2YJlYm07R9d9SDjxddGooeAsgRq59qbBhImA1"
+        integrity="sha384-EL8zvyVBS7JUr07FXG6zx5ugYmg0FXDBjxMggpyKHEIYZAfMy4QhXiVBjE3z76qG"
         crossorigin="anonymous"></script>
 <!-- opzionale: le icone (sprite SVG inserito nella pagina) -->
 <script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.9.0/dist/kit-icons.js"

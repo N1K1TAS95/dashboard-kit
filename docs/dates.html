@@ -187,9 +187,6 @@
     <label class="kit-field">Scadenza <input class="kit-input" type="date" name="scadenza" data-kit-datepicker required><small data-doc-out>Valore: –</small></label>
   </div>
 </div>
-<pre class="kit-code" data-kit-code="html"><code>&lt;label class="kit-field"&gt;Data di emissione
-  &lt;input class="kit-input" type="date" name="emissione" value="2026-11-12" data-kit-datepicker&gt;
-&lt;/label&gt;</code></pre>
 <p>Al cambio partono gli eventi <code>input</code> e <code>change</code> del campo (quindi anche <code>hx-trigger="change"</code> di htmx) e <code>kit:change</code> con <code>{ value, display }</code>: <code>value</code> in ISO, <code>display</code> come scritto nel campo.</p>
 
 <h3 id="limiti">Limiti e giorni esclusi</h3>
@@ -210,17 +207,13 @@
 <div class="doc-demo">
   <div class="kit-field" style="max-width: 360px">
     <span>Periodo</span>
-    <div class="kit-daterange" data-kit-daterange>
+    <div class="kit-daterange" data-kit-daterange data-kit-presets="oggi,7,30,mese,mese-scorso">
       <input class="kit-input" type="date" name="dal" aria-label="Dal" value="2026-11-01">
       <input class="kit-input" type="date" name="al" aria-label="Al" value="2026-11-12">
     </div>
     <small data-doc-out>Valore: 2026-11-01 → 2026-11-12</small>
   </div>
 </div>
-<pre class="kit-code" data-kit-code="html"><code>&lt;div class="kit-daterange" data-kit-daterange data-kit-presets="oggi,7,30,mese,mese-scorso"&gt;
-  &lt;input class="kit-input" type="date" name="dal" aria-label="Dal"&gt;
-  &lt;input class="kit-input" type="date" name="al" aria-label="Al"&gt;
-&lt;/div&gt;</code></pre>
 <p>Le scelte disponibili sono <code>oggi</code>, <code>ieri</code>, <code>7</code>, <code>30</code>, <code>90</code> (ultimi N giorni), <code>mese</code>, <code>mese-scorso</code>, <code>anno</code>, <code>anno-scorso</code>. Di base <code>7,30,mese,mese-scorso,anno</code>. Quelle che escono da <code>min</code> e <code>max</code> vengono accorciate, o disattivate se restano fuori del tutto. L'evento <code>kit:change</code> ha <code>{ from, to }</code>, e <code>input</code> e <code>change</code> partono su entrambi i campi.</p>
 
 <h2 id="data-ora">Data e ora</h2>

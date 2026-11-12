@@ -3432,7 +3432,9 @@
             return;
         }
         var host = pop.parentNode;
-        if (!pop.contains(t) && !(host && host.contains(t) && t instanceof Element && t.closest(".kit-date-btn, input"))) dtActive.close(false);
+        // il popup si ricostruisce a ogni clic su un suo bottone: il target può non esserci più, quindi si guarda il percorso dell'evento
+        if (e.composedPath().indexOf(pop) >= 0) return;
+        if (!(host && host.contains(t) && t instanceof Element && t.closest(".kit-date-btn, input"))) dtActive.close(false);
     });
 
     /* ---------- Colonne fisse (kit-table-fix data-kit-fix="2|3|4") ----------
