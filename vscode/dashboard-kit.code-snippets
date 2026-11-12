@@ -324,6 +324,23 @@
       "</section>$0"
     ]
   },
+  "Kit: accordion": {
+    "prefix": "kit-accordion",
+    "scope": "html",
+    "description": "Accordion con voci apribili (details), opzionalmente una sola aperta",
+    "body": [
+      "<div class=\"kit-accordion\" data-kit-accordion=\"single\">",
+      "  <details open>",
+      "    <summary>${1:Titolo}</summary>",
+      "    <div class=\"kit-accordion-body\">${2:Contenuto}</div>",
+      "  </details>",
+      "  <details>",
+      "    <summary>${3:Titolo}</summary>",
+      "    <div class=\"kit-accordion-body\">${4:Contenuto}</div>",
+      "  </details>",
+      "</div>$0"
+    ]
+  },
   "Kit: stato vuoto": {
     "prefix": "kit-empty",
     "scope": "html",

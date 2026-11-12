@@ -18,6 +18,7 @@
  *   data-kit-file                            su .kit-file o .kit-dropzone: campo file con controllo di tipo e dimensione (data-kit-file-max in MB,
  *                                            data-kit-file-dir per le cartelle, data-kit-file-page per rilasciare ovunque nella pagina)
  *   data-kit-code="html|js|css"              su <pre class="kit-code">: colora il codice (senza lingua la indovina); data-kit-code-copy aggiunge il bottone «Copia»
+ *   data-kit-accordion="single"              su .kit-accordion: un solo <details> aperto per volta (senza valore, ognuno si apre per conto suo)
  *   data-kit-sort                            su .kit-table: le intestazioni (<th>) ordinano le righe (con ="multi", Shift o Ctrl/⌘ + clic ordina per più colonne; numeri, date e testo si riconoscono da soli; data-kit-type e data-kit-value per forzarli, data-kit-nosort per escludere una colonna)
  *   data-kit-fix="2|3|4"                     su .kit-table-fix: blocca le prime 2, 3 o 4 colonne (la sola prima si blocca con la classe, senza JavaScript)
  *   data-kit-filter="#tabella"               su un campo di testo: mostra solo le righe che contengono tutte le parole scritte
@@ -32,8 +33,8 @@
  *   data-kit-tip="testo"                     tooltip (solo CSS; con kit.js Esc lo nasconde)
  *   data-kit-dismiss                         dentro un .kit-alert, lo rimuove (evento "kit:dismiss")
  *
- * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.sidebar.get()/set()/toggle()/open()/close(), Kit.fontSize.get()/set()/step(), Kit.reset(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.confirm(domanda, opzioni), Kit.undo(testo, opzioni), Kit.split(elemento), Kit.file(elemento, opzioni), Kit.progress(testo, opzioni), Kit.combo(elemento, opzioni), Kit.select(elemento, opzioni), Kit.code(elemento, opzioni), Kit.highlight(testo, lingua), Kit.barChart(elemento, opzioni), Kit.lineChart(…), Kit.donut(…), Kit.sparkline(…), Kit.table(tabella, opzioni), Kit.paginate(tabella, righe), Kit.init(radice)
- * Eventi: "kit:change" (select, combobox), "kit:select" (barra, punto o fetta di un grafico), "kit:tab" (tab), "kit:files" (file scelti o rilasciati), "kit:copy" (codice copiato), "kit:sort" (tabella ordinata), "kit:filter" (tabella filtrata), "kit:page" (pagina della tabella cambiata), "kit:split" (pannello aperto, chiuso o a tutta larghezza), "kit:theme" (tema), "kit:layout" (larghezza), "kit:sidebar" (sidebar compressa, espansa, aperta o chiusa), "kit:fs" (dimensione del testo), "kit:reset" (impostazioni ripristinate), "kit:dismiss" (avviso chiuso)
+ * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.sidebar.get()/set()/toggle()/open()/close(), Kit.fontSize.get()/set()/step(), Kit.reset(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.confirm(domanda, opzioni), Kit.undo(testo, opzioni), Kit.split(elemento), Kit.file(elemento, opzioni), Kit.progress(testo, opzioni), Kit.combo(elemento, opzioni), Kit.select(elemento, opzioni), Kit.code(elemento, opzioni), Kit.highlight(testo, lingua), Kit.barChart(elemento, opzioni), Kit.lineChart(…), Kit.donut(…), Kit.sparkline(…), Kit.table(tabella, opzioni), Kit.paginate(tabella, righe), Kit.accordion(elemento, opzioni), Kit.init(radice)
+ * Eventi: "kit:change" (select, combobox), "kit:select" (barra, punto o fetta di un grafico), "kit:tab" (tab), "kit:files" (file scelti o rilasciati), "kit:copy" (codice copiato), "kit:sort" (tabella ordinata), "kit:filter" (tabella filtrata), "kit:page" (pagina della tabella cambiata), "kit:accordion" (voce dell'accordion aperta o chiusa), "kit:split" (pannello aperto, chiuso o a tutta larghezza), "kit:theme" (tema), "kit:layout" (larghezza), "kit:sidebar" (sidebar compressa, espansa, aperta o chiusa), "kit:fs" (dimensione del testo), "kit:reset" (impostazioni ripristinate), "kit:dismiss" (avviso chiuso)
  */
 (function () {
     "use strict";
@@ -2469,6 +2470,44 @@
         input.addEventListener("input", function () { api.filter(input.value); });
     }
 
+    /* ---------- Accordion (kit-accordion): "uno solo aperto" e API ----------
+       <div class="kit-accordion" data-kit-accordion="single"><details>…</details>…</div>
+       Vale per i <details> figli diretti (un accordion dentro un altro è indipendente). Evento "kit:accordion" con { item, index, open }. */
+    var accState = new WeakMap();
+
+    function accordion(target, opts) {
+        var el = resolveEl(target);
+        if (!el) return null;
+        var o = opts || {};
+        var st = accState.get(el);
+        if (!st) {
+            st = { single: false };
+            accState.set(el, st);
+            el.addEventListener("toggle", function (e) {
+                var d = e.target;
+                if (!(d instanceof Element) || d.parentNode !== el || d.nodeName !== "DETAILS") return;
+                if (st.single && d.open) items().forEach(function (x) { if (x !== d && x.open) x.open = false; });
+                el.dispatchEvent(new CustomEvent("kit:accordion", { bubbles: true, detail: { item: d, index: items().indexOf(d), open: d.open } }));
+            }, true);
+        }
+        function items() { return Array.prototype.filter.call(el.children, function (x) { return x.nodeName === "DETAILS"; }); }
+        function pick(x) { return typeof x === "number" ? items()[x] : x; }
+        function set(x, open) { var d = pick(x); if (d && d.parentNode === el) d.open = open === undefined ? !d.open : open; }
+        st.single = o.single !== undefined ? !!o.single : el.getAttribute("data-kit-accordion") === "single";
+        if (st.single) {
+            var first = null;
+            items().forEach(function (d) { if (d.open) { if (first) d.open = false; else first = d; } });
+        }
+        return {
+            open: function (x) { set(x, true); },
+            close: function (x) { set(x, false); },
+            toggle: function (x) { set(x); },
+            openAll: function () { if (!st.single) items().forEach(function (d) { d.open = true; }); },
+            closeAll: function () { items().forEach(function (d) { d.open = false; }); },
+            items: items
+        };
+    }
+
     /* ---------- Colonne fisse (kit-table-fix data-kit-fix="2|3|4") ----------
        Le larghezze cumulate delle prime colonne diventano --kit-fix-1, -2, -3: sono il "left" delle colonne successive.
        Si rimisurano quando la tabella cambia dimensione (finestra, testo più grande, righe nuove). */
@@ -2496,6 +2535,7 @@
         function init(scope) {
         scope = scope || document;
         scope.querySelectorAll("table.kit-table-fix[data-kit-fix]").forEach(fixTable);
+        scope.querySelectorAll("[data-kit-accordion]").forEach(function (a) { accordion(a); });
         scope.querySelectorAll("table[data-kit-sort], table[data-kit-page]").forEach(function (t) { tblTable(t); });
         scope.querySelectorAll("[data-kit-filter]").forEach(function (i) { tblFilterInput(i); });
         scope.querySelectorAll("select[data-kit-select]").forEach(function (s) { nativeSelect(s); });
@@ -2604,5 +2644,5 @@
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { init(); });
     else init();
 
-    window.Kit = { theme: theme, layout: layout, sidebar: sidebar, fontSize: fontSize, reset: reset, toast: toast, undo: undo, confirm: confirmDialog, split: split, file: fileField, progress: progressDialog, combo: combo, select: nativeSelect, code: code, highlight: highlight, barChart: barChart, lineChart: lineChart, donut: donut, sparkline: sparkline, table: tblTable, paginate: tblPaginate, init: init };
+    window.Kit = { theme: theme, layout: layout, sidebar: sidebar, fontSize: fontSize, reset: reset, toast: toast, undo: undo, confirm: confirmDialog, split: split, file: fileField, progress: progressDialog, combo: combo, select: nativeSelect, code: code, highlight: highlight, barChart: barChart, lineChart: lineChart, donut: donut, sparkline: sparkline, table: tblTable, paginate: tblPaginate, accordion: accordion, init: init };
 })();
