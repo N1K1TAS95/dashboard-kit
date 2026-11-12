@@ -944,6 +944,35 @@ a.kit-list-item:hover, button.kit-list-item:hover, .kit-list-action:hover { back
 .kit-accordion details::details-content { block-size: 0; overflow: clip; transition: block-size .2s ease, content-visibility .2s allow-discrete; }
 .kit-accordion details[open]::details-content { block-size: auto; }
 
+/* Breadcrumb (briciole di pane): <nav class="kit-breadcrumb" aria-label="Percorso"><ol><li><a href="…">Home</a></li>…<li aria-current="page">Pagina</li></ol></nav>.
+   L'ultima voce è la pagina corrente (aria-current="page", non è un link). Il separatore è disegnato dal CSS, quindi lo screen reader non lo legge:
+   freccetta di base, kit-breadcrumb-slash per la barra. Un'icona (.kit-icon) davanti al testo di una voce si allinea da sola.
+   kit-breadcrumb-collapse: sugli schermi stretti restano la prima e l'ultima voce e compare la voce <li class="kit-breadcrumb-more" aria-hidden="true">…</li>
+   (scritta dopo la prima, nascosta altrove). */
+.kit-breadcrumb { font-size: .929rem; }
+.kit-breadcrumb > ol { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin: 0; padding: 0; list-style: none; }
+.kit-breadcrumb li { display: inline-flex; align-items: center; gap: 8px; min-width: 0; color: var(--kit-mute); }
+.kit-breadcrumb li + li::before {
+    content: ""; flex: none;
+    width: .42em; height: .42em;
+    border-top: 1.5px solid currentColor; border-right: 1.5px solid currentColor;
+    transform: rotate(45deg); opacity: .6; margin-right: 2px;
+}
+.kit-breadcrumb-slash li + li::before { width: 0; height: 1.1em; border: 0; border-left: 1.5px solid currentColor; transform: rotate(20deg); margin-right: 4px; }
+.kit-breadcrumb a { display: inline-flex; align-items: center; gap: 6px; color: inherit; text-decoration: none; border-radius: 4px; }
+.kit-breadcrumb a:hover { color: var(--kit-accent); text-decoration: underline; text-underline-offset: 3px; }
+.kit-breadcrumb a:focus-visible { outline: 2px solid var(--kit-accent); outline-offset: 2px; }
+.kit-breadcrumb [aria-current="page"] { color: var(--kit-ink); font-weight: 600; }
+.kit-breadcrumb .kit-icon { width: 1.1em; height: 1.1em; }
+.kit-breadcrumb-more { display: none !important; }
+@media (max-width: 576px) {
+    .kit-breadcrumb-collapse > ol { flex-wrap: nowrap; }
+    .kit-breadcrumb-collapse li:not(:first-child):not(:last-child):not(.kit-breadcrumb-more) { display: none; }
+    .kit-breadcrumb-collapse .kit-breadcrumb-more { display: inline-flex !important; }
+    .kit-breadcrumb-collapse li:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; }
+    .kit-breadcrumb-collapse li:last-child::before { display: inline-block; vertical-align: middle; margin-right: 8px; }
+}
+
 /* ===== 5. Bottoni ===== */
 .kit-btn {
     height: var(--kit-ctl);

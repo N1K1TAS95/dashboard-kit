@@ -123,6 +123,7 @@
             <li><a href="#segmented">Controllo segmentato</a></li>
             <li><a href="#pill">Pill</a></li>
             <li><a href="#chip">Chip</a></li>
+            <li><a href="#breadcrumb">Breadcrumb</a></li>
           </ul>
           <a href="navbar.html">Navbar</a>
           <a href="sidebar.html">Sidebar</a>
@@ -185,6 +186,47 @@
     <button class="kit-chip"><b>Importo</b> &gt; 100 € <i>×</i></button>
   </div>
 </div>
+
+<h2 id="breadcrumb">Breadcrumb</h2>
+<p>Mostra dove ci si trova nella gerarchia del sito e permette di risalire. È solo CSS: un <code>&lt;nav class="kit-breadcrumb"&gt;</code> con un <code>&lt;ol&gt;</code>, un <code>&lt;li&gt;</code> per livello e <code>aria-current="page"</code> sull'ultimo, che è la pagina corrente e non un link. Il separatore lo disegna il CSS, quindi lo screen reader legge solo i nomi. Il <code>&lt;nav&gt;</code> ha bisogno di un <code>aria-label</code> (per esempio «Percorso») per distinguerlo dagli altri.</p>
+<div class="doc-demo">
+  <nav class="kit-breadcrumb" aria-label="Percorso">
+    <ol>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Fatture</a></li>
+      <li><a href="#">2026</a></li>
+      <li aria-current="page">FT-0042</li>
+    </ol>
+  </nav>
+</div>
+
+<h3 id="breadcrumb-varianti">Separatore e icona</h3>
+<p>Di base il separatore è una freccetta; <code>kit-breadcrumb-slash</code> usa la barra. Un'icona (<code>kit-icon</code>) davanti al testo di una voce si allinea da sola: di solito la casa per la prima.</p>
+<div class="doc-demo">
+  <nav class="kit-breadcrumb kit-breadcrumb-slash" aria-label="Percorso">
+    <ol>
+      <li><a href="#"><svg class="kit-icon"><use href="#i-home"/></svg>Home</a></li>
+      <li><a href="#">Clienti</a></li>
+      <li aria-current="page">Alfa Servizi S.r.l.</li>
+    </ol>
+  </nav>
+</div>
+
+<h3 id="breadcrumb-collapse">Percorsi lunghi su schermi stretti</h3>
+<p>Con <code>kit-breadcrumb-collapse</code>, sotto i 576px restano la prima e l'ultima voce, su una riga sola (l'ultima si accorcia con i puntini se non ci sta). Al posto delle voci nascoste compare una voce <code>kit-breadcrumb-more</code> con «…», che si scrive dopo la prima e si vede solo su quegli schermi; è <code>aria-hidden</code> perché le voci nascoste non vengono lette. Restringi la finestra per vederlo.</p>
+<div class="doc-demo">
+  <nav class="kit-breadcrumb kit-breadcrumb-collapse" aria-label="Percorso">
+    <ol>
+      <li><a href="#">Home</a></li>
+      <li class="kit-breadcrumb-more" aria-hidden="true">…</li>
+      <li><a href="#">Contabilità</a></li>
+      <li><a href="#">Fatture attive</a></li>
+      <li><a href="#">2026</a></li>
+      <li aria-current="page">FT-0042 · Alfa Servizi S.r.l.</li>
+    </ol>
+  </nav>
+</div>
+<p>Con un <code>kit-header</code> o in cima a una pagina il breadcrumb sta bene sopra il titolo, con <code>margin-bottom</code> di una o due unità di spazio. Se i livelli li calcola il server (Django, per esempio) basta un ciclo che scrive un <code>&lt;li&gt;</code> con link per ogni antenato e l'ultimo con <code>aria-current</code>.</p>
     <nav class="doc-pager" aria-label="Pagina precedente e successiva">
       <a href="forms.html"><small>← Precedente</small><b>Form</b></a>
       <a class="doc-next" href="navbar.html"><small>Successiva →</small><b>Navbar</b></a>

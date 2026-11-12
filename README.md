@@ -10,7 +10,7 @@ Da CDN (jsDelivr), fissando sempre una versione:
 ```html
 <link rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.9.0/dist/kit.css"
-      integrity="sha384-0ACxAnXTUnXkEP+Po5K1AufrU23MxqduLmO1CcigXJYwM6wrV+xtgLqT1mEYkG6D"
+      integrity="sha384-QY0Hox+TroHpJdGfPCJqKtW1+1LrjBUIKzOLqLkgiWXR+/s5x0ifahYcNIOofwlF"
       crossorigin="anonymous">
 <!-- opzionale: tema, select, popover, tab, dialog, toast -->
 <script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.9.0/dist/kit.js"
