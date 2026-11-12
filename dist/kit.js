@@ -1,5 +1,5 @@
 /*!
- * Dashboard Kit 0.8.0 — JavaScript opzionale. Nessuna dipendenza, niente innerHTML, niente eval:
+ * Dashboard Kit 0.9.0 — JavaScript opzionale. Nessuna dipendenza, niente innerHTML, niente eval:
  * compatibile con una Content-Security-Policy rigida (script-src 'self').
  *
  * Si attiva da solo con attributi data-kit-*:
@@ -18,6 +18,9 @@
  *   data-kit-file                            su .kit-file o .kit-dropzone: campo file con controllo di tipo e dimensione (data-kit-file-max in MB,
  *                                            data-kit-file-dir per le cartelle, data-kit-file-page per rilasciare ovunque nella pagina)
  *   data-kit-code="html|js|css"              su <pre class="kit-code">: colora il codice (senza lingua la indovina); data-kit-code-copy aggiunge il bottone «Copia»
+ *   data-kit-sort                            su .kit-table: le intestazioni (<th>) ordinano le righe (con ="multi", Shift o Ctrl/⌘ + clic ordina per più colonne; numeri, date e testo si riconoscono da soli; data-kit-type e data-kit-value per forzarli, data-kit-nosort per escludere una colonna)
+ *   data-kit-filter="#tabella"               su un campo di testo: mostra solo le righe che contengono tutte le parole scritte
+ *   data-kit-page="N"                        su .kit-table: mostra N righe per volta, con la paginazione sotto (data-kit-empty cambia il testo «Nessun risultato»)
  *   data-kit-tabs                            su .kit-tabs: tab con data-kit-panel="#id"
  *   data-kit-nav="#id"                       bottone (hamburger) che apre/chiude il menu a scomparsa di una .kit-navbar
  *   data-kit-open="#dialogId"                apre un <dialog>
@@ -27,8 +30,8 @@
  *   data-kit-tip="testo"                     tooltip (solo CSS; con kit.js Esc lo nasconde)
  *   data-kit-dismiss                         dentro un .kit-alert, lo rimuove (evento "kit:dismiss")
  *
- * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.sidebar.get()/set()/toggle()/open()/close(), Kit.fontSize.get()/set()/step(), Kit.reset(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.confirm(domanda, opzioni), Kit.undo(testo, opzioni), Kit.split(elemento), Kit.file(elemento, opzioni), Kit.progress(testo, opzioni), Kit.combo(elemento, opzioni), Kit.select(elemento, opzioni), Kit.code(elemento, opzioni), Kit.highlight(testo, lingua), Kit.barChart(elemento, opzioni), Kit.lineChart(…), Kit.donut(…), Kit.sparkline(…), Kit.init(radice)
- * Eventi: "kit:change" (select, combobox), "kit:select" (barra, punto o fetta di un grafico), "kit:tab" (tab), "kit:files" (file scelti o rilasciati), "kit:copy" (codice copiato), "kit:split" (pannello aperto, chiuso o a tutta larghezza), "kit:theme" (tema), "kit:layout" (larghezza), "kit:sidebar" (sidebar compressa, espansa, aperta o chiusa), "kit:fs" (dimensione del testo), "kit:reset" (impostazioni ripristinate), "kit:dismiss" (avviso chiuso)
+ * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.sidebar.get()/set()/toggle()/open()/close(), Kit.fontSize.get()/set()/step(), Kit.reset(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.confirm(domanda, opzioni), Kit.undo(testo, opzioni), Kit.split(elemento), Kit.file(elemento, opzioni), Kit.progress(testo, opzioni), Kit.combo(elemento, opzioni), Kit.select(elemento, opzioni), Kit.code(elemento, opzioni), Kit.highlight(testo, lingua), Kit.barChart(elemento, opzioni), Kit.lineChart(…), Kit.donut(…), Kit.sparkline(…), Kit.table(tabella, opzioni), Kit.paginate(tabella, righe), Kit.init(radice)
+ * Eventi: "kit:change" (select, combobox), "kit:select" (barra, punto o fetta di un grafico), "kit:tab" (tab), "kit:files" (file scelti o rilasciati), "kit:copy" (codice copiato), "kit:sort" (tabella ordinata), "kit:filter" (tabella filtrata), "kit:page" (pagina della tabella cambiata), "kit:split" (pannello aperto, chiuso o a tutta larghezza), "kit:theme" (tema), "kit:layout" (larghezza), "kit:sidebar" (sidebar compressa, espansa, aperta o chiusa), "kit:fs" (dimensione del testo), "kit:reset" (impostazioni ripristinate), "kit:dismiss" (avviso chiuso)
  */
 (function () {
     "use strict";
@@ -2105,8 +2108,369 @@
         return st.api;
     }
 
+    /* ---------- Tabella: ordinamento, filtro di testo e paginazione ----------
+       <table class="kit-table" data-kit-sort data-kit-page="10" data-kit-empty="Nessun risultato">   (ognuno degli attributi è facoltativo)
+       <input class="kit-input" data-kit-filter="#tabella">                                          campo di ricerca
+       Ordine e filtro lavorano sulle righe del primo <tbody>; il tipo di una colonna (numeri, date, testo) si riconosce dal contenuto
+       oppure si scrive su <th data-kit-type="num|date|text">; il valore di una cella può essere diverso dal testo (<td data-kit-value="…">). */
+    var tableState = new WeakMap();
+    var TBL_LABELS = { empty: "Nessun risultato", of: "di", prev: "Pagina precedente", next: "Pagina successiva", page: "Pagina {n}", nav: "Paginazione" };
+    var NUM_RE = /^[+\-]?\s*[€$£]?\s*[+\-]?\d[\d.,\s]*\s*[%€$£]?$/;
+    var DATE_DMY = /^(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{4})(?:[ T,]+(\d{1,2}):(\d{2}))?$/;
+    var DATE_YMD = /^(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2}))?$/;
+
+    function tblText(node, skipSmall) {
+        if (node.nodeType === 3) return node.nodeValue;
+        if (node.nodeType !== 1 || (skipSmall && node.nodeName === "SMALL")) return "";
+        var out = [];
+        node.childNodes.forEach(function (n) { out.push(tblText(n, skipSmall)); });
+        return out.join(node.nodeName === "SPAN" || node.nodeName === "B" || node.nodeName === "A" ? "" : " ");
+    }
+
+    function tblPlain(s) { return s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase(); }
+
+    function tblNumber(s) {
+        s = s.replace(/[\s\u00a0]/g, "").replace(/[\u2212\u2013]/g, "-");
+        if (!NUM_RE.test(s)) return null;
+        var neg = s.indexOf("-") >= 0;
+        s = s.replace(/[^\d.,]/g, "");
+        var c = s.lastIndexOf(","), d = s.lastIndexOf(".");
+        if (c >= 0 && d >= 0) s = c > d ? s.replace(/\./g, "").replace(",", ".") : s.replace(/,/g, "");
+        else if (c >= 0) s = s.replace(/\./g, "").replace(",", ".");
+        else if (d >= 0 && /^\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g, "");
+        var n = parseFloat(s);
+        return isNaN(n) ? null : (neg ? -n : n);
+    }
+
+    function tblDate(s) {
+        var m = DATE_DMY.exec(s), y, mo, d;
+        if (m) { d = +m[1]; mo = +m[2]; y = +m[3]; }
+        else if ((m = DATE_YMD.exec(s))) { y = +m[1]; mo = +m[2]; d = +m[3]; }
+        else return null;
+        if (mo < 1 || mo > 12 || d < 1 || d > 31) return null;
+        return Date.UTC(y, mo - 1, d, +(m[4] || 0), +(m[5] || 0));
+    }
+
+    function tblEmpty(s) { return s === "" || s === "-" || s === "\u2014" || s === "\u2013"; }
+
+    function tblTable(target, opts) {
+        var table = resolveEl(target);
+        if (!table || table.nodeName !== "TABLE") return null;
+        if (tableState.has(table)) {
+            var old = tableState.get(table);
+            if (opts) old.configure(opts);
+            return old.api;
+        }
+        var st = { table: table, rows: [], sorts: [], multi: false, query: "", size: 0, page: 1, labels: {}, sortable: false };
+        var collator = null, wrap = table.parentNode && table.parentNode.classList.contains("kit-table-wrap") ? table.parentNode : null;
+        var emptyRow = null, pager = null, info = null, pages = null;
+        Object.keys(TBL_LABELS).forEach(function (k) { st.labels[k] = TBL_LABELS[k]; });
+
+        function body() { return table.tBodies[0]; }
+        function heads() { return table.tHead && table.tHead.rows.length ? Array.prototype.slice.call(table.tHead.rows[table.tHead.rows.length - 1].cells) : []; }
+        function lab(k, n) { return String(st.labels[k]).replace("{n}", n); }
+
+        function collect() {
+            var b = body();
+            st.rows = [];
+            if (!b) return;
+            Array.prototype.forEach.call(b.rows, function (tr, i) {
+                if (tr.classList.contains("kit-table-empty")) return;
+                if (tr.__kitIdx === undefined) tr.__kitIdx = i;
+                st.rows.push(tr);
+            });
+            st.rows.forEach(function (tr, i) { tr.__kitIdx = i; tr.__kitText = null; });
+        }
+
+        function cellValue(tr, col) {
+            var td = tr.cells[col];
+            if (!td) return "";
+            var v = td.getAttribute("data-kit-value");
+            return (v !== null ? v : tblText(td, true)).replace(/\s+/g, " ").trim();
+        }
+
+        function colType(col) {
+            var th = heads()[col], t = th && th.getAttribute("data-kit-type");
+            if (t === "num" || t === "date" || t === "text") return t;
+            var vals = st.rows.map(function (tr) { return cellValue(tr, col); }).filter(function (v) { return !tblEmpty(v); });
+            if (!vals.length) return "text";
+            if (vals.every(function (v) { return tblNumber(v) !== null; })) return "num";
+            if (vals.every(function (v) { return tblDate(v) !== null; })) return "date";
+            return "text";
+        }
+
+        function sortRows(list) {
+            if (!st.sorts.length) return list.slice().sort(function (a, b) { return a.__kitIdx - b.__kitIdx; });
+            if (!collator) collator = new Intl.Collator(root.lang || "it", { numeric: true, sensitivity: "base" });
+            var crit = st.sorts.map(function (c) { return { col: c.col, type: colType(c.col), dir: c.dir === "descending" ? -1 : 1 }; });
+            var keyed = list.map(function (tr) {
+                return { tr: tr, keys: crit.map(function (c) {
+                    var raw = cellValue(tr, c.col);
+                    return tblEmpty(raw) ? null : c.type === "num" ? tblNumber(raw) : c.type === "date" ? tblDate(raw) : raw;
+                }) };
+            });
+            keyed.sort(function (a, b) {
+                for (var n = 0; n < crit.length; n++) {
+                    var x = a.keys[n], y = b.keys[n];
+                    if (x === null || y === null) { if (x !== y) return x === null ? 1 : -1; continue; }
+                    var r = crit[n].type === "text" ? collator.compare(x, y) : x - y;
+                    if (r) return r * crit[n].dir;
+                }
+                return a.tr.__kitIdx - b.tr.__kitIdx;
+            });
+            return keyed.map(function (k) { return k.tr; });
+        }
+
+        function matches(tr, words) {
+            if (!words.length) return true;
+            if (tr.__kitText == null) tr.__kitText = tblPlain(tblText(tr, false).replace(/\s+/g, " "));
+            return words.every(function (w) { return tr.__kitText.indexOf(w) >= 0; });
+        }
+
+        function ensurePager() {
+            if (pager || !st.size) return;
+            pager = mkEl("nav", "kit-pagination");
+            pager.setAttribute("aria-label", st.labels.nav);
+            info = mkEl("p", "kit-pagination-info");
+            info.setAttribute("aria-live", "polite");
+            pages = mkEl("div", "kit-pagination-pages");
+            pager.appendChild(info);
+            pager.appendChild(pages);
+            (wrap || table).insertAdjacentElement("afterend", pager);
+            pager.addEventListener("click", function (e) {
+                var b = e.target instanceof Element && e.target.closest("button[data-p]");
+                if (!b || b.disabled) return;
+                goPage(+b.getAttribute("data-p"));
+            });
+        }
+
+        function pageBtn(n, text, label, current, disabled) {
+            var b = mkEl("button", "kit-btn kit-btn-ghost", text);
+            b.type = "button";
+            b.setAttribute("data-p", n);
+            b.setAttribute("aria-label", label);
+            if (current) { b.setAttribute("aria-current", "page"); b.classList.remove("kit-btn-ghost"); }
+            if (disabled) b.disabled = true;
+            return b;
+        }
+
+        function drawPager(total, from, to, nPages) {
+            var hadFocus = pager.contains(document.activeElement), want = hadFocus ? document.activeElement.getAttribute("data-p") : null;
+            info.textContent = total ? from + "\u2013" + to + " " + st.labels.of + " " + total : "0 " + st.labels.of + " " + st.rows.length;
+            pages.textContent = "";
+            pages.hidden = nPages <= 1;
+            if (nPages <= 1) return;
+            var cur = st.page;
+            var pb = pageBtn(cur - 1, "\u2039", lab("prev"), false, cur === 1);
+            pb.classList.add("kit-btn-icon");
+            pages.appendChild(pb);
+            var shown = [], last = 0;
+            for (var p = 1; p <= nPages; p++) if (p === 1 || p === nPages || Math.abs(p - cur) <= 1 || (cur <= 3 && p <= 4) || (cur >= nPages - 2 && p >= nPages - 3)) shown.push(p);
+            shown.forEach(function (p) {
+                if (last && p - last > 1) { var gap = mkEl("span", "kit-pagination-gap", "\u2026"); gap.setAttribute("aria-hidden", "true"); pages.appendChild(gap); }
+                pages.appendChild(pageBtn(p, String(p), lab("page", p), p === cur, false));
+                last = p;
+            });
+            var nb = pageBtn(cur + 1, "\u203a", lab("next"), false, cur === nPages);
+            nb.classList.add("kit-btn-icon");
+            pages.appendChild(nb);
+            if (want !== null) {
+                var f = pages.querySelector('button[data-p="' + want + '"]:not(:disabled)') || pages.querySelector('[aria-current="page"]');
+                if (f) f.focus({ preventScroll: true });
+            }
+        }
+
+        // Ridisegna: ordine, filtro, pagina. Gli eventi partono dai metodi che cambiano lo stato, non da qui.
+        function render() {
+            var b = body();
+            if (!b) return;
+            var words = tblPlain(st.query).split(/\s+/).filter(Boolean);
+            var ordered = sortRows(st.rows);
+            ordered.forEach(function (tr) { b.appendChild(tr); });
+            var hit = ordered.filter(function (tr) { return matches(tr, words); });
+            var nPages = st.size ? Math.max(1, Math.ceil(hit.length / st.size)) : 1;
+            st.page = Math.min(Math.max(1, st.page), nPages);
+            var from = st.size ? (st.page - 1) * st.size : 0, to = st.size ? Math.min(hit.length, from + st.size) : hit.length;
+            var vis = hit.slice(from, to), set = new Set(vis);
+            st.rows.forEach(function (tr) { tr.hidden = !set.has(tr); tr.classList.remove("is-last"); });
+            if (vis.length) vis[vis.length - 1].classList.add("is-last");
+            if (!emptyRow) {
+                emptyRow = mkEl("tr", "kit-table-empty");
+                emptyRow.appendChild(mkEl("td"));
+            }
+            emptyRow.firstChild.colSpan = Math.max(1, heads().length || (st.rows[0] ? st.rows[0].cells.length : 1));
+            emptyRow.firstChild.textContent = st.labels.empty;
+            if (!vis.length && !emptyRow.parentNode) b.appendChild(emptyRow);
+            if (vis.length && emptyRow.parentNode) b.removeChild(emptyRow);
+            if (!vis.length) emptyRow.classList.add("is-last"); else emptyRow.classList.remove("is-last");
+            ensurePager();
+            if (pager) drawPager(hit.length, from + 1, to, nPages);
+            st.count = hit.length;
+            st.pages = nPages;
+        }
+
+        function syncHeads() {
+            heads().forEach(function (th, i) {
+                if (!st.sortable || th.hasAttribute("data-kit-nosort")) return;
+                var pos = -1;
+                st.sorts.forEach(function (c, n) { if (c.col === i) pos = n; });
+                th.setAttribute("aria-sort", pos >= 0 ? st.sorts[pos].dir : "none");
+                if (th.__kitN) {
+                    th.__kitN.textContent = pos >= 0 && st.sorts.length > 1 ? String(pos + 1) : "";
+                    th.__kitN.hidden = th.__kitN.textContent === "";
+                }
+            });
+        }
+
+        function setupHeads() {
+            heads().forEach(function (th, i) {
+                if (th.hasAttribute("data-kit-nosort")) { th.removeAttribute("aria-sort"); return; }
+                var cur = th.getAttribute("aria-sort");
+                if ((cur === "ascending" || cur === "descending") && (st.multi || !st.sorts.length) && !st.sorts.some(function (c) { return c.col === i; })) st.sorts.push({ col: i, dir: cur });
+                if (!th.querySelector(".kit-sort-btn")) {
+                    var btn = mkEl("button", "kit-sort-btn");
+                    btn.type = "button";
+                    while (th.firstChild) btn.appendChild(th.firstChild);
+                    var n = mkEl("span", "kit-sort-n");
+                    n.hidden = true;
+                    n.setAttribute("aria-hidden", "true");
+                    btn.appendChild(n);
+                    th.appendChild(btn);
+                    th.__kitN = n;
+                }
+                th.setAttribute("aria-sort", cur === "ascending" || cur === "descending" ? cur : "none");
+                th.__kitCol = i;
+            });
+        }
+
+        function fire(name, detail) { table.dispatchEvent(new CustomEvent(name, { bubbles: true, detail: detail })); }
+        function sortDetail() {
+            var c = st.sorts[0];
+            return { column: c ? c.col : -1, direction: c ? c.dir : "none", criteria: st.sorts.map(function (c) { return { column: c.col, direction: c.dir }; }) };
+        }
+
+        // sortBy(col, dir) = una sola colonna; sortBy([[col, dir], ...]) = più colonne (solo con data-kit-sort="multi")
+        function sortBy(col, dir) {
+            var list = Array.isArray(col) ? col : [[col, dir]];
+            st.sorts = [];
+            list.forEach(function (c) {
+                var cc = Array.isArray(c) ? c[0] : c.column, dd = Array.isArray(c) ? c[1] : c.direction;
+                if (dd === undefined && !Array.isArray(col)) dd = "ascending";
+                if (dd !== "ascending" && dd !== "descending") return;
+                if (!(cc >= 0) || st.sorts.some(function (x) { return x.col === cc; })) return;
+                if (st.sorts.length && !st.multi) return;
+                st.sorts.push({ col: cc, dir: dd });
+            });
+            st.page = 1;
+            syncHeads();
+            render();
+            fire("kit:sort", sortDetail());
+        }
+
+        // Clic su un'intestazione. Con Shift o Ctrl/⌘ (e data-kit-sort="multi") la colonna si aggiunge, si inverte o si toglie
+        // dall'elenco; senza, diventa l'unico criterio (e, se lo era già, passa a decrescente, poi a nessuno).
+        function headClick(col, add) {
+            var cur = null;
+            st.sorts.forEach(function (c) { if (c.col === col) cur = c; });
+            var next = !cur ? "ascending" : cur.dir === "ascending" ? "descending" : "none";
+            if (add && st.multi) {
+                var list = st.sorts.filter(function (c) { return c.col !== col; }).map(function (c) { return [c.col, c.dir]; });
+                if (next !== "none") {
+                    if (cur) list.splice(st.sorts.indexOf(cur), 0, [col, next]); else list.push([col, next]);
+                }
+                sortBy(list);
+            } else {
+                if (st.sorts.length > 1) next = "ascending";
+                sortBy(next === "none" ? [] : [[col, next]]);
+            }
+        }
+
+        function setFilter(q) {
+            q = q == null ? "" : String(q);
+            if (q === st.query) return;
+            st.query = q;
+            st.page = 1;
+            render();
+            fire("kit:filter", { query: q, count: st.count });
+        }
+
+        function goPage(n) {
+            var before = st.page;
+            st.page = Math.max(1, Math.round(+n) || 1);
+            render();
+            if (st.page !== before) fire("kit:page", { page: st.page, pages: st.pages, size: st.size, total: st.count });
+        }
+
+        function setSize(n) {
+            st.size = Math.max(0, Math.round(+n) || 0);
+            st.page = 1;
+            if (!st.size && pager) { pager.remove(); pager = info = pages = null; }
+            render();
+        }
+
+        function configure(o) {
+            if (o.labels) Object.keys(o.labels).forEach(function (k) { st.labels[k] = o.labels[k]; });
+            if (o.empty != null) st.labels.empty = o.empty;
+            if (o.sort !== undefined && (!!o.sort !== st.sortable || (o.sort === "multi") !== st.multi)) {
+                st.multi = o.sort === "multi";
+                st.sortable = !!o.sort;
+                if (st.sortable) setupHeads();
+                syncHeads();
+            }
+            if (o.size !== undefined) st.size = Math.max(0, Math.round(+o.size) || 0);
+            if (o.filter !== undefined) st.query = String(o.filter);
+            if (o.page !== undefined) st.page = Math.max(1, Math.round(+o.page) || 1);
+            if (pager) pager.setAttribute("aria-label", st.labels.nav);
+            render();
+        }
+
+        var api = {
+            sort: function (col, dir) { sortBy(col, dir); },
+            filter: function (q) { setFilter(q); },
+            page: function (n) { if (n === undefined) return st.page; goPage(n); },
+            pageSize: function (n) { if (n === undefined) return st.size; setSize(n); },
+            refresh: function () { collect(); render(); },
+            state: function () { return { sort: sortDetail(), query: st.query, page: st.page, pages: st.pages, size: st.size, total: st.rows.length, count: st.count }; }
+        };
+        st.api = api;
+        st.configure = configure;
+        tableState.set(table, st);
+
+        table.addEventListener("click", function (e) {
+            var th = e.target instanceof Element && e.target.closest("th");
+            if (!th || !st.sortable || th.__kitCol === undefined || th.parentNode.parentNode !== table.tHead || th.hasAttribute("data-kit-nosort")) return;
+            headClick(th.__kitCol, e.shiftKey || e.ctrlKey || e.metaKey);
+        });
+
+        collect();
+        var o = opts || {};
+        if (o.sort === undefined) o.sort = table.hasAttribute("data-kit-sort") ? (table.getAttribute("data-kit-sort") === "multi" ? "multi" : true) : false;
+        if (o.size === undefined && table.hasAttribute("data-kit-page")) o.size = table.getAttribute("data-kit-page");
+        if (o.empty === undefined && table.hasAttribute("data-kit-empty")) o.empty = table.getAttribute("data-kit-empty");
+        configure(o);
+        return api;
+    }
+
+    function tblPaginate(target, size) {
+        var table = resolveEl(target);
+        return tblTable(table, { size: size == null ? 10 : size });
+    }
+
+    function tblFilterInput(input) {
+        if (input.__kitFilter) return;
+        var table = resolveEl(input.getAttribute("data-kit-filter"));
+        var api = table && tblTable(table);
+        if (!api) return;
+        input.__kitFilter = true;
+        if (table.id && !input.hasAttribute("aria-controls")) input.setAttribute("aria-controls", table.id);
+        if (input.value) api.filter(input.value);
+        input.addEventListener("input", function () { api.filter(input.value); });
+    }
+
     function init(scope) {
         scope = scope || document;
+        scope.querySelectorAll("table[data-kit-sort], table[data-kit-page]").forEach(function (t) { tblTable(t); });
+        scope.querySelectorAll("[data-kit-filter]").forEach(function (i) { tblFilterInput(i); });
         scope.querySelectorAll("select[data-kit-select]").forEach(function (s) { nativeSelect(s); });
         scope.querySelectorAll("[data-kit-select]:not(select):not([data-kit-native])").forEach(function (sel) {
             var btn = sel.querySelector(".kit-select-btn");
@@ -2194,5 +2558,5 @@
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { init(); });
     else init();
 
-    window.Kit = { theme: theme, layout: layout, sidebar: sidebar, fontSize: fontSize, reset: reset, toast: toast, undo: undo, confirm: confirmDialog, split: split, file: fileField, progress: progressDialog, combo: combo, select: nativeSelect, code: code, highlight: highlight, barChart: barChart, lineChart: lineChart, donut: donut, sparkline: sparkline, init: init };
+    window.Kit = { theme: theme, layout: layout, sidebar: sidebar, fontSize: fontSize, reset: reset, toast: toast, undo: undo, confirm: confirmDialog, split: split, file: fileField, progress: progressDialog, combo: combo, select: nativeSelect, code: code, highlight: highlight, barChart: barChart, lineChart: lineChart, donut: donut, sparkline: sparkline, table: tblTable, paginate: tblPaginate, init: init };
 })();

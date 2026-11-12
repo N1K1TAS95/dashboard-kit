@@ -303,6 +303,27 @@
       "</section>$0"
     ]
   },
+  "Kit: tabella ordinabile": {
+    "prefix": "kit-table-sort",
+    "scope": "html",
+    "description": "Tabella con ordinamento, ricerca e paginazione",
+    "body": [
+      "<div class=\"kit-search\" style=\"max-width: 320px; margin-bottom: var(--kit-sp)\">",
+      "  <svg class=\"kit-icon\"><use href=\"#i-search\"/></svg>",
+      "  <input class=\"kit-input\" type=\"search\" placeholder=\"Cerca…\" aria-label=\"Cerca\" data-kit-filter=\"#${1:tabella}\">",
+      "</div>",
+      "<section class=\"kit-card\">",
+      "  <div class=\"kit-table-wrap\">",
+      "    <table class=\"kit-table\" id=\"${1:tabella}\" data-kit-sort data-kit-page=\"${2:10}\">",
+      "      <thead><tr><th>${3:Colonna}</th><th class=\"kit-num\">${4:Importo}</th></tr></thead>",
+      "      <tbody>",
+      "        <tr><td>${5:Valore}</td><td class=\"kit-num\">${6:0,00}</td></tr>",
+      "      </tbody>",
+      "    </table>",
+      "  </div>",
+      "</section>$0"
+    ]
+  },
   "Kit: stato vuoto": {
     "prefix": "kit-empty",
     "scope": "html",

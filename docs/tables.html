@@ -126,6 +126,9 @@
             <li><a href="#base">Tabella</a></li>
             <li><a href="#righe">Righe cliccabili e selezionate</a></li>
             <li><a href="#ordinamento">Ordinamento</a></li>
+            <li><a href="#filtro">Filtro di testo</a></li>
+            <li><a href="#paginazione">Paginazione</a></li>
+            <li><a href="#api">JavaScript</a></li>
             <li><a href="#sticky">Intestazione agganciata</a></li>
           </ul>
           <a href="charts.html">Grafici</a>
@@ -181,17 +184,164 @@
 </div>
 
 <h2 id="ordinamento">Ordinamento</h2>
-<p>Le intestazioni con <code>aria-sort</code> (<code>ascending</code>, <code>descending</code>, <code>none</code>) diventano cliccabili e quella attiva si colora. L'ordinamento vero lo fa il tuo codice: il kit ne gestisce solo l'aspetto.</p>
+<p>Con <code>kit.js</code>, <code>data-kit-sort</code> sulla tabella rende cliccabili le intestazioni: il primo clic ordina in modo crescente, il secondo decrescente, il terzo riporta l'ordine di partenza. L'intestazione riceve <code>aria-sort</code> (<code>ascending</code>, <code>descending</code>, <code>none</code>) e dentro si mette un bottone, quindi funziona anche da tastiera. Il tipo della colonna si riconosce dal contenuto: <strong>numeri</strong> in formato italiano (<code>1.250,00</code>, <code>−310,00</code>, <code>12 %</code>, <code>€ 5</code>), <strong>date</strong> (<code>12/03/2026</code>, <code>2026-03-12</code>, con l'ora se c'è) e <strong>testo</strong>, confrontato senza badare a maiuscole e accenti e con i numeri «naturali» (<code>FT-9</code> prima di <code>FT-10</code>). Le celle vuote o con solo un trattino vanno sempre in fondo; a parità di valore resta l'ordine di partenza. Un <code>aria-sort="ascending|descending"</code> scritto nell'HTML è l'ordinamento iniziale.</p>
 <div class="doc-demo">
   <section class="kit-card">
     <div class="kit-table-wrap">
-      <table class="kit-table">
-        <thead><tr><th aria-sort="descending">Data</th><th aria-sort="none">Numero</th><th class="kit-num" aria-sort="none">Importo</th></tr></thead>
-        <tbody><tr><td>12/03/2026</td><td>FT-0042</td><td class="kit-num">1.250,00</td></tr></tbody>
+      <table class="kit-table" data-kit-sort>
+        <thead><tr><th aria-sort="descending">Data</th><th>Numero</th><th>Cliente</th><th class="kit-num">Importo</th></tr></thead>
+        <tbody>
+          <tr><td>12/03/2026</td><td>FT-0042</td><td>Alfa Servizi S.r.l.</td><td class="kit-num">1.250,00</td></tr>
+          <tr><td>02/03/2026</td><td>FT-0041</td><td>Beta Forniture S.p.A.</td><td class="kit-num">830,40</td></tr>
+          <tr><td>21/02/2026</td><td>FT-0040</td><td>Gamma Trasporti</td><td class="kit-num kit-danger">−310,00</td></tr>
+          <tr><td>14/02/2026</td><td>FT-0039</td><td>Èlite Consulenze</td><td class="kit-num">12.400,00</td></tr>
+          <tr><td>03/02/2026</td><td>FT-0038</td><td>Delta Impianti</td><td class="kit-num">95,50</td></tr>
+          <tr><td>28/01/2026</td><td>FT-0037</td><td>Alfa Servizi S.r.l.</td><td class="kit-num">2.100,00</td></tr>
+          <tr><td>19/01/2026</td><td>FT-0036</td><td>Zeta Logistica</td><td class="kit-num kit-danger">−45,00</td></tr>
+          <tr><td>09/01/2026</td><td>FT-0035</td><td>Beta Forniture S.p.A.</td><td class="kit-num">1.980,00</td></tr>
+          <tr><td>22/12/2025</td><td>FT-0034</td><td>Omega Studio</td><td class="kit-num">410,00</td></tr>
+          <tr><td>11/12/2025</td><td>FT-0033</td><td>Gamma Trasporti</td><td class="kit-num">75,20</td></tr>
+          <tr><td>30/11/2025</td><td>FT-0032</td><td>Delta Impianti</td><td class="kit-num">3.300,00</td></tr>
+          <tr><td>15/11/2025</td><td>FT-0031</td><td>Èlite Consulenze</td><td class="kit-num">620,00</td></tr>
+        </tbody>
       </table>
     </div>
   </section>
 </div>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>Attributo</th><th>Dove</th><th>Cosa fa</th></tr></thead><tbody>
+<tr><td><code>data-kit-sort</code></td><td><code>&lt;table&gt;</code></td><td>attiva l'ordinamento su tutte le colonne; con <code>="multi"</code> anche su più colonne insieme</td></tr>
+<tr><td><code>data-kit-nosort</code></td><td><code>&lt;th&gt;</code></td><td>esclude la colonna (per esempio le azioni)</td></tr>
+<tr><td><code>data-kit-type="num|date|text"</code></td><td><code>&lt;th&gt;</code></td><td>forza il tipo della colonna invece di riconoscerlo</td></tr>
+<tr><td><code>data-kit-value="…"</code></td><td><code>&lt;td&gt;</code></td><td>valore su cui ordinare, se diverso dal testo (una data scritta «12 marzo», un importo con la valuta)</td></tr>
+</tbody></table></div></div>
+<h3 id="ordinamento-multi">Più colonne</h3>
+<p>Con <code>data-kit-sort="multi"</code> si ordina anche per più colonne insieme: <strong>Shift + clic</strong> o <strong>Ctrl/⌘ + clic</strong> sull'intestazione la aggiunge come criterio successivo (e di nuovo la inverte, e poi la toglie), mentre un clic normale riparte da quella colonna sola. Il primo criterio è quello principale, gli altri decidono a parità; con più criteri accanto alla freccia compare il numero di priorità. Da tastiera, Shift + Invio sul bottone dell'intestazione. Provalo: Cliente, poi Shift + clic su Importo.</p>
+<div class="doc-demo">
+  <section class="kit-card">
+    <div class="kit-table-wrap">
+      <table class="kit-table" data-kit-sort="multi">
+        <thead><tr><th>Data</th><th>Numero</th><th aria-sort="ascending">Cliente</th><th class="kit-num" aria-sort="descending">Importo</th></tr></thead>
+        <tbody>
+          <tr><td>12/03/2026</td><td>FT-0042</td><td>Alfa Servizi S.r.l.</td><td class="kit-num">1.250,00</td></tr>
+          <tr><td>02/03/2026</td><td>FT-0041</td><td>Beta Forniture S.p.A.</td><td class="kit-num">830,40</td></tr>
+          <tr><td>21/02/2026</td><td>FT-0040</td><td>Gamma Trasporti</td><td class="kit-num kit-danger">−310,00</td></tr>
+          <tr><td>14/02/2026</td><td>FT-0039</td><td>Èlite Consulenze</td><td class="kit-num">12.400,00</td></tr>
+          <tr><td>03/02/2026</td><td>FT-0038</td><td>Delta Impianti</td><td class="kit-num">95,50</td></tr>
+          <tr><td>28/01/2026</td><td>FT-0037</td><td>Alfa Servizi S.r.l.</td><td class="kit-num">2.100,00</td></tr>
+          <tr><td>19/01/2026</td><td>FT-0036</td><td>Zeta Logistica</td><td class="kit-num kit-danger">−45,00</td></tr>
+          <tr><td>09/01/2026</td><td>FT-0035</td><td>Beta Forniture S.p.A.</td><td class="kit-num">1.980,00</td></tr>
+          <tr><td>22/12/2025</td><td>FT-0034</td><td>Omega Studio</td><td class="kit-num">410,00</td></tr>
+          <tr><td>11/12/2025</td><td>FT-0033</td><td>Gamma Trasporti</td><td class="kit-num">75,20</td></tr>
+          <tr><td>30/11/2025</td><td>FT-0032</td><td>Delta Impianti</td><td class="kit-num">3.300,00</td></tr>
+          <tr><td>15/11/2025</td><td>FT-0031</td><td>Èlite Consulenze</td><td class="kit-num">620,00</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+<p>Il testo piccolo (<code>&lt;small&gt;</code>) di una cella non entra nell'ordinamento. Con <code>Kit.table</code> si ordina anche da codice (<code>api.sort(2, "descending")</code>, oppure <code>api.sort([[2, "ascending"], [3, "descending"]])</code> con <code>multi</code>) e arriva l'evento <code>kit:sort</code> con <code>{ column, direction, criteria }</code> (<code>column</code> e <code>direction</code> sono quelli del primo criterio, <code>criteria</code> li elenca tutti); vedi <a href="#api">l'API</a>.</p>
+
+<h2 id="filtro">Filtro di testo</h2>
+<p><code>data-kit-filter="#id"</code> su un campo di testo collega il campo alla tabella con quell'id: mentre si scrive restano le righe che contengono <strong>tutte</strong> le parole (in qualsiasi cella, senza badare a maiuscole e accenti). Se non resta nulla compare una riga «Nessun risultato» (<code>data-kit-empty</code> sulla tabella per cambiare il testo). L'ordine e il filtro lavorano insieme; l'evento è <code>kit:filter</code> con <code>{ query, count }</code>.</p>
+<div class="doc-demo">
+  <div class="kit-search" style="max-width: 320px; margin-bottom: var(--kit-sp)">
+    <svg class="kit-icon"><use href="#i-search"/></svg>
+    <input class="kit-input" type="search" placeholder="Cerca nelle fatture…" aria-label="Cerca nelle fatture" data-kit-filter="#fatture-filtro">
+  </div>
+  <section class="kit-card">
+    <div class="kit-table-wrap">
+      <table class="kit-table" id="fatture-filtro" data-kit-sort data-kit-empty="Nessuna fattura trovata">
+        <thead><tr><th>Data</th><th>Numero</th><th>Cliente</th><th class="kit-num">Importo</th></tr></thead>
+        <tbody>
+          <tr><td>12/03/2026</td><td>FT-0042</td><td>Alfa Servizi S.r.l.</td><td class="kit-num">1.250,00</td></tr>
+          <tr><td>02/03/2026</td><td>FT-0041</td><td>Beta Forniture S.p.A.</td><td class="kit-num">830,40</td></tr>
+          <tr><td>21/02/2026</td><td>FT-0040</td><td>Gamma Trasporti</td><td class="kit-num kit-danger">−310,00</td></tr>
+          <tr><td>14/02/2026</td><td>FT-0039</td><td>Èlite Consulenze</td><td class="kit-num">12.400,00</td></tr>
+          <tr><td>03/02/2026</td><td>FT-0038</td><td>Delta Impianti</td><td class="kit-num">95,50</td></tr>
+          <tr><td>28/01/2026</td><td>FT-0037</td><td>Alfa Servizi S.r.l.</td><td class="kit-num">2.100,00</td></tr>
+          <tr><td>19/01/2026</td><td>FT-0036</td><td>Zeta Logistica</td><td class="kit-num kit-danger">−45,00</td></tr>
+          <tr><td>09/01/2026</td><td>FT-0035</td><td>Beta Forniture S.p.A.</td><td class="kit-num">1.980,00</td></tr>
+          <tr><td>22/12/2025</td><td>FT-0034</td><td>Omega Studio</td><td class="kit-num">410,00</td></tr>
+          <tr><td>11/12/2025</td><td>FT-0033</td><td>Gamma Trasporti</td><td class="kit-num">75,20</td></tr>
+          <tr><td>30/11/2025</td><td>FT-0032</td><td>Delta Impianti</td><td class="kit-num">3.300,00</td></tr>
+          <tr><td>15/11/2025</td><td>FT-0031</td><td>Èlite Consulenze</td><td class="kit-num">620,00</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<h2 id="paginazione">Paginazione</h2>
+<p><code>data-kit-page="N"</code> sulla tabella mostra N righe per volta e aggiunge sotto la barra <code>kit-pagination</code>: il conteggio («1–5 di 12»), i pulsanti precedente e successivo e i numeri di pagina con i puntini quando sono tanti. La pagina corrente ha <code>aria-current="page"</code>, il conteggio è un'area <code>aria-live</code> e il focus resta sul bottone premuto. Funziona insieme a ordine e filtro: cambiando uno dei due si torna alla prima pagina, e il conteggio è quello delle righe filtrate. In stampa la barra non c'è e esce la pagina mostrata.</p>
+<div class="doc-demo">
+  <div class="kit-search" style="max-width: 320px; margin-bottom: var(--kit-sp)">
+    <svg class="kit-icon"><use href="#i-search"/></svg>
+    <input class="kit-input" type="search" placeholder="Cerca nelle fatture…" aria-label="Cerca nelle fatture" data-kit-filter="#fatture-pagine">
+  </div>
+  <section class="kit-card">
+    <div class="kit-table-wrap">
+      <table class="kit-table kit-table-hover" id="fatture-pagine" data-kit-sort data-kit-page="5">
+        <thead><tr><th>Data</th><th>Numero</th><th>Cliente</th><th class="kit-num">Importo</th></tr></thead>
+        <tbody>
+          <tr><td>12/03/2026</td><td>FT-0042</td><td>Alfa Servizi S.r.l.</td><td class="kit-num">1.250,00</td></tr>
+          <tr><td>02/03/2026</td><td>FT-0041</td><td>Beta Forniture S.p.A.</td><td class="kit-num">830,40</td></tr>
+          <tr><td>21/02/2026</td><td>FT-0040</td><td>Gamma Trasporti</td><td class="kit-num kit-danger">−310,00</td></tr>
+          <tr><td>14/02/2026</td><td>FT-0039</td><td>Èlite Consulenze</td><td class="kit-num">12.400,00</td></tr>
+          <tr><td>03/02/2026</td><td>FT-0038</td><td>Delta Impianti</td><td class="kit-num">95,50</td></tr>
+          <tr><td>28/01/2026</td><td>FT-0037</td><td>Alfa Servizi S.r.l.</td><td class="kit-num">2.100,00</td></tr>
+          <tr><td>19/01/2026</td><td>FT-0036</td><td>Zeta Logistica</td><td class="kit-num kit-danger">−45,00</td></tr>
+          <tr><td>09/01/2026</td><td>FT-0035</td><td>Beta Forniture S.p.A.</td><td class="kit-num">1.980,00</td></tr>
+          <tr><td>22/12/2025</td><td>FT-0034</td><td>Omega Studio</td><td class="kit-num">410,00</td></tr>
+          <tr><td>11/12/2025</td><td>FT-0033</td><td>Gamma Trasporti</td><td class="kit-num">75,20</td></tr>
+          <tr><td>30/11/2025</td><td>FT-0032</td><td>Delta Impianti</td><td class="kit-num">3.300,00</td></tr>
+          <tr><td>15/11/2025</td><td>FT-0031</td><td>Èlite Consulenze</td><td class="kit-num">620,00</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+<p>Se la paginazione la fa il server (le pagine arrivano già pronte) si scrive la barra a mano e si usa solo il CSS: i bottoni sono normali <code>kit-btn</code>.</p>
+<div class="doc-demo">
+  <nav class="kit-pagination" aria-label="Paginazione" style="border: 1px solid var(--kit-line); border-radius: var(--kit-rad)">
+    <p class="kit-pagination-info">21–30 di 87</p>
+    <div class="kit-pagination-pages">
+      <a class="kit-btn kit-btn-ghost kit-btn-icon" href="#" aria-label="Pagina precedente">‹</a>
+      <a class="kit-btn kit-btn-ghost" href="#" aria-label="Pagina 1">1</a>
+      <span class="kit-pagination-gap" aria-hidden="true">…</span>
+      <a class="kit-btn kit-btn-ghost" href="#" aria-label="Pagina 2">2</a>
+      <a class="kit-btn" href="#" aria-label="Pagina 3" aria-current="page">3</a>
+      <a class="kit-btn kit-btn-ghost" href="#" aria-label="Pagina 4">4</a>
+      <span class="kit-pagination-gap" aria-hidden="true">…</span>
+      <a class="kit-btn kit-btn-ghost" href="#" aria-label="Pagina 9">9</a>
+      <a class="kit-btn kit-btn-ghost kit-btn-icon" href="#" aria-label="Pagina successiva">›</a>
+    </div>
+  </nav>
+</div>
+
+<h2 id="api">JavaScript</h2>
+<p>Gli attributi bastano nella maggior parte dei casi. Se le righe cambiano dopo il caricamento (una tabella riempita da una richiesta) si chiama <code>api.refresh()</code>; per il resto <code>Kit.table(tabella, opzioni)</code> fa tutto da codice e <code>Kit.paginate(tabella, righe)</code> è la scorciatoia per la sola paginazione. Entrambe restituiscono lo stesso oggetto.</p>
+<div class="doc-demo" data-doc-nocode>
+  <pre class="kit-code" data-kit-code="js">const api = Kit.table("#fatture", { sort: true, size: 10, empty: "Nessuna fattura" });
+
+api.sort(3, "descending");   // colonna (da 0) e direzione: "ascending", "descending" o "none"
+api.sort([[2, "ascending"], [3, "descending"]]);   // più colonne (con data-kit-sort="multi")
+api.filter("alfa");          // come scrivere nel campo di ricerca
+api.page(2);                 // vai alla pagina 2; api.page() la legge
+api.pageSize(25);            // righe per pagina; 0 = tutte
+api.refresh();               // dopo aver aggiunto, tolto o cambiato delle righe
+api.state();                 // { sort: { column, direction, criteria }, query, page, pages, size, total, count }
+
+document.querySelector("#fatture").addEventListener("kit:page", (e) =&gt; {
+  console.log(e.detail);     // { page, pages, size, total }
+});</pre>
+</div>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>Opzione</th><th>Attributo</th><th>Di base</th></tr></thead><tbody>
+<tr><td><code>sort</code></td><td><code>data-kit-sort</code></td><td>attivo solo se c'è l'attributo</td></tr>
+<tr><td><code>size</code></td><td><code>data-kit-page</code></td><td><code>0</code>: nessuna paginazione</td></tr>
+<tr><td><code>empty</code></td><td><code>data-kit-empty</code></td><td><code>Nessun risultato</code></td></tr>
+<tr><td><code>labels</code></td><td>–</td><td>testi della barra: <code>of</code>, <code>prev</code>, <code>next</code>, <code>page</code> (con <code>{n}</code>), <code>nav</code>, <code>empty</code></td></tr>
+<tr><td><code>filter</code>, <code>page</code></td><td>–</td><td>filtro e pagina iniziali</td></tr>
+</tbody></table></div></div>
 
 <h2 id="sticky">Intestazione agganciata</h2>
 <p>Di base le intestazioni (<code>&lt;th&gt;</code>) restano incollate sotto <code>.kit-header</code> mentre la pagina scorre. Dentro <code>kit-table-wrap</code> restano invece agganciate al bordo del riquadro, perché è lui a scorrere. La spaziatura delle celle si regola con <code>--kit-row</code> (verticale) e <code>--kit-cell</code> (orizzontale).</p>

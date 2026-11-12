@@ -24,6 +24,7 @@
     <tr><td><code>data-kit-tabs</code></td><td><code>.kit-tabs</code></td><td>Attiva le tab; ogni <code>.kit-tab</code> ha <code>data-kit-panel="#id"</code>.</td></tr>
     <tr><td><code>data-kit-open="#id"</code></td><td>un bottone</td><td>Apre il <code>&lt;dialog&gt;</code> indicato.</td></tr>
     <tr><td><code>data-kit-confirm="Domanda?"</code></td><td>un bottone, un link o un <code>&lt;form&gt;</code></td><td>Prima chiede conferma in un dialog; l'azione prosegue solo se l'utente conferma. Vedi <a href="overlays.html#conferma">Chiedere conferma</a>.</td></tr>
+    <tr><td><code>data-kit-sort</code>, <code>data-kit-filter="#id"</code>, <code>data-kit-page="N"</code></td><td><code>&lt;table&gt;</code>; il campo di ricerca; <code>&lt;table&gt;</code></td><td>Ordinamento dalle intestazioni, filtro di testo e paginazione (<a href="tables.html#ordinamento">dettagli</a>).</td></tr>
     <tr><td><code>data-kit-close</code></td><td>dentro un <code>&lt;dialog&gt;</code></td><td>Chiude il dialog.</td></tr>
   </tbody>
 </table></div></div>
@@ -43,6 +44,7 @@ Kit.reset();                    // ripristina tema, testo e larghezza
 Kit.layout.get();               // "boxed" | "fluid"
 Kit.layout.set("fluid");        // contenuto a tutta larghezza (si ricorda)
 Kit.layout.toggle();            // alterna
+Kit.table("#tabella", { sort: true, size: 10 });   // ordine, filtro e pagine di una tabella (vedi Tabelle); Kit.paginate("#tabella", 10) per le sole pagine
 Kit.init(elemento);             // rilegge select e tab di un'area aggiunta dopo il caricamento
 ```
 <div class="doc-demo kit-bar" data-doc-js='Kit.toast("Salvato!");'>
@@ -58,6 +60,7 @@ Kit.init(elemento);             // rilegge select e tab di un'area aggiunta dopo
   <thead><tr><th>Evento</th><th>Su</th><th><code>detail</code></th></tr></thead>
   <tbody>
     <tr><td><code>kit:change</code></td><td><code>.kit-select</code></td><td><code>{ value }</code>: il <code>data-value</code> scelto (per un select nativo anche <code>label</code>)</td></tr>
+    <tr><td><code>kit:sort</code>, <code>kit:filter</code>, <code>kit:page</code></td><td><code>&lt;table&gt;</code></td><td><code>{ column, direction }</code>, <code>{ query, count }</code>, <code>{ page, pages, size, total }</code></td></tr>
     <tr><td><code>kit:tab</code></td><td><code>.kit-tabs</code></td><td><code>{ tab }</code>: l'elemento della tab attivata</td></tr>
     <tr><td><code>kit:theme</code></td><td><code>&lt;html&gt;</code></td><td>il tema impostato</td></tr>
     <tr><td><code>kit:fs</code></td><td><code>&lt;html&gt;</code></td><td>la dimensione del testo impostata (<code>sm</code>, <code>md</code>, <code>lg</code> o <code>xl</code>)</td></tr>

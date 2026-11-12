@@ -1,5 +1,5 @@
 /*!
- * Dashboard Kit 0.8.0 — framework CSS per dashboard, estratto da Fatture Elettroniche Explorer.
+ * Dashboard Kit 0.9.0 — framework CSS per dashboard, estratto da Fatture Elettroniche Explorer.
  * Nessuna dipendenza, nessuna build. Prefisso delle classi: kit-
  * Tema chiaro/scuro con light-dark(): automatico, oppure forzato con
  * <html data-theme="light|dark">.
@@ -1216,6 +1216,20 @@ a.kit-list-item:hover, button.kit-list-item:hover, .kit-list-action:hover { back
 .kit-table th[aria-sort] { cursor: pointer; }
 .kit-table th[aria-sort]:hover { color: var(--kit-ink); }
 .kit-table th[aria-sort="ascending"], .kit-table th[aria-sort="descending"] { color: var(--kit-accent); }
+/* Con kit.js (data-kit-sort) il contenuto dell'intestazione diventa un bottone, con la freccia dell'ordine a destra. */
+.kit-sort-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 0; border: 0; background: none; cursor: pointer;
+    font: inherit; color: inherit; text-transform: inherit; letter-spacing: inherit; text-align: inherit;
+}
+.kit-sort-btn::after { content: "\2195"; font-size: .9em; opacity: .35; text-transform: none; }
+.kit-sort-btn:hover::after { opacity: .7; }
+th[aria-sort="ascending"] > .kit-sort-btn::after { content: "\2191"; opacity: 1; }
+th[aria-sort="descending"] > .kit-sort-btn::after { content: "\2193"; opacity: 1; }
+/* Con più criteri (data-kit-sort="multi") accanto alla freccia compare la priorità: 1, 2, 3… */
+.kit-sort-n { order: 3; margin-left: -3px; font-size: .8em; font-variant-numeric: slashed-zero tabular-nums; }
+.kit-sort-n[hidden] { display: none; }
+.kit-sort-btn:focus-visible { outline: 2px solid var(--kit-accent); outline-offset: 3px; border-radius: 3px; }
 .kit-table .kit-num { text-align: right; font-variant-numeric: slashed-zero tabular-nums; }
 .kit-table .kit-wrap { white-space: normal; min-width: 170px; max-width: 380px; }
 .kit-table td small { display: block; color: var(--kit-mute); font-size: 0.857rem; font-variant-numeric: slashed-zero tabular-nums; }
@@ -1223,15 +1237,39 @@ a.kit-list-item:hover, button.kit-list-item:hover, .kit-list-action:hover { back
 .kit-table-hover tbody tr { cursor: pointer; }
 .kit-table-hover tbody tr:hover td { background: var(--kit-hover); }
 .kit-table tbody tr.is-selected td { background: var(--kit-accent-soft); }
-.kit-table tbody tr:last-child td { border-bottom: 0; }
+/* kit.js nasconde le righe filtrate o di altre pagine con [hidden] e segna l'ultima visibile con .is-last. */
+.kit-table tbody tr[hidden] { display: none; }
+.kit-table tbody tr:last-child td, .kit-table tbody tr.is-last td { border-bottom: 0; }
+.kit-table .kit-table-empty td { text-align: center; color: var(--kit-mute); padding-top: 28px; padding-bottom: 28px; white-space: normal; }
 /* Tabella che chiude una card: sotto l'ultima riga lo spazio è --kit-sp, come nel titolo e nel corpo
    (le righe restano a --kit-row: serve la densità tra una riga e l'altra, non sotto l'ultima). */
 .kit-card > .kit-table-wrap:last-child tbody tr:last-child td,
-.kit-card > .kit-table:last-child tbody tr:last-child td { padding-bottom: var(--kit-sp); }
+.kit-card > .kit-table:last-child tbody tr:last-child td,
+.kit-card > .kit-table-wrap:last-child tbody tr.is-last td,
+.kit-card > .kit-table:last-child tbody tr.is-last td { padding-bottom: var(--kit-sp); }
 .kit-card > .kit-table-wrap:last-child tbody tr:last-child td:first-child,
-.kit-card > .kit-table:last-child tbody tr:last-child td:first-child { border-bottom-left-radius: var(--kit-rad); }
+.kit-card > .kit-table:last-child tbody tr:last-child td:first-child,
+.kit-card > .kit-table-wrap:last-child tbody tr.is-last td:first-child,
+.kit-card > .kit-table:last-child tbody tr.is-last td:first-child { border-bottom-left-radius: var(--kit-rad); }
 .kit-card > .kit-table-wrap:last-child tbody tr:last-child td:last-child,
-.kit-card > .kit-table:last-child tbody tr:last-child td:last-child { border-bottom-right-radius: var(--kit-rad); }
+.kit-card > .kit-table:last-child tbody tr:last-child td:last-child,
+.kit-card > .kit-table-wrap:last-child tbody tr.is-last td:last-child,
+.kit-card > .kit-table:last-child tbody tr.is-last td:last-child { border-bottom-right-radius: var(--kit-rad); }
+
+/* Paginazione: <nav class="kit-pagination"> con il conteggio (.kit-pagination-info) e i bottoni (.kit-pagination-pages); la pagina
+   corrente ha aria-current="page". Con kit.js la costruisce data-kit-page / Kit.paginate sotto la tabella. In una card chiude il riquadro. */
+.kit-pagination {
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px var(--kit-sp);
+    padding: 10px var(--kit-sp); border-top: 1px solid var(--kit-line-soft);
+}
+.kit-pagination-info { margin: 0; color: var(--kit-mute); font-size: .929rem; font-variant-numeric: slashed-zero tabular-nums; }
+.kit-pagination-pages { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.kit-pagination-pages[hidden] { display: none; }
+.kit-pagination .kit-btn { min-width: var(--kit-ctl); padding: 0 8px; font-variant-numeric: slashed-zero tabular-nums; }
+.kit-pagination .kit-btn[aria-current="page"], .kit-pagination .kit-btn[aria-current="page"]:hover {
+    background: var(--kit-accent); border-color: var(--kit-accent); color: var(--kit-accent-ink); font-weight: 600;
+}
+.kit-pagination-gap { min-width: 1.5rem; text-align: center; color: var(--kit-mute); }
 
 /* ===== 11. Stati vuoti, chiave/valore, avanzamento ===== */
 .kit-empty { padding: 70px var(--kit-sp); text-align: center; color: var(--kit-mute); }
@@ -2091,7 +2129,7 @@ details[open] > summary > .kit-side-chev { transform: rotate(180deg); }
 @media print {
     :root, :root[data-theme] { color-scheme: light; }
     body { background: #fff; color: #000; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-    .kit-header, .kit-sidebar, .kit-toasts, .kit-tabs, .kit-no-print, .kit-drop-veil,
+    .kit-header, .kit-sidebar, .kit-toasts, .kit-tabs, .kit-pagination, .kit-no-print, .kit-drop-veil,
     .kit-split-lg.is-open::after, .kit-split.is-open::after { display: none !important; }
     .kit-print-only { display: revert !important; }
     .kit-main { padding: 0; }
