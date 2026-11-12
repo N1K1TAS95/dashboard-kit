@@ -1238,6 +1238,34 @@ th[aria-sort="descending"] > .kit-sort-btn::after { content: "\2193"; opacity: 1
 .kit-table-hover tbody tr { cursor: pointer; }
 .kit-table-hover tbody tr:hover td { background: var(--kit-hover); }
 .kit-table tbody tr.is-selected td { background: var(--kit-accent-soft); }
+/* Scorrimento con intestazione e colonne fisse. Di base la pagina scorre e l'intestazione resta sotto .kit-header; se invece è il riquadro
+   a scorrere (kit-table-scroll, con --kit-table-h per l'altezza massima) l'intestazione resta agganciata al suo bordo superiore.
+   kit-table-fix blocca a sinistra la prima colonna mentre si scorre in orizzontale; data-kit-fix="2|3|4" ne blocca di più (le larghezze
+   le misura kit.js; senza, vanno scritte a mano: style="--kit-fix-1: 7rem; --kit-fix-2: 16rem", cioè la larghezza cumulata delle colonne a sinistra). */
+.kit-table-scroll { max-height: var(--kit-table-h, 28rem); overflow: auto; }
+.kit-table-fix td:nth-child(1),
+.kit-table-fix:is([data-kit-fix="2"], [data-kit-fix="3"], [data-kit-fix="4"]) td:nth-child(2),
+.kit-table-fix:is([data-kit-fix="3"], [data-kit-fix="4"]) td:nth-child(3),
+.kit-table-fix[data-kit-fix="4"] td:nth-child(4) { position: sticky; z-index: 1; }
+.kit-table-fix th:nth-child(1),
+.kit-table-fix:is([data-kit-fix="2"], [data-kit-fix="3"], [data-kit-fix="4"]) th:nth-child(2),
+.kit-table-fix:is([data-kit-fix="3"], [data-kit-fix="4"]) th:nth-child(3),
+.kit-table-fix[data-kit-fix="4"] th:nth-child(4) { z-index: 3; }
+:where(.kit-table-fix) td:nth-child(-n+4) { background: var(--kit-card); }
+.kit-table-fix :is(th, td):nth-child(1) { left: 0; }
+.kit-table-fix:is([data-kit-fix="2"], [data-kit-fix="3"], [data-kit-fix="4"]) :is(th, td):nth-child(2) { left: var(--kit-fix-1, 0px); }
+.kit-table-fix:is([data-kit-fix="3"], [data-kit-fix="4"]) :is(th, td):nth-child(3) { left: var(--kit-fix-2, 0px); }
+.kit-table-fix[data-kit-fix="4"] :is(th, td):nth-child(4) { left: var(--kit-fix-3, 0px); }
+/* L'ultima colonna fissa ha un filo a destra, così si vede dove finisce quando il resto scorre sotto. */
+.kit-table-fix :is(th, td):nth-child(1),
+.kit-table-fix[data-kit-fix="2"] :is(th, td):nth-child(2),
+.kit-table-fix[data-kit-fix="3"] :is(th, td):nth-child(3),
+.kit-table-fix[data-kit-fix="4"] :is(th, td):nth-child(4) { border-right: 1px solid var(--kit-line); }
+.kit-table-fix[data-kit-fix="2"] :is(th, td):nth-child(1),
+.kit-table-fix[data-kit-fix="3"] :is(th, td):nth-child(-n+2),
+.kit-table-fix[data-kit-fix="4"] :is(th, td):nth-child(-n+3) { border-right: 0; }
+.kit-table-fix .kit-table-empty td { position: static; border-right: 0; }
+
 /* kit.js nasconde le righe filtrate o di altre pagine con [hidden] e segna l'ultima visibile con .is-last. */
 .kit-table tbody tr[hidden] { display: none; }
 .kit-table tbody tr:last-child td, .kit-table tbody tr.is-last td { border-bottom: 0; }
@@ -2136,7 +2164,7 @@ details[open] > summary > .kit-side-chev { transform: rotate(180deg); }
     .kit-main { padding: 0; }
     .kit-container, .kit-container-boxed { max-width: none; }
     .kit-card, .kit-list, .kit-kpi { box-shadow: none; break-inside: avoid; }
-    .kit-table-wrap { overflow: visible; }
+    .kit-table-wrap, .kit-table-scroll { overflow: visible; max-height: none; }
     .kit-table thead { display: table-header-group; }
     .kit-table tr { break-inside: avoid; }
     .kit-print-break { break-before: page; }

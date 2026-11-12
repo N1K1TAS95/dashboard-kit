@@ -130,7 +130,7 @@
             <li><a href="#paginazione">Paginazione</a></li>
             <li><a href="#htmx">Con Django e htmx</a></li>
             <li><a href="#api">JavaScript</a></li>
-            <li><a href="#sticky">Intestazione agganciata</a></li>
+            <li><a href="#sticky">Intestazione e colonne fisse</a></li>
           </ul>
           <a href="charts.html">Grafici</a>
           <a href="content.html">Contenuti</a>
@@ -434,8 +434,53 @@ document.querySelector("#fatture").addEventListener("kit:page", (e) =&gt; {
 <tr><td><code>filter</code>, <code>page</code></td><td>–</td><td>filtro e pagina iniziali</td></tr>
 </tbody></table></div></div>
 
-<h2 id="sticky">Intestazione agganciata</h2>
-<p>Di base le intestazioni (<code>&lt;th&gt;</code>) restano incollate sotto <code>.kit-header</code> mentre la pagina scorre. Dentro <code>kit-table-wrap</code> restano invece agganciate al bordo del riquadro, perché è lui a scorrere. La spaziatura delle celle si regola con <code>--kit-row</code> (verticale) e <code>--kit-cell</code> (orizzontale).</p>
+<h2 id="sticky">Intestazione e colonne fisse</h2>
+<p>Di base le intestazioni (<code>&lt;th&gt;</code>) restano incollate sotto <code>.kit-header</code> mentre la pagina scorre. Dentro <code>kit-table-wrap</code> il riquadro scorre solo in orizzontale, quindi l'intestazione non ha niente da cui staccarsi. Per una tabella lunga si aggiunge <code>kit-table-scroll</code> al riquadro: ha un'altezza massima (<code>--kit-table-h</code>, di base <code>28rem</code>), scorre anche in verticale e l'intestazione resta agganciata al suo bordo superiore. La spaziatura delle celle si regola con <code>--kit-row</code> (verticale) e <code>--kit-cell</code> (orizzontale).</p>
+<p><code>kit-table-fix</code> sulla tabella blocca a sinistra la <strong>prima colonna</strong> mentre si scorre in orizzontale. Funziona solo con il CSS, anche sulle righe aggiunte dopo (per esempio da htmx), e va d'accordo con riga evidenziata e selezionata. La cella d'angolo (intestazione della colonna fissa) resta sopra a tutto. Prova a scorrere la tabella da un lato e dall'altro.</p>
+<div class="doc-demo">
+  <section class="kit-card">
+    <div class="kit-table-wrap kit-table-scroll" style="--kit-table-h: 16rem">
+      <table class="kit-table kit-table-hover kit-table-fix">
+        <thead><tr><th>Numero</th><th>Cliente</th><th>Data</th><th class="kit-num">Imponibile</th><th class="kit-num">IVA</th><th class="kit-num">Totale</th><th>Stato</th><th>Scadenza</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td>FT-0042</td><td>Alfa Servizi S.r.l.</td><td>12/03/2026</td><td class="kit-num">1.025,41</td><td class="kit-num">225,59</td><td class="kit-num">1.251,00</td><td><span class="kit-badge kit-badge-success">Emessa</span></td><td>11/04/2026</td><td>Pagamento a 30 giorni</td></tr>
+          <tr><td>FT-0041</td><td>Beta Forniture S.p.A.</td><td>02/03/2026</td><td class="kit-num">680,66</td><td class="kit-num">149,74</td><td class="kit-num">830,40</td><td><span class="kit-badge kit-badge-warning">Ricevuta</span></td><td>01/04/2026</td><td>Consegna parziale</td></tr>
+          <tr><td>FT-0040</td><td>Gamma Trasporti</td><td>21/02/2026</td><td class="kit-num">−254,10</td><td class="kit-num">−55,90</td><td class="kit-num kit-danger">−310,00</td><td><span class="kit-badge kit-badge-danger">Scartata</span></td><td>–</td><td>Nota di credito</td></tr>
+          <tr><td>FT-0039</td><td>Èlite Consulenze</td><td>14/02/2026</td><td class="kit-num">10.163,93</td><td class="kit-num">2.236,07</td><td class="kit-num">12.400,00</td><td><span class="kit-badge kit-badge-success">Emessa</span></td><td>16/03/2026</td><td>Consulenza annuale</td></tr>
+          <tr><td>FT-0038</td><td>Delta Impianti</td><td>03/02/2026</td><td class="kit-num">78,28</td><td class="kit-num">17,22</td><td class="kit-num">95,50</td><td><span class="kit-badge kit-badge-success">Emessa</span></td><td>05/03/2026</td><td>–</td></tr>
+          <tr><td>FT-0037</td><td>Alfa Servizi S.r.l.</td><td>28/01/2026</td><td class="kit-num">1.721,31</td><td class="kit-num">378,69</td><td class="kit-num">2.100,00</td><td><span class="kit-badge kit-badge-warning">Ricevuta</span></td><td>27/02/2026</td><td>Rinnovo contratto</td></tr>
+          <tr><td>FT-0036</td><td>Zeta Logistica</td><td>19/01/2026</td><td class="kit-num">−36,89</td><td class="kit-num">−8,11</td><td class="kit-num kit-danger">−45,00</td><td><span class="kit-badge kit-badge-danger">Scartata</span></td><td>–</td><td>Storno</td></tr>
+          <tr><td>FT-0035</td><td>Beta Forniture S.p.A.</td><td>09/01/2026</td><td class="kit-num">1.622,95</td><td class="kit-num">357,05</td><td class="kit-num">1.980,00</td><td><span class="kit-badge kit-badge-success">Emessa</span></td><td>08/02/2026</td><td>Ordine di gennaio</td></tr>
+          <tr><td>FT-0034</td><td>Omega Studio</td><td>22/12/2025</td><td class="kit-num">336,07</td><td class="kit-num">73,93</td><td class="kit-num">410,00</td><td><span class="kit-badge kit-badge-success">Emessa</span></td><td>21/01/2026</td><td>–</td></tr>
+          <tr><td>FT-0033</td><td>Gamma Trasporti</td><td>11/12/2025</td><td class="kit-num">61,64</td><td class="kit-num">13,56</td><td class="kit-num">75,20</td><td><span class="kit-badge kit-badge-warning">Ricevuta</span></td><td>10/01/2026</td><td>Spedizione urgente</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+<p>Per bloccare più colonne si scrive <code>data-kit-fix="2"</code> (fino a 4): <code>kit.js</code> misura la larghezza delle prime colonne e la rimisura quando la tabella cambia dimensione (finestra, testo più grande, righe nuove). Senza <code>kit.js</code> le larghezze cumulate vanno scritte a mano come <code>--kit-fix-1</code> (larghezza della prima), <code>--kit-fix-2</code> (prima + seconda) e così via, per esempio <code>style="--kit-fix-1: 8rem"</code>. Il filo a destra segna dove finisce l'ultima colonna fissa.</p>
+<div class="doc-demo">
+  <section class="kit-card">
+    <div class="kit-table-wrap kit-table-scroll" style="--kit-table-h: 16rem">
+      <table class="kit-table kit-table-hover kit-table-fix" data-kit-fix="2">
+        <thead><tr><th>Numero</th><th>Cliente</th><th>Data</th><th class="kit-num">Imponibile</th><th class="kit-num">IVA</th><th class="kit-num">Totale</th><th>Stato</th><th>Scadenza</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td>FT-0042</td><td>Alfa Servizi S.r.l.</td><td>12/03/2026</td><td class="kit-num">1.025,41</td><td class="kit-num">225,59</td><td class="kit-num">1.251,00</td><td><span class="kit-badge kit-badge-success">Emessa</span></td><td>11/04/2026</td><td>Pagamento a 30 giorni</td></tr>
+          <tr><td>FT-0041</td><td>Beta Forniture S.p.A.</td><td>02/03/2026</td><td class="kit-num">680,66</td><td class="kit-num">149,74</td><td class="kit-num">830,40</td><td><span class="kit-badge kit-badge-warning">Ricevuta</span></td><td>01/04/2026</td><td>Consegna parziale</td></tr>
+          <tr><td>FT-0040</td><td>Gamma Trasporti</td><td>21/02/2026</td><td class="kit-num">−254,10</td><td class="kit-num">−55,90</td><td class="kit-num kit-danger">−310,00</td><td><span class="kit-badge kit-badge-danger">Scartata</span></td><td>–</td><td>Nota di credito</td></tr>
+          <tr><td>FT-0039</td><td>Èlite Consulenze</td><td>14/02/2026</td><td class="kit-num">10.163,93</td><td class="kit-num">2.236,07</td><td class="kit-num">12.400,00</td><td><span class="kit-badge kit-badge-success">Emessa</span></td><td>16/03/2026</td><td>Consulenza annuale</td></tr>
+          <tr><td>FT-0038</td><td>Delta Impianti</td><td>03/02/2026</td><td class="kit-num">78,28</td><td class="kit-num">17,22</td><td class="kit-num">95,50</td><td><span class="kit-badge kit-badge-success">Emessa</span></td><td>05/03/2026</td><td>–</td></tr>
+          <tr><td>FT-0037</td><td>Alfa Servizi S.r.l.</td><td>28/01/2026</td><td class="kit-num">1.721,31</td><td class="kit-num">378,69</td><td class="kit-num">2.100,00</td><td><span class="kit-badge kit-badge-warning">Ricevuta</span></td><td>27/02/2026</td><td>Rinnovo contratto</td></tr>
+          <tr><td>FT-0036</td><td>Zeta Logistica</td><td>19/01/2026</td><td class="kit-num">−36,89</td><td class="kit-num">−8,11</td><td class="kit-num kit-danger">−45,00</td><td><span class="kit-badge kit-badge-danger">Scartata</span></td><td>–</td><td>Storno</td></tr>
+          <tr><td>FT-0035</td><td>Beta Forniture S.p.A.</td><td>09/01/2026</td><td class="kit-num">1.622,95</td><td class="kit-num">357,05</td><td class="kit-num">1.980,00</td><td><span class="kit-badge kit-badge-success">Emessa</span></td><td>08/02/2026</td><td>Ordine di gennaio</td></tr>
+          <tr><td>FT-0034</td><td>Omega Studio</td><td>22/12/2025</td><td class="kit-num">336,07</td><td class="kit-num">73,93</td><td class="kit-num">410,00</td><td><span class="kit-badge kit-badge-success">Emessa</span></td><td>21/01/2026</td><td>–</td></tr>
+          <tr><td>FT-0033</td><td>Gamma Trasporti</td><td>11/12/2025</td><td class="kit-num">61,64</td><td class="kit-num">13,56</td><td class="kit-num">75,20</td><td><span class="kit-badge kit-badge-warning">Ricevuta</span></td><td>10/01/2026</td><td>Spedizione urgente</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+<p>Su schermi molto stretti le colonne fisse tolgono spazio a quelle che scorrono: tienine poche e corte (un numero, un nome breve). In stampa l'altezza massima e il blocco non si applicano.</p>
     <nav class="doc-pager" aria-label="Pagina precedente e successiva">
       <a href="cards.html"><small>← Precedente</small><b>Schede</b></a>
       <a class="doc-next" href="charts.html"><small>Successiva →</small><b>Grafici</b></a>

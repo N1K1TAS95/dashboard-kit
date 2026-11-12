@@ -16,6 +16,7 @@
 .doc-content table code { background: none; padding: 0; color: inherit; }
 .doc-content .kit-table td { white-space: normal; vertical-align: top; }
 .doc-content .kit-table td:first-child { white-space: nowrap; }
+.doc-content .kit-table-fix td { white-space: nowrap; vertical-align: middle; }
 
 /* Avvisi nel testo */
 .doc-content .kit-alert { max-width: none; }   /* gli avvisi sono larghi come tabelle ed esempi */

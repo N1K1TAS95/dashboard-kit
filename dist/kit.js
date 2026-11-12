@@ -19,6 +19,7 @@
  *                                            data-kit-file-dir per le cartelle, data-kit-file-page per rilasciare ovunque nella pagina)
  *   data-kit-code="html|js|css"              su <pre class="kit-code">: colora il codice (senza lingua la indovina); data-kit-code-copy aggiunge il bottone «Copia»
  *   data-kit-sort                            su .kit-table: le intestazioni (<th>) ordinano le righe (con ="multi", Shift o Ctrl/⌘ + clic ordina per più colonne; numeri, date e testo si riconoscono da soli; data-kit-type e data-kit-value per forzarli, data-kit-nosort per escludere una colonna)
+ *   data-kit-fix="2|3|4"                     su .kit-table-fix: blocca le prime 2, 3 o 4 colonne (la sola prima si blocca con la classe, senza JavaScript)
  *   data-kit-filter="#tabella"               su un campo di testo: mostra solo le righe che contengono tutte le parole scritte
  *   data-kit-page="N"                        su .kit-table: mostra N righe per volta, con la paginazione sotto (data-kit-empty cambia il testo «Nessun risultato»)
  *   (htmx)                                   i frammenti inseriti da htmx si inizializzano da soli (evento htmx:load)
@@ -2468,8 +2469,33 @@
         input.addEventListener("input", function () { api.filter(input.value); });
     }
 
-    function init(scope) {
+    /* ---------- Colonne fisse (kit-table-fix data-kit-fix="2|3|4") ----------
+       Le larghezze cumulate delle prime colonne diventano --kit-fix-1, -2, -3: sono il "left" delle colonne successive.
+       Si rimisurano quando la tabella cambia dimensione (finestra, testo più grande, righe nuove). */
+    var fixed = new WeakSet();
+
+    function fixMeasure(table) {
+        var n = Math.min(4, parseInt(table.getAttribute("data-kit-fix"), 10) || 1);
+        var row = table.tHead && table.tHead.rows[0] || table.rows[0];
+        if (!row) return;
+        var acc = 0;
+        for (var i = 0; i < n - 1 && i < row.cells.length; i++) {
+            acc += row.cells[i].getBoundingClientRect().width;
+            table.style.setProperty("--kit-fix-" + (i + 1), acc + "px");
+        }
+    }
+
+    function fixTable(table) {
+        if (fixed.has(table) || !table.hasAttribute("data-kit-fix")) return;
+        fixed.add(table);
+        fixMeasure(table);
+        if (window.ResizeObserver) new ResizeObserver(function () { fixMeasure(table); }).observe(table);
+        else window.addEventListener("resize", function () { fixMeasure(table); });
+    }
+
+        function init(scope) {
         scope = scope || document;
+        scope.querySelectorAll("table.kit-table-fix[data-kit-fix]").forEach(fixTable);
         scope.querySelectorAll("table[data-kit-sort], table[data-kit-page]").forEach(function (t) { tblTable(t); });
         scope.querySelectorAll("[data-kit-filter]").forEach(function (i) { tblFilterInput(i); });
         scope.querySelectorAll("select[data-kit-select]").forEach(function (s) { nativeSelect(s); });
