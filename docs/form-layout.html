@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>Form: layout e stati — Dashboard Kit</title>
+<title>Form: layout e validazione — Dashboard Kit</title>
 <meta name="description" content="Etichette, testo di aiuto, campo obbligatorio, form in colonna, in griglia, orizzontali e in sezioni, stati valido e non valido con messaggi, validazione automatica, dimensioni, icone dentro i campi, gruppi di campi, etichetta che sale, caselle a scheda e gli altri controlli.">
 <script src="../dist/kit.js"></script>
 <link rel="stylesheet" href="../dist/kit.css">
@@ -108,16 +108,16 @@
           <div class="doc-nav-group">Per iniziare</div>
           <a href="index.html">Introduzione</a>
           <a href="javascript.html">JavaScript</a>
-          <div class="doc-nav-group">Layout</div>
+          <div class="doc-nav-group">Fondamenta</div>
           <a href="layout.html">Layout</a>
           <a href="grid.html">Griglia</a>
           <a href="utilities.html">Utility</a>
-          <div class="doc-nav-group">Contenuto</div>
           <a href="typography.html">Tipografia</a>
-          <div class="doc-nav-group">Componenti</div>
+          <a href="icons.html">Icone</a>
           <a href="buttons.html">Bottoni</a>
-          <a href="forms.html">Form</a>
-          <a href="form-layout.html" class="is-current" aria-current="page">Form: layout e stati</a>
+          <div class="doc-nav-group">Form</div>
+          <a href="forms.html">Campi base</a>
+          <a href="form-layout.html" class="is-current" aria-current="page">Layout e validazione</a>
           <ul class="doc-toc">
             <li><a href="#etichette">Etichette, aiuto e campi obbligatori</a></li>
             <li><a href="#layout">Layout</a></li>
@@ -131,17 +131,20 @@
             <li><a href="#controlli">Altri controlli</a></li>
             <li><a href="#django">Con Django</a></li>
           </ul>
+          <a href="form-controls.html">Select e file</a>
           <a href="dates.html">Date e orari</a>
-          <a href="navigation.html">Navigazione</a>
+          <div class="doc-nav-group">Navigazione</div>
           <a href="navbar.html">Navbar</a>
           <a href="sidebar.html">Sidebar</a>
-          <a href="cards.html">Schede</a>
+          <a href="navigation.html">Tab e breadcrumb</a>
+          <div class="doc-nav-group">Dati</div>
           <a href="tables.html">Tabelle</a>
           <a href="charts.html">Grafici</a>
-          <a href="content.html">Contenuti</a>
-          <a href="feedback.html">Feedback</a>
+          <a href="cards.html">Schede e dettagli</a>
+          <div class="doc-nav-group">Feedback e overlay</div>
+          <a href="feedback.html">Avvisi e avanzamento</a>
           <a href="overlays.html">Dialog e menu</a>
-          <a href="icons.html">Icone</a>
+          <a href="accordion.html">Accordion</a>
           <div class="doc-nav-group">Personalizzare</div>
           <a href="theming.html">Temi e token</a>
           <a href="snippets.html">Snippet VS Code</a>
@@ -153,10 +156,10 @@
     </nav>
   </aside>
   <article class="kit-col-12 kit-col-lg-9 doc-content">
-    <h1 class="doc-title">Form: layout e stati</h1>
+    <h1 class="doc-title">Form: layout e validazione</h1>
     <p class="doc-lead">Etichette, testo di aiuto, campo obbligatorio, form in colonna, in griglia, orizzontali e in sezioni, stati valido e non valido con messaggi, validazione automatica, dimensioni, icone dentro i campi, gruppi di campi, etichetta che sale, caselle a scheda e gli altri controlli.</p>
 <h2 id="etichette">Etichette, aiuto e campi obbligatori</h2>
-<p>Un campo è un <code>.kit-field</code>: può essere una <code>&lt;label&gt;</code> che racchiude il campo (come nella pagina <a href="forms.html">Form</a>) oppure un <code>&lt;div&gt;</code> con una <code>&lt;label class="kit-label" for="…"&gt;</code> e il campo accanto. La seconda forma serve quando sotto al campo ci sono aiuto e messaggi, e per il layout orizzontale; è anche quella che Django genera. <code>.kit-hint</code> è il testo di aiuto, che si collega al campo con <code>aria-describedby</code>.</p>
+<p>Un campo è un <code>.kit-field</code>: può essere una <code>&lt;label&gt;</code> che racchiude il campo (come nella pagina <a href="forms.html">Form: campi base</a>) oppure un <code>&lt;div&gt;</code> con una <code>&lt;label class="kit-label" for="…"&gt;</code> e il campo accanto. La seconda forma serve quando sotto al campo ci sono aiuto e messaggi, e per il layout orizzontale; è anche quella che Django genera. <code>.kit-hint</code> è il testo di aiuto, che si collega al campo con <code>aria-describedby</code>.</p>
 <p><code>.kit-required</code> sull'etichetta aggiunge l'asterisco rosso; <code>.kit-optional</code> aggiunge «(facoltativo)», che si cambia con <code>--kit-optional-text</code>. L'attributo <code>required</code> del campo resta quello che conta per il browser e per il server.</p>
 <div class="doc-demo">
   <div class="kit-fields">
@@ -428,8 +431,8 @@ class ContattoForm(forms.Form):
 &lt;/div&gt;</code></pre>
 <p>Il campo errato riceve il bordo dalla classe <code>is-invalid</code> del <code>.kit-field</code>; per dire anche ai lettori di schermo che è sbagliato, <code>aria-invalid="true"</code> si aggiunge dal widget, o con <code>data-kit-validate</code> sul form lo scrive <code>kit.js</code> al primo controllo. Con htmx i frammenti inseriti si inizializzano da soli.</p>
     <nav class="doc-pager" aria-label="Pagina precedente e successiva">
-      <a href="forms.html"><small>← Precedente</small><b>Form</b></a>
-      <a class="doc-next" href="dates.html"><small>Successiva →</small><b>Date e orari</b></a>
+      <a href="forms.html"><small>← Precedente</small><b>Campi base</b></a>
+      <a class="doc-next" href="form-controls.html"><small>Successiva →</small><b>Select e file</b></a>
     </nav>
   </article>
 </div>

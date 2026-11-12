@@ -76,6 +76,15 @@
   <div id="grafico-ciambella"></div>
 </div>
 
+<h2 id="legenda">Legenda dei grafici</h2>
+<p>I colori delle serie sono i token <code>--kit-c1</code> e <code>--kit-c2</code>, che cambiano da soli tra tema chiaro e scuro. Nei grafici SVG usali con <code>fill: var(--kit-c1)</code> (vedi la <a href="dashboard.html">dashboard di esempio</a>).</p>
+<div class="doc-demo">
+  <div class="kit-legend">
+    <span><i style="background: var(--kit-c1)"></i>Ricevute</span>
+    <span><i style="background: var(--kit-c2)"></i>Emesse</span>
+  </div>
+</div>
+
 <h2 id="sparkline">Sparkline</h2>
 <p><code>Kit.sparkline</code> è un grafico minuscolo, senza assi, da mettere accanto a un numero, per esempio in una <a href="cards.html#kpi">scheda KPI</a>. Prende <code>values</code> e, facoltativi, <code>type</code> (<code>"line"</code> o <code>"bar"</code>), <code>color</code>, <code>area</code> (<code>false</code> la toglie) e <code>label</code>. La dimensione è quella dell'elemento: si cambia con CSS (di base 6rem × 1,9rem).</p>
 <div class="doc-demo" data-doc-init="chart-spark" data-doc-js='Kit.sparkline("#spark1", { values: [12, 14, 11, 16, 18, 17, 22], label: "Fatture negli ultimi 7 mesi" });

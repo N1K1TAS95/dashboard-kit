@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>Form — Dashboard Kit</title>
-<meta name="description" content="Campi, ricerca, caselle di spunta e select personalizzato. L&#x27;altezza di bottoni e campi è la stessa (--kit-ctl), così stanno bene sulla stessa riga.">
+<title>Form: campi base — Dashboard Kit</title>
+<meta name="description" content="Campo di testo, ricerca, casella di spunta e interruttore. L&#x27;altezza di bottoni e campi è la stessa (--kit-ctl), così stanno bene sulla stessa riga.">
 <script src="../dist/kit.js"></script>
 <link rel="stylesheet" href="../dist/kit.css">
 <link rel="stylesheet" href="docs.css">
@@ -108,38 +108,36 @@
           <div class="doc-nav-group">Per iniziare</div>
           <a href="index.html">Introduzione</a>
           <a href="javascript.html">JavaScript</a>
-          <div class="doc-nav-group">Layout</div>
+          <div class="doc-nav-group">Fondamenta</div>
           <a href="layout.html">Layout</a>
           <a href="grid.html">Griglia</a>
           <a href="utilities.html">Utility</a>
-          <div class="doc-nav-group">Contenuto</div>
           <a href="typography.html">Tipografia</a>
-          <div class="doc-nav-group">Componenti</div>
+          <a href="icons.html">Icone</a>
           <a href="buttons.html">Bottoni</a>
-          <a href="forms.html" class="is-current" aria-current="page">Form</a>
+          <div class="doc-nav-group">Form</div>
+          <a href="forms.html" class="is-current" aria-current="page">Campi base</a>
           <ul class="doc-toc">
             <li><a href="#campi">Campi</a></li>
-            <li><a href="#errore">Errore</a></li>
             <li><a href="#ricerca">Ricerca</a></li>
             <li><a href="#casella">Casella di spunta e piè di form</a></li>
             <li><a href="#interruttore">Interruttore</a></li>
-            <li><a href="#select">Select personalizzato</a></li>
-            <li><a href="#file">Campo file</a></li>
-            <li><a href="#dropzone">Zona di rilascio</a></li>
-            <li><a href="#combobox">Combobox</a></li>
           </ul>
-          <a href="form-layout.html">Form: layout e stati</a>
+          <a href="form-layout.html">Layout e validazione</a>
+          <a href="form-controls.html">Select e file</a>
           <a href="dates.html">Date e orari</a>
-          <a href="navigation.html">Navigazione</a>
+          <div class="doc-nav-group">Navigazione</div>
           <a href="navbar.html">Navbar</a>
           <a href="sidebar.html">Sidebar</a>
-          <a href="cards.html">Schede</a>
+          <a href="navigation.html">Tab e breadcrumb</a>
+          <div class="doc-nav-group">Dati</div>
           <a href="tables.html">Tabelle</a>
           <a href="charts.html">Grafici</a>
-          <a href="content.html">Contenuti</a>
-          <a href="feedback.html">Feedback</a>
+          <a href="cards.html">Schede e dettagli</a>
+          <div class="doc-nav-group">Feedback e overlay</div>
+          <a href="feedback.html">Avvisi e avanzamento</a>
           <a href="overlays.html">Dialog e menu</a>
-          <a href="icons.html">Icone</a>
+          <a href="accordion.html">Accordion</a>
           <div class="doc-nav-group">Personalizzare</div>
           <a href="theming.html">Temi e token</a>
           <a href="snippets.html">Snippet VS Code</a>
@@ -151,8 +149,8 @@
     </nav>
   </aside>
   <article class="kit-col-12 kit-col-lg-9 doc-content">
-    <h1 class="doc-title">Form</h1>
-    <p class="doc-lead">Campi, ricerca, caselle di spunta e select personalizzato. L'altezza di bottoni e campi è la stessa (<code>--kit-ctl</code>), così stanno bene sulla stessa riga.</p>
+    <h1 class="doc-title">Form: campi base</h1>
+    <p class="doc-lead">Campo di testo, ricerca, casella di spunta e interruttore. L'altezza di bottoni e campi è la stessa (<code>--kit-ctl</code>), così stanno bene sulla stessa riga.</p>
 <h2 id="campi">Campi</h2>
 <p><code>.kit-field</code> è l'etichetta con il campo sotto; <code>.kit-input</code> si applica a <code>&lt;input&gt;</code>. <code>.kit-fields</code> dispone più campi in una griglia che si adatta.</p>
 <div class="doc-demo">
@@ -164,13 +162,7 @@
   </div>
 </div>
 
-<p>Per date, orari e intervalli (con un calendario opzionale, pensato anche per il telefono) vedi <a href="dates.html">Date e orari</a>. Per i layout (colonna, griglia, orizzontale, sezioni), gli stati valido e non valido con i messaggi, la validazione, le dimensioni, le icone dentro i campi, i gruppi di campi e le schede selezionabili vedi <a href="form-layout.html">Form: layout e stati</a>.</p>
-
-<h2 id="errore">Errore</h2>
-<p>Con <code>aria-invalid="true"</code> il campo prende il bordo rosso. Un messaggio sotto, in <code>&lt;small class="kit-danger"&gt;</code>, spiega cosa correggere. Per tutti gli stati (valido, non valido, avviso) e per messaggi e validazione automatica vedi <a href="form-layout.html#stati">Form: layout e stati</a>.</p>
-<div class="doc-demo">
-  <label class="kit-field">Codice fiscale <input class="kit-input" aria-invalid="true" value="ABC123"><small class="kit-danger">Il codice fiscale deve avere 16 caratteri.</small></label>
-</div>
+<p>Il resto dei form è in queste pagine: <a href="form-layout.html">Layout e validazione</a> (etichette, aiuto, form in colonna, in griglia e orizzontali, stati valido e non valido con i messaggi di errore, validazione, dimensioni, icone dentro i campi, gruppi e schede selezionabili), <a href="form-controls.html">Select e file</a> (select personalizzato, campo file, zona di rilascio, combobox) e <a href="dates.html">Date e orari</a> (calendario opzionale, pensato anche per il telefono).</p>
 
 <h2 id="ricerca">Ricerca</h2>
 <p>Campo con lente e scorciatoia da tastiera. Si allunga per riempire la riga (<code>flex: 1</code>).</p>
@@ -200,124 +192,9 @@
   <label class="kit-switch"><input type="checkbox" role="switch" disabled> Non disponibile</label>
   <label class="kit-switch kit-switch-between"><span>Notifiche</span><input type="checkbox" role="switch" checked></label>
 </div>
-
-<h2 id="select">Select personalizzato</h2>
-<p>Un menu a tendina con voci, gruppi e una seconda riga di testo. Richiede <code>kit.js</code>. Al cambio parte l'evento <code>kit:change</code> (vedi <a href="javascript.html#eventi">JavaScript</a>). Per un <code>&lt;select&gt;</code> normale basta <code>class="kit-input"</code>.</p>
-<div class="doc-demo">
-  <div class="kit-field" style="max-width: 280px">
-    <span>Periodo</span>
-    <div class="kit-select" data-kit-select>
-      <button type="button" class="kit-select-btn"><span class="kit-select-value"></span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
-      <div class="kit-pop" hidden>
-        <div class="kit-pop-group">Trimestri</div>
-        <div class="kit-opt is-on" data-value="q1"><span class="kit-opt-text"><b>1° trimestre</b></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
-        <div class="kit-opt" data-value="q2"><span class="kit-opt-text"><b>2° trimestre</b><small>aprile – giugno</small></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
-        <div class="kit-opt" data-value="q3"><span class="kit-opt-text"><b>3° trimestre</b></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
-      </div>
-    </div>
-    <small data-doc-out>Valore: q1</small>
-  </div>
-</div>
-<p>L'opzione con <code>is-on</code> è quella iniziale. <code>kit-pop-right</code> sul pannello lo allinea a destra del bottone.</p>
-
-<h3 id="select-nativo">Da un select nativo</h3>
-<p>Se i dati sono già in un <code>&lt;select&gt;</code> (anche generato dal server, dentro un form, con <code>required</code>) basta aggiungergli <code>data-kit-select</code>: il kit lo nasconde e gli mette accanto bottone e menu. Il <code>&lt;select&gt;</code> resta la fonte dei dati: <code>value</code>, l'invio del form e l'evento <code>change</code> funzionano come sempre (parte anche <code>kit:change</code>, con <code>{ value, label }</code>). Si usano i <code>&lt;optgroup&gt;</code> per i gruppi; <code>data-kit-hint</code> su un'opzione aggiunge una seconda riga e <code>data-kit-short</code> un testo più breve per il bottone. Dalle 21 voci in su il menu ha un campo di ricerca (<code>data-kit-search="8"</code> cambia la soglia, <code>data-kit-search=""</code> lo mette sempre, <code>data-kit-search="off"</code> mai). Le opzioni e <code>disabled</code> si possono cambiare dopo: il kit se ne accorge.</p>
-<div class="doc-demo">
-  <div class="kit-field" style="max-width: 280px">
-    <label for="sel-nat">Tipo di documento</label>
-    <select id="sel-nat" data-kit-select>
-      <optgroup label="Fatture">
-        <option value="TD01" selected data-kit-hint="Fattura">TD01</option>
-        <option value="TD04" data-kit-hint="Nota di credito">TD04</option>
-      </optgroup>
-      <optgroup label="Altro">
-        <option value="TD16" data-kit-hint="Integrazione">TD16</option>
-        <option value="TD99" disabled>Non disponibile</option>
-      </optgroup>
-    </select>
-    <small data-doc-out>Valore: TD01</small>
-  </div>
-</div>
-<p>Da JavaScript: <code>Kit.select(el, { search, empty, placeholder })</code> fa lo stesso per un select aggiunto in seguito (<code>Kit.init(radice)</code> lo fa per tutti quelli dentro <code>radice</code>) e restituisce <code>{ sync(), open(), close() }</code>. Se si cambia <code>select.value</code> da codice, si chiama <code>sync()</code> per aggiornare il bottone (<code>change</code> lanciato a mano lo fa già).</p>
-
-<h2 id="file">Campo file</h2>
-<p>Un campo per scegliere uno o più file: bottone, nome del file scelto e «×» per rimuovere. Richiede <code>kit.js</code> (senza, resta il campo nativo del browser). Si scrive un normale <code>&lt;input type="file"&gt;</code> dentro <code>kit-file</code> con <code>data-kit-file</code>; <code>accept</code> e <code>multiple</code> funzionano come sempre. Il kit controlla il tipo e, con <code>data-kit-file-max</code> (in MB), la dimensione, e mostra l'errore sotto il campo. I file restano anche nel campo del form, quindi l'invio normale funziona.</p>
-<div class="doc-demo">
-  <div class="kit-field" style="max-width: 440px">
-    <span>Fatture</span>
-    <div class="kit-file" data-kit-file data-kit-file-max="2">
-      <input type="file" accept=".xml,.p7m" multiple aria-label="Fatture">
-    </div>
-    <small data-doc-out>Accetta XML e P7M, fino a 2 MB ciascuno.</small>
-  </div>
-</div>
-
-<h2 id="dropzone">Zona di rilascio</h2>
-<p>La stessa cosa in grande: un'area in cui si trascinano i file, oppure ci si clicca per scegliere. Il campo nativo copre tutta l'area, quindi la tastiera funziona (Tab e Invio). Con <code>data-kit-file-dir</code> (o <code>webkitdirectory</code> sul campo) accetta anche le cartelle, che vengono lette per intero: i file di un altro tipo si ignorano in silenzio, mentre un file di un altro tipo scelto direttamente dà errore. Con <code>data-kit-file-page</code> si può rilasciare in qualsiasi punto della pagina: mentre si trascina compare un velo con il testo indicato.</p>
-<div class="doc-demo">
-  <div class="kit-dropzone" data-kit-file data-kit-file-dir data-kit-file-max="2">
-    <svg class="kit-icon"><use href="#i-upload"/></svg>
-    <b>Trascina qui le fatture o una cartella</b>
-    <span>oppure <u>scegli dal computer</u></span>
-    <small>XML o P7M, fino a 2 MB ciascuno</small>
-    <input type="file" accept=".xml,.p7m" multiple aria-label="Fatture">
-  </div>
-  <p class="kit-mute" data-doc-out style="margin-top: 8px">Nessun file.</p>
-</div>
-<p>Quando i file cambiano l'elemento riceve <code>kit:files</code> con <code>{ files, items, rejected }</code>: <code>files</code> sono i <code>File</code> accettati, <code>items</code> li accompagna con il percorso (<code>{ file, path }</code>, utile per le cartelle) e <code>rejected</code> elenca quelli scartati con il motivo (<code>type</code>, <code>size</code>, <code>count</code>, <code>folder</code>). Si può anche passare <code>onFiles</code> a <code>Kit.file(elemento, opzioni)</code>.</p>
-<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>Opzione</th><th>Attributo</th><th>Di base</th></tr></thead><tbody>
-<tr><td><code>accept</code> · <code>multiple</code></td><td>quelli del campo <code>&lt;input&gt;</code></td><td>qualsiasi file, uno solo</td></tr>
-<tr><td><code>max</code></td><td><code>data-kit-file-max</code> (MB)</td><td>nessun limite</td></tr>
-<tr><td><code>directory</code></td><td><code>data-kit-file-dir</code> o <code>webkitdirectory</code></td><td>cartelle non ammesse</td></tr>
-<tr><td>–</td><td><code>data-kit-file-page="testo"</code> sulla zona</td><td>nessuno: si rilascia solo sulla zona</td></tr>
-<tr><td><code>empty</code> · <code>button</code> · <code>clearLabel</code></td><td><code>data-kit-file-empty</code> · <code>-button</code> · <code>-clear</code></td><td><code>Nessun file</code> · <code>Scegli file…</code> · <code>Rimuovi la scelta</code></td></tr>
-<tr><td><code>messages</code></td><td>–</td><td>testi degli errori, con <code>{name}</code>, <code>{accept}</code> e <code>{max}</code></td></tr>
-</tbody></table></div></div>
-<p><code>Kit.file</code> restituisce <code>{ files(), items(), clear() }</code>.</p>
-
-<h2 id="combobox">Combobox</h2>
-<p>Un campo di testo con un elenco di suggerimenti che si restringe mentre si scrive. A differenza del <a href="#select">select</a> si può anche scrivere un valore che non è nell'elenco. Richiede <code>kit.js</code>. Frecce su e giù scorrono le voci, Invio sceglie quella evidenziata (all'apertura è la prima), Esc chiude, Tab esce. La scelta scrive il valore nel campo e fa partire <code>input</code> e <code>kit:change</code> (<code>{ value, label }</code>).</p>
-<p>Le voci si scrivono nell'HTML, come <code>kit-opt</code> dentro un <code>kit-pop</code>; il bottone con la freccia si aggiunge da solo.</p>
-<div class="doc-demo">
-  <div class="kit-field" style="max-width: 320px">
-    <span>Regime fiscale</span>
-    <div class="kit-combo" data-kit-combo>
-      <input class="kit-input" placeholder="Scrivi o scegli…" aria-label="Regime fiscale">
-      <div class="kit-pop" hidden>
-        <div class="kit-opt" data-value="RF01"><span class="kit-opt-text"><b>RF01</b><small>Ordinario</small></span></div>
-        <div class="kit-opt" data-value="RF02"><span class="kit-opt-text"><b>RF02</b><small>Contribuenti minimi</small></span></div>
-        <div class="kit-opt" data-value="RF19"><span class="kit-opt-text"><b>RF19</b><small>Forfettario</small></span></div>
-      </div>
-    </div>
-    <small data-doc-out>Valore: –</small>
-  </div>
-</div>
-<p>Per un elenco lungo o calcolato dai dati si usa <code>Kit.combo</code>. <code>items</code> è un array (o una funzione che lo restituisce) di stringhe oppure di oggetti <code>{ value, label, hint }</code>. Il filtro cerca in etichetta, nota e valore; se ci sono più di <code>max</code> voci ne mostra <code>max</code> e invita a scrivere ancora.</p>
-<div class="doc-demo" data-doc-init="combo-js" data-doc-js='const clienti = [
-  { value: "Rossi Mario Srl", hint: "IT01234567890" },
-  { value: "Bianchi Autotrasporti", hint: "IT09876543210" },
-  /* … centinaia di voci … */
-];
-Kit.combo("#cliente", { items: clienti, max: 8 });
-// per cambiare l&apos;elenco in seguito: api.setItems(nuoviClienti)'>
-  <div class="kit-field" style="max-width: 320px">
-    <span>Cliente (240 voci, ne mostra 8)</span>
-    <div id="cliente"><input class="kit-input" placeholder="Cerca un cliente…" aria-label="Cliente"></div>
-    <small data-doc-out>Valore: –</small>
-  </div>
-</div>
-<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>Opzione</th><th>Attributo</th><th>Di base</th></tr></thead><tbody>
-<tr><td><code>items</code></td><td>(solo JavaScript) array o funzione che riceve il testo scritto</td><td>le <code>kit-opt</code> già nell'HTML</td></tr>
-<tr><td><code>max</code></td><td><code>data-kit-combo-max</code></td><td><code>50</code></td></tr>
-<tr><td><code>empty</code></td><td><code>data-kit-combo-empty</code></td><td><code>Nessun risultato</code> (<code>""</code> per non mostrare niente)</td></tr>
-<tr><td><code>more</code></td><td><code>data-kit-combo-more</code></td><td><code>Altri {n} risultati: continua a scrivere per restringere</code></td></tr>
-<tr><td><code>filter</code></td><td>–</td><td><code>true</code>; con <code>false</code> la funzione <code>items</code> filtra da sola (utile per cercare su un server)</td></tr>
-<tr><td><code>autoActive</code></td><td>–</td><td><code>true</code>: Invio sceglie la prima voce; con <code>false</code> serve prima una freccia</td></tr>
-</tbody></table></div></div>
-<p><code>Kit.combo</code> restituisce <code>{ setItems(lista), open(), close() }</code>. Il campo ha <code>role="combobox"</code> e <code>aria-activedescendant</code>; le voci hanno <code>role="option"</code>.</p>
     <nav class="doc-pager" aria-label="Pagina precedente e successiva">
       <a href="buttons.html"><small>← Precedente</small><b>Bottoni</b></a>
-      <a class="doc-next" href="form-layout.html"><small>Successiva →</small><b>Form: layout e stati</b></a>
+      <a class="doc-next" href="form-layout.html"><small>Successiva →</small><b>Layout e validazione</b></a>
     </nav>
   </article>
 </div>

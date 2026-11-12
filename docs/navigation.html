@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>Navigazione — Dashboard Kit</title>
-<meta name="description" content="Tab, controllo segmentato, pill e chip: modi per scegliere cosa mostrare o per filtrare.">
+<title>Tab e breadcrumb — Dashboard Kit</title>
+<meta name="description" content="Tab, controllo segmentato, pill, chip e breadcrumb: modi per scegliere cosa mostrare, per filtrare e per orientarsi.">
 <script src="../dist/kit.js"></script>
 <link rel="stylesheet" href="../dist/kit.css">
 <link rel="stylesheet" href="docs.css">
@@ -108,18 +108,22 @@
           <div class="doc-nav-group">Per iniziare</div>
           <a href="index.html">Introduzione</a>
           <a href="javascript.html">JavaScript</a>
-          <div class="doc-nav-group">Layout</div>
+          <div class="doc-nav-group">Fondamenta</div>
           <a href="layout.html">Layout</a>
           <a href="grid.html">Griglia</a>
           <a href="utilities.html">Utility</a>
-          <div class="doc-nav-group">Contenuto</div>
           <a href="typography.html">Tipografia</a>
-          <div class="doc-nav-group">Componenti</div>
+          <a href="icons.html">Icone</a>
           <a href="buttons.html">Bottoni</a>
-          <a href="forms.html">Form</a>
-          <a href="form-layout.html">Form: layout e stati</a>
+          <div class="doc-nav-group">Form</div>
+          <a href="forms.html">Campi base</a>
+          <a href="form-layout.html">Layout e validazione</a>
+          <a href="form-controls.html">Select e file</a>
           <a href="dates.html">Date e orari</a>
-          <a href="navigation.html" class="is-current" aria-current="page">Navigazione</a>
+          <div class="doc-nav-group">Navigazione</div>
+          <a href="navbar.html">Navbar</a>
+          <a href="sidebar.html">Sidebar</a>
+          <a href="navigation.html" class="is-current" aria-current="page">Tab e breadcrumb</a>
           <ul class="doc-toc">
             <li><a href="#tab">Tab</a></li>
             <li><a href="#segmented">Controllo segmentato</a></li>
@@ -127,15 +131,14 @@
             <li><a href="#chip">Chip</a></li>
             <li><a href="#breadcrumb">Breadcrumb</a></li>
           </ul>
-          <a href="navbar.html">Navbar</a>
-          <a href="sidebar.html">Sidebar</a>
-          <a href="cards.html">Schede</a>
+          <div class="doc-nav-group">Dati</div>
           <a href="tables.html">Tabelle</a>
           <a href="charts.html">Grafici</a>
-          <a href="content.html">Contenuti</a>
-          <a href="feedback.html">Feedback</a>
+          <a href="cards.html">Schede e dettagli</a>
+          <div class="doc-nav-group">Feedback e overlay</div>
+          <a href="feedback.html">Avvisi e avanzamento</a>
           <a href="overlays.html">Dialog e menu</a>
-          <a href="icons.html">Icone</a>
+          <a href="accordion.html">Accordion</a>
           <div class="doc-nav-group">Personalizzare</div>
           <a href="theming.html">Temi e token</a>
           <a href="snippets.html">Snippet VS Code</a>
@@ -147,8 +150,8 @@
     </nav>
   </aside>
   <article class="kit-col-12 kit-col-lg-9 doc-content">
-    <h1 class="doc-title">Navigazione</h1>
-    <p class="doc-lead">Tab, controllo segmentato, pill e chip: modi per scegliere cosa mostrare o per filtrare.</p>
+    <h1 class="doc-title">Tab e breadcrumb</h1>
+    <p class="doc-lead">Tab, controllo segmentato, pill, chip e breadcrumb: modi per scegliere cosa mostrare, per filtrare e per orientarsi.</p>
 <h2 id="tab">Tab</h2>
 <p>Con <code>data-kit-tabs</code> e <code>kit.js</code> le tab mostrano il pannello indicato da <code>data-kit-panel</code> e si muovono con le frecce. Dentro la barra delle tab puoi mettere <code>kit-spacer</code> e dei bottoni a destra.</p>
 <div class="doc-demo">
@@ -230,8 +233,8 @@
 </div>
 <p>Con un <code>kit-header</code> o in cima a una pagina il breadcrumb sta bene sopra il titolo, con <code>margin-bottom</code> di una o due unità di spazio. Se i livelli li calcola il server (Django, per esempio) basta un ciclo che scrive un <code>&lt;li&gt;</code> con link per ogni antenato e l'ultimo con <code>aria-current</code>.</p>
     <nav class="doc-pager" aria-label="Pagina precedente e successiva">
-      <a href="dates.html"><small>← Precedente</small><b>Date e orari</b></a>
-      <a class="doc-next" href="navbar.html"><small>Successiva →</small><b>Navbar</b></a>
+      <a href="sidebar.html"><small>← Precedente</small><b>Sidebar</b></a>
+      <a class="doc-next" href="tables.html"><small>Successiva →</small><b>Tabelle</b></a>
     </nav>
   </article>
 </div>

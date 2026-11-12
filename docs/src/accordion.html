@@ -1,0 +1,66 @@
+<!--title: Accordion-->
+<!--desc: Sezioni che si aprono e si chiudono, costruite su <code>&lt;details&gt;</code>: anche senza JavaScript, da tastiera e con gli screen reader.-->
+<h2 id="accordion">Accordion</h2>
+<p>Un elenco di sezioni che si aprono e si chiudono, costruito sull'elemento nativo <code>&lt;details&gt;</code>: funziona anche senza JavaScript, si usa da tastiera (Invio e Spazio sul titolo) ed è già leggibile dagli screen reader. Il contenitore è <code>kit-accordion</code>, ogni voce è un <code>&lt;details&gt;</code> figlio diretto con un <code>&lt;summary&gt;</code> come titolo e il contenuto dentro <code>kit-accordion-body</code>. <code>open</code> sul <code>&lt;details&gt;</code> lo apre di partenza. Dove il browser lo supporta l'apertura è animata (con «riduci animazioni» no).</p>
+<div class="doc-demo">
+  <div class="kit-accordion">
+    <details open>
+      <summary>Come si emette una fattura?</summary>
+      <div class="kit-accordion-body"><p>Dal menu <strong>Fatture</strong> si sceglie «Nuova», si compilano cliente e righe e si salva: il numero viene assegnato in automatico.</p></div>
+    </details>
+    <details>
+      <summary>Posso modificarla dopo l'invio?</summary>
+      <div class="kit-accordion-body"><p>No: una fattura inviata si corregge con una nota di credito e una nuova fattura.</p></div>
+    </details>
+    <details>
+      <summary>Dove trovo le fatture scartate?</summary>
+      <div class="kit-accordion-body"><p>Nell'elenco, con il filtro «Scartata». Il motivo dello scarto è nel dettaglio.</p></div>
+    </details>
+  </div>
+</div>
+
+<h3 id="accordion-single">Uno solo aperto</h3>
+<p><code>data-kit-accordion="single"</code> (richiede <code>kit.js</code>) chiude le altre voci quando se ne apre una; se più voci partono aperte resta aperta solo la prima. Senza JavaScript lo stesso effetto si ottiene con lo stesso <code>name="…"</code> su tutti i <code>&lt;details&gt;</code>, che i browser recenti rispettano da soli. Un accordion dentro la voce di un altro è indipendente.</p>
+<div class="doc-demo">
+  <div class="kit-accordion" data-kit-accordion="single">
+    <details open><summary>Anagrafica</summary><div class="kit-accordion-body">Ragione sociale, partita IVA e sede.</div></details>
+    <details><summary>Contatti</summary><div class="kit-accordion-body">Email, PEC e telefono.</div></details>
+    <details><summary>Pagamenti</summary><div class="kit-accordion-body">IBAN e condizioni di pagamento.</div></details>
+  </div>
+</div>
+
+<h3 id="accordion-meta">Con un'etichetta e dentro una card</h3>
+<p><code>kit-accordion-meta</code> dentro il <code>&lt;summary&gt;</code> mette a destra un conteggio o un badge, prima della freccia. <code>kit-accordion-flush</code> toglie il riquadro e le ombre, per l'accordion dentro una card o un pannello.</p>
+<div class="doc-demo">
+  <section class="kit-card">
+    <div class="kit-card-body">
+      <div class="kit-accordion kit-accordion-flush">
+        <details open>
+          <summary>Da emettere <span class="kit-accordion-meta"><span class="kit-badge kit-badge-warning">3</span></span></summary>
+          <div class="kit-accordion-body">Tre fatture in bozza.</div>
+        </details>
+        <details>
+          <summary>Scartate <span class="kit-accordion-meta"><span class="kit-badge kit-badge-danger">1</span></span></summary>
+          <div class="kit-accordion-body">Una fattura scartata dal Sistema di Interscambio.</div>
+        </details>
+        <details>
+          <summary>Archiviate <span class="kit-accordion-meta">128</span></summary>
+          <div class="kit-accordion-body">Le fatture degli anni precedenti.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+</div>
+
+<h3 id="accordion-js">JavaScript</h3>
+<p><code>Kit.accordion(elemento, { single })</code> fa lo stesso da codice e restituisce <code>{ open(x), close(x), toggle(x), openAll(), closeAll(), items() }</code>, dove <code>x</code> è la posizione (da 0) o il <code>&lt;details&gt;</code>. Ogni apertura e chiusura lancia <code>kit:accordion</code> con <code>{ item, index, open }</code>. In stampa tutte le voci si mostrano aperte.</p>
+<div class="doc-demo" data-doc-nocode>
+  <pre class="kit-code" data-kit-code="js">const acc = Kit.accordion("#faq", { single: true });
+
+acc.open(2);        // apre la terza voce (e chiude le altre)
+acc.closeAll();
+
+document.querySelector("#faq").addEventListener("kit:accordion", (e) =&gt; {
+  console.log(e.detail.index, e.detail.open);
+});</pre>
+</div>

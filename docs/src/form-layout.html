@@ -1,7 +1,7 @@
-<!--title: Form: layout e stati-->
+<!--title: Form: layout e validazione-->
 <!--desc: Etichette, testo di aiuto, campo obbligatorio, form in colonna, in griglia, orizzontali e in sezioni, stati valido e non valido con messaggi, validazione automatica, dimensioni, icone dentro i campi, gruppi di campi, etichetta che sale, caselle a scheda e gli altri controlli.-->
 <h2 id="etichette">Etichette, aiuto e campi obbligatori</h2>
-<p>Un campo è un <code>.kit-field</code>: può essere una <code>&lt;label&gt;</code> che racchiude il campo (come nella pagina <a href="forms.html">Form</a>) oppure un <code>&lt;div&gt;</code> con una <code>&lt;label class="kit-label" for="…"&gt;</code> e il campo accanto. La seconda forma serve quando sotto al campo ci sono aiuto e messaggi, e per il layout orizzontale; è anche quella che Django genera. <code>.kit-hint</code> è il testo di aiuto, che si collega al campo con <code>aria-describedby</code>.</p>
+<p>Un campo è un <code>.kit-field</code>: può essere una <code>&lt;label&gt;</code> che racchiude il campo (come nella pagina <a href="forms.html">Form: campi base</a>) oppure un <code>&lt;div&gt;</code> con una <code>&lt;label class="kit-label" for="…"&gt;</code> e il campo accanto. La seconda forma serve quando sotto al campo ci sono aiuto e messaggi, e per il layout orizzontale; è anche quella che Django genera. <code>.kit-hint</code> è il testo di aiuto, che si collega al campo con <code>aria-describedby</code>.</p>
 <p><code>.kit-required</code> sull'etichetta aggiunge l'asterisco rosso; <code>.kit-optional</code> aggiunge «(facoltativo)», che si cambia con <code>--kit-optional-text</code>. L'attributo <code>required</code> del campo resta quello che conta per il browser e per il server.</p>
 <div class="doc-demo">
   <div class="kit-fields">

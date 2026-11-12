@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>Feedback — Dashboard Kit</title>
-<meta name="description" content="Avvisi, badge di stato, barre di avanzamento e stati vuoti.">
+<title>Avvisi e avanzamento — Dashboard Kit</title>
+<meta name="description" content="Avvisi, badge di stato, barre di avanzamento, stati vuoti e schermata di benvenuto.">
 <script src="../dist/kit.js"></script>
 <link rel="stylesheet" href="../dist/kit.css">
 <link rel="stylesheet" href="docs.css">
@@ -108,25 +108,28 @@
           <div class="doc-nav-group">Per iniziare</div>
           <a href="index.html">Introduzione</a>
           <a href="javascript.html">JavaScript</a>
-          <div class="doc-nav-group">Layout</div>
+          <div class="doc-nav-group">Fondamenta</div>
           <a href="layout.html">Layout</a>
           <a href="grid.html">Griglia</a>
           <a href="utilities.html">Utility</a>
-          <div class="doc-nav-group">Contenuto</div>
           <a href="typography.html">Tipografia</a>
-          <div class="doc-nav-group">Componenti</div>
+          <a href="icons.html">Icone</a>
           <a href="buttons.html">Bottoni</a>
-          <a href="forms.html">Form</a>
-          <a href="form-layout.html">Form: layout e stati</a>
+          <div class="doc-nav-group">Form</div>
+          <a href="forms.html">Campi base</a>
+          <a href="form-layout.html">Layout e validazione</a>
+          <a href="form-controls.html">Select e file</a>
           <a href="dates.html">Date e orari</a>
-          <a href="navigation.html">Navigazione</a>
+          <div class="doc-nav-group">Navigazione</div>
           <a href="navbar.html">Navbar</a>
           <a href="sidebar.html">Sidebar</a>
-          <a href="cards.html">Schede</a>
+          <a href="navigation.html">Tab e breadcrumb</a>
+          <div class="doc-nav-group">Dati</div>
           <a href="tables.html">Tabelle</a>
           <a href="charts.html">Grafici</a>
-          <a href="content.html">Contenuti</a>
-          <a href="feedback.html" class="is-current" aria-current="page">Feedback</a>
+          <a href="cards.html">Schede e dettagli</a>
+          <div class="doc-nav-group">Feedback e overlay</div>
+          <a href="feedback.html" class="is-current" aria-current="page">Avvisi e avanzamento</a>
           <ul class="doc-toc">
             <li><a href="#avvisi">Avvisi</a></li>
             <li><a href="#badge">Badge</a></li>
@@ -135,9 +138,10 @@
             <li><a href="#skeleton">Skeleton</a></li>
             <li><a href="#avanzamento">Avanzamento a pieno schermo</a></li>
             <li><a href="#vuoto">Stato vuoto</a></li>
+            <li><a href="#hero">Schermata di benvenuto</a></li>
           </ul>
           <a href="overlays.html">Dialog e menu</a>
-          <a href="icons.html">Icone</a>
+          <a href="accordion.html">Accordion</a>
           <div class="doc-nav-group">Personalizzare</div>
           <a href="theming.html">Temi e token</a>
           <a href="snippets.html">Snippet VS Code</a>
@@ -149,8 +153,8 @@
     </nav>
   </aside>
   <article class="kit-col-12 kit-col-lg-9 doc-content">
-    <h1 class="doc-title">Feedback</h1>
-    <p class="doc-lead">Avvisi, badge di stato, barre di avanzamento e stati vuoti.</p>
+    <h1 class="doc-title">Avvisi e avanzamento</h1>
+    <p class="doc-lead">Avvisi, badge di stato, barre di avanzamento, stati vuoti e schermata di benvenuto.</p>
 <h2 id="avvisi">Avvisi</h2>
 <p>Un messaggio in evidenza dentro la pagina: bordo colorato a sinistra e sfondo tenue. Senza variante è un'informazione; le altre sono <code>-success</code>, <code>-warning</code>, <code>-danger</code> e <code>-neutral</code>.</p>
 <div class="doc-demo kit-stack">
@@ -266,8 +270,18 @@ p.close();'>
     </div>
   </section>
 </div>
+
+<h2 id="hero">Schermata di benvenuto</h2>
+<p><code>kit-hero</code> centra un messaggio con pochi bottoni: la prima schermata quando non ci sono ancora dati.</p>
+<div class="doc-demo">
+  <section class="kit-card kit-hero">
+    <h2>Esplora i tuoi dati</h2>
+    <p class="kit-mute">Apri un file per cominciare. Nulla esce dal tuo computer.</p>
+    <button class="kit-btn kit-btn-primary kit-btn-lg">Apri un file…</button>
+  </section>
+</div>
     <nav class="doc-pager" aria-label="Pagina precedente e successiva">
-      <a href="content.html"><small>← Precedente</small><b>Contenuti</b></a>
+      <a href="cards.html"><small>← Precedente</small><b>Schede e dettagli</b></a>
       <a class="doc-next" href="overlays.html"><small>Successiva →</small><b>Dialog e menu</b></a>
     </nav>
   </article>

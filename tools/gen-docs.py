@@ -29,11 +29,11 @@ OUT = ROOT / "docs"
 # (gruppo, [(file senza .html, titolo nel menu), ...])  Un terzo valore = link esterno alla documentazione.
 NAV = [
     ("Per iniziare", [("index", "Introduzione"), ("javascript", "JavaScript")]),
-    ("Layout", [("layout", "Layout"), ("grid", "Griglia"), ("utilities", "Utility")]),
-    ("Contenuto", [("typography", "Tipografia")]),
-    ("Componenti", [("buttons", "Bottoni"), ("forms", "Form"), ("form-layout", "Form: layout e stati"), ("dates", "Date e orari"), ("navigation", "Navigazione"), ("navbar", "Navbar"), ("sidebar", "Sidebar"),
-                    ("cards", "Schede"), ("tables", "Tabelle"), ("charts", "Grafici"), ("content", "Contenuti"),
-                    ("feedback", "Feedback"), ("overlays", "Dialog e menu"), ("icons", "Icone")]),
+    ("Fondamenta", [("layout", "Layout"), ("grid", "Griglia"), ("utilities", "Utility"), ("typography", "Tipografia"), ("icons", "Icone"), ("buttons", "Bottoni")]),
+    ("Form", [("forms", "Campi base"), ("form-layout", "Layout e validazione"), ("form-controls", "Select e file"), ("dates", "Date e orari")]),
+    ("Navigazione", [("navbar", "Navbar"), ("sidebar", "Sidebar"), ("navigation", "Tab e breadcrumb")]),
+    ("Dati", [("tables", "Tabelle"), ("charts", "Grafici"), ("cards", "Schede e dettagli")]),
+    ("Feedback e overlay", [("feedback", "Avvisi e avanzamento"), ("overlays", "Dialog e menu"), ("accordion", "Accordion")]),
     ("Personalizzare", [("theming", "Temi e token"), ("snippets", "Snippet VS Code")]),
     ("Esempi", [("dashboard", "Dashboard", "esempio"), ("dashboard-sidebar", "Dashboard con sidebar", "esempio")]),
 ]
