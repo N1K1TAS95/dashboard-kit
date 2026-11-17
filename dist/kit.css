@@ -2493,6 +2493,7 @@ details[open] > summary > .kit-side-chev { transform: rotate(180deg); }
     width: min(var(--kit-dialog-w, 440px), calc(100vw - 2 * var(--kit-sp)));   /* larghezza: --kit-dialog-w o kit-dialog-sm|lg|xl|full */
     max-width: calc(100vw - 2 * var(--kit-sp));
     max-height: calc(100vh - 2 * var(--kit-sp));
+    max-height: calc(100dvh - 2 * var(--kit-sp));
     padding: 0;
     overflow: hidden;
     box-shadow: var(--kit-shadow-pop);
@@ -2567,9 +2568,13 @@ details[open] > summary > .kit-side-chev { transform: rotate(180deg); }
 .kit-confirm-text .kit-field b { color: var(--kit-ink); font-family: var(--kit-mono, ui-monospace, monospace); font-weight: 600; overflow-wrap: anywhere; }
 /* Con un dialog modale aperto la pagina sotto non scorre; la barra resta riservata, così il contenuto non si sposta */
 :root:has(.kit-dialog:modal) { overflow: hidden; scrollbar-gutter: stable; }
-.kit-dialog > .kit-card-body { overflow: auto; flex: 1 1 auto; min-height: 0; }
-.kit-dialog > .kit-card-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-.kit-dialog > .kit-card-foot, .kit-dialog > .kit-card-head { flex: none; }
+.kit-dialog > .kit-card-body, .kit-dialog > form > .kit-card-body { overflow: auto; flex: 1 1 auto; min-height: 0; }
+.kit-dialog > .kit-card-head, .kit-dialog > form > .kit-card-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.kit-dialog > .kit-card-foot, .kit-dialog > .kit-card-head, .kit-dialog > form > .kit-card-foot, .kit-dialog > form > .kit-card-head { flex: none; }
+/* Un <form> che avvolge testata, corpo e piede: diventa lui la colonna, altrimenti il corpo non ha un'altezza massima e non scorre */
+.kit-dialog > form { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; }
+/* Senza .kit-card-body (contenuto messo direttamente nel dialog) scorre il dialog intero */
+.kit-dialog:not(:has(.kit-card-body)) { overflow: auto; }
 
 /* Toast: messaggi temporanei, creati da Kit.toast(). Pieni e ben visibili: quello neutro è invertito rispetto al tema
    (scuro su chiaro e viceversa), gli altri hanno il colore dello stato su tutto lo sfondo. Più toast si impilano
