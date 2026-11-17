@@ -1,0 +1,266 @@
+{
+ "Kit: base page": {
+  "name": "Kit: pagina base",
+  "description": "Scheletro di pagina con Dashboard Kit (CSS + JS opzionale)"
+ },
+ "Kit: header": {
+  "name": "Kit: header",
+  "description": "Intestazione fissa con marchio"
+ },
+ "Kit: button": {
+  "name": "Kit: bottone",
+  "description": "Bottone (varianti: primary, ghost, danger, icon, lg)"
+ },
+ "Kit: primary button": {
+  "name": "Kit: bottone primario",
+  "description": "Bottone primario"
+ },
+ "Kit: icon button": {
+  "name": "Kit: bottone con icona",
+  "description": "Bottone quadrato con sola icona (sprite SVG)"
+ },
+ "Kit: list": {
+  "name": "Kit: lista",
+  "description": "Lista di voci impilate (card unite)"
+ },
+ "Kit: switch": {
+  "name": "Kit: interruttore",
+  "description": "Interruttore on/off"
+ },
+ "Kit: skeleton": {
+  "name": "Kit: skeleton",
+  "description": "Segnaposto di caricamento"
+ },
+ "Kit: code": {
+  "name": "Kit: codice",
+  "description": "Blocco di codice colorato (con bottone Copia)"
+ },
+ "Kit: card": {
+  "name": "Kit: card",
+  "description": "Card con intestazione, corpo e piè di pagina"
+ },
+ "Kit: grid": {
+  "name": "Kit: griglia",
+  "description": "Griglia responsive (kit-grid-2 / kit-grid-3 per colonne fisse)"
+ },
+ "Kit: text field": {
+  "name": "Kit: campo di testo",
+  "description": "Campo con etichetta"
+ },
+ "Kit: input group": {
+  "name": "Kit: gruppo di campi",
+  "description": "Campo con testo o bottone attaccato"
+ },
+ "Kit: search": {
+  "name": "Kit: ricerca",
+  "description": "Campo di ricerca con icona e scorciatoia"
+ },
+ "Kit: segmented": {
+  "name": "Kit: segmented",
+  "description": "Controllo segmentato (scegli una voce)"
+ },
+ "Kit: pill": {
+  "name": "Kit: pill",
+  "description": "Pill selezionabile con contatore"
+ },
+ "Kit: chip": {
+  "name": "Kit: chip",
+  "description": "Chip rimovibile"
+ },
+ "Kit: badge": {
+  "name": "Kit: badge",
+  "description": "Badge (success, warning, danger, neutral)"
+ },
+ "Kit: alert": {
+  "name": "Kit: avviso",
+  "description": "Avviso con bordo colorato (success, warning, danger, neutral)"
+ },
+ "Kit: icon": {
+  "name": "Kit: icona",
+  "description": "Icona dallo sprite (kit-icons.js)"
+ },
+ "Kit: alert with icon": {
+  "name": "Kit: avviso con icona",
+  "description": "Avviso con icona (serve il simbolo nello sprite SVG)"
+ },
+ "Kit: dismissible alert": {
+  "name": "Kit: avviso chiudibile",
+  "description": "Avviso con bottone di chiusura"
+ },
+ "Kit: navbar": {
+  "name": "Kit: navbar",
+  "description": "Navbar con voci e menu a scomparsa (richiede kit.js)"
+ },
+ "Kit: sidebar": {
+  "name": "Kit: sidebar",
+  "description": "Pagina con sidebar a sinistra e intestazione (richiede kit.js)"
+ },
+ "Kit: tabs": {
+  "name": "Kit: tab",
+  "description": "Tab con pannelli (richiede kit.js)"
+ },
+ "Kit: stats": {
+  "name": "Kit: statistiche",
+  "description": "Riga di statistiche"
+ },
+ "Kit: table": {
+  "name": "Kit: tabella",
+  "description": "Tabella con intestazione e riga di esempio"
+ },
+ "Kit: sortable table": {
+  "name": "Kit: tabella ordinabile",
+  "description": "Tabella con ordinamento, ricerca e paginazione"
+ },
+ "Kit: accordion": {
+  "name": "Kit: accordion",
+  "description": "Accordion con voci apribili (details), opzionalmente una sola aperta"
+ },
+ "Kit: breadcrumb": {
+  "name": "Kit: breadcrumb",
+  "description": "Percorso di navigazione (breadcrumb)"
+ },
+ "Kit: empty state": {
+  "name": "Kit: stato vuoto",
+  "description": "Messaggio di stato vuoto"
+ },
+ "Kit: key/value": {
+  "name": "Kit: chiave/valore",
+  "description": "Elenco chiave/valore"
+ },
+ "Kit: progress": {
+  "name": "Kit: avanzamento",
+  "description": "Barra di avanzamento (0–100%)"
+ },
+ "Kit: meter": {
+  "name": "Kit: meter",
+  "description": "Misura rispetto a un limite, con soglie (richiede kit.js per lo stato automatico)"
+ },
+ "Kit: custom select": {
+  "name": "Kit: select personalizzato",
+  "description": "Select con elenco di opzioni (richiede kit.js)"
+ },
+ "Kit: combobox": {
+  "name": "Kit: combobox",
+  "description": "Campo con elenco di suggerimenti (richiede kit.js)"
+ },
+ "Kit: bar chart": {
+  "name": "Kit: grafico a barre",
+  "description": "Grafico a barre in SVG (richiede kit.js)"
+ },
+ "Kit: dropdown menu": {
+  "name": "Kit: menu a comparsa",
+  "description": "Bottone con menu a comparsa (richiede kit.js)"
+ },
+ "Kit: dialog": {
+  "name": "Kit: dialog",
+  "description": "Dialog con bottone di apertura (richiede kit.js)"
+ },
+ "Kit: tooltip": {
+  "name": "Kit: tooltip",
+  "description": "Attributi del tooltip (su qualsiasi elemento)"
+ },
+ "Kit: toast (JS)": {
+  "name": "Kit: toast (JS)",
+  "description": "Messaggio temporaneo (richiede kit.js)"
+ },
+ "Kit: change theme (JS)": {
+  "name": "Kit: cambia tema (JS)",
+  "description": "Imposta il tema: auto, light o dark"
+ },
+ "Kit: element bar": {
+  "name": "Kit: barra di elementi",
+  "description": "Barra di elementi affiancati (toolbar, filtri)"
+ },
+ "Kit: grid row": {
+  "name": "Kit: riga della griglia",
+  "description": "Riga della griglia a 12 colonne"
+ },
+ "Kit: column": {
+  "name": "Kit: colonna",
+  "description": "Colonna della griglia (12 su telefono, N/12 da un breakpoint)"
+ },
+ "Kit: row with N columns": {
+  "name": "Kit: righe con N colonne",
+  "description": "Riga con numero fisso di colonne per riga (2 su telefono, 4 da lg)"
+ },
+ "Kit: KPI card": {
+  "name": "Kit: scheda KPI",
+  "description": "Scheda con etichetta, valore e variazione"
+ },
+ "Kit: dashboard layout": {
+  "name": "Kit: layout dashboard",
+  "description": "Schema tipico: KPI in alto, grafico + laterale, tabella"
+ },
+ "Kit: container": {
+  "name": "Kit: contenitore",
+  "description": "Contenitore centrato (segue l'interruttore data-layout; -boxed sempre centrato)"
+ },
+ "Kit: full-width container": {
+  "name": "Kit: contenitore a tutta larghezza",
+  "description": "Contenitore sempre a tutta larghezza"
+ },
+ "Kit: width button": {
+  "name": "Kit: bottone larghezza",
+  "description": "Bottone che alterna contenuto centrato / a tutta larghezza (richiede kit.js)"
+ },
+ "Kit: width (JS)": {
+  "name": "Kit: larghezza (JS)",
+  "description": "Imposta la larghezza: boxed (centrato) o fluid (a tutta larghezza)"
+ },
+ "Kit: header with container": {
+  "name": "Kit: header con contenitore",
+  "description": "Intestazione il cui contenuto si allinea a quello della pagina"
+ },
+ "Kit: settings panel": {
+  "name": "Kit: pannello impostazioni",
+  "description": "Pannello delle impostazioni: tema, dimensione del testo, larghezza (richiede kit.js)"
+ },
+ "Kit: quote": {
+  "name": "Kit: citazione",
+  "description": "Citazione con la fonte"
+ },
+ "Kit: long text": {
+  "name": "Kit: testo lungo",
+  "description": "Contenitore per testi lunghi: righe comode e interlinea larga"
+ },
+ "Kit: date field with calendar": {
+  "name": "Kit: campo data con calendario",
+  "description": "Campo data con il calendario del kit (gg/mm/aaaa, valore ISO)"
+ },
+ "Kit: date range": {
+  "name": "Kit: intervallo di date",
+  "description": "Intervallo dal-al con calendario a due mesi e scelte rapide"
+ },
+ "Kit: date and time": {
+  "name": "Kit: data e ora",
+  "description": "Campo data e ora con calendario e colonne di ore e minuti"
+ },
+ "Kit: time field": {
+  "name": "Kit: campo ora",
+  "description": "Campo ora (hh:mm) con selettore di ore e minuti"
+ },
+ "Kit: column form": {
+  "name": "Kit: form in colonna",
+  "description": "Form con campi in colonna e validazione nel browser"
+ },
+ "Kit: field with label, help and message": {
+  "name": "Kit: campo con etichetta, aiuto e messaggio",
+  "description": "Campo con etichetta, aiuto e messaggio di errore"
+ },
+ "Kit: horizontal form": {
+  "name": "Kit: form orizzontale",
+  "description": "Form con l'etichetta a sinistra"
+ },
+ "Kit: field with icon": {
+  "name": "Kit: campo con icona",
+  "description": "Campo con icona a sinistra e bottone a destra (anche mostra/nascondi password)"
+ },
+ "Kit: floating label": {
+  "name": "Kit: etichetta che sale",
+  "description": "Campo con l'etichetta dentro che sale"
+ },
+ "Kit: selectable cards": {
+  "name": "Kit: schede selezionabili",
+  "description": "Radio a schede"
+ }
+}

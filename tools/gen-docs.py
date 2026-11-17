@@ -275,6 +275,36 @@ COLOR_DESC = {
 }
 
 
+LAYOUT_DESC = {
+    "en": {
+        "fs": "base text size (1rem)", "lh": "text line height", "measure": "maximum length of a text line (kit-measure, kit-prose)",
+        "h1": "h1 heading (and kit-fs-1)", "h2": "h2 heading (and kit-fs-2)", "h3": "h3 heading (and kit-fs-3)",
+        "h4": "h4 heading (and kit-fs-4)", "h5": "h5 heading (and kit-fs-5)", "h6": "h6 heading (and kit-fs-6)",
+        "zoom": "multiplier chosen by the user: 0.875 (normal), 1, 1.125",
+        "sp": "single spacing unit: margin, distance between cards, inner padding",
+        "row": "vertical padding of table rows", "cell": "horizontal padding between columns",
+        "rad": "radius of surfaces: cards, dialogs, menus, code, toasts",
+        "rad-sm": "radius of controls: buttons, fields, segmented, menu items",
+        "hh": "header height", "ctl": "height of buttons and fields",
+        "container-w": "maximum width of centered content (.kit-container)",
+        "side-w": "sidebar width (.kit-sidebar)", "side-wc": "width of the compact, icons-only sidebar",
+    },
+    "it": {
+        "fs": "dimensione di base del testo (1rem)", "lh": "interlinea del testo", "measure": "lunghezza massima di una riga di testo (kit-measure, kit-prose)",
+        "h1": "titolo h1 (e kit-fs-1)", "h2": "titolo h2 (e kit-fs-2)", "h3": "titolo h3 (e kit-fs-3)",
+        "h4": "titolo h4 (e kit-fs-4)", "h5": "titolo h5 (e kit-fs-5)", "h6": "titolo h6 (e kit-fs-6)",
+        "zoom": "moltiplicatore scelto dall'utente: 0.875 (normale), 1, 1.125",
+        "sp": "spazio unico: margine, distanza tra card, padding interno",
+        "row": "padding verticale delle righe di tabella", "cell": "padding orizzontale tra le colonne",
+        "rad": "raggio delle superfici: card, dialog, menu, codice, toast",
+        "rad-sm": "raggio dei controlli: bottoni, campi, segmented, voci dei menu",
+        "hh": "altezza dell'intestazione", "ctl": "altezza di bottoni e campi",
+        "container-w": "larghezza massima del contenuto centrato (.kit-container)",
+        "side-w": "larghezza della sidebar (.kit-sidebar)", "side-wc": "larghezza della sidebar compatta, solo icone",
+    },
+}
+
+
 def tokens_table(lang):
     u = UI[lang]
     css = (ROOT / "dist" / "kit.css").read_text(encoding="utf-8")
@@ -289,7 +319,7 @@ def tokens_table(lang):
             light, dark = [x.strip() for x in inner.split(",", 1)] if "," in inner and "(" not in inner else (inner, "")
             colors.append((name, light, dark))
         elif re.fullmatch(r"[\d.]+(px|rem)?", value):
-            layout.append((name, value, note))
+            layout.append((name, value, LAYOUT_DESC[lang].get(name, "")))
     rows = []
     for n, v, note in layout:
         rows.append(f'<tr><td><code>--kit-{n}</code></td><td><code>{html.escape(v)}</code></td><td>{html.escape(note)}</td></tr>')
@@ -308,8 +338,10 @@ def tokens_table(lang):
 def snippets_table(lang):
     u = UI[lang]
     d = json.loads((ROOT / "vscode" / "dashboard-kit.code-snippets").read_text(encoding="utf-8"))
-    rows = [f'<tr><td><code>{html.escape(v["prefix"])}</code></td><td>{html.escape(v["description"])}</td></tr>'
-            for v in sorted(d.values(), key=lambda v: v["prefix"])]
+    # le descrizioni nel file sono in inglese; quelle italiane stanno in tools/snippets.it.json (chiave: nome inglese)
+    it = json.loads((ROOT / "tools" / "snippets.it.json").read_text(encoding="utf-8")) if lang == "it" else {}
+    rows = [f'<tr><td><code>{html.escape(v["prefix"])}</code></td><td>{html.escape(it.get(name, v)["description"])}</td></tr>'
+            for name, v in sorted(d.items(), key=lambda kv: kv[1]["prefix"])]
     return ('<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr>'
             f'<th>{u["snip_prefix"]}</th><th>{u["snip_comp"]}</th></tr></thead><tbody>\n' + "\n".join(rows) + "\n</tbody></table></div></div>")
 

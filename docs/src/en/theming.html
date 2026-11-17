@@ -1,0 +1,87 @@
+<!--title: Themes and tokens-->
+<!--desc: The whole look comes from a few CSS variables. Changing them in <code>:root</code>, or on a single element, changes colors, density and corners of the whole interface.-->
+<h2 id="theme">Light and dark theme</h2>
+<p>Colors are written once with <code>light-dark(light, dark)</code>. By default the theme follows the system; to force it set <code>data-theme</code> on <code>&lt;html&gt;</code>. With <code>kit.js</code> buttons with <code>data-kit-theme-set</code> are enough (the choice is remembered); the same goes for the <a href="overlays.html#settings">settings panel</a>, which gathers them with text and width.</p>
+```html
+<html lang="en" data-theme="dark">           <!-- forced dark; without the attribute it follows the system -->
+
+<button class="kit-btn" data-kit-theme-set="light">Light</button>
+<button class="kit-btn" data-kit-theme-set="dark">Dark</button>
+<button class="kit-btn" data-kit-theme-set="auto">Automatic</button>
+```
+<h3 id="selector">Theme selector (menu)</h3>
+<p>The header's "Theme" menu is a <a href="overlays.html#menu">pop-up menu</a> (<code>.kit-pop</code>) whose items have <code>data-kit-theme-set</code>: on click <code>kit.js</code> applies the theme, remembers it and closes the menu. Each item has an icon and a title, and can have a gray line; <code>kit-pop-right</code> aligns the panel to the right edge, useful in a header. This example is really wired to the page's theme.</p>
+<div class="doc-demo" style="min-height: 210px">
+  <div class="kit-dropdown">
+    <button class="kit-btn" data-kit-toggle="#menu-theme" aria-haspopup="menu" aria-expanded="false"><svg class="kit-icon"><use href="#i-auto"/></svg>Theme<svg class="kit-icon"><use href="#i-chev"/></svg></button>
+    <div class="kit-pop" id="menu-theme" role="menu" hidden>
+      <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-opt-text"><b>Automatic</b><small>Follows the system</small></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+      <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg><span class="kit-opt-text"><b>Light</b></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+      <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg><span class="kit-opt-text"><b>Dark</b></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+    </div>
+  </div>
+</div>
+
+<p>Add <code>&lt;meta name="color-scheme" content="light dark"&gt;</code> in the <code>&lt;head&gt;</code> to avoid a white flash on load in the dark theme.</p>
+
+<h2 id="text">Font and text size</h2>
+<p>The kit uses <a href="https://rsms.me/inter/">Inter</a> (OFL license, 65 KB, file <code>dist/fonts/inter-var.woff2</code>), designed for the screen and with a <strong>slashed zero</strong> that is not confused with the letter "o". The file sits next to <code>kit.css</code> and loads by itself; if it is not reachable the system font remains. To use another font just change <code>--kit-font</code>; for the slashed digit alone, <code>font-variant-numeric: slashed-zero</code> works with any font that provides it.</p>
+```css
+:root { --kit-font: "IBM Plex Sans", system-ui, sans-serif; }   /* another font */
+td.code { font-variant-numeric: slashed-zero tabular-nums; }  /* slashed zero and equal-width digits */
+```
+<p>All text sizes are in <code>rem</code>, so they follow the base size <code>--kit-fs</code> (<code>1rem</code>). The base grows by itself with the screen: 15px up to 1279px, then 16px, 17px (from 1600px), 19px (from 1920px) and 22px (from 2560px). Control height, icons, header and content width are also in <code>rem</code> and grow along with the text.</p>
+<p>The user can enlarge or shrink everything: <code>--kit-zoom</code> multiplies the base and <code>data-kit-fs</code> on <code>&lt;html&gt;</code> sets it (<code>md</code> normal, the default; <code>lg</code> large; <code>xl</code> extra large). With <code>kit.js</code> buttons with <code>data-kit-fs-set</code> or <code>data-kit-fs-step</code> are enough; the choice is remembered. These choices are also in the <a href="overlays.html#settings">settings panel</a>.</p>
+```html
+<button class="kit-btn" data-kit-fs-step="-1" aria-label="Smaller text">A−</button>
+<button class="kit-btn" data-kit-fs-step="1"  aria-label="Larger text">A+</button>
+
+<button class="kit-btn" data-kit-fs-set="xl">Extra large</button>
+```
+```css
+:root { --kit-fs: 16px; }                                   /* fixed base, no automatic growth */
+@media (min-width: 2000px) { :root { --kit-fs: 24px; } }   /* or a threshold of your own */
+```
+
+<h2 id="layout">Layout tokens</h2>
+<p>They adjust the interface's breathing room, the text size and the heading scale (see <a href="typography.html#tokens">Typography</a>). Below 760px <code>--kit-sp</code> goes down from 16 to 8px.</p>
+<!--tokens-layout-->
+
+<h2 id="colors">Color tokens</h2>
+<p>Each color has a value for the light and for the dark theme. The kit's classes always use tokens, never fixed colors: changing a token changes it everywhere.</p>
+<!--tokens-colors-->
+
+<h2 id="scrollbar">Scrollbars</h2>
+<p>All scrollbars (page, tables, menus, dialogs) are thin, with the thumb in the secondary text color and an invisible track. The color is the <code>--kit-sb</code> token, which follows the light and dark theme by itself. The <code>kit-no-scrollbar</code> class hides the scrollbar of an element that still scrolls (useful for a row of tabs on narrow screens).</p>
+<div class="doc-demo">
+  <div class="kit-card kit-p-3" style="height: 130px; overflow: auto; max-width: 360px">
+    <p>A scrolling box: the bar on the right is the kit's.</p><p>Second line.</p><p>Third line.</p><p>Fourth line.</p><p>Fifth line.</p><p>Sixth line.</p>
+  </div>
+</div>
+```css
+:root { --kit-sb: color-mix(in srgb, var(--kit-accent) 50%, transparent); }   /* another color */
+* { scrollbar-width: auto; scrollbar-color: auto; }                          /* or the system's */
+```
+
+<h2 id="customizing">Customizing</h2>
+<p>Override the tokens in <code>:root</code> after loading <code>kit.css</code>:</p>
+```css
+:root {
+  --kit-accent: light-dark(#0f766e, #5eead4);
+  --kit-accent-soft: light-dark(#e6f6f4, #12312e);
+  --kit-rad: 6px;      /* less rounded surfaces */
+  --kit-rad-sm: 4px;   /* less rounded controls */
+  --kit-row: 5px;      /* more compact tables */
+  --kit-ctl: 36px;     /* shorter buttons and fields */
+}
+```
+<p>Tokens can also be changed on a single element, and apply to everything it contains. Here an area with another accent:</p>
+<div class="doc-demo">
+  <div class="kit-bar" style="--kit-accent: light-dark(#0f766e, #5eead4); --kit-accent-soft: light-dark(#e6f6f4, #12312e)">
+    <button class="kit-btn kit-btn-primary">Primary</button>
+    <button class="kit-pill is-on">Active pill</button>
+    <span class="kit-badge">Badge</span>
+    <a href="#">A link</a>
+  </div>
+</div>
+<p>Note: the inline <code>style</code> attribute requires <code>style-src-attr 'unsafe-inline'</code> if the site has a Content-Security-Policy; in a CSS file it is not needed.</p>

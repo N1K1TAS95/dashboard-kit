@@ -1,22 +1,22 @@
 {
-  "Kit: pagina base": {
+  "Kit: base page": {
     "prefix": "kit-page",
     "scope": "html",
-    "description": "Scheletro di pagina con Dashboard Kit (CSS + JS opzionale)",
+    "description": "Page skeleton with Dashboard Kit (CSS + optional JS)",
     "body": [
       "<!doctype html>",
-      "<html lang=\"it\">",
+      "<html lang=\"en\">",
       "<head>",
       "  <meta charset=\"utf-8\">",
       "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">",
       "  <meta name=\"color-scheme\" content=\"light dark\">",
-      "  <title>${1:Titolo}</title>",
+      "  <title>${1:Title}</title>",
       "  <script src=\"${2:dist/}kit.js\"></script>",
       "  <link rel=\"stylesheet\" href=\"${2:dist/}kit.css\">",
       "</head>",
       "<body>",
       "<header class=\"kit-header\">",
-      "  <h1 class=\"kit-brand\">${3:Nome} <span>${4:app}</span></h1>",
+      "  <h1 class=\"kit-brand\">${3:Name} <span>${4:app}</span></h1>",
       "</header>",
       "<main class=\"kit-main\">",
       "  <div class=\"kit-container kit-stack\">",
@@ -30,60 +30,60 @@
   "Kit: header": {
     "prefix": "kit-header",
     "scope": "html",
-    "description": "Intestazione fissa con marchio",
+    "description": "Fixed header with brand",
     "body": [
       "<header class=\"kit-header\">",
-      "  <h1 class=\"kit-brand\">${1:Nome} <span>${2:app}</span></h1>",
+      "  <h1 class=\"kit-brand\">${1:Name} <span>${2:app}</span></h1>",
       "  <span class=\"kit-spacer\"></span>",
       "  $0",
       "</header>"
     ]
   },
-  "Kit: bottone": {
+  "Kit: button": {
     "prefix": "kit-btn",
     "scope": "html",
-    "description": "Bottone (varianti: primary, ghost, danger, icon, lg)",
-    "body": "<button class=\"kit-btn\">${1:Testo}</button>$0"
+    "description": "Button (variants: primary, ghost, danger, icon, lg)",
+    "body": "<button class=\"kit-btn\">${1:Text}</button>$0"
   },
-  "Kit: bottone primario": {
+  "Kit: primary button": {
     "prefix": "kit-btn-primary",
     "scope": "html",
-    "description": "Bottone primario",
-    "body": "<button class=\"kit-btn kit-btn-primary\">${1:Testo}</button>$0"
+    "description": "Primary button",
+    "body": "<button class=\"kit-btn kit-btn-primary\">${1:Text}</button>$0"
   },
-  "Kit: bottone con icona": {
+  "Kit: icon button": {
     "prefix": "kit-btn-icon",
     "scope": "html",
-    "description": "Bottone quadrato con sola icona (sprite SVG)",
+    "description": "Square button with an icon only (SVG sprite)",
     "body": [
-      "<button class=\"kit-btn kit-btn-icon\" aria-label=\"${1:Azione}\">",
+      "<button class=\"kit-btn kit-btn-icon\" aria-label=\"${1:Action}\">",
       "  <svg class=\"kit-icon\"><use href=\"#i-${2:download}\"/></svg>",
       "</button>$0"
     ]
   },
-  "Kit: lista": {
+  "Kit: list": {
     "prefix": "kit-list",
     "scope": "html",
-    "description": "Lista di voci impilate (card unite)",
+    "description": "List of stacked items (joined cards)",
     "body": [
       "<ul class=\"kit-list\">",
-      "  <li class=\"kit-list-item\">${1:Prima voce}</li>",
-      "  <li class=\"kit-list-item\">${2:Seconda voce}</li>",
+      "  <li class=\"kit-list-item\">${1:First item}</li>",
+      "  <li class=\"kit-list-item\">${2:Second item}</li>",
       "</ul>$0"
     ]
   },
-  "Kit: interruttore": {
+  "Kit: switch": {
     "prefix": "kit-switch",
     "scope": "html",
-    "description": "Interruttore on/off",
+    "description": "On/off switch",
     "body": [
-      "<label class=\"kit-switch\"><input type=\"checkbox\" role=\"switch\"> ${1:Testo}</label>$0"
+      "<label class=\"kit-switch\"><input type=\"checkbox\" role=\"switch\"> ${1:Text}</label>$0"
     ]
   },
   "Kit: skeleton": {
     "prefix": "kit-skeleton",
     "scope": "html",
-    "description": "Segnaposto di caricamento",
+    "description": "Loading placeholder",
     "body": [
       "<div aria-busy=\"true\">",
       "  <div class=\"kit-skeleton kit-skeleton-title\" aria-hidden=\"true\"></div>",
@@ -92,10 +92,10 @@
       "</div>$0"
     ]
   },
-  "Kit: codice": {
+  "Kit: code": {
     "prefix": "kit-code",
     "scope": "html",
-    "description": "Blocco di codice colorato (con bottone Copia)",
+    "description": "Highlighted code block (with Copy button)",
     "body": [
       "<pre class=\"kit-code\" data-kit-code=\"${1|html,js,css|}\" data-kit-code-copy><code>$2</code></pre>$0"
     ]
@@ -103,24 +103,24 @@
   "Kit: card": {
     "prefix": "kit-card",
     "scope": "html",
-    "description": "Card con intestazione, corpo e piè di pagina",
+    "description": "Card with header, body and footer",
     "body": [
       "<section class=\"kit-card\">",
-      "  <div class=\"kit-card-head\">${1:Titolo}</div>",
+      "  <div class=\"kit-card-head\">${1:Title}</div>",
       "  <div class=\"kit-card-body\">",
       "    $2",
       "  </div>",
       "  <div class=\"kit-card-foot\">",
-      "    <button class=\"kit-btn\">Annulla</button>",
-      "    <button class=\"kit-btn kit-btn-primary\">${3:Salva}</button>",
+      "    <button class=\"kit-btn\">Cancel</button>",
+      "    <button class=\"kit-btn kit-btn-primary\">${3:Save}</button>",
       "  </div>",
       "</section>$0"
     ]
   },
-  "Kit: griglia": {
+  "Kit: grid": {
     "prefix": "kit-grid",
     "scope": "html",
-    "description": "Griglia responsive (kit-grid-2 / kit-grid-3 per colonne fisse)",
+    "description": "Responsive grid (kit-grid-2 / kit-grid-3 for fixed columns)",
     "body": [
       "<div class=\"kit-grid\">",
       "  <div class=\"kit-card kit-card-body\">${1}</div>",
@@ -128,32 +128,32 @@
       "</div>$0"
     ]
   },
-  "Kit: campo di testo": {
+  "Kit: text field": {
     "prefix": "kit-field",
     "scope": "html",
-    "description": "Campo con etichetta",
-    "body": "<label class=\"kit-field\">${1:Etichetta} <input class=\"kit-input\" type=\"${2:text}\" placeholder=\"${3}\"></label>$0"
+    "description": "Field with a label",
+    "body": "<label class=\"kit-field\">${1:Label} <input class=\"kit-input\" type=\"${2:text}\" placeholder=\"${3}\"></label>$0"
   },
-  "Kit: gruppo di campi": {
+  "Kit: input group": {
     "prefix": "kit-input-group",
     "scope": "html",
-    "description": "Campo con testo o bottone attaccato",
+    "description": "Field with attached text or button",
     "body": [
       "<div class=\"kit-input-group\">",
       "  <span class=\"kit-input-text\">${1:€}</span>",
-      "  <input class=\"kit-input\" name=\"${2:importo}\" aria-label=\"${3:Importo}\">",
-      "  <button type=\"button\" class=\"kit-btn kit-btn-primary\">${4:Applica}</button>",
+      "  <input class=\"kit-input\" name=\"${2:amount}\" aria-label=\"${3:Amount}\">",
+      "  <button type=\"button\" class=\"kit-btn kit-btn-primary\">${4:Apply}</button>",
       "</div>"
     ]
   },
-  "Kit: ricerca": {
+  "Kit: search": {
     "prefix": "kit-search",
     "scope": "html",
-    "description": "Campo di ricerca con icona e scorciatoia",
+    "description": "Search field with icon and shortcut",
     "body": [
       "<label class=\"kit-search\">",
       "  <svg class=\"kit-icon\"><use href=\"#i-search\"/></svg>",
-      "  <input class=\"kit-input\" type=\"search\" placeholder=\"${1:Cerca…}\" aria-label=\"${1:Cerca}\">",
+      "  <input class=\"kit-input\" type=\"search\" placeholder=\"${1:Search…}\" aria-label=\"${1:Search}\">",
       "  <kbd>/</kbd>",
       "</label>$0"
     ]
@@ -161,71 +161,71 @@
   "Kit: segmented": {
     "prefix": "kit-seg",
     "scope": "html",
-    "description": "Controllo segmentato (scegli una voce)",
+    "description": "Segmented control (choose one item)",
     "body": [
-      "<div class=\"kit-seg\" role=\"group\" aria-label=\"${1:Filtro}\">",
-      "  <button class=\"is-on\">${2:Tutte}</button><button>${3:Prime}</button><button>${4:Seconde}</button>",
+      "<div class=\"kit-seg\" role=\"group\" aria-label=\"${1:Filter}\">",
+      "  <button class=\"is-on\">${2:All}</button><button>${3:First}</button><button>${4:Second}</button>",
       "</div>$0"
     ]
   },
   "Kit: pill": {
     "prefix": "kit-pill",
     "scope": "html",
-    "description": "Pill selezionabile con contatore",
+    "description": "Selectable pill with counter",
     "body": "<button class=\"kit-pill${1: is-on}\">${2:2026} <small>${3:124}</small></button>$0"
   },
   "Kit: chip": {
     "prefix": "kit-chip",
     "scope": "html",
-    "description": "Chip rimovibile",
-    "body": "<button class=\"kit-chip\"><b>${1:Filtro}</b> ${2:valore} <i>×</i></button>$0"
+    "description": "Removable chip",
+    "body": "<button class=\"kit-chip\"><b>${1:Filter}</b> ${2:value} <i>×</i></button>$0"
   },
   "Kit: badge": {
     "prefix": "kit-badge",
     "scope": "html",
     "description": "Badge (success, warning, danger, neutral)",
-    "body": "<span class=\"kit-badge kit-badge-${1|success,warning,danger,neutral|}\">${2:Testo}</span>$0"
+    "body": "<span class=\"kit-badge kit-badge-${1|success,warning,danger,neutral|}\">${2:Text}</span>$0"
   },
-  "Kit: avviso": {
+  "Kit: alert": {
     "prefix": "kit-alert",
     "scope": "html",
-    "description": "Avviso con bordo colorato (success, warning, danger, neutral)",
-    "body": "<div class=\"kit-alert kit-alert-${1|success,warning,danger,neutral|}\" role=\"${2|status,alert|}\">${3:Testo dell'avviso}</div>$0"
+    "description": "Alert with colored border (success, warning, danger, neutral)",
+    "body": "<div class=\"kit-alert kit-alert-${1|success,warning,danger,neutral|}\" role=\"${2|status,alert|}\">${3:Alert text}</div>$0"
   },
-  "Kit: icona": {
+  "Kit: icon": {
     "prefix": "kit-icon",
     "scope": "html",
-    "description": "Icona dallo sprite (kit-icons.js)",
+    "description": "Icon from the sprite (kit-icons.js)",
     "body": "<svg class=\"kit-icon\"><use href=\"#i-${1|search,plus,x,check,edit,trash,download,upload,refresh,filter,menu,calendar,file,user|}\"/></svg>$0"
   },
-  "Kit: avviso con icona": {
+  "Kit: alert with icon": {
     "prefix": "kit-alert-icon",
     "scope": "html",
-    "description": "Avviso con icona (serve il simbolo nello sprite SVG)",
-    "body": "<div class=\"kit-alert kit-alert-${1|success,warning,danger,neutral|}\" role=\"status\"><svg class=\"kit-icon kit-alert-icon\"><use href=\"#i-${2|info,ok,warn,error|}\"/></svg>${3:Testo dell'avviso}</div>$0"
+    "description": "Alert with icon (the symbol must be in the SVG sprite)",
+    "body": "<div class=\"kit-alert kit-alert-${1|success,warning,danger,neutral|}\" role=\"status\"><svg class=\"kit-icon kit-alert-icon\"><use href=\"#i-${2|info,ok,warn,error|}\"/></svg>${3:Alert text}</div>$0"
   },
-  "Kit: avviso chiudibile": {
+  "Kit: dismissible alert": {
     "prefix": "kit-alert-close",
     "scope": "html",
-    "description": "Avviso con bottone di chiusura",
+    "description": "Alert with a close button",
     "body": [
       "<div class=\"kit-alert kit-alert-${1|success,warning,danger,neutral|}\" role=\"status\">",
-      "  ${2:Testo dell'avviso}",
-      "  <button class=\"kit-alert-close\" data-kit-dismiss aria-label=\"Chiudi\"><svg class=\"kit-icon\"><use href=\"#i-x\"/></svg></button>",
+      "  ${2:Alert text}",
+      "  <button class=\"kit-alert-close\" data-kit-dismiss aria-label=\"Close\"><svg class=\"kit-icon\"><use href=\"#i-x\"/></svg></button>",
       "</div>$0"
     ]
   },
   "Kit: navbar": {
     "prefix": "kit-navbar",
     "scope": "html",
-    "description": "Navbar con voci e menu a scomparsa (richiede kit.js)",
+    "description": "Navbar with items and collapsible menu (requires kit.js)",
     "body": [
       "<header class=\"kit-header kit-navbar kit-navbar-expand-${1|md,sm,lg,xl|}\">",
-      "  <a class=\"kit-brand\" href=\"/\">${2:Nome} <span>${3:app}</span></a>",
-      "  <nav class=\"kit-navbar-menu\" id=\"${4:menu}\" aria-label=\"Principale\">",
+      "  <a class=\"kit-brand\" href=\"/\">${2:Name} <span>${3:app}</span></a>",
+      "  <nav class=\"kit-navbar-menu\" id=\"${4:menu}\" aria-label=\"Main\">",
       "    <ul class=\"kit-nav\">",
       "      <li><a class=\"kit-nav-link\" href=\"/\" aria-current=\"page\">Home</a></li>",
-      "      <li><a class=\"kit-nav-link\" href=\"#\">${5:Voce}</a></li>",
+      "      <li><a class=\"kit-nav-link\" href=\"#\">${5:Item}</a></li>",
       "    </ul>",
       "  </nav>",
       "  <button class=\"kit-btn kit-btn-ghost kit-btn-icon kit-navbar-toggler\" data-kit-nav=\"#${4:menu}\" aria-controls=\"${4:menu}\" aria-expanded=\"false\" aria-label=\"Menu\"><svg class=\"kit-icon\"><use href=\"#i-menu\"/></svg></button>",
@@ -235,86 +235,86 @@
   "Kit: sidebar": {
     "prefix": "kit-sidebar",
     "scope": "html",
-    "description": "Pagina con sidebar a sinistra e intestazione (richiede kit.js)",
+    "description": "Page with left sidebar and header (requires kit.js)",
     "body": [
       "<div class=\"kit-app kit-app-expand-${1|lg,md,xl|}\">",
-      "  <aside class=\"kit-sidebar\" id=\"${2:sidebar}\" aria-label=\"Principale\">",
+      "  <aside class=\"kit-sidebar\" id=\"${2:sidebar}\" aria-label=\"Main\">",
       "    <div class=\"kit-sidebar-head\">",
-      "      <a class=\"kit-brand\" href=\"/\"><span class=\"kit-side-text\">${3:Nome} <span>${4:app}</span></span></a>",
+      "      <a class=\"kit-brand\" href=\"/\"><span class=\"kit-side-text\">${3:Name} <span>${4:app}</span></span></a>",
       "    </div>",
-      "    <nav class=\"kit-sidebar-body\" aria-label=\"Sezioni\">",
+      "    <nav class=\"kit-sidebar-body\" aria-label=\"Sections\">",
       "      <ul class=\"kit-side-nav\">",
       "        <li><a class=\"kit-side-link\" href=\"/\" aria-current=\"page\"><svg class=\"kit-icon\"><use href=\"#i-home\"/></svg><span class=\"kit-side-text\">Home</span></a></li>",
-      "        <li><a class=\"kit-side-link\" href=\"#\"><svg class=\"kit-icon\"><use href=\"#i-file\"/></svg><span class=\"kit-side-text\">${5:Voce}</span></a></li>",
+      "        <li><a class=\"kit-side-link\" href=\"#\"><svg class=\"kit-icon\"><use href=\"#i-file\"/></svg><span class=\"kit-side-text\">${5:Item}</span></a></li>",
       "      </ul>",
       "    </nav>",
       "    <div class=\"kit-sidebar-foot\">$6</div>",
       "  </aside>",
       "  <div class=\"kit-app-main\">",
       "    <header class=\"kit-header\">",
-      "      <button class=\"kit-btn kit-btn-ghost kit-btn-icon\" data-kit-sidebar-toggle=\"#${2:sidebar}\" aria-controls=\"${2:sidebar}\" aria-expanded=\"false\" aria-label=\"Menu laterale\"><svg class=\"kit-icon\"><use href=\"#i-menu\"/></svg></button>",
+      "      <button class=\"kit-btn kit-btn-ghost kit-btn-icon\" data-kit-sidebar-toggle=\"#${2:sidebar}\" aria-controls=\"${2:sidebar}\" aria-expanded=\"false\" aria-label=\"Side menu\"><svg class=\"kit-icon\"><use href=\"#i-menu\"/></svg></button>",
       "    </header>",
       "    <main class=\"kit-main\">$0</main>",
       "  </div>",
       "</div>"
     ]
   },
-  "Kit: tab": {
+  "Kit: tabs": {
     "prefix": "kit-tabs",
     "scope": "html",
-    "description": "Tab con pannelli (richiede kit.js)",
+    "description": "Tabs with panels (requires kit.js)",
     "body": [
       "<div class=\"kit-tabs\" data-kit-tabs>",
-      "  <button class=\"kit-tab is-on\" data-kit-panel=\"#${1:p1}\">${2:Prima}</button>",
-      "  <button class=\"kit-tab\" data-kit-panel=\"#${3:p2}\">${4:Seconda}</button>",
+      "  <button class=\"kit-tab is-on\" data-kit-panel=\"#${1:p1}\">${2:First}</button>",
+      "  <button class=\"kit-tab\" data-kit-panel=\"#${3:p2}\">${4:Second}</button>",
       "</div>",
       "<section class=\"kit-card kit-tabpanel\" id=\"${1:p1}\">${5}</section>",
       "<section class=\"kit-card kit-tabpanel\" id=\"${3:p2}\" hidden>${6}</section>$0"
     ]
   },
-  "Kit: statistiche": {
+  "Kit: stats": {
     "prefix": "kit-stats",
     "scope": "html",
-    "description": "Riga di statistiche",
+    "description": "Stats row",
     "body": [
       "<section class=\"kit-card kit-stats\">",
-      "  <div class=\"kit-stat\"><small>${1:Etichetta}</small><b>${2:0}</b></div>",
-      "  <div class=\"kit-stat\"><small>${3:Etichetta}</small><b>${4:0}</b></div>",
+      "  <div class=\"kit-stat\"><small>${1:Label}</small><b>${2:0}</b></div>",
+      "  <div class=\"kit-stat\"><small>${3:Label}</small><b>${4:0}</b></div>",
       "</section>$0"
     ]
   },
-  "Kit: tabella": {
+  "Kit: table": {
     "prefix": "kit-table",
     "scope": "html",
-    "description": "Tabella con intestazione e riga di esempio",
+    "description": "Table with header and a sample row",
     "body": [
       "<section class=\"kit-card\">",
       "  <div class=\"kit-table-wrap\">",
       "    <table class=\"kit-table kit-table-hover\">",
-      "      <thead><tr><th>${1:Colonna}</th><th class=\"kit-num\">${2:Importo}</th></tr></thead>",
+      "      <thead><tr><th>${1:Column}</th><th class=\"kit-num\">${2:Amount}</th></tr></thead>",
       "      <tbody>",
-      "        <tr><td>${3:Valore}</td><td class=\"kit-num\">${4:0,00}</td></tr>",
+      "        <tr><td>${3:Value}</td><td class=\"kit-num\">${4:0.00}</td></tr>",
       "      </tbody>",
       "    </table>",
       "  </div>",
       "</section>$0"
     ]
   },
-  "Kit: tabella ordinabile": {
+  "Kit: sortable table": {
     "prefix": "kit-table-sort",
     "scope": "html",
-    "description": "Tabella con ordinamento, ricerca e paginazione",
+    "description": "Table with sorting, search and pagination",
     "body": [
       "<div class=\"kit-search\" style=\"max-width: 320px; margin-bottom: var(--kit-sp)\">",
       "  <svg class=\"kit-icon\"><use href=\"#i-search\"/></svg>",
-      "  <input class=\"kit-input\" type=\"search\" placeholder=\"Cerca…\" aria-label=\"Cerca\" data-kit-filter=\"#${1:tabella}\">",
+      "  <input class=\"kit-input\" type=\"search\" placeholder=\"Search…\" aria-label=\"Search\" data-kit-filter=\"#${1:table}\">",
       "</div>",
       "<section class=\"kit-card\">",
       "  <div class=\"kit-table-wrap\">",
-      "    <table class=\"kit-table\" id=\"${1:tabella}\" data-kit-sort data-kit-page=\"${2:10}\">",
-      "      <thead><tr><th>${3:Colonna}</th><th class=\"kit-num\">${4:Importo}</th></tr></thead>",
+      "    <table class=\"kit-table\" id=\"${1:table}\" data-kit-sort data-kit-page=\"${2:10}\">",
+      "      <thead><tr><th>${3:Column}</th><th class=\"kit-num\">${4:Amount}</th></tr></thead>",
       "      <tbody>",
-      "        <tr><td>${5:Valore}</td><td class=\"kit-num\">${6:0,00}</td></tr>",
+      "        <tr><td>${5:Value}</td><td class=\"kit-num\">${6:0.00}</td></tr>",
       "      </tbody>",
       "    </table>",
       "  </div>",
@@ -324,16 +324,16 @@
   "Kit: accordion": {
     "prefix": "kit-accordion",
     "scope": "html",
-    "description": "Accordion con voci apribili (details), opzionalmente una sola aperta",
+    "description": "Accordion with openable items (details), optionally only one open",
     "body": [
       "<div class=\"kit-accordion\" data-kit-accordion=\"single\">",
       "  <details open>",
-      "    <summary>${1:Titolo}</summary>",
-      "    <div class=\"kit-accordion-body\">${2:Contenuto}</div>",
+      "    <summary>${1:Title}</summary>",
+      "    <div class=\"kit-accordion-body\">${2:Content}</div>",
       "  </details>",
       "  <details>",
-      "    <summary>${3:Titolo}</summary>",
-      "    <div class=\"kit-accordion-body\">${4:Contenuto}</div>",
+      "    <summary>${3:Title}</summary>",
+      "    <div class=\"kit-accordion-body\">${4:Content}</div>",
       "  </details>",
       "</div>$0"
     ]
@@ -341,65 +341,65 @@
   "Kit: breadcrumb": {
     "prefix": "kit-breadcrumb",
     "scope": "html",
-    "description": "Percorso di navigazione (breadcrumb)",
+    "description": "Navigation path (breadcrumb)",
     "body": [
-      "<nav class=\"kit-breadcrumb\" aria-label=\"Percorso\">",
+      "<nav class=\"kit-breadcrumb\" aria-label=\"Breadcrumb\">",
       "  <ol>",
       "    <li><a href=\"${1:/}\">${2:Home}</a></li>",
-      "    <li><a href=\"${3:#}\">${4:Sezione}</a></li>",
-      "    <li aria-current=\"page\">${5:Pagina}</li>",
+      "    <li><a href=\"${3:#}\">${4:Section}</a></li>",
+      "    <li aria-current=\"page\">${5:Page}</li>",
       "  </ol>",
       "</nav>$0"
     ]
   },
-  "Kit: stato vuoto": {
+  "Kit: empty state": {
     "prefix": "kit-empty",
     "scope": "html",
-    "description": "Messaggio di stato vuoto",
+    "description": "Empty-state message",
     "body": [
       "<div class=\"kit-empty\">",
       "  <div class=\"kit-empty-icon\">${1:🗂️}</div>",
-      "  <h2>${2:Niente da mostrare}</h2>",
-      "  <p>${3:Descrizione}</p>",
+      "  <h2>${2:Nothing to show}</h2>",
+      "  <p>${3:Description}</p>",
       "</div>$0"
     ]
   },
-  "Kit: chiave/valore": {
+  "Kit: key/value": {
     "prefix": "kit-kv",
     "scope": "html",
-    "description": "Elenco chiave/valore",
+    "description": "Key/value list",
     "body": [
       "<dl class=\"kit-kv\">",
-      "  <dt>${1:Chiave}</dt><dd>${2:Valore}</dd>",
-      "  <dt>${3:Chiave}</dt><dd>${4:Valore}</dd>",
+      "  <dt>${1:Key}</dt><dd>${2:Value}</dd>",
+      "  <dt>${3:Key}</dt><dd>${4:Value}</dd>",
       "</dl>$0"
     ]
   },
-  "Kit: avanzamento": {
+  "Kit: progress": {
     "prefix": "kit-progress",
     "scope": "html",
-    "description": "Barra di avanzamento (0–100%)",
+    "description": "Progress bar (0–100%)",
     "body": "<div class=\"kit-progress\"><i style=\"--kit-value:${1:50}%\"></i></div>$0"
   },
   "Kit: meter": {
     "prefix": "kit-meter",
     "scope": "html",
-    "description": "Misura rispetto a un limite, con soglie (richiede kit.js per lo stato automatico)",
+    "description": "Measure against a limit, with thresholds (needs kit.js for the automatic state)",
     "body": [
-      "<div class=\"kit-meter-head\"><span>${1:Disco}</span><b>${2:78} GB</b></div>",
-      "<div class=\"kit-meter\" data-kit-meter data-kit-value=\"${2:78}\" data-kit-max=\"${3:100}\" data-kit-warn=\"${4:80}\" data-kit-danger=\"${5:95}\" aria-label=\"${1:Disco}\"><i></i></div>$0"
+      "<div class=\"kit-meter-head\"><span>${1:Disk}</span><b>${2:78} GB</b></div>",
+      "<div class=\"kit-meter\" data-kit-meter data-kit-value=\"${2:78}\" data-kit-max=\"${3:100}\" data-kit-warn=\"${4:80}\" data-kit-danger=\"${5:95}\" aria-label=\"${1:Disk}\"><i></i></div>$0"
     ]
   },
-  "Kit: select personalizzato": {
+  "Kit: custom select": {
     "prefix": "kit-select",
     "scope": "html",
-    "description": "Select con elenco di opzioni (richiede kit.js)",
+    "description": "Select with a list of options (requires kit.js)",
     "body": [
       "<div class=\"kit-select\" data-kit-select>",
       "  <button type=\"button\" class=\"kit-select-btn\"><span class=\"kit-select-value\"></span><svg class=\"kit-icon\"><use href=\"#i-chev\"/></svg></button>",
       "  <div class=\"kit-pop\" hidden>",
-      "    <div class=\"kit-opt is-on\" data-value=\"${1:a}\"><span class=\"kit-opt-text\"><b>${2:Prima}</b></span><svg class=\"kit-icon kit-opt-check\"><use href=\"#i-check\"/></svg></div>",
-      "    <div class=\"kit-opt\" data-value=\"${3:b}\"><span class=\"kit-opt-text\"><b>${4:Seconda}</b></span><svg class=\"kit-icon kit-opt-check\"><use href=\"#i-check\"/></svg></div>",
+      "    <div class=\"kit-opt is-on\" data-value=\"${1:a}\"><span class=\"kit-opt-text\"><b>${2:First}</b></span><svg class=\"kit-icon kit-opt-check\"><use href=\"#i-check\"/></svg></div>",
+      "    <div class=\"kit-opt\" data-value=\"${3:b}\"><span class=\"kit-opt-text\"><b>${4:Second}</b></span><svg class=\"kit-icon kit-opt-check\"><use href=\"#i-check\"/></svg></div>",
       "  </div>",
       "</div>$0"
     ]
@@ -407,41 +407,41 @@
   "Kit: combobox": {
     "prefix": "kit-combo",
     "scope": "html",
-    "description": "Campo con elenco di suggerimenti (richiede kit.js)",
+    "description": "Field with a list of suggestions (requires kit.js)",
     "body": [
       "<div class=\"kit-combo\" data-kit-combo>",
-      "  <input class=\"kit-input\" placeholder=\"${1:Scrivi o scegli…}\" aria-label=\"${2:Campo}\">",
+      "  <input class=\"kit-input\" placeholder=\"${1:Type or choose…}\" aria-label=\"${2:Field}\">",
       "  <div class=\"kit-pop\" hidden>",
-      "    <div class=\"kit-opt\" data-value=\"${3:a}\"><span class=\"kit-opt-text\"><b>${4:Prima}</b><small>${5:nota}</small></span></div>",
-      "    <div class=\"kit-opt\" data-value=\"${6:b}\"><span class=\"kit-opt-text\"><b>${7:Seconda}</b></span></div>",
+      "    <div class=\"kit-opt\" data-value=\"${3:a}\"><span class=\"kit-opt-text\"><b>${4:First}</b><small>${5:note}</small></span></div>",
+      "    <div class=\"kit-opt\" data-value=\"${6:b}\"><span class=\"kit-opt-text\"><b>${7:Second}</b></span></div>",
       "  </div>",
       "</div>$0"
     ]
   },
-  "Kit: grafico a barre": {
+  "Kit: bar chart": {
     "prefix": "kit-chart",
     "scope": "html",
-    "description": "Grafico a barre in SVG (richiede kit.js)",
+    "description": "Bar chart in SVG (requires kit.js)",
     "body": [
-      "<div id=\"${1:grafico}\"></div>",
+      "<div id=\"${1:chart}\"></div>",
       "<script>",
-      "  Kit.barChart(\"#${1:grafico}\", {",
-      "    label: \"${2:Andamento mensile}\",",
-      "    data: [{ label: \"${3:Gen}\", group: \"${4:2026}\", values: [${5:100}] }],",
-      "    series: [{ name: \"${6:Totale}\" }]",
+      "  Kit.barChart(\"#${1:chart}\", {",
+      "    label: \"${2:Monthly trend}\",",
+      "    data: [{ label: \"${3:Jan}\", group: \"${4:2026}\", values: [${5:100}] }],",
+      "    series: [{ name: \"${6:Total}\" }]",
       "  });",
       "</script>$0"
     ]
   },
-  "Kit: menu a comparsa": {
+  "Kit: dropdown menu": {
     "prefix": "kit-dropdown",
     "scope": "html",
-    "description": "Bottone con menu a comparsa (richiede kit.js)",
+    "description": "Button with a pop-up menu (requires kit.js)",
     "body": [
       "<div class=\"kit-dropdown\">",
       "  <button class=\"kit-btn\" data-kit-toggle=\"#${1:menu}\" aria-haspopup=\"menu\" aria-expanded=\"false\">${2:Menu}</button>",
       "  <div class=\"kit-pop kit-pop-right\" id=\"${1:menu}\" role=\"menu\" hidden>",
-      "    <div class=\"kit-opt\" role=\"menuitem\"><span class=\"kit-opt-text\"><b>${3:Voce}</b></span></div>",
+      "    <div class=\"kit-opt\" role=\"menuitem\"><span class=\"kit-opt-text\"><b>${3:Item}</b></span></div>",
       "  </div>",
       "</div>$0"
     ]
@@ -449,21 +449,21 @@
   "Kit: dialog": {
     "prefix": "kit-dialog",
     "scope": "html",
-    "description": "Dialog con bottone di apertura (richiede kit.js)",
+    "description": "Dialog with an opening button (requires kit.js)",
     "body": [
-      "<button class=\"kit-btn kit-btn-primary\" data-kit-open=\"#${1:dlg}\">${2:Apri}</button>",
+      "<button class=\"kit-btn kit-btn-primary\" data-kit-open=\"#${1:dlg}\">${2:Open}</button>",
       "",
       "<dialog class=\"kit-dialog\" id=\"${1:dlg}\">",
       "  <div class=\"kit-card-head\">",
-      "    ${3:Titolo}",
-      "    <button class=\"kit-btn kit-btn-ghost kit-btn-icon\" data-kit-close aria-label=\"Chiudi\"><svg class=\"kit-icon\"><use href=\"#i-x\"/></svg></button>",
+      "    ${3:Title}",
+      "    <button class=\"kit-btn kit-btn-ghost kit-btn-icon\" data-kit-close aria-label=\"Close\"><svg class=\"kit-icon\"><use href=\"#i-x\"/></svg></button>",
       "  </div>",
       "  <div class=\"kit-card-body\">",
-      "    ${4:Contenuto}",
+      "    ${4:Content}",
       "  </div>",
       "  <div class=\"kit-card-foot\">",
-      "    <button class=\"kit-btn\" data-kit-close>Annulla</button>",
-      "    <button class=\"kit-btn kit-btn-primary\" data-kit-close>Conferma</button>",
+      "    <button class=\"kit-btn\" data-kit-close>Cancel</button>",
+      "    <button class=\"kit-btn kit-btn-primary\" data-kit-close>Confirm</button>",
       "  </div>",
       "</dialog>$0"
     ]
@@ -471,35 +471,35 @@
   "Kit: tooltip": {
     "prefix": "kit-tip",
     "scope": "html",
-    "description": "Attributi del tooltip (su qualsiasi elemento)",
-    "body": "data-kit-tip=\"${1:Testo}\" data-kit-tip-pos=\"${2|top,bottom,left,right|}\"$0"
+    "description": "Tooltip attributes (on any element)",
+    "body": "data-kit-tip=\"${1:Text}\" data-kit-tip-pos=\"${2|top,bottom,left,right|}\"$0"
   },
   "Kit: toast (JS)": {
     "prefix": "kit-toast",
     "scope": "html,javascript,typescript",
-    "description": "Messaggio temporaneo (richiede kit.js)",
-    "body": "Kit.toast(\"${1:Salvato!}\");$0"
+    "description": "Temporary message (requires kit.js)",
+    "body": "Kit.toast(\"${1:Saved!}\");$0"
   },
-  "Kit: cambia tema (JS)": {
+  "Kit: change theme (JS)": {
     "prefix": "kit-theme",
     "scope": "html,javascript,typescript",
-    "description": "Imposta il tema: auto, light o dark",
+    "description": "Sets the theme: auto, light or dark",
     "body": "Kit.theme.set(\"${1|auto,light,dark|}\");$0"
   },
-  "Kit: barra di elementi": {
+  "Kit: element bar": {
     "prefix": "kit-bar",
     "scope": "html",
-    "description": "Barra di elementi affiancati (toolbar, filtri)",
+    "description": "Bar of side-by-side elements (toolbar, filters)",
     "body": [
       "<div class=\"kit-bar\">",
       "  $0",
       "</div>"
     ]
   },
-  "Kit: riga della griglia": {
+  "Kit: grid row": {
     "prefix": "kit-row",
     "scope": "html",
-    "description": "Riga della griglia a 12 colonne",
+    "description": "Row of the 12-column grid",
     "body": [
       "<div class=\"kit-row\">",
       "  <div class=\"kit-col-12 kit-col-${1|sm,md,lg,xl|}-6\">$2</div>",
@@ -507,16 +507,16 @@
       "</div>$0"
     ]
   },
-  "Kit: colonna": {
+  "Kit: column": {
     "prefix": "kit-col",
     "scope": "html",
-    "description": "Colonna della griglia (12 su telefono, N/12 da un breakpoint)",
+    "description": "Grid column (12 on phone, N/12 from a breakpoint)",
     "body": "<div class=\"kit-col-12 kit-col-${1|sm,md,lg,xl|}-${2|1,2,3,4,5,6,7,8,9,10,11,12|}\">$3</div>$0"
   },
-  "Kit: righe con N colonne": {
+  "Kit: row with N columns": {
     "prefix": "kit-row-cols",
     "scope": "html",
-    "description": "Riga con numero fisso di colonne per riga (2 su telefono, 4 da lg)",
+    "description": "Row with a fixed number of columns per row (2 on phone, 4 from lg)",
     "body": [
       "<div class=\"kit-row kit-row-cols-${1:2} kit-row-cols-${2|sm,md,lg,xl|}-${3:4}\">",
       "  <div>$4</div>",
@@ -524,22 +524,22 @@
       "</div>$0"
     ]
   },
-  "Kit: scheda KPI": {
+  "Kit: KPI card": {
     "prefix": "kit-kpi",
     "scope": "html",
-    "description": "Scheda con etichetta, valore e variazione",
+    "description": "Card with label, value and change",
     "body": [
       "<div class=\"kit-card kit-kpi\">",
-      "  <small>${1:Etichetta}</small>",
+      "  <small>${1:Label}</small>",
       "  <b>${2:0}</b>",
       "  <span class=\"kit-badge kit-badge-${3|success,warning,danger,neutral|}\">${4:+0%}</span>",
       "</div>$0"
     ]
   },
-  "Kit: layout dashboard": {
+  "Kit: dashboard layout": {
     "prefix": "kit-dash",
     "scope": "html",
-    "description": "Schema tipico: KPI in alto, grafico + laterale, tabella",
+    "description": "Typical scheme: KPIs on top, chart + side panel, table",
     "body": [
       "<div class=\"kit-row kit-row-cols-2 kit-row-cols-lg-4\">",
       "  <div><div class=\"kit-card kit-kpi kit-h-100\"><small>${1:KPI}</small><b>0</b></div></div>",
@@ -556,230 +556,230 @@
       "</div>$0"
     ]
   },
-  "Kit: contenitore": {
+  "Kit: container": {
     "prefix": "kit-container",
     "scope": "html",
-    "description": "Contenitore centrato (segue l'interruttore data-layout; -boxed sempre centrato)",
+    "description": "Centered container (follows the data-layout switch; -boxed always centered)",
     "body": [
       "<div class=\"kit-container${1|,-boxed|}\">",
       "  $0",
       "</div>"
     ]
   },
-  "Kit: contenitore a tutta larghezza": {
+  "Kit: full-width container": {
     "prefix": "kit-container-fluid",
     "scope": "html",
-    "description": "Contenitore sempre a tutta larghezza",
+    "description": "Container that is always full width",
     "body": [
       "<div class=\"kit-container-fluid\">",
       "  $0",
       "</div>"
     ]
   },
-  "Kit: bottone larghezza": {
+  "Kit: width button": {
     "prefix": "kit-layout-toggle",
     "scope": "html",
-    "description": "Bottone che alterna contenuto centrato / a tutta larghezza (richiede kit.js)",
+    "description": "Button that toggles centered / full-width content (requires kit.js)",
     "body": [
-      "<button class=\"kit-btn kit-btn-ghost kit-btn-icon\" data-kit-layout-toggle aria-label=\"Contenuto a tutta larghezza\" title=\"Centrato / a tutta larghezza\"><svg class=\"kit-icon\"><use href=\"#i-expand\"/></svg></button>$0"
+      "<button class=\"kit-btn kit-btn-ghost kit-btn-icon\" data-kit-layout-toggle aria-label=\"Full-width content\" title=\"Centered / full width\"><svg class=\"kit-icon\"><use href=\"#i-expand\"/></svg></button>$0"
     ]
   },
-  "Kit: larghezza (JS)": {
+  "Kit: width (JS)": {
     "prefix": "kit-layout",
     "scope": "html,javascript,typescript",
-    "description": "Imposta la larghezza: boxed (centrato) o fluid (a tutta larghezza)",
+    "description": "Sets the width: boxed (centered) or fluid (full width)",
     "body": "Kit.layout.set(\"${1|boxed,fluid|}\");$0"
   },
-  "Kit: header con contenitore": {
+  "Kit: header with container": {
     "prefix": "kit-header-container",
     "scope": "html",
-    "description": "Intestazione il cui contenuto si allinea a quello della pagina",
+    "description": "Header whose content aligns with the page's",
     "body": [
       "<header class=\"kit-header\">",
       "  <div class=\"kit-container\">",
-      "    <h1 class=\"kit-brand\">${1:Nome} <span>${2:app}</span></h1>",
+      "    <h1 class=\"kit-brand\">${1:Name} <span>${2:app}</span></h1>",
       "    <span class=\"kit-spacer\"></span>",
       "    $0",
       "  </div>",
       "</header>"
     ]
   },
-  "Kit: pannello impostazioni": {
+  "Kit: settings panel": {
     "prefix": "kit-settings",
     "scope": "html",
-    "description": "Pannello delle impostazioni: tema, dimensione del testo, larghezza (richiede kit.js)",
+    "description": "Settings panel: theme, text size, width (requires kit.js)",
     "body": [
       "<div class=\"kit-dropdown\">",
-      "  <button class=\"kit-btn\" data-kit-toggle=\"#${1:impostazioni}\" aria-haspopup=\"true\" aria-expanded=\"false\" aria-label=\"Impostazioni\"><svg class=\"kit-icon\"><use href=\"#i-sliders\"/></svg><span class=\"kit-d-none kit-d-sm-inline\">${2:Impostazioni}</span><svg class=\"kit-icon\"><use href=\"#i-chev\"/></svg></button>",
-      "  <div class=\"kit-pop kit-pop-right kit-settings\" id=\"${1:impostazioni}\" role=\"group\" aria-label=\"Impostazioni\" hidden>",
+      "  <button class=\"kit-btn\" data-kit-toggle=\"#${1:settings}\" aria-haspopup=\"true\" aria-expanded=\"false\" aria-label=\"Settings\"><svg class=\"kit-icon\"><use href=\"#i-sliders\"/></svg><span class=\"kit-d-none kit-d-sm-inline\">${2:Settings}</span><svg class=\"kit-icon\"><use href=\"#i-chev\"/></svg></button>",
+      "  <div class=\"kit-pop kit-pop-right kit-settings\" id=\"${1:settings}\" role=\"group\" aria-label=\"Settings\" hidden>",
       "    <div class=\"kit-settings-row\">",
-      "      <span class=\"kit-settings-label\">Tema</span>",
-      "      <div class=\"kit-seg\" role=\"group\" aria-label=\"Tema\">",
+      "      <span class=\"kit-settings-label\">Theme</span>",
+      "      <div class=\"kit-seg\" role=\"group\" aria-label=\"Theme\">",
       "        <button data-kit-theme-set=\"auto\"><svg class=\"kit-icon\"><use href=\"#i-auto\"/></svg>Auto</button>",
-      "        <button data-kit-theme-set=\"light\"><svg class=\"kit-icon\"><use href=\"#i-sun\"/></svg>Chiaro</button>",
-      "        <button data-kit-theme-set=\"dark\"><svg class=\"kit-icon\"><use href=\"#i-moon\"/></svg>Scuro</button>",
+      "        <button data-kit-theme-set=\"light\"><svg class=\"kit-icon\"><use href=\"#i-sun\"/></svg>Light</button>",
+      "        <button data-kit-theme-set=\"dark\"><svg class=\"kit-icon\"><use href=\"#i-moon\"/></svg>Dark</button>",
       "      </div>",
       "    </div>",
       "    <div class=\"kit-settings-row\">",
-      "      <span class=\"kit-settings-label\">Dimensione del testo</span>",
-      "      <div class=\"kit-seg\" role=\"group\" aria-label=\"Dimensione del testo\">",
-      "        <button data-kit-fs-set=\"md\" aria-label=\"Normale\" title=\"Normale\">A</button>",
-      "        <button data-kit-fs-set=\"lg\" aria-label=\"Grande\" title=\"Grande\">A</button>",
-      "        <button data-kit-fs-set=\"xl\" aria-label=\"Molto grande\" title=\"Molto grande\">A</button>",
+      "      <span class=\"kit-settings-label\">Text size</span>",
+      "      <div class=\"kit-seg\" role=\"group\" aria-label=\"Text size\">",
+      "        <button data-kit-fs-set=\"md\" aria-label=\"Normal\" title=\"Normal\">A</button>",
+      "        <button data-kit-fs-set=\"lg\" aria-label=\"Large\" title=\"Large\">A</button>",
+      "        <button data-kit-fs-set=\"xl\" aria-label=\"Extra large\" title=\"Extra large\">A</button>",
       "      </div>",
       "    </div>",
       "    <div class=\"kit-settings-row\">",
-      "      <span class=\"kit-settings-label\">Larghezza del contenuto</span>",
-      "      <div class=\"kit-seg\" role=\"group\" aria-label=\"Larghezza del contenuto\">",
-      "        <button data-kit-layout-set=\"boxed\">Centrata</button>",
-      "        <button data-kit-layout-set=\"fluid\">Tutta la pagina</button>",
+      "      <span class=\"kit-settings-label\">Content width</span>",
+      "      <div class=\"kit-seg\" role=\"group\" aria-label=\"Content width\">",
+      "        <button data-kit-layout-set=\"boxed\">Centered</button>",
+      "        <button data-kit-layout-set=\"fluid\">Full page</button>",
       "      </div>",
-      "      <small>Si nota sugli schermi più larghi del contenuto.</small>",
+      "      <small>Noticeable on screens wider than the content.</small>",
       "    </div>",
-      "    <div class=\"kit-settings-foot\"><button class=\"kit-btn kit-btn-ghost\" data-kit-reset>Ripristina</button></div>",
+      "    <div class=\"kit-settings-foot\"><button class=\"kit-btn kit-btn-ghost\" data-kit-reset>Reset</button></div>",
       "  </div>",
       "</div>",
       "$0"
     ]
   },
-  "Kit: citazione": {
+  "Kit: quote": {
     "prefix": "kit-quote",
     "scope": "html",
-    "description": "Citazione con la fonte",
+    "description": "Quote with its source",
     "body": [
       "<blockquote class=\"kit-quote\">",
-      "  <p>${1:Testo della citazione.}</p>",
-      "  <footer>${2:Fonte}</footer>",
+      "  <p>${1:Quote text.}</p>",
+      "  <footer>${2:Source}</footer>",
       "</blockquote>$0"
     ]
   },
-  "Kit: testo lungo": {
+  "Kit: long text": {
     "prefix": "kit-prose",
     "scope": "html",
-    "description": "Contenitore per testi lunghi: righe comode e interlinea larga",
+    "description": "Container for long texts: comfortable lines and generous line height",
     "body": [
       "<article class=\"kit-prose\">",
-      "  <h2>${1:Titolo}</h2>",
-      "  <p>${2:Testo…}</p>",
+      "  <h2>${1:Title}</h2>",
+      "  <p>${2:Text…}</p>",
       "</article>$0"
     ]
   },
-  "Kit: campo data con calendario": {
+  "Kit: date field with calendar": {
     "prefix": "kit-date",
     "scope": "html",
-    "description": "Campo data con il calendario del kit (gg/mm/aaaa, valore ISO)",
+    "description": "Date field with the kit's calendar (locale format, ISO value)",
     "body": [
-      "<label class=\"kit-field\">${1:Data}",
-      "  <input class=\"kit-input\" type=\"date\" name=\"${2:data}\" data-kit-datepicker>",
+      "<label class=\"kit-field\">${1:Date}",
+      "  <input class=\"kit-input\" type=\"date\" name=\"${2:date}\" data-kit-datepicker>",
       "</label>"
     ]
   },
-  "Kit: intervallo di date": {
+  "Kit: date range": {
     "prefix": "kit-daterange",
     "scope": "html",
-    "description": "Intervallo dal-al con calendario a due mesi e scelte rapide",
+    "description": "From–to range with a two-month calendar and quick picks",
     "body": [
       "<div class=\"kit-daterange\" data-kit-daterange>",
-      "  <input class=\"kit-input\" type=\"date\" name=\"${1:dal}\" aria-label=\"Dal\">",
-      "  <input class=\"kit-input\" type=\"date\" name=\"${2:al}\" aria-label=\"Al\">",
+      "  <input class=\"kit-input\" type=\"date\" name=\"${1:from}\" aria-label=\"From\">",
+      "  <input class=\"kit-input\" type=\"date\" name=\"${2:to}\" aria-label=\"To\">",
       "</div>"
     ]
   },
-  "Kit: data e ora": {
+  "Kit: date and time": {
     "prefix": "kit-datetime",
     "scope": "html",
-    "description": "Campo data e ora con calendario e colonne di ore e minuti",
+    "description": "Date and time field with calendar and hour and minute columns",
     "body": [
-      "<label class=\"kit-field\">${1:Data e ora}",
-      "  <input class=\"kit-input\" type=\"datetime-local\" name=\"${2:quando}\" data-kit-datepicker data-kit-step=\"${3:15}\">",
+      "<label class=\"kit-field\">${1:Date and time}",
+      "  <input class=\"kit-input\" type=\"datetime-local\" name=\"${2:when}\" data-kit-datepicker data-kit-step=\"${3:15}\">",
       "</label>"
     ]
   },
-  "Kit: campo ora": {
+  "Kit: time field": {
     "prefix": "kit-time",
     "scope": "html",
-    "description": "Campo ora (hh:mm) con selettore di ore e minuti",
+    "description": "Time field (hh:mm) with hour and minute picker",
     "body": [
-      "<label class=\"kit-field\">${1:Ora}",
-      "  <input class=\"kit-input\" type=\"time\" name=\"${2:ora}\" data-kit-timepicker data-kit-step=\"${3:5}\">",
+      "<label class=\"kit-field\">${1:Time}",
+      "  <input class=\"kit-input\" type=\"time\" name=\"${2:time}\" data-kit-timepicker data-kit-step=\"${3:5}\">",
       "</label>"
     ]
   },
-  "Kit: form in colonna": {
+  "Kit: column form": {
     "prefix": "kit-form",
     "scope": "html",
-    "description": "Form con campi in colonna e validazione nel browser",
+    "description": "Form with fields in a column and browser validation",
     "body": [
       "<form class=\"kit-form\" data-kit-validate>",
       "  <div class=\"kit-field\">",
-      "    <label class=\"kit-label kit-required\" for=\"${1:id}\">${2:Etichetta}</label>",
-      "    <input class=\"kit-input\" id=\"${1:id}\" name=\"${3:nome}\" required>",
-      "    <div class=\"kit-hint\">${4:Testo di aiuto}</div>",
+      "    <label class=\"kit-label kit-required\" for=\"${1:id}\">${2:Label}</label>",
+      "    <input class=\"kit-input\" id=\"${1:id}\" name=\"${3:name}\" required>",
+      "    <div class=\"kit-hint\">${4:Help text}</div>",
       "  </div>",
       "  <div class=\"kit-form-foot kit-form-foot-end\">",
-      "    <button type=\"reset\" class=\"kit-btn\">Azzera</button>",
-      "    <button type=\"submit\" class=\"kit-btn kit-btn-primary\">Invia</button>",
+      "    <button type=\"reset\" class=\"kit-btn\">Reset</button>",
+      "    <button type=\"submit\" class=\"kit-btn kit-btn-primary\">Submit</button>",
       "  </div>",
       "</form>"
     ]
   },
-  "Kit: campo con etichetta, aiuto e messaggio": {
+  "Kit: field with label, help and message": {
     "prefix": "kit-field",
     "scope": "html",
-    "description": "Campo con etichetta, aiuto e messaggio di errore",
+    "description": "Field with label, help text and error message",
     "body": [
       "<div class=\"kit-field is-invalid\">",
-      "  <label class=\"kit-label\" for=\"${1:id}\">${2:Etichetta}</label>",
-      "  <input class=\"kit-input\" id=\"${1:id}\" name=\"${3:nome}\" aria-invalid=\"true\" aria-describedby=\"${1:id}-m\">",
-      "  <div class=\"kit-feedback kit-feedback-invalid\" id=\"${1:id}-m\">${4:Messaggio di errore}</div>",
+      "  <label class=\"kit-label\" for=\"${1:id}\">${2:Label}</label>",
+      "  <input class=\"kit-input\" id=\"${1:id}\" name=\"${3:name}\" aria-invalid=\"true\" aria-describedby=\"${1:id}-m\">",
+      "  <div class=\"kit-feedback kit-feedback-invalid\" id=\"${1:id}-m\">${4:Error message}</div>",
       "</div>"
     ]
   },
-  "Kit: form orizzontale": {
+  "Kit: horizontal form": {
     "prefix": "kit-form-h",
     "scope": "html",
-    "description": "Form con l'etichetta a sinistra",
+    "description": "Form with the label on the left",
     "body": [
       "<form class=\"kit-form kit-form-h\">",
       "  <div class=\"kit-field\">",
-      "    <label class=\"kit-label\" for=\"${1:id}\">${2:Etichetta}</label>",
-      "    <input class=\"kit-input\" id=\"${1:id}\" name=\"${3:nome}\">",
+      "    <label class=\"kit-label\" for=\"${1:id}\">${2:Label}</label>",
+      "    <input class=\"kit-input\" id=\"${1:id}\" name=\"${3:name}\">",
       "  </div>",
       "</form>"
     ]
   },
-  "Kit: campo con icona": {
+  "Kit: field with icon": {
     "prefix": "kit-control",
     "scope": "html",
-    "description": "Campo con icona a sinistra e bottone a destra (anche mostra/nascondi password)",
+    "description": "Field with an icon on the left and a button on the right (also show/hide password)",
     "body": [
       "<div class=\"kit-control\">",
       "  <span class=\"kit-control-start\"><svg class=\"kit-icon\"><use href=\"#i-${1:search}\"/></svg></span>",
-      "  <input class=\"kit-input\" name=\"${2:nome}\" aria-label=\"${3:Etichetta}\">",
+      "  <input class=\"kit-input\" name=\"${2:name}\" aria-label=\"${3:Label}\">",
       "</div>"
     ]
   },
-  "Kit: etichetta che sale": {
+  "Kit: floating label": {
     "prefix": "kit-float",
     "scope": "html",
-    "description": "Campo con l'etichetta dentro che sale",
+    "description": "Field with the label inside that floats up",
     "body": [
       "<div class=\"kit-float\">",
-      "  <input class=\"kit-input\" id=\"${1:id}\" name=\"${2:nome}\" placeholder=\" \">",
-      "  <label for=\"${1:id}\">${3:Etichetta}</label>",
+      "  <input class=\"kit-input\" id=\"${1:id}\" name=\"${2:name}\" placeholder=\" \">",
+      "  <label for=\"${1:id}\">${3:Label}</label>",
       "</div>"
     ]
   },
-  "Kit: schede selezionabili": {
+  "Kit: selectable cards": {
     "prefix": "kit-check-cards",
     "scope": "html",
-    "description": "Radio a schede",
+    "description": "Radio buttons as cards",
     "body": [
       "<fieldset class=\"kit-check-group\">",
-      "  <legend>${1:Scegli}</legend>",
+      "  <legend>${1:Choose}</legend>",
       "  <div class=\"kit-check-cards\">",
-      "    <label class=\"kit-check kit-check-card\"><input type=\"radio\" name=\"${2:piano}\" checked><span class=\"kit-check-text\"><b>${3:Base}</b><small>${4:Descrizione}</small></span></label>",
-      "    <label class=\"kit-check kit-check-card\"><input type=\"radio\" name=\"${2:piano}\"><span class=\"kit-check-text\"><b>${5:Team}</b><small>${6:Descrizione}</small></span></label>",
+      "    <label class=\"kit-check kit-check-card\"><input type=\"radio\" name=\"${2:plan}\" checked><span class=\"kit-check-text\"><b>${3:Basic}</b><small>${4:Description}</small></span></label>",
+      "    <label class=\"kit-check kit-check-card\"><input type=\"radio\" name=\"${2:plan}\"><span class=\"kit-check-text\"><b>${5:Team}</b><small>${6:Description}</small></span></label>",
       "  </div>",
       "</fieldset>"
     ]

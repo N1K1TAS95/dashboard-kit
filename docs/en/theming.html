@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Themes and tokens — Dashboard Kit</title>
+<meta name="description" content="The whole look comes from a few CSS variables. Changing them in :root, or on a single element, changes colors, density and corners of the whole interface.">
+<script src="../../dist/kit.js"></script>
+<link rel="stylesheet" href="../../dist/kit.css">
+<link rel="stylesheet" href="../docs.css">
+</head>
+<body>
+<!-- Pagina generata da tools/gen-docs.py a partire da docs/src/en/theming.html: non modificarla a mano. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="i-chev-up" viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></symbol>
+<symbol id="i-chev-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
+<symbol id="i-chev-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+<symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5m0 0-6 6m6-6 6 6"/></symbol>
+<symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14m0 0-6-6m6 6 6-6"/></symbol>
+<symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5m0 0 6-6m-6 6 6 6"/></symbol>
+<symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></symbol>
+<symbol id="i-expand" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></symbol>
+<symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V4m0 0L8 8m4-4 4 4M5 20h14"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.5-3.5L4 9m0-5v5h5M4 13a8 8 0 0 0 14.5 3.5L20 15m0 5v-5h-5"/></symbol>
+<symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4zM13.5 6.5l4 4"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></symbol>
+<symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8L3 5z"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h8m4 0h4M4 17h4m4 0h8"/><circle cx="14" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+<symbol id="i-more" viewBox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01"/></symbol>
+<symbol id="i-more-v" viewBox="0 0 24 24"><path d="M12 5h.01M12 12h.01M12 19h.01"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7M6 10v10h4v-6h4v6h4V10"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0 1 16 0"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4l2-2zM10 21h4"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM14 3v5h5"/></symbol>
+<symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6a1 1 0 0 1 1-1h5l2 2h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6z"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-text" viewBox="0 0 24 24"><path d="M4 7V5h16v2M12 5v14M9 19h6"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+<symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+<symbol id="i-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 3 3 5-6"/></symbol>
+<symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3.5 2.5 20h19L12 3.5z"/><path d="M12 10v4.5M12 17.5h.01"/></symbol>
+<symbol id="i-error" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/></symbol>
+</defs></svg>
+<header class="kit-header">
+  <div class="kit-container-boxed">
+    <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
+    <span class="kit-spacer"></span>
+    <div class="kit-combo doc-search" role="search">
+      <svg class="kit-icon"><use href="#i-search"/></svg>
+      <input class="kit-input" type="text" placeholder="Search…" aria-label="Search the documentation" spellcheck="false">
+      <kbd aria-hidden="true">/</kbd>
+    </div>
+    <a class="kit-btn kit-btn-ghost" href="../it/theming.html" hreflang="it" lang="it" title="Language">Italiano</a>
+    <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
+    <div class="kit-dropdown">
+      <button class="kit-btn kit-btn-icon" data-kit-toggle="#settings" aria-haspopup="true" aria-expanded="false" aria-label="Settings" title="Settings"><svg class="kit-icon"><use href="#i-sliders"/></svg></button>
+      <div class="kit-pop kit-pop-right kit-settings" id="settings" role="group" aria-label="Settings" hidden>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Theme</span>
+          <div class="kit-seg" role="group" aria-label="Theme">
+            <button data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg>Auto</button>
+            <button data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg>Light</button>
+            <button data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg>Dark</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Text size</span>
+          <div class="kit-seg" role="group" aria-label="Text size">
+            <button data-kit-fs-set="md" aria-label="Normal" title="Normal">A</button>
+            <button data-kit-fs-set="lg" aria-label="Large" title="Large">A</button>
+            <button data-kit-fs-set="xl" aria-label="Extra large" title="Extra large">A</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Content width</span>
+          <div class="kit-seg" role="group" aria-label="Content width">
+            <button data-kit-layout-set="boxed">Centered</button>
+            <button data-kit-layout-set="fluid">Full page</button>
+          </div>
+          <small>Visible on screens wider than the content.</small>
+        </div>
+        <div class="kit-settings-foot"><button class="kit-btn kit-btn-ghost" data-kit-reset>Reset</button></div>
+      </div>
+    </div>
+  </div>
+</header>
+<main class="kit-main">
+<div class="kit-container-boxed">
+<div class="kit-row kit-gy-0">
+  <aside class="kit-col-12 kit-col-lg-3">
+    <nav class="doc-nav" aria-label="Documentation">
+      <details class="doc-nav-d" open>
+        <summary class="kit-btn">Documentation menu</summary>
+        <div class="doc-nav-body">
+          <div class="doc-nav-group">Getting started</div>
+          <a href="index.html">Introduction</a>
+          <a href="javascript.html">JavaScript</a>
+          <div class="doc-nav-group">Foundations</div>
+          <a href="layout.html">Layout</a>
+          <a href="grid.html">Grid</a>
+          <a href="utilities.html">Utilities</a>
+          <a href="typography.html">Typography</a>
+          <a href="icons.html">Icons</a>
+          <a href="buttons.html">Buttons</a>
+          <div class="doc-nav-group">Forms</div>
+          <a href="forms.html">Basic fields</a>
+          <a href="form-layout.html">Layout and validation</a>
+          <a href="form-controls.html">Select and file</a>
+          <a href="dates.html">Dates and times</a>
+          <div class="doc-nav-group">Navigation</div>
+          <a href="navbar.html">Navbar</a>
+          <a href="sidebar.html">Sidebar</a>
+          <a href="navigation.html">Tabs and breadcrumb</a>
+          <div class="doc-nav-group">Data</div>
+          <a href="tables.html">Tables</a>
+          <a href="charts.html">Charts</a>
+          <a href="cards.html">Cards and details</a>
+          <div class="doc-nav-group">Feedback and overlays</div>
+          <a href="feedback.html">Alerts and progress</a>
+          <a href="overlays.html">Dialogs and menus</a>
+          <a href="accordion.html">Accordion</a>
+          <div class="doc-nav-group">Customizing</div>
+          <a href="theming.html" class="is-current" aria-current="page">Themes and tokens</a>
+          <ul class="doc-toc">
+            <li><a href="#theme">Light and dark theme</a></li>
+            <li><a href="#text">Font and text size</a></li>
+            <li><a href="#layout">Layout tokens</a></li>
+            <li><a href="#colors">Color tokens</a></li>
+            <li><a href="#scrollbar">Scrollbars</a></li>
+            <li><a href="#customizing">Customizing</a></li>
+          </ul>
+          <a href="snippets.html">VS Code snippets</a>
+          <div class="doc-nav-group">Examples</div>
+          <a href="../dashboard.html">Dashboard <span class="kit-badge kit-badge-neutral">example</span></a>
+          <a href="../dashboard-sidebar.html">Dashboard with sidebar <span class="kit-badge kit-badge-neutral">example</span></a>
+        </div>
+      </details>
+    </nav>
+  </aside>
+  <article class="kit-col-12 kit-col-lg-9 doc-content">
+    <h1 class="doc-title">Themes and tokens</h1>
+    <p class="doc-lead">The whole look comes from a few CSS variables. Changing them in <code>:root</code>, or on a single element, changes colors, density and corners of the whole interface.</p>
+<h2 id="theme">Light and dark theme</h2>
+<p>Colors are written once with <code>light-dark(light, dark)</code>. By default the theme follows the system; to force it set <code>data-theme</code> on <code>&lt;html&gt;</code>. With <code>kit.js</code> buttons with <code>data-kit-theme-set</code> are enough (the choice is remembered); the same goes for the <a href="overlays.html#settings">settings panel</a>, which gathers them with text and width.</p>
+<pre class="kit-code" data-kit-code="html"><code>&lt;html lang="en" data-theme="dark"&gt;           &lt;!-- forced dark; without the attribute it follows the system --&gt;
+
+&lt;button class="kit-btn" data-kit-theme-set="light"&gt;Light&lt;/button&gt;
+&lt;button class="kit-btn" data-kit-theme-set="dark"&gt;Dark&lt;/button&gt;
+&lt;button class="kit-btn" data-kit-theme-set="auto"&gt;Automatic&lt;/button&gt;</code></pre>
+<h3 id="selector">Theme selector (menu)</h3>
+<p>The header's "Theme" menu is a <a href="overlays.html#menu">pop-up menu</a> (<code>.kit-pop</code>) whose items have <code>data-kit-theme-set</code>: on click <code>kit.js</code> applies the theme, remembers it and closes the menu. Each item has an icon and a title, and can have a gray line; <code>kit-pop-right</code> aligns the panel to the right edge, useful in a header. This example is really wired to the page's theme.</p>
+<div class="doc-demo" style="min-height: 210px">
+  <div class="kit-dropdown">
+    <button class="kit-btn" data-kit-toggle="#menu-theme" aria-haspopup="menu" aria-expanded="false"><svg class="kit-icon"><use href="#i-auto"/></svg>Theme<svg class="kit-icon"><use href="#i-chev"/></svg></button>
+    <div class="kit-pop" id="menu-theme" role="menu" hidden>
+      <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg><span class="kit-opt-text"><b>Automatic</b><small>Follows the system</small></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+      <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg><span class="kit-opt-text"><b>Light</b></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+      <div class="kit-opt" role="menuitemradio" aria-checked="false" data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg><span class="kit-opt-text"><b>Dark</b></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+    </div>
+  </div>
+</div>
+
+<p>Add <code>&lt;meta name="color-scheme" content="light dark"&gt;</code> in the <code>&lt;head&gt;</code> to avoid a white flash on load in the dark theme.</p>
+
+<h2 id="text">Font and text size</h2>
+<p>The kit uses <a href="https://rsms.me/inter/">Inter</a> (OFL license, 65 KB, file <code>dist/fonts/inter-var.woff2</code>), designed for the screen and with a <strong>slashed zero</strong> that is not confused with the letter "o". The file sits next to <code>kit.css</code> and loads by itself; if it is not reachable the system font remains. To use another font just change <code>--kit-font</code>; for the slashed digit alone, <code>font-variant-numeric: slashed-zero</code> works with any font that provides it.</p>
+<pre class="kit-code" data-kit-code="css"><code>:root { --kit-font: "IBM Plex Sans", system-ui, sans-serif; }   /* another font */
+td.code { font-variant-numeric: slashed-zero tabular-nums; }  /* slashed zero and equal-width digits */</code></pre>
+<p>All text sizes are in <code>rem</code>, so they follow the base size <code>--kit-fs</code> (<code>1rem</code>). The base grows by itself with the screen: 15px up to 1279px, then 16px, 17px (from 1600px), 19px (from 1920px) and 22px (from 2560px). Control height, icons, header and content width are also in <code>rem</code> and grow along with the text.</p>
+<p>The user can enlarge or shrink everything: <code>--kit-zoom</code> multiplies the base and <code>data-kit-fs</code> on <code>&lt;html&gt;</code> sets it (<code>md</code> normal, the default; <code>lg</code> large; <code>xl</code> extra large). With <code>kit.js</code> buttons with <code>data-kit-fs-set</code> or <code>data-kit-fs-step</code> are enough; the choice is remembered. These choices are also in the <a href="overlays.html#settings">settings panel</a>.</p>
+<pre class="kit-code" data-kit-code="html"><code>&lt;button class="kit-btn" data-kit-fs-step="-1" aria-label="Smaller text"&gt;A−&lt;/button&gt;
+&lt;button class="kit-btn" data-kit-fs-step="1"  aria-label="Larger text"&gt;A+&lt;/button&gt;
+
+&lt;button class="kit-btn" data-kit-fs-set="xl"&gt;Extra large&lt;/button&gt;</code></pre>
+<pre class="kit-code" data-kit-code="css"><code>:root { --kit-fs: 16px; }                                   /* fixed base, no automatic growth */
+@media (min-width: 2000px) { :root { --kit-fs: 24px; } }   /* or a threshold of your own */</code></pre>
+
+<h2 id="layout">Layout tokens</h2>
+<p>They adjust the interface's breathing room, the text size and the heading scale (see <a href="typography.html#tokens">Typography</a>). Below 760px <code>--kit-sp</code> goes down from 16 to 8px.</p>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>Token</th><th>Value</th><th>What it controls</th></tr></thead><tbody>
+<tr><td><code>--kit-fs</code></td><td><code>15px</code></td><td>base text size (1rem)</td></tr>
+<tr><td><code>--kit-lh</code></td><td><code>1.5</code></td><td>text line height</td></tr>
+<tr><td><code>--kit-h1</code></td><td><code>2.2rem</code></td><td>h1 heading (and kit-fs-1)</td></tr>
+<tr><td><code>--kit-h2</code></td><td><code>1.75rem</code></td><td>h2 heading (and kit-fs-2)</td></tr>
+<tr><td><code>--kit-h3</code></td><td><code>1.4rem</code></td><td>h3 heading (and kit-fs-3)</td></tr>
+<tr><td><code>--kit-h4</code></td><td><code>1.2rem</code></td><td>h4 heading (and kit-fs-4)</td></tr>
+<tr><td><code>--kit-h5</code></td><td><code>1.05rem</code></td><td>h5 heading (and kit-fs-5)</td></tr>
+<tr><td><code>--kit-h6</code></td><td><code>1rem</code></td><td>h6 heading (and kit-fs-6)</td></tr>
+<tr><td><code>--kit-zoom</code></td><td><code>.875</code></td><td>multiplier chosen by the user: 0.875 (normal), 1, 1.125</td></tr>
+<tr><td><code>--kit-sp</code></td><td><code>16px</code></td><td>single spacing unit: margin, distance between cards, inner padding</td></tr>
+<tr><td><code>--kit-row</code></td><td><code>8px</code></td><td>vertical padding of table rows</td></tr>
+<tr><td><code>--kit-cell</code></td><td><code>12px</code></td><td>horizontal padding between columns</td></tr>
+<tr><td><code>--kit-rad</code></td><td><code>12px</code></td><td>radius of surfaces: cards, dialogs, menus, code, toasts</td></tr>
+<tr><td><code>--kit-rad-sm</code></td><td><code>8px</code></td><td>radius of controls: buttons, fields, segmented, menu items</td></tr>
+<tr><td><code>--kit-hh</code></td><td><code>4.8rem</code></td><td>header height</td></tr>
+<tr><td><code>--kit-ctl</code></td><td><code>2.667rem</code></td><td>height of buttons and fields</td></tr>
+<tr><td><code>--kit-container-w</code></td><td><code>80rem</code></td><td>maximum width of centered content (.kit-container)</td></tr>
+<tr><td><code>--kit-side-w</code></td><td><code>16.5rem</code></td><td>sidebar width (.kit-sidebar)</td></tr>
+<tr><td><code>--kit-side-wc</code></td><td><code>4.667rem</code></td><td>width of the compact, icons-only sidebar</td></tr>
+</tbody></table></div></div>
+
+<h2 id="colors">Color tokens</h2>
+<p>Each color has a value for the light and for the dark theme. The kit's classes always use tokens, never fixed colors: changing a token changes it everywhere.</p>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>Token</th><th>Light</th><th>Dark</th><th>Use</th></tr></thead><tbody>
+<tr><td><span class="doc-swatch" style="background:var(--kit-bg)"></span><code>--kit-bg</code></td><td><code>#f4f5f8</code></td><td><code>#0f1319</code></td><td>Page background</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-card)"></span><code>--kit-card</code></td><td><code>#fff</code></td><td><code>#171d26</code></td><td>Background of cards, header, tables</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-ink)"></span><code>--kit-ink</code></td><td><code>#18202c</code></td><td><code>#e8edf4</code></td><td>Main text</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-mute)"></span><code>--kit-mute</code></td><td><code>#5f6a7c</code></td><td><code>#8d99ab</code></td><td>Secondary text</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-line)"></span><code>--kit-line</code></td><td><code>#e4e8ee</code></td><td><code>#262e3a</code></td><td>Borders</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-line-soft)"></span><code>--kit-line-soft</code></td><td><code>#eef1f5</code></td><td><code>#1f2630</code></td><td>Light borders, table rows</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-hover)"></span><code>--kit-hover</code></td><td><code>#f1f5ff</code></td><td><code>#1c2736</code></td><td>Background on mouse hover</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-accent)"></span><code>--kit-accent</code></td><td><code>#2559d8</code></td><td><code>#6ea2ff</code></td><td>Accent color (buttons, links, selection)</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-accent-ink)"></span><code>--kit-accent-ink</code></td><td><code>#fff</code></td><td><code>#0b1220</code></td><td>Text on the accent</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-accent-soft)"></span><code>--kit-accent-soft</code></td><td><code>#e9effd</code></td><td><code>#1b2a45</code></td><td>Soft accent background</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-danger)"></span><code>--kit-danger</code></td><td><code>#b0301f</code></td><td><code>#ff7d6e</code></td><td>Errors, negative values</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-success)"></span><code>--kit-success</code></td><td><code>#147236</code></td><td><code>#4fca8b</code></td><td>Positive outcome</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-warning)"></span><code>--kit-warning</code></td><td><code>#8f5200</code></td><td><code>#f0b04e</code></td><td>Warnings</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-c1)"></span><code>--kit-c1</code></td><td><code>#2f6fe4</code></td><td><code>#6ea2ff</code></td><td>Chart series 1</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-c2)"></span><code>--kit-c2</code></td><td><code>#e39320</code></td><td><code>#f2a84c</code></td><td>Chart series 2</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-c3)"></span><code>--kit-c3</code></td><td><code>#1b8f82</code></td><td><code>#4ccbbb</code></td><td>Chart series 3</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-c4)"></span><code>--kit-c4</code></td><td><code>#8a4fd1</code></td><td><code>#b88cf0</code></td><td>Chart series 4</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-hl-tag)"></span><code>--kit-hl-tag</code></td><td><code>#116329</code></td><td><code>#7ee787</code></td><td>Code: tags and selectors</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-hl-attr)"></span><code>--kit-hl-attr</code></td><td><code>#0550ae</code></td><td><code>#79c0ff</code></td><td>Code: attributes and properties</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-hl-str)"></span><code>--kit-hl-str</code></td><td><code>#0a3069</code></td><td><code>#a5d6ff</code></td><td>Code: strings</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-hl-kw)"></span><code>--kit-hl-kw</code></td><td><code>#cf222e</code></td><td><code>#ff7b72</code></td><td>Code: keywords</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-hl-fn)"></span><code>--kit-hl-fn</code></td><td><code>#8250df</code></td><td><code>#d2a8ff</code></td><td>Code: functions and pseudo-classes</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-hl-num)"></span><code>--kit-hl-num</code></td><td><code>#953800</code></td><td><code>#ffa657</code></td><td>Code: numbers and class names</td></tr>
+<tr><td><span class="doc-swatch" style="background:var(--kit-hl-com)"></span><code>--kit-hl-com</code></td><td><code>#6e7781</code></td><td><code>#8b949e</code></td><td>Code: comments</td></tr>
+</tbody></table></div></div>
+
+<h2 id="scrollbar">Scrollbars</h2>
+<p>All scrollbars (page, tables, menus, dialogs) are thin, with the thumb in the secondary text color and an invisible track. The color is the <code>--kit-sb</code> token, which follows the light and dark theme by itself. The <code>kit-no-scrollbar</code> class hides the scrollbar of an element that still scrolls (useful for a row of tabs on narrow screens).</p>
+<div class="doc-demo">
+  <div class="kit-card kit-p-3" style="height: 130px; overflow: auto; max-width: 360px">
+    <p>A scrolling box: the bar on the right is the kit's.</p><p>Second line.</p><p>Third line.</p><p>Fourth line.</p><p>Fifth line.</p><p>Sixth line.</p>
+  </div>
+</div>
+<pre class="kit-code" data-kit-code="css"><code>:root { --kit-sb: color-mix(in srgb, var(--kit-accent) 50%, transparent); }   /* another color */
+* { scrollbar-width: auto; scrollbar-color: auto; }                          /* or the system's */</code></pre>
+
+<h2 id="customizing">Customizing</h2>
+<p>Override the tokens in <code>:root</code> after loading <code>kit.css</code>:</p>
+<pre class="kit-code" data-kit-code="css"><code>:root {
+  --kit-accent: light-dark(#0f766e, #5eead4);
+  --kit-accent-soft: light-dark(#e6f6f4, #12312e);
+  --kit-rad: 6px;      /* less rounded surfaces */
+  --kit-rad-sm: 4px;   /* less rounded controls */
+  --kit-row: 5px;      /* more compact tables */
+  --kit-ctl: 36px;     /* shorter buttons and fields */
+}</code></pre>
+<p>Tokens can also be changed on a single element, and apply to everything it contains. Here an area with another accent:</p>
+<div class="doc-demo">
+  <div class="kit-bar" style="--kit-accent: light-dark(#0f766e, #5eead4); --kit-accent-soft: light-dark(#e6f6f4, #12312e)">
+    <button class="kit-btn kit-btn-primary">Primary</button>
+    <button class="kit-pill is-on">Active pill</button>
+    <span class="kit-badge">Badge</span>
+    <a href="#">A link</a>
+  </div>
+</div>
+<p>Note: the inline <code>style</code> attribute requires <code>style-src-attr 'unsafe-inline'</code> if the site has a Content-Security-Policy; in a CSS file it is not needed.</p>
+    <nav class="doc-pager" aria-label="Previous and next page">
+      <a href="accordion.html"><small>← Previous</small><b>Accordion</b></a>
+      <a class="doc-next" href="snippets.html"><small>Next →</small><b>VS Code snippets</b></a>
+    </nav>
+  </article>
+</div>
+</div>
+</main>
+<script src="search-index.js"></script>
+<script src="../docs.js"></script>
+</body>
+</html>
