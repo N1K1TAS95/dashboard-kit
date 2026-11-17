@@ -9,15 +9,15 @@ Da CDN (jsDelivr), fissando sempre una versione:
 
 ```html
 <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.9.0/dist/kit.css"
-      integrity="sha384-1X76jwLpSd4fv2LA5lOjx7Olg3riQ4VLOYzM5LQ6hWfOSqmL1fF00zRXnfeFsc2y"
+      href="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.10.0/dist/kit.css"
+      integrity="sha384-znCaG7h9kJLl62DAiNyMb9OH8yUsmerFcqlRH1huU4THVZIEyiT8s07zyKW3j/bK"
       crossorigin="anonymous">
 <!-- opzionale: tema, select, popover, tab, dialog, toast -->
-<script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.9.0/dist/kit.js"
-        integrity="sha384-MUyLAKXzMXNklMd3yY3gxh6E0lPNmM0M0QvSVSr3horLfqY7jKLeaLgOjG1BLl+a"
+<script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.10.0/dist/kit.js"
+        integrity="sha384-fbNechVbNbbPmseKnAJ62Qb2vL1czSfMXDSfKv712orjPLaZzs9Ju6XQRPJ2IGMn"
         crossorigin="anonymous"></script>
 <!-- opzionale: le icone (sprite SVG inserito nella pagina) -->
-<script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.9.0/dist/kit-icons.js"
+<script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.10.0/dist/kit-icons.js"
         integrity="sha384-PCYmDMAsjPbQ1IBjABjLf51f2PwcqnPNlvwglhokh27UvWcJlz3wV1806KXPWgfH"
         crossorigin="anonymous"></script>
 ```
