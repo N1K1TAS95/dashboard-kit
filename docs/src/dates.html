@@ -23,7 +23,7 @@
 <h2 id="calendario">Calendario</h2>
 <p>Con <code>data-kit-datepicker</code> sul campo (richiede <code>kit.js</code>) il selettore del browser lascia il posto a un calendario uguale ovunque. È facoltativo: senza l'attributo il campo resta nativo, e senza JavaScript quello con l'attributo resta un normale <code>type="date"</code>.</p>
 <ul>
-  <li>Il campo mostra e accetta <b>gg/mm/aaaa</b>. Si può anche scrivere: le barre si aggiungono da sole e vanno bene <code>5/3/26</code>, <code>05.03.2026</code>, <code>05032026</code>, <code>2026-03-05</code>.</li>
+  <li>Il campo mostra e accetta <b>gg/mm/aaaa</b> (l'ordine segue la <a href="javascript.html#lingue">lingua</a> della pagina: in inglese è <b>mm/gg/aaaa</b>). Si può anche scrivere: le barre si aggiungono da sole e vanno bene <code>5/3/26</code>, <code>05.03.2026</code>, <code>05032026</code>, <code>2026-03-05</code>.</li>
   <li>Il valore che parte con il form è sempre <b>aaaa-mm-gg</b>, in un campo nascosto che prende il <code>name</code>: il server lo legge senza conversioni.</li>
   <li>Si apre con il bottone del calendario o con la freccia giù. Sul telefono basta toccare il campo (la tastiera non compare).</li>
   <li>Il titolo del mese porta ai mesi, e il titolo dell'anno agli anni: utile per le date di nascita.</li>
@@ -61,7 +61,7 @@
     <small data-doc-out>Valore: 2026-11-01 → 2026-11-12</small>
   </div>
 </div>
-<p>Le scelte disponibili sono <code>oggi</code>, <code>ieri</code>, <code>7</code>, <code>30</code>, <code>90</code> (ultimi N giorni), <code>mese</code>, <code>mese-scorso</code>, <code>anno</code>, <code>anno-scorso</code>. Di base <code>7,30,mese,mese-scorso,anno</code>. Quelle che escono da <code>min</code> e <code>max</code> vengono accorciate, o disattivate se restano fuori del tutto. L'evento <code>kit:change</code> ha <code>{ from, to }</code>, e <code>input</code> e <code>change</code> partono su entrambi i campi.</p>
+<p>Le scelte disponibili sono <code>today</code>, <code>yesterday</code>, <code>7</code>, <code>30</code>, <code>90</code> (ultimi N giorni), <code>month</code>, <code>last-month</code>, <code>year</code>, <code>last-year</code> (i vecchi nomi italiani <code>oggi</code>, <code>ieri</code>, <code>mese</code>, <code>mese-scorso</code>, <code>anno</code>, <code>anno-scorso</code> funzionano ancora). Di base <code>7,30,month,last-month,year</code>. Quelle che escono da <code>min</code> e <code>max</code> vengono accorciate, o disattivate se restano fuori del tutto. L'evento <code>kit:change</code> ha <code>{ from, to }</code>, e <code>input</code> e <code>change</code> partono su entrambi i campi.</p>
 
 <h2 id="data-ora">Data e ora</h2>
 <p>Su un <code>type="datetime-local"</code> il calendario ha accanto le colonne di ore e minuti. Il campo mostra <b>gg/mm/aaaa hh:mm</b> e invia <code>aaaa-mm-ggThh:mm</code>, come il campo nativo. «Fatto» chiude. Se si sceglie solo l'ora, la data diventa oggi; se si sceglie solo il giorno, l'ora è 00:00. <code>data-kit-step="15"</code> (minuti) limita i minuti a multipli di 15; vale anche l'attributo <code>step</code> in secondi.</p>

@@ -49,7 +49,8 @@ Kit.layout.toggle();            // alterna
 Kit.table("#tabella", { sort: true, size: 10 });   // ordine, filtro e pagine di una tabella (vedi Tabelle); Kit.paginate("#tabella", 10) per le sole pagine
 Kit.datepicker("#scadenza");    // calendario su un campo data, data e ora o ora (vedi Date e orari); Kit.daterange("#periodo") per l'intervallo
 Kit.validate("#form");           // controlla un form (true/false) e ne segna i campi; Kit.validate.reset(form) toglie stati e messaggi
-Kit.date.parse("5/3/26");       // "2026-03-05" (Kit.date.format, Kit.date.today)
+Kit.date.parse("5/3/26");       // "2026-03-05" (Kit.date.format, Kit.date.today); l'ordine giorno/mese dipende dalla lingua
+Kit.i18n.lang("it");            // lingua dei testi del kit (vedi Lingue)
 Kit.init(elemento);             // rilegge select e tab di un'area aggiunta dopo il caricamento
 ```
 <div class="doc-demo kit-bar" data-doc-js='Kit.toast("Salvato!");'>
@@ -58,6 +59,26 @@ Kit.init(elemento);             // rilegge select e tab di un'area aggiunta dopo
   <button class="kit-btn" data-kit-theme-set="dark">Tema scuro</button>
   <button class="kit-btn" data-kit-theme-set="auto">Automatico</button>
 </div>
+
+<h2 id="lingue">Lingue</h2>
+<p>I testi che <code>kit.js</code> scrive da solo (bottoni «Annulla» e «Conferma», etichette per gli screen reader, «Nessun risultato», le pagine delle tabelle, il calendario) vengono da un dizionario per lingua. Ci sono l'<b>inglese</b> (la lingua di base) e l'<b>italiano</b>. La lingua è quella di <code>&lt;html lang="…"&gt;</code>: senza l'attributo si usa l'inglese, quindi in una pagina italiana ricordati di scrivere <code>&lt;html lang="it"&gt;</code>.</p>
+<p>Con una lingua con regione (<code>pt-BR</code>) si cerca prima quella, poi la lingua senza regione (<code>pt</code>), poi l'inglese: un dizionario può contenere solo ciò che cambia. Gli attributi e le opzioni (<code>data-kit-empty</code>, <code>Kit.confirm(…, { cancel })</code>) vincono sempre sul dizionario.</p>
+<p>Anche il calendario e le tabelle seguono la lingua: ordine della data (<code>mm/gg/aaaa</code> in inglese, <code>gg/mm/aaaa</code> in italiano), primo giorno della settimana (domenica in inglese, lunedì in italiano), nomi di mesi e giorni, e il separatore decimale con cui si ordinano i numeri di una colonna (<code>1,250.50</code> o <code>1.250,50</code>). Il valore inviato è sempre ISO.</p>
+```js
+Kit.i18n.lang();                 // "it": la lingua in uso (da <html lang>)
+Kit.i18n.lang("de");             // la fissa a mano, senza guardare <html lang>; Kit.i18n.lang("") torna a <html lang>
+
+// Un'altra lingua: basta scrivere ciò che serve, il resto resta in inglese
+Kit.i18n.add("de", {
+    cancel: "Abbrechen", confirm: "Bestätigen", close: "Schließen", noResults: "Keine Ergebnisse",
+    num: { dec: "," },
+    date: { order: "dmy", first: 1, months: ["Januar", /* … */], days: ["mo", "di", /* … */], t: { today: "Heute", clear: "Löschen" } }
+});
+
+// Una variante regionale: l'inglese britannico scrive il giorno prima del mese e inizia la settimana dal lunedì
+Kit.i18n.add("en-GB", { date: { order: "dmy", first: 1 } });
+```
+<p>Le chiavi si vedono nel dizionario in cima a <code>dist/kit.js</code> (<code>I18N</code>): <code>en</code> è il modello completo. <code>Kit.i18n.t("cancel")</code> legge una voce nella lingua corrente. Le lingue vanno aggiunte prima che la pagina costruisca i componenti: metti <code>Kit.i18n.add(…)</code> subito dopo <code>kit.js</code>.</p>
 
 <h2 id="eventi">Eventi</h2>
 <p>Sono <code>CustomEvent</code> che salgono nel DOM: si ascoltano sul documento o sull'elemento.</p>

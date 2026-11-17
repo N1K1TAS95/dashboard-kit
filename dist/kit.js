@@ -39,7 +39,7 @@
  *   data-kit-tip="testo"                     tooltip (solo CSS; con kit.js Esc lo nasconde)
  *   data-kit-dismiss                         dentro un .kit-alert, lo rimuove (evento "kit:dismiss")
  *
- * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.sidebar.get()/set()/toggle()/open()/close(), Kit.fontSize.get()/set()/step(), Kit.reset(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.confirm(domanda, opzioni), Kit.undo(testo, opzioni), Kit.split(elemento), Kit.file(elemento, opzioni), Kit.progress(testo, opzioni), Kit.combo(elemento, opzioni), Kit.select(elemento, opzioni), Kit.code(elemento, opzioni), Kit.highlight(testo, lingua), Kit.barChart(elemento, opzioni), Kit.lineChart(…), Kit.donut(…), Kit.sparkline(…), Kit.table(tabella, opzioni), Kit.paginate(tabella, righe), Kit.accordion(elemento, opzioni), Kit.meter(elemento, opzioni), Kit.datepicker(campo, opzioni), Kit.daterange(contenitore, opzioni), Kit.validate(form), Kit.validate.reset(form), Kit.date.parse/format/today, Kit.init(radice)
+ * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.sidebar.get()/set()/toggle()/open()/close(), Kit.fontSize.get()/set()/step(), Kit.reset(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.confirm(domanda, opzioni), Kit.undo(testo, opzioni), Kit.split(elemento), Kit.file(elemento, opzioni), Kit.progress(testo, opzioni), Kit.combo(elemento, opzioni), Kit.select(elemento, opzioni), Kit.code(elemento, opzioni), Kit.highlight(testo, lingua), Kit.barChart(elemento, opzioni), Kit.lineChart(…), Kit.donut(…), Kit.sparkline(…), Kit.table(tabella, opzioni), Kit.paginate(tabella, righe), Kit.i18n.lang(codice), Kit.i18n.add(codice, dizionario), Kit.accordion(elemento, opzioni), Kit.meter(elemento, opzioni), Kit.datepicker(campo, opzioni), Kit.daterange(contenitore, opzioni), Kit.validate(form), Kit.validate.reset(form), Kit.date.parse/format/today, Kit.init(radice)
  * Eventi: "kit:change" (select, combobox), "kit:select" (barra, punto o fetta di un grafico), "kit:tab" (tab), "kit:files" (file scelti o rilasciati), "kit:copy" (codice copiato), "kit:sort" (tabella ordinata), "kit:filter" (tabella filtrata), "kit:page" (pagina della tabella cambiata), "kit:accordion" (voce dell'accordion aperta o chiusa), "kit:invalid" (form con campi non validi), "kit:change" anche per date e ore ({ value } o { from, to }), "kit:split" (pannello aperto, chiuso o a tutta larghezza), "kit:theme" (tema), "kit:layout" (larghezza), "kit:sidebar" (sidebar compressa, espansa, aperta o chiusa), "kit:fs" (dimensione del testo), "kit:reset" (impostazioni ripristinate), "kit:dismiss" (avviso chiuso)
  */
 (function () {
@@ -47,6 +47,113 @@
 
     var KEY = "kit-theme";
     var root = document.documentElement;
+
+    /* ---------- Lingue (i18n) ----------
+       Tutti i testi che kit.js scrive da solo (bottoni, etichette ARIA, messaggi, calendario) vengono da un dizionario per lingua.
+       La lingua è quella di <html lang> (se manca, inglese); Kit.i18n.lang("it") la fissa a mano. Con "pt-BR" si cerca prima pt-BR,
+       poi pt, poi en: un dizionario può contenere solo ciò che cambia. Altre lingue: Kit.i18n.add("de", { cancel: "Abbrechen", … }).
+       Ogni attributo o opzione (data-kit-*, opts.cancel, …) ha la precedenza sul dizionario. */
+    var I18N = {
+        en: {
+            close: "Close", cancel: "Cancel", confirm: "Confirm", undo: "Undo",
+            confirmTitle: "Are you sure?", confirmType: "To confirm, type ",
+            comboToggle: "Show the list", comboMore: "{n} more results: keep typing to narrow down",
+            noResults: "No results", search: "Search…", noData: "No data", total: "Total",
+            chartLine: "Line chart", chartBar: "Bar chart", chartDonut: "Donut chart", trend: "Trend",
+            copy: "Copy", copied: "Copied",
+            file: { type: "{name}: file type not accepted ({accept}).", size: "{name}: larger than {max} MB.", count: "{name}: only one file can be chosen.", folder: "{name}: folders are not allowed.",
+                none: "No file", many: "{n} files", pick: "Choose file…", pickDir: "Choose folder…", clear: "Remove selection", drop: "Drop here to upload" },
+            table: { of: "of", prev: "Previous page", next: "Next page", page: "Page {n}", nav: "Pagination" },
+            password: { show: "Show password", hide: "Hide password" },
+            num: { dec: "." },
+            date: {
+                order: "mdy", sep: "/", first: 0,
+                months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+                days: ["mon", "tue", "wed", "thu", "fri", "sat", "sun"],
+                daysLong: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+                presets: { today: "Today", yesterday: "Yesterday", "7": "Last 7 days", "30": "Last 30 days", "90": "Last 90 days", month: "This month", "last-month": "Last month", year: "This year", "last-year": "Last year" },
+                t: {
+                    open: "Open the calendar", openTime: "Choose the time", pickDate: "Choose the date", pickDateTime: "Choose date and time", pickTime: "Choose the time", pickRange: "Choose the period",
+                    today: "Today", clear: "Clear", done: "Done", close: "Close",
+                    prev: "Previous month", next: "Next month", prevYear: "Previous year", nextYear: "Next year", prevYears: "Previous years", nextYears: "Next years",
+                    invalid: "Enter the date as {f}", invalidDT: "Enter date and time as {f}", invalidTime: "Enter the time as {f}",
+                    min: "The value cannot be earlier than {d}", max: "The value cannot be later than {d}", unavailable: "This date is not available",
+                    order: "The end date is earlier than the start date", from: "Choose the start date", to: "Choose the end date",
+                    hour: "Hours", minute: "Minutes", phDate: "mm/dd/yyyy", phDT: "mm/dd/yyyy hh:mm", phTime: "hh:mm"
+                }
+            }
+        },
+        it: {
+            close: "Chiudi", cancel: "Annulla", confirm: "Conferma", undo: "Annulla",
+            confirmTitle: "Confermi l'azione?", confirmType: "Per confermare scrivi ",
+            comboToggle: "Mostra l'elenco", comboMore: "Altri {n} risultati: continua a scrivere per restringere",
+            noResults: "Nessun risultato", search: "Cerca…", noData: "Nessun dato", total: "Totale",
+            chartLine: "Grafico a linee", chartBar: "Grafico a barre", chartDonut: "Grafico a ciambella", trend: "Andamento",
+            copy: "Copia", copied: "Copiato",
+            file: { type: "{name}: tipo di file non accettato ({accept}).", size: "{name}: supera i {max} MB.", count: "{name}: si può scegliere un solo file.", folder: "{name}: le cartelle non sono ammesse.",
+                none: "Nessun file", many: "{n} file", pick: "Scegli file…", pickDir: "Scegli cartella…", clear: "Rimuovi la scelta", drop: "Rilascia qui per caricare" },
+            table: { of: "di", prev: "Pagina precedente", next: "Pagina successiva", page: "Pagina {n}", nav: "Paginazione" },
+            password: { show: "Mostra la password", hide: "Nascondi la password" },
+            num: { dec: "," },
+            date: {
+                order: "dmy", sep: "/", first: 1,
+                months: ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"],
+                days: ["lun", "mar", "mer", "gio", "ven", "sab", "dom"],
+                daysLong: ["lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato", "domenica"],
+                presets: { today: "Oggi", yesterday: "Ieri", "7": "Ultimi 7 giorni", "30": "Ultimi 30 giorni", "90": "Ultimi 90 giorni", month: "Questo mese", "last-month": "Mese scorso", year: "Quest'anno", "last-year": "Anno scorso" },
+                t: {
+                    open: "Apri il calendario", openTime: "Scegli l'ora", pickDate: "Scegli la data", pickDateTime: "Scegli data e ora", pickTime: "Scegli l'ora", pickRange: "Scegli il periodo",
+                    today: "Oggi", clear: "Cancella", done: "Fatto", close: "Chiudi",
+                    prev: "Mese precedente", next: "Mese successivo", prevYear: "Anno precedente", nextYear: "Anno successivo", prevYears: "Anni precedenti", nextYears: "Anni successivi",
+                    invalid: "Scrivi la data come {f}", invalidDT: "Scrivi data e ora come {f}", invalidTime: "Scrivi l'ora come {f}",
+                    min: "Il valore non può essere precedente a {d}", max: "Il valore non può essere successivo a {d}", unavailable: "Questa data non è disponibile",
+                    order: "La data finale è precedente a quella iniziale", from: "Scegli la data di inizio", to: "Scegli la data di fine",
+                    hour: "Ore", minute: "Minuti", phDate: "gg/mm/aaaa", phDT: "gg/mm/aaaa hh:mm", phTime: "hh:mm"
+                }
+            }
+        }
+    };
+    var i18nLang = "", i18nCache = {};
+
+    function i18nIsObj(v) { return v && typeof v === "object" && !Array.isArray(v); }
+    function i18nMerge(to, from) {
+        Object.keys(from).forEach(function (k) {
+            if (i18nIsObj(from[k])) { if (!i18nIsObj(to[k])) to[k] = {}; i18nMerge(to[k], from[k]); }
+            else to[k] = from[k];
+        });
+        return to;
+    }
+    function i18nCode() { return String(i18nLang || document.documentElement.lang || "en").toLowerCase().replace(/_/g, "-"); }
+    function i18nPack() {
+        var code = i18nCode();
+        if (i18nCache[code]) return i18nCache[code];
+        var base = code.split("-")[0], chain = ["en"], out = {};
+        if (base !== "en") chain.push(base);
+        if (code !== base) chain.push(code);
+        chain.forEach(function (c) { if (I18N[c]) i18nMerge(out, I18N[c]); });
+        i18nCache[code] = out;
+        return out;
+    }
+    /* Legge una voce ("close", "file.type", "date.t.today") dalla lingua corrente; {nome} si sostituisce con vars.nome. */
+    function t(key, vars) {
+        var v = i18nPack();
+        String(key).split(".").forEach(function (k) { v = v == null ? v : v[k]; });
+        if (v == null) return String(key);
+        if (typeof v === "string" && vars) v = v.replace(/\{(\w+)\}/g, function (m, n) { return vars[n] !== undefined ? vars[n] : m; });
+        return v;
+    }
+    var i18n = {
+        lang: function (code) {
+            if (code !== undefined) { i18nLang = code || ""; }
+            return i18nCode();
+        },
+        add: function (code, dict) {
+            code = String(code).toLowerCase().replace(/_/g, "-");
+            I18N[code] = i18nMerge(I18N[code] || {}, dict || {});
+            i18nCache = {};
+        },
+        t: t
+    };
 
     /* ---------- Tema ---------- */
     function readStored() {
@@ -433,7 +540,7 @@
             var x = document.createElement("button");
             x.type = "button";
             x.className = "kit-toast-close";
-            x.setAttribute("aria-label", "Chiudi");
+            x.setAttribute("aria-label", t("close"));
             x.textContent = "×";
             x.addEventListener("click", close);
             el.appendChild(x);
@@ -502,7 +609,7 @@
             type: opts.type,
             position: opts.position,
             duration: typeof opts.duration === "number" ? opts.duration : 6000,
-            action: { label: opts.label || "Annulla", onClick: undoNow },
+            action: { label: opts.label || t("undo"), onClick: undoNow },
             onClose: commit
         });
         return { undo: function () { undoNow(); handle.close(); }, commit: function () { commit(); handle.close(); } };
@@ -551,7 +658,7 @@
             body.appendChild(wrap);
         }
         var txt = mkEl("div", "kit-confirm-text");
-        var h = mkEl("strong", "kit-confirm-title", String(title || "Confermi l'azione?"));
+        var h = mkEl("strong", "kit-confirm-title", String(title || t("confirmTitle")));
         h.id = id + "-t";
         txt.appendChild(h);
         if (opts.text) {
@@ -563,7 +670,7 @@
         var input = null;
         if (typed) {
             var lab = mkEl("label", "kit-field");
-            lab.appendChild(document.createTextNode("Per confermare scrivi "));
+            lab.appendChild(document.createTextNode(t("confirmType")));
             lab.appendChild(mkEl("b", "", typed));
             input = mkEl("input", "kit-input");
             input.type = "text";
@@ -577,9 +684,9 @@
         dlg.appendChild(body);
 
         var foot = mkEl("div", "kit-card-foot");
-        var cancel = mkEl("button", "kit-btn", String(opts.cancel || "Annulla"));
+        var cancel = mkEl("button", "kit-btn", String(opts.cancel || t("cancel")));
         cancel.type = "button";
-        var ok = mkEl("button", "kit-btn " + (danger ? "kit-btn-danger-solid" : "kit-btn-primary"), String(opts.confirm || "Conferma"));
+        var ok = mkEl("button", "kit-btn " + (danger ? "kit-btn-danger-solid" : "kit-btn-primary"), String(opts.confirm || t("confirm")));
         ok.type = "button";
         if (typed) ok.disabled = true;
         foot.appendChild(cancel);
@@ -819,7 +926,7 @@
             chev = mkEl("button", "kit-combo-btn");
             chev.type = "button";
             chev.tabIndex = -1;
-            chev.setAttribute("aria-label", opts.buttonLabel || d.kitComboLabel || "Mostra l'elenco");
+            chev.setAttribute("aria-label", opts.buttonLabel || d.kitComboLabel || t("comboToggle"));
             var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
             svg.setAttribute("class", "kit-icon");
             var use = document.createElementNS("http://www.w3.org/2000/svg", "use");
@@ -833,8 +940,8 @@
             max: opts.max || parseInt(d.kitComboMax, 10) || 50,
             filter: opts.filter !== false,
             autoActive: opts.autoActive !== false,
-            empty: opts.empty !== undefined ? opts.empty : (d.kitComboEmpty || "Nessun risultato"),
-            more: opts.more || d.kitComboMore || "Altri {n} risultati: continua a scrivere per restringere"
+            empty: opts.empty !== undefined ? opts.empty : (d.kitComboEmpty || t("noResults")),
+            more: opts.more || d.kitComboMore || t("comboMore")
         };
         st.api = {
             setItems: function (list) { st.items = list; if (!pop.hidden) comboOpen(st); },
@@ -1010,8 +1117,8 @@
         wrap.appendChild(pop);
         var st = {
             sel: sel, wrap: wrap, btn: btn, value: value, pop: pop, id: id, q: "", input: null, list: null, search: search,
-            empty: opts.empty !== undefined ? opts.empty : (d.kitEmpty || "Nessun risultato"),
-            placeholder: opts.placeholder || d.kitPlaceholder || "Cerca…"
+            empty: opts.empty !== undefined ? opts.empty : (d.kitEmpty || t("noResults")),
+            placeholder: opts.placeholder || d.kitPlaceholder || t("search")
         };
         st.api = {
             sync: function () { nativeSync(st); if (!pop.hidden) nativeList(st); },
@@ -1072,6 +1179,8 @@
 
     function resolveEl(el) { return typeof el === "string" ? document.querySelector(el) : el; }
 
+
+
     /* Il ciclo di vita è uguale per tutti: un grafico per elemento, richiamare la funzione lo aggiorna. */
     function mountChart(el, opts, build) {
         var prev = charts.get(el);
@@ -1111,7 +1220,7 @@
             function draw(fresh) {
                 if (fresh) scrollEnd = o.scrollEnd !== false;
                 var data = o.data || [];
-                var series = o.series && o.series.length ? o.series : [{ name: o.name || "Totale" }];
+                var series = o.series && o.series.length ? o.series : [{ name: o.name || t("total") }];
                 var fmt = o.format || function (v) { return new Intl.NumberFormat(root.lang || undefined).format(v); };
                 var axisFmt = o.axisFormat || compactNumber;
                 var u = (parseFloat(getComputedStyle(el).fontSize) || 14) / 14;
@@ -1138,7 +1247,7 @@
 
                 scroller.textContent = "";
                 el.classList.toggle("kit-chart-click", interactive);
-                if (!n) { scroller.appendChild(mkEl("div", "kit-pop-empty", o.empty || "Nessun dato")); return; }
+                if (!n) { scroller.appendChild(mkEl("div", "kit-pop-empty", o.empty || t("noData"))); return; }
 
                 // Scala verticale. Barre: da 0 a un valore tondo. Linee: dal minimo al massimo (con margine), a meno di zero:true.
                 var ticks = o.ticks || 4, lo = 0, hi, step;
@@ -1170,7 +1279,7 @@
                 var Y = function (v) { return T + ph - (v - lo) / (hi - lo) * ph; };
                 var X = function (i) { return L + i * slot + slot / 2; };
 
-                var svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, width: W, height: H, role: interactive ? "group" : "img", "aria-label": o.label || (isLine ? "Grafico a linee" : "Grafico a barre") });
+                var svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, width: W, height: H, role: interactive ? "group" : "img", "aria-label": o.label || (isLine ? t("chartLine") : t("chartBar")) });
                 for (var t = 0; t <= ticks; t++) {
                     var gy = Y(lo + step * t);
                     svg.appendChild(svgEl("line", { "class": "kit-chart-grid", x1: L, x2: W - R, y1: gy, y2: gy }));
@@ -1277,10 +1386,10 @@
                 var interactive = typeof o.onSelect === "function";
                 el.textContent = "";
                 el.classList.toggle("kit-chart-click", interactive);
-                if (!total) { el.appendChild(mkEl("div", "kit-pop-empty", o.empty || "Nessun dato")); return; }
+                if (!total) { el.appendChild(mkEl("div", "kit-pop-empty", o.empty || t("noData"))); return; }
                 var pct = new Intl.NumberFormat(root.lang || undefined, { style: "percent", maximumFractionDigits: 1 });
                 var r = 40, w = o.thickness || 16, C = 2 * Math.PI * r, acc = 0;
-                var svg = svgEl("svg", { "class": "kit-donut-svg", viewBox: "0 0 100 100", role: "img", "aria-label": o.label || "Grafico a ciambella" });
+                var svg = svgEl("svg", { "class": "kit-donut-svg", viewBox: "0 0 100 100", role: "img", "aria-label": o.label || t("chartDonut") });
                 var legend = mkEl("div", "kit-donut-legend");
                 data.forEach(function (d, i) {
                     var col = d.color || "var(--kit-c" + (i % 4 + 1) + ")";
@@ -1302,7 +1411,7 @@
                 });
                 var cv = o.centerValue != null ? o.centerValue : fmt(total);
                 svg.appendChild(svgEl("text", { "class": "kit-donut-value", x: 50, y: o.centerLabel === "" ? 54 : 50, "text-anchor": "middle" }, String(cv)));
-                if (o.centerLabel !== "") svg.appendChild(svgEl("text", { "class": "kit-donut-label", x: 50, y: 61, "text-anchor": "middle" }, o.centerLabel || "Totale"));
+                if (o.centerLabel !== "") svg.appendChild(svgEl("text", { "class": "kit-donut-label", x: 50, y: 61, "text-anchor": "middle" }, o.centerLabel || t("total")));
                 el.appendChild(svg);
                 if (o.legend !== false) el.appendChild(legend);
                 var dd = data;
@@ -1334,7 +1443,7 @@
                 if (hi - lo < 1e-9) { hi = lo + 1; }
                 var col = o.color || "var(--kit-c1)";
                 var Y = function (v) { return H - pad - (v - lo) / (hi - lo) * (H - 2 * pad); };
-                var svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, preserveAspectRatio: "none", role: "img", "aria-label": o.label || "Andamento" });
+                var svg = svgEl("svg", { viewBox: "0 0 " + W + " " + H, preserveAspectRatio: "none", role: "img", "aria-label": o.label || t("trend") });
                 var n = vals.length;
                 if (type === "bar") {
                     var bw = W / n;
@@ -1400,17 +1509,13 @@
     var fileState = new WeakMap();
     var pageFileZone = null, pageDragN = 0, dropVeil = null;
 
-    var FILE_MSG = {
-        type: "{name}: tipo di file non accettato ({accept}).",
-        size: "{name}: supera i {max} MB.",
-        count: "{name}: si può scegliere un solo file.",
-        folder: "{name}: le cartelle non sono ammesse."
-    };
+    function fileMsgs() { var m = t("file"); return { type: m.type, size: m.size, count: m.count, folder: m.folder }; }
 
     function fmtSize(n) {
         if (n < 1024) return n + " B";
-        if (n < 1048576) return (n / 1024).toFixed(n < 10240 ? 1 : 0).replace(".", ",") + " kB";
-        return (n / 1048576).toFixed(n < 10485760 ? 1 : 0).replace(".", ",") + " MB";
+        var dec = t("num.dec");
+        if (n < 1048576) return (n / 1024).toFixed(n < 10240 ? 1 : 0).replace(".", dec) + " kB";
+        return (n / 1048576).toFixed(n < 10485760 ? 1 : 0).replace(".", dec) + " MB";
     }
 
     function acceptTest(accept) {
@@ -1457,9 +1562,9 @@
         else {
             var total = st.items.reduce(function (a, i) { return a + i.file.size; }, 0);
             var dir = st.items[0].path.indexOf("/") > 0 ? st.items[0].path.split("/")[0] : "";
-            if (dir) text = dir + " · " + n + " file (" + fmtSize(total) + ")";
+            if (dir) text = dir + " · " + t("file.many", { n: n }) + " (" + fmtSize(total) + ")";
             else if (n === 1) text = st.items[0].file.name + " (" + fmtSize(total) + ")";
-            else text = n + " file (" + fmtSize(total) + ")";
+            else text = t("file.many", { n: n }) + " (" + fmtSize(total) + ")";
         }
         name.textContent = text;
         name.title = n > 1 ? st.items.slice(0, 20).map(function (i) { return i.path; }).join("\n") : "";
@@ -1526,8 +1631,8 @@
             input: input, items: [], errors: [], onFiles: opts.onFiles,
             dir: opts.directory != null ? !!opts.directory : (input.hasAttribute("webkitdirectory") || d.kitFileDir !== undefined),
             max: opts.max != null ? opts.max : (parseFloat(d.kitFileMax) || 0),
-            empty: opts.empty || d.kitFileEmpty || (zone ? "" : "Nessun file"),
-            msg: Object.assign({}, FILE_MSG, opts.messages || {})
+            empty: opts.empty || d.kitFileEmpty || (zone ? "" : t("file.none")),
+            msg: Object.assign(fileMsgs(), opts.messages || {})
         };
         wrap.classList.add("is-ready");
         if (!input.id) input.id = "kit-file-" + (++comboUid);
@@ -1539,7 +1644,7 @@
         if (!zone) {
             var pick = wrap.querySelector(".kit-file-btn");
             if (!pick) {
-                pick = mkEl("button", "kit-btn kit-file-btn", opts.button || d.kitFileButton || (st.dir ? "Scegli cartella…" : "Scegli file…"));
+                pick = mkEl("button", "kit-btn kit-file-btn", opts.button || d.kitFileButton || (st.dir ? t("file.pickDir") : t("file.pick")));
                 pick.type = "button";
                 wrap.insertBefore(pick, input.nextSibling);
             }
@@ -1549,7 +1654,7 @@
             if (!st.clearBtn) {
                 st.clearBtn = mkEl("button", "kit-btn kit-btn-ghost kit-btn-icon kit-file-clear");
                 st.clearBtn.type = "button";
-                st.clearBtn.setAttribute("aria-label", opts.clearLabel || d.kitFileClear || "Rimuovi la scelta");
+                st.clearBtn.setAttribute("aria-label", opts.clearLabel || d.kitFileClear || t("file.clear"));
                 var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg"), use = document.createElementNS("http://www.w3.org/2000/svg", "use");
                 svg.setAttribute("class", "kit-icon");
                 use.setAttribute("href", "#i-x");
@@ -1581,7 +1686,7 @@
             endPageDrag();
             fileDrop(wrap, st, e.dataTransfer);
         });
-        if (d.kitFilePage !== undefined) { pageFileZone = { wrap: wrap, st: st, text: d.kitFilePage || "Rilascia qui per caricare" }; }
+        if (d.kitFilePage !== undefined) { pageFileZone = { wrap: wrap, st: st, text: d.kitFilePage || t("file.drop") }; }
         st.api = {
             files: function () { return st.items.map(function (i) { return i.file; }); },
             items: function () { return st.items.slice(); },
@@ -1619,7 +1724,7 @@
         var cancelBtn = null;
         if (typeof opts.onCancel === "function") {
             var foot = mkEl("div", "kit-card-foot");
-            cancelBtn = mkEl("button", "kit-btn", opts.cancel || "Annulla");
+            cancelBtn = mkEl("button", "kit-btn", opts.cancel || t("cancel"));
             cancelBtn.type = "button";
             foot.appendChild(cancelBtn);
             dlg.appendChild(foot);
@@ -2097,8 +2202,8 @@
 
         var wantCopy = opts.copy !== undefined ? opts.copy : pre.hasAttribute("data-kit-code-copy");
         if (wantCopy && pre.parentNode) {
-            var label = opts.copyLabel || (typeof wantCopy === "string" ? wantCopy : "") || pre.getAttribute("data-kit-code-copy") || "Copia";
-            var done = opts.copiedLabel || pre.getAttribute("data-kit-code-copied") || "Copiato";
+            var label = opts.copyLabel || (typeof wantCopy === "string" ? wantCopy : "") || pre.getAttribute("data-kit-code-copy") || t("copy");
+            var done = opts.copiedLabel || pre.getAttribute("data-kit-code-copied") || t("copied");
             var wrap = mkEl("div", "kit-snippet");
             pre.parentNode.insertBefore(wrap, pre);
             wrap.appendChild(pre);
@@ -2123,9 +2228,9 @@
        Ordine e filtro lavorano sulle righe del primo <tbody>; il tipo di una colonna (numeri, date, testo) si riconosce dal contenuto
        oppure si scrive su <th data-kit-type="num|date|text">; il valore di una cella può essere diverso dal testo (<td data-kit-value="…">). */
     var tableState = new WeakMap();
-    var TBL_LABELS = { empty: "Nessun risultato", of: "di", prev: "Pagina precedente", next: "Pagina successiva", page: "Pagina {n}", nav: "Paginazione" };
+    function tblLabels() { var m = t("table"); return { empty: t("noResults"), of: m.of, prev: m.prev, next: m.next, page: m.page, nav: m.nav }; }
     var NUM_RE = /^[+\-]?\s*[€$£]?\s*[+\-]?\d[\d.,\s]*\s*[%€$£]?$/;
-    var DATE_DMY = /^(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{4})(?:[ T,]+(\d{1,2}):(\d{2}))?$/;
+    var DATE_DMY = /^(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{4})(?:[ T,]+(\d{1,2}):(\d{2}))?$/;   // l'ordine giorno/mese dipende dalla lingua
     var DATE_YMD = /^(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2}))?$/;
 
     function tblText(node, skipSmall) {
@@ -2145,15 +2250,19 @@
         s = s.replace(/[^\d.,]/g, "");
         var c = s.lastIndexOf(","), d = s.lastIndexOf(".");
         if (c >= 0 && d >= 0) s = c > d ? s.replace(/\./g, "").replace(",", ".") : s.replace(/,/g, "");
-        else if (c >= 0) s = s.replace(/\./g, "").replace(",", ".");
-        else if (d >= 0 && /^\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g, "");
+        else if (c >= 0 || d >= 0) {
+            // un solo tipo di separatore: se è quello decimale della lingua è un decimale; altrimenti è delle migliaia solo se i gruppi sono da tre cifre
+            var sep = c >= 0 ? "," : ".", dec = t("num.dec") === "," ? "," : ".";
+            if (sep !== dec && new RegExp("^\\d{1,3}(\\" + sep + "\\d{3})+$").test(s)) s = s.split(sep).join("");
+            else s = s.split(sep === "," ? "." : ",").join("").replace(",", ".");
+        }
         var n = parseFloat(s);
         return isNaN(n) ? null : (neg ? -n : n);
     }
 
     function tblDate(s) {
         var m = DATE_DMY.exec(s), y, mo, d;
-        if (m) { d = +m[1]; mo = +m[2]; y = +m[3]; }
+        if (m) { if (DT.order === "mdy") { mo = +m[1]; d = +m[2]; } else { d = +m[1]; mo = +m[2]; } y = +m[3]; }
         else if ((m = DATE_YMD.exec(s))) { y = +m[1]; mo = +m[2]; d = +m[3]; }
         else return null;
         if (mo < 1 || mo > 12 || d < 1 || d > 31) return null;
@@ -2173,7 +2282,7 @@
         var st = { table: table, rows: [], sorts: [], multi: false, query: "", size: 0, page: 1, labels: {}, sortable: false };
         var collator = null, wrap = table.parentNode && table.parentNode.classList.contains("kit-table-wrap") ? table.parentNode : null;
         var emptyRow = null, pager = null, info = null, pages = null;
-        Object.keys(TBL_LABELS).forEach(function (k) { st.labels[k] = TBL_LABELS[k]; });
+        st.labels = tblLabels();
 
         function body() { return table.tBodies[0]; }
         function heads() { return table.tHead && table.tHead.rows.length ? Array.prototype.slice.call(table.tHead.rows[table.tHead.rows.length - 1].cells) : []; }
@@ -2210,7 +2319,7 @@
 
         function sortRows(list) {
             if (!st.sorts.length) return list.slice().sort(function (a, b) { return a.__kitIdx - b.__kitIdx; });
-            if (!collator) collator = new Intl.Collator(root.lang || "it", { numeric: true, sensitivity: "base" });
+            if (!collator) collator = new Intl.Collator(i18nCode(), { numeric: true, sensitivity: "base" });
             var crit = st.sorts.map(function (c) { return { col: c.col, type: colType(c.col), dir: c.dir === "descending" ? -1 : 1 }; });
             var keyed = list.map(function (tr) {
                 return { tr: tr, keys: crit.map(function (c) {
@@ -2564,20 +2673,18 @@
        Il campo visibile è di testo e mostra gg/mm/aaaa; il valore che parte con il form è sempre in ISO (aaaa-mm-gg), in un campo
        nascosto che prende il name. Le date sono stringhe ISO e i calcoli si fanno in UTC: nessun fuso orario di mezzo. */
     var DT = {
-        months: ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"],
-        days: ["lun", "mar", "mer", "gio", "ven", "sab", "dom"],
-        daysLong: ["lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato", "domenica"],
-        presets: { oggi: "Oggi", ieri: "Ieri", "7": "Ultimi 7 giorni", "30": "Ultimi 30 giorni", "90": "Ultimi 90 giorni", mese: "Questo mese", "mese-scorso": "Mese scorso", anno: "Quest'anno", "anno-scorso": "Anno scorso" },
-        t: {
-            open: "Apri il calendario", openTime: "Scegli l'ora", pickDate: "Scegli la data", pickDateTime: "Scegli data e ora", pickTime: "Scegli l'ora", pickRange: "Scegli il periodo",
-            today: "Oggi", clear: "Cancella", done: "Fatto", close: "Chiudi",
-            prev: "Mese precedente", next: "Mese successivo", prevYear: "Anno precedente", nextYear: "Anno successivo", prevYears: "Anni precedenti", nextYears: "Anni successivi",
-            invalid: "Scrivi la data come gg/mm/aaaa", invalidDT: "Scrivi data e ora come gg/mm/aaaa hh:mm", invalidTime: "Scrivi l'ora come hh:mm",
-            min: "Il valore non può essere precedente a {d}", max: "Il valore non può essere successivo a {d}", unavailable: "Questa data non è disponibile",
-            order: "La data finale è precedente a quella iniziale", from: "Scegli la data di inizio", to: "Scegli la data di fine",
-            hour: "Ore", minute: "Minuti", phDate: "gg/mm/aaaa", phDT: "gg/mm/aaaa hh:mm", phTime: "hh:mm"
-        }
+        get months() { return t("date.months"); },
+        get days() { return t("date.days"); },
+        get daysLong() { return t("date.daysLong"); },
+        get presets() { return t("date.presets"); },
+        get t() { return t("date.t"); },
+        get order() { return t("date.order"); },
+        get sep() { return t("date.sep"); },
+        get first() { return t("date.first") === 0 ? 0 : 1; }
     };
+    /* nomi vecchi dei periodi (data-kit-presets) → nomi di oggi */
+    var PRESET_ALIAS = { oggi: "today", ieri: "yesterday", mese: "month", "mese-scorso": "last-month", anno: "year", "anno-scorso": "last-year" };
+    function presetKey(k) { return PRESET_ALIAS[k] || k; }
     var DTNS = "http://www.w3.org/2000/svg";
     var DTIC = {
         cal: [["rect", { x: 4, y: 5, width: 16, height: 15, rx: 2 }], ["path", { d: "M4 10h16M8 3v4M16 3v4" }]],
@@ -2621,16 +2728,24 @@
     function dowMon(iso) { var a = isoParts(iso); return (new Date(Date.UTC(a[0], a[1] - 1, a[2])).getUTCDay() + 6) % 7; }
     function todayIso() { var n = new Date(); return isoOf(n.getFullYear(), n.getMonth() + 1, n.getDate()); }
     function validYmd(y, m, d) { return y >= 1000 && y <= 9999 && m >= 1 && m <= 12 && d >= 1 && d <= dim(y, m); }
-    function fmtDate(iso) { return iso ? iso.slice(8, 10) + "/" + iso.slice(5, 7) + "/" + iso.slice(0, 4) : ""; }
+    /* colonna del giorno nella settimana della lingua (lunedì o domenica per primo) */
+    function dowCol(iso) { var w = dowMon(iso); return DT.first === 0 ? (w + 1) % 7 : w; }
+    function fmtDate(iso) {
+        if (!iso) return "";
+        var y = iso.slice(0, 4), m = iso.slice(5, 7), d = iso.slice(8, 10), sp = DT.sep, o = DT.order;
+        return o === "mdy" ? m + sp + d + sp + y : o === "ymd" ? y + sp + m + sp + d : d + sp + m + sp + y;
+    }
     function dayLabel(iso) { var a = isoParts(iso); return DT.daysLong[dowMon(iso)] + " " + a[2] + " " + DT.months[a[1] - 1] + " " + a[0]; }
 
-    /* Accetta gg/mm/aaaa (anche con . - o spazio, anche g/m/aa o ggmmaaaa) e aaaa-mm-gg. "" se vuoto, null se non è una data vera. */
+    /* Accetta la data scritta nell'ordine della lingua (gg/mm/aaaa, mm/gg/aaaa o aaaa/mm/gg; anche con . - o spazio, anche g/m/aa o ggmmaaaa)
+       e sempre aaaa-mm-gg. "" se vuoto, null se non è una data vera. */
     function parseDate(text) {
-        var s = String(text == null ? "" : text).trim(), m, y, mo, d;
+        var s = String(text == null ? "" : text).trim(), m, y, mo, d, o = DT.order;
         if (!s) return "";
-        if ((m = /^(\d{4})-(\d{1,2})-(\d{1,2})$/.exec(s))) { y = +m[1]; mo = +m[2]; d = +m[3]; }
-        else if ((m = /^(\d{1,2})[\/.\-\s](\d{1,2})[\/.\-\s](\d{4}|\d{2})$/.exec(s)) || (m = /^(\d{2})(\d{2})(\d{4}|\d{2})$/.exec(s))) {
-            d = +m[1]; mo = +m[2]; y = +m[3];
+        if ((m = /^(\d{4})[\/.\-\s](\d{1,2})[\/.\-\s](\d{1,2})$/.exec(s)) || (o === "ymd" && (m = /^(\d{4})(\d{2})(\d{2})$/.exec(s)))) { y = +m[1]; mo = +m[2]; d = +m[3]; }
+        else if (o !== "ymd" && ((m = /^(\d{1,2})[\/.\-\s](\d{1,2})[\/.\-\s](\d{4}|\d{2})$/.exec(s)) || (m = /^(\d{2})(\d{2})(\d{4}|\d{2})$/.exec(s)))) {
+            if (o === "mdy") { mo = +m[1]; d = +m[2]; } else { d = +m[1]; mo = +m[2]; }
+            y = +m[3];
             if (m[3].length === 2) y += y < 70 ? 2000 : 1900;
         } else return null;
         return validYmd(y, mo, d) ? isoOf(y, mo, d) : null;
@@ -2666,27 +2781,33 @@
         var tp = raw.length > 10 ? parseTime(raw.slice(11)) : "";
         return d + "T" + (tp || (isMax ? "23:59" : "00:00"));
     }
+    /* "sab", "sat", "Saturday"… → 0 (lunedì) … 6 (domenica), in qualunque lingua caricata; -1 se non è un giorno */
+    function dtDayIndex(w) {
+        var k = String(w).toLowerCase().slice(0, 3), i = DT.days.indexOf(k);
+        for (var c in I18N) if (i < 0 && I18N[c].date && I18N[c].date.days) i = I18N[c].date.days.indexOf(k);
+        return i;
+    }
     /* giorni non selezionabili: "sab,dom,2026-12-25" oppure una funzione (iso) => true */
     function dtDisable(spec) {
         if (typeof spec === "function") return spec;
         var wd = {}, dates = {};
         String(spec || "").split(/[\s,;]+/).forEach(function (w) {
             if (!w) return;
-            var i = DT.days.indexOf(w.toLowerCase().slice(0, 3));
+            var i = dtDayIndex(w);
             if (i >= 0) wd[i] = true; else { var iso = parseDate(w); if (iso) dates[iso] = true; }
         });
         return function (iso) { return !!(wd[dowMon(iso)] || dates[iso]); };
     }
     function dtPreset(key) {
         var t = todayIso(), a = isoParts(t);
-        switch (key) {
-            case "oggi": return [t, t];
-            case "ieri": return [addDays(t, -1), addDays(t, -1)];
+        switch (presetKey(key)) {
+            case "today": return [t, t];
+            case "yesterday": return [addDays(t, -1), addDays(t, -1)];
             case "7": case "30": case "90": return [addDays(t, 1 - +key), t];
-            case "mese": return [monthStart(t), monthEnd(t)];
-            case "mese-scorso": var pm = addMonths(monthStart(t), -1); return [pm, monthEnd(pm)];
-            case "anno": return [isoOf(a[0], 1, 1), isoOf(a[0], 12, 31)];
-            case "anno-scorso": return [isoOf(a[0] - 1, 1, 1), isoOf(a[0] - 1, 12, 31)];
+            case "month": return [monthStart(t), monthEnd(t)];
+            case "last-month": var pm = addMonths(monthStart(t), -1); return [pm, monthEnd(pm)];
+            case "year": return [isoOf(a[0], 1, 1), isoOf(a[0], 12, 31)];
+            case "last-year": return [isoOf(a[0] - 1, 1, 1), isoOf(a[0] - 1, 12, 31)];
         }
         return null;
     }
@@ -2769,16 +2890,17 @@
             table.setAttribute("role", "grid");
             table.setAttribute("aria-label", title);
             var tr = mkEl("tr");
-            DT.days.forEach(function (d, i) {
-                var th = mkEl("th", "", d);
+            for (var wc = 0; wc < 7; wc++) {
+                var wi = DT.first === 0 ? (wc + 6) % 7 : wc;
+                var th = mkEl("th", "", DT.days[wi]);
                 th.scope = "col";
-                th.abbr = DT.daysLong[i];
+                th.abbr = DT.daysLong[wi];
                 tr.appendChild(th);
-            });
+            }
             var thead = mkEl("thead");
             thead.appendChild(tr);
             table.appendChild(thead);
-            var tbody = mkEl("tbody"), start = addDays(first, -dowMon(first)), today = todayIso(), ym = first.slice(0, 7);
+            var tbody = mkEl("tbody"), start = addDays(first, -dowCol(first)), today = todayIso(), ym = first.slice(0, 7);
             for (var r = 0; r < 6; r++) {
                 var row = mkEl("tr");
                 for (var c = 0; c < 7; c++) {
@@ -2894,7 +3016,7 @@
                 var r = dtPreset(k);
                 if (!r) return;
                 var b = bounds(), from = b.min && r[0] < b.min ? b.min : r[0], to = b.max && r[1] > b.max ? b.max : r[1];
-                var e = mkEl("button", "", DT.presets[k] || k);
+                var e = mkEl("button", "", DT.presets[presetKey(k)] || k);
                 e.type = "button";
                 e.dataset.preset = k;
                 if (from > to) e.disabled = true;
@@ -3197,8 +3319,8 @@
                     case "ArrowRight": n = addDays(d, 1); break;
                     case "ArrowUp": n = addDays(d, -7); break;
                     case "ArrowDown": n = addDays(d, 7); break;
-                    case "Home": n = addDays(d, -dowMon(d)); break;
-                    case "End": n = addDays(d, 6 - dowMon(d)); break;
+                    case "Home": n = addDays(d, -dowCol(d)); break;
+                    case "End": n = addDays(d, 6 - dowCol(d)); break;
                     case "PageUp": n = addMonths(d, e.shiftKey ? -12 : -1); break;
                     case "PageDown": n = addMonths(d, e.shiftKey ? 12 : 1); break;
                 }
@@ -3268,7 +3390,7 @@
     }
     function dtValidate(s) {
         var T = DT.t, msg = "", v = s.value;
-        if (s.bad) msg = s.kind === "time" ? T.invalidTime : s.kind === "datetime" ? T.invalidDT : T.invalid;
+        if (s.bad) msg = (s.kind === "time" ? T.invalidTime : s.kind === "datetime" ? T.invalidDT : T.invalid).replace("{f}", s.kind === "time" ? T.phTime : s.kind === "datetime" ? T.phDT : T.phDate);
         else if (v) {
             var mn = s.min(), mx = s.max();
             if (mn && v < mn) msg = T.min.replace("{d}", s.fmt(mn));
@@ -3300,7 +3422,7 @@
     /* Collega uno o due campi (slots) a un popup. host = elemento che contiene i campi e il bottone. */
     function dtMount(host, slots, mode, o) {
         var s0 = slots[0], d = (mode === "range" ? host : s0.input).dataset, field = { el: host, silent: false };
-        var presets = o.presets != null ? o.presets : d.kitPresets != null ? d.kitPresets : "7,30,mese,mese-scorso,anno";
+        var presets = o.presets != null ? o.presets : d.kitPresets != null ? d.kitPresets : "7,30,month,last-month,year";
         if (typeof presets === "string") presets = /^(none|no|nessuno)$/i.test(presets.trim()) ? [] : presets.split(/[\s,;]+/).filter(Boolean);
         var stepRaw = o.step || parseInt(d.kitStep, 10) || (s0.input.step ? Math.round(parseFloat(s0.input.step) / 60) : 0) || 1;
         var disable = dtDisable(o.disable != null ? o.disable : d.kitDisable);
@@ -3499,7 +3621,7 @@
         var show = inp.type === "password";
         inp.type = show ? "text" : "password";
         b.setAttribute("aria-pressed", String(show));
-        b.setAttribute("aria-label", show ? (b.getAttribute("data-kit-label-hide") || "Nascondi la password") : (b.getAttribute("data-kit-label-show") || "Mostra la password"));
+        b.setAttribute("aria-label", show ? (b.getAttribute("data-kit-label-hide") || t("password.hide")) : (b.getAttribute("data-kit-label-show") || t("password.show")));
     });
 
     function counterUpdate(c) {
@@ -3646,7 +3768,7 @@
         scope.querySelectorAll("[data-kit-password]").forEach(function (b) {
             if (b.tagName === "BUTTON" && !b.getAttribute("type")) b.type = "button";
             if (!b.hasAttribute("aria-pressed")) b.setAttribute("aria-pressed", "false");
-            if (!b.hasAttribute("aria-label")) b.setAttribute("aria-label", b.getAttribute("data-kit-label-show") || "Mostra la password");
+            if (!b.hasAttribute("aria-label")) b.setAttribute("aria-label", b.getAttribute("data-kit-label-show") || t("password.show"));
         });
         var forms = Array.prototype.slice.call(scope.querySelectorAll("form[data-kit-validate]"));
         if (scope instanceof HTMLFormElement && scope.hasAttribute("data-kit-validate")) forms.push(scope);
@@ -3799,5 +3921,5 @@
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { init(); });
     else init();
 
-    window.Kit = { theme: theme, layout: layout, sidebar: sidebar, fontSize: fontSize, reset: reset, toast: toast, undo: undo, confirm: confirmDialog, split: split, file: fileField, progress: progressDialog, combo: combo, select: nativeSelect, code: code, highlight: highlight, barChart: barChart, lineChart: lineChart, donut: donut, sparkline: sparkline, table: tblTable, paginate: tblPaginate, accordion: accordion, meter: meter, datepicker: datePicker, daterange: dateRange, validate: valForm, date: { parse: parseDate, parseTime: parseTime, format: fmtDate, today: todayIso, labels: DT }, init: init };
+    window.Kit = { i18n: i18n, theme: theme, layout: layout, sidebar: sidebar, fontSize: fontSize, reset: reset, toast: toast, undo: undo, confirm: confirmDialog, split: split, file: fileField, progress: progressDialog, combo: combo, select: nativeSelect, code: code, highlight: highlight, barChart: barChart, lineChart: lineChart, donut: donut, sparkline: sparkline, table: tblTable, paginate: tblPaginate, accordion: accordion, meter: meter, datepicker: datePicker, daterange: dateRange, validate: valForm, date: { parse: parseDate, parseTime: parseTime, format: fmtDate, today: todayIso, labels: DT }, init: init };
 })();

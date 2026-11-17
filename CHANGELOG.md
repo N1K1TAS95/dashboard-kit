@@ -1,5 +1,9 @@
 # Changelog
 
+## Non rilasciato
+
+- **Lingue** (`Kit.i18n`): i testi che `kit.js` scrive da solo vengono da un dizionario per lingua, **inglese** (di base) e **italiano**, scelti da `<html lang>`. **Attenzione, cambia il comportamento di base**: una pagina senza `lang` ora ha i testi in inglese («Cancel», «No results»); per l'italiano serve `<html lang="it">`. `Kit.i18n.lang(codice)` fissa la lingua a mano, `Kit.i18n.add(codice, dizionario)` ne aggiunge una (anche solo con ciò che cambia: `pt-BR` ricade su `pt`, poi su `en`), `Kit.i18n.t(chiave)` legge una voce; attributi e opzioni (`data-kit-empty`, `{ cancel }`, …) vincono sempre. Seguono la lingua anche l'ordine della data (`mm/gg/aaaa` o `gg/mm/aaaa`), il primo giorno della settimana nel calendario, il separatore decimale con cui si ordinano le colonne numeriche e la dimensione dei file. I periodi dell'intervallo hanno nomi inglesi (`today`, `yesterday`, `month`, `last-month`, `year`, `last-year`); i vecchi nomi italiani funzionano ancora, e `data-kit-disable` riconosce i giorni in tutte le lingue caricate. Nuova sezione «Lingue» nella pagina JavaScript.
+
 ## 0.10.0 — 17 novembre 2026
 
 - Meter (`kit-meter`): una misura rispetto a un limite (spazio usato, quota, punteggio), diversa dalla barra di avanzamento perché il colore dice il livello: `is-success`, `is-warning`, `is-danger` (di base il colore d'accento), `kit-meter-sm|lg`, `kit-meter-head` per nome e valore sopra la barra. Solo CSS per il rendering lato server, con `role="meter"` e `aria-value*`. Con `data-kit-meter` (`data-kit-value`, `-min`, `-max`, `-warn`, `-danger`, `-good="high"` per i punteggi) `kit.js` scrive larghezza, ARIA e colore, anche sui frammenti htmx. `Kit.meter(elemento, opzioni)` restituisce `{ set, value, state }`. Snippet `kit-meter`. Nuova sezione «Meter» nella pagina Feedback.
