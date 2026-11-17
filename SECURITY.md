@@ -1,22 +1,24 @@
-# Sicurezza
+# Security
 
-## Segnalare una vulnerabilità
+[Italiano](SECURITY.it.md)
 
-Non aprire una issue pubblica. Usa la segnalazione privata di GitHub:
-**Security → Report a vulnerability** nella pagina della repo
+## Reporting a vulnerability
+
+Do not open a public issue. Use GitHub's private reporting:
+**Security → Report a vulnerability** on the repository page
 (https://github.com/N1K1TAS95/dashboard-kit/security/advisories/new).
 
-Risposta indicativa entro qualche giorno. È un progetto personale, senza garanzie di tempi.
+Expect a reply within a few days. This is a personal project, with no guaranteed response times.
 
-## Cosa è coperto
+## What is covered
 
-Il kit è solo CSS e JavaScript lato browser, senza dipendenze né richieste di rete.
-`kit.js` non usa `innerHTML`, `eval` né script inline, ed è pensato per funzionare con
-una Content-Security-Policy rigida.
+The kit is only browser-side CSS and JavaScript, with no dependencies and no network requests.
+`kit.js` does not use `innerHTML`, `eval` or inline scripts, and is designed to work with a strict
+Content-Security-Policy.
 
-## Versioni e integrità
+## Versions and integrity
 
-- I tag `v*` sono immutabili: la repo ne vieta lo spostamento e la cancellazione.
-- Usa sempre una versione fissata nell'URL del CDN e l'attributo `integrity` (SRI)
-  riportato nel README. Gli hash si ricalcolano con `./sri.sh`.
-- Evita `@main` o `@latest`: non sono immutabili.
+- `v*` tags are immutable: the repository forbids moving or deleting them.
+- Always pin a version in the CDN URL and use the `integrity` attribute (SRI)
+  shown in the README. Hashes are recomputed with `./sri.sh`.
+- Avoid `@main` or `@latest`: they are not immutable.

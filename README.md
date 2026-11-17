@@ -1,31 +1,34 @@
 # Dashboard Kit
 
-Framework CSS (+ JS opzionale) per dashboard, estratto da *Fatture Elettroniche Explorer*.
-Un file CSS, nessuna dipendenza, nessuna build. Tema chiaro e scuro con `light-dark()`.
+[Italiano](README.it.md) · [Changelog](CHANGELOG.md) · [Security](SECURITY.md)
 
-## Uso
+A CSS framework (+ optional JavaScript) for dashboards, extracted from *Fatture Elettroniche Explorer*.
+One CSS file, no dependencies, no build step. Light and dark themes with `light-dark()`.
+Built-in texts in English and Italian, with a dictionary you can extend to any language (see [Languages](#languages)).
 
-Da CDN (jsDelivr), fissando sempre una versione:
+## Usage
+
+From a CDN (jsDelivr), always pinning a version:
 
 ```html
 <link rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.10.0/dist/kit.css"
       integrity="sha384-znCaG7h9kJLl62DAiNyMb9OH8yUsmerFcqlRH1huU4THVZIEyiT8s07zyKW3j/bK"
       crossorigin="anonymous">
-<!-- opzionale: tema, select, popover, tab, dialog, toast -->
+<!-- optional: theme, select, popover, tabs, dialog, toast -->
 <script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.10.0/dist/kit.js"
         integrity="sha384-fbNechVbNbbPmseKnAJ62Qb2vL1czSfMXDSfKv712orjPLaZzs9Ju6XQRPJ2IGMn"
         crossorigin="anonymous"></script>
-<!-- opzionale: le icone (sprite SVG inserito nella pagina) -->
+<!-- optional: the icons (an SVG sprite inserted into the page) -->
 <script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.10.0/dist/kit-icons.js"
         integrity="sha384-PCYmDMAsjPbQ1IBjABjLf51f2PwcqnPNlvwglhokh27UvWcJlz3wV1806KXPWgfH"
         crossorigin="anonymous"></script>
 ```
 
-L'attributo `integrity` (SRI) fa rifiutare al browser un file diverso da quello atteso. Vale solo per la versione indicata:
-a ogni nuova versione l'hash cambia. Per ricalcolarlo: `./sri.sh`.
+The `integrity` attribute (SRI) makes the browser reject a file different from the expected one. It only holds for the
+version in the URL: the hash changes with every release. To recompute it: `./sri.sh`.
 
-Oppure in locale, copiando i file di `dist/`:
+Or locally, by copying the files in `dist/`:
 
 ```html
 <link rel="stylesheet" href="dist/kit.css">
@@ -33,21 +36,42 @@ Oppure in locale, copiando i file di `dist/`:
 <script src="dist/kit-icons.js"></script>
 ```
 
-Se il sito ha una Content-Security-Policy, ricordati di autorizzare `https://cdn.jsdelivr.net`
-in `style-src` e `script-src`.
+If your site has a Content-Security-Policy, remember to allow `https://cdn.jsdelivr.net`
+in `style-src` and `script-src`.
 
-**Documentazione:** https://n1k1tas95.github.io/dashboard-kit/ (in locale: `docs/index.html`), con una pagina per argomento:
-introduzione, JavaScript, layout, griglia, utility, bottoni, form, navigazione, navbar, sidebar, schede, tabelle, contenuti, feedback (avvisi, badge),
-dialog e menu, icone, temi e token, snippet VS Code. Ogni esempio ha il suo codice da copiare.
+**Documentation:** https://n1k1tas95.github.io/dashboard-kit/ (locally: `docs/index.html`), one page per topic:
+introduction, JavaScript, layout, grid, utilities, buttons, forms, navigation, navbar, sidebar, tabs, tables, content, feedback (alerts, badges),
+dialogs and menus, icons, themes and tokens, VS Code snippets. Every example has its copyable code.
+*The documentation is currently in Italian; the English translation is in progress. Class names, attributes and code are the same in both.*
 
-## Larghezza del contenuto
-`kit-container` è centrato (largo al massimo `--kit-container-w`, di base 1200px); `kit-container-fluid` è sempre a tutta
-larghezza e `kit-container-boxed` è sempre centrato. L'interruttore globale `<html data-layout="boxed|fluid">` decide per tutti
-i `kit-container`; con `kit.js` l'utente lo cambia da un bottone (`data-kit-layout-toggle`, `Kit.layout.set("fluid")`) e la scelta
-viene ricordata. Un `kit-container` dentro `kit-header` allinea l'intestazione al contenuto.
+## Languages
 
-## Griglia
-Griglia a 12 colonne con flexbox, con gli stessi nomi di Bootstrap (prefisso `kit-`):
+The texts `kit.js` writes by itself (button labels, ARIA labels, "No results", pagination, the calendar) come from a
+dictionary per language. English (the default) and Italian are built in. The language is the one in `<html lang="…">`;
+without it, English is used.
+
+```html
+<html lang="it">   <!-- Italian texts, dd/mm/yyyy dates, weeks starting on Monday -->
+```
+
+```js
+Kit.i18n.lang("it");                                   // set it by hand
+Kit.i18n.add("de", { cancel: "Abbrechen", noResults: "Keine Ergebnisse" });   // add a language (only what differs; the rest falls back to English)
+Kit.i18n.add("en-GB", { date: { order: "dmy", first: 1 } });                 // a regional variant
+```
+
+The language also drives the date order, the first day of the week, and the decimal separator used to sort
+numeric table columns. Attributes and options (`data-kit-empty`, `Kit.confirm(…, { cancel })`) always win over the dictionary.
+Translations of other languages are welcome as pull requests: the full model is the `I18N.en` object at the top of `dist/kit.js`.
+
+## Content width
+`kit-container` is centered (at most `--kit-container-w` wide, 1200px by default); `kit-container-fluid` is always full
+width and `kit-container-boxed` is always centered. The global switch `<html data-layout="boxed|fluid">` decides for all
+`kit-container`s; with `kit.js` the user changes it from a button (`data-kit-layout-toggle`, `Kit.layout.set("fluid")`) and the
+choice is remembered. A `kit-container` inside `kit-header` aligns the header with the content.
+
+## Grid
+A 12-column flexbox grid, with the same names as Bootstrap (prefix `kit-`):
 
 ```html
 <div class="kit-row">
@@ -56,37 +80,39 @@ Griglia a 12 colonne con flexbox, con gli stessi nomi di Bootstrap (prefisso `ki
 </div>
 ```
 
-- Breakpoint (mobile first): `sm` 576, `md` 768, `lg` 992, `xl` 1200.
-- Colonne: `kit-col`, `kit-col-auto`, `kit-col-N`, `kit-col-{bp}-N`; `kit-row-cols-N`; `kit-offset-N`; `kit-order-*`.
-- Gutter: `kit-g-0…5`, `kit-gx-*`, `kit-gy-*`. Di base seguono `--kit-sp`.
-- Tipografia: titoli, `kit-display-*`, `kit-lead`, `kit-quote`, `kit-prose` e utility `kit-fs-*`, `kit-fw-*`, `kit-lh-*`, `kit-uppercase`.
-- Utility flex e spazi: `kit-d-*`, `kit-flex-*`, `kit-justify-content-*`, `kit-align-items-*`, `kit-gap-*`, `kit-m*-N`, `kit-p*-N`, `kit-w-100`, `kit-h-100`.
-- `kit-bar` è la barra di elementi affiancati (toolbar), diversa da `kit-row` della griglia.
-- Un esempio completo è in `docs/dashboard.html`.
+- Breakpoints (mobile first): `sm` 576, `md` 768, `lg` 992, `xl` 1200.
+- Columns: `kit-col`, `kit-col-auto`, `kit-col-N`, `kit-col-{bp}-N`; `kit-row-cols-N`; `kit-offset-N`; `kit-order-*`.
+- Gutters: `kit-g-0…5`, `kit-gx-*`, `kit-gy-*`. By default they follow `--kit-sp`.
+- Typography: headings, `kit-display-*`, `kit-lead`, `kit-quote`, `kit-prose` and the utilities `kit-fs-*`, `kit-fw-*`, `kit-lh-*`, `kit-uppercase`.
+- Flex and spacing utilities: `kit-d-*`, `kit-flex-*`, `kit-justify-content-*`, `kit-align-items-*`, `kit-gap-*`, `kit-m*-N`, `kit-p*-N`, `kit-w-100`, `kit-h-100`.
+- `kit-bar` is the row of side-by-side elements (a toolbar), different from the grid's `kit-row`.
+- A complete example is in `docs/dashboard.html`.
 
-Il blocco della griglia in `dist/kit.css` è **generato**: per cambiare breakpoint, scala degli spazi o numero di colonne
-modifica le costanti in `tools/gen-grid.py` e lancia `python3 tools/gen-grid.py`.
+The grid block in `dist/kit.css` is **generated**: to change breakpoints, the spacing scale or the number of columns,
+edit the constants in `tools/gen-grid.py` and run `python3 tools/gen-grid.py`.
 
-## Lavorare sul progetto
-- `dist/kit.css`, `dist/kit.js`: il framework, scritto a mano (tranne il blocco della griglia, vedi sopra).
-- `docs/src/*.html`: il **contenuto** delle pagine di documentazione. Le pagine in `docs/*.html` sono **generate**:
-  dopo una modifica lancia `python3 tools/gen-docs.py` (aggiunge menu, indici, link avanti/indietro, tabelle dei token e degli
-  snippet, e gli hash SRI della versione indicata in `VERSION`).
-- Per aggiungere una pagina: crea `docs/src/nome.html` con le righe `<!--title: …-->` e `<!--desc: …-->` e inseriscila in `NAV`
-  dentro `tools/gen-docs.py`.
-- Gli esempi sono `<div class="doc-demo">…</div>`: il codice sotto si genera da solo dal loro contenuto.
+## Working on the project
+- `dist/kit.css`, `dist/kit.js`: the framework, written by hand (except the grid block, see above).
+- `docs/src/*.html`: the **content** of the documentation pages. The pages in `docs/*.html` are **generated**:
+  after a change run `python3 tools/gen-docs.py` (it adds the menu, indexes, previous/next links, the token and
+  snippet tables, and the SRI hashes of the version set in `VERSION`).
+- To add a page: create `docs/src/name.html` with the lines `<!--title: …-->` and `<!--desc: …-->` and add it to `NAV`
+  in `tools/gen-docs.py`.
+- Examples are `<div class="doc-demo">…</div>`: the code below is generated from their content.
 
-## Cosa c'è
-Layout (header, container, grid, split), navbar (voci, menu a tendina, menu a scomparsa), card, schede KPI, bottoni, form, segmented, pill, chip, badge,
-tab, statistiche, tabella, stati vuoti, chiave/valore, progress, select, combobox con suggerimenti, campo file e zona di rilascio, avanzamento, grafici (barre, linee, ciambella, sparkline), popover/menu,
-drawer, pannello affiancato, dialog (anche di conferma), toast con annulla, utility.
+## What's included
+Layout (header, container, grid, split), navbar (items, dropdown menus, collapsible menu), cards, KPI cards, buttons, forms, segmented controls, pills, chips, badges,
+tabs, statistics, tables (sorting, filtering, pagination, sticky header and columns), empty states, key/value lists, progress and meter, select, combobox with suggestions,
+date and time pickers, file field and drop zone, full-screen progress, charts (bars, lines, donut, sparkline), popovers/menus,
+drawer, side panel, dialogs (including confirmation), toasts with undo, accordion, breadcrumb, sidebar, utilities.
 
-## Personalizzare
-Tutto passa dai token `--kit-*` (colori, `--kit-sp`, `--kit-rad`, `--kit-rad-sm`, `--kit-row`, `--kit-ctl`…):
-sovrascrivili in `:root`. Tema forzato con `<html data-theme="light|dark">`.
+## Customizing
+Everything goes through the `--kit-*` tokens (colors, `--kit-sp`, `--kit-rad`, `--kit-rad-sm`, `--kit-row`, `--kit-ctl`…):
+override them in `:root`. Force a theme with `<html data-theme="light|dark">`.
 
-## Compatibilità
-`light-dark()` richiede Chrome/Edge 123+, Safari 17.5+, Firefox 120+.
+## Compatibility
+`light-dark()` requires Chrome/Edge 123+, Safari 17.5+, Firefox 120+.
 
-## Sicurezza
-Il JS non usa `innerHTML`, `eval` né script inline: funziona con `script-src 'self'`.
+## Security
+The JS does not use `innerHTML`, `eval` or inline scripts: it works with `script-src 'self'`.
+To report a vulnerability see [SECURITY.md](SECURITY.md).
