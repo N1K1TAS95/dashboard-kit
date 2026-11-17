@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Genera la griglia a 12 colonne e le utility flex in dist/kit.css.
+"""Generates the 12-column grid and the flex utilities in dist/kit.css.
 
-Riscrive solo il blocco tra `/* grid:start */` e `/* grid:end */`.
-Uso:  python3 tools/gen-grid.py
-Per cambiare breakpoint, scala degli spazi o numero di colonne modifica le costanti qui sotto.
+Rewrites only the block between `/* grid:start */` and `/* grid:end */`.
+Usage:  python3 tools/gen-grid.py
+To change the breakpoints, the spacing scale or the number of columns, edit the constants below.
 """
 import pathlib
 import re
@@ -12,9 +12,9 @@ import sys
 CSS = pathlib.Path(__file__).resolve().parent.parent / "dist" / "kit.css"
 
 COLUMNS = 12
-# Stessi breakpoint di Bootstrap (min-width, mobile first). La base (senza sigla) vale da 0px.
+# Same breakpoints as Bootstrap (min-width, mobile first). The base (no suffix) applies from 0px.
 BREAKPOINTS = [("sm", 576), ("md", 768), ("lg", 992), ("xl", 1200)]
-# Scala degli spazi (m-*, p-*, g-*, gap-*): 0..5, come in Bootstrap ma in px.
+# Spacing scale (m-*, p-*, g-*, gap-*): 0..5, as in Bootstrap but in px.
 SPACES = {0: "0", 1: "4px", 2: "8px", 3: "16px", 4: "24px", 5: "48px"}
 
 JUSTIFY = {"start": "flex-start", "end": "flex-end", "center": "center",
@@ -35,7 +35,7 @@ def rule(sel, decl):
 
 
 def breakpoint_rules(i):
-    """Regole che esistono in versione base e in versione per breakpoint. i = '' oppure '-md'."""
+    """Rules that exist in a base version and in a per-breakpoint version. i = '' or '-md'."""
     out = []
     out.append(rule(f".kit-col{i}", "flex:1 0 0%"))
     for n in range(1, 7):
@@ -64,10 +64,10 @@ def breakpoint_rules(i):
 
 def build():
     L = []
-    L.append("/* Colonne: 12 per riga, breakpoint sm 576 / md 768 / lg 992 / xl 1200 (mobile first). */")
+    L.append("/* Columns: 12 per row, breakpoints sm 576 / md 768 / lg 992 / xl 1200 (mobile first). */")
     L.append(":root{" + ";".join(f"--kit-s{n}:{v}" for n, v in SPACES.items()) + "}")
 
-    # Riga e colonne di base. I gutter (--kit-gx/--kit-gy) seguono --kit-sp, quindi si stringono sul telefono.
+    # Base row and columns. The gutters (--kit-gx/--kit-gy) follow --kit-sp, so they tighten on phones.
     L.append(rule(".kit-row",
                   "--kit-gx:var(--kit-sp);--kit-gy:var(--kit-sp);display:flex;flex-wrap:wrap;"
                   "margin-top:calc(var(--kit-gy)*-1);margin-inline:calc(var(--kit-gx)*-.5)"))
@@ -84,8 +84,8 @@ def build():
         L.extend("  " + r for r in breakpoint_rules(f"-{name}"))
         L.append("}")
 
-    # Utility solo base (senza versione per breakpoint)
-    L.append("/* Utility flex e spazi (senza breakpoint) */")
+    # Base-only utilities (no per-breakpoint version)
+    L.append("/* Flex and spacing utilities (no breakpoint) */")
     for k, v in ALIGN.items():
         L.append(rule(f".kit-align-self-{k}", f"align-self:{v}!important"))
     L.append(rule(".kit-align-self-auto", "align-self:auto!important"))
@@ -123,12 +123,12 @@ def main():
     css = CSS.read_text(encoding="utf-8")
     pat = re.compile(r"/\* grid:start \*/.*?/\* grid:end \*/", re.S)
     if not pat.search(css):
-        sys.exit("Segnaposto /* grid:start */ ... /* grid:end */ non trovati in dist/kit.css")
+        sys.exit("Placeholders /* grid:start */ ... /* grid:end */ not found in dist/kit.css")
     new = pat.sub(lambda m: "/* grid:start */\n" + build() + "\n/* grid:end */", css)
     if new != css:
         CSS.write_text(new, encoding="utf-8")
     n = new.count("\n")
-    print(f"ok: {CSS.relative_to(CSS.parent.parent)} ({len(new.encode('utf-8')) / 1024:.1f} KB, {n} righe)")
+    print(f"ok: {CSS.relative_to(CSS.parent.parent)} ({len(new.encode('utf-8')) / 1024:.1f} KB, {n} lines)")
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
-// Solo per la documentazione, non fa parte del framework.
+// Only for the documentation, not part of the framework.
 
-/* ---------- Testi della documentazione, per lingua (quella di <html lang>) ----------
-   Gli esempi di grafici e combobox (più sotto) usano ancora dati in italiano: si traducono insieme alle loro pagine. */
+/* ---------- Documentation texts, per language (that of <html lang>) ----------
+   The chart and combobox examples (further down) take their texts and formats from the page language. */
 var DOC_T = {
     en: {
         lang: "en", code: "Code", copy: "Copy", copied: "Copied", copyFail: "Copy failed", page: "Page", showPages: "Show the pages", more: "{n} more results: type more to narrow down",
@@ -29,15 +29,15 @@ function D(key, vars) {
     return String(DOC_T[l][key]).replace(/\{(\w+)\}/g, function (m, n) { return vars && vars[n] !== undefined ? vars[n] : m; });
 }
 
-/* ---------- Snippet: il codice di ogni esempio, generato dalla pagina stessa ----------
-   Va eseguito PRIMA che kit.js inizializzi la pagina (DOMContentLoaded), altrimenti
-   nel codice mostrato finirebbero gli attributi aggiunti a runtime (role, aria-selected…).
+/* ---------- Snippets: the code of each example, generated from the page itself ----------
+   It must run BEFORE kit.js initializes the page (DOMContentLoaded), otherwise
+   the attributes added at runtime (role, aria-selected…) would end up in the code shown.
 
-   Un esempio è un <div class="doc-demo">: si mostra il suo contenuto. Attributi opzionali:
-     data-doc-include="#id"   aggiunge al codice anche un altro elemento (es. un <dialog>)
-     data-doc-js="codice"     aggiunge una riga di JavaScript d'esempio
-     data-doc-nocode          nessuno snippet sotto l'esempio
-   Gli id che iniziano con "doc-" servono solo all'esempio e si tolgono dal codice. */
+   An example is a <div class="doc-demo">: its content is shown. Optional attributes:
+     data-doc-include="#id"   also adds another element to the code (e.g. a <dialog>)
+     data-doc-js="code"       adds a line of example JavaScript
+     data-doc-nocode          no snippet under the example
+   Ids that start with "doc-" are only for the example and are removed from the code. */
 (function () {
     function dedent(text) {
         var lines = text.replace(/\t/g, "    ").split("\n");
@@ -55,7 +55,7 @@ function D(key, vars) {
         return html
             .replace(/\s+id="doc-[^"]*"/g, "")
             .replace(/<use href="([^"]*)"><\/use>/g, '<use href="$1"/>')
-            // il browser scrive gli attributi senza valore come attr="": si riportano come nel sorgente
+            // the browser writes valueless attributes as attr="": they are reported as in the source
             .replace(/\s(data-kit-[a-z-]+|disabled|hidden|checked|open)=""/g, " $1")
             .replace(/\s+data-doc-[a-z]+="[^"]*"/g, "");
     }
@@ -102,9 +102,9 @@ function D(key, vars) {
 
         var pre = document.createElement("pre");
         pre.className = "kit-code";
-        pre.setAttribute("data-kit-code", "");              // kit.js colora il codice (lo fa in init, dopo questo script)
+        pre.setAttribute("data-kit-code", "");              // kit.js colors the code (it does so in init, after this script)
         var c = document.createElement("code");
-        c.textContent = code;                              // textContent: il codice si mostra, non si esegue
+        c.textContent = code;                              // textContent: the code is shown, not run
         pre.appendChild(c);
         box.appendChild(pre);
 
@@ -112,7 +112,7 @@ function D(key, vars) {
     });
 })();
 
-/* ---------- Menu laterale: aperto su schermi larghi, chiuso sul telefono ---------- */
+/* ---------- Side menu: open on wide screens, closed on the phone ---------- */
 (function () {
     var d = document.querySelector(".doc-nav-d");
     if (!d || !window.matchMedia) return;
@@ -122,8 +122,8 @@ function D(key, vars) {
     if (mq.addEventListener) mq.addEventListener("change", sync);
 })();
 
-/* ---------- Interazioni degli esempi ---------- */
-// <button data-doc-toast="testo">: mostra un toast. Opzioni facoltative: data-doc-type, -title, -duration, -pos, -action
+/* ---------- Interactions of the examples ---------- */
+// <button data-doc-toast="text">: shows a toast. Optional options: data-doc-type, -title, -duration, -pos, -action
 document.addEventListener("click", function (e) {
     if (e.target instanceof Element && e.target.closest("[data-doc-toast-clear]") && window.Kit) { Kit.toast.clear(); return; }
     var t = e.target instanceof Element && e.target.closest("[data-doc-toast]");
@@ -137,7 +137,7 @@ document.addEventListener("click", function (e) {
     Kit.toast(t.getAttribute("data-doc-toast"), o);
 });
 
-// <button data-doc-run="nome">: esegue l'esempio con quel nome (il codice mostrato sotto l'esempio è quello di data-doc-js)
+// <button data-doc-run="name">: runs the example with that name (the code shown under the example is that of data-doc-js)
 var DOC_RUN = {
     "confirm-base": function () {
         Kit.confirm(D("archive"), { text: D("archiveText"), confirm: D("archiveOk") }).then(function (ok) {
@@ -182,7 +182,7 @@ document.addEventListener("click", function (e) {
     if (b && window.Kit && DOC_RUN[b.getAttribute("data-doc-run")]) DOC_RUN[b.getAttribute("data-doc-run")](b);
 });
 
-// Contenitore con data-doc-seg: una sola voce attiva alla volta (segmented, pill)
+// Container with data-doc-seg: only one active item at a time (segmented, pill)
 document.addEventListener("click", function (e) {
     var box = e.target instanceof Element && e.target.closest("[data-doc-seg]");
     if (!box) return;
@@ -191,13 +191,13 @@ document.addEventListener("click", function (e) {
     box.querySelectorAll("button").forEach(function (x) { x.classList.toggle("is-on", x === b); });
 });
 
-// Chip: un click lo rimuove
+// Chip: a click removes it
 document.addEventListener("click", function (e) {
     var chip = e.target instanceof Element && e.target.closest(".doc-demo .kit-chip");
     if (chip) chip.remove();
 });
 
-// Form di prova negli esempi: l'invio non deve lasciare la pagina (se è valido, un toast lo conferma)
+// Test form in the examples: submitting must not leave the page (if valid, a toast confirms it)
 document.addEventListener("submit", function (e) {
     var f = e.target;
     if (!(f instanceof HTMLFormElement) || !f.closest(".doc-demo")) return;
@@ -205,7 +205,7 @@ document.addEventListener("submit", function (e) {
     if (window.Kit && f.hasAttribute("data-kit-validate")) Kit.toast(D("valid"), { type: "success" });
 });
 
-// Select: mostra il valore scelto nell'elemento [data-doc-out] dello stesso esempio
+// Select: shows the chosen value in the [data-doc-out] element of the same example
 document.addEventListener("kit:change", function (e) {
     var demo = e.target.closest(".doc-demo");
     var out = demo && demo.querySelector("[data-doc-out]");
@@ -214,7 +214,7 @@ document.addEventListener("kit:change", function (e) {
     out.textContent = D("value") + (d.value !== undefined ? d.value || "–" : (d.from || "–") + " → " + (d.to || "–"));
 });
 
-// Testi e formati degli esempi di grafici, nella lingua della pagina
+// Texts and formats of the chart examples, in the page language
 function chartTexts() {
     var it = D("lang") === "it";
     return it ? {
@@ -234,7 +234,7 @@ function chartTexts() {
     };
 }
 
-// Esempi che si disegnano da soli al caricamento (data-doc-init="nome"); il codice mostrato è quello di data-doc-js.
+// Examples that draw themselves on load (data-doc-init="name"); the code shown is that of data-doc-js.
 var DOC_INIT = {
     "combo-js": function (demo) {
         var it = D("lang") === "it";
@@ -302,7 +302,7 @@ if (window.Kit) document.querySelectorAll("[data-doc-init]").forEach(function (d
     if (f) f(d);
 });
 
-// Campo file e zona di rilascio: riassunto di ciò che è stato scelto
+// File field and drop zone: summary of what was chosen
 document.addEventListener("kit:files", function (e) {
     var demo = e.target.closest(".doc-demo");
     var out = demo && demo.querySelector("[data-doc-out]");
@@ -311,7 +311,7 @@ document.addEventListener("kit:files", function (e) {
     out.textContent = (n ? n + (n === 1 ? D("filesOne") : D("filesMany")) : D("filesNone")) + (r ? D(r === 1 ? "rejected1" : "rejected", { n: r }) : "") + ".";
 });
 
-// Ricerca: l'indice (search-index.js) lo genera tools/gen-docs.py. Il campo è un combobox del kit.
+// Search: the index (search-index.js) is generated by tools/gen-docs.py. The field is a kit combobox.
 (function () {
     var wrap = document.querySelector(".doc-search");
     var data = window.DOC_SEARCH;

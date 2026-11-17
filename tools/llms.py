@@ -1,9 +1,9 @@
-"""Conversione delle pagine della documentazione (HTML) in Markdown pulito, per llms-full.txt."""
+"""Converts the documentation pages (HTML) into clean Markdown, for llms-full.txt."""
 import html
 import re
 from html.parser import HTMLParser
 
-BASE = "https://n1k1tas95.github.io/dashboard-kit/en/"   # i link relativi diventano assoluti
+BASE = "https://n1k1tas95.github.io/dashboard-kit/en/"   # relative links become absolute
 SKIP = {"script", "style", "svg", "nav", "button"}
 VOID = {"br", "hr", "img", "input", "meta", "link", "source", "wbr", "col"}
 
@@ -15,13 +15,13 @@ class Conv(HTMLParser):
         self.lines = [0]
         for l in src.split("\n"):
             self.lines.append(self.lines[-1] + len(l) + 1)
-        self.out = []            # blocchi di testo già pronti
-        self.inline = []         # testo della riga in corso
+        self.out = []            # ready text blocks
+        self.inline = []         # text of the current line
         self.skip = 0
-        self.pre = None          # [lingua, testo]
-        self.demo = None         # [profondità div, inizio, nocode]
-        self.depth = 0           # profondità dei div
-        self.list = []           # pila di "ul"/"ol" con contatore
+        self.pre = None          # [language, text]
+        self.demo = None         # [div depth, start, nocode]
+        self.depth = 0           # depth of the divs
+        self.list = []           # stack of "ul"/"ol" with a counter
         self.link = None
         self.table = None
         self.cell = None
@@ -174,6 +174,6 @@ def to_markdown(body):
     c.feed(body)
     c.flush()
     text = "\n\n".join(c.out)
-    # le liste sono righe consecutive: niente riga vuota tra voci
+    # list items are consecutive lines: no blank line between them
     text = re.sub(r"\n\n(?=\s*(?:- |\d+\. ))", "\n", text)
     return re.sub(r"\n{3,}", "\n\n", text).strip() + "\n"

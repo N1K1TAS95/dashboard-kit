@@ -1725,7 +1725,7 @@ Sprites cannot be loaded from another domain with a `<use>` that points to an SV
 
 ```html
 <script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.10.0/dist/kit-icons.js"
-        integrity="sha384-PCYmDMAsjPbQ1IBjABjLf51f2PwcqnPNlvwglhokh27UvWcJlz3wV1806KXPWgfH"
+        integrity="sha384-HrtxdGgc5dQOvkslXHapNsTNVhGGEfQ6FWYOn5zdFAIrc/6z/AbizR+W6xdilWS9"
         crossorigin="anonymous"></script>
 ```
 
@@ -1771,12 +1771,12 @@ From a CDN (jsDelivr), with the version pinned and the `integrity` attribute (SR
 ```html
 <link rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.10.0/dist/kit.css"
-      integrity="sha384-znCaG7h9kJLl62DAiNyMb9OH8yUsmerFcqlRH1huU4THVZIEyiT8s07zyKW3j/bK"
+      integrity="sha384-flHcugC+WKOUnwwpKWBOz1NfTI9YGzvr/CEhee+U8grg6ubFZrju73vktxW/X6pD"
       crossorigin="anonymous">
 
 <!-- optional: theme, select, tabs, dialog, menus, toasts -->
 <script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.10.0/dist/kit.js"
-        integrity="sha384-dQ6RqrVbs6Kazmd+St8NrRXdUQVsrqThJfMmnfZsbiTk7FHoqOtvdeItwIwymvd6"
+        integrity="sha384-IGecUNGrLObq9ztV4j/moQcaSJDh9Z0qlwCdHrGDidJf7wz9mMOZjSHTRUFNrua4"
         crossorigin="anonymous"></script>
 ```
 

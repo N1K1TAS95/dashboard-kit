@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
-"""Genera le pagine della documentazione in docs/<lingua>/*.html da docs/src/<lingua>/*.html (en, it).
+"""Generates the documentation pages in docs/<lang>/*.html from docs/src/<lang>/*.html (en, it).
 
-Ogni file in docs/src/ è solo il CONTENUTO di una pagina, con due righe iniziali:
-    <!--title: Titolo-->
-    <!--desc: Frase di presentazione-->
-Lo script aggiunge intestazione, menu laterale (da NAV), indice delle sezioni (dai <h2 id>) e
-link avanti/indietro. Le tabelle dei token e degli snippet si compilano da sole:
-    <!--tokens-->  e  <!--snippets-->
+Each file in docs/src/ is only the CONTENT of a page, with two initial lines:
+    <!--title: Title-->
+    <!--desc: Introductory sentence-->
+The script adds the header, the side menu (from NAV), the section index (from the <h2 id>) and
+previous/next links. The token and snippet tables fill themselves in:
+    <!--tokens-->  and  <!--snippets-->
 
-Uso:  python3 tools/gen-docs.py      (non modificare a mano docs/*.html: si rigenerano)
+Usage:  python3 tools/gen-docs.py      (do not edit docs/*.html by hand: they are regenerated)
+
+It also writes llms.txt, llms-full.txt and kit-components.json in the repository root (see tools/llms.py).
 """
 import base64
 import hashlib
@@ -23,13 +25,13 @@ import icons  # noqa: E402  (tools/icons.py: icone e sprite)
 import llms  # noqa: E402  (tools/llms.py: da HTML a Markdown)
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-VERSION = "0.10.0"   # versione che le istruzioni di installazione indicano (tag v<VERSIONE>)
+VERSION = "0.10.0"   # version the install instructions point to (tag v<VERSION>)
 SRC = ROOT / "docs" / "src"
 OUT = ROOT / "docs"
-LANGS = ["en", "it"]          # la prima è quella di base (la pagina docs/index.html rimanda lì se il browser non è in italiano)
+LANGS = ["en", "it"]          # the first is the base one (docs/index.html redirects there if the browser is not in Italian)
 LANG_NAME = {"en": "English", "it": "Italiano"}
 
-# Testi dell'interfaccia della documentazione (intestazione, menu, tabelle generate), per lingua.
+# Texts of the documentation interface (header, menu, generated tables), per language.
 UI = {
     "en": {
         "search": "Search…", "search_label": "Search the documentation", "settings": "Settings", "theme": "Theme", "auto": "Auto", "light": "Light", "dark": "Dark",
@@ -53,7 +55,7 @@ UI = {
     },
 }
 
-# (gruppo, [(file senza .html, titolo nel menu), ...]) per lingua. Un terzo valore = pagina d'esempio (sta in docs/, non è tradotta).
+# (group, [(file without .html, menu title), ...]) per language. A third value = example page (a static file, copied as it is).
 NAV_IT = [
     ("Per iniziare", [("index", "Introduzione"), ("javascript", "JavaScript")]),
     ("Fondamenta", [("layout", "Layout"), ("grid", "Griglia"), ("utilities", "Utility"), ("typography", "Tipografia"), ("icons", "Icone"), ("buttons", "Bottoni")]),
@@ -75,7 +77,7 @@ NAV_EN = [
     ("Examples", [("dashboard", "Dashboard", "example"), ("dashboard-sidebar", "Dashboard with sidebar", "example")]),
 ]
 NAV = {"en": NAV_EN, "it": NAV_IT}
-PAGES = [p for _, items in NAV_IT for p in items if len(p) == 2]      # le pagine con sorgente (stessi nomi in tutte le lingue)
+PAGES = [p for _, items in NAV_IT for p in items if len(p) == 2]      # the pages with a source (same names in every language)
 PAGE_IDS = [p[0] for p in PAGES]
 
 SPRITE = icons.inline_sprite()
@@ -83,7 +85,7 @@ SPRITE = icons.inline_sprite()
 def header(lang, page):
     u = UI[lang]
     other = "it" if lang == "en" else "en"
-    # la stessa pagina nell'altra lingua, se esiste; altrimenti l'inizio della documentazione in quella lingua
+    # the same page in the other language, if it exists; otherwise the start of the documentation in that language
     target = f"../{other}/{page}.html" if (SRC / other / f"{page}.html").exists() else f"../{other}/index.html"
     return f"""<header class="kit-header">
   <div class="kit-container-boxed">
@@ -174,12 +176,12 @@ def sri(path):
 
 
 def markdown_lite(body):
-    """```lang ... ``` diventa un blocco <pre> con il testo escapato; `x` diventa <code>x</code>.
-    Il resto del file è HTML grezzo e non viene toccato."""
+    """```lang ... ``` becomes a <pre> block with the escaped text; `x` becomes <code>x</code>.
+    The rest of the file is raw HTML and is left untouched."""
     blocks = []
 
     def stash(m):
-        # la lingua dopo i tre apici (html, js, css) serve a kit.js per colorare il codice; senza, la indovina
+        # the language after the three backticks (html, js, css) lets kit.js color the code; without it, it guesses
         blocks.append('<pre class="kit-code" data-kit-code="' + (m.group(1) or "") + '"><code>' + html.escape(m.group(2), quote=False) + "</code></pre>")
         return f"@@BLOCK{len(blocks) - 1}@@"
 
@@ -198,7 +200,7 @@ def toc_for(body):
 
 
 def page_href(lang, page, translated):
-    """Indirizzo di una pagina dal menu: nella stessa lingua se tradotta, altrimenti la versione italiana; gli esempi sono file statici in docs/<lingua>/."""
+    """Address of a page from the menu: in the same language if translated, otherwise the Italian version; the examples are static files in docs/<lang>/."""
     if page in EXAMPLES:
         return f"{page}.html"
     return f"{page}.html" if translated else f"../it/{page}.html"
@@ -339,7 +341,7 @@ def tokens_table(lang):
 def snippets_table(lang):
     u = UI[lang]
     d = json.loads((ROOT / "vscode" / "dashboard-kit.code-snippets").read_text(encoding="utf-8"))
-    # le descrizioni nel file sono in inglese; quelle italiane stanno in tools/snippets.it.json (chiave: nome inglese)
+    # the descriptions in the file are in English; the Italian ones are in tools/snippets.it.json (key: English name)
     it = json.loads((ROOT / "tools" / "snippets.it.json").read_text(encoding="utf-8")) if lang == "it" else {}
     rows = [f'<tr><td><code>{html.escape(v["prefix"])}</code></td><td>{html.escape(it.get(name, v)["description"])}</td></tr>'
             for name, v in sorted(d.items(), key=lambda kv: kv[1]["prefix"])]
@@ -355,7 +357,7 @@ def icons_grid():
 
 
 def plain(fragment):
-    """Testo di un frammento HTML: senza tag, con le entità risolte e gli spazi ridotti."""
+    """Text of an HTML fragment: no tags, entities resolved and whitespace collapsed."""
     fragment = re.sub(r"<(script|style|svg)\b.*?</\1>", " ", fragment, flags=re.S)
     return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", fragment))).strip()
 
@@ -364,8 +366,8 @@ CLASS_RE = re.compile(r"--kit-[a-z0-9-]+|(?:data-)?kit-[a-z0-9-]+|Kit\.[A-Za-z]+
 
 
 def search_entries(page, page_title, desc, body):
-    """Una voce per ogni sezione (h2 e h3 con id) più una per la pagina: [pagina, titolo pagina, id, titolo,
-    testo, classi]. Le classi (kit-*, data-kit-*, --kit-*, Kit.*) sono quelle usate nella sezione."""
+    """One entry for each section (h2 and h3 with an id) plus one for the page: [page, page title, id, title,
+    text, classes]. The classes (kit-*, data-kit-*, --kit-*, Kit.*) are those used in the section."""
     parts = re.split(r'(<h[23] id="[^"]+">.*?</h[23]>)', body, flags=re.S)
     entries = []
 
@@ -389,8 +391,8 @@ SITE = "https://n1k1tas95.github.io/dashboard-kit/"
 
 
 def write_llms(pages):
-    """File per gli agenti e i modelli, solo in inglese: llms.txt (indice), llms-full.txt (tutta la documentazione
-    in Markdown) e kit-components.json (classi, attributi data-kit-*, API JS e variabili CSS di ogni sezione)."""
+    """Files for agents and models, English only: llms.txt (index), llms-full.txt (the whole documentation
+    in Markdown) and kit-components.json (classes, data-kit-* attributes, JS API and CSS variables of each section)."""
     full = ["# Dashboard Kit: full documentation", "",
             f"> Version {VERSION}. Generated from the documentation pages by tools/gen-docs.py: do not edit by hand.",
             f"> Online: {SITE}en/", ""]
@@ -458,11 +460,11 @@ def main():
         found = {f.stem for f in (SRC / lang).glob("*.html")}
         unknown = found - set(PAGE_IDS)
         if unknown:
-            sys.exit(f"[{lang}] sorgenti non in NAV: {sorted(unknown)}")
+            sys.exit(f"[{lang}] sources not in NAV: {sorted(unknown)}")
     it_missing = set(PAGE_IDS) - {f.stem for f in (SRC / "it").glob("*.html")}
     if it_missing:
-        sys.exit(f"Pagine senza sorgente italiano: {sorted(it_missing)}")
-    for old in OUT.glob("*.html"):       # le pagine di prima della divisione in lingue (le pagine d'esempio restano)
+        sys.exit(f"Pages without an Italian source: {sorted(it_missing)}")
+    for old in OUT.glob("*.html"):       # the pages from before the split into languages
         if old.stem in PAGE_IDS and old.stem != "index":
             old.unlink()
     (OUT / "index.html").write_text(REDIRECT, encoding="utf-8")
@@ -472,7 +474,7 @@ def main():
         (OUT / lang).mkdir(exist_ok=True)
         for old in (OUT / lang).glob("*.html"):
             old.unlink()
-        for f in (SRC / "examples" / lang).glob("*.html"):     # le pagine d'esempio sono file statici, copiati così come sono
+        for f in (SRC / "examples" / lang).glob("*.html"):     # the example pages are static files, copied as they are
             shutil.copyfile(f, OUT / lang / f.name)
         have = {f.stem for f in (SRC / lang).glob("*.html")}
         tok_layout, tok_colors = tokens_table(lang)
@@ -486,9 +488,9 @@ def main():
             body = body.replace("<!--icons-->", icons_grid())
             body = body.replace("<!--tokens-layout-->", tok_layout).replace("<!--tokens-colors-->", tok_colors)
             body = body.replace("<!--snippets-->", snippets_table(lang))
-            if lang != "it":    # un link a una pagina non ancora tradotta porta alla versione italiana
+            if lang != "it":    # a link to a page not yet translated leads to the Italian version
                 body = re.sub(r'href="([a-z-]+)\.html', lambda m: m.group(0) if (m.group(1) in have or m.group(1) in EXAMPLES) else 'href="../it/' + m.group(1) + ".html", body)
-            body = body.strip("\n")   # niente rientro: i blocchi <pre> devono restare com'erano
+            body = body.strip("\n")   # no indentation: the <pre> blocks must stay as they were
             page = (PAGE.replace("%%TITLE%%", html.escape(title)).replace("%%DESC%%", desc)
                     .replace("%%DESC_ATTR%%", html.escape(re.sub(r"<[^>]+>", "", desc), quote=True))
                     .replace("%%LANG%%", lang).replace("%%FILE%%", f.stem).replace("%%SPRITE%%", SPRITE).replace("%%HEADER%%", header(lang, f.stem))
@@ -499,7 +501,7 @@ def main():
             if lang == "en":
                 en_pages.append((f.stem, title, desc, body))
         if lang != "it":
-            # le pagine non ancora tradotte si cercano comunque: il risultato porta alla versione italiana
+            # pages not yet translated are still searchable: the result leads to the Italian version
             for f in sorted((SRC / "it").glob("*.html")):
                 if f.stem in have:
                     continue
@@ -511,10 +513,10 @@ def main():
         index.append(["dashboard", "Dashboard", "", "Dashboard", u["ex_dashboard"], "kit-header kit-card kit-kpi kit-table"])
         index.append(["dashboard-sidebar", NAV_TITLE_SIDEBAR[lang], "", NAV_TITLE_SIDEBAR[lang], u["ex_sidebar"], "kit-app kit-sidebar kit-side-link kit-header"])
         (OUT / lang / "search-index.js").write_text(
-            "/* Indice della ricerca, generato da tools/gen-docs.py: non modificarlo a mano. */\n"
+            "/* Search index, generated by tools/gen-docs.py: do not edit by hand. */\n"
             "window.DOC_SEARCH = " + json.dumps(index, ensure_ascii=False, separators=(",", ":")) + ";\n", encoding="utf-8")
         total += len(index)
-        print(f"ok [{lang}]: {len(have)} pagine tradotte, {len(index)} voci di ricerca")
+        print(f"ok [{lang}]: {len(have)} translated pages, {len(index)} search entries")
     (OUT / "search-index.js").unlink(missing_ok=True)
     write_llms(en_pages)
 

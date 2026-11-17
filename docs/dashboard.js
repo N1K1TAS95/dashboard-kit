@@ -1,4 +1,4 @@
-// Solo per la dashboard di esempio: il controllo "Periodo" è un segmented di sola grafica.
+// Only for the example dashboard: the "Period" control is a segmented with graphics only.
 document.getElementById("periodo").addEventListener("click", function (e) {
     var b = e.target.closest("button");
     if (!b) return;

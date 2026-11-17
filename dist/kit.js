@@ -1,46 +1,46 @@
 /*!
- * Dashboard Kit 0.10.0 — JavaScript opzionale. Nessuna dipendenza, niente innerHTML, niente eval:
- * compatibile con una Content-Security-Policy rigida (script-src 'self').
+ * Dashboard Kit 0.10.0 — optional JavaScript. No dependencies, no innerHTML, no eval:
+ * compatible with a strict Content-Security-Policy (script-src 'self').
  *
- * Si attiva da solo con attributi data-kit-*:
- *   data-kit-theme-set="auto|light|dark"     bottone che imposta il tema
- *   data-kit-fs-set="md|lg|xl"               bottone che imposta la dimensione del testo (normale · grande · molto grande)
- *   data-kit-fs-step="1|-1"                  bottone che ingrandisce o rimpicciolisce il testo di un passo
- *   data-kit-reset                           bottone che ripristina tema, testo e larghezza
- *   data-kit-layout-set="boxed|fluid"        bottone che sceglie contenuto centrato o a tutta larghezza
- *   data-kit-layout-toggle                   bottone che alterna le due larghezze
- *   data-kit-sidebar-toggle                  bottone che apre la .kit-sidebar a comparsa (schermi piccoli) o la comprime a sole icone (schermi grandi, scelta ricordata)
- *   data-kit-toggle="#id"                    bottone che apre/chiude un .kit-pop
- *   data-kit-select                          su .kit-select: scelta di un valore; su un <select>: lo sostituisce con il menu del kit (opzioni: data-kit-search, -empty, -placeholder)
- *   data-kit-combo                           su .kit-combo: campo di testo con elenco di suggerimenti (opzioni: data-kit-combo-max, -empty, -more)
- *   data-kit-split                           su .kit-split: Esc lo chiude; con data-kit-split-open="#id" (bottone fuori), data-kit-split-close e
- *                                            data-kit-split-full (dentro) si apre, chiude e porta a tutta larghezza il pannello
- *   data-kit-file                            su .kit-file o .kit-dropzone: campo file con controllo di tipo e dimensione (data-kit-file-max in MB,
- *                                            data-kit-file-dir per le cartelle, data-kit-file-page per rilasciare ovunque nella pagina)
- *   data-kit-code="html|js|css"              su <pre class="kit-code">: colora il codice (senza lingua la indovina); data-kit-code-copy aggiunge il bottone «Copia»
- *   data-kit-accordion="single"              su .kit-accordion: un solo <details> aperto per volta (senza valore, ognuno si apre per conto suo)
- *   data-kit-sort                            su .kit-table: le intestazioni (<th>) ordinano le righe (con ="multi", Shift o Ctrl/⌘ + clic ordina per più colonne; numeri, date e testo si riconoscono da soli; data-kit-type e data-kit-value per forzarli, data-kit-nosort per escludere una colonna)
- *   data-kit-validate                        su un <form>: al submit controlla i campi con le regole HTML, segna is-invalid, scrive i messaggi in .kit-feedback-invalid e porta il focus sul primo errore (="ok" segna anche is-valid; messaggi con data-kit-msg e data-kit-msg-required|type|pattern|min|max|minlength|maxlength|step)
- *   data-kit-password                        su un bottone accanto a un campo password: mostra o nasconde il testo
- *   data-kit-count="#campo"                  su un elemento di testo: mostra «n / maxlength» dei caratteri scritti nel campo
- *   data-kit-datepicker                      su <input type="date|datetime-local|time">: calendario (o scelta dell'ora) del kit; si scrive e si legge gg/mm/aaaa, il valore inviato è in ISO (data-kit-min, -max, -disable, -step; data-kit-timepicker per la sola ora)
- *   data-kit-daterange                       su un contenitore con due <input type="date"> (dal, al): intervallo con calendario a due mesi e scelte rapide (data-kit-presets)
- *   data-kit-meter                           su .kit-meter: misura rispetto a un limite; legge data-kit-value, -min (0), -max (100), -warn, -danger, -good="high" e scrive larghezza, ARIA e colore (is-success|warning|danger)
- *   data-kit-fix="2|3|4"                     su .kit-table-fix: blocca le prime 2, 3 o 4 colonne (la sola prima si blocca con la classe, senza JavaScript)
- *   data-kit-filter="#tabella"               su un campo di testo: mostra solo le righe che contengono tutte le parole scritte
- *   data-kit-page="N"                        su .kit-table: mostra N righe per volta, con la paginazione sotto (data-kit-empty cambia il testo «Nessun risultato»)
- *   (htmx)                                   i frammenti inseriti da htmx si inizializzano da soli (evento htmx:load)
- *   data-kit-tabs                            su .kit-tabs: tab con data-kit-panel="#id"
- *   data-kit-nav="#id"                       bottone (hamburger) che apre/chiude il menu a scomparsa di una .kit-navbar
- *   data-kit-open="#dialogId"                apre un <dialog>
- *   data-kit-close                           dentro un <dialog>, lo chiude
- *   data-kit-confirm="Domanda?"              su un bottone, link o form: prima chiede conferma (opzioni: data-kit-confirm-text,
- *                                            -ok, -cancel, -danger, -type="testo da digitare")
- *   data-kit-tip="testo"                     tooltip (solo CSS; con kit.js Esc lo nasconde)
- *   data-kit-dismiss                         dentro un .kit-alert, lo rimuove (evento "kit:dismiss")
+ * It activates by itself through data-kit-* attributes:
+ *   data-kit-theme-set="auto|light|dark"     button that sets the theme
+ *   data-kit-fs-set="md|lg|xl"               button that sets the text size (normal · large · extra large)
+ *   data-kit-fs-step="1|-1"                  button that makes the text larger or smaller by one step
+ *   data-kit-reset                           button that resets theme, text and width
+ *   data-kit-layout-set="boxed|fluid"        button that chooses centered or full-width content
+ *   data-kit-layout-toggle                   button that switches between the two widths
+ *   data-kit-sidebar-toggle                  button that opens the slide-in .kit-sidebar (small screens) or collapses it to icons only (large screens, choice remembered)
+ *   data-kit-toggle="#id"                    button that opens/closes a .kit-pop
+ *   data-kit-select                          on .kit-select: choice of a value; on a <select>: replaces it with the kit's menu (options: data-kit-search, -empty, -placeholder)
+ *   data-kit-combo                           on .kit-combo: text field with a list of suggestions (options: data-kit-combo-max, -empty, -more)
+ *   data-kit-split                           on .kit-split: Esc closes it; with data-kit-split-open="#id" (button outside), data-kit-split-close and
+ *                                            data-kit-split-full (inside) the panel opens, closes and goes full width
+ *   data-kit-file                            on .kit-file or .kit-dropzone: file field with type and size check (data-kit-file-max in MB,
+ *                                            data-kit-file-dir for folders, data-kit-file-page to drop anywhere on the page)
+ *   data-kit-code="html|js|css"              on <pre class="kit-code">: colors the code (without a language it guesses it); data-kit-code-copy adds the «Copy» button
+ *   data-kit-accordion="single"              on .kit-accordion: only one <details> open at a time (without a value, each opens on its own)
+ *   data-kit-sort                            on .kit-table: the headers (<th>) sort the rows (with ="multi", Shift or Ctrl/⌘ + click sorts by several columns; numbers, dates and text are recognized by themselves; data-kit-type and data-kit-value to force them, data-kit-nosort to exclude a column)
+ *   data-kit-validate                        on a <form>: on submit checks the fields with the HTML rules, marks is-invalid, writes the messages in .kit-feedback-invalid and moves focus to the first error (="ok" also marks is-valid; messages with data-kit-msg and data-kit-msg-required|type|pattern|min|max|minlength|maxlength|step)
+ *   data-kit-password                        on a button next to a password field: shows or hides the text
+ *   data-kit-count="#field"                  on a text element: shows «n / maxlength» of the characters typed in the field
+ *   data-kit-datepicker                      on <input type="date|datetime-local|time">: the kit's calendar (or time picker); written and read in the language's date order, the submitted value is ISO (data-kit-min, -max, -disable, -step; data-kit-timepicker for time only)
+ *   data-kit-daterange                       on a container with two <input type="date"> (from, to): range with a two-month calendar and shortcuts (data-kit-presets)
+ *   data-kit-meter                           on .kit-meter: measure against a limit; reads data-kit-value, -min (0), -max (100), -warn, -danger, -good="high" and writes width, ARIA and color (is-success|warning|danger)
+ *   data-kit-fix="2|3|4"                     on .kit-table-fix: pins the first 2, 3 or 4 columns (the first alone is pinned by the class, without JavaScript)
+ *   data-kit-filter="#table"                 on a text field: shows only the rows that contain all the words typed
+ *   data-kit-page="N"                        on .kit-table: shows N rows at a time, with pagination below (data-kit-empty changes the «No results» text)
+ *   (htmx)                                   fragments inserted by htmx initialize themselves (htmx:load event)
+ *   data-kit-tabs                            on .kit-tabs: tabs with data-kit-panel="#id"
+ *   data-kit-nav="#id"                       button (hamburger) that opens/closes the collapsible menu of a .kit-navbar
+ *   data-kit-open="#dialogId"                opens a <dialog>
+ *   data-kit-close                           inside a <dialog>, closes it
+ *   data-kit-confirm="Question?"             on a button, link or form: asks for confirmation first (options: data-kit-confirm-text,
+ *                                            -ok, -cancel, -danger, -type="text to type")
+ *   data-kit-tip="text"                     tooltip (CSS only; with kit.js Esc hides it)
+ *   data-kit-dismiss                         inside a .kit-alert, removes it ("kit:dismiss" event)
  *
- * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.sidebar.get()/set()/toggle()/open()/close(), Kit.fontSize.get()/set()/step(), Kit.reset(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.confirm(domanda, opzioni), Kit.undo(testo, opzioni), Kit.split(elemento), Kit.file(elemento, opzioni), Kit.progress(testo, opzioni), Kit.combo(elemento, opzioni), Kit.select(elemento, opzioni), Kit.code(elemento, opzioni), Kit.highlight(testo, lingua), Kit.barChart(elemento, opzioni), Kit.lineChart(…), Kit.donut(…), Kit.sparkline(…), Kit.table(tabella, opzioni), Kit.paginate(tabella, righe), Kit.i18n.lang(codice), Kit.i18n.add(codice, dizionario), Kit.accordion(elemento, opzioni), Kit.meter(elemento, opzioni), Kit.datepicker(campo, opzioni), Kit.daterange(contenitore, opzioni), Kit.validate(form), Kit.validate.reset(form), Kit.date.parse/format/today, Kit.init(radice)
- * Eventi: "kit:change" (select, combobox), "kit:select" (barra, punto o fetta di un grafico), "kit:tab" (tab), "kit:files" (file scelti o rilasciati), "kit:copy" (codice copiato), "kit:sort" (tabella ordinata), "kit:filter" (tabella filtrata), "kit:page" (pagina della tabella cambiata), "kit:accordion" (voce dell'accordion aperta o chiusa), "kit:invalid" (form con campi non validi), "kit:change" anche per date e ore ({ value } o { from, to }), "kit:split" (pannello aperto, chiuso o a tutta larghezza), "kit:theme" (tema), "kit:layout" (larghezza), "kit:sidebar" (sidebar compressa, espansa, aperta o chiusa), "kit:fs" (dimensione del testo), "kit:reset" (impostazioni ripristinate), "kit:dismiss" (avviso chiuso)
+ * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.sidebar.get()/set()/toggle()/open()/close(), Kit.fontSize.get()/set()/step(), Kit.reset(), Kit.toast(text, options), Kit.toast.clear(), Kit.confirm(question, options), Kit.undo(text, options), Kit.split(element), Kit.file(element, options), Kit.progress(text, options), Kit.combo(element, options), Kit.select(element, options), Kit.code(element, options), Kit.highlight(text, language), Kit.barChart(element, options), Kit.lineChart(…), Kit.donut(…), Kit.sparkline(…), Kit.table(table, options), Kit.paginate(table, rows), Kit.i18n.lang(code), Kit.i18n.add(code, dictionary), Kit.accordion(element, options), Kit.meter(element, options), Kit.datepicker(field, options), Kit.daterange(container, options), Kit.validate(form), Kit.validate.reset(form), Kit.date.parse/format/today, Kit.init(root)
+ * Events: "kit:change" (select, combobox), "kit:select" (bar, point or slice of a chart), "kit:tab" (tab), "kit:files" (files chosen or dropped), "kit:copy" (code copied), "kit:sort" (table sorted), "kit:filter" (table filtered), "kit:page" (table page changed), "kit:accordion" (accordion item opened or closed), "kit:invalid" (form with invalid fields), "kit:change" also for dates and times ({ value } o { from, to }), "kit:split" (panel opened, closed or full width), "kit:theme" (theme), "kit:layout" (width), "kit:sidebar" (sidebar collapsed, expanded, opened or closed), "kit:fs" (text size), "kit:reset" (settings reset), "kit:dismiss" (alert closed)
  */
 (function () {
     "use strict";
@@ -48,11 +48,11 @@
     var KEY = "kit-theme";
     var root = document.documentElement;
 
-    /* ---------- Lingue (i18n) ----------
-       Tutti i testi che kit.js scrive da solo (bottoni, etichette ARIA, messaggi, calendario) vengono da un dizionario per lingua.
-       La lingua è quella di <html lang> (se manca, inglese); Kit.i18n.lang("it") la fissa a mano. Con "pt-BR" si cerca prima pt-BR,
-       poi pt, poi en: un dizionario può contenere solo ciò che cambia. Altre lingue: Kit.i18n.add("de", { cancel: "Abbrechen", … }).
-       Ogni attributo o opzione (data-kit-*, opts.cancel, …) ha la precedenza sul dizionario. */
+    /* ---------- Languages (i18n) ----------
+       All the texts kit.js writes by itself (buttons, ARIA labels, messages, calendar) come from a per-language dictionary.
+       The language is that of <html lang> (English if missing); Kit.i18n.lang("it") sets it by hand. With "pt-BR" pt-BR is looked up first,
+       then pt, then en: a dictionary can hold only what changes. Other languages: Kit.i18n.add("de", { cancel: "Abbrechen", … }).
+       Every attribute or option (data-kit-*, opts.cancel, …) takes precedence over the dictionary. */
     var I18N = {
         en: {
             close: "Close", cancel: "Cancel", confirm: "Confirm", undo: "Undo",
@@ -134,7 +134,7 @@
         i18nCache[code] = out;
         return out;
     }
-    /* Legge una voce ("close", "file.type", "date.t.today") dalla lingua corrente; {nome} si sostituisce con vars.nome. */
+    /* Reads an entry ("close", "file.type", "date.t.today") from the current language; {name} is replaced with vars.name. */
     function t(key, vars) {
         var v = i18nPack();
         String(key).split(".").forEach(function (k) { v = v == null ? v : v[k]; });
@@ -155,7 +155,7 @@
         t: t
     };
 
-    /* ---------- Tema ---------- */
+    /* ---------- Theme ---------- */
     function readStored() {
         try { return localStorage.getItem(KEY); } catch (e) { return null; }
     }
@@ -172,10 +172,10 @@
             try {
                 if (v === "auto") localStorage.removeItem(KEY);
                 else localStorage.setItem(KEY, v);
-            } catch (e) { /* storage non disponibile: il tema vale solo per questa pagina */ }
+            } catch (e) { /* storage not available: the theme only applies to this page */ }
             document.querySelectorAll("[data-kit-theme-set]").forEach(function (b) {
                 var on = b.getAttribute("data-kit-theme-set") === v;
-                // voce di un menu (.kit-opt, role="menuitemradio"): aria-checked e spunta; bottone normale: aria-pressed
+                // menu item (.kit-opt, role="menuitemradio"): aria-checked and check mark; normal button: aria-pressed
                 if (b.classList.contains("kit-opt")) { b.setAttribute("aria-checked", String(on)); b.classList.toggle("is-on", on); }
                 else b.setAttribute("aria-pressed", String(on));
             });
@@ -183,7 +183,7 @@
         }
     };
 
-    /* ---------- Dimensione del testo: md (predefinita), lg, xl ---------- */
+    /* ---------- Text size: md (default), lg, xl ---------- */
     var FKEY = "kit-fs";
     var FS_STEPS = ["md", "lg", "xl"];
 
@@ -219,7 +219,7 @@
             try {
                 if (v === "md") localStorage.removeItem(FKEY);
                 else localStorage.setItem(FKEY, v);
-            } catch (e) { /* storage non disponibile: vale solo per questa pagina */ }
+            } catch (e) { /* storage not available: only applies to this page */ }
             syncFsButtons();
             root.dispatchEvent(new CustomEvent("kit:fs", { detail: v }));
         },
@@ -229,9 +229,9 @@
         }
     };
 
-    /* ---------- Larghezza del contenuto: centrato (boxed) o a tutta larghezza (fluid) ---------- */
+    /* ---------- Content width: centered (boxed) or full width (fluid) ---------- */
     var LKEY = "kit-layout";
-    var authoredLayout = root.getAttribute("data-layout") === "fluid" ? "fluid" : "boxed";   // quella scritta nell'HTML
+    var authoredLayout = root.getAttribute("data-layout") === "fluid" ? "fluid" : "boxed";   // the one written in the HTML
 
     function readLayout() {
         try {
@@ -257,7 +257,7 @@
         set: function (v) {
             v = v === "fluid" ? "fluid" : "boxed";
             root.setAttribute("data-layout", v);
-            try { localStorage.setItem(LKEY, v); } catch (e) { /* storage non disponibile: vale solo per questa pagina */ }
+            try { localStorage.setItem(LKEY, v); } catch (e) { /* storage not available: only applies to this page */ }
             syncLayoutButtons();
             root.dispatchEvent(new CustomEvent("kit:layout", { detail: v }));
         },
@@ -266,12 +266,12 @@
         }
     };
 
-    /* ---------- Sidebar: a comparsa sugli schermi piccoli, compatta (solo icone) su quelli grandi ----------
-       <aside class="kit-sidebar"> dentro .kit-app. Il bottone data-kit-sidebar-toggle (opz. ="#id") la apre/chiude quando è a comparsa
-       e la comprime/espande quando è in linea. Lo stato compatto è <html data-kit-sidebar="collapsed|expanded"> e si ricorda. */
+    /* ---------- Sidebar: slide-in on small screens, compact (icons only) on large ones ----------
+       <aside class="kit-sidebar"> inside .kit-app. The data-kit-sidebar-toggle button (opt. ="#id") opens/closes it when it slides in
+       and collapses/expands it when inline. The compact state is <html data-kit-sidebar="collapsed|expanded"> and is remembered. */
     var SIDEKEY = "kit-sidebar";
     var authoredSide = root.getAttribute("data-kit-sidebar") === "collapsed" ? "collapsed" : "expanded";
-    var sideOpener = null;       // chi ha aperto la sidebar a comparsa: il focus torna lì alla chiusura
+    var sideOpener = null;       // who opened the slide-in sidebar: focus goes back there on close
 
     function readSide() {
         try {
@@ -280,7 +280,7 @@
         } catch (e) { return null; }
     }
     function sideBar(sel) { return document.querySelector(sel || ".kit-sidebar"); }
-    // A comparsa = fuori dal flusso (position: fixed); in linea = sticky nella colonna.
+    // Slide-in = out of the flow (position: fixed); inline = sticky in the column.
     function sideDrawer(sb) { return getComputedStyle(sb).position === "fixed"; }
 
     function sideSync() {
@@ -288,12 +288,12 @@
         document.querySelectorAll(".kit-sidebar").forEach(function (sb) {
             var drawer = sideDrawer(sb);
             var open = sb.classList.contains("is-open");
-            if (open && !drawer) { sb.classList.remove("is-open"); open = false; }   // la finestra si è allargata
-            // il resto della pagina non si raggiunge mentre la sidebar a comparsa è aperta
+            if (open && !drawer) { sb.classList.remove("is-open"); open = false; }   // the window got wider
+            // the rest of the page is unreachable while the slide-in sidebar is open
             Array.prototype.forEach.call(sb.parentNode.children, function (c) {
                 if (c !== sb) { if (open) c.setAttribute("inert", ""); else c.removeAttribute("inert"); }
             });
-            // compatta: i testi spariscono (display: none), quindi ogni voce porta il suo nome come aria-label
+            // compact: the texts disappear (display: none), so each item carries its name as aria-label
             sb.querySelectorAll(SIDETIP).forEach(function (a) {
                 if (collapsed && !drawer) {
                     if (!a.hasAttribute("aria-label") && !a.hasAttribute("aria-labelledby")) {
@@ -314,8 +314,8 @@
         });
     }
 
-    /* Sidebar compatta: il nome di ogni voce compare subito accanto all'icona (mouse e tastiera). È un elemento fuori dalla
-       sidebar, in position: fixed, perché il corpo della sidebar scorre e taglierebbe un tooltip in CSS. */
+    /* Compact sidebar: the name of each item appears right next to the icon (mouse and keyboard). It is an element outside the
+       sidebar, in position: fixed, because the sidebar body scrolls and would clip a CSS tooltip. */
     var SIDETIP = ".kit-side-link, .kit-side-user, .kit-side-tools .kit-btn, .kit-sidebar-head .kit-brand";
     var sideTipEl = null, sideTipFor = null;
 
@@ -328,7 +328,7 @@
     }
     function sideTipHide() {
         if (sideTipEl) { sideTipEl.classList.remove("is-on"); sideTipEl.hidden = true; }
-        if (sideTipFor && sideTipFor.hasAttribute("data-kit-title")) {   // il title nativo tolto per non avere due suggerimenti
+        if (sideTipFor && sideTipFor.hasAttribute("data-kit-title")) {   // the native title removed to avoid two hints
             sideTipFor.setAttribute("title", sideTipFor.getAttribute("data-kit-title"));
             sideTipFor.removeAttribute("data-kit-title");
         }
@@ -352,9 +352,9 @@
         sideTipEl.textContent = label;
         sideTipEl.hidden = false;
         var r = el.getBoundingClientRect();
-        sideTipEl.style.left = Math.round(r.right) + "px";      // lo spazio verso l'icona è il bordo trasparente del suggerimento
+        sideTipEl.style.left = Math.round(r.right) + "px";      // the space toward the icon is the transparent border of the hint
         sideTipEl.style.top = Math.round(r.top + r.height / 2) + "px";
-        void sideTipEl.offsetWidth;                 // fa partire la dissolvenza
+        void sideTipEl.offsetWidth;                 // starts the fade
         sideTipEl.classList.add("is-on");
     }
     document.addEventListener("mouseover", function (e) {
@@ -380,13 +380,13 @@
         set: function (v) {
             v = v === "collapsed" ? "collapsed" : "expanded";
             root.setAttribute("data-kit-sidebar", v);
-            try { localStorage.setItem(SIDEKEY, v); } catch (e) { /* storage non disponibile: vale solo per questa pagina */ }
+            try { localStorage.setItem(SIDEKEY, v); } catch (e) { /* storage not available: only applies to this page */ }
             sideSync();
             var sb = sideBar();
             if (sb) sideNotify(sb);
         },
         toggle: function () { sidebar.set(sidebar.get() === "collapsed" ? "expanded" : "collapsed"); },
-        // Sidebar a comparsa. open(opener) ricorda chi l'ha aperta per riportargli il focus.
+        // Slide-in sidebar. open(opener) remembers who opened it to give focus back.
         open: function (sel, opener) {
             var sb = sideBar(sel);
             if (!sb || !sideDrawer(sb) || sb.classList.contains("is-open")) return;
@@ -408,28 +408,28 @@
         }
     };
 
-    /* ---------- Ripristino: tema automatico, testo normale, larghezza scritta nell'HTML ---------- */
+    /* ---------- Reset: automatic theme, normal text, width written in the HTML ---------- */
     function reset() {
         theme.set("auto");
         fontSize.set("md");
-        try { localStorage.removeItem(LKEY); } catch (e) { /* storage non disponibile */ }
+        try { localStorage.removeItem(LKEY); } catch (e) { /* storage not available */ }
         root.setAttribute("data-layout", authoredLayout);
         syncLayoutButtons();
         root.dispatchEvent(new CustomEvent("kit:layout", { detail: authoredLayout }));
-        try { localStorage.removeItem(SIDEKEY); } catch (e) { /* storage non disponibile */ }
+        try { localStorage.removeItem(SIDEKEY); } catch (e) { /* storage not available */ }
         root.setAttribute("data-kit-sidebar", authoredSide);
         sideSync();
         root.dispatchEvent(new CustomEvent("kit:reset"));
     }
 
-    // Dentro un pannello di impostazioni (.kit-settings) il menu resta aperto: si cambiano più cose di fila.
+    // Inside a settings panel (.kit-settings) the menu stays open: several things are changed in a row.
     function keepOpen(btn) { return !!btn.closest(".kit-settings"); }
 
     /* ---------- Toast ----------
-       Kit.toast("testo")  oppure  Kit.toast("testo", { type, title, duration, position, action, closable, progress, onClose })
-       (il secondo argomento può anche essere solo la durata in ms). Restituisce { close() }.
-       Si costruisce con createElement/textContent: il testo non è mai interpretato come HTML. */
-    var TOAST_MAX = 6;                       // oltre questo numero il più vecchio si chiude
+       Kit.toast("text")  or  Kit.toast("text", { type, title, duration, position, action, closable, progress, onClose })
+       (the second argument can also be just the duration in ms). Returns { close() }.
+       Built with createElement/textContent: the text is never interpreted as HTML. */
+    var TOAST_MAX = 6;                       // beyond this number the oldest closes
     var TOAST_POS = { "bottom": 1, "top": 1, "bottom-start": 1, "bottom-end": 1, "top-start": 1, "top-end": 1 };
     var TOAST_ICON = { info: "i-info", success: "i-ok", warning: "i-warn", danger: "i-error" };
 
@@ -444,12 +444,12 @@
         return box;
     }
 
-    // Quando un toast entra o esce, gli altri scorrono al loro nuovo posto invece di scattare (FLIP: si misura la
-    // posizione prima, si cambia il DOM, poi ogni vicino parte dalla vecchia posizione e arriva alla nuova).
+    // When a toast enters or leaves, the others slide to their new place instead of jumping (FLIP: the position is measured
+    // before, the DOM is changed, then each neighbor starts from the old position and arrives at the new one).
     function flip(box, change) {
         var items = Array.prototype.filter.call(box.children, function (e) { return !e.classList.contains("is-leaving"); });
-        // Posizione sullo schermo senza le transizioni in corso: sopra del contenitore + posizione nel contenitore
-        // (nei contenitori ancorati in basso è il contenitore a spostarsi, non i figli).
+        // Position on screen without the transitions in progress: top of the container + position in the container
+        // (in bottom-anchored containers it is the container that moves, not the children).
         function y(e) { return box.getBoundingClientRect().top + e.offsetTop; }
         var before = items.map(y);
         change();
@@ -466,7 +466,7 @@
         opts = opts || {};
         var type = TOAST_ICON[opts.type] ? opts.type : "neutral";
         var pos = TOAST_POS[opts.position] ? opts.position : "bottom";
-        var duration = typeof opts.duration === "number" ? opts.duration : 4000;     // 0 = resta finché non si chiude
+        var duration = typeof opts.duration === "number" ? opts.duration : 4000;     // 0 = stays until closed
         var closable = opts.closable !== undefined ? !!opts.closable : (duration === 0 || !!opts.action);
         var box = toastBox(pos);
 
@@ -474,7 +474,7 @@
         el.className = "kit-toast" + (type !== "neutral" ? " kit-toast-" + type : "");
         el.setAttribute("role", type === "danger" || type === "warning" ? "alert" : "status");
 
-        // L'icona c'è solo se lo sprite (kit-icons.js o il tuo) definisce il simbolo.
+        // The icon only exists if the sprite (kit-icons.js or yours) defines the symbol.
         if (TOAST_ICON[type] && document.getElementById(TOAST_ICON[type])) {
             var NS = "http://www.w3.org/2000/svg";
             var svg = document.createElementNS(NS, "svg");
@@ -500,16 +500,16 @@
         el.appendChild(body);
 
         var timer = null, closed = false;
-        var onClose = typeof opts.onClose === "function" ? opts.onClose : null;     // chiamata una volta, quando il toast esce
-        // Il toast che esce si dissolve fuori dal flusso (position: absolute, dove si trova): i vicini si spostano subito.
+        var onClose = typeof opts.onClose === "function" ? opts.onClose : null;     // called once, when the toast leaves
+        // The leaving toast fades out of the flow (position: absolute, where it is): the neighbors move at once.
         function leave() {
             if (closed) return;
             closed = true;
             clearTimeout(timer);
             if (onClose) setTimeout(onClose, 0);
             if (barAnim) barAnim.pause();
-            // Uscendo dal flusso il contenitore si restringe e (se è ancorato in basso) si sposta: il toast va quindi
-            // ancorato a dove si trova sullo schermo adesso, non alla sua posizione dentro il contenitore.
+            // Leaving the flow the container shrinks and (if anchored at the bottom) moves: the toast must therefore be
+            // anchored to where it is on the screen now, not to its position inside the container.
             var box = el.parentNode, screenTop = box.getBoundingClientRect().top + el.offsetTop;
             el.style.left = el.offsetLeft + "px";
             el.style.width = el.offsetWidth + "px";
@@ -546,9 +546,9 @@
             el.appendChild(x);
         }
 
-        // Il timer si ferma mentre il mouse o il focus sono sul toast, così c'è il tempo di leggerlo e usarlo.
-        // La barra in fondo si accorcia fino alla chiusura (opzione progress: false la toglie). Quando il tempo si
-        // ferma e riparte da capo, anche la barra torna piena e riparte.
+        // The timer stops while the mouse or focus is on the toast, so there is time to read and use it.
+        // The bar at the bottom shortens until it closes (option progress: false removes it). When the time
+        // stops and restarts from the beginning, the bar also fills up again and restarts.
         var bar = null, barAnim = null;
         if (duration > 0 && opts.progress !== false) {
             bar = document.createElement("span");
@@ -570,25 +570,25 @@
         el.addEventListener("focusout", arm);
 
         flip(box, function () {
-            // oltre TOAST_MAX il più vecchio esce (con la stessa dissolvenza)
+            // beyond TOAST_MAX the oldest leaves (with the same fade)
             var live = Array.prototype.filter.call(box.children, function (e) { return !e.classList.contains("is-leaving"); });
             while (live.length >= TOAST_MAX) { var old = live.shift(); if (old.kitLeave) old.kitLeave(); else box.removeChild(old); }
             box.appendChild(el);
-            // Su schermi bassi sei toast possono non starci: esce il più vecchio finché la pila entra nella finestra.
+            // On short screens six toasts may not fit: the oldest leaves until the stack fits in the window.
             live.push(el);
             while (live.length > 1 && box.offsetHeight > window.innerHeight) { var o = live.shift(); if (o.kitLeave) o.kitLeave(); else box.removeChild(o); }
         });
-        void el.offsetWidth;              // forza il calcolo dello stile: senza, la transizione d'entrata non parte
+        void el.offsetWidth;              // forces the style computation: without it, the enter transition does not start
         el.classList.add("is-on");
         arm();
         return { close: close };
     }
 
-    /* ---------- Annulla invece di chiedere conferma ----------
-       Kit.undo("Fattura eliminata", { onUndo, onCommit, duration, label, type, position })
-       L'azione si considera fatta subito nell'interfaccia; onCommit (quella vera, definitiva) parte quando il toast
-       sparisce senza che l'utente abbia premuto "Annulla" (scadenza, chiusura con la ×, pagina chiusa o ricaricata).
-       Restituisce { undo(), commit() }. */
+    /* ---------- Undo instead of asking for confirmation ----------
+       Kit.undo("Invoice deleted", { onUndo, onCommit, duration, label, type, position })
+       The action is considered done at once in the interface; onCommit (the real, final one) runs when the toast
+       disappears without the user having pressed "Undo" (expiry, closing with the ×, page closed or reloaded).
+       Returns { undo(), commit() }. */
     function undo(text, opts) {
         opts = opts || {};
         var done = false, handle = null;
@@ -615,16 +615,16 @@
         return { undo: function () { undoNow(); handle.close(); }, commit: function () { commit(); handle.close(); } };
     }
 
-    // Kit.toast.clear(): chiude tutti i toast aperti
+    // Kit.toast.clear(): closes all open toasts
     toast.clear = function () {
         document.querySelectorAll(".kit-toast").forEach(function (el) { if (el.kitClose) el.kitClose(); else el.remove(); });
     };
 
-    /* ---------- Conferma ----------
-       Kit.confirm("Eliminare 12 fatture?", { text, confirm, cancel, danger, type }) → Promise<boolean>
-       Un <dialog> modale creato al volo (role="alertdialog"): Esc, click sullo sfondo e "Annulla" danno false.
-       Con danger il bottone di conferma è rosso e il focus parte su "Annulla", così un Invio distratto non fa danni.
-       Con type: "testo" l'utente deve digitare quel testo per abilitare la conferma (il focus parte sul campo). */
+    /* ---------- Confirm ----------
+       Kit.confirm("Delete 12 invoices?", { text, confirm, cancel, danger, type }) → Promise<boolean>
+       A modal <dialog> created on the fly (role="alertdialog"): Esc, a click on the backdrop and "Cancel" give false.
+       With danger the confirm button is red and focus starts on "Cancel", so a careless Enter does no harm.
+       With type: "text" the user must type that text to enable the confirmation (focus starts on the field). */
     var confirmSeq = 0;
     function mkEl(tag, cls, text) {
         var n = document.createElement(tag);
@@ -693,7 +693,7 @@
         foot.appendChild(ok);
         dlg.appendChild(foot);
 
-        // il focus parte sul campo, su "Annulla" se l'azione è pericolosa, altrimenti sulla conferma
+        // focus starts on the field, on "Cancel" if the action is dangerous, otherwise on the confirmation
         (input || (danger ? cancel : ok)).setAttribute("autofocus", "");
 
         return new Promise(function (resolve) {
@@ -707,15 +707,15 @@
             }
             dlg.addEventListener("close", function () {
                 resolve(dlg.returnValue === "ok");
-                setTimeout(function () { if (dlg.parentNode) dlg.parentNode.removeChild(dlg); }, 300);   // dopo l'animazione d'uscita
+                setTimeout(function () { if (dlg.parentNode) dlg.parentNode.removeChild(dlg); }, 300);   // after the exit animation
             });
             document.body.appendChild(dlg);
             dlg.showModal();
         });
     }
 
-    // data-kit-confirm: la conferma si chiede prima di qualunque altra azione dell'elemento (anche i tuoi gestori di click).
-    var passing = null;   // l'elemento che ha appena avuto conferma: il suo click o invio va lasciato passare
+    // data-kit-confirm: confirmation is asked before any other action of the element (your click handlers too).
+    var passing = null;   // the element that has just been confirmed: its click or submit must be let through
 
     function confirmFor(el) {
         var a = function (n) { return el.getAttribute("data-kit-confirm" + n); };
@@ -784,9 +784,9 @@
         }
     }
 
-    /* ---------- Navigazione da tastiera nelle opzioni ---------- */
+    /* ---------- Keyboard navigation in options ---------- */
     function options(pop) {
-        // le voci disattivate (aria-disabled) si saltano con le frecce
+        // disabled items (aria-disabled) are skipped with the arrows
         return Array.prototype.slice.call(pop.querySelectorAll(".kit-opt:not([aria-disabled='true'])"));
     }
 
@@ -798,7 +798,7 @@
         i = i < 0 ? (dir > 0 ? 0 : list.length - 1) : (i + dir + list.length) % list.length;
         list[i].classList.add("is-active");
         list[i].scrollIntoView({ block: "nearest" });
-        // nel combobox il focus resta nel campo: la voce attiva si segnala con aria-activedescendant
+        // in the combobox focus stays in the field: the active item is signaled with aria-activedescendant
         if (openPop && openPop.btn && openPop.btn.getAttribute("role") === "combobox" && list[i].id) openPop.btn.setAttribute("aria-activedescendant", list[i].id);
     }
 
@@ -824,9 +824,9 @@
         closePop(true);
     }
 
-    /* ---------- Combobox: campo di testo con elenco di suggerimenti ----------
+    /* ---------- Combobox: text field with a list of suggestions ----------
        <div class="kit-combo" data-kit-combo><input class="kit-input"></div>
-       Le voci si danno con Kit.combo(el, { items }) oppure come .kit-opt dentro un .kit-pop già scritto nell'HTML. */
+       Items are given with Kit.combo(el, { items }) or as .kit-opt inside a .kit-pop already written in the HTML. */
     var comboState = new WeakMap();
     var comboUid = 0;
 
@@ -876,7 +876,7 @@
         var b = opt.querySelector(".kit-opt-text b");
         st.choosing = true;
         st.input.value = opt.dataset.value || "";
-        // l'evento "input" fa sapere a chi ascolta il campo che il valore è cambiato
+        // the "input" event tells whoever listens to the field that the value has changed
         st.input.dispatchEvent(new Event("input", { bubbles: true }));
         st.choosing = false;
         wrap.dispatchEvent(new CustomEvent("kit:change", { bubbles: true, detail: { value: st.input.value, label: (b || opt).textContent.trim() } }));
@@ -954,7 +954,7 @@
         input.addEventListener("keydown", function (e) {
             if ((e.key === "ArrowDown" || e.key === "ArrowUp") && pop.hidden) {
                 e.preventDefault();
-                e.stopPropagation();   // altrimenti la freccia varrebbe due volte (apre e sposta)
+                e.stopPropagation();   // otherwise the arrow would count twice (opens and moves)
                 comboOpen(st);
             }
         });
@@ -963,7 +963,7 @@
             if (!pop.hidden) closePop(false);
             else { input.focus(); comboOpen(st); }
         });
-        // il mouse sulle voci non deve togliere il focus al campo
+        // the mouse on the items must not take focus away from the field
         pop.addEventListener("mousedown", function (e) { e.preventDefault(); });
         wrap.addEventListener("focusout", function (e) {
             if (!wrap.contains(e.relatedTarget) && openPop && openPop.pop === pop) closePop(false);
@@ -971,10 +971,10 @@
         return st.api;
     }
 
-    /* ---------- Select nativo: <select data-kit-select> con il menu del kit ----------
-       Il <select> resta la fonte dei dati (valore, form, required, 'change'); il kit gli mette accanto bottone e menu.
-       Gruppi (<optgroup>), sottotesto (data-kit-hint) e, oltre 20 voci, un campo di ricerca nel menu.
-       Dopo aver cambiato a mano value, voci o disabled: api.sync(). Kit.select(el, { search, empty, placeholder }) fa lo stesso da JavaScript. */
+    /* ---------- Native select: <select data-kit-select> with the kit's menu ----------
+       The <select> remains the data source (value, form, required, 'change'); the kit puts a button and menu next to it.
+       Groups (<optgroup>), sub-text (data-kit-hint) and, beyond 20 items, a search field in the menu.
+       After changing value, items or disabled by hand: api.sync(). Kit.select(el, { search, empty, placeholder }) does the same from JavaScript. */
     var selByWrap = new WeakMap();
     var selByNative = new WeakMap();
     var selUid = 0;
@@ -1132,28 +1132,28 @@
         btn.addEventListener("keydown", function (e) {
             if ((e.key === "ArrowDown" || e.key === "ArrowUp") && pop.hidden) {
                 e.preventDefault();
-                e.stopPropagation();   // altrimenti la freccia varrebbe due volte (apre e sposta)
+                e.stopPropagation();   // otherwise the arrow would count twice (opens and moves)
                 nativeOpen(st);
             }
         });
-        // il mouse sulle voci non deve togliere il focus al menu (il campo di ricerca invece lo riceve)
+        // the mouse on the items must not take focus away from the menu (the search field does receive it)
         pop.addEventListener("mousedown", function (e) { if (!(e.target instanceof Element && e.target.closest("input"))) e.preventDefault(); });
         wrap.addEventListener("focusout", function (e) {
             if (!wrap.contains(e.relatedTarget) && openPop && openPop.pop === pop) closePop(false);
         });
-        sel.addEventListener("focus", function () { btn.focus(); });   // un <label for> o focus() sul select vanno al bottone
+        sel.addEventListener("focus", function () { btn.focus(); });   // a <label for> or focus() on the select go to the button
         sel.addEventListener("change", function () { nativeSync(st); });
         if (sel.form) sel.form.addEventListener("reset", function () { setTimeout(function () { st.api.sync(); }, 0); });
         if (window.MutationObserver) new MutationObserver(function () { st.api.sync(); }).observe(sel, { childList: true, subtree: true, attributes: true, attributeFilter: ["disabled", "label", "hidden", "data-kit-hint", "data-kit-short"], characterData: true });
         return st.api;
     }
 
-    /* ---------- Grafici: barre, linee, ciambella, sparkline ----------
+    /* ---------- Charts: bars, lines, donut, sparkline ----------
        Kit.barChart(el, { data: [{ label, group, values: [..] }], series: [{ name, color }], stacked, format, onSelect, ... })
-       Kit.lineChart(el, { stesse opzioni; values può contenere null (buco), area, zero, markers })
+       Kit.lineChart(el, { same options; values can contain null (gap), area, zero, markers })
        Kit.donut(el, { data: [{ label, value, color }], centerValue, centerLabel, format, onSelect })
        Kit.sparkline(el, { values, type: "line" | "bar", color, area })
-       Disegnano un SVG (senza innerHTML), seguono il tema e la dimensione del testo. */
+       They draw an SVG (no innerHTML), follow the theme and the text size. */
     var SVG_NS = "http://www.w3.org/2000/svg";
     var charts = new WeakMap();
 
@@ -1181,7 +1181,7 @@
 
 
 
-    /* Il ciclo di vita è uguale per tutti: un grafico per elemento, richiamare la funzione lo aggiorna. */
+    /* The life cycle is the same for all: one chart per element, calling the function again updates it. */
     function mountChart(el, opts, build) {
         var prev = charts.get(el);
         if (prev) { prev.update(opts); return prev; }
@@ -1249,7 +1249,7 @@
                 el.classList.toggle("kit-chart-click", interactive);
                 if (!n) { scroller.appendChild(mkEl("div", "kit-pop-empty", o.empty || t("noData"))); return; }
 
-                // Scala verticale. Barre: da 0 a un valore tondo. Linee: dal minimo al massimo (con margine), a meno di zero:true.
+                // Vertical scale. Bars: from 0 to a round value. Lines: from the minimum to the maximum (with margin), unless zero:true.
                 var ticks = o.ticks || 4, lo = 0, hi, step;
                 var vmin = Infinity, vmax = 0;
                 data.forEach(function (d) {
@@ -1285,7 +1285,7 @@
                     svg.appendChild(svgEl("line", { "class": "kit-chart-grid", x1: L, x2: W - R, y1: gy, y2: gy }));
                     svg.appendChild(svgEl("text", { "class": "kit-chart-axis", x: L - 8, y: gy + 4, "text-anchor": "end" }, axisFmt(lo + step * t)));
                 }
-                // etichette sotto l'asse
+                // labels under the axis
                 data.forEach(function (d, i) {
                     svg.appendChild(svgEl("text", { "class": "kit-chart-label", x: X(i), y: T + ph + 14 * u, "text-anchor": "middle" }, d.label));
                     if (d.group && (i === 0 || d.group !== data[i - 1].group)) {
@@ -1332,7 +1332,7 @@
                             if (o.area) svg.appendChild(svgEl("path", { "class": "kit-chart-area", fill: col, d: pts + " L" + sg[sg.length - 1][0] + " " + Y(lo) + " L" + sg[0][0] + " " + Y(lo) + " Z" }));
                             svg.appendChild(svgEl("path", { "class": "kit-chart-line", stroke: col, d: pts }));
                         });
-                        // punti: cerchio, quadrato, triangolo… così le serie si distinguono anche senza colore
+                        // points: circle, square, triangle… so the series can be told apart even without color
                         if (o.markers !== false) data.forEach(function (d, i) {
                             var v = d.values[j];
                             if (v == null) return;
@@ -1463,8 +1463,8 @@
         });
     }
 
-    /* ---------- Pannello affiancato (kit-split): aprire, chiudere, tutta larghezza ----------
-       Vale anche se is-open è messo a mano; con data-kit-split sul contenitore Esc lo chiude (prima esce da "tutta larghezza"). */
+    /* ---------- Side panel (kit-split): open, close, full width ----------
+       Also works if is-open is set by hand; with data-kit-split on the container Esc closes it (first it leaves "full width"). */
     var SPLIT = ".kit-split, .kit-split-lg";
     var splitOpener = new WeakMap();
 
@@ -1501,11 +1501,11 @@
         };
     }
 
-    /* ---------- Campo file e zona di rilascio ----------
-       <div class="kit-file" data-kit-file><input type="file" accept=".xml" multiple></div>        campo compatto
-       <div class="kit-dropzone" data-kit-file><input type="file" multiple> …testo…</div>          zona di rilascio
-       Controlla tipo e dimensione, accetta cartelle (data-kit-file-dir o webkitdirectory) e, con data-kit-file-page,
-       i file rilasciati in qualsiasi punto della pagina. Evento "kit:files" con { files, items, rejected }. */
+    /* ---------- File field and drop zone ----------
+       <div class="kit-file" data-kit-file><input type="file" accept=".xml" multiple></div>        compact field
+       <div class="kit-dropzone" data-kit-file><input type="file" multiple> …text…</div>          drop zone
+       Checks type and size, accepts folders (data-kit-file-dir or webkitdirectory) and, with data-kit-file-page,
+       files dropped anywhere on the page. "kit:files" event with { files, items, rejected }. */
     var fileState = new WeakMap();
     var pageFileZone = null, pageDragN = 0, dropVeil = null;
 
@@ -1531,7 +1531,7 @@
         };
     }
 
-    // Legge i file di una cartella rilasciata (webkitGetAsEntry), con il loro percorso.
+    // Reads the files of a dropped folder (webkitGetAsEntry), with their path.
     function readEntry(entry, path) {
         return new Promise(function (resolve) {
             if (!entry) return resolve([]);
@@ -1580,7 +1580,7 @@
         found.forEach(function (it) {
             var why = null;
             if (it.isDir) { if (!st.dir) why = "folder"; }
-            else if (!test(it.file)) why = it.fromDir ? "skip" : "type";   // nelle cartelle i file di altro tipo si ignorano in silenzio
+            else if (!test(it.file)) why = it.fromDir ? "skip" : "type";   // files of another type inside folders are silently ignored
             else if (st.max && it.file.size > st.max * 1048576) why = "size";
             else if (!st.input.multiple && !st.dir && ok.length >= 1) why = "count";
             if (!why) ok.push(it);
@@ -1590,19 +1590,19 @@
             return st.msg[r.reason].replace("{name}", r.path || r.file.name).replace("{accept}", st.input.getAttribute("accept") || "").replace("{max}", String(st.max));
         });
         st.items = ok;
-        // il campo del form deve contenere gli stessi file (serve per l'invio normale del form)
+        // the form field must hold the same files (needed for the normal form submit)
         try {
             var dt = new DataTransfer();
             st.items.forEach(function (i) { dt.items.add(i.file); });
             st.input.files = dt.files;
-        } catch (e) { /* browser senza DataTransfer: resta la scelta nativa */ }
+        } catch (e) { /* browser without DataTransfer: the native choice remains */ }
         fileUI(wrap, st);
         var detail = { files: st.items.map(function (i) { return i.file; }), items: st.items.slice(), rejected: rejected };
         wrap.dispatchEvent(new CustomEvent("kit:files", { bubbles: true, detail: detail }));
         if (typeof st.onFiles === "function") st.onFiles(detail);
     }
 
-    // Un rilascio: i dati del DataTransfer vanno letti subito, prima di qualsiasi attesa.
+    // A drop: the DataTransfer data must be read at once, before any wait.
     function fileDrop(wrap, st, dt) {
         var ents = [];
         var items = dt.items ? Array.prototype.slice.call(dt.items).filter(function (i) { return i.kind === "file"; }) : [];
@@ -1681,7 +1681,7 @@
         wrap.addEventListener("drop", function (e) {
             if (!hasFiles(e)) return;
             e.preventDefault();
-            e.stopPropagation();   // se c'è anche la zona "di pagina", il rilascio vale una volta sola
+            e.stopPropagation();   // if there is also the "page" zone, the drop counts only once
             wrap.classList.remove("is-over");
             endPageDrag();
             fileDrop(wrap, st, e.dataTransfer);
@@ -1707,8 +1707,8 @@
         if (dropVeil) dropVeil.classList.remove("is-on");
     }
 
-    /* ---------- Avanzamento a pieno schermo ----------
-       var p = Kit.progress("Lettura…", { value: 0.2, onCancel }); p.update("Lettura 40 di 200", 0.4); p.close(); */
+    /* ---------- Full-screen progress ----------
+       var p = Kit.progress("Reading…", { value: 0.2, onCancel }); p.update("Reading 40 of 200", 0.4); p.close(); */
     function progressDialog(text, opts) {
         opts = opts || {};
         var dlg = mkEl("dialog", "kit-dialog kit-dialog-sm kit-busy");
@@ -1756,7 +1756,7 @@
             if (!cancelBtn) dlg.focus({ preventScroll: true });
             shown = true;
         }
-        // Esc non chiude l'avanzamento, a meno che ci sia un modo per annullare l'operazione.
+        // Esc does not close the progress, unless there is a way to cancel the operation.
         dlg.addEventListener("cancel", function (e) { e.preventDefault(); if (cancelBtn) cancel(); });
         if (cancelBtn) cancelBtn.addEventListener("click", cancel);
         setValue(opts.value);
@@ -1770,7 +1770,7 @@
         };
     }
 
-    /* ---------- Navbar: menu a scomparsa ---------- */
+    /* ---------- Navbar: collapsible menu ---------- */
     function setNav(menu, open) {
         menu.classList.toggle("is-open", open);
         document.querySelectorAll('[data-kit-nav="#' + menu.id + '"]').forEach(function (b) { b.setAttribute("aria-expanded", String(open)); });
@@ -1780,14 +1780,14 @@
     function openNavs() { return Array.prototype.slice.call(document.querySelectorAll(".kit-navbar-menu.is-open")); }
 
     window.addEventListener("resize", function () {
-        // Se il menu è diventato visibile in linea (il bottone è nascosto), lo stato "aperto" non serve più.
+        // If the menu has become visible inline (the button is hidden), the "open" state is no longer needed.
         openNavs().forEach(function (m) {
             var b = document.querySelector('[data-kit-nav="#' + m.id + '"]');
             if (b && b.offsetParent === null) setNav(m, false);
         });
     });
 
-    /* ---------- Tab ---------- */
+    /* ---------- Tabs ---------- */
     function selectTab(tabs, tab) {
         tabs.querySelectorAll(".kit-tab").forEach(function (t) {
             var on = t === tab;
@@ -1801,7 +1801,7 @@
         tabs.dispatchEvent(new CustomEvent("kit:tab", { bubbles: true, detail: { tab: tab } }));
     }
 
-    /* ---------- Eventi (delegati: valgono anche per il contenuto aggiunto dopo) ---------- */
+    /* ---------- Events (delegated: they also apply to content added later) ---------- */
     document.addEventListener("click", function (e) {
         var t = e.target;
         if (!(t instanceof Element)) return;
@@ -1817,12 +1817,12 @@
         }
         var sbIn = t.closest(".kit-sidebar");
         if (sbIn) {
-            // compatta: la voce con sottovoci espande la sidebar; scelta una pagina, quella a comparsa si chiude
+            // compact: the item with sub-items expands the sidebar; once a page is chosen, the slide-in one closes
             if (!sideDrawer(sbIn) && sidebar.get() === "collapsed" && t.closest("summary")) sidebar.set("expanded");
             else if (sideDrawer(sbIn) && sbIn.classList.contains("is-open") && t.closest("a[href]")) sidebar.close();
         } else {
             var sbOpen = document.querySelector(".kit-sidebar.is-open");
-            if (sbOpen) sidebar.close();            // click fuori (sullo sfondo scuro)
+            if (sbOpen) sidebar.close();            // click outside (on the dark backdrop)
         }
         var navBtn = t.closest("[data-kit-nav]");
         if (navBtn) {
@@ -1830,7 +1830,7 @@
             if (menu) { closePop(false); setNav(menu, !menu.classList.contains("is-open")); }
             return;
         }
-        // Un click fuori dalla barra, o su un link del menu, chiude il menu a scomparsa.
+        // A click outside the bar, or on a menu link, closes the collapsible menu.
         openNavs().forEach(function (m) {
             var bar = m.closest(".kit-navbar") || m.parentNode;
             var link = t.closest("a[href]");
@@ -1885,7 +1885,7 @@
         if (spClose) { var sp2 = spClose.closest(SPLIT); if (sp2) splitSet(sp2, false); return; }
         var spFull = t.closest("[data-kit-split-full]");
         if (spFull) { var sp3 = spFull.closest(SPLIT); if (sp3) splitSet(sp3, true, !sp3.classList.contains("is-full")); return; }
-        // Il velo dietro il pannello (quando copre la lista) è il ::after del contenitore: un click lì è un click sul contenitore.
+        // The veil behind the panel (when it covers the list) is the container's ::after: a click there is a click on the container.
         if (t.matches(SPLIT) && t.hasAttribute("data-kit-split") && t.classList.contains("is-open")) {
             var pn = t.querySelector(".kit-split-panel");
             if (pn && getComputedStyle(pn).position === "fixed") { splitSet(t, false); return; }
@@ -1896,8 +1896,8 @@
             var dlg = document.querySelector(open.getAttribute("data-kit-open"));
             if (dlg && dlg.showModal) {
                 dlg.showModal();
-                // Il browser darebbe il focus al primo elemento (spesso la X di chiusura, con il suo anello):
-                // lo si sposta sul dialog stesso, salvo che l'autore abbia indicato un [autofocus].
+                // The browser would give focus to the first element (often the close X, with its ring):
+                // it is moved to the dialog itself, unless the author has marked an [autofocus].
                 if (!dlg.querySelector("[autofocus]")) { dlg.tabIndex = -1; dlg.focus({ preventScroll: true }); }
             }
             return;
@@ -1921,11 +1921,11 @@
             return;
         }
 
-        // Click fuori da un popover aperto: lo chiude.
-        // (un click nel campo di un combobox non lo chiude)
+        // Click outside an open popover: closes it.
+        // (a click in a combobox field does not close it)
         if (openPop && !openPop.pop.contains(t) && !(t.closest("[data-kit-combo]") && t.closest("[data-kit-combo]").contains(openPop.pop))) closePop(false);
 
-        // Click sullo sfondo (::backdrop) di un dialog: lo chiude.
+        // Click on the backdrop (::backdrop) of a dialog: closes it.
         if (t instanceof HTMLDialogElement && t.classList.contains("kit-dialog") && !t.classList.contains("kit-busy")) {
             var r = t.getBoundingClientRect();
             if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) t.close();
@@ -1933,7 +1933,7 @@
     });
 
     document.addEventListener("keydown", function (e) {
-        // Esc nasconde i tooltip visibili (finché il mouse o il focus non lasciano l'elemento)
+        // Esc hides the visible tooltips (until the mouse or focus leave the element)
         if (e.key === "Escape") {
             document.querySelectorAll("[data-kit-tip]:is(:hover, :focus-visible)").forEach(function (el) {
                 el.setAttribute("data-kit-tip-hide", "");
@@ -1952,14 +1952,14 @@
             if (e.key === "Tab" && openPop.pop.querySelector(".kit-pop-search")) closePop(false);
             if (e.key === "ArrowDown") { e.preventDefault(); moveActive(openPop.pop, 1); return; }
             if (e.key === "ArrowUp") { e.preventDefault(); moveActive(openPop.pop, -1); return; }
-            // nel campo di un combobox o di ricerca lo spazio è un carattere come gli altri
+            // in a combobox or search field the space is a character like any other
             if (e.key === "Enter" || (e.key === " " && !(e.target instanceof Element && e.target.closest("[data-kit-combo], .kit-pop-search")))) {
                 var a = openPop.pop.querySelector(".kit-opt.is-active");
-                // click() attiva la voce come un click vero: partono anche i suoi gestori e i link
+                // click() activates the item like a real click: its handlers and links run too
                 if (a) { e.preventDefault(); a.click(); return; }
             }
         }
-        // Esc chiude il pannello affiancato (o lo riporta accanto alla lista, se era a tutta larghezza).
+        // Esc closes the side panel (or brings it back next to the list, if it was full width).
         if (e.key === "Escape" && !e.defaultPrevented && !document.querySelector("dialog[open]") && !(e.target instanceof Element && e.target.closest("input, textarea, select, [contenteditable]"))) {
             var osp = document.querySelector("[data-kit-split].is-open");
             if (osp && osp.matches(SPLIT)) {
@@ -1967,12 +1967,12 @@
                 return;
             }
         }
-        // Esc chiude la sidebar a comparsa e riporta il focus su chi l'ha aperta.
+        // Esc closes the slide-in sidebar and returns focus to whoever opened it.
         if (e.key === "Escape" && !e.defaultPrevented && !document.querySelector("dialog[open]") && document.querySelector(".kit-sidebar.is-open")) {
             sidebar.close();
             return;
         }
-        // Esc chiude il menu a scomparsa della navbar e riporta il focus sul suo bottone.
+        // Esc closes the navbar's collapsible menu and returns focus to its button.
         if (e.key === "Escape") {
             var om = openNavs()[0];
             if (om) {
@@ -1982,7 +1982,7 @@
                 return;
             }
         }
-        // Frecce sinistra/destra tra le tab.
+        // Left/right arrows between tabs.
         var tab = e.target instanceof Element && e.target.closest("[data-kit-tabs] .kit-tab");
         if (tab && (e.key === "ArrowLeft" || e.key === "ArrowRight")) {
             var tabs = tab.closest("[data-kit-tabs]");
@@ -1993,17 +1993,17 @@
         }
     });
 
-    /* ---------- Inizializzazione ---------- */
-    /* ---------- Snippet di codice ----------
-       <pre class="kit-code" data-kit-code="html|js|css"><code>…</code></pre> colora il codice come in un editor (senza la
-       lingua la indovina); data-kit-code-copy aggiunge il bottone «Copia». Un piccolo evidenziatore per HTML, JavaScript e
-       CSS: costruisce nodi di testo e <span>, mai HTML, quindi il codice mostrato non viene eseguito. */
+    /* ---------- Initialization ---------- */
+    /* ---------- Code snippets ----------
+       <pre class="kit-code" data-kit-code="html|js|css"><code>…</code></pre> colors the code as in an editor (without the
+       language it guesses it); data-kit-code-copy adds the «Copy» button. A small highlighter for HTML, JavaScript and
+       CSS: it builds text nodes and <span>, never HTML, so the code shown is not executed. */
     function hlPut(out, cls, text) {
         if (!text) return;
         out.appendChild(cls ? mkEl("span", "kit-hl-" + cls, text) : document.createTextNode(text));
     }
 
-    function hlText(out, text) {   // testo di una pagina: le entità (&amp;, &#8364;) sono evidenziate
+    function hlText(out, text) {   // text of a page: entities (&amp;, &#8364;) are highlighted
         var re = /&#?\w+;/g, last = 0, m;
         while ((m = re.exec(text))) {
             hlPut(out, "", text.slice(last, m.index));
@@ -2013,7 +2013,7 @@
         hlPut(out, "", text.slice(last));
     }
 
-    // Commento a blocco da `from`: arriva fino a "*/" (se non si chiude, fino alla fine). Con indexOf, non con una regex, per restare lineare.
+    // Block comment from `from`: goes up to "*/" (if it does not close, to the end). With indexOf, not a regex, to stay linear.
     function hlComment(src, from, out) {
         var end = src.indexOf("*/", from + 2);
         end = end < 0 ? src.length : end + 2;
@@ -2082,7 +2082,7 @@
         }
     }
 
-    // Fine di un tag: il primo ">" fuori dalle virgolette, oppure -1. Una sola passata: un testo pieno di "<a" senza ">" non diventa quadratico.
+    // End of a tag: the first ">" outside quotes, or -1. A single pass: a text full of "<a" without ">" does not become quadratic.
     function hlTagEnd(src, from) {
         var q = "", ch;
         for (var i = from; i < src.length; i++) {
@@ -2108,7 +2108,7 @@
                 continue;
             }
             var close = hlTagEnd(src, re.lastIndex);
-            if (close < 0) break;   // nessun ">" fino alla fine: il resto è testo
+            if (close < 0) break;   // no ">" until the end: the rest is text
             hlText(out, src.slice(last, start));
             var closing = tok.charAt(0) === "/", name = closing ? tok.slice(1) : tok;
             var attrs = src.slice(re.lastIndex, close), self = attrs.slice(-1) === "/";
@@ -2136,9 +2136,9 @@
         return "js";
     }
 
-    var HL_MAX = 100000;   // oltre questa lunghezza il testo resta senza colori: la colorazione non deve poter bloccare la pagina
+    var HL_MAX = 100000;   // beyond this length the text stays uncolored: highlighting must not be able to freeze the page
 
-    // Kit.highlight(testo, "html"|"js"|"css") → frammento di DOM col codice colorato (la lingua, se manca o non è nota, si indovina)
+    // Kit.highlight(text, "html"|"js"|"css") → DOM fragment with the colored code (the language, if missing or unknown, is guessed)
     function highlight(text, lang) {
         var out = document.createDocumentFragment();
         text = String(text);
@@ -2170,7 +2170,7 @@
 
     var codeState = new WeakMap();
 
-    // Kit.code(pre, { lang, text, copy, copyLabel, copiedLabel }) → { set(testo, lingua), text() }
+    // Kit.code(pre, { lang, text, copy, copyLabel, copiedLabel }) → { set(text, lang), text() }
     function code(target, opts) {
         var el = typeof target === "string" ? document.querySelector(target) : target;
         if (!el) return null;
@@ -2191,7 +2191,7 @@
         function render() {
             c.textContent = "";
             try { c.appendChild(highlight(st.text, st.lang)); }
-            catch (e) { c.textContent = st.text; }   // in caso di errore il codice si mostra senza colori, mai perso
+            catch (e) { c.textContent = st.text; }   // on error the code is shown without colors, never lost
         }
         st.api = {
             set: function (text, lang) { st.text = String(text); if (lang) st.lang = lang; render(); },
@@ -2222,15 +2222,15 @@
         return st.api;
     }
 
-    /* ---------- Tabella: ordinamento, filtro di testo e paginazione ----------
-       <table class="kit-table" data-kit-sort data-kit-page="10" data-kit-empty="Nessun risultato">   (ognuno degli attributi è facoltativo)
-       <input class="kit-input" data-kit-filter="#tabella">                                          campo di ricerca
-       Ordine e filtro lavorano sulle righe del primo <tbody>; il tipo di una colonna (numeri, date, testo) si riconosce dal contenuto
-       oppure si scrive su <th data-kit-type="num|date|text">; il valore di una cella può essere diverso dal testo (<td data-kit-value="…">). */
+    /* ---------- Table: sorting, text filter and pagination ----------
+       <table class="kit-table" data-kit-sort data-kit-page="10" data-kit-empty="No results">   (each attribute is optional)
+       <input class="kit-input" data-kit-filter="#table">                                          search field
+       Sort and filter work on the rows of the first <tbody>; the type of a column (numbers, dates, text) is recognized from the content
+       or written on <th data-kit-type="num|date|text">; a cell's value can differ from its text (<td data-kit-value="…">). */
     var tableState = new WeakMap();
     function tblLabels() { var m = t("table"); return { empty: t("noResults"), of: m.of, prev: m.prev, next: m.next, page: m.page, nav: m.nav }; }
     var NUM_RE = /^[+\-]?\s*[€$£]?\s*[+\-]?\d[\d.,\s]*\s*[%€$£]?$/;
-    var DATE_DMY = /^(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{4})(?:[ T,]+(\d{1,2}):(\d{2}))?$/;   // l'ordine giorno/mese dipende dalla lingua
+    var DATE_DMY = /^(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{4})(?:[ T,]+(\d{1,2}):(\d{2}))?$/;   // the day/month order depends on the language
     var DATE_YMD = /^(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2}))?$/;
 
     function tblText(node, skipSmall) {
@@ -2251,7 +2251,7 @@
         var c = s.lastIndexOf(","), d = s.lastIndexOf(".");
         if (c >= 0 && d >= 0) s = c > d ? s.replace(/\./g, "").replace(",", ".") : s.replace(/,/g, "");
         else if (c >= 0 || d >= 0) {
-            // un solo tipo di separatore: se è quello decimale della lingua è un decimale; altrimenti è delle migliaia solo se i gruppi sono da tre cifre
+            // a single kind of separator: if it is the language's decimal one it is a decimal; otherwise it is a thousands separator only if the groups are of three digits
             var sep = c >= 0 ? "," : ".", dec = t("num.dec") === "," ? "," : ".";
             if (sep !== dec && new RegExp("^\\d{1,3}(\\" + sep + "\\d{3})+$").test(s)) s = s.split(sep).join("");
             else s = s.split(sep === "," ? "." : ",").join("").replace(",", ".");
@@ -2398,7 +2398,7 @@
             }
         }
 
-        // Ridisegna: ordine, filtro, pagina. Gli eventi partono dai metodi che cambiano lo stato, non da qui.
+        // Redraws: order, filter, page. Events come from the methods that change the state, not from here.
         function render() {
             var b = body();
             if (!b) return;
@@ -2467,7 +2467,7 @@
             return { column: c ? c.col : -1, direction: c ? c.dir : "none", criteria: st.sorts.map(function (c) { return { column: c.col, direction: c.dir }; }) };
         }
 
-        // sortBy(col, dir) = una sola colonna; sortBy([[col, dir], ...]) = più colonne (solo con data-kit-sort="multi")
+        // sortBy(col, dir) = a single column; sortBy([[col, dir], ...]) = several columns (only with data-kit-sort="multi")
         function sortBy(col, dir) {
             var list = Array.isArray(col) ? col : [[col, dir]];
             st.sorts = [];
@@ -2485,8 +2485,8 @@
             fire("kit:sort", sortDetail());
         }
 
-        // Clic su un'intestazione. Con Shift o Ctrl/⌘ (e data-kit-sort="multi") la colonna si aggiunge, si inverte o si toglie
-        // dall'elenco; senza, diventa l'unico criterio (e, se lo era già, passa a decrescente, poi a nessuno).
+        // Click on a header. With Shift or Ctrl/⌘ (and data-kit-sort="multi") the column is added, reversed or removed
+        // from the list; without, it becomes the only criterion (and, if it already was, goes to descending, then to none).
         function headClick(col, add) {
             var cur = null;
             st.sorts.forEach(function (c) { if (c.col === col) cur = c; });
@@ -2585,9 +2585,9 @@
         input.addEventListener("input", function () { api.filter(input.value); });
     }
 
-    /* ---------- Accordion (kit-accordion): "uno solo aperto" e API ----------
+    /* ---------- Accordion (kit-accordion): "only one open" and API ----------
        <div class="kit-accordion" data-kit-accordion="single"><details>…</details>…</div>
-       Vale per i <details> figli diretti (un accordion dentro un altro è indipendente). Evento "kit:accordion" con { item, index, open }. */
+       Applies to the direct-child <details> (an accordion inside another is independent). "kit:accordion" event with { item, index, open }. */
     var accState = new WeakMap();
 
     function accordion(target, opts) {
@@ -2623,11 +2623,11 @@
         };
     }
 
-    /* ---------- Meter (kit-meter): una misura rispetto a un limite ----------
-       <div class="kit-meter" data-kit-meter data-kit-value="78" data-kit-max="100" data-kit-warn="80" data-kit-danger="95" aria-label="Spazio"><i></i></div>
-       Le soglie sono nella stessa unità del valore (come l'elemento <meter>). Di base più alto è peggio: da warn in su è arancione, da danger in su
-       rosso, sotto è verde. Con data-kit-good="high" (un punteggio) si legge al contrario: fino a warn arancione, fino a danger rosso.
-       Senza soglie la barra resta nel colore d'accento. Scrive role="meter", aria-valuenow/min/max e --kit-value. Kit.meter(el).set(valore). */
+    /* ---------- Meter (kit-meter): a measure against a limit ----------
+       <div class="kit-meter" data-kit-meter data-kit-value="78" data-kit-max="100" data-kit-warn="80" data-kit-danger="95" aria-label="Space"><i></i></div>
+       The thresholds are in the same unit as the value (like the <meter> element). By default higher is worse: from warn up it is orange, from danger up
+       red, below it is green. With data-kit-good="high" (a score) it reads the other way: up to warn orange, up to danger red.
+       Without thresholds the bar stays in the accent color. Writes role="meter", aria-valuenow/min/max and --kit-value. Kit.meter(el).set(value). */
     function meter(target, opts) {
         var el = resolveEl(target);
         if (!el) return null;
@@ -2667,11 +2667,11 @@
         };
     }
 
-    /* ---------- Date e orari: calendario, intervallo, data e ora, ora ----------
-       <input class="kit-input" type="date" name="data" data-kit-datepicker>          calendario (anche type="datetime-local" o "time")
-       <div class="kit-daterange" data-kit-daterange><input type="date" name="da"><input type="date" name="a"></div>
-       Il campo visibile è di testo e mostra gg/mm/aaaa; il valore che parte con il form è sempre in ISO (aaaa-mm-gg), in un campo
-       nascosto che prende il name. Le date sono stringhe ISO e i calcoli si fanno in UTC: nessun fuso orario di mezzo. */
+    /* ---------- Dates and times: calendar, range, date and time, time ----------
+       <input class="kit-input" type="date" name="date" data-kit-datepicker>          calendar (also type="datetime-local" or "time")
+       <div class="kit-daterange" data-kit-daterange><input type="date" name="from"><input type="date" name="to"></div>
+       The visible field is text and shows the language's date order (dd/mm/yyyy or mm/dd/yyyy); the value sent with the form is always ISO (yyyy-mm-dd), in a
+       hidden field that takes the name. Dates are ISO strings and the calculations are done in UTC: no time zone involved. */
     var DT = {
         get months() { return t("date.months"); },
         get days() { return t("date.days"); },
@@ -2682,7 +2682,7 @@
         get sep() { return t("date.sep"); },
         get first() { return t("date.first") === 0 ? 0 : 1; }
     };
-    /* nomi vecchi dei periodi (data-kit-presets) → nomi di oggi */
+    /* old period names (data-kit-presets) → today's names */
     var PRESET_ALIAS = { oggi: "today", ieri: "yesterday", mese: "month", "mese-scorso": "last-month", anno: "year", "anno-scorso": "last-year" };
     function presetKey(k) { return PRESET_ALIAS[k] || k; }
     var DTNS = "http://www.w3.org/2000/svg";
@@ -2728,7 +2728,7 @@
     function dowMon(iso) { var a = isoParts(iso); return (new Date(Date.UTC(a[0], a[1] - 1, a[2])).getUTCDay() + 6) % 7; }
     function todayIso() { var n = new Date(); return isoOf(n.getFullYear(), n.getMonth() + 1, n.getDate()); }
     function validYmd(y, m, d) { return y >= 1000 && y <= 9999 && m >= 1 && m <= 12 && d >= 1 && d <= dim(y, m); }
-    /* colonna del giorno nella settimana della lingua (lunedì o domenica per primo) */
+    /* day column in the language's week (Monday or Sunday first) */
     function dowCol(iso) { var w = dowMon(iso); return DT.first === 0 ? (w + 1) % 7 : w; }
     function fmtDate(iso) {
         if (!iso) return "";
@@ -2737,8 +2737,8 @@
     }
     function dayLabel(iso) { var a = isoParts(iso); return DT.daysLong[dowMon(iso)] + " " + a[2] + " " + DT.months[a[1] - 1] + " " + a[0]; }
 
-    /* Accetta la data scritta nell'ordine della lingua (gg/mm/aaaa, mm/gg/aaaa o aaaa/mm/gg; anche con . - o spazio, anche g/m/aa o ggmmaaaa)
-       e sempre aaaa-mm-gg. "" se vuoto, null se non è una data vera. */
+    /* Accepts the date written in the language's order (dd/mm/yyyy, mm/dd/yyyy or yyyy/mm/dd; also with . - or space, also d/m/yy or ddmmyyyy)
+       and always yyyy-mm-dd. "" if empty, null if it is not a real date. */
     function parseDate(text) {
         var s = String(text == null ? "" : text).trim(), m, y, mo, d, o = DT.order;
         if (!s) return "";
@@ -2758,7 +2758,7 @@
         var h = +m[1], mi = +(m[2] || 0);
         return h < 24 && mi < 60 ? p2(h) + ":" + p2(mi) : null;
     }
-    /* "12/11/2026 09:30", "2026-11-12T09:30" → "2026-11-12T09:30"; la sola data vale mezzanotte */
+    /* "12/11/2026 09:30", "2026-11-12T09:30" → "2026-11-12T09:30"; a date alone means midnight */
     function parseDateTime(text) {
         var s = String(text == null ? "" : text).trim();
         if (!s) return "";
@@ -2767,7 +2767,7 @@
         var d = parseDate(m[1]), t = m[2] ? parseTime(m[2]) : "00:00";
         return d && t !== null ? d + "T" + t : null;
     }
-    /* limiti: ISO, "oggi" o uno scarto in giorni da oggi ("+7", "-30") */
+    /* limits: ISO, "today" or an offset in days from today ("+7", "-30") */
     function dtBound(raw, kind, isMax) {
         raw = String(raw || "").trim().toLowerCase();
         if (!raw) return "";
@@ -2781,13 +2781,13 @@
         var tp = raw.length > 10 ? parseTime(raw.slice(11)) : "";
         return d + "T" + (tp || (isMax ? "23:59" : "00:00"));
     }
-    /* "sab", "sat", "Saturday"… → 0 (lunedì) … 6 (domenica), in qualunque lingua caricata; -1 se non è un giorno */
+    /* "sab", "sat", "Saturday"… → 0 (Monday) … 6 (Sunday), in any loaded language; -1 if it is not a day */
     function dtDayIndex(w) {
         var k = String(w).toLowerCase().slice(0, 3), i = DT.days.indexOf(k);
         for (var c in I18N) if (i < 0 && I18N[c].date && I18N[c].date.days) i = I18N[c].date.days.indexOf(k);
         return i;
     }
-    /* giorni non selezionabili: "sab,dom,2026-12-25" oppure una funzione (iso) => true */
+    /* non-selectable days: "sat,sun,2026-12-25" or a function (iso) => true */
     function dtDisable(spec) {
         if (typeof spec === "function") return spec;
         var wd = {}, dates = {};
@@ -2812,7 +2812,7 @@
         return null;
     }
 
-    /* ----- Il popup (uno per campo) ----- */
+    /* ----- The popup (one per field) ----- */
     function dtPop(cfg) {
         var T = DT.t, mode = cfg.mode, hasCal = mode !== "time", hasTime = mode === "time" || mode === "datetime";
         var pop = mkEl("div", "kit-datepop");
@@ -2863,7 +2863,7 @@
             return h;
         }
 
-        /* valore corrente in forma comoda: {date, time} oppure {from, to} */
+        /* current value in a convenient form: {date, time} or {from, to} */
         function cur() { return cfg.get(); }
         function isSel(iso) {
             var v = cur();
@@ -3099,7 +3099,7 @@
             var left = Math.max(8, Math.min(a.left, vw - w - 8)), below = vh - a.bottom - 14, above = a.top - 14, top;
             if (h <= below) top = a.bottom + 6;
             else if (h <= above) top = a.top - 6 - h;
-            else if (below >= above) { top = a.bottom + 6; pop.style.maxHeight = Math.max(160, below) + "px"; }   // né sopra né sotto c'è posto: si usa il lato più largo e il popup scorre
+            else if (below >= above) { top = a.bottom + 6; pop.style.maxHeight = Math.max(160, below) + "px"; }   // there is room neither above nor below: the wider side is used and the popup scrolls
             else { pop.style.maxHeight = Math.max(160, above) + "px"; top = Math.max(8, a.top - 6 - pop.offsetHeight); }
             pop.style.left = left + "px";
             pop.style.top = top + "px";
@@ -3143,7 +3143,7 @@
             if (hasCal) fixFocus();
             render(null);
             pop.hidden = false;
-            if (hasPopover) { try { pop.showPopover(); } catch (e) { /* già aperto */ } }
+            if (hasPopover) { try { pop.showPopover(); } catch (e) { /* already open */ } }
             S.open = true;
             dtActive = api;
             lock(S.sheet);
@@ -3164,12 +3164,12 @@
             window.removeEventListener("resize", onWin);
             window.removeEventListener("scroll", onWin, true);
             lock(false);
-            if (hasPopover) { try { pop.hidePopover(); } catch (e) { /* già chiuso */ } }
+            if (hasPopover) { try { pop.hidePopover(); } catch (e) { /* already closed */ } }
             pop.hidden = true;
             cfg.onToggle(false);
             if (returnFocus) {
                 var i = cfg.input();
-                if (i && i.getAttribute("inputmode") === "none") i = cfg.button;   // sul telefono il campo aprirebbe la tastiera
+                if (i && i.getAttribute("inputmode") === "none") i = cfg.button;   // on the phone the field would open the keyboard
                 if (i && i.isConnected) i.focus({ preventScroll: true });
             }
         }
@@ -3177,7 +3177,7 @@
         api.close = close;
         api.render = function () { if (S.open) render(null); };
 
-        /* ----- azioni ----- */
+        /* ----- actions ----- */
         function showMonthOf(iso, spec) {
             S.focus = iso;
             if (iso < S.view) S.view = monthStart(iso);
@@ -3230,7 +3230,7 @@
         }
 
         pop.addEventListener("click", function (e) {
-            e.preventDefault();   // un click dentro il popup non deve arrivare alla <label> che lo contiene
+            e.preventDefault();   // a click inside the popup must not reach the <label> that contains it
             var t = e.target instanceof Element ? e.target.closest("button") : null;
             if (!t || !pop.contains(t) || t.disabled) return;
             var ds = t.dataset;
@@ -3305,7 +3305,7 @@
                 var edge = e.shiftKey ? f[0] : f[f.length - 1];
                 if (document.activeElement === edge) {
                     if (S.sheet) { e.preventDefault(); (e.shiftKey ? f[f.length - 1] : f[0]).focus({ preventScroll: true }); }
-                    else { close(false); var i = cfg.input(); if (i && i.getAttribute("inputmode") !== "none") i.focus({ preventScroll: true }); }   // il Tab prosegue dal campo
+                    else { close(false); var i = cfg.input(); if (i && i.getAttribute("inputmode") !== "none") i.focus({ preventScroll: true }); }   // Tab continues from the field
                 }
                 return;
             }
@@ -3351,7 +3351,7 @@
         return api;
     }
 
-    /* ----- Un campo di testo (data, data e ora, ora) ----- */
+    /* ----- A text field (date, date and time, time) ----- */
     function dtSlot(input, kind, role) {
         var d = input.dataset, s = { input: input, kind: kind, role: role || "", value: "", hidden: null, bad: false, other: null, disabled: function () { return false; } };
         s.rawMin = d.kitMin || input.getAttribute("min") || "";
@@ -3419,7 +3419,7 @@
         if (s.other) dtValidate(s.other);
     }
 
-    /* Collega uno o due campi (slots) a un popup. host = elemento che contiene i campi e il bottone. */
+    /* Connects one or two fields (slots) to a popup. host = element that holds the fields and the button. */
     function dtMount(host, slots, mode, o) {
         var s0 = slots[0], d = (mode === "range" ? host : s0.input).dataset, field = { el: host, silent: false };
         var presets = o.presets != null ? o.presets : d.kitPresets != null ? d.kitPresets : "7,30,month,last-month,year";
@@ -3531,7 +3531,7 @@
                 if (e.key === "ArrowDown" || (e.altKey && e.key === "ArrowDown")) { e.preventDefault(); openFor(i); }
             });
             inp.addEventListener("click", function () {
-                // sul telefono il campo non apre la tastiera: un tocco apre il calendario
+                // on the phone the field does not open the keyboard: a tap opens the calendar
                 if (inp.getAttribute("inputmode") === "none" && !dp.isOpen()) openFor(i);
             });
             var form = inp.form;
@@ -3540,7 +3540,7 @@
                 form.addEventListener("formdata", function (e) { if (s.hidden && s.hidden.name && (inp.disabled || s.hidden.disabled)) e.formData.delete(s.hidden.name); });
             }
         });
-        // un clic fuori dal popup lo chiude
+        // a click outside the popup closes it
         var api = {
             el: host, open: function () { openFor(0); }, close: function () { dp.close(false); },
             get: function () { return mode === "range" ? { from: slots[0].value, to: slots[1].value } : s0.value; },
@@ -3554,7 +3554,7 @@
         return api;
     }
 
-    /* Calendario, data e ora, ora: <input data-kit-datepicker> (il tipo si capisce da type="date|datetime-local|time"). */
+    /* Calendar, date and time, time: <input data-kit-datepicker> (the type is read from type="date|datetime-local|time"). */
     function datePicker(target, opts) {
         var input = typeof target === "string" ? document.querySelector(target) : target;
         if (!input || !input.matches || !input.matches("input") || input.type === "hidden") return null;
@@ -3573,7 +3573,7 @@
         dtMap.set(input, api);
         return api;
     }
-    /* Intervallo: <div class="kit-daterange" data-kit-daterange> con due <input type="date"> (dal, al). */
+    /* Range: <div class="kit-daterange" data-kit-daterange> with two <input type="date"> (from, to). */
     function dateRange(target, opts) {
         var wrap = typeof target === "string" ? document.querySelector(target) : target;
         if (!wrap) return null;
@@ -3590,7 +3590,7 @@
         dtMap.set(wrap, api);
         return api;
     }
-    /* Un clic fuori dal popup aperto lo chiude (sul bordo scuro del foglio per telefono il bersaglio è il popup stesso). */
+    /* A click outside the open popup closes it (on the dark edge of the phone sheet the target is the popup itself). */
     document.addEventListener("click", function (e) {
         if (!dtActive) return;
         var pop = dtActive.pop, t = e.target;
@@ -3602,17 +3602,17 @@
             return;
         }
         var host = pop.parentNode;
-        // il popup si ricostruisce a ogni clic su un suo bottone: il target può non esserci più, quindi si guarda il percorso dell'evento
+        // the popup is rebuilt on every click on one of its buttons: the target may no longer be there, so the event path is checked
         if (e.composedPath().indexOf(pop) >= 0) return;
         if (!(host && host.contains(t) && t instanceof Element && t.closest(".kit-date-btn, input"))) dtActive.close(false);
     });
 
-    /* ---------- Form: mostra/nascondi password, contatore dei caratteri, validazione ----------
-       <button type="button" class="kit-control-end" data-kit-password aria-label="Mostra la password">…</button>
-       <span class="kit-counter" data-kit-count="#nota"></span>                       (usa maxlength del campo)
-       <form data-kit-validate>   al submit controlla i campi con le regole HTML (required, pattern, min, maxlength…), segna i campi
-       con is-invalid, scrive il messaggio nel .kit-feedback-invalid (lo crea se manca) e porta il focus sul primo errore.
-       data-kit-validate="ok" segna anche is-valid. Messaggi: data-kit-msg o data-kit-msg-required|type|pattern|min|max|minlength|maxlength|step sul campo. */
+    /* ---------- Forms: show/hide password, character counter, validation ----------
+       <button type="button" class="kit-control-end" data-kit-password aria-label="Show password">…</button>
+       <span class="kit-counter" data-kit-count="#note"></span>                       (uses the field's maxlength)
+       <form data-kit-validate>   on submit checks the fields with the HTML rules (required, pattern, min, maxlength…), marks the fields
+       with is-invalid, writes the message in .kit-feedback-invalid (creates it if missing) and moves focus to the first error.
+       data-kit-validate="ok" also marks is-valid. Messages: data-kit-msg or data-kit-msg-required|type|pattern|min|max|minlength|maxlength|step on the field. */
     document.addEventListener("click", function (e) {
         var b = e.target instanceof Element ? e.target.closest("[data-kit-password]") : null;
         if (!b) return;
@@ -3635,7 +3635,7 @@
     function counterFor(inp) {
         document.querySelectorAll("[data-kit-count]").forEach(function (c) {
             var sel = c.getAttribute("data-kit-count");
-            try { if (inp.matches(sel)) counterUpdate(c); } catch (err) { /* selettore non valido */ }
+            try { if (inp.matches(sel)) counterUpdate(c); } catch (err) { /* invalid selector */ }
         });
     }
 
@@ -3644,7 +3644,7 @@
 
     function valMsg(c) {
         var d = c.dataset, v = c.validity;
-        if (v.customError) return c.validationMessage;     // setCustomValidity (per esempio il calendario) vince su tutto
+        if (v.customError) return c.validationMessage;     // setCustomValidity (for example the calendar) wins over everything
         for (var i = 0; i < VAL_KEYS.length; i++) if (v[VAL_KEYS[i][0]] && d["kitMsg" + VAL_KEYS[i][1]]) return d["kitMsg" + VAL_KEYS[i][1]];
         return d.kitMsg || c.validationMessage;
     }
@@ -3669,7 +3669,7 @@
         if (!on && i >= 0) cur.splice(i, 1);
         if (cur.length) c.setAttribute("aria-describedby", cur.join(" ")); else c.removeAttribute("aria-describedby");
     }
-    /* Stato di un campo (o gruppo): show = mostra gli errori; ok = segna anche is-valid. Restituisce il primo controllo non valido. */
+    /* State of a field (or group): show = show the errors; ok = also mark is-valid. Returns the first invalid control. */
     function valBoxUpdate(box, show, ok) {
         var list = valControls(box), bad = null;
         list.forEach(function (c) { if (!bad && !c.validity.valid) bad = c; });
@@ -3738,7 +3738,7 @@
         if (!f) return;
         c.setAttribute("data-kit-dirty", "");
         var box = valBox(c);
-        if (box.classList.contains("is-invalid")) valBoxUpdate(box, true, f.getAttribute("data-kit-validate") === "ok");   // sparisce l'errore appena è corretto
+        if (box.classList.contains("is-invalid")) valBoxUpdate(box, true, f.getAttribute("data-kit-validate") === "ok");   // the error disappears as soon as it is corrected
     });
     document.addEventListener("change", function (e) {
         var c = e.target, f = valForm0(c);
@@ -3749,9 +3749,9 @@
     });
     document.addEventListener("focusout", function (e) {
         var c = e.target, f = valForm0(c);
-        if (!f || !c.hasAttribute("data-kit-dirty")) return;       // un campo mai toccato non diventa rosso solo perché ci si passa sopra
+        if (!f || !c.hasAttribute("data-kit-dirty")) return;       // a field never touched does not turn red just because it is passed over
         var to = e.relatedTarget;
-        if (to instanceof Element && c.closest(".kit-date, .kit-daterange, .kit-combo, .kit-select, .kit-file") && c.closest(".kit-date, .kit-daterange, .kit-combo, .kit-select, .kit-file").contains(to)) return;   // il focus passa al calendario o al menu dello stesso campo
+        if (to instanceof Element && c.closest(".kit-date, .kit-daterange, .kit-combo, .kit-select, .kit-file") && c.closest(".kit-date, .kit-daterange, .kit-combo, .kit-select, .kit-file").contains(to)) return;   // focus moves to the calendar or the menu of the same field
         valBoxUpdate(valBox(c), true, f.getAttribute("data-kit-validate") === "ok");
     });
     document.addEventListener("reset", function (e) {
@@ -3781,9 +3781,9 @@
         });
     }
 
-    /* ---------- Colonne fisse (kit-table-fix data-kit-fix="2|3|4") ----------
-       Le larghezze cumulate delle prime colonne diventano --kit-fix-1, -2, -3: sono il "left" delle colonne successive.
-       Si rimisurano quando la tabella cambia dimensione (finestra, testo più grande, righe nuove). */
+    /* ---------- Fixed columns (kit-table-fix data-kit-fix="2|3|4") ----------
+       The cumulative widths of the first columns become --kit-fix-1, -2, -3: they are the "left" of the following columns.
+       They are measured again when the table changes size (window, larger text, new rows). */
     var fixed = new WeakSet();
 
     function fixMeasure(table) {
@@ -3860,7 +3860,7 @@
         });
     }
 
-    // Rilascio di file in qualsiasi punto della pagina (zona con data-kit-file-page).
+    // Dropping files anywhere on the page (zone with data-kit-file-page).
     document.addEventListener("dragenter", function (e) {
         if (!pageFileZone || !hasFiles(e)) return;
         e.preventDefault();
@@ -3882,26 +3882,26 @@
         if (pageFileZone.wrap.isConnected) fileDrop(pageFileZone.wrap, pageFileZone.st, e.dataTransfer);
     });
 
-    // Applica subito il tema salvato (evita il lampo se lo script è nel <head>).
+    // Applies the saved theme at once (avoids the flash if the script is in the <head>).
     var saved = readStored();
     if (saved === "light" || saved === "dark") root.setAttribute("data-theme", saved);
 
-    // Idem per la dimensione del testo.
+    // Same for the text size.
     var savedFs = readFs();
     if (savedFs) root.setAttribute("data-kit-fs", savedFs);
 
-    // Idem per la larghezza: la scelta dell'utente vince su quella scritta nell'HTML.
+    // Same for the width: the user's choice wins over the one written in the HTML.
     var savedLayout = readLayout();
     if (savedLayout) root.setAttribute("data-layout", savedLayout);
 
-    // Idem per la sidebar compatta o espansa.
+    // Same for the compact or expanded sidebar.
     var savedSide = readSide();
     if (savedSide) root.setAttribute("data-kit-sidebar", savedSide);
     window.addEventListener("resize", sideSync);
 
-    // htmx: ogni frammento inserito da htmx lancia "htmx:load"; lo si inizializza (una sola volta per contenitore, anche se i
-    // nodi inseriti sono tanti). init() si può ripetere senza duplicare niente, e parte dal contenitore perché il nodo stesso
-    // (per esempio una tabella sostituita con outerHTML) non rientra nelle ricerche che fa su ciò che contiene.
+    // htmx: every fragment inserted by htmx fires "htmx:load"; it is initialized (once per container, even if the
+    // inserted nodes are many). init() can be repeated without duplicating anything, and starts from the container because the node itself
+    // (for example a table replaced with outerHTML) is not found by the searches it does on what it contains.
     var htmxQueue = null;
     document.addEventListener("htmx:load", function (e) {
         var t = e.target;

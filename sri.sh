@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Stampa gli hash SRI (sha384) dei file di dist/, da mettere nell'attributo integrity.
-# Uso: ./sri.sh
+# Prints the SRI hashes (sha384) of the files in dist/, to put in the integrity attribute.
+# Usage: ./sri.sh
 set -euo pipefail
 cd "$(dirname "$0")"
 for f in dist/kit.css dist/kit.js dist/kit-icons.js; do
