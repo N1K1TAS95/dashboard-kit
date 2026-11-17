@@ -1,10 +1,9 @@
 # Changelog
 
 Until 0.10.0 the kit's built-in texts (button labels, messages, calendar) and the documentation were in Italian;
-quoted UI strings below are translated here. Since the next version the texts come from a per-language dictionary
-(see "Unreleased").
+quoted UI strings below are translated here. From 0.11.0 on the texts come from a per-language dictionary.
 
-## Unreleased
+## 0.11.0 — 17 November 2026
 
 - **Languages** (`Kit.i18n`): the texts `kit.js` writes by itself now come from a per-language dictionary, **English** (the default) and **Italian**, chosen from `<html lang>`. **Heads-up, the default behavior changes**: a page without `lang` now gets English texts ("Cancel", "No results"); for Italian you need `<html lang="it">`. `Kit.i18n.lang(code)` sets the language by hand, `Kit.i18n.add(code, dictionary)` adds one (it can hold only what differs: `pt-BR` falls back to `pt`, then to `en`), `Kit.i18n.t(key)` reads an entry; attributes and options (`data-kit-empty`, `{ cancel }`, …) always win. The language also drives the date order (`mm/dd/yyyy` or `dd/mm/yyyy`), the first day of the week in the calendar, the decimal separator used to sort numeric columns, and file sizes. The date-range presets now have English names (`today`, `yesterday`, `month`, `last-month`, `year`, `last-year`); the old Italian names still work, and `data-kit-disable` recognizes weekday names in every loaded language. New "Languages" section on the JavaScript page.
 - Documentation in two languages: the pages are now `docs/en/*.html` and `docs/it/*.html` (sources in `docs/src/en|it/`), with a language link in the header and a search index per language; `docs/index.html` redirects by browser language. **Addresses change**: `docs/forms.html` becomes `docs/it/forms.html` (or `docs/en/…`). Every page is available in both languages; the two example dashboards are `docs/en/dashboard*.html` and `docs/it/dashboard*.html` (the old `docs/dashboard*.html` addresses are gone). The VS Code snippets are now in English.

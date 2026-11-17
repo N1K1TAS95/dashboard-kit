@@ -156,13 +156,13 @@
 <h2 id="installazione">Installazione</h2>
 <p>Da CDN (jsDelivr), con la versione fissata e l'attributo <code>integrity</code> (SRI): se il file venisse alterato, il browser lo rifiuta.</p>
 <pre class="kit-code" data-kit-code="html"><code>&lt;link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.10.0/dist/kit.css"
-      integrity="sha384-flHcugC+WKOUnwwpKWBOz1NfTI9YGzvr/CEhee+U8grg6ubFZrju73vktxW/X6pD"
+      href="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.11.0/dist/kit.css"
+      integrity="sha384-caI9z5CMWhN61so69TJdI2W0CNgg9S/+kpJOHLXAtH+BJfDxBaY1a+izk6JVhNZY"
       crossorigin="anonymous"&gt;
 
 &lt;!-- opzionale: tema, select, tab, dialog, menu, toast --&gt;
-&lt;script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.10.0/dist/kit.js"
-        integrity="sha384-IGecUNGrLObq9ztV4j/moQcaSJDh9Z0qlwCdHrGDidJf7wz9mMOZjSHTRUFNrua4"
+&lt;script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.11.0/dist/kit.js"
+        integrity="sha384-VQpUqPK9ZCxfCao7rrz7IGAfbpWrhxw7Fh3uVC/AKUcA4D99T3fnMuw01VWFatYr"
         crossorigin="anonymous"&gt;&lt;/script&gt;</code></pre>
 <p>Oppure in locale: copia <code>dist/kit.css</code> (e <code>dist/kit.js</code>) nel progetto e collegali con un percorso relativo.</p>
 <p class="kit-alert">Se il sito ha una Content-Security-Policy, autorizza <code>https://cdn.jsdelivr.net</code> in <code>style-src</code> e <code>script-src</code>. Evita <code>@main</code> o <code>@latest</code>: non sono versioni fissate e jsDelivr le tiene in cache per ore.</p>
