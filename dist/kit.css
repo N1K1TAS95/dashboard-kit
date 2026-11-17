@@ -1822,6 +1822,22 @@ th[aria-sort="descending"] > .kit-sort-btn::after { content: "\2193"; opacity: 1
 .kit-progress { height: 6px; background: var(--kit-line); border-radius: 9px; overflow: hidden; }
 .kit-progress > i { display: block; height: 100%; background: var(--kit-accent); width: var(--kit-value, 0%); transition: width .15s; }
 
+/* Meter: una misura rispetto a un limite (spazio usato, quota, punteggio). Come kit-progress, ma il colore dice il livello:
+   is-success / is-warning / is-danger sul .kit-meter (a mano, o scritti da kit.js con data-kit-meter). Il valore è --kit-value. */
+.kit-meter { height: 8px; background: var(--kit-line); border-radius: 9px; overflow: hidden; }
+.kit-meter > i { display: block; height: 100%; width: var(--kit-value, 0%); background: var(--kit-accent); border-radius: inherit; transition: width .25s ease, background-color .25s; }
+.kit-meter.is-success > i { background: var(--kit-success); }
+.kit-meter.is-warning > i { background: var(--kit-warning); }
+.kit-meter.is-danger > i { background: var(--kit-danger); }
+.kit-meter-sm { height: 4px; }
+.kit-meter-lg { height: 12px; }
+@media (prefers-reduced-motion: reduce) { .kit-meter > i { transition: none; } }
+/* Etichetta sopra la barra: nome a sinistra, valore a destra (<div class="kit-meter-head"><span>Spazio</span><b>78 GB</b></div>) */
+.kit-meter-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 6px; font-size: 0.929rem; }
+.kit-meter-head > b { font-weight: 600; font-variant-numeric: tabular-nums; }
+.kit-meter-head > span { color: var(--kit-mute); }
+@media print { .kit-meter { border: 1px solid var(--kit-line); } .kit-meter > i { print-color-adjust: exact; -webkit-print-color-adjust: exact; } }
+
 .kit-legend { display: flex; gap: 14px; font-size: 0.857rem; color: var(--kit-mute); flex-wrap: wrap; }
 .kit-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; }
 

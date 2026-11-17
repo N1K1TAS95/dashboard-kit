@@ -134,6 +134,7 @@
             <li><a href="#avvisi">Avvisi</a></li>
             <li><a href="#badge">Badge</a></li>
             <li><a href="#progress">Barra di avanzamento</a></li>
+            <li><a href="#meter">Meter</a></li>
             <li><a href="#spinner">Spinner</a></li>
             <li><a href="#skeleton">Skeleton</a></li>
             <li><a href="#avanzamento">Avanzamento a pieno schermo</a></li>
@@ -214,6 +215,41 @@
   <div class="kit-progress"><i style="--kit-value: 62%"></i></div>
   <div class="kit-progress"><i style="--kit-value: 100%"></i></div>
 </div>
+
+<h2 id="meter">Meter</h2>
+<p>Una misura rispetto a un limite: spazio usato, quota del piano, punteggio. Si distingue dalla <a href="#progress">barra di avanzamento</a> perché non sta andando a finire: il valore è quello che è, e il colore dice se il livello va bene (<code>is-success</code>), richiede attenzione (<code>is-warning</code>) o è critico (<code>is-danger</code>). Senza classe di stato la barra è nel colore d'accento. Come nell'elemento nativo <code>&lt;meter&gt;</code>, ha <code>role="meter"</code> e i suoi <code>aria-valuenow</code>, <code>-min</code> e <code>-max</code>; l'etichetta accessibile è <code>aria-label</code>.</p>
+<p>Solo CSS (va bene per il rendering lato server): la larghezza è <code>--kit-value</code> e lo stato lo scegli tu. <code>kit-meter-head</code> mette nome e valore sopra la barra.</p>
+<div class="doc-demo kit-stack">
+  <div>
+    <div class="kit-meter-head"><span>Archivio</span><b>32 GB di 100</b></div>
+    <div class="kit-meter is-success" role="meter" aria-label="Archivio" aria-valuenow="32" aria-valuemin="0" aria-valuemax="100" style="--kit-value: 32%"><i></i></div>
+  </div>
+  <div>
+    <div class="kit-meter-head"><span>Richieste del mese</span><b>430 di 500</b></div>
+    <div class="kit-meter is-warning" role="meter" aria-label="Richieste del mese" aria-valuenow="430" aria-valuemin="0" aria-valuemax="500" style="--kit-value: 86%"><i></i></div>
+  </div>
+  <div>
+    <div class="kit-meter-head"><span>Posti occupati</span><b>48 su 50</b></div>
+    <div class="kit-meter is-danger" role="meter" aria-label="Posti occupati" aria-valuenow="48" aria-valuemin="0" aria-valuemax="50" style="--kit-value: 96%"><i></i></div>
+  </div>
+</div>
+<p>Con <code>kit.js</code> basta indicare valore e soglie e lo stato si calcola da solo. Gli attributi sono <code>data-kit-value</code>, <code>data-kit-min</code> (0), <code>data-kit-max</code> (100), <code>data-kit-warn</code> e <code>data-kit-danger</code>, nella stessa unità del valore. Di base più alto è peggio: da <code>warn</code> in su è arancione, da <code>danger</code> in su rosso, sotto è verde. Con <code>data-kit-good="high"</code> (un punteggio, una copertura) si legge al contrario: fino a <code>warn</code> arancione, fino a <code>danger</code> rosso. Senza soglie resta nel colore d'accento. Anche i meter dentro un frammento inserito da htmx si preparano da soli. Dimensioni: <code>kit-meter-sm</code> e <code>kit-meter-lg</code>.</p>
+<div class="doc-demo kit-stack">
+  <div>
+    <div class="kit-meter-head"><span>Disco</span><b>78 GB</b></div>
+    <div class="kit-meter" data-kit-meter data-kit-value="78" data-kit-max="100" data-kit-warn="80" data-kit-danger="95" aria-label="Disco"><i></i></div>
+  </div>
+  <div>
+    <div class="kit-meter-head"><span>Copertura dei test</span><b>45 %</b></div>
+    <div class="kit-meter kit-meter-lg" data-kit-meter data-kit-value="45" data-kit-good="high" data-kit-warn="70" data-kit-danger="50" aria-label="Copertura dei test"><i></i></div>
+  </div>
+  <div>
+    <div class="kit-meter-head"><span>Sala</span><b>12 / 40</b></div>
+    <div class="kit-meter kit-meter-sm" data-kit-meter data-kit-value="12" data-kit-max="40" aria-label="Sala"><i></i></div>
+  </div>
+</div>
+<p><code>Kit.meter(elemento, opzioni)</code> accetta le stesse cose come opzioni (<code>value</code>, <code>min</code>, <code>max</code>, <code>warn</code>, <code>danger</code>, <code>good</code>) e restituisce <code>{ set(valore), value(), state() }</code>; <code>set()</code> aggiorna larghezza, ARIA e colore, <code>state()</code> dà <code>"success"</code>, <code>"warning"</code>, <code>"danger"</code> o <code>null</code>.</p>
+<p class="kit-alert">Non affidare il livello solo al colore: scrivi anche il valore (con <code>kit-meter-head</code> o accanto alla barra), così si capisce anche senza distinguere i colori.</p>
 
 <h2 id="spinner">Spinner</h2>
 <p>Un anello che gira, nel colore del testo e grande quanto il font: dentro un bottone o accanto a una frase non serve altro. <code>kit-spinner-sm</code> e <code>-lg</code> cambiano la dimensione, <code>kit-spinner-accent</code> usa il colore d'accento. Aggiungi <code>role="status"</code> e un <code>aria-label</code>, oppure un testo accanto, perché chi usa uno screen reader sappia che si sta caricando.</p>

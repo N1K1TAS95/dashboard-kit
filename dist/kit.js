@@ -25,6 +25,7 @@
  *   data-kit-count="#campo"                  su un elemento di testo: mostra «n / maxlength» dei caratteri scritti nel campo
  *   data-kit-datepicker                      su <input type="date|datetime-local|time">: calendario (o scelta dell'ora) del kit; si scrive e si legge gg/mm/aaaa, il valore inviato è in ISO (data-kit-min, -max, -disable, -step; data-kit-timepicker per la sola ora)
  *   data-kit-daterange                       su un contenitore con due <input type="date"> (dal, al): intervallo con calendario a due mesi e scelte rapide (data-kit-presets)
+ *   data-kit-meter                           su .kit-meter: misura rispetto a un limite; legge data-kit-value, -min (0), -max (100), -warn, -danger, -good="high" e scrive larghezza, ARIA e colore (is-success|warning|danger)
  *   data-kit-fix="2|3|4"                     su .kit-table-fix: blocca le prime 2, 3 o 4 colonne (la sola prima si blocca con la classe, senza JavaScript)
  *   data-kit-filter="#tabella"               su un campo di testo: mostra solo le righe che contengono tutte le parole scritte
  *   data-kit-page="N"                        su .kit-table: mostra N righe per volta, con la paginazione sotto (data-kit-empty cambia il testo «Nessun risultato»)
@@ -38,7 +39,7 @@
  *   data-kit-tip="testo"                     tooltip (solo CSS; con kit.js Esc lo nasconde)
  *   data-kit-dismiss                         dentro un .kit-alert, lo rimuove (evento "kit:dismiss")
  *
- * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.sidebar.get()/set()/toggle()/open()/close(), Kit.fontSize.get()/set()/step(), Kit.reset(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.confirm(domanda, opzioni), Kit.undo(testo, opzioni), Kit.split(elemento), Kit.file(elemento, opzioni), Kit.progress(testo, opzioni), Kit.combo(elemento, opzioni), Kit.select(elemento, opzioni), Kit.code(elemento, opzioni), Kit.highlight(testo, lingua), Kit.barChart(elemento, opzioni), Kit.lineChart(…), Kit.donut(…), Kit.sparkline(…), Kit.table(tabella, opzioni), Kit.paginate(tabella, righe), Kit.accordion(elemento, opzioni), Kit.datepicker(campo, opzioni), Kit.daterange(contenitore, opzioni), Kit.validate(form), Kit.validate.reset(form), Kit.date.parse/format/today, Kit.init(radice)
+ * API: window.Kit.theme.get()/set(), Kit.layout.get()/set()/toggle(), Kit.sidebar.get()/set()/toggle()/open()/close(), Kit.fontSize.get()/set()/step(), Kit.reset(), Kit.toast(testo, opzioni), Kit.toast.clear(), Kit.confirm(domanda, opzioni), Kit.undo(testo, opzioni), Kit.split(elemento), Kit.file(elemento, opzioni), Kit.progress(testo, opzioni), Kit.combo(elemento, opzioni), Kit.select(elemento, opzioni), Kit.code(elemento, opzioni), Kit.highlight(testo, lingua), Kit.barChart(elemento, opzioni), Kit.lineChart(…), Kit.donut(…), Kit.sparkline(…), Kit.table(tabella, opzioni), Kit.paginate(tabella, righe), Kit.accordion(elemento, opzioni), Kit.meter(elemento, opzioni), Kit.datepicker(campo, opzioni), Kit.daterange(contenitore, opzioni), Kit.validate(form), Kit.validate.reset(form), Kit.date.parse/format/today, Kit.init(radice)
  * Eventi: "kit:change" (select, combobox), "kit:select" (barra, punto o fetta di un grafico), "kit:tab" (tab), "kit:files" (file scelti o rilasciati), "kit:copy" (codice copiato), "kit:sort" (tabella ordinata), "kit:filter" (tabella filtrata), "kit:page" (pagina della tabella cambiata), "kit:accordion" (voce dell'accordion aperta o chiusa), "kit:invalid" (form con campi non validi), "kit:change" anche per date e ore ({ value } o { from, to }), "kit:split" (pannello aperto, chiuso o a tutta larghezza), "kit:theme" (tema), "kit:layout" (larghezza), "kit:sidebar" (sidebar compressa, espansa, aperta o chiusa), "kit:fs" (dimensione del testo), "kit:reset" (impostazioni ripristinate), "kit:dismiss" (avviso chiuso)
  */
 (function () {
@@ -2513,6 +2514,50 @@
         };
     }
 
+    /* ---------- Meter (kit-meter): una misura rispetto a un limite ----------
+       <div class="kit-meter" data-kit-meter data-kit-value="78" data-kit-max="100" data-kit-warn="80" data-kit-danger="95" aria-label="Spazio"><i></i></div>
+       Le soglie sono nella stessa unità del valore (come l'elemento <meter>). Di base più alto è peggio: da warn in su è arancione, da danger in su
+       rosso, sotto è verde. Con data-kit-good="high" (un punteggio) si legge al contrario: fino a warn arancione, fino a danger rosso.
+       Senza soglie la barra resta nel colore d'accento. Scrive role="meter", aria-valuenow/min/max e --kit-value. Kit.meter(el).set(valore). */
+    function meter(target, opts) {
+        var el = resolveEl(target);
+        if (!el) return null;
+        var o = opts || {};
+        function num(name, key, def) {
+            var v = o[key] !== undefined ? o[key] : el.getAttribute("data-kit-" + name);
+            v = v === null || v === "" || v === undefined ? NaN : Number(v);
+            return isNaN(v) ? def : v;
+        }
+        var min = num("min", "min", 0), max = num("max", "max", 100);
+        if (max <= min) max = min + 100;
+        var warn = num("warn", "warn", null), danger = num("danger", "danger", null);
+        var high = (o.good !== undefined ? o.good : el.getAttribute("data-kit-good")) === "high";
+        function state(v) {
+            if (warn === null && danger === null) return "";
+            if (high) return danger !== null && v <= danger ? "danger" : warn !== null && v <= warn ? "warning" : "success";
+            return danger !== null && v >= danger ? "danger" : warn !== null && v >= warn ? "warning" : "success";
+        }
+        function set(value) {
+            var v = Math.min(max, Math.max(min, Number(value)));
+            if (isNaN(v)) v = min;
+            el.setAttribute("role", "meter");
+            el.setAttribute("aria-valuemin", String(min));
+            el.setAttribute("aria-valuemax", String(max));
+            el.setAttribute("aria-valuenow", String(v));
+            el.style.setProperty("--kit-value", ((v - min) / (max - min) * 100) + "%");
+            var s = state(v);
+            ["success", "warning", "danger"].forEach(function (k) { el.classList.toggle("is-" + k, k === s); });
+            el.setAttribute("data-kit-value", String(v));
+            return v;
+        }
+        set(num("value", "value", min));
+        return {
+            set: set,
+            value: function () { return Number(el.getAttribute("aria-valuenow")); },
+            state: function () { return state(Number(el.getAttribute("aria-valuenow"))) || null; }
+        };
+    }
+
     /* ---------- Date e orari: calendario, intervallo, data e ora, ora ----------
        <input class="kit-input" type="date" name="data" data-kit-datepicker>          calendario (anche type="datetime-local" o "time")
        <div class="kit-daterange" data-kit-daterange><input type="date" name="da"><input type="date" name="a"></div>
@@ -3642,6 +3687,7 @@
         scope = scope || document;
         scope.querySelectorAll("table.kit-table-fix[data-kit-fix]").forEach(fixTable);
         scope.querySelectorAll("[data-kit-accordion]").forEach(function (a) { accordion(a); });
+        scope.querySelectorAll("[data-kit-meter]").forEach(function (m) { meter(m); });
         scope.querySelectorAll("input[data-kit-datepicker], input[data-kit-timepicker]").forEach(function (i) { datePicker(i); });
         scope.querySelectorAll("[data-kit-daterange]").forEach(function (w) { dateRange(w); });
         formsInit(scope);
@@ -3753,5 +3799,5 @@
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { init(); });
     else init();
 
-    window.Kit = { theme: theme, layout: layout, sidebar: sidebar, fontSize: fontSize, reset: reset, toast: toast, undo: undo, confirm: confirmDialog, split: split, file: fileField, progress: progressDialog, combo: combo, select: nativeSelect, code: code, highlight: highlight, barChart: barChart, lineChart: lineChart, donut: donut, sparkline: sparkline, table: tblTable, paginate: tblPaginate, accordion: accordion, datepicker: datePicker, daterange: dateRange, validate: valForm, date: { parse: parseDate, parseTime: parseTime, format: fmtDate, today: todayIso, labels: DT }, init: init };
+    window.Kit = { theme: theme, layout: layout, sidebar: sidebar, fontSize: fontSize, reset: reset, toast: toast, undo: undo, confirm: confirmDialog, split: split, file: fileField, progress: progressDialog, combo: combo, select: nativeSelect, code: code, highlight: highlight, barChart: barChart, lineChart: lineChart, donut: donut, sparkline: sparkline, table: tblTable, paginate: tblPaginate, accordion: accordion, meter: meter, datepicker: datePicker, daterange: dateRange, validate: valForm, date: { parse: parseDate, parseTime: parseTime, format: fmtDate, today: todayIso, labels: DT }, init: init };
 })();

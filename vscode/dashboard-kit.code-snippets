@@ -381,6 +381,15 @@
     "description": "Barra di avanzamento (0–100%)",
     "body": "<div class=\"kit-progress\"><i style=\"--kit-value:${1:50}%\"></i></div>$0"
   },
+  "Kit: meter": {
+    "prefix": "kit-meter",
+    "scope": "html",
+    "description": "Misura rispetto a un limite, con soglie (richiede kit.js per lo stato automatico)",
+    "body": [
+      "<div class=\"kit-meter-head\"><span>${1:Disco}</span><b>${2:78} GB</b></div>",
+      "<div class=\"kit-meter\" data-kit-meter data-kit-value=\"${2:78}\" data-kit-max=\"${3:100}\" data-kit-warn=\"${4:80}\" data-kit-danger=\"${5:95}\" aria-label=\"${1:Disco}\"><i></i></div>$0"
+    ]
+  },
   "Kit: select personalizzato": {
     "prefix": "kit-select",
     "scope": "html",
