@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Dates and times — Dashboard Kit</title>
+<meta name="description" content="Date and time fields with the kit&#x27;s look, an optional calendar for a date, a range, date and time, and time only. Designed for the phone: on narrow screens the calendar slides up from the bottom, with 44-pixel targets.">
+<script src="../../dist/kit.js"></script>
+<link rel="stylesheet" href="../../dist/kit.css">
+<link rel="stylesheet" href="../docs.css">
+</head>
+<body>
+<!-- Pagina generata da tools/gen-docs.py a partire da docs/src/en/dates.html: non modificarla a mano. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="i-chev-up" viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></symbol>
+<symbol id="i-chev-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
+<symbol id="i-chev-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+<symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5m0 0-6 6m6-6 6 6"/></symbol>
+<symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14m0 0-6-6m6 6 6-6"/></symbol>
+<symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5m0 0 6-6m-6 6 6 6"/></symbol>
+<symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></symbol>
+<symbol id="i-expand" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></symbol>
+<symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V4m0 0L8 8m4-4 4 4M5 20h14"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.5-3.5L4 9m0-5v5h5M4 13a8 8 0 0 0 14.5 3.5L20 15m0 5v-5h-5"/></symbol>
+<symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4zM13.5 6.5l4 4"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></symbol>
+<symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8L3 5z"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h8m4 0h4M4 17h4m4 0h8"/><circle cx="14" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+<symbol id="i-more" viewBox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01"/></symbol>
+<symbol id="i-more-v" viewBox="0 0 24 24"><path d="M12 5h.01M12 12h.01M12 19h.01"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7M6 10v10h4v-6h4v6h4V10"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0 1 16 0"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4l2-2zM10 21h4"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM14 3v5h5"/></symbol>
+<symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6a1 1 0 0 1 1-1h5l2 2h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6z"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-text" viewBox="0 0 24 24"><path d="M4 7V5h16v2M12 5v14M9 19h6"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+<symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+<symbol id="i-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 3 3 5-6"/></symbol>
+<symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3.5 2.5 20h19L12 3.5z"/><path d="M12 10v4.5M12 17.5h.01"/></symbol>
+<symbol id="i-error" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/></symbol>
+</defs></svg>
+<header class="kit-header">
+  <div class="kit-container-boxed">
+    <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
+    <span class="kit-spacer"></span>
+    <div class="kit-combo doc-search" role="search">
+      <svg class="kit-icon"><use href="#i-search"/></svg>
+      <input class="kit-input" type="text" placeholder="Search…" aria-label="Search the documentation" spellcheck="false">
+      <kbd aria-hidden="true">/</kbd>
+    </div>
+    <a class="kit-btn kit-btn-ghost" href="../it/dates.html" hreflang="it" lang="it" title="Language">Italiano</a>
+    <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
+    <div class="kit-dropdown">
+      <button class="kit-btn kit-btn-icon" data-kit-toggle="#settings" aria-haspopup="true" aria-expanded="false" aria-label="Settings" title="Settings"><svg class="kit-icon"><use href="#i-sliders"/></svg></button>
+      <div class="kit-pop kit-pop-right kit-settings" id="settings" role="group" aria-label="Settings" hidden>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Theme</span>
+          <div class="kit-seg" role="group" aria-label="Theme">
+            <button data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg>Auto</button>
+            <button data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg>Light</button>
+            <button data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg>Dark</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Text size</span>
+          <div class="kit-seg" role="group" aria-label="Text size">
+            <button data-kit-fs-set="md" aria-label="Normal" title="Normal">A</button>
+            <button data-kit-fs-set="lg" aria-label="Large" title="Large">A</button>
+            <button data-kit-fs-set="xl" aria-label="Extra large" title="Extra large">A</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Content width</span>
+          <div class="kit-seg" role="group" aria-label="Content width">
+            <button data-kit-layout-set="boxed">Centered</button>
+            <button data-kit-layout-set="fluid">Full page</button>
+          </div>
+          <small>Visible on screens wider than the content.</small>
+        </div>
+        <div class="kit-settings-foot"><button class="kit-btn kit-btn-ghost" data-kit-reset>Reset</button></div>
+      </div>
+    </div>
+  </div>
+</header>
+<main class="kit-main">
+<div class="kit-container-boxed">
+<div class="kit-row kit-gy-0">
+  <aside class="kit-col-12 kit-col-lg-3">
+    <nav class="doc-nav" aria-label="Documentation">
+      <details class="doc-nav-d" open>
+        <summary class="kit-btn">Documentation menu</summary>
+        <div class="doc-nav-body">
+          <div class="doc-nav-group">Getting started</div>
+          <a href="index.html">Introduction</a>
+          <a href="javascript.html">JavaScript</a>
+          <div class="doc-nav-group">Foundations</div>
+          <a href="../it/layout.html" hreflang="it" lang="it">Layout <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/grid.html" hreflang="it" lang="it">Grid <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/utilities.html" hreflang="it" lang="it">Utilities <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/typography.html" hreflang="it" lang="it">Typography <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/icons.html" hreflang="it" lang="it">Icons <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/buttons.html" hreflang="it" lang="it">Buttons <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Forms</div>
+          <a href="forms.html">Basic fields</a>
+          <a href="form-layout.html">Layout and validation</a>
+          <a href="form-controls.html">Select and file</a>
+          <a href="dates.html" class="is-current" aria-current="page">Dates and times</a>
+          <ul class="doc-toc">
+            <li><a href="#native">Native fields</a></li>
+            <li><a href="#calendar">Calendar</a></li>
+            <li><a href="#range">Range</a></li>
+            <li><a href="#datetime">Date and time</a></li>
+            <li><a href="#time">Time only</a></li>
+            <li><a href="#phone">Phone and touch</a></li>
+            <li><a href="#keyboard">Keyboard</a></li>
+            <li><a href="#options">Attributes and options</a></li>
+            <li><a href="#django">With Django and htmx</a></li>
+            <li><a href="#js">JavaScript</a></li>
+          </ul>
+          <div class="doc-nav-group">Navigation</div>
+          <a href="../it/navbar.html" hreflang="it" lang="it">Navbar <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/sidebar.html" hreflang="it" lang="it">Sidebar <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/navigation.html" hreflang="it" lang="it">Tabs and breadcrumb <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Data</div>
+          <a href="../it/tables.html" hreflang="it" lang="it">Tables <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/charts.html" hreflang="it" lang="it">Charts <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/cards.html" hreflang="it" lang="it">Cards and details <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Feedback and overlays</div>
+          <a href="../it/feedback.html" hreflang="it" lang="it">Alerts and progress <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/overlays.html" hreflang="it" lang="it">Dialogs and menus <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/accordion.html" hreflang="it" lang="it">Accordion <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Customizing</div>
+          <a href="../it/theming.html" hreflang="it" lang="it">Themes and tokens <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/snippets.html" hreflang="it" lang="it">VS Code snippets <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Examples</div>
+          <a href="../dashboard.html">Dashboard <span class="kit-badge kit-badge-neutral">example</span></a>
+          <a href="../dashboard-sidebar.html">Dashboard with sidebar <span class="kit-badge kit-badge-neutral">example</span></a>
+        </div>
+      </details>
+    </nav>
+  </aside>
+  <article class="kit-col-12 kit-col-lg-9 doc-content">
+    <h1 class="doc-title">Dates and times</h1>
+    <p class="doc-lead">Date and time fields with the kit's look, an optional calendar for a date, a range, date and time, and time only. Designed for the phone: on narrow screens the calendar slides up from the bottom, with 44-pixel targets.</p>
+<h2 id="native">Native fields</h2>
+<p><code>.kit-input</code> also works on <code>date</code>, <code>time</code>, <code>datetime-local</code>, <code>month</code> and <code>week</code>: the same height, border and focus ring as the other fields, aligned numbers and, on iOS, left-aligned text and the right height even when the field is empty. No JavaScript is needed: the picker is the browser's, which on a phone is usually the best. Min and max (<code>min</code>, <code>max</code>) and <code>aria-invalid="true"</code> work as for the other fields.</p>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <label class="kit-field">Date <input class="kit-input" type="date" value="2026-11-12"></label>
+    <label class="kit-field">Time <input class="kit-input" type="time" value="09:30"></label>
+    <label class="kit-field">Date and time <input class="kit-input" type="datetime-local" value="2026-11-12T09:30"></label>
+    <label class="kit-field">Month <input class="kit-input" type="month" value="2026-11"></label>
+    <label class="kit-field">Week <input class="kit-input" type="week" value="2026-W46"></label>
+    <label class="kit-field">Invalid date <input class="kit-input" type="date" aria-invalid="true" value="2026-11-12"><small class="kit-danger">The date cannot be in the past.</small></label>
+  </div>
+</div>
+<p>For a range without JavaScript a <code>kit-daterange</code> container with two fields is enough: they sit in a single frame, separated by a line.</p>
+<div class="doc-demo">
+  <div class="kit-field" style="max-width: 340px">
+    <span>Period (browser picker)</span>
+    <div class="kit-daterange"><input class="kit-input" type="date" aria-label="From" value="2026-11-01"><input class="kit-input" type="date" aria-label="To" value="2026-11-30"></div>
+  </div>
+</div>
+
+<h2 id="calendar">Calendar</h2>
+<p>With <code>data-kit-datepicker</code> on the field (needs <code>kit.js</code>) the browser's picker gives way to a calendar that is the same everywhere. It is optional: without the attribute the field stays native, and without JavaScript the one with the attribute stays a normal <code>type="date"</code>.</p>
+<ul>
+  <li>The field shows and accepts <b>mm/dd/yyyy</b> (the order follows the page's <a href="javascript.html#languages">language</a>: in Italian it is <b>dd/mm/yyyy</b>). You can also type it: the slashes are added by themselves and <code>3/5/26</code>, <code>03.05.2026</code>, <code>03052026</code>, <code>2026-03-05</code> all work.</li>
+  <li>The value sent with the form is always <b>yyyy-mm-dd</b>, in a hidden field that takes the <code>name</code>: the server reads it without conversions.</li>
+  <li>It opens with the calendar button or the down arrow. On a phone you just tap the field (the keyboard does not appear).</li>
+  <li>The month title leads to the months, and the year title to the years: useful for birth dates.</li>
+</ul>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <label class="kit-field">Issue date <input class="kit-input" type="date" name="emissione" value="2026-11-12" data-kit-datepicker></label>
+    <label class="kit-field">Due date <input class="kit-input" type="date" name="scadenza" data-kit-datepicker required><small data-doc-out>Value: –</small></label>
+  </div>
+</div>
+<p>On change the field's <code>input</code> and <code>change</code> events fire (so htmx's <code>hx-trigger="change"</code> works too) and <code>kit:change</code> with <code>{ value, display }</code>: <code>value</code> in ISO, <code>display</code> as written in the field.</p>
+
+<h3 id="limits">Limits and excluded days</h3>
+<p><code>min</code> and <code>max</code> (or <code>data-kit-min</code> and <code>data-kit-max</code>) set the allowed range. Besides the ISO date they accept <code>today</code> and an offset in days: <code>+30</code> is in thirty days, <code>-7</code> a week ago. <code>data-kit-disable</code> excludes days of the week (<code>mon</code>… <code>sun</code>) and specific dates. Excluded days are visible but cannot be chosen; if the date is typed by hand the field is invalid (<code>setCustomValidity</code>, so the form does not submit) and gets the red border.</p>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <label class="kit-field">Delivery (from today, Monday to Friday)
+      <input class="kit-input" type="date" name="consegna" data-kit-datepicker data-kit-min="today" data-kit-max="+90" data-kit-disable="sat,sun,2026-12-25,2026-12-26">
+      <small>Within 90 days, excluding Saturday, Sunday and Christmas.</small></label>
+    <label class="kit-field">Date of birth
+      <input class="kit-input" type="date" name="nascita" data-kit-datepicker max="today">
+      <small>For distant years: month title, then year title.</small></label>
+  </div>
+</div>
+
+<h2 id="range">Range</h2>
+<p><code>data-kit-daterange</code> on a container with two <code>&lt;input type="date"&gt;</code> (from, to). The calendar shows two months side by side, with a colored band between the two dates; while choosing the second one, hovering over the days shows a preview. You can also type the dates in the two fields. If "to" precedes "from" the field is invalid. The quick choices are on the left (on a phone they become a scrolling row above the calendar); <code>data-kit-presets</code> chooses which ones (<code>none</code> removes them).</p>
+<div class="doc-demo">
+  <div class="kit-field" style="max-width: 360px">
+    <span>Period</span>
+    <div class="kit-daterange" data-kit-daterange data-kit-presets="today,7,30,month,last-month">
+      <input class="kit-input" type="date" name="dal" aria-label="From" value="2026-11-01">
+      <input class="kit-input" type="date" name="al" aria-label="To" value="2026-11-12">
+    </div>
+    <small data-doc-out>Value: 2026-11-01 → 2026-11-12</small>
+  </div>
+</div>
+<p>The available choices are <code>today</code>, <code>yesterday</code>, <code>7</code>, <code>30</code>, <code>90</code> (last N days), <code>month</code>, <code>last-month</code>, <code>year</code>, <code>last-year</code> (the old Italian names <code>oggi</code>, <code>ieri</code>, <code>mese</code>, <code>mese-scorso</code>, <code>anno</code>, <code>anno-scorso</code> still work). By default <code>7,30,month,last-month,year</code>. Those that fall outside <code>min</code> and <code>max</code> are shortened, or disabled if they stay entirely outside. The <code>kit:change</code> event has <code>{ from, to }</code>, and <code>input</code> and <code>change</code> fire on both fields.</p>
+
+<h2 id="datetime">Date and time</h2>
+<p>On a <code>type="datetime-local"</code> the calendar has hour and minute columns next to it. The field shows <b>mm/dd/yyyy hh:mm</b> and sends <code>yyyy-mm-ddThh:mm</code>, like the native field. "Done" closes. If you only choose the time, the date becomes today; if you only choose the day, the time is 00:00. <code>data-kit-step="15"</code> (minutes) limits the minutes to multiples of 15; the <code>step</code> attribute in seconds works too.</p>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <label class="kit-field">Appointment <input class="kit-input" type="datetime-local" name="appuntamento" value="2026-11-12T09:30" data-kit-datepicker data-kit-step="15"><small data-doc-out>Value: 2026-11-12T09:30</small></label>
+  </div>
+</div>
+
+<h2 id="time">Time only</h2>
+<p>On a <code>type="time"</code> (or with <code>data-kit-timepicker</code>) you choose hours and minutes in two columns. You can also type <code>9</code>, <code>9.30</code>, <code>930</code>. The value is <code>hh:mm</code> in 24 hours, the same as the native field. <code>min</code> and <code>max</code> count as times (<code>09:00</code>, <code>18:00</code>).</p>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <label class="kit-field">Opening <input class="kit-input" type="time" name="apertura" value="09:00" data-kit-timepicker data-kit-step="5" min="06:00" max="22:00"><small data-doc-out>Value: 09:00</small></label>
+  </div>
+</div>
+
+<h2 id="phone">Phone and touch</h2>
+<ul>
+  <li>Below 576 px the calendar becomes a <b>bottom sheet</b>, full width, with a darkened backdrop and a "Close" button; the backdrop edge or Esc closes it. The page below does not scroll.</li>
+  <li>With a "coarse" pointer (fingers) days, months and hours are 44 px tall, even on a tablet.</li>
+  <li>The field does not open the keyboard (<code>inputmode="none"</code>): a tap opens the calendar. With a mouse it stays a numeric field to type in.</li>
+  <li>The field's text is at least 16 px, so iOS does not zoom the page.</li>
+  <li>The calendar is in the page's top layer (<code>popover</code>): no card, scrolling table or dialog clips it.</li>
+  <li>If you prefer the system picker for phones, do not add <code>data-kit-datepicker</code> and use the native field: its look is already the kit's.</li>
+</ul>
+<div class="doc-demo kit-bar">
+  <button class="kit-btn" data-kit-open="#dlg-date">Date fields inside a dialog</button>
+  <dialog class="kit-dialog" id="dlg-date" aria-labelledby="dlg-date-t">
+    <div class="kit-card-head"><h3 id="dlg-date-t">New appointment</h3></div>
+    <div class="kit-card-body">
+      <div class="kit-fields">
+        <label class="kit-field">Day <input class="kit-input" type="date" data-kit-datepicker></label>
+        <label class="kit-field">Time <input class="kit-input" type="time" data-kit-timepicker></label>
+      </div>
+    </div>
+    <div class="kit-card-foot"><button class="kit-btn" data-kit-close>Close</button></div>
+  </dialog>
+</div>
+
+<h2 id="keyboard">Keyboard</h2>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table">
+  <thead><tr><th>Where</th><th>Keys</th></tr></thead>
+  <tbody>
+    <tr><td>Field</td><td>↓ opens the calendar; you can type the date. Tab leaves the field.</td></tr>
+    <tr><td>Days</td><td>← → one day, ↑ ↓ one week, Home and End start and end of the week, PageUp and PageDown one month, Shift + PageUp/PageDown one year. Enter or Space choose.</td></tr>
+    <tr><td>Months and years</td><td>Arrows to move, Enter to choose.</td></tr>
+    <tr><td>Hours and minutes</td><td>↑ ↓ in the column, ← → from one column to the other, Home and End for the first and the last.</td></tr>
+    <tr><td>Open calendar</td><td>Esc closes and returns focus to the field. Tab goes through the controls and leaves from the last one.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="options">Attributes and options</h2>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table">
+  <thead><tr><th>Attribute</th><th>JS option</th><th>What it does</th></tr></thead>
+  <tbody>
+    <tr><td><code>data-kit-datepicker</code></td><td><code>type</code></td><td>Calendar on the field. The type (<code>date</code>, <code>datetime</code>, <code>time</code>) is read from <code>type="date|datetime-local|time"</code>; on a text field you write the value: <code>data-kit-datepicker="datetime"</code>.</td></tr>
+    <tr><td><code>data-kit-timepicker</code></td><td>–</td><td>As above, for time only.</td></tr>
+    <tr><td><code>data-kit-daterange</code></td><td>–</td><td>On a container with two date fields (from, to).</td></tr>
+    <tr><td><code>min</code>, <code>max</code> (or <code>data-kit-min</code>, <code>-max</code>)</td><td><code>min</code>, <code>max</code> on the field</td><td>Limits: ISO, <code>today</code>, <code>+N</code> or <code>-N</code> days; for times <code>hh:mm</code>.</td></tr>
+    <tr><td><code>data-kit-disable</code></td><td><code>disable</code></td><td>Excluded days: <code>sat,sun,2026-12-25</code>; from JavaScript also a function <code>(iso) =&gt; true</code>.</td></tr>
+    <tr><td><code>data-kit-step</code> or <code>step</code></td><td><code>step</code></td><td>Minutes step (1–30). 1 by default.</td></tr>
+    <tr><td><code>data-kit-presets</code></td><td><code>presets</code></td><td>Quick choices for the range (a list, or <code>none</code>).</td></tr>
+    <tr><td><code>required</code></td><td>–</td><td>The field is required and the calendar does not offer "Clear".</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="django">With Django and htmx</h2>
+<p>The visible field has no <code>name</code>: the hidden one has it, and it contains the ISO date. So <code>request.GET["dal"]</code> and <code>cleaned_data</code> receive <code>2026-11-12</code>, with no formats to configure.</p>
+<pre class="kit-code" data-kit-code="python"><code># forms.py — format="%Y-%m-%d" lets the native field (without JavaScript) show the initial value
+class PeriodForm(forms.Form):
+    dal = forms.DateField(required=False, widget=forms.DateInput(
+        format="%Y-%m-%d", attrs={"type": "date", "class": "kit-input", "aria-label": "From"}))
+    al = forms.DateField(required=False, widget=forms.DateInput(
+        format="%Y-%m-%d", attrs={"type": "date", "class": "kit-input", "aria-label": "To"}))</code></pre>
+<pre class="kit-code" data-kit-code="html"><code>&lt;form hx-get="{% url 'invoices' %}" hx-target="#results" hx-trigger="change"&gt;
+  &lt;div class="kit-daterange" data-kit-daterange&gt;{{ form.dal }}{{ form.al }}&lt;/div&gt;
+&lt;/form&gt;</code></pre>
+<ul>
+  <li>With htmx put <code>hx-get</code> and <code>hx-trigger="change"</code> on the <b>form</b> (or a container), not on the single field: the hidden field is in the form and gets included. The <code>change</code> event fires after every choice, with the value already updated. On a single field, <code>hx-include</code> names the other one.</li>
+  <li>The fragments htmx inserts initialize by themselves (<code>htmx:load</code>); also with <code>hx-swap="outerHTML"</code> on the form.</li>
+  <li>With django-filter, <code>DateFromToRangeFilter</code> and <code>RangeWidget(attrs={"type": "date", "class": "kit-input"})</code> produce two fields in a row, suited to <code>kit-daterange</code>.</li>
+  <li>A server error on a field: add <code>aria-invalid="true"</code> and the message in <code>&lt;small class="kit-danger"&gt;</code>, as for the other fields.</li>
+</ul>
+
+<h2 id="js">JavaScript</h2>
+<pre class="kit-code" data-kit-code="js"><code>const field = Kit.datepicker("#due");                    // returns { get, set, clear, open, close }
+field.set("2026-12-31");                                  // without an event (set(v, true) fires it)
+field.get();                                              // "2026-12-31"
+
+const period = Kit.daterange("#period", { presets: ["today", "7", "month"] });
+period.set({ from: "2026-11-01", to: "2026-11-12" });
+period.get();                                             // { from, to }
+
+Kit.date.parse("3/5/26");                                 // "2026-03-05" ("" if empty, null if not a date; the order depends on the language)
+Kit.date.format("2026-03-05");                            // "03/05/2026"
+Kit.i18n.add("en", { date: { t: { today: "Now" } } });    // texts and month names can be replaced (see Languages)
+
+document.addEventListener("kit:change", (e) =&gt; {
+  console.log(e.detail);                                  // { value, display } or { from, to }
+});</code></pre>
+<p>Dates are ISO strings and calculations are done in UTC, so the browser's time zone never shifts a day. "Today" is the device's local date.</p>
+    <nav class="doc-pager" aria-label="Previous and next page">
+      <a href="form-controls.html"><small>← Previous</small><b>Select and file</b></a>
+      <a class="doc-next" href="../it/navbar.html"><small>Next →</small><b>Navbar</b></a>
+    </nav>
+  </article>
+</div>
+</div>
+</main>
+<script src="search-index.js"></script>
+<script src="../docs.js"></script>
+</body>
+</html>

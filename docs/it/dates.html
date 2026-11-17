@@ -64,7 +64,7 @@
       <input class="kit-input" type="text" placeholder="Cerca…" aria-label="Cerca nella documentazione" spellcheck="false">
       <kbd aria-hidden="true">/</kbd>
     </div>
-    <a class="kit-btn kit-btn-ghost" href="../en/index.html" hreflang="en" lang="en" title="Lingua">English</a>
+    <a class="kit-btn kit-btn-ghost" href="../en/dates.html" hreflang="en" lang="en" title="Lingua">English</a>
     <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
     <div class="kit-dropdown">
       <button class="kit-btn kit-btn-icon" data-kit-toggle="#settings" aria-haspopup="true" aria-expanded="false" aria-label="Impostazioni" title="Impostazioni"><svg class="kit-icon"><use href="#i-sliders"/></svg></button>
@@ -315,8 +315,8 @@ periodo.set({ from: "2026-11-01", to: "2026-11-12" });
 periodo.get();                                            // { from, to }
 
 Kit.date.parse("5/3/26");                                 // "2026-03-05" ("" se vuoto, null se non è una data)
-Kit.date.format("2026-03-05");                            // "05/03/2026"
-Kit.date.labels.t.today = "Today";                        // testi e nomi dei mesi si possono sostituire (Kit.date.labels.months…)
+Kit.date.format("2026-03-05");                            // "05/03/2026" (in inglese "03/05/2026")
+Kit.i18n.add("it", { date: { t: { today: "Adesso" } } });  // testi e nomi dei mesi si possono sostituire (vedi Lingue)
 
 document.addEventListener("kit:change", (e) =&gt; {
   console.log(e.detail);                                  // { value, display } oppure { from, to }

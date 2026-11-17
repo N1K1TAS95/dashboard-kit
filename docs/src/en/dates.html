@@ -1,0 +1,172 @@
+<!--title: Dates and times-->
+<!--desc: Date and time fields with the kit's look, an optional calendar for a date, a range, date and time, and time only. Designed for the phone: on narrow screens the calendar slides up from the bottom, with 44-pixel targets.-->
+<h2 id="native">Native fields</h2>
+<p><code>.kit-input</code> also works on <code>date</code>, <code>time</code>, <code>datetime-local</code>, <code>month</code> and <code>week</code>: the same height, border and focus ring as the other fields, aligned numbers and, on iOS, left-aligned text and the right height even when the field is empty. No JavaScript is needed: the picker is the browser's, which on a phone is usually the best. Min and max (<code>min</code>, <code>max</code>) and <code>aria-invalid="true"</code> work as for the other fields.</p>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <label class="kit-field">Date <input class="kit-input" type="date" value="2026-11-12"></label>
+    <label class="kit-field">Time <input class="kit-input" type="time" value="09:30"></label>
+    <label class="kit-field">Date and time <input class="kit-input" type="datetime-local" value="2026-11-12T09:30"></label>
+    <label class="kit-field">Month <input class="kit-input" type="month" value="2026-11"></label>
+    <label class="kit-field">Week <input class="kit-input" type="week" value="2026-W46"></label>
+    <label class="kit-field">Invalid date <input class="kit-input" type="date" aria-invalid="true" value="2026-11-12"><small class="kit-danger">The date cannot be in the past.</small></label>
+  </div>
+</div>
+<p>For a range without JavaScript a <code>kit-daterange</code> container with two fields is enough: they sit in a single frame, separated by a line.</p>
+<div class="doc-demo">
+  <div class="kit-field" style="max-width: 340px">
+    <span>Period (browser picker)</span>
+    <div class="kit-daterange"><input class="kit-input" type="date" aria-label="From" value="2026-11-01"><input class="kit-input" type="date" aria-label="To" value="2026-11-30"></div>
+  </div>
+</div>
+
+<h2 id="calendar">Calendar</h2>
+<p>With <code>data-kit-datepicker</code> on the field (needs <code>kit.js</code>) the browser's picker gives way to a calendar that is the same everywhere. It is optional: without the attribute the field stays native, and without JavaScript the one with the attribute stays a normal <code>type="date"</code>.</p>
+<ul>
+  <li>The field shows and accepts <b>mm/dd/yyyy</b> (the order follows the page's <a href="javascript.html#languages">language</a>: in Italian it is <b>dd/mm/yyyy</b>). You can also type it: the slashes are added by themselves and <code>3/5/26</code>, <code>03.05.2026</code>, <code>03052026</code>, <code>2026-03-05</code> all work.</li>
+  <li>The value sent with the form is always <b>yyyy-mm-dd</b>, in a hidden field that takes the <code>name</code>: the server reads it without conversions.</li>
+  <li>It opens with the calendar button or the down arrow. On a phone you just tap the field (the keyboard does not appear).</li>
+  <li>The month title leads to the months, and the year title to the years: useful for birth dates.</li>
+</ul>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <label class="kit-field">Issue date <input class="kit-input" type="date" name="emissione" value="2026-11-12" data-kit-datepicker></label>
+    <label class="kit-field">Due date <input class="kit-input" type="date" name="scadenza" data-kit-datepicker required><small data-doc-out>Value: –</small></label>
+  </div>
+</div>
+<p>On change the field's <code>input</code> and <code>change</code> events fire (so htmx's <code>hx-trigger="change"</code> works too) and <code>kit:change</code> with <code>{ value, display }</code>: <code>value</code> in ISO, <code>display</code> as written in the field.</p>
+
+<h3 id="limits">Limits and excluded days</h3>
+<p><code>min</code> and <code>max</code> (or <code>data-kit-min</code> and <code>data-kit-max</code>) set the allowed range. Besides the ISO date they accept <code>today</code> and an offset in days: <code>+30</code> is in thirty days, <code>-7</code> a week ago. <code>data-kit-disable</code> excludes days of the week (<code>mon</code>… <code>sun</code>) and specific dates. Excluded days are visible but cannot be chosen; if the date is typed by hand the field is invalid (<code>setCustomValidity</code>, so the form does not submit) and gets the red border.</p>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <label class="kit-field">Delivery (from today, Monday to Friday)
+      <input class="kit-input" type="date" name="consegna" data-kit-datepicker data-kit-min="today" data-kit-max="+90" data-kit-disable="sat,sun,2026-12-25,2026-12-26">
+      <small>Within 90 days, excluding Saturday, Sunday and Christmas.</small></label>
+    <label class="kit-field">Date of birth
+      <input class="kit-input" type="date" name="nascita" data-kit-datepicker max="today">
+      <small>For distant years: month title, then year title.</small></label>
+  </div>
+</div>
+
+<h2 id="range">Range</h2>
+<p><code>data-kit-daterange</code> on a container with two <code>&lt;input type="date"&gt;</code> (from, to). The calendar shows two months side by side, with a colored band between the two dates; while choosing the second one, hovering over the days shows a preview. You can also type the dates in the two fields. If "to" precedes "from" the field is invalid. The quick choices are on the left (on a phone they become a scrolling row above the calendar); <code>data-kit-presets</code> chooses which ones (<code>none</code> removes them).</p>
+<div class="doc-demo">
+  <div class="kit-field" style="max-width: 360px">
+    <span>Period</span>
+    <div class="kit-daterange" data-kit-daterange data-kit-presets="today,7,30,month,last-month">
+      <input class="kit-input" type="date" name="dal" aria-label="From" value="2026-11-01">
+      <input class="kit-input" type="date" name="al" aria-label="To" value="2026-11-12">
+    </div>
+    <small data-doc-out>Value: 2026-11-01 → 2026-11-12</small>
+  </div>
+</div>
+<p>The available choices are <code>today</code>, <code>yesterday</code>, <code>7</code>, <code>30</code>, <code>90</code> (last N days), <code>month</code>, <code>last-month</code>, <code>year</code>, <code>last-year</code> (the old Italian names <code>oggi</code>, <code>ieri</code>, <code>mese</code>, <code>mese-scorso</code>, <code>anno</code>, <code>anno-scorso</code> still work). By default <code>7,30,month,last-month,year</code>. Those that fall outside <code>min</code> and <code>max</code> are shortened, or disabled if they stay entirely outside. The <code>kit:change</code> event has <code>{ from, to }</code>, and <code>input</code> and <code>change</code> fire on both fields.</p>
+
+<h2 id="datetime">Date and time</h2>
+<p>On a <code>type="datetime-local"</code> the calendar has hour and minute columns next to it. The field shows <b>mm/dd/yyyy hh:mm</b> and sends <code>yyyy-mm-ddThh:mm</code>, like the native field. "Done" closes. If you only choose the time, the date becomes today; if you only choose the day, the time is 00:00. <code>data-kit-step="15"</code> (minutes) limits the minutes to multiples of 15; the <code>step</code> attribute in seconds works too.</p>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <label class="kit-field">Appointment <input class="kit-input" type="datetime-local" name="appuntamento" value="2026-11-12T09:30" data-kit-datepicker data-kit-step="15"><small data-doc-out>Value: 2026-11-12T09:30</small></label>
+  </div>
+</div>
+
+<h2 id="time">Time only</h2>
+<p>On a <code>type="time"</code> (or with <code>data-kit-timepicker</code>) you choose hours and minutes in two columns. You can also type <code>9</code>, <code>9.30</code>, <code>930</code>. The value is <code>hh:mm</code> in 24 hours, the same as the native field. <code>min</code> and <code>max</code> count as times (<code>09:00</code>, <code>18:00</code>).</p>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <label class="kit-field">Opening <input class="kit-input" type="time" name="apertura" value="09:00" data-kit-timepicker data-kit-step="5" min="06:00" max="22:00"><small data-doc-out>Value: 09:00</small></label>
+  </div>
+</div>
+
+<h2 id="phone">Phone and touch</h2>
+<ul>
+  <li>Below 576 px the calendar becomes a <b>bottom sheet</b>, full width, with a darkened backdrop and a "Close" button; the backdrop edge or Esc closes it. The page below does not scroll.</li>
+  <li>With a "coarse" pointer (fingers) days, months and hours are 44 px tall, even on a tablet.</li>
+  <li>The field does not open the keyboard (<code>inputmode="none"</code>): a tap opens the calendar. With a mouse it stays a numeric field to type in.</li>
+  <li>The field's text is at least 16 px, so iOS does not zoom the page.</li>
+  <li>The calendar is in the page's top layer (<code>popover</code>): no card, scrolling table or dialog clips it.</li>
+  <li>If you prefer the system picker for phones, do not add <code>data-kit-datepicker</code> and use the native field: its look is already the kit's.</li>
+</ul>
+<div class="doc-demo kit-bar">
+  <button class="kit-btn" data-kit-open="#dlg-date">Date fields inside a dialog</button>
+  <dialog class="kit-dialog" id="dlg-date" aria-labelledby="dlg-date-t">
+    <div class="kit-card-head"><h3 id="dlg-date-t">New appointment</h3></div>
+    <div class="kit-card-body">
+      <div class="kit-fields">
+        <label class="kit-field">Day <input class="kit-input" type="date" data-kit-datepicker></label>
+        <label class="kit-field">Time <input class="kit-input" type="time" data-kit-timepicker></label>
+      </div>
+    </div>
+    <div class="kit-card-foot"><button class="kit-btn" data-kit-close>Close</button></div>
+  </dialog>
+</div>
+
+<h2 id="keyboard">Keyboard</h2>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table">
+  <thead><tr><th>Where</th><th>Keys</th></tr></thead>
+  <tbody>
+    <tr><td>Field</td><td>↓ opens the calendar; you can type the date. Tab leaves the field.</td></tr>
+    <tr><td>Days</td><td>← → one day, ↑ ↓ one week, Home and End start and end of the week, PageUp and PageDown one month, Shift + PageUp/PageDown one year. Enter or Space choose.</td></tr>
+    <tr><td>Months and years</td><td>Arrows to move, Enter to choose.</td></tr>
+    <tr><td>Hours and minutes</td><td>↑ ↓ in the column, ← → from one column to the other, Home and End for the first and the last.</td></tr>
+    <tr><td>Open calendar</td><td>Esc closes and returns focus to the field. Tab goes through the controls and leaves from the last one.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="options">Attributes and options</h2>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table">
+  <thead><tr><th>Attribute</th><th>JS option</th><th>What it does</th></tr></thead>
+  <tbody>
+    <tr><td><code>data-kit-datepicker</code></td><td><code>type</code></td><td>Calendar on the field. The type (<code>date</code>, <code>datetime</code>, <code>time</code>) is read from <code>type="date|datetime-local|time"</code>; on a text field you write the value: <code>data-kit-datepicker="datetime"</code>.</td></tr>
+    <tr><td><code>data-kit-timepicker</code></td><td>–</td><td>As above, for time only.</td></tr>
+    <tr><td><code>data-kit-daterange</code></td><td>–</td><td>On a container with two date fields (from, to).</td></tr>
+    <tr><td><code>min</code>, <code>max</code> (or <code>data-kit-min</code>, <code>-max</code>)</td><td><code>min</code>, <code>max</code> on the field</td><td>Limits: ISO, <code>today</code>, <code>+N</code> or <code>-N</code> days; for times <code>hh:mm</code>.</td></tr>
+    <tr><td><code>data-kit-disable</code></td><td><code>disable</code></td><td>Excluded days: <code>sat,sun,2026-12-25</code>; from JavaScript also a function <code>(iso) =&gt; true</code>.</td></tr>
+    <tr><td><code>data-kit-step</code> or <code>step</code></td><td><code>step</code></td><td>Minutes step (1–30). 1 by default.</td></tr>
+    <tr><td><code>data-kit-presets</code></td><td><code>presets</code></td><td>Quick choices for the range (a list, or <code>none</code>).</td></tr>
+    <tr><td><code>required</code></td><td>–</td><td>The field is required and the calendar does not offer "Clear".</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="django">With Django and htmx</h2>
+<p>The visible field has no <code>name</code>: the hidden one has it, and it contains the ISO date. So <code>request.GET["dal"]</code> and <code>cleaned_data</code> receive <code>2026-11-12</code>, with no formats to configure.</p>
+```python
+# forms.py — format="%Y-%m-%d" lets the native field (without JavaScript) show the initial value
+class PeriodForm(forms.Form):
+    dal = forms.DateField(required=False, widget=forms.DateInput(
+        format="%Y-%m-%d", attrs={"type": "date", "class": "kit-input", "aria-label": "From"}))
+    al = forms.DateField(required=False, widget=forms.DateInput(
+        format="%Y-%m-%d", attrs={"type": "date", "class": "kit-input", "aria-label": "To"}))
+```
+```html
+<form hx-get="{% url 'invoices' %}" hx-target="#results" hx-trigger="change">
+  <div class="kit-daterange" data-kit-daterange>{{ form.dal }}{{ form.al }}</div>
+</form>
+```
+<ul>
+  <li>With htmx put <code>hx-get</code> and <code>hx-trigger="change"</code> on the <b>form</b> (or a container), not on the single field: the hidden field is in the form and gets included. The <code>change</code> event fires after every choice, with the value already updated. On a single field, <code>hx-include</code> names the other one.</li>
+  <li>The fragments htmx inserts initialize by themselves (<code>htmx:load</code>); also with <code>hx-swap="outerHTML"</code> on the form.</li>
+  <li>With django-filter, <code>DateFromToRangeFilter</code> and <code>RangeWidget(attrs={"type": "date", "class": "kit-input"})</code> produce two fields in a row, suited to <code>kit-daterange</code>.</li>
+  <li>A server error on a field: add <code>aria-invalid="true"</code> and the message in <code>&lt;small class="kit-danger"&gt;</code>, as for the other fields.</li>
+</ul>
+
+<h2 id="js">JavaScript</h2>
+```js
+const field = Kit.datepicker("#due");                    // returns { get, set, clear, open, close }
+field.set("2026-12-31");                                  // without an event (set(v, true) fires it)
+field.get();                                              // "2026-12-31"
+
+const period = Kit.daterange("#period", { presets: ["today", "7", "month"] });
+period.set({ from: "2026-11-01", to: "2026-11-12" });
+period.get();                                             // { from, to }
+
+Kit.date.parse("3/5/26");                                 // "2026-03-05" ("" if empty, null if not a date; the order depends on the language)
+Kit.date.format("2026-03-05");                            // "03/05/2026"
+Kit.i18n.add("en", { date: { t: { today: "Now" } } });    // texts and month names can be replaced (see Languages)
+
+document.addEventListener("kit:change", (e) => {
+  console.log(e.detail);                                  // { value, display } or { from, to }
+});
+```
+<p>Dates are ISO strings and calculations are done in UTC, so the browser's time zone never shifts a day. "Today" is the device's local date.</p>

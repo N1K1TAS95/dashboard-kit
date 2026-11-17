@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Forms: select and file — Dashboard Kit</title>
+<meta name="description" content="Custom select, file field, drop zone and combobox: the controls that need kit.js.">
+<script src="../../dist/kit.js"></script>
+<link rel="stylesheet" href="../../dist/kit.css">
+<link rel="stylesheet" href="../docs.css">
+</head>
+<body>
+<!-- Pagina generata da tools/gen-docs.py a partire da docs/src/en/form-controls.html: non modificarla a mano. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="i-chev-up" viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></symbol>
+<symbol id="i-chev-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
+<symbol id="i-chev-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+<symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5m0 0-6 6m6-6 6 6"/></symbol>
+<symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14m0 0-6-6m6 6 6-6"/></symbol>
+<symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5m0 0 6-6m-6 6 6 6"/></symbol>
+<symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></symbol>
+<symbol id="i-expand" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></symbol>
+<symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V4m0 0L8 8m4-4 4 4M5 20h14"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.5-3.5L4 9m0-5v5h5M4 13a8 8 0 0 0 14.5 3.5L20 15m0 5v-5h-5"/></symbol>
+<symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4zM13.5 6.5l4 4"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></symbol>
+<symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8L3 5z"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h8m4 0h4M4 17h4m4 0h8"/><circle cx="14" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+<symbol id="i-more" viewBox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01"/></symbol>
+<symbol id="i-more-v" viewBox="0 0 24 24"><path d="M12 5h.01M12 12h.01M12 19h.01"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7M6 10v10h4v-6h4v6h4V10"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0 1 16 0"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4l2-2zM10 21h4"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM14 3v5h5"/></symbol>
+<symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6a1 1 0 0 1 1-1h5l2 2h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6z"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-text" viewBox="0 0 24 24"><path d="M4 7V5h16v2M12 5v14M9 19h6"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+<symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+<symbol id="i-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 3 3 5-6"/></symbol>
+<symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3.5 2.5 20h19L12 3.5z"/><path d="M12 10v4.5M12 17.5h.01"/></symbol>
+<symbol id="i-error" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/></symbol>
+</defs></svg>
+<header class="kit-header">
+  <div class="kit-container-boxed">
+    <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
+    <span class="kit-spacer"></span>
+    <div class="kit-combo doc-search" role="search">
+      <svg class="kit-icon"><use href="#i-search"/></svg>
+      <input class="kit-input" type="text" placeholder="Search…" aria-label="Search the documentation" spellcheck="false">
+      <kbd aria-hidden="true">/</kbd>
+    </div>
+    <a class="kit-btn kit-btn-ghost" href="../it/form-controls.html" hreflang="it" lang="it" title="Language">Italiano</a>
+    <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
+    <div class="kit-dropdown">
+      <button class="kit-btn kit-btn-icon" data-kit-toggle="#settings" aria-haspopup="true" aria-expanded="false" aria-label="Settings" title="Settings"><svg class="kit-icon"><use href="#i-sliders"/></svg></button>
+      <div class="kit-pop kit-pop-right kit-settings" id="settings" role="group" aria-label="Settings" hidden>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Theme</span>
+          <div class="kit-seg" role="group" aria-label="Theme">
+            <button data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg>Auto</button>
+            <button data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg>Light</button>
+            <button data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg>Dark</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Text size</span>
+          <div class="kit-seg" role="group" aria-label="Text size">
+            <button data-kit-fs-set="md" aria-label="Normal" title="Normal">A</button>
+            <button data-kit-fs-set="lg" aria-label="Large" title="Large">A</button>
+            <button data-kit-fs-set="xl" aria-label="Extra large" title="Extra large">A</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Content width</span>
+          <div class="kit-seg" role="group" aria-label="Content width">
+            <button data-kit-layout-set="boxed">Centered</button>
+            <button data-kit-layout-set="fluid">Full page</button>
+          </div>
+          <small>Visible on screens wider than the content.</small>
+        </div>
+        <div class="kit-settings-foot"><button class="kit-btn kit-btn-ghost" data-kit-reset>Reset</button></div>
+      </div>
+    </div>
+  </div>
+</header>
+<main class="kit-main">
+<div class="kit-container-boxed">
+<div class="kit-row kit-gy-0">
+  <aside class="kit-col-12 kit-col-lg-3">
+    <nav class="doc-nav" aria-label="Documentation">
+      <details class="doc-nav-d" open>
+        <summary class="kit-btn">Documentation menu</summary>
+        <div class="doc-nav-body">
+          <div class="doc-nav-group">Getting started</div>
+          <a href="index.html">Introduction</a>
+          <a href="javascript.html">JavaScript</a>
+          <div class="doc-nav-group">Foundations</div>
+          <a href="../it/layout.html" hreflang="it" lang="it">Layout <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/grid.html" hreflang="it" lang="it">Grid <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/utilities.html" hreflang="it" lang="it">Utilities <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/typography.html" hreflang="it" lang="it">Typography <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/icons.html" hreflang="it" lang="it">Icons <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/buttons.html" hreflang="it" lang="it">Buttons <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Forms</div>
+          <a href="forms.html">Basic fields</a>
+          <a href="form-layout.html">Layout and validation</a>
+          <a href="form-controls.html" class="is-current" aria-current="page">Select and file</a>
+          <ul class="doc-toc">
+            <li><a href="#select">Custom select</a></li>
+            <li><a href="#file">File field</a></li>
+            <li><a href="#dropzone">Drop zone</a></li>
+            <li><a href="#combobox">Combobox</a></li>
+          </ul>
+          <a href="dates.html">Dates and times</a>
+          <div class="doc-nav-group">Navigation</div>
+          <a href="../it/navbar.html" hreflang="it" lang="it">Navbar <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/sidebar.html" hreflang="it" lang="it">Sidebar <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/navigation.html" hreflang="it" lang="it">Tabs and breadcrumb <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Data</div>
+          <a href="../it/tables.html" hreflang="it" lang="it">Tables <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/charts.html" hreflang="it" lang="it">Charts <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/cards.html" hreflang="it" lang="it">Cards and details <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Feedback and overlays</div>
+          <a href="../it/feedback.html" hreflang="it" lang="it">Alerts and progress <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/overlays.html" hreflang="it" lang="it">Dialogs and menus <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/accordion.html" hreflang="it" lang="it">Accordion <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Customizing</div>
+          <a href="../it/theming.html" hreflang="it" lang="it">Themes and tokens <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/snippets.html" hreflang="it" lang="it">VS Code snippets <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Examples</div>
+          <a href="../dashboard.html">Dashboard <span class="kit-badge kit-badge-neutral">example</span></a>
+          <a href="../dashboard-sidebar.html">Dashboard with sidebar <span class="kit-badge kit-badge-neutral">example</span></a>
+        </div>
+      </details>
+    </nav>
+  </aside>
+  <article class="kit-col-12 kit-col-lg-9 doc-content">
+    <h1 class="doc-title">Forms: select and file</h1>
+    <p class="doc-lead">Custom select, file field, drop zone and combobox: the controls that need <code>kit.js</code>.</p>
+<h2 id="select">Custom select</h2>
+<p>A dropdown menu with items, groups and a second line of text. It needs <code>kit.js</code>. On change the <code>kit:change</code> event fires (see <a href="javascript.html#events">JavaScript</a>). For a plain <code>&lt;select&gt;</code> just use <code>class="kit-input"</code>.</p>
+<div class="doc-demo">
+  <div class="kit-field" style="max-width: 280px">
+    <span>Period</span>
+    <div class="kit-select" data-kit-select>
+      <button type="button" class="kit-select-btn"><span class="kit-select-value"></span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
+      <div class="kit-pop" hidden>
+        <div class="kit-pop-group">Quarters</div>
+        <div class="kit-opt is-on" data-value="q1"><span class="kit-opt-text"><b>1st quarter</b></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+        <div class="kit-opt" data-value="q2"><span class="kit-opt-text"><b>2nd quarter</b><small>April – June</small></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+        <div class="kit-opt" data-value="q3"><span class="kit-opt-text"><b>3rd quarter</b></span><svg class="kit-icon kit-opt-check"><use href="#i-check"/></svg></div>
+      </div>
+    </div>
+    <small data-doc-out>Value: q1</small>
+  </div>
+</div>
+<p>The option with <code>is-on</code> is the initial one. <code>kit-pop-right</code> on the panel aligns it to the right of the button.</p>
+
+<h3 id="native-select">From a native select</h3>
+<p>If the data is already in a <code>&lt;select&gt;</code> (even one generated by the server, inside a form, with <code>required</code>) just add <code>data-kit-select</code> to it: the kit hides it and puts a button and menu next to it. The <code>&lt;select&gt;</code> stays the source of the data: <code>value</code>, form submission and the <code>change</code> event work as usual (<code>kit:change</code> also fires, with <code>{ value, label }</code>). Use <code>&lt;optgroup&gt;</code> for groups; <code>data-kit-hint</code> on an option adds a second line and <code>data-kit-short</code> a shorter text for the button. From 21 items up the menu has a search field (<code>data-kit-search="8"</code> changes the threshold, <code>data-kit-search=""</code> always shows it, <code>data-kit-search="off"</code> never). Options and <code>disabled</code> can be changed later: the kit notices.</p>
+<div class="doc-demo">
+  <div class="kit-field" style="max-width: 280px">
+    <label for="sel-nat">Document type</label>
+    <select id="sel-nat" data-kit-select>
+      <optgroup label="Invoices">
+        <option value="TD01" selected data-kit-hint="Invoice">TD01</option>
+        <option value="TD04" data-kit-hint="Credit note">TD04</option>
+      </optgroup>
+      <optgroup label="Other">
+        <option value="TD16" data-kit-hint="Integration">TD16</option>
+        <option value="TD99" disabled>Not available</option>
+      </optgroup>
+    </select>
+    <small data-doc-out>Value: TD01</small>
+  </div>
+</div>
+<p>From JavaScript: <code>Kit.select(el, { search, empty, placeholder })</code> does the same for a select added later (<code>Kit.init(root)</code> does it for all those inside <code>root</code>) and returns <code>{ sync(), open(), close() }</code>. If you change <code>select.value</code> from code, call <code>sync()</code> to update the button (a <code>change</code> fired by hand already does).</p>
+
+<h2 id="file">File field</h2>
+<p>A field to choose one or more files: a button, the name of the chosen file and an "×" to remove it. It needs <code>kit.js</code> (without it, the browser's native field stays). Write a normal <code>&lt;input type="file"&gt;</code> inside <code>kit-file</code> with <code>data-kit-file</code>; <code>accept</code> and <code>multiple</code> work as usual. The kit checks the type and, with <code>data-kit-file-max</code> (in MB), the size, and shows the error below the field. The files also stay in the form's field, so normal submission works.</p>
+<div class="doc-demo">
+  <div class="kit-field" style="max-width: 440px">
+    <span>Invoices</span>
+    <div class="kit-file" data-kit-file data-kit-file-max="2">
+      <input type="file" accept=".xml,.p7m" multiple aria-label="Invoices">
+    </div>
+    <small data-doc-out>Accepts XML and P7M, up to 2 MB each.</small>
+  </div>
+</div>
+
+<h2 id="dropzone">Drop zone</h2>
+<p>The same thing, bigger: an area where you drag files, or click to choose. The native field covers the whole area, so the keyboard works (Tab and Enter). With <code>data-kit-file-dir</code> (or <code>webkitdirectory</code> on the field) it also accepts folders, which are read in full: files of another type are silently ignored, while a file of another type chosen directly gives an error. With <code>data-kit-file-page</code> you can drop anywhere on the page: while dragging, a veil appears with the given text.</p>
+<div class="doc-demo">
+  <div class="kit-dropzone" data-kit-file data-kit-file-dir data-kit-file-max="2">
+    <svg class="kit-icon"><use href="#i-upload"/></svg>
+    <b>Drag the invoices or a folder here</b>
+    <span>or <u>choose from your computer</u></span>
+    <small>XML or P7M, up to 2 MB each</small>
+    <input type="file" accept=".xml,.p7m" multiple aria-label="Invoices">
+  </div>
+  <p class="kit-mute" data-doc-out style="margin-top: 8px">No file.</p>
+</div>
+<p>When the files change the element receives <code>kit:files</code> with <code>{ files, items, rejected }</code>: <code>files</code> are the accepted <code>File</code>s, <code>items</code> pairs them with the path (<code>{ file, path }</code>, useful for folders) and <code>rejected</code> lists the discarded ones with the reason (<code>type</code>, <code>size</code>, <code>count</code>, <code>folder</code>). You can also pass <code>onFiles</code> to <code>Kit.file(element, options)</code>.</p>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>Option</th><th>Attribute</th><th>Default</th></tr></thead><tbody>
+<tr><td><code>accept</code> · <code>multiple</code></td><td>those of the <code>&lt;input&gt;</code> field</td><td>any file, only one</td></tr>
+<tr><td><code>max</code></td><td><code>data-kit-file-max</code> (MB)</td><td>no limit</td></tr>
+<tr><td><code>directory</code></td><td><code>data-kit-file-dir</code> or <code>webkitdirectory</code></td><td>folders not allowed</td></tr>
+<tr><td>–</td><td><code>data-kit-file-page="text"</code> on the zone</td><td>none: you only drop on the zone</td></tr>
+<tr><td><code>empty</code> · <code>button</code> · <code>clearLabel</code></td><td><code>data-kit-file-empty</code> · <code>-button</code> · <code>-clear</code></td><td>from the <a href="javascript.html#languages">language</a> dictionary (<code>No file</code> · <code>Choose file…</code> · <code>Remove selection</code>)</td></tr>
+<tr><td><code>messages</code></td><td>–</td><td>error texts, with <code>{name}</code>, <code>{accept}</code> and <code>{max}</code></td></tr>
+</tbody></table></div></div>
+<p><code>Kit.file</code> returns <code>{ files(), items(), clear() }</code>.</p>
+
+<h2 id="combobox">Combobox</h2>
+<p>A text field with a list of suggestions that narrows as you type. Unlike the <a href="#select">select</a> you can also type a value that is not in the list. It needs <code>kit.js</code>. Up and down arrows move through the items, Enter chooses the highlighted one (on opening it is the first), Esc closes, Tab leaves. Choosing writes the value into the field and fires <code>input</code> and <code>kit:change</code> (<code>{ value, label }</code>).</p>
+<p>Items are written in the HTML, as <code>kit-opt</code> inside a <code>kit-pop</code>; the button with the arrow is added automatically.</p>
+<div class="doc-demo">
+  <div class="kit-field" style="max-width: 320px">
+    <span>Tax regime</span>
+    <div class="kit-combo" data-kit-combo>
+      <input class="kit-input" placeholder="Type or choose…" aria-label="Tax regime">
+      <div class="kit-pop" hidden>
+        <div class="kit-opt" data-value="RF01"><span class="kit-opt-text"><b>RF01</b><small>Ordinary</small></span></div>
+        <div class="kit-opt" data-value="RF02"><span class="kit-opt-text"><b>RF02</b><small>Minimum taxpayers</small></span></div>
+        <div class="kit-opt" data-value="RF19"><span class="kit-opt-text"><b>RF19</b><small>Flat rate</small></span></div>
+      </div>
+    </div>
+    <small data-doc-out>Value: –</small>
+  </div>
+</div>
+<p>For a long list, or one computed from data, use <code>Kit.combo</code>. <code>items</code> is an array (or a function returning one) of strings or of <code>{ value, label, hint }</code> objects. The filter searches label, note and value; if there are more than <code>max</code> items it shows <code>max</code> and invites you to keep typing.</p>
+<div class="doc-demo" data-doc-init="combo-js" data-doc-js='const customers = [
+  { value: "Smith Ltd", hint: "GB123456789" },
+  { value: "Brown Haulage", hint: "GB987654321" },
+  /* … hundreds of items … */
+];
+Kit.combo("#cliente", { items: customers, max: 8 });
+// to change the list later: api.setItems(newCustomers)'>
+  <div class="kit-field" style="max-width: 320px">
+    <span>Customer (240 items, shows 8)</span>
+    <div id="cliente"><input class="kit-input" placeholder="Search a customer…" aria-label="Customer"></div>
+    <small data-doc-out>Value: –</small>
+  </div>
+</div>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>Option</th><th>Attribute</th><th>Default</th></tr></thead><tbody>
+<tr><td><code>items</code></td><td>(JavaScript only) array, or a function that receives the typed text</td><td>the <code>kit-opt</code>s already in the HTML</td></tr>
+<tr><td><code>max</code></td><td><code>data-kit-combo-max</code></td><td><code>50</code></td></tr>
+<tr><td><code>empty</code></td><td><code>data-kit-combo-empty</code></td><td><code>No results</code> (<code>""</code> to show nothing)</td></tr>
+<tr><td><code>more</code></td><td><code>data-kit-combo-more</code></td><td><code>{n} more results: keep typing to narrow down</code></td></tr>
+<tr><td><code>filter</code></td><td>–</td><td><code>true</code>; with <code>false</code> the <code>items</code> function filters by itself (useful to search on a server)</td></tr>
+<tr><td><code>autoActive</code></td><td>–</td><td><code>true</code>: Enter chooses the first item; with <code>false</code> an arrow is needed first</td></tr>
+</tbody></table></div></div>
+<p><code>Kit.combo</code> returns <code>{ setItems(list), open(), close() }</code>. The field has <code>role="combobox"</code> and <code>aria-activedescendant</code>; the items have <code>role="option"</code>.</p>
+    <nav class="doc-pager" aria-label="Previous and next page">
+      <a href="form-layout.html"><small>← Previous</small><b>Layout and validation</b></a>
+      <a class="doc-next" href="dates.html"><small>Next →</small><b>Dates and times</b></a>
+    </nav>
+  </article>
+</div>
+</div>
+</main>
+<script src="search-index.js"></script>
+<script src="../docs.js"></script>
+</body>
+</html>

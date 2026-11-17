@@ -1,0 +1,43 @@
+<!--title: Forms: basic fields-->
+<!--desc: Text field, search, checkbox and switch. Buttons and fields have the same height (<code>--kit-ctl</code>), so they sit well on the same row.-->
+<h2 id="fields">Fields</h2>
+<p><code>.kit-field</code> is the label with the field below it; <code>.kit-input</code> applies to <code>&lt;input&gt;</code>. <code>.kit-fields</code> lays out several fields in a grid that adapts.</p>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <label class="kit-field">Name <input class="kit-input" placeholder="Jane Smith"></label>
+    <label class="kit-field">Date <input class="kit-input" type="date"></label>
+    <label class="kit-field">Amount <input class="kit-input" type="number" step="0.01" placeholder="€"></label>
+    <label class="kit-field kit-field-wide">Note <input class="kit-input" placeholder="Takes two columns (kit-field-wide)"><small>A help text below the field.</small></label>
+  </div>
+</div>
+
+<p>The rest of the forms is on these pages: <a href="form-layout.html">Layout and validation</a> (labels, help text, column, grid and horizontal forms, valid and invalid states with error messages, validation, sizes, icons inside fields, selectable groups and cards), <a href="form-controls.html">Select and file</a> (custom select, file field, drop zone, combobox) and <a href="dates.html">Dates and times</a> (optional calendar, designed for the phone too).</p>
+
+<h2 id="search">Search</h2>
+<p>A field with a magnifier and a keyboard shortcut. It stretches to fill the row (<code>flex: 1</code>).</p>
+<div class="doc-demo">
+  <div class="kit-bar">
+    <label class="kit-search"><svg class="kit-icon"><use href="#i-search"/></svg><input class="kit-input" type="search" placeholder="Search…" aria-label="Search"><kbd>/</kbd></label>
+    <button class="kit-btn kit-btn-primary">Search</button>
+  </div>
+</div>
+
+<h2 id="checkbox">Checkbox and form footer</h2>
+<div class="doc-demo">
+  <div class="kit-form-foot">
+    <label class="kit-check"><input type="checkbox" checked> Hide duplicates</label>
+    <div class="kit-btn-group">
+      <button class="kit-btn">Reset</button>
+      <button class="kit-btn kit-btn-primary">Apply</button>
+    </div>
+  </div>
+</div>
+
+<h2 id="switch">Switch</h2>
+<p>An on/off that takes effect immediately, unlike a checkbox that is confirmed with a button. It is a normal <code>&lt;input type="checkbox"&gt;</code> with <code>role="switch"</code>: <code>checked</code>, <code>disabled</code> and the <code>change</code> event work as usual. <code>kit-switch-between</code> puts the text on the left and the switch at the far right.</p>
+<div class="doc-demo kit-stack">
+  <label class="kit-switch"><input type="checkbox" role="switch" checked> Hide duplicates</label>
+  <label class="kit-switch"><input type="checkbox" role="switch"> Also show discarded</label>
+  <label class="kit-switch"><input type="checkbox" role="switch" disabled> Not available</label>
+  <label class="kit-switch kit-switch-between"><span>Notifications</span><input type="checkbox" role="switch" checked></label>
+</div>

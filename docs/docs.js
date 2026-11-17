@@ -4,7 +4,7 @@
    Gli esempi di grafici e combobox (più sotto) usano ancora dati in italiano: si traducono insieme alle loro pagine. */
 var DOC_T = {
     en: {
-        copy: "Copy", copied: "Copied", copyFail: "Copy failed", page: "Page", showPages: "Show the pages", more: "{n} more results: type more to narrow down",
+        lang: "en", code: "Code", copy: "Copy", copied: "Copied", copyFail: "Copy failed", page: "Page", showPages: "Show the pages", more: "{n} more results: type more to narrow down",
         undone: "Action undone", valid: "All valid: the form would have been sent.", value: "Value: ",
         filesOne: " file accepted", filesMany: " files accepted", filesNone: "No file", rejected: ", {n} rejected", rejected1: ", 1 rejected",
         archive: "Archive the invoice?", archiveText: "You will find it again in the archive.", archiveOk: "Archive", archived: "Invoice archived", cancelled: "Cancelled",
@@ -14,7 +14,7 @@ var DOC_T = {
         invDeleted: "Invoice deleted", finalDeleted: "Deleted permanently"
     },
     it: {
-        copy: "Copia", copied: "Copiato", copyFail: "Copia non riuscita", page: "Pagina", showPages: "Mostra le pagine", more: "Altri {n} risultati: scrivi di più per restringere",
+        lang: "it", code: "Codice", copy: "Copia", copied: "Copiato", copyFail: "Copia non riuscita", page: "Pagina", showPages: "Mostra le pagine", more: "Altri {n} risultati: scrivi di più per restringere",
         undone: "Operazione annullata", valid: "Tutto valido: il form sarebbe partito.", value: "Valore: ",
         filesOne: " file accettato", filesMany: " file accettati", filesNone: "Nessun file", rejected: ", {n} scartati", rejected1: ", 1 scartato",
         archive: "Archiviare la fattura?", archiveText: "Potrai ritrovarla nell'archivio.", archiveOk: "Archivia", archived: "Fattura archiviata", cancelled: "Annullato",
@@ -90,7 +90,7 @@ function D(key, vars) {
         box.className = "doc-code";
 
         var sum = document.createElement("summary");
-        sum.textContent = "Codice";
+        sum.textContent = D("code");
         box.appendChild(sum);
 
         var btn = document.createElement("button");
@@ -217,11 +217,12 @@ document.addEventListener("kit:change", function (e) {
 // Esempi che si disegnano da soli al caricamento (data-doc-init="nome"); il codice mostrato è quello di data-doc-js.
 var DOC_INIT = {
     "combo-js": function (demo) {
-        var nomi = ["Rossi", "Bianchi", "Verdi", "Neri", "Gallo", "Conti", "Greco", "Fontana", "Moretti", "Barbieri"];
-        var tipi = ["Srl", "Spa", "Autotrasporti", "Edilizia", "Servizi", "Trasporti"];
+        var it = D("lang") === "it";
+        var nomi = it ? ["Rossi", "Bianchi", "Verdi", "Neri", "Gallo", "Conti", "Greco", "Fontana", "Moretti", "Barbieri"] : ["Smith", "Jones", "Brown", "Taylor", "Wilson", "Davies", "Evans", "Thomas", "Roberts", "Walker"];
+        var tipi = it ? ["Srl", "Spa", "Autotrasporti", "Edilizia", "Servizi", "Trasporti"] : ["Ltd", "Inc", "Haulage", "Building", "Services", "Transport"];
         var items = [];
         for (var i = 0; i < 240; i++) {
-            items.push({ value: nomi[i % 10] + " " + tipi[(i * 7) % 6] + (i > 59 ? " " + (Math.floor(i / 60) + 1) : ""), hint: "IT" + String(10000000000 + i * 7919).slice(0, 11) });
+            items.push({ value: nomi[i % 10] + " " + tipi[(i * 7) % 6] + (i > 59 ? " " + (Math.floor(i / 60) + 1) : ""), hint: (it ? "IT" : "GB") + String(10000000000 + i * 7919).slice(0, 11) });
         }
         Kit.combo(demo.querySelector("#cliente"), { items: items, max: 8 });
     },

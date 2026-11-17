@@ -162,8 +162,8 @@ periodo.set({ from: "2026-11-01", to: "2026-11-12" });
 periodo.get();                                            // { from, to }
 
 Kit.date.parse("5/3/26");                                 // "2026-03-05" ("" se vuoto, null se non è una data)
-Kit.date.format("2026-03-05");                            // "05/03/2026"
-Kit.date.labels.t.today = "Today";                        // testi e nomi dei mesi si possono sostituire (Kit.date.labels.months…)
+Kit.date.format("2026-03-05");                            // "05/03/2026" (in inglese "03/05/2026")
+Kit.i18n.add("it", { date: { t: { today: "Adesso" } } });  // testi e nomi dei mesi si possono sostituire (vedi Lingue)
 
 document.addEventListener("kit:change", (e) => {
   console.log(e.detail);                                  // { value, display } oppure { from, to }

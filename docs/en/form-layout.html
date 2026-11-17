@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Forms: layout and validation — Dashboard Kit</title>
+<meta name="description" content="Labels, help text, required fields, column, grid, horizontal and sectioned forms, valid and invalid states with messages, automatic validation, sizes, icons inside fields, field groups, floating labels, card-style checkboxes and the other controls.">
+<script src="../../dist/kit.js"></script>
+<link rel="stylesheet" href="../../dist/kit.css">
+<link rel="stylesheet" href="../docs.css">
+</head>
+<body>
+<!-- Pagina generata da tools/gen-docs.py a partire da docs/src/en/form-layout.html: non modificarla a mano. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="i-chev-up" viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></symbol>
+<symbol id="i-chev-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
+<symbol id="i-chev-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+<symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5m0 0-6 6m6-6 6 6"/></symbol>
+<symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14m0 0-6-6m6 6 6-6"/></symbol>
+<symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5m0 0 6-6m-6 6 6 6"/></symbol>
+<symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></symbol>
+<symbol id="i-expand" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></symbol>
+<symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V4m0 0L8 8m4-4 4 4M5 20h14"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.5-3.5L4 9m0-5v5h5M4 13a8 8 0 0 0 14.5 3.5L20 15m0 5v-5h-5"/></symbol>
+<symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4zM13.5 6.5l4 4"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></symbol>
+<symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8L3 5z"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h8m4 0h4M4 17h4m4 0h8"/><circle cx="14" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+<symbol id="i-more" viewBox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01"/></symbol>
+<symbol id="i-more-v" viewBox="0 0 24 24"><path d="M12 5h.01M12 12h.01M12 19h.01"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7M6 10v10h4v-6h4v6h4V10"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0 1 16 0"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4l2-2zM10 21h4"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM14 3v5h5"/></symbol>
+<symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6a1 1 0 0 1 1-1h5l2 2h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6z"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-text" viewBox="0 0 24 24"><path d="M4 7V5h16v2M12 5v14M9 19h6"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+<symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+<symbol id="i-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 3 3 5-6"/></symbol>
+<symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3.5 2.5 20h19L12 3.5z"/><path d="M12 10v4.5M12 17.5h.01"/></symbol>
+<symbol id="i-error" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/></symbol>
+</defs></svg>
+<header class="kit-header">
+  <div class="kit-container-boxed">
+    <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
+    <span class="kit-spacer"></span>
+    <div class="kit-combo doc-search" role="search">
+      <svg class="kit-icon"><use href="#i-search"/></svg>
+      <input class="kit-input" type="text" placeholder="Search…" aria-label="Search the documentation" spellcheck="false">
+      <kbd aria-hidden="true">/</kbd>
+    </div>
+    <a class="kit-btn kit-btn-ghost" href="../it/form-layout.html" hreflang="it" lang="it" title="Language">Italiano</a>
+    <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
+    <div class="kit-dropdown">
+      <button class="kit-btn kit-btn-icon" data-kit-toggle="#settings" aria-haspopup="true" aria-expanded="false" aria-label="Settings" title="Settings"><svg class="kit-icon"><use href="#i-sliders"/></svg></button>
+      <div class="kit-pop kit-pop-right kit-settings" id="settings" role="group" aria-label="Settings" hidden>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Theme</span>
+          <div class="kit-seg" role="group" aria-label="Theme">
+            <button data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg>Auto</button>
+            <button data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg>Light</button>
+            <button data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg>Dark</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Text size</span>
+          <div class="kit-seg" role="group" aria-label="Text size">
+            <button data-kit-fs-set="md" aria-label="Normal" title="Normal">A</button>
+            <button data-kit-fs-set="lg" aria-label="Large" title="Large">A</button>
+            <button data-kit-fs-set="xl" aria-label="Extra large" title="Extra large">A</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Content width</span>
+          <div class="kit-seg" role="group" aria-label="Content width">
+            <button data-kit-layout-set="boxed">Centered</button>
+            <button data-kit-layout-set="fluid">Full page</button>
+          </div>
+          <small>Visible on screens wider than the content.</small>
+        </div>
+        <div class="kit-settings-foot"><button class="kit-btn kit-btn-ghost" data-kit-reset>Reset</button></div>
+      </div>
+    </div>
+  </div>
+</header>
+<main class="kit-main">
+<div class="kit-container-boxed">
+<div class="kit-row kit-gy-0">
+  <aside class="kit-col-12 kit-col-lg-3">
+    <nav class="doc-nav" aria-label="Documentation">
+      <details class="doc-nav-d" open>
+        <summary class="kit-btn">Documentation menu</summary>
+        <div class="doc-nav-body">
+          <div class="doc-nav-group">Getting started</div>
+          <a href="index.html">Introduction</a>
+          <a href="javascript.html">JavaScript</a>
+          <div class="doc-nav-group">Foundations</div>
+          <a href="../it/layout.html" hreflang="it" lang="it">Layout <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/grid.html" hreflang="it" lang="it">Grid <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/utilities.html" hreflang="it" lang="it">Utilities <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/typography.html" hreflang="it" lang="it">Typography <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/icons.html" hreflang="it" lang="it">Icons <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/buttons.html" hreflang="it" lang="it">Buttons <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Forms</div>
+          <a href="forms.html">Basic fields</a>
+          <a href="form-layout.html" class="is-current" aria-current="page">Layout and validation</a>
+          <ul class="doc-toc">
+            <li><a href="#labels">Labels, help and required fields</a></li>
+            <li><a href="#layout">Layout</a></li>
+            <li><a href="#states">States: valid, invalid, warning</a></li>
+            <li><a href="#validation">Validation in the browser</a></li>
+            <li><a href="#sizes">Sizes</a></li>
+            <li><a href="#icons">Icons inside fields</a></li>
+            <li><a href="#groups">Field groups</a></li>
+            <li><a href="#float">Floating label</a></li>
+            <li><a href="#check">Checkboxes, radios and cards</a></li>
+            <li><a href="#controls">Other controls</a></li>
+            <li><a href="#django">With Django</a></li>
+          </ul>
+          <a href="form-controls.html">Select and file</a>
+          <a href="dates.html">Dates and times</a>
+          <div class="doc-nav-group">Navigation</div>
+          <a href="../it/navbar.html" hreflang="it" lang="it">Navbar <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/sidebar.html" hreflang="it" lang="it">Sidebar <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/navigation.html" hreflang="it" lang="it">Tabs and breadcrumb <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Data</div>
+          <a href="../it/tables.html" hreflang="it" lang="it">Tables <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/charts.html" hreflang="it" lang="it">Charts <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/cards.html" hreflang="it" lang="it">Cards and details <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Feedback and overlays</div>
+          <a href="../it/feedback.html" hreflang="it" lang="it">Alerts and progress <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/overlays.html" hreflang="it" lang="it">Dialogs and menus <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/accordion.html" hreflang="it" lang="it">Accordion <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Customizing</div>
+          <a href="../it/theming.html" hreflang="it" lang="it">Themes and tokens <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/snippets.html" hreflang="it" lang="it">VS Code snippets <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Examples</div>
+          <a href="../dashboard.html">Dashboard <span class="kit-badge kit-badge-neutral">example</span></a>
+          <a href="../dashboard-sidebar.html">Dashboard with sidebar <span class="kit-badge kit-badge-neutral">example</span></a>
+        </div>
+      </details>
+    </nav>
+  </aside>
+  <article class="kit-col-12 kit-col-lg-9 doc-content">
+    <h1 class="doc-title">Forms: layout and validation</h1>
+    <p class="doc-lead">Labels, help text, required fields, column, grid, horizontal and sectioned forms, valid and invalid states with messages, automatic validation, sizes, icons inside fields, field groups, floating labels, card-style checkboxes and the other controls.</p>
+<h2 id="labels">Labels, help and required fields</h2>
+<p>A field is a <code>.kit-field</code>: it can be a <code>&lt;label&gt;</code> wrapping the input (as on the <a href="forms.html">Forms: basic fields</a> page) or a <code>&lt;div&gt;</code> with a <code>&lt;label class="kit-label" for="…"&gt;</code> and the input next to it. The second form is needed when there are help text and messages below the field, and for the horizontal layout; it is also the one Django generates. <code>.kit-hint</code> is the help text, linked to the field with <code>aria-describedby</code>.</p>
+<p><code>.kit-required</code> on the label adds the red asterisk; <code>.kit-optional</code> adds "(optional)", which you change with <code>--kit-optional-text</code>. The field's <code>required</code> attribute remains what counts for the browser and the server.</p>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <div class="kit-field">
+      <label class="kit-label kit-required" for="fl-mail">Email</label>
+      <input class="kit-input" id="fl-mail" type="email" placeholder="name@company.com" required aria-describedby="fl-mail-h">
+      <div class="kit-hint" id="fl-mail-h">We only write to you for the confirmation.</div>
+    </div>
+    <div class="kit-field">
+      <label class="kit-label kit-optional" for="fl-tel">Phone</label>
+      <input class="kit-input" id="fl-tel" type="tel" placeholder="+1 …">
+      <div class="kit-hint">With the international prefix.</div>
+    </div>
+  </div>
+</div>
+
+<h2 id="layout">Layout</h2>
+<h3 id="column">Column and grid</h3>
+<p><code>.kit-form</code> puts the fields in a column with the kit's spacing (<code>--kit-sp</code>). For several fields on the same row there are two ways: <code>.kit-fields</code> (an adaptive grid, <code>kit-field-wide</code> takes two columns) or the <a href="../it/grid.html">12-column grid</a> with <code>.kit-row</code> and <code>.kit-col-*</code>, as in Bootstrap, to decide the width of each field and where they wrap.</p>
+<div class="doc-demo">
+  <form class="kit-form">
+    <div class="kit-row">
+      <div class="kit-col-12 kit-col-md-6"><div class="kit-field"><label class="kit-label" for="g-nome">First name</label><input class="kit-input" id="g-nome" placeholder="Jane"></div></div>
+      <div class="kit-col-12 kit-col-md-6"><div class="kit-field"><label class="kit-label" for="g-cogn">Last name</label><input class="kit-input" id="g-cogn" placeholder="Smith"></div></div>
+      <div class="kit-col-12"><div class="kit-field"><label class="kit-label" for="g-ind">Address</label><input class="kit-input" id="g-ind" placeholder="Street, number"></div></div>
+      <div class="kit-col-6 kit-col-md-5"><div class="kit-field"><label class="kit-label" for="g-cit">City</label><input class="kit-input" id="g-cit"></div></div>
+      <div class="kit-col-6 kit-col-md-4"><div class="kit-field"><label class="kit-label" for="g-pr">Country</label><select class="kit-input" id="g-pr"><option>Italy</option><option>France</option><option>Spain</option></select></div></div>
+      <div class="kit-col-12 kit-col-md-3"><div class="kit-field"><label class="kit-label" for="g-cap">Postal code</label><input class="kit-input" id="g-cap" inputmode="numeric" placeholder="20100"></div></div>
+    </div>
+  </form>
+</div>
+
+<h3 id="horizontal">Horizontal</h3>
+<p><code>.kit-form-h</code> on the form (or <code>.kit-field-h</code> on a single field) puts the label on the left and the field, help and messages on the right. The label width is <code>--kit-label-w</code> (<code>11rem</code>). Below 576 px the fields go back to a column. It needs the form with <code>&lt;div class="kit-field"&gt;</code> and <code>.kit-label</code>.</p>
+<div class="doc-demo">
+  <form class="kit-form kit-form-h">
+    <div class="kit-field"><label class="kit-label" for="h-rag">Company name</label><input class="kit-input" id="h-rag" value="Smith Ltd"></div>
+    <div class="kit-field"><label class="kit-label" for="h-iva">VAT number</label><input class="kit-input" id="h-iva" value="01234567890"><div class="kit-hint">11 digits, without the IT prefix.</div></div>
+    <div class="kit-field"><label class="kit-label" for="h-note">Notes</label><textarea class="kit-input" id="h-note" rows="3"></textarea></div>
+    <div class="kit-form-foot kit-form-foot-end"><button type="button" class="kit-btn">Cancel</button><button type="button" class="kit-btn kit-btn-primary">Save</button></div>
+  </form>
+</div>
+
+<h3 id="inline">Inline</h3>
+<p><code>.kit-form-inline</code> aligns fields and buttons on one row that wraps by itself: for filters and searches.</p>
+<div class="doc-demo">
+  <form class="kit-form-inline">
+    <div class="kit-field"><label class="kit-label" for="i-q">Search</label><input class="kit-input" id="i-q" placeholder="Number or customer"></div>
+    <div class="kit-field"><label class="kit-label" for="i-st">Status</label><select class="kit-input" id="i-st"><option>All</option><option>Paid</option><option>Unpaid</option></select></div>
+    <button type="button" class="kit-btn kit-btn-primary">Filter</button>
+  </form>
+</div>
+
+<h3 id="sections">Sections and groups</h3>
+<p><code>.kit-form-section</code> divides a long form into blocks, with a title and explanation on the left and the fields on the right (from 768 px; below that they stack). To group related fields, or radios, use <code>&lt;fieldset class="kit-fieldset"&gt;</code> with the <code>&lt;legend&gt;</code>: a <code>disabled</code> on the fieldset disables the whole group.</p>
+<div class="doc-demo">
+  <form class="kit-form">
+    <section class="kit-form-section">
+      <div><h3 class="kit-form-section-title">Profile</h3><p class="kit-form-section-desc">How other users see you.</p></div>
+      <div class="kit-form-section-body">
+        <div class="kit-field"><label class="kit-label" for="s-nome">Display name</label><input class="kit-input" id="s-nome" value="Jane S."></div>
+        <div class="kit-field"><label class="kit-label" for="s-bio">Bio</label><textarea class="kit-input" id="s-bio" rows="3" maxlength="120"></textarea><div class="kit-field-foot"><span class="kit-hint">One line about you.</span><span class="kit-counter" data-kit-count="#s-bio"></span></div></div>
+      </div>
+    </section>
+    <section class="kit-form-section">
+      <div><h3 class="kit-form-section-title">Notifications</h3><p class="kit-form-section-desc">When to get an email.</p></div>
+      <div class="kit-form-section-body">
+        <fieldset class="kit-fieldset">
+          <legend>Notify me when</legend>
+          <label class="kit-check"><input type="checkbox" checked> an invoice arrives</label>
+          <label class="kit-check"><input type="checkbox"> an invoice is due</label>
+        </fieldset>
+      </div>
+    </section>
+  </form>
+</div>
+
+<h2 id="states">States: valid, invalid, warning</h2>
+<p><code>is-valid</code>, <code>is-invalid</code> and <code>is-warning</code> go on the field, or on its <code>.kit-field</code>, and apply to everything it contains: border, focus ring and, for groups, all the parts. <code>aria-invalid="true"</code> counts as <code>is-invalid</code> (and is needed by screen readers). The message is a <code>.kit-feedback</code> with <code>-valid</code>, <code>-invalid</code> or <code>-warning</code>, which can be preceded by an icon. The states also work on select, combobox, file field, drop zone and date range.</p>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <div class="kit-field is-valid">
+      <label class="kit-label" for="st-ok">Customer code</label>
+      <input class="kit-input" id="st-ok" value="CL-2041">
+      <div class="kit-feedback kit-feedback-valid"><svg class="kit-icon"><use href="#i-check"/></svg>Code available.</div>
+    </div>
+    <div class="kit-field is-invalid">
+      <label class="kit-label" for="st-ko">Email</label>
+      <input class="kit-input" id="st-ko" value="jane@" aria-invalid="true" aria-describedby="st-ko-m">
+      <div class="kit-feedback kit-feedback-invalid" id="st-ko-m"><svg class="kit-icon"><use href="#i-error"/></svg>Enter a complete address.</div>
+    </div>
+    <div class="kit-field is-warning">
+      <label class="kit-label" for="st-w">Price</label>
+      <input class="kit-input" id="st-w" value="0.00">
+      <div class="kit-feedback kit-feedback-warning"><svg class="kit-icon"><use href="#i-warn"/></svg>The price is zero.</div>
+    </div>
+  </div>
+</div>
+<p>With the classes on a <code>.kit-field</code> the other parts react too, with no extra markup:</p>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <div class="kit-field is-invalid">
+      <span class="kit-label">Document type</span>
+      <div class="kit-select" data-kit-select>
+        <button type="button" class="kit-select-btn is-empty"><span class="kit-select-value">Choose…</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
+        <div class="kit-pop" hidden><div class="kit-opt" data-value="a"><span class="kit-opt-text"><b>Invoice</b></span></div><div class="kit-opt" data-value="b"><span class="kit-opt-text"><b>Credit note</b></span></div></div>
+      </div>
+      <div class="kit-feedback kit-feedback-invalid">Choose a type.</div>
+    </div>
+    <div class="kit-field is-invalid">
+      <span class="kit-label">Period</span>
+      <div class="kit-daterange" data-kit-daterange><input class="kit-input" type="date" aria-label="From"><input class="kit-input" type="date" aria-label="To"></div>
+      <div class="kit-feedback kit-feedback-invalid">Enter the period.</div>
+    </div>
+    <div class="kit-field is-invalid">
+      <span class="kit-label">Terms</span>
+      <label class="kit-check"><input type="checkbox"> I accept the terms of sale</label>
+      <div class="kit-feedback kit-feedback-invalid">You must accept to continue.</div>
+    </div>
+  </div>
+</div>
+<p>For a CSS-only check after the user has touched the field, <code>class="kit-validate"</code> on the form uses <code>:user-invalid</code>: the border turns red (and with <code>kit-validate-ok</code> green) when the HTML rules are not met. It does not write messages: for those there is the validation below.</p>
+
+<h2 id="validation">Validation in the browser</h2>
+<p><code>data-kit-validate</code> on a <code>&lt;form&gt;</code> (needs <code>kit.js</code>) checks the fields with the HTML rules you already know (<code>required</code>, <code>type="email"</code>, <code>pattern</code>, <code>min</code>, <code>max</code>, <code>minlength</code>…): on submit it marks <code>is-invalid</code>, writes the message into the <code>.kit-feedback-invalid</code> (creating it if missing), links the message to the field with <code>aria-describedby</code>, moves focus to the first error and blocks submission, htmx included. A field turns red on blur only if the user typed in it, and the error disappears as soon as the value is correct. With <code>data-kit-validate="ok"</code> the correct fields get <code>is-valid</code>.</p>
+<p>The messages are the browser's (in its language). To write your own: <code>data-kit-msg</code> on the field for any error, or <code>data-kit-msg-required</code>, <code>-type</code>, <code>-pattern</code>, <code>-min</code>, <code>-max</code>, <code>-minlength</code>, <code>-maxlength</code>, <code>-step</code>. It works with the kit's fields: calendar (its <code>min</code>, <code>max</code> and excluded-days rules), select, checkboxes and radios, file.</p>
+<div class="doc-demo">
+  <form class="kit-form" data-kit-validate="ok" autocomplete="off">
+    <div class="kit-field">
+      <label class="kit-label kit-required" for="v-mail">Email</label>
+      <input class="kit-input" id="v-mail" name="email" type="email" required data-kit-msg-required="Enter your email." data-kit-msg-type="Something is missing: name@domain.com">
+      <div class="kit-feedback kit-feedback-valid">Perfect.</div>
+    </div>
+    <div class="kit-field">
+      <label class="kit-label kit-required" for="v-pw">Password</label>
+      <div class="kit-control">
+        <input class="kit-input" id="v-pw" name="pw" type="password" required minlength="8" data-kit-msg-minlength="At least 8 characters." data-kit-msg-required="Choose a password.">
+        <button type="button" class="kit-control-end" data-kit-password><svg class="kit-icon"><use href="#i-eye"/></svg></button>
+      </div>
+    </div>
+    <div class="kit-field">
+      <label class="kit-label kit-required" for="v-d">Delivery date</label>
+      <input class="kit-input" id="v-d" type="date" required data-kit-datepicker data-kit-min="today" data-kit-msg-required="Choose the date.">
+    </div>
+    <div class="kit-field">
+      <label class="kit-check"><input type="checkbox" name="cond" required data-kit-msg-required="You must accept to continue."> I accept the terms</label>
+    </div>
+    <div class="kit-form-foot"><button type="reset" class="kit-btn">Reset</button><button type="submit" class="kit-btn kit-btn-primary">Send</button></div>
+  </form>
+</div>
+<p>From JavaScript: <code>Kit.validate(form)</code> runs the same check and returns <code>true</code> or <code>false</code> (options <code>{ ok, focus }</code>); <code>Kit.validate.reset(form)</code> clears states and messages (the form's <code>reset</code> does it by itself too). If there are errors the form fires <code>kit:invalid</code> with <code>{ fields }</code>, the list of invalid fields. The server has the last word: the errors it sends back are shown with <code>is-invalid</code> and <code>.kit-feedback-invalid</code> written in the HTML, and the kit leaves them as they are.</p>
+
+<h2 id="sizes">Sizes</h2>
+<p><code>kit-input-sm</code> and <code>kit-input-lg</code> on a field; <code>kit-field-sm|lg</code> on a field with its buttons and selects; <code>kit-form-sm|lg</code> on the whole form; <code>kit-input-group-sm|lg</code> on a group. They change <code>--kit-ctl</code> (the height shared by fields and buttons), so they always stay at the same height. <code>kit-btn-sm</code> is the matching button.</p>
+<div class="doc-demo">
+  <div class="kit-form">
+    <input class="kit-input kit-input-sm" placeholder="Small" aria-label="Small">
+    <input class="kit-input" placeholder="Normal" aria-label="Normal">
+    <input class="kit-input kit-input-lg" placeholder="Large" aria-label="Large">
+    <div class="kit-input-group kit-input-group-lg"><input class="kit-input" placeholder="Large group" aria-label="Large group"><button type="button" class="kit-btn kit-btn-primary">Search</button></div>
+  </div>
+</div>
+
+<h2 id="icons">Icons inside fields</h2>
+<p><code>.kit-control</code> wraps the field and leaves room for an icon on the left (<code>.kit-control-start</code>) and an icon or a button on the right (<code>.kit-control-end</code>): the field makes room by itself. With <code>is-valid</code>, <code>is-invalid</code> or <code>is-warning</code> on the <code>.kit-control</code> (or on its <code>.kit-field</code>) the result icon appears on the right, drawn by CSS: a check, a cross or an exclamation mark, so with no images. <code>data-kit-password</code> on a button shows and hides the password (<code>aria-pressed</code> and the text for screen readers change by themselves).</p>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <div class="kit-field"><label class="kit-label" for="ic-q">Search</label>
+      <div class="kit-control"><span class="kit-control-start"><svg class="kit-icon"><use href="#i-search"/></svg></span><input class="kit-input" id="ic-q" placeholder="Search a customer…"></div></div>
+    <div class="kit-field"><label class="kit-label" for="ic-pw">Password</label>
+      <div class="kit-control"><input class="kit-input" id="ic-pw" type="password" value="secret123"><button type="button" class="kit-control-end" data-kit-password><svg class="kit-icon"><use href="#i-eye"/></svg></button></div></div>
+    <div class="kit-field is-valid"><label class="kit-label" for="ic-ok">User</label>
+      <div class="kit-control"><span class="kit-control-start"><svg class="kit-icon"><use href="#i-user"/></svg></span><input class="kit-input" id="ic-ok" value="jane.smith"></div></div>
+    <div class="kit-field is-invalid"><label class="kit-label" for="ic-ko">Email</label>
+      <div class="kit-control"><span class="kit-control-start"><svg class="kit-icon"><use href="#i-info"/></svg></span><input class="kit-input" id="ic-ko" value="jane@" aria-invalid="true"></div>
+      <div class="kit-feedback kit-feedback-invalid">Incomplete address.</div></div>
+    <div class="kit-field is-warning"><label class="kit-label" for="ic-w">Amount</label>
+      <div class="kit-control"><input class="kit-input" id="ic-w" value="0.00"></div>
+      <div class="kit-feedback kit-feedback-warning">Check the amount.</div></div>
+  </div>
+</div>
+
+<h2 id="groups">Field groups</h2>
+<p><code>.kit-input-group</code> joins text (<code>.kit-input-text</code>), icons, fields and buttons into a single block with merged borders. It also works with a native select, a <code>.kit-select</code>, a combobox or a field with a calendar. The states (<code>is-invalid</code>…) color all the parts.</p>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <div class="kit-field kit-field-wide"><label class="kit-label" for="gr-imp">Amount</label>
+      <div class="kit-input-group"><span class="kit-input-text">€</span><input class="kit-input" id="gr-imp" inputmode="decimal" value="1,250.00"><span class="kit-input-text">VAT excluded</span></div></div>
+    <div class="kit-field kit-field-wide"><label class="kit-label" for="gr-url">Website</label>
+      <div class="kit-input-group"><span class="kit-input-text">https://</span><input class="kit-input" id="gr-url" placeholder="company"><span class="kit-input-text">.com</span></div></div>
+    <div class="kit-field"><label class="kit-label" for="gr-c">Discount code</label>
+      <div class="kit-input-group"><input class="kit-input" id="gr-c" placeholder="SPRING"><button type="button" class="kit-btn kit-btn-primary">Apply</button></div></div>
+    <div class="kit-field"><label class="kit-label" for="gr-s">Price and currency</label>
+      <div class="kit-input-group"><input class="kit-input" id="gr-s" value="99.00"><select class="kit-input" aria-label="Currency" style="max-width: 6rem"><option>EUR</option><option>USD</option></select></div></div>
+    <div class="kit-field is-invalid"><label class="kit-label" for="gr-i">User</label>
+      <div class="kit-input-group"><span class="kit-input-text">@</span><input class="kit-input" id="gr-i" value="jane smith" aria-invalid="true"></div>
+      <div class="kit-feedback kit-feedback-invalid">No spaces.</div></div>
+  </div>
+</div>
+
+<h2 id="float">Floating label</h2>
+<p><code>.kit-float</code>: the label sits inside the field and, when the field is filled or focused, rises and shrinks. CSS only. The field comes <b>before</b> the label and has <code>placeholder=" "</code> (a space). It works for input, textarea and select. It is not used on fields with the calendar.</p>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <div class="kit-float"><input class="kit-input" id="f-n" placeholder=" "><label for="f-n">Full name</label></div>
+    <div class="kit-float"><input class="kit-input" id="f-m" type="email" placeholder=" " value="jane@company.com"><label for="f-m">Email</label></div>
+    <div class="kit-float"><select class="kit-input" id="f-s"><option>Milan</option><option>Turin</option></select><label for="f-s">Office</label></div>
+    <div class="kit-float kit-field-wide"><textarea class="kit-input" id="f-t" placeholder=" "></textarea><label for="f-t">Message</label></div>
+  </div>
+</div>
+
+<h2 id="check">Checkboxes, radios and cards</h2>
+<p><code>.kit-check</code> works for checkboxes and radios. <code>.kit-check-text</code> adds a line of explanation below; <code>.kit-check-group</code> lays them out in a column and <code>kit-check-inline</code> in a row; <code>.kit-check-card</code> turns them into selectable cards (<code>.kit-check-cards</code> puts them in a grid). Wrap the group in a <code>fieldset</code> with a <code>legend</code>. The <code>is-invalid</code> state marks the border of the radio or card.</p>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <fieldset class="kit-check-group">
+      <legend>Delivery</legend>
+      <label class="kit-check"><input type="radio" name="cons" checked> <span class="kit-check-text">Standard<small>2–3 working days</small></span></label>
+      <label class="kit-check"><input type="radio" name="cons"> <span class="kit-check-text">Express<small>Next day, +€5</small></span></label>
+      <label class="kit-check"><input type="radio" name="cons" disabled> Pick-up in store</label>
+    </fieldset>
+    <fieldset class="kit-check-group">
+      <legend>Options</legend>
+      <div class="kit-check-inline">
+        <label class="kit-check"><input type="checkbox" checked> Gift</label>
+        <label class="kit-check"><input type="checkbox"> Invoice</label>
+        <label class="kit-check"><input type="checkbox"> Insurance</label>
+      </div>
+    </fieldset>
+  </div>
+  <fieldset class="kit-check-group" style="margin-top: var(--kit-sp)">
+    <legend>Plan</legend>
+    <div class="kit-check-cards">
+      <label class="kit-check kit-check-card"><input type="radio" name="piano" checked><span class="kit-check-text"><b>Basic</b><small>Up to 3 users</small></span></label>
+      <label class="kit-check kit-check-card"><input type="radio" name="piano"><span class="kit-check-text"><b>Team</b><small>Up to 20 users</small></span></label>
+      <label class="kit-check kit-check-card"><input type="radio" name="piano"><span class="kit-check-text"><b>Company</b><small>Unlimited users</small></span></label>
+    </div>
+  </fieldset>
+</div>
+
+<h2 id="controls">Other controls</h2>
+<p><code>.kit-input</code> also applies to <code>&lt;textarea&gt;</code> (free height, resizable; <code>kit-textarea-auto</code> makes it grow with the text where the browser allows), to a native <code>&lt;select&gt;</code> (with the arrow drawn by CSS), to <code>type="file"</code> and <code>type="color"</code>. <code>.kit-range</code> is for <code>type="range"</code>. <code>readonly</code> and <code>disabled</code> have a different background; <code>.kit-input-plain</code> shows a value as text, without a frame. <code>data-kit-count="#id"</code> on a text element writes "n / maxlength" and turns yellow near the limit and red at the limit.</p>
+<div class="doc-demo">
+  <div class="kit-fields">
+    <div class="kit-field"><label class="kit-label" for="o-t">Message</label><textarea class="kit-input" id="o-t" rows="3" maxlength="60" placeholder="Write here…"></textarea><div class="kit-field-foot"><span class="kit-hint">At most 60 characters.</span><span class="kit-counter" data-kit-count="#o-t"></span></div></div>
+    <div class="kit-field"><label class="kit-label" for="o-s">Native select</label><select class="kit-input" id="o-s"><option>One</option><option>Two</option><option>Three</option></select></div>
+    <div class="kit-field"><label class="kit-label" for="o-f">File</label><input class="kit-input" id="o-f" type="file"></div>
+    <div class="kit-field"><label class="kit-label" for="o-c">Color</label><input class="kit-input" id="o-c" type="color" value="#2f5fd0"></div>
+    <div class="kit-field"><label class="kit-label" for="o-r">Quantity</label><input class="kit-range" id="o-r" type="range" min="0" max="10" value="4"></div>
+    <div class="kit-field"><label class="kit-label" for="o-ro">Read only</label><input class="kit-input" id="o-ro" value="FT-2026-0041" readonly></div>
+    <div class="kit-field"><label class="kit-label" for="o-d">Disabled</label><input class="kit-input" id="o-d" value="Cannot be edited" disabled></div>
+    <div class="kit-field"><span class="kit-label">As text</span><div class="kit-input kit-input-plain">jane@company.com</div></div>
+  </div>
+</div>
+
+<h2 id="django">With Django</h2>
+<p>The class names are the ones Django writes in widgets; the error messages from <code>form.errors</code> go into a <code>.kit-feedback-invalid</code>. A filter or template tag, or a widget with <code>attrs</code>, puts the classes on the field.</p>
+<pre class="kit-code" data-kit-code="python"><code># forms.py
+class ContactForm(forms.Form):
+    name = forms.CharField(widget=forms.TextInput(attrs={"class": "kit-input"}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={"class": "kit-input"}))
+    message = forms.CharField(max_length=300, widget=forms.Textarea(attrs={"class": "kit-input", "rows": 4}))</code></pre>
+<pre class="kit-code" data-kit-code="html"><code>&lt;!-- _field.html: {% include "_field.html" with field=form.email %} --&gt;
+&lt;div class="kit-field{% if field.errors %} is-invalid{% endif %}"&gt;
+  &lt;label class="kit-label{% if field.field.required %} kit-required{% endif %}" for="{{ field.id_for_label }}"&gt;{{ field.label }}&lt;/label&gt;
+  {{ field }}
+  {% if field.help_text %}&lt;div class="kit-hint"&gt;{{ field.help_text }}&lt;/div&gt;{% endif %}
+  {% for e in field.errors %}&lt;div class="kit-feedback kit-feedback-invalid"&gt;{{ e }}&lt;/div&gt;{% endfor %}
+&lt;/div&gt;</code></pre>
+<p>The invalid field gets its border from the <code>is-invalid</code> class on the <code>.kit-field</code>; to tell screen readers too that it is wrong, <code>aria-invalid="true"</code> is added from the widget, or with <code>data-kit-validate</code> on the form <code>kit.js</code> writes it at the first check. With htmx the inserted fragments initialize by themselves.</p>
+    <nav class="doc-pager" aria-label="Previous and next page">
+      <a href="forms.html"><small>← Previous</small><b>Basic fields</b></a>
+      <a class="doc-next" href="form-controls.html"><small>Next →</small><b>Select and file</b></a>
+    </nav>
+  </article>
+</div>
+</div>
+</main>
+<script src="search-index.js"></script>
+<script src="../docs.js"></script>
+</body>
+</html>
