@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Navbar — Dashboard Kit</title>
+<meta name="description" content="The top bar with logo, items, dropdown menus, actions and a collapsible menu on small screens.">
+<script src="../../dist/kit.js"></script>
+<link rel="stylesheet" href="../../dist/kit.css">
+<link rel="stylesheet" href="../docs.css">
+</head>
+<body>
+<!-- Pagina generata da tools/gen-docs.py a partire da docs/src/en/navbar.html: non modificarla a mano. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="i-chev-up" viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></symbol>
+<symbol id="i-chev-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
+<symbol id="i-chev-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+<symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5m0 0-6 6m6-6 6 6"/></symbol>
+<symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14m0 0-6-6m6 6 6-6"/></symbol>
+<symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5m0 0 6-6m-6 6 6 6"/></symbol>
+<symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></symbol>
+<symbol id="i-expand" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></symbol>
+<symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V4m0 0L8 8m4-4 4 4M5 20h14"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.5-3.5L4 9m0-5v5h5M4 13a8 8 0 0 0 14.5 3.5L20 15m0 5v-5h-5"/></symbol>
+<symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4zM13.5 6.5l4 4"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></symbol>
+<symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8L3 5z"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h8m4 0h4M4 17h4m4 0h8"/><circle cx="14" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+<symbol id="i-more" viewBox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01"/></symbol>
+<symbol id="i-more-v" viewBox="0 0 24 24"><path d="M12 5h.01M12 12h.01M12 19h.01"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7M6 10v10h4v-6h4v6h4V10"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0 1 16 0"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4l2-2zM10 21h4"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM14 3v5h5"/></symbol>
+<symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6a1 1 0 0 1 1-1h5l2 2h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6z"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-text" viewBox="0 0 24 24"><path d="M4 7V5h16v2M12 5v14M9 19h6"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+<symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+<symbol id="i-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 3 3 5-6"/></symbol>
+<symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3.5 2.5 20h19L12 3.5z"/><path d="M12 10v4.5M12 17.5h.01"/></symbol>
+<symbol id="i-error" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/></symbol>
+</defs></svg>
+<header class="kit-header">
+  <div class="kit-container-boxed">
+    <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
+    <span class="kit-spacer"></span>
+    <div class="kit-combo doc-search" role="search">
+      <svg class="kit-icon"><use href="#i-search"/></svg>
+      <input class="kit-input" type="text" placeholder="Search…" aria-label="Search the documentation" spellcheck="false">
+      <kbd aria-hidden="true">/</kbd>
+    </div>
+    <a class="kit-btn kit-btn-ghost" href="../it/navbar.html" hreflang="it" lang="it" title="Language">Italiano</a>
+    <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
+    <div class="kit-dropdown">
+      <button class="kit-btn kit-btn-icon" data-kit-toggle="#settings" aria-haspopup="true" aria-expanded="false" aria-label="Settings" title="Settings"><svg class="kit-icon"><use href="#i-sliders"/></svg></button>
+      <div class="kit-pop kit-pop-right kit-settings" id="settings" role="group" aria-label="Settings" hidden>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Theme</span>
+          <div class="kit-seg" role="group" aria-label="Theme">
+            <button data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg>Auto</button>
+            <button data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg>Light</button>
+            <button data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg>Dark</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Text size</span>
+          <div class="kit-seg" role="group" aria-label="Text size">
+            <button data-kit-fs-set="md" aria-label="Normal" title="Normal">A</button>
+            <button data-kit-fs-set="lg" aria-label="Large" title="Large">A</button>
+            <button data-kit-fs-set="xl" aria-label="Extra large" title="Extra large">A</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Content width</span>
+          <div class="kit-seg" role="group" aria-label="Content width">
+            <button data-kit-layout-set="boxed">Centered</button>
+            <button data-kit-layout-set="fluid">Full page</button>
+          </div>
+          <small>Visible on screens wider than the content.</small>
+        </div>
+        <div class="kit-settings-foot"><button class="kit-btn kit-btn-ghost" data-kit-reset>Reset</button></div>
+      </div>
+    </div>
+  </div>
+</header>
+<main class="kit-main">
+<div class="kit-container-boxed">
+<div class="kit-row kit-gy-0">
+  <aside class="kit-col-12 kit-col-lg-3">
+    <nav class="doc-nav" aria-label="Documentation">
+      <details class="doc-nav-d" open>
+        <summary class="kit-btn">Documentation menu</summary>
+        <div class="doc-nav-body">
+          <div class="doc-nav-group">Getting started</div>
+          <a href="index.html">Introduction</a>
+          <a href="javascript.html">JavaScript</a>
+          <div class="doc-nav-group">Foundations</div>
+          <a href="layout.html">Layout</a>
+          <a href="grid.html">Grid</a>
+          <a href="utilities.html">Utilities</a>
+          <a href="typography.html">Typography</a>
+          <a href="icons.html">Icons</a>
+          <a href="buttons.html">Buttons</a>
+          <div class="doc-nav-group">Forms</div>
+          <a href="forms.html">Basic fields</a>
+          <a href="form-layout.html">Layout and validation</a>
+          <a href="form-controls.html">Select and file</a>
+          <a href="dates.html">Dates and times</a>
+          <div class="doc-nav-group">Navigation</div>
+          <a href="navbar.html" class="is-current" aria-current="page">Navbar</a>
+          <ul class="doc-toc">
+            <li><a href="#base">Basic navbar</a></li>
+            <li><a href="#items">Items</a></li>
+            <li><a href="#dropdown">Items with a dropdown menu</a></li>
+            <li><a href="#actions">Search, theme and actions</a></li>
+            <li><a href="#breakpoint">When it opens inline</a></li>
+            <li><a href="#collapsible">Collapsible menu</a></li>
+            <li><a href="#container">Aligned with the content: kit-container</a></li>
+            <li><a href="#vertical">Vertical list</a></li>
+            <li><a href="#accessibility">Accessibility</a></li>
+          </ul>
+          <a href="sidebar.html">Sidebar</a>
+          <a href="navigation.html">Tabs and breadcrumb</a>
+          <div class="doc-nav-group">Data</div>
+          <a href="../it/tables.html" hreflang="it" lang="it">Tables <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/charts.html" hreflang="it" lang="it">Charts <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/cards.html" hreflang="it" lang="it">Cards and details <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Feedback and overlays</div>
+          <a href="../it/feedback.html" hreflang="it" lang="it">Alerts and progress <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/overlays.html" hreflang="it" lang="it">Dialogs and menus <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/accordion.html" hreflang="it" lang="it">Accordion <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Customizing</div>
+          <a href="../it/theming.html" hreflang="it" lang="it">Themes and tokens <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/snippets.html" hreflang="it" lang="it">VS Code snippets <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Examples</div>
+          <a href="../dashboard.html">Dashboard <span class="kit-badge kit-badge-neutral">example</span></a>
+          <a href="../dashboard-sidebar.html">Dashboard with sidebar <span class="kit-badge kit-badge-neutral">example</span></a>
+        </div>
+      </details>
+    </nav>
+  </aside>
+  <article class="kit-col-12 kit-col-lg-9 doc-content">
+    <h1 class="doc-title">Navbar</h1>
+    <p class="doc-lead">The top bar with logo, items, dropdown menus, actions and a collapsible menu on small screens.</p>
+<h2 id="base">Basic navbar</h2>
+<p>The navbar is a <code>.kit-header</code> with the <code>kit-navbar</code> class. Inside go, in this order, the logo (<code>kit-brand</code>), the menu (<code>kit-navbar-menu</code>) with the list of items (<code>kit-nav</code>) and, if needed, actions on the right, and finally the button that opens the menu on small screens (<code>kit-navbar-toggler</code>).</p>
+<p>With <code>kit-navbar-expand-md</code> the menu is inline from 768px up and, below that, it hides behind the three-line button. Try narrowing the window. The button has <code>data-kit-nav</code> with the menu's id: <code>kit.js</code> is needed.</p>
+<div class="doc-demo doc-demo-nav">
+  <header class="kit-header kit-navbar kit-navbar-expand-md">
+    <a class="kit-brand" href="#base">Invoices <span>app</span></a>
+    <nav class="kit-navbar-menu" id="nav-base" aria-label="Main">
+      <ul class="kit-nav">
+        <li><a class="kit-nav-link" href="#base" aria-current="page">Home</a></li>
+        <li><a class="kit-nav-link" href="#base">Documents</a></li>
+        <li><a class="kit-nav-link" href="#base">Customers</a></li>
+        <li><a class="kit-nav-link" href="#base" aria-disabled="true">Archive</a></li>
+      </ul>
+      <span class="kit-spacer"></span>
+      <button class="kit-btn kit-btn-primary">New</button>
+    </nav>
+    <button class="kit-btn kit-btn-ghost kit-btn-icon kit-navbar-toggler" data-kit-nav="#nav-base" aria-controls="nav-base" aria-expanded="false" aria-label="Menu"><svg class="kit-icon"><use href="#i-menu"/></svg></button>
+  </header>
+</div>
+
+<h2 id="items">Items</h2>
+<p><code>kit-nav-link</code> is used on an <code>&lt;a&gt;</code> (or on a <code>&lt;button&gt;</code>). The current page is marked with <code>aria-current="page"</code> (or with the <code>is-active</code> class): besides the color, screen readers read it too. To disable an item there is <code>aria-disabled="true"</code> or the <code>disabled</code> attribute. Inside the item you can put an icon or a <code>kit-badge</code>.</p>
+<div class="doc-demo">
+  <ul class="kit-nav">
+    <li><a class="kit-nav-link is-active" href="#items"><svg class="kit-icon"><use href="#i-home"/></svg>Home</a></li>
+    <li><a class="kit-nav-link" href="#items">Messages <span class="kit-badge kit-badge-danger">3</span></a></li>
+    <li><a class="kit-nav-link" href="#items" aria-disabled="true">Disabled</a></li>
+  </ul>
+</div>
+
+<h2 id="dropdown">Items with a dropdown menu</h2>
+<p>An item can open a menu: it is the same <a href="../it/overlays.html">dropdown menu</a> as for buttons (<code>kit-dropdown</code>, <code>kit-pop</code>, <code>kit-opt</code>), placed inside an <code>&lt;li&gt;</code>. The up and down arrows move through the items, Enter selects, Esc closes. In the collapsible menu the dropdowns open inline, below the item.</p>
+<div class="doc-demo doc-demo-nav" style="min-height: 250px">
+  <header class="kit-header kit-navbar kit-navbar-expand-md">
+    <a class="kit-brand" href="#dropdown">Invoices <span>app</span></a>
+    <nav class="kit-navbar-menu" id="nav-dd" aria-label="Main">
+      <ul class="kit-nav">
+        <li><a class="kit-nav-link" href="#dropdown" aria-current="page">Home</a></li>
+        <li class="kit-dropdown">
+          <button class="kit-nav-link" data-kit-toggle="#nav-dd-doc" aria-haspopup="menu" aria-expanded="false">Documents<svg class="kit-icon"><use href="#i-chev"/></svg></button>
+          <div class="kit-pop" id="nav-dd-doc" role="menu" hidden>
+            <div class="kit-pop-group">Invoices</div>
+            <a class="kit-opt" role="menuitem" href="#dropdown">Received</a>
+            <a class="kit-opt" role="menuitem" href="#dropdown">Issued</a>
+            <div class="kit-pop-sep"></div>
+            <a class="kit-opt" role="menuitem" href="#dropdown">Credit notes</a>
+          </div>
+        </li>
+        <li class="kit-dropdown">
+          <button class="kit-nav-link" data-kit-toggle="#nav-dd-rep" aria-haspopup="menu" aria-expanded="false">Report<svg class="kit-icon"><use href="#i-chev"/></svg></button>
+          <div class="kit-pop" id="nav-dd-rep" role="menu" hidden>
+            <a class="kit-opt" role="menuitem" href="#dropdown">By year</a>
+            <a class="kit-opt" role="menuitem" href="#dropdown">By supplier</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+    <button class="kit-btn kit-btn-ghost kit-btn-icon kit-navbar-toggler" data-kit-nav="#nav-dd" aria-controls="nav-dd" aria-expanded="false" aria-label="Menu"><svg class="kit-icon"><use href="#i-menu"/></svg></button>
+  </header>
+</div>
+
+<h2 id="actions">Search, theme and actions</h2>
+<p>After <code>kit-spacer</code> goes what sits on the right: a search field, the settings panel, a user menu. What you put <em>inside</em> <code>kit-navbar-menu</code> hides with the menu. What you put in <code>kit-navbar-actions</code>, <em>after</em> the menu and before the button, always stays visible: it is the right place for theme and user.</p>
+<div class="doc-demo doc-demo-nav" style="min-height: 190px">
+  <header class="kit-header kit-navbar kit-navbar-expand-lg">
+    <a class="kit-brand" href="#actions">Invoices <span>app</span></a>
+    <nav class="kit-navbar-menu" id="nav-az" aria-label="Main">
+      <ul class="kit-nav">
+        <li><a class="kit-nav-link" href="#actions" aria-current="page">Home</a></li>
+        <li><a class="kit-nav-link" href="#actions">Documents</a></li>
+        <li><a class="kit-nav-link" href="#actions">Customers</a></li>
+      </ul>
+      <span class="kit-spacer"></span>
+      <input class="kit-input" type="search" placeholder="Search…" aria-label="Search" style="max-width: 16rem">
+    </nav>
+    <div class="kit-navbar-actions">
+      <div class="kit-dropdown">
+        <button class="kit-btn kit-btn-icon kit-btn-ghost" data-kit-toggle="#nav-user" aria-haspopup="menu" aria-expanded="false" aria-label="Account"><svg class="kit-icon"><use href="#i-user"/></svg></button>
+        <div class="kit-pop kit-pop-right" id="nav-user" role="menu" hidden>
+          <a class="kit-opt" role="menuitem" href="#actions">Profile</a>
+          <a class="kit-opt kit-opt-danger" role="menuitem" href="#actions">Sign out</a>
+        </div>
+      </div>
+    </div>
+    <button class="kit-btn kit-btn-ghost kit-btn-icon kit-navbar-toggler" data-kit-nav="#nav-az" aria-controls="nav-az" aria-expanded="false" aria-label="Menu"><svg class="kit-icon"><use href="#i-menu"/></svg></button>
+  </header>
+</div>
+<div class="kit-alert">The order in the code matters: logo, menu, <code>kit-navbar-actions</code>, button. The collapsible menu is out of the flow, so on a small screen only the logo, actions and button remain on the bar.</div>
+
+<h2 id="breakpoint">When it opens inline</h2>
+<table class="kit-table">
+  <thead><tr><th>Class</th><th>Inline from</th></tr></thead>
+  <tbody>
+    <tr><td><code>kit-navbar-expand-sm</code></td><td>576px</td></tr>
+    <tr><td><code>kit-navbar-expand-md</code></td><td>768px</td></tr>
+    <tr><td><code>kit-navbar-expand-lg</code></td><td>992px</td></tr>
+    <tr><td><code>kit-navbar-expand-xl</code></td><td>1200px</td></tr>
+    <tr><td>none</td><td>never: the button is always there</td></tr>
+  </tbody>
+</table>
+<p>They are the same breakpoints as the <a href="grid.html">grid</a>. With too many items pick a higher one: if the items do not fit, they wrap or overflow the bar.</p>
+
+<h2 id="collapsible">Collapsible menu</h2>
+<p>On a small screen the menu drops below the bar, full width, and scrolls if it is taller than the window. Below, the navbar without <code>kit-navbar-expand-*</code>, so the button is always there.</p>
+<div class="doc-demo doc-demo-nav" style="min-height: 330px">
+  <header class="kit-header kit-navbar">
+    <a class="kit-brand" href="#collapsible">Invoices <span>app</span></a>
+    <nav class="kit-navbar-menu" id="nav-sc" aria-label="Main">
+      <ul class="kit-nav">
+        <li><a class="kit-nav-link" href="#collapsible" aria-current="page">Home</a></li>
+        <li class="kit-dropdown">
+          <button class="kit-nav-link" data-kit-toggle="#nav-sc-d" aria-haspopup="menu" aria-expanded="false">Documents<svg class="kit-icon"><use href="#i-chev"/></svg></button>
+          <div class="kit-pop" id="nav-sc-d" role="menu" hidden>
+            <a class="kit-opt" role="menuitem" href="#collapsible">Received</a>
+            <a class="kit-opt" role="menuitem" href="#collapsible">Issued</a>
+          </div>
+        </li>
+        <li><a class="kit-nav-link" href="#collapsible">Customers</a></li>
+      </ul>
+      <input class="kit-input" type="search" placeholder="Search…" aria-label="Search">
+    </nav>
+    <button class="kit-btn kit-btn-ghost kit-btn-icon kit-navbar-toggler" data-kit-nav="#nav-sc" aria-controls="nav-sc" aria-expanded="false" aria-label="Menu"><svg class="kit-icon"><use href="#i-menu"/></svg></button>
+  </header>
+</div>
+<ul>
+  <li>It closes with a second click on the button, with <kbd>Esc</kbd> (focus returns to the button), by clicking outside the bar or by choosing a link in the menu.</li>
+  <li>If the window widens past the breakpoint, the "open" state is reset.</li>
+  <li>The button has <code>aria-expanded</code> and <code>aria-controls</code>, updated by <code>kit.js</code>.</li>
+</ul>
+
+<h2 id="container">Aligned with the content: kit-container</h2>
+<p>As with the normal header, put a container inside the navbar: the bar stays as wide as the window (with the background and border), but logo, items and actions align with the page content. The container becomes the navbar's inner row. The collapsible menu stays as wide as the window.</p>
+<table class="kit-table">
+  <thead><tr><th>Class</th><th>Effect on the navbar</th></tr></thead>
+  <tbody>
+    <tr><td><code>kit-container</code></td><td>Centered, with maximum width <code>--kit-container-w</code>. It follows the global switch <code>data-layout="boxed|fluid"</code>: with <code>fluid</code> it fills the whole window, like the content.</td></tr>
+    <tr><td><code>kit-container-boxed</code></td><td>Always centered, whatever the switch.</td></tr>
+    <tr><td><code>kit-container-fluid</code></td><td>Always full width.</td></tr>
+    <tr><td>none</td><td>The whole window, with only the header's side margin.</td></tr>
+  </tbody>
+</table>
+<p>In the examples the maximum width is reduced to 36rem, just to show the difference; the dashed box is the container. The first is <code>kit-container-boxed</code>, the second <code>kit-container-fluid</code>.</p>
+<div class="doc-demo doc-demo-nav" style="min-height: 120px">
+  <header class="kit-header kit-navbar kit-navbar-expand-md" style="--kit-container-w: 36rem">
+    <div class="kit-container-boxed">
+      <a class="kit-brand" href="#container">Boxed</a>
+      <nav class="kit-navbar-menu" id="nav-c1" aria-label="Main">
+        <ul class="kit-nav">
+          <li><a class="kit-nav-link" href="#container" aria-current="page">Home</a></li>
+          <li><a class="kit-nav-link" href="#container">Documents</a></li>
+        </ul>
+        <span class="kit-spacer"></span>
+        <button class="kit-btn kit-btn-primary">New</button>
+      </nav>
+      <button class="kit-btn kit-btn-ghost kit-btn-icon kit-navbar-toggler" data-kit-nav="#nav-c1" aria-controls="nav-c1" aria-expanded="false" aria-label="Menu"><svg class="kit-icon"><use href="#i-menu"/></svg></button>
+    </div>
+  </header>
+</div>
+<div class="doc-demo doc-demo-nav" style="min-height: 120px">
+  <header class="kit-header kit-navbar kit-navbar-expand-md" style="--kit-container-w: 36rem">
+    <div class="kit-container-fluid">
+      <a class="kit-brand" href="#container">Fluid</a>
+      <nav class="kit-navbar-menu" id="nav-c2" aria-label="Main">
+        <ul class="kit-nav">
+          <li><a class="kit-nav-link" href="#container" aria-current="page">Home</a></li>
+          <li><a class="kit-nav-link" href="#container">Documents</a></li>
+        </ul>
+        <span class="kit-spacer"></span>
+        <button class="kit-btn kit-btn-primary">New</button>
+      </nav>
+      <button class="kit-btn kit-btn-ghost kit-btn-icon kit-navbar-toggler" data-kit-nav="#nav-c2" aria-controls="nav-c2" aria-expanded="false" aria-label="Menu"><svg class="kit-icon"><use href="#i-menu"/></svg></button>
+    </div>
+  </header>
+</div>
+<p>The container goes inside the navbar and the page content (<code>.kit-main</code>) uses the same one: this way navbar and page stay aligned, even when the user changes width from the <a href="../it/theming.html">settings</a>.</p>
+<div class="kit-alert">The collapsible menu (<code>kit-navbar-menu</code>) is positioned relative to the navbar, not to the container: that is why it stays full width.</div>
+
+<h2 id="vertical">Vertical list</h2>
+<p><code>kit-nav-col</code> lays the items out in a column: for a side menu, or for a list of sections.</p>
+<div class="doc-demo">
+  <ul class="kit-nav kit-nav-col" style="max-width: 14rem">
+    <li><a class="kit-nav-link is-active" href="#vertical">Overview</a></li>
+    <li><a class="kit-nav-link" href="#vertical">Documents</a></li>
+    <li><a class="kit-nav-link" href="#vertical">Settings</a></li>
+  </ul>
+</div>
+
+<h2 id="accessibility">Accessibility</h2>
+<ul>
+  <li>Put the list inside a <code>&lt;nav&gt;</code> with <code>aria-label</code> (if there is more than one on the page).</li>
+  <li>Items are real links and buttons: they can be reached with Tab and have a focus ring.</li>
+  <li>The menu button has an <code>aria-label</code>, because it contains only an icon.</li>
+</ul>
+    <nav class="doc-pager" aria-label="Previous and next page">
+      <a href="dates.html"><small>← Previous</small><b>Dates and times</b></a>
+      <a class="doc-next" href="sidebar.html"><small>Next →</small><b>Sidebar</b></a>
+    </nav>
+  </article>
+</div>
+</div>
+</main>
+<script src="search-index.js"></script>
+<script src="../docs.js"></script>
+</body>
+</html>

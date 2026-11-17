@@ -1,0 +1,133 @@
+<!--title: Sidebar-->
+<!--desc: The navigation bar on the left, with header, items, sub-items, account and utilities at the bottom. Slide-in on small screens, compact (icons only) on large ones.-->
+<h2 id="base">Structure</h2>
+<p>The sidebar sits inside <code>.kit-app</code>, next to <code>.kit-app-main</code>: on the left the full-height bar, on the right the column with the header (<code>.kit-header</code>) and the content (<code>.kit-main</code>). The bar has three parts: <code>kit-sidebar-head</code> (logo), <code>kit-sidebar-body</code> (the items, scrolls by itself if there are many) and <code>kit-sidebar-foot</code> (account and utilities, always at the bottom).</p>
+<div class="doc-demo doc-demo-side">
+  <div class="kit-app">
+    <aside class="kit-sidebar" aria-label="Main (example)">
+      <div class="kit-sidebar-head">
+        <a class="kit-brand" href="#base"><svg class="kit-icon"><use href="#i-folder"/></svg><span class="kit-side-text">Invoices <span>app</span></span></a>
+      </div>
+      <nav class="kit-sidebar-body" aria-label="Sections">
+        <ul class="kit-side-nav">
+          <li><a class="kit-side-link" href="#base" aria-current="page"><svg class="kit-icon"><use href="#i-home"/></svg><span class="kit-side-text">Overview</span></a></li>
+          <li><a class="kit-side-link" href="#base"><svg class="kit-icon"><use href="#i-bell"/></svg><span class="kit-side-text">Alerts</span><span class="kit-badge kit-badge-danger">3</span></a></li>
+        </ul>
+        <div class="kit-side-title">Documents</div>
+        <ul class="kit-side-nav">
+          <li><a class="kit-side-link" href="#base"><svg class="kit-icon"><use href="#i-file"/></svg><span class="kit-side-text">Invoices</span></a></li>
+          <li><a class="kit-side-link" href="#base"><svg class="kit-icon"><use href="#i-calendar"/></svg><span class="kit-side-text">Due dates</span></a></li>
+          <li><a class="kit-side-link" href="#base" aria-disabled="true"><svg class="kit-icon"><use href="#i-folder"/></svg><span class="kit-side-text">Archive</span></a></li>
+        </ul>
+      </nav>
+      <div class="kit-sidebar-foot">
+        <button class="kit-side-user" type="button">
+          <span class="kit-side-avatar" aria-hidden="true">MS</span>
+          <span class="kit-side-user-text"><b>Maria Smith</b><small>maria@example.com</small></span>
+        </button>
+      </div>
+    </aside>
+    <div class="kit-app-main">
+      <header class="kit-header"><h2 class="kit-fs-4 kit-m-0">Overview</h2></header>
+      <main class="kit-main"><p class="kit-mute">The page content.</p></main>
+    </div>
+  </div>
+</div>
+<ul>
+  <li>Each item is <code>kit-side-link</code> on an <code>&lt;a&gt;</code> or a <code>&lt;button&gt;</code>: icon, then the text inside <code>&lt;span class="kit-side-text"&gt;</code> (needed, because it disappears in the compact version), then an optional badge.</li>
+  <li>The current page is marked with <code>aria-current="page"</code> (or <code>is-active</code>); an unavailable item with <code>aria-disabled="true"</code>.</li>
+  <li><code>kit-side-title</code> is the title of a group of items; in the compact version it becomes a separator line.</li>
+  <li>Give the <code>&lt;aside&gt;</code> an <code>id</code> and an <code>aria-label</code>.</li>
+</ul>
+
+<h2 id="header">Together with the header</h2>
+<p>The header is the usual one (<code>kit-header</code>), but it sits inside <code>kit-app-main</code>, above the content. The button that opens the sidebar lives there: <code>data-kit-sidebar-toggle</code> with, if needed, the bar's selector. The logo sits at the top of the sidebar, with the same height as the header (<code>--kit-hh</code>), so the two separator lines meet.</p>
+<pre class="kit-code" data-kit-code="html">&lt;div class="kit-app kit-app-expand-lg"&gt;
+  &lt;aside class="kit-sidebar" id="sidebar" aria-label="Main"&gt; … &lt;/aside&gt;
+  &lt;div class="kit-app-main"&gt;
+    &lt;header class="kit-header"&gt;
+      &lt;button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-sidebar-toggle="#sidebar"
+              aria-controls="sidebar" aria-expanded="false" aria-label="Side menu"&gt;
+        &lt;svg class="kit-icon"&gt;&lt;use href="#i-menu"/&gt;&lt;/svg&gt;
+      &lt;/button&gt;
+      …
+    &lt;/header&gt;
+    &lt;main class="kit-main"&gt; … &lt;/main&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+<p>A complete example, to try by resizing the window: <a href="dashboard-sidebar.html">dashboard with sidebar</a>.</p>
+
+<h2 id="breakpoint">When it stays inline</h2>
+<table class="kit-table">
+  <thead><tr><th>Class on <code>kit-app</code></th><th>Inline from</th></tr></thead>
+  <tbody>
+    <tr><td><code>kit-app-expand-md</code></td><td>768px</td></tr>
+    <tr><td><code>kit-app-expand-lg</code></td><td>992px</td></tr>
+    <tr><td><code>kit-app-expand-xl</code></td><td>1200px</td></tr>
+    <tr><td>none</td><td>never: it is always slide-in</td></tr>
+  </tbody>
+</table>
+<p>Below that point the sidebar leaves the flow and sits off screen; the <code>data-kit-sidebar-toggle</code> button slides it in from the left, with the background darkening. It behaves like a dialog: the rest of the page cannot be reached (<code>inert</code>), focus moves to the bar, and it closes with <kbd>Esc</kbd>, with a click on the background or by choosing a link, returning focus to the button. If the window widens past the breakpoint, the "open" state is reset.</p>
+
+<h2 id="compact">Compact, icons only</h2>
+<p>On large screens the same button compresses the bar into a column of icons (<code>--kit-side-wc</code> wide) and expands it again. The choice is <code>&lt;html data-kit-sidebar="collapsed|expanded"&gt;</code> and is remembered, like theme and text size. To start compact just write the attribute in the HTML.</p>
+<ul>
+  <li>Texts, badges, arrows and sub-items disappear. Hovering the mouse or moving focus with Tab onto an icon, its name appears right next to it (with the badge number, for example "Alerts (3)"); this applies to items, utilities and the account. The name is taken from the item's <code>kit-side-text</code> or, for icon buttons, from their <code>aria-label</code>. Each item also gets an <code>aria-label</code> by itself, because the hidden text does not reach screen readers.</li>
+  <li>Pressing an item with sub-items expands it again.</li>
+  <li><code>Kit.reset()</code> and the <code>data-kit-reset</code> button restore the state written in the HTML.</li>
+</ul>
+
+<h2 id="subitems">Items with sub-items</h2>
+<p>An item with a submenu is a <code>&lt;details class="kit-side-details"&gt;</code> with <code>&lt;summary class="kit-side-link"&gt;</code>: it works without JavaScript and with the keyboard. The arrow is <code>kit-side-chev</code>; the sub-items are a second <code>kit-side-nav kit-side-sub</code>.</p>
+<div class="doc-demo doc-demo-side doc-demo-side-sm">
+  <div class="kit-app">
+    <aside class="kit-sidebar" aria-label="Sub-items (example)">
+      <nav class="kit-sidebar-body" aria-label="Sections">
+        <ul class="kit-side-nav">
+          <li>
+            <details class="kit-side-details" open>
+              <summary class="kit-side-link"><svg class="kit-icon"><use href="#i-file"/></svg><span class="kit-side-text">Invoices</span><svg class="kit-icon kit-side-chev"><use href="#i-chev"/></svg></summary>
+              <ul class="kit-side-nav kit-side-sub">
+                <li><a class="kit-side-link" href="#subitems" aria-current="page"><span class="kit-side-text">Received</span></a></li>
+                <li><a class="kit-side-link" href="#subitems"><span class="kit-side-text">Issued</span></a></li>
+              </ul>
+            </details>
+          </li>
+          <li><a class="kit-side-link" href="#subitems"><svg class="kit-icon"><use href="#i-user"/></svg><span class="kit-side-text">Customers</span></a></li>
+        </ul>
+      </nav>
+    </aside>
+  </div>
+</div>
+
+<h2 id="account">Account and utilities at the bottom</h2>
+<p>In <code>kit-sidebar-foot</code> go the utilities (<code>kit-side-tools</code>: icon buttons, settings, help) and the account. The account is <code>kit-side-user</code> with <code>kit-side-avatar</code> (the initials) and <code>kit-side-user-text</code> (name and secondary line); its menu is a normal <a href="overlays.html">pop-up menu</a> opened upwards with <code>kit-pop-up</code>.</p>
+<pre class="kit-code" data-kit-code="html">&lt;div class="kit-sidebar-foot"&gt;
+  &lt;div class="kit-dropdown"&gt;
+    &lt;button class="kit-side-user" data-kit-toggle="#account" aria-haspopup="menu" aria-expanded="false"&gt;
+      &lt;span class="kit-side-avatar" aria-hidden="true"&gt;MR&lt;/span&gt;
+      &lt;span class="kit-side-user-text"&gt;&lt;b&gt;Maria Smith&lt;/b&gt;&lt;small&gt;maria@example.com&lt;/small&gt;&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div class="kit-pop kit-pop-up" id="account" role="menu" hidden&gt;
+      &lt;a class="kit-opt" role="menuitem" href="#"&gt;Profile&lt;/a&gt;
+      &lt;button class="kit-opt kit-opt-danger" role="menuitem"&gt;Sign out&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+
+<h2 id="js">JavaScript</h2>
+<table class="kit-table">
+  <thead><tr><th>What</th><th>Effect</th></tr></thead>
+  <tbody>
+    <tr><td><code>data-kit-sidebar-toggle="#id"</code></td><td>Button: opens or closes the slide-in sidebar, or compresses or expands the inline one. Without a value it acts on the first <code>.kit-sidebar</code>. <code>aria-expanded</code> updates by itself.</td></tr>
+    <tr><td><code>Kit.sidebar.get()</code> · <code>set("collapsed|expanded")</code> · <code>toggle()</code></td><td>The compact state, remembered.</td></tr>
+    <tr><td><code>Kit.sidebar.open(selector)</code> · <code>close(selector)</code></td><td>The slide-in sidebar; they do nothing if it is inline.</td></tr>
+    <tr><td><code>kit:sidebar</code> event</td><td>On the sidebar (bubbles): <code>detail</code> is <code>{ collapsed, open }</code>.</td></tr>
+  </tbody>
+</table>
+
+<h2 id="tokens">Tokens and print</h2>
+<ul>
+  <li><code>--kit-side-w</code> (16.5rem): width of the bar; <code>--kit-side-wc</code> (4.667rem): width of the compact one. They can be overridden on <code>:root</code> or on a single <code>.kit-app</code>.</li>
+  <li>When printing the sidebar disappears, like the header.</li>
+</ul>
