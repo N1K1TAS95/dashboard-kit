@@ -1,0 +1,150 @@
+<!--title: Cards and details-->
+<!--desc: Cards, KPI cards, stats row, lists, key/value pairs and code blocks: the containers and details of a dashboard.-->
+<h2 id="card">Card</h2>
+<p>A container with a border, rounded corners and a light shadow (in the dark theme the shadow disappears). Every part is optional: <code>kit-card-head</code>, <code>kit-card-body</code>, <code>kit-card-foot</code>.</p>
+<div class="doc-demo">
+  <section class="kit-card">
+    <div class="kit-card-head">Card title</div>
+    <div class="kit-card-body">The card content.</div>
+    <div class="kit-card-foot">
+      <button class="kit-btn">Cancel</button>
+      <button class="kit-btn kit-btn-primary">Save</button>
+    </div>
+  </section>
+</div>
+<p>Without <code>kit-card-body</code> the content touches the edges: fine for full-width tables and charts.</p>
+
+<h2 id="kpi">KPI card</h2>
+<p>A label, a big value and a change. In a row with <code>kit-row-cols-*</code> add <code>kit-h-100</code> so they all reach the same height.</p>
+<div class="doc-demo">
+  <div class="kit-row kit-row-cols-2 kit-row-cols-lg-4">
+    <div><div class="kit-card kit-kpi kit-h-100"><small>Documents</small><b>1,284</b><span class="kit-badge kit-badge-success">+4%</span></div></div>
+    <div><div class="kit-card kit-kpi kit-h-100"><small>Total</small><b>€48,920.10</b><span class="kit-badge kit-badge-success">+1.2%</span></div></div>
+    <div><div class="kit-card kit-kpi kit-h-100"><small>To review</small><b>17</b><span class="kit-badge kit-badge-warning">−3</span></div></div>
+    <div><div class="kit-card kit-kpi kit-h-100"><small>Discarded</small><b>2</b><span class="kit-badge kit-badge-danger">+1</span></div></div>
+  </div>
+</div>
+
+<h2 id="stats">Stats row</h2>
+<p>More compact than KPIs: many figures in a single card, separated by a thin line. On the phone they stack.</p>
+<div class="doc-demo">
+  <section class="kit-card kit-stats">
+    <div class="kit-stat"><small>Documents</small><b>1,284</b></div>
+    <div class="kit-stat"><small>Total</small><b>€48,920.10</b><em>VAT included</em></div>
+    <div class="kit-stat"><small>Received</small><b class="kit-success">€32,100</b></div>
+    <div class="kit-stat"><small>Issued</small><b class="kit-danger">€16,820</b></div>
+  </section>
+</div>
+
+<h2 id="list">List</h2>
+<p>Items stacked in the same box, like several joined cards: <code>kit-list</code> on the container, <code>kit-list-item</code> on each item. The container can be <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code> or <code>&lt;div&gt;</code>; the items <code>&lt;li&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;button&gt;</code> or <code>&lt;div&gt;</code>. A badge or an icon inside the item aligns by itself; <code>kit-list-main</code> gathers title and description and takes the free space.</p>
+<div class="doc-demo">
+  <ul class="kit-list">
+    <li class="kit-list-item">Received invoices</li>
+    <li class="kit-list-item">Issued invoices <span class="kit-badge">12</span></li>
+    <li class="kit-list-item">
+      <span class="kit-list-main"><b>Credit notes</b><small>Last imported yesterday</small></span>
+      <span class="kit-badge kit-badge-warning">3</span>
+    </li>
+  </ul>
+</div>
+
+<h3 id="list-actions">Clickable items</h3>
+<p>With <code>&lt;a&gt;</code> or <code>&lt;button&gt;</code> the item highlights on mouse hover. <code>is-active</code> (or <code>aria-current</code>) marks the selected one, <code>aria-disabled="true"</code> the unavailable one. The container, in this case, is a <code>&lt;div&gt;</code>.</p>
+<div class="doc-demo">
+  <div class="kit-list">
+    <a class="kit-list-item is-active" href="#list-actions" aria-current="true"><svg class="kit-icon"><use href="#i-info"/></svg>Overview</a>
+    <a class="kit-list-item" href="#list-actions"><svg class="kit-icon"><use href="#i-download"/></svg>Exports</a>
+    <button class="kit-list-item" type="button"><svg class="kit-icon"><use href="#i-edit"/></svg>Settings</button>
+    <a class="kit-list-item" href="#list-actions" aria-disabled="true"><svg class="kit-icon"><use href="#i-trash"/></svg>Trash</a>
+  </div>
+</div>
+
+<h3 id="list-states">States</h3>
+<p>To signal an item's outcome: <code>kit-list-item-success</code>, <code>-warning</code> and <code>-danger</code> give a soft background and colored text.</p>
+<div class="doc-demo">
+  <ul class="kit-list">
+    <li class="kit-list-item kit-list-item-success">Import completed</li>
+    <li class="kit-list-item kit-list-item-warning">2 documents to review</li>
+    <li class="kit-list-item kit-list-item-danger">1 file discarded</li>
+  </ul>
+</div>
+
+<h3 id="list-cards">Separate cards and compact</h3>
+<p><code>kit-list-cards</code> separates the items: each becomes a card with its own border, with a gap in between. It also works with clickable and active items and with the states. <code>kit-list-sm</code> reduces the space above and below each item and combines with the other variants.</p>
+<div class="doc-demo">
+  <div class="kit-list kit-list-cards">
+    <a class="kit-list-item is-active" href="#list-cards" aria-current="true"><span class="kit-list-main"><b>Smith Ltd</b><small>Invoice 24/118</small></span><span class="kit-badge">To pay</span></a>
+    <a class="kit-list-item" href="#list-cards"><span class="kit-list-main"><b>Brown &amp; Co.</b><small>Invoice 24/119</small></span><span class="kit-badge kit-badge-success">Paid</span></a>
+    <div class="kit-list-item kit-list-item-danger"><span class="kit-list-main"><b>Green Inc</b><small>Rejected by the tax authority</small></span></div>
+  </div>
+  <ul class="kit-list kit-list-sm">
+    <li class="kit-list-item">Compact item</li>
+    <li class="kit-list-item">Another compact item <span class="kit-badge">2</span></li>
+  </ul>
+</div>
+
+<h3 id="list-variants">Numbered, horizontal, borderless</h3>
+<p><code>kit-list-numbered</code> puts a number in front of each item. <code>kit-list-horizontal</code> lays them out in a row, of equal width (below 760px they stack again). <code>kit-list-flush</code> removes border, corners and shadow: it is for use inside a card, which already has its own box.</p>
+<div class="doc-demo">
+  <ol class="kit-list kit-list-numbered">
+    <li class="kit-list-item">Choose the files</li>
+    <li class="kit-list-item">Check the preview</li>
+    <li class="kit-list-item">Confirm the import</li>
+  </ol>
+  <ul class="kit-list kit-list-horizontal">
+    <li class="kit-list-item">Draft</li>
+    <li class="kit-list-item">Sent</li>
+    <li class="kit-list-item">Paid</li>
+  </ul>
+  <section class="kit-card">
+    <div class="kit-card-head">Recent activity</div>
+    <ul class="kit-list kit-list-flush">
+      <li class="kit-list-item"><span class="kit-list-main"><b>Smith Ltd</b><small>Invoice 24/118</small></span><span>€1,250.00</span></li>
+      <li class="kit-list-item"><span class="kit-list-main"><b>Brown &amp; Co.</b><small>Invoice 24/119</small></span><span>€380.40</span></li>
+    </ul>
+  </section>
+</div>
+
+<h2 id="kv">Key / value</h2>
+<p>A two-column <code>&lt;dl&gt;</code>: gray labels, values on the right, with automatic wrapping for long texts. Useful for an item's details.</p>
+<div class="doc-demo">
+  <div class="kit-card kit-card-body">
+    <dl class="kit-kv">
+      <dt>Number</dt><dd>FT-0042</dd>
+      <dt>Date</dt><dd>03/12/2026</dd>
+      <dt>Customer</dt><dd>Alpha Services Ltd</dd>
+      <dt>Description</dt><dd>Consulting and support for the month of March, with reimbursement of travel expenses.</dd>
+    </dl>
+  </div>
+</div>
+
+<h2 id="code">Code snippets</h2>
+<p>A code block colored like in an editor: tags, attributes, strings, keywords, functions and comments. You write a normal <code>&lt;pre class="kit-code"&gt;</code> and with <code>data-kit-code</code> (with <code>kit.js</code>) the code colors itself. The value is the language: <code>html</code> (also with <code>&lt;script&gt;</code> and <code>&lt;style&gt;</code> inside), <code>js</code> or <code>css</code>; without it, <code>kit.js</code> guesses. The text must be written with entities (<code>&amp;lt;</code> instead of <code>&lt;</code>), as in any HTML page. Without <code>kit.js</code> the block stays readable, just without colors.</p>
+<div class="doc-demo kit-stack">
+  <pre class="kit-code" data-kit-code="html"><code>&lt;button class="kit-btn kit-btn-primary" data-kit-open="#new"&gt;
+  &lt;svg class="kit-icon"&gt;&lt;use href="#i-plus"/&gt;&lt;/svg&gt; New invoice
+&lt;/button&gt;</code></pre>
+  <pre class="kit-code" data-kit-code="js"><code>// reload the documents and show the outcome
+const n = await loadDocuments({ year: 2026, max: 50 });
+Kit.toast(n + " documents", { type: "success" });</code></pre>
+  <pre class="kit-code" data-kit-code="css"><code>.invoice:hover { background: var(--kit-hover); }
+@media (max-width: 760px) { .invoice { padding: 8px; } }</code></pre>
+</div>
+
+<h3 id="code-copy">The "Copy" button</h3>
+<p>With <code>data-kit-code-copy</code> the block is put in a <code>kit-snippet</code> and the "Copy" button appears (on mouse hover, always visible on the phone). The attribute's value is the label; <code>data-kit-code-copied</code> is the one that appears after copying. When the text is copied the <code>kit:copy</code> event fires with <code>{ text }</code>.</p>
+<div class="doc-demo">
+  <pre class="kit-code" data-kit-code="html" data-kit-code-copy><code>&lt;section class="kit-card"&gt;
+  &lt;div class="kit-card-body"&gt;Hello&lt;/div&gt;
+&lt;/section&gt;</code></pre>
+</div>
+
+<h3 id="code-js">From JavaScript</h3>
+<p><code>Kit.code(pre, { lang, text, copy })</code> colors a block and returns <code>{ set(text, lang), text() }</code>, useful when the code changes (a generated example, a preview). <code>Kit.highlight(text, lang)</code> instead returns an already colored DOM fragment, to insert wherever you like. Both build only text nodes and <code>&lt;span&gt;</code>s, never HTML: the displayed code is not executed, whatever it contains. Beyond 100,000 characters the text stays uncolored, so a huge text does not slow the page; an unknown language is guessed.</p>
+```js
+const block = Kit.code("#example", { lang: "js", copy: true });
+block.set("Kit.toast('Saved!');");              // changes the displayed code
+element.append(Kit.highlight("<b>hello</b>", "html"));
+```
+<p>The colors are the tokens <code>--kit-hl-tag</code>, <code>-attr</code>, <code>-str</code>, <code>-kw</code>, <code>-fn</code>, <code>-num</code> e <code>-com</code> (see <a href="theming.html">Themes and tokens</a>), and change by themselves between light and dark theme.</p>

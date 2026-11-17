@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Cards and details — Dashboard Kit</title>
+<meta name="description" content="Cards, KPI cards, stats row, lists, key/value pairs and code blocks: the containers and details of a dashboard.">
+<script src="../../dist/kit.js"></script>
+<link rel="stylesheet" href="../../dist/kit.css">
+<link rel="stylesheet" href="../docs.css">
+</head>
+<body>
+<!-- Pagina generata da tools/gen-docs.py a partire da docs/src/en/cards.html: non modificarla a mano. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="i-chev-up" viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></symbol>
+<symbol id="i-chev-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
+<symbol id="i-chev-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+<symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5m0 0-6 6m6-6 6 6"/></symbol>
+<symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14m0 0-6-6m6 6 6-6"/></symbol>
+<symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5m0 0 6-6m-6 6 6 6"/></symbol>
+<symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></symbol>
+<symbol id="i-expand" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></symbol>
+<symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V4m0 0L8 8m4-4 4 4M5 20h14"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.5-3.5L4 9m0-5v5h5M4 13a8 8 0 0 0 14.5 3.5L20 15m0 5v-5h-5"/></symbol>
+<symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4zM13.5 6.5l4 4"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></symbol>
+<symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8L3 5z"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h8m4 0h4M4 17h4m4 0h8"/><circle cx="14" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+<symbol id="i-more" viewBox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01"/></symbol>
+<symbol id="i-more-v" viewBox="0 0 24 24"><path d="M12 5h.01M12 12h.01M12 19h.01"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7M6 10v10h4v-6h4v6h4V10"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0 1 16 0"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4l2-2zM10 21h4"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM14 3v5h5"/></symbol>
+<symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6a1 1 0 0 1 1-1h5l2 2h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6z"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-text" viewBox="0 0 24 24"><path d="M4 7V5h16v2M12 5v14M9 19h6"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+<symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+<symbol id="i-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 3 3 5-6"/></symbol>
+<symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3.5 2.5 20h19L12 3.5z"/><path d="M12 10v4.5M12 17.5h.01"/></symbol>
+<symbol id="i-error" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/></symbol>
+</defs></svg>
+<header class="kit-header">
+  <div class="kit-container-boxed">
+    <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
+    <span class="kit-spacer"></span>
+    <div class="kit-combo doc-search" role="search">
+      <svg class="kit-icon"><use href="#i-search"/></svg>
+      <input class="kit-input" type="text" placeholder="Search…" aria-label="Search the documentation" spellcheck="false">
+      <kbd aria-hidden="true">/</kbd>
+    </div>
+    <a class="kit-btn kit-btn-ghost" href="../it/cards.html" hreflang="it" lang="it" title="Language">Italiano</a>
+    <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
+    <div class="kit-dropdown">
+      <button class="kit-btn kit-btn-icon" data-kit-toggle="#settings" aria-haspopup="true" aria-expanded="false" aria-label="Settings" title="Settings"><svg class="kit-icon"><use href="#i-sliders"/></svg></button>
+      <div class="kit-pop kit-pop-right kit-settings" id="settings" role="group" aria-label="Settings" hidden>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Theme</span>
+          <div class="kit-seg" role="group" aria-label="Theme">
+            <button data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg>Auto</button>
+            <button data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg>Light</button>
+            <button data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg>Dark</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Text size</span>
+          <div class="kit-seg" role="group" aria-label="Text size">
+            <button data-kit-fs-set="md" aria-label="Normal" title="Normal">A</button>
+            <button data-kit-fs-set="lg" aria-label="Large" title="Large">A</button>
+            <button data-kit-fs-set="xl" aria-label="Extra large" title="Extra large">A</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Content width</span>
+          <div class="kit-seg" role="group" aria-label="Content width">
+            <button data-kit-layout-set="boxed">Centered</button>
+            <button data-kit-layout-set="fluid">Full page</button>
+          </div>
+          <small>Visible on screens wider than the content.</small>
+        </div>
+        <div class="kit-settings-foot"><button class="kit-btn kit-btn-ghost" data-kit-reset>Reset</button></div>
+      </div>
+    </div>
+  </div>
+</header>
+<main class="kit-main">
+<div class="kit-container-boxed">
+<div class="kit-row kit-gy-0">
+  <aside class="kit-col-12 kit-col-lg-3">
+    <nav class="doc-nav" aria-label="Documentation">
+      <details class="doc-nav-d" open>
+        <summary class="kit-btn">Documentation menu</summary>
+        <div class="doc-nav-body">
+          <div class="doc-nav-group">Getting started</div>
+          <a href="index.html">Introduction</a>
+          <a href="javascript.html">JavaScript</a>
+          <div class="doc-nav-group">Foundations</div>
+          <a href="layout.html">Layout</a>
+          <a href="grid.html">Grid</a>
+          <a href="utilities.html">Utilities</a>
+          <a href="typography.html">Typography</a>
+          <a href="icons.html">Icons</a>
+          <a href="buttons.html">Buttons</a>
+          <div class="doc-nav-group">Forms</div>
+          <a href="forms.html">Basic fields</a>
+          <a href="form-layout.html">Layout and validation</a>
+          <a href="form-controls.html">Select and file</a>
+          <a href="dates.html">Dates and times</a>
+          <div class="doc-nav-group">Navigation</div>
+          <a href="navbar.html">Navbar</a>
+          <a href="sidebar.html">Sidebar</a>
+          <a href="navigation.html">Tabs and breadcrumb</a>
+          <div class="doc-nav-group">Data</div>
+          <a href="tables.html">Tables</a>
+          <a href="charts.html">Charts</a>
+          <a href="cards.html" class="is-current" aria-current="page">Cards and details</a>
+          <ul class="doc-toc">
+            <li><a href="#card">Card</a></li>
+            <li><a href="#kpi">KPI card</a></li>
+            <li><a href="#stats">Stats row</a></li>
+            <li><a href="#list">List</a></li>
+            <li><a href="#kv">Key / value</a></li>
+            <li><a href="#code">Code snippets</a></li>
+          </ul>
+          <div class="doc-nav-group">Feedback and overlays</div>
+          <a href="../it/feedback.html" hreflang="it" lang="it">Alerts and progress <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/overlays.html" hreflang="it" lang="it">Dialogs and menus <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/accordion.html" hreflang="it" lang="it">Accordion <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Customizing</div>
+          <a href="../it/theming.html" hreflang="it" lang="it">Themes and tokens <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/snippets.html" hreflang="it" lang="it">VS Code snippets <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Examples</div>
+          <a href="../dashboard.html">Dashboard <span class="kit-badge kit-badge-neutral">example</span></a>
+          <a href="../dashboard-sidebar.html">Dashboard with sidebar <span class="kit-badge kit-badge-neutral">example</span></a>
+        </div>
+      </details>
+    </nav>
+  </aside>
+  <article class="kit-col-12 kit-col-lg-9 doc-content">
+    <h1 class="doc-title">Cards and details</h1>
+    <p class="doc-lead">Cards, KPI cards, stats row, lists, key/value pairs and code blocks: the containers and details of a dashboard.</p>
+<h2 id="card">Card</h2>
+<p>A container with a border, rounded corners and a light shadow (in the dark theme the shadow disappears). Every part is optional: <code>kit-card-head</code>, <code>kit-card-body</code>, <code>kit-card-foot</code>.</p>
+<div class="doc-demo">
+  <section class="kit-card">
+    <div class="kit-card-head">Card title</div>
+    <div class="kit-card-body">The card content.</div>
+    <div class="kit-card-foot">
+      <button class="kit-btn">Cancel</button>
+      <button class="kit-btn kit-btn-primary">Save</button>
+    </div>
+  </section>
+</div>
+<p>Without <code>kit-card-body</code> the content touches the edges: fine for full-width tables and charts.</p>
+
+<h2 id="kpi">KPI card</h2>
+<p>A label, a big value and a change. In a row with <code>kit-row-cols-*</code> add <code>kit-h-100</code> so they all reach the same height.</p>
+<div class="doc-demo">
+  <div class="kit-row kit-row-cols-2 kit-row-cols-lg-4">
+    <div><div class="kit-card kit-kpi kit-h-100"><small>Documents</small><b>1,284</b><span class="kit-badge kit-badge-success">+4%</span></div></div>
+    <div><div class="kit-card kit-kpi kit-h-100"><small>Total</small><b>€48,920.10</b><span class="kit-badge kit-badge-success">+1.2%</span></div></div>
+    <div><div class="kit-card kit-kpi kit-h-100"><small>To review</small><b>17</b><span class="kit-badge kit-badge-warning">−3</span></div></div>
+    <div><div class="kit-card kit-kpi kit-h-100"><small>Discarded</small><b>2</b><span class="kit-badge kit-badge-danger">+1</span></div></div>
+  </div>
+</div>
+
+<h2 id="stats">Stats row</h2>
+<p>More compact than KPIs: many figures in a single card, separated by a thin line. On the phone they stack.</p>
+<div class="doc-demo">
+  <section class="kit-card kit-stats">
+    <div class="kit-stat"><small>Documents</small><b>1,284</b></div>
+    <div class="kit-stat"><small>Total</small><b>€48,920.10</b><em>VAT included</em></div>
+    <div class="kit-stat"><small>Received</small><b class="kit-success">€32,100</b></div>
+    <div class="kit-stat"><small>Issued</small><b class="kit-danger">€16,820</b></div>
+  </section>
+</div>
+
+<h2 id="list">List</h2>
+<p>Items stacked in the same box, like several joined cards: <code>kit-list</code> on the container, <code>kit-list-item</code> on each item. The container can be <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code> or <code>&lt;div&gt;</code>; the items <code>&lt;li&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;button&gt;</code> or <code>&lt;div&gt;</code>. A badge or an icon inside the item aligns by itself; <code>kit-list-main</code> gathers title and description and takes the free space.</p>
+<div class="doc-demo">
+  <ul class="kit-list">
+    <li class="kit-list-item">Received invoices</li>
+    <li class="kit-list-item">Issued invoices <span class="kit-badge">12</span></li>
+    <li class="kit-list-item">
+      <span class="kit-list-main"><b>Credit notes</b><small>Last imported yesterday</small></span>
+      <span class="kit-badge kit-badge-warning">3</span>
+    </li>
+  </ul>
+</div>
+
+<h3 id="list-actions">Clickable items</h3>
+<p>With <code>&lt;a&gt;</code> or <code>&lt;button&gt;</code> the item highlights on mouse hover. <code>is-active</code> (or <code>aria-current</code>) marks the selected one, <code>aria-disabled="true"</code> the unavailable one. The container, in this case, is a <code>&lt;div&gt;</code>.</p>
+<div class="doc-demo">
+  <div class="kit-list">
+    <a class="kit-list-item is-active" href="#list-actions" aria-current="true"><svg class="kit-icon"><use href="#i-info"/></svg>Overview</a>
+    <a class="kit-list-item" href="#list-actions"><svg class="kit-icon"><use href="#i-download"/></svg>Exports</a>
+    <button class="kit-list-item" type="button"><svg class="kit-icon"><use href="#i-edit"/></svg>Settings</button>
+    <a class="kit-list-item" href="#list-actions" aria-disabled="true"><svg class="kit-icon"><use href="#i-trash"/></svg>Trash</a>
+  </div>
+</div>
+
+<h3 id="list-states">States</h3>
+<p>To signal an item's outcome: <code>kit-list-item-success</code>, <code>-warning</code> and <code>-danger</code> give a soft background and colored text.</p>
+<div class="doc-demo">
+  <ul class="kit-list">
+    <li class="kit-list-item kit-list-item-success">Import completed</li>
+    <li class="kit-list-item kit-list-item-warning">2 documents to review</li>
+    <li class="kit-list-item kit-list-item-danger">1 file discarded</li>
+  </ul>
+</div>
+
+<h3 id="list-cards">Separate cards and compact</h3>
+<p><code>kit-list-cards</code> separates the items: each becomes a card with its own border, with a gap in between. It also works with clickable and active items and with the states. <code>kit-list-sm</code> reduces the space above and below each item and combines with the other variants.</p>
+<div class="doc-demo">
+  <div class="kit-list kit-list-cards">
+    <a class="kit-list-item is-active" href="#list-cards" aria-current="true"><span class="kit-list-main"><b>Smith Ltd</b><small>Invoice 24/118</small></span><span class="kit-badge">To pay</span></a>
+    <a class="kit-list-item" href="#list-cards"><span class="kit-list-main"><b>Brown &amp; Co.</b><small>Invoice 24/119</small></span><span class="kit-badge kit-badge-success">Paid</span></a>
+    <div class="kit-list-item kit-list-item-danger"><span class="kit-list-main"><b>Green Inc</b><small>Rejected by the tax authority</small></span></div>
+  </div>
+  <ul class="kit-list kit-list-sm">
+    <li class="kit-list-item">Compact item</li>
+    <li class="kit-list-item">Another compact item <span class="kit-badge">2</span></li>
+  </ul>
+</div>
+
+<h3 id="list-variants">Numbered, horizontal, borderless</h3>
+<p><code>kit-list-numbered</code> puts a number in front of each item. <code>kit-list-horizontal</code> lays them out in a row, of equal width (below 760px they stack again). <code>kit-list-flush</code> removes border, corners and shadow: it is for use inside a card, which already has its own box.</p>
+<div class="doc-demo">
+  <ol class="kit-list kit-list-numbered">
+    <li class="kit-list-item">Choose the files</li>
+    <li class="kit-list-item">Check the preview</li>
+    <li class="kit-list-item">Confirm the import</li>
+  </ol>
+  <ul class="kit-list kit-list-horizontal">
+    <li class="kit-list-item">Draft</li>
+    <li class="kit-list-item">Sent</li>
+    <li class="kit-list-item">Paid</li>
+  </ul>
+  <section class="kit-card">
+    <div class="kit-card-head">Recent activity</div>
+    <ul class="kit-list kit-list-flush">
+      <li class="kit-list-item"><span class="kit-list-main"><b>Smith Ltd</b><small>Invoice 24/118</small></span><span>€1,250.00</span></li>
+      <li class="kit-list-item"><span class="kit-list-main"><b>Brown &amp; Co.</b><small>Invoice 24/119</small></span><span>€380.40</span></li>
+    </ul>
+  </section>
+</div>
+
+<h2 id="kv">Key / value</h2>
+<p>A two-column <code>&lt;dl&gt;</code>: gray labels, values on the right, with automatic wrapping for long texts. Useful for an item's details.</p>
+<div class="doc-demo">
+  <div class="kit-card kit-card-body">
+    <dl class="kit-kv">
+      <dt>Number</dt><dd>FT-0042</dd>
+      <dt>Date</dt><dd>03/12/2026</dd>
+      <dt>Customer</dt><dd>Alpha Services Ltd</dd>
+      <dt>Description</dt><dd>Consulting and support for the month of March, with reimbursement of travel expenses.</dd>
+    </dl>
+  </div>
+</div>
+
+<h2 id="code">Code snippets</h2>
+<p>A code block colored like in an editor: tags, attributes, strings, keywords, functions and comments. You write a normal <code>&lt;pre class="kit-code"&gt;</code> and with <code>data-kit-code</code> (with <code>kit.js</code>) the code colors itself. The value is the language: <code>html</code> (also with <code>&lt;script&gt;</code> and <code>&lt;style&gt;</code> inside), <code>js</code> or <code>css</code>; without it, <code>kit.js</code> guesses. The text must be written with entities (<code>&amp;lt;</code> instead of <code>&lt;</code>), as in any HTML page. Without <code>kit.js</code> the block stays readable, just without colors.</p>
+<div class="doc-demo kit-stack">
+  <pre class="kit-code" data-kit-code="html"><code>&lt;button class="kit-btn kit-btn-primary" data-kit-open="#new"&gt;
+  &lt;svg class="kit-icon"&gt;&lt;use href="#i-plus"/&gt;&lt;/svg&gt; New invoice
+&lt;/button&gt;</code></pre>
+  <pre class="kit-code" data-kit-code="js"><code>// reload the documents and show the outcome
+const n = await loadDocuments({ year: 2026, max: 50 });
+Kit.toast(n + " documents", { type: "success" });</code></pre>
+  <pre class="kit-code" data-kit-code="css"><code>.invoice:hover { background: var(--kit-hover); }
+@media (max-width: 760px) { .invoice { padding: 8px; } }</code></pre>
+</div>
+
+<h3 id="code-copy">The "Copy" button</h3>
+<p>With <code>data-kit-code-copy</code> the block is put in a <code>kit-snippet</code> and the "Copy" button appears (on mouse hover, always visible on the phone). The attribute's value is the label; <code>data-kit-code-copied</code> is the one that appears after copying. When the text is copied the <code>kit:copy</code> event fires with <code>{ text }</code>.</p>
+<div class="doc-demo">
+  <pre class="kit-code" data-kit-code="html" data-kit-code-copy><code>&lt;section class="kit-card"&gt;
+  &lt;div class="kit-card-body"&gt;Hello&lt;/div&gt;
+&lt;/section&gt;</code></pre>
+</div>
+
+<h3 id="code-js">From JavaScript</h3>
+<p><code>Kit.code(pre, { lang, text, copy })</code> colors a block and returns <code>{ set(text, lang), text() }</code>, useful when the code changes (a generated example, a preview). <code>Kit.highlight(text, lang)</code> instead returns an already colored DOM fragment, to insert wherever you like. Both build only text nodes and <code>&lt;span&gt;</code>s, never HTML: the displayed code is not executed, whatever it contains. Beyond 100,000 characters the text stays uncolored, so a huge text does not slow the page; an unknown language is guessed.</p>
+<pre class="kit-code" data-kit-code="js"><code>const block = Kit.code("#example", { lang: "js", copy: true });
+block.set("Kit.toast('Saved!');");              // changes the displayed code
+element.append(Kit.highlight("&lt;b&gt;hello&lt;/b&gt;", "html"));</code></pre>
+<p>The colors are the tokens <code>--kit-hl-tag</code>, <code>-attr</code>, <code>-str</code>, <code>-kw</code>, <code>-fn</code>, <code>-num</code> e <code>-com</code> (see <a href="../it/theming.html">Themes and tokens</a>), and change by themselves between light and dark theme.</p>
+    <nav class="doc-pager" aria-label="Previous and next page">
+      <a href="charts.html"><small>← Previous</small><b>Charts</b></a>
+      <a class="doc-next" href="../it/feedback.html"><small>Next →</small><b>Alerts and progress</b></a>
+    </nav>
+  </article>
+</div>
+</div>
+</main>
+<script src="search-index.js"></script>
+<script src="../docs.js"></script>
+</body>
+</html>

@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Tables — Dashboard Kit</title>
+<meta name="description" content="Compact tables with a sticky header, selectable rows and aligned numbers.">
+<script src="../../dist/kit.js"></script>
+<link rel="stylesheet" href="../../dist/kit.css">
+<link rel="stylesheet" href="../docs.css">
+</head>
+<body>
+<!-- Pagina generata da tools/gen-docs.py a partire da docs/src/en/tables.html: non modificarla a mano. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="i-chev-up" viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></symbol>
+<symbol id="i-chev-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
+<symbol id="i-chev-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+<symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5m0 0-6 6m6-6 6 6"/></symbol>
+<symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14m0 0-6-6m6 6 6-6"/></symbol>
+<symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5m0 0 6-6m-6 6 6 6"/></symbol>
+<symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></symbol>
+<symbol id="i-expand" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></symbol>
+<symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V4m0 0L8 8m4-4 4 4M5 20h14"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.5-3.5L4 9m0-5v5h5M4 13a8 8 0 0 0 14.5 3.5L20 15m0 5v-5h-5"/></symbol>
+<symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4zM13.5 6.5l4 4"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></symbol>
+<symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8L3 5z"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h8m4 0h4M4 17h4m4 0h8"/><circle cx="14" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+<symbol id="i-more" viewBox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01"/></symbol>
+<symbol id="i-more-v" viewBox="0 0 24 24"><path d="M12 5h.01M12 12h.01M12 19h.01"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7M6 10v10h4v-6h4v6h4V10"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0 1 16 0"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4l2-2zM10 21h4"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM14 3v5h5"/></symbol>
+<symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6a1 1 0 0 1 1-1h5l2 2h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6z"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-text" viewBox="0 0 24 24"><path d="M4 7V5h16v2M12 5v14M9 19h6"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+<symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+<symbol id="i-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 3 3 5-6"/></symbol>
+<symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3.5 2.5 20h19L12 3.5z"/><path d="M12 10v4.5M12 17.5h.01"/></symbol>
+<symbol id="i-error" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/></symbol>
+</defs></svg>
+<header class="kit-header">
+  <div class="kit-container-boxed">
+    <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
+    <span class="kit-spacer"></span>
+    <div class="kit-combo doc-search" role="search">
+      <svg class="kit-icon"><use href="#i-search"/></svg>
+      <input class="kit-input" type="text" placeholder="Search…" aria-label="Search the documentation" spellcheck="false">
+      <kbd aria-hidden="true">/</kbd>
+    </div>
+    <a class="kit-btn kit-btn-ghost" href="../it/tables.html" hreflang="it" lang="it" title="Language">Italiano</a>
+    <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
+    <div class="kit-dropdown">
+      <button class="kit-btn kit-btn-icon" data-kit-toggle="#settings" aria-haspopup="true" aria-expanded="false" aria-label="Settings" title="Settings"><svg class="kit-icon"><use href="#i-sliders"/></svg></button>
+      <div class="kit-pop kit-pop-right kit-settings" id="settings" role="group" aria-label="Settings" hidden>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Theme</span>
+          <div class="kit-seg" role="group" aria-label="Theme">
+            <button data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg>Auto</button>
+            <button data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg>Light</button>
+            <button data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg>Dark</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Text size</span>
+          <div class="kit-seg" role="group" aria-label="Text size">
+            <button data-kit-fs-set="md" aria-label="Normal" title="Normal">A</button>
+            <button data-kit-fs-set="lg" aria-label="Large" title="Large">A</button>
+            <button data-kit-fs-set="xl" aria-label="Extra large" title="Extra large">A</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Content width</span>
+          <div class="kit-seg" role="group" aria-label="Content width">
+            <button data-kit-layout-set="boxed">Centered</button>
+            <button data-kit-layout-set="fluid">Full page</button>
+          </div>
+          <small>Visible on screens wider than the content.</small>
+        </div>
+        <div class="kit-settings-foot"><button class="kit-btn kit-btn-ghost" data-kit-reset>Reset</button></div>
+      </div>
+    </div>
+  </div>
+</header>
+<main class="kit-main">
+<div class="kit-container-boxed">
+<div class="kit-row kit-gy-0">
+  <aside class="kit-col-12 kit-col-lg-3">
+    <nav class="doc-nav" aria-label="Documentation">
+      <details class="doc-nav-d" open>
+        <summary class="kit-btn">Documentation menu</summary>
+        <div class="doc-nav-body">
+          <div class="doc-nav-group">Getting started</div>
+          <a href="index.html">Introduction</a>
+          <a href="javascript.html">JavaScript</a>
+          <div class="doc-nav-group">Foundations</div>
+          <a href="layout.html">Layout</a>
+          <a href="grid.html">Grid</a>
+          <a href="utilities.html">Utilities</a>
+          <a href="typography.html">Typography</a>
+          <a href="icons.html">Icons</a>
+          <a href="buttons.html">Buttons</a>
+          <div class="doc-nav-group">Forms</div>
+          <a href="forms.html">Basic fields</a>
+          <a href="form-layout.html">Layout and validation</a>
+          <a href="form-controls.html">Select and file</a>
+          <a href="dates.html">Dates and times</a>
+          <div class="doc-nav-group">Navigation</div>
+          <a href="navbar.html">Navbar</a>
+          <a href="sidebar.html">Sidebar</a>
+          <a href="navigation.html">Tabs and breadcrumb</a>
+          <div class="doc-nav-group">Data</div>
+          <a href="tables.html" class="is-current" aria-current="page">Tables</a>
+          <ul class="doc-toc">
+            <li><a href="#base">Table</a></li>
+            <li><a href="#rows">Clickable and selected rows</a></li>
+            <li><a href="#sorting">Sorting</a></li>
+            <li><a href="#filter">Text filter</a></li>
+            <li><a href="#pagination">Pagination</a></li>
+            <li><a href="#htmx">With Django and htmx</a></li>
+            <li><a href="#api">JavaScript</a></li>
+            <li><a href="#sticky">Sticky header and columns</a></li>
+          </ul>
+          <a href="charts.html">Charts</a>
+          <a href="cards.html">Cards and details</a>
+          <div class="doc-nav-group">Feedback and overlays</div>
+          <a href="../it/feedback.html" hreflang="it" lang="it">Alerts and progress <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/overlays.html" hreflang="it" lang="it">Dialogs and menus <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/accordion.html" hreflang="it" lang="it">Accordion <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Customizing</div>
+          <a href="../it/theming.html" hreflang="it" lang="it">Themes and tokens <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/snippets.html" hreflang="it" lang="it">VS Code snippets <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Examples</div>
+          <a href="../dashboard.html">Dashboard <span class="kit-badge kit-badge-neutral">example</span></a>
+          <a href="../dashboard-sidebar.html">Dashboard with sidebar <span class="kit-badge kit-badge-neutral">example</span></a>
+        </div>
+      </details>
+    </nav>
+  </aside>
+  <article class="kit-col-12 kit-col-lg-9 doc-content">
+    <h1 class="doc-title">Tables</h1>
+    <p class="doc-lead">Compact tables with a sticky header, selectable rows and aligned numbers.</p>
+<h2 id="base">Table</h2>
+<p>Put the table in a card, inside <code>kit-table-wrap</code>, which makes it scroll horizontally on narrow screens. <code>kit-num</code> aligns right and gives the digits the same width; <code>kit-wrap</code> lets the text wrap.</p>
+<div class="doc-demo">
+  <section class="kit-card">
+    <div class="kit-table-wrap">
+      <table class="kit-table">
+        <thead><tr><th>Date</th><th>Number</th><th>Customer</th><th class="kit-num">Amount</th></tr></thead>
+        <tbody>
+          <tr><td>03/12/2026</td><td>FT-0042</td><td class="kit-wrap">Alpha Services Ltd<small>VAT no. 01234567890</small></td><td class="kit-num">1,250.00</td></tr>
+          <tr><td>03/02/2026</td><td>FT-0041</td><td class="kit-wrap">Beta Supplies Inc</td><td class="kit-num">830.40</td></tr>
+          <tr><td>02/21/2026</td><td>FT-0040</td><td class="kit-wrap">Gamma Transport</td><td class="kit-num kit-danger">−310.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<h2 id="rows">Clickable and selected rows</h2>
+<p><code>kit-table-hover</code> highlights the row under the mouse; <code>is-selected</code> on the <code>&lt;tr&gt;</code> marks it as chosen (useful with the <a href="layout.html#split">side panel</a>).</p>
+<div class="doc-demo">
+  <section class="kit-card">
+    <div class="kit-table-wrap">
+      <table class="kit-table kit-table-hover">
+        <thead><tr><th>Number</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>FT-0042</td><td><span class="kit-badge kit-badge-success">Issued</span></td></tr>
+          <tr class="is-selected"><td>FT-0041</td><td><span class="kit-badge kit-badge-warning">Received</span></td></tr>
+          <tr><td>FT-0040</td><td><span class="kit-badge kit-badge-danger">Discarded</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<h2 id="sorting">Sorting</h2>
+<p>With <code>kit.js</code>, <code>data-kit-sort</code> on the table makes the headers clickable: the first click sorts ascending, the second descending, the third restores the starting order. The header gets <code>aria-sort</code> (<code>ascending</code>, <code>descending</code>, <code>none</code>) and a button is placed inside it, so it also works from the keyboard. The column type is recognized from its content: <strong>numbers</strong> in the page language's format (in English <code>1,250.00</code>, <code>−310.00</code>, <code>12 %</code>, <code>€ 5</code>; in Italian <code>1.250,00</code>), <strong>dates</strong> (<code>03/12/2026</code> in English, <code>12/03/2026</code> in Italian, <code>2026-03-12</code>, with the time if present) and <strong>text</strong>, compared ignoring case and accents and with "natural" numbers (<code>FT-9</code> before <code>FT-10</code>). Empty cells, or cells with just a dash, always go to the bottom; with equal values the starting order is kept. An <code>aria-sort="ascending|descending"</code> written in the HTML is the initial sort.</p>
+<div class="doc-demo">
+  <section class="kit-card">
+    <div class="kit-table-wrap">
+      <table class="kit-table" data-kit-sort>
+        <thead><tr><th aria-sort="descending">Date</th><th>Number</th><th>Customer</th><th class="kit-num">Amount</th></tr></thead>
+        <tbody>
+          <tr><td>03/12/2026</td><td>FT-0042</td><td>Alpha Services Ltd</td><td class="kit-num">1,250.00</td></tr>
+          <tr><td>03/02/2026</td><td>FT-0041</td><td>Beta Supplies Inc</td><td class="kit-num">830.40</td></tr>
+          <tr><td>02/21/2026</td><td>FT-0040</td><td>Gamma Transport</td><td class="kit-num kit-danger">−310.00</td></tr>
+          <tr><td>02/14/2026</td><td>FT-0039</td><td>Élite Consulting</td><td class="kit-num">12,400.00</td></tr>
+          <tr><td>02/03/2026</td><td>FT-0038</td><td>Delta Systems</td><td class="kit-num">95.50</td></tr>
+          <tr><td>01/28/2026</td><td>FT-0037</td><td>Alpha Services Ltd</td><td class="kit-num">2,100.00</td></tr>
+          <tr><td>01/19/2026</td><td>FT-0036</td><td>Zeta Logistics</td><td class="kit-num kit-danger">−45.00</td></tr>
+          <tr><td>01/09/2026</td><td>FT-0035</td><td>Beta Supplies Inc</td><td class="kit-num">1,980.00</td></tr>
+          <tr><td>12/22/2025</td><td>FT-0034</td><td>Omega Studio</td><td class="kit-num">410.00</td></tr>
+          <tr><td>12/11/2025</td><td>FT-0033</td><td>Gamma Transport</td><td class="kit-num">75.20</td></tr>
+          <tr><td>11/30/2025</td><td>FT-0032</td><td>Delta Systems</td><td class="kit-num">3,300.00</td></tr>
+          <tr><td>11/15/2025</td><td>FT-0031</td><td>Élite Consulting</td><td class="kit-num">620.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>Attribute</th><th>Where</th><th>What it does</th></tr></thead><tbody>
+<tr><td><code>data-kit-sort</code></td><td><code>&lt;table&gt;</code></td><td>enables sorting on all columns; with <code>="multi"</code> also on several columns together</td></tr>
+<tr><td><code>data-kit-nosort</code></td><td><code>&lt;th&gt;</code></td><td>excludes the column (for example the actions)</td></tr>
+<tr><td><code>data-kit-type="num|date|text"</code></td><td><code>&lt;th&gt;</code></td><td>forces the column type instead of recognizing it</td></tr>
+<tr><td><code>data-kit-value="…"</code></td><td><code>&lt;td&gt;</code></td><td>value to sort on, if different from the text (a date written "March 12", an amount with the currency)</td></tr>
+</tbody></table></div></div>
+<h3 id="sorting-multi">Several columns</h3>
+<p>With <code>data-kit-sort="multi"</code> you can also sort by several columns together: <strong>Shift + click</strong> or <strong>Ctrl/⌘ + click</strong> on the header adds it as the next criterion (and again reverses it, and then removes it), while a normal click starts over from that column alone. The first criterion is the main one, the others decide ties; with several criteria the priority number appears next to the arrow. From the keyboard, Shift + Enter on the header button. Try it: Customer, then Shift + click on Amount.</p>
+<div class="doc-demo">
+  <section class="kit-card">
+    <div class="kit-table-wrap">
+      <table class="kit-table" data-kit-sort="multi">
+        <thead><tr><th>Date</th><th>Number</th><th aria-sort="ascending">Customer</th><th class="kit-num" aria-sort="descending">Amount</th></tr></thead>
+        <tbody>
+          <tr><td>03/12/2026</td><td>FT-0042</td><td>Alpha Services Ltd</td><td class="kit-num">1,250.00</td></tr>
+          <tr><td>03/02/2026</td><td>FT-0041</td><td>Beta Supplies Inc</td><td class="kit-num">830.40</td></tr>
+          <tr><td>02/21/2026</td><td>FT-0040</td><td>Gamma Transport</td><td class="kit-num kit-danger">−310.00</td></tr>
+          <tr><td>02/14/2026</td><td>FT-0039</td><td>Élite Consulting</td><td class="kit-num">12,400.00</td></tr>
+          <tr><td>02/03/2026</td><td>FT-0038</td><td>Delta Systems</td><td class="kit-num">95.50</td></tr>
+          <tr><td>01/28/2026</td><td>FT-0037</td><td>Alpha Services Ltd</td><td class="kit-num">2,100.00</td></tr>
+          <tr><td>01/19/2026</td><td>FT-0036</td><td>Zeta Logistics</td><td class="kit-num kit-danger">−45.00</td></tr>
+          <tr><td>01/09/2026</td><td>FT-0035</td><td>Beta Supplies Inc</td><td class="kit-num">1,980.00</td></tr>
+          <tr><td>12/22/2025</td><td>FT-0034</td><td>Omega Studio</td><td class="kit-num">410.00</td></tr>
+          <tr><td>12/11/2025</td><td>FT-0033</td><td>Gamma Transport</td><td class="kit-num">75.20</td></tr>
+          <tr><td>11/30/2025</td><td>FT-0032</td><td>Delta Systems</td><td class="kit-num">3,300.00</td></tr>
+          <tr><td>11/15/2025</td><td>FT-0031</td><td>Élite Consulting</td><td class="kit-num">620.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+<p>The small text (<code>&lt;small&gt;</code>) in a cell does not take part in sorting. With <code>Kit.table</code> you can also sort from code (<code>api.sort(2, "descending")</code>, or <code>api.sort([[2, "ascending"], [3, "descending"]])</code> with <code>multi</code>) and the <code>kit:sort</code> event arrives with <code>{ column, direction, criteria }</code> (<code>column</code> and <code>direction</code> are those of the first criterion, <code>criteria</code> lists them all); see <a href="#api">the API</a>.</p>
+
+<h2 id="filter">Text filter</h2>
+<p><code>data-kit-filter="#id"</code> on a text field links the field to the table with that id: as you type, the rows that contain <strong>all</strong> the words remain (in any cell, ignoring case and accents). If nothing remains a "No results" row appears (<code>data-kit-empty</code> on the table to change the text). Sorting and filtering work together; the event is <code>kit:filter</code> with <code>{ query, count }</code>.</p>
+<div class="doc-demo">
+  <div class="kit-search" style="max-width: 320px; margin-bottom: var(--kit-sp)">
+    <svg class="kit-icon"><use href="#i-search"/></svg>
+    <input class="kit-input" type="search" placeholder="Search invoices…" aria-label="Search invoices" data-kit-filter="#invoices-filter">
+  </div>
+  <section class="kit-card">
+    <div class="kit-table-wrap">
+      <table class="kit-table" id="invoices-filter" data-kit-sort data-kit-empty="No invoices found">
+        <thead><tr><th>Date</th><th>Number</th><th>Customer</th><th class="kit-num">Amount</th></tr></thead>
+        <tbody>
+          <tr><td>03/12/2026</td><td>FT-0042</td><td>Alpha Services Ltd</td><td class="kit-num">1,250.00</td></tr>
+          <tr><td>03/02/2026</td><td>FT-0041</td><td>Beta Supplies Inc</td><td class="kit-num">830.40</td></tr>
+          <tr><td>02/21/2026</td><td>FT-0040</td><td>Gamma Transport</td><td class="kit-num kit-danger">−310.00</td></tr>
+          <tr><td>02/14/2026</td><td>FT-0039</td><td>Élite Consulting</td><td class="kit-num">12,400.00</td></tr>
+          <tr><td>02/03/2026</td><td>FT-0038</td><td>Delta Systems</td><td class="kit-num">95.50</td></tr>
+          <tr><td>01/28/2026</td><td>FT-0037</td><td>Alpha Services Ltd</td><td class="kit-num">2,100.00</td></tr>
+          <tr><td>01/19/2026</td><td>FT-0036</td><td>Zeta Logistics</td><td class="kit-num kit-danger">−45.00</td></tr>
+          <tr><td>01/09/2026</td><td>FT-0035</td><td>Beta Supplies Inc</td><td class="kit-num">1,980.00</td></tr>
+          <tr><td>12/22/2025</td><td>FT-0034</td><td>Omega Studio</td><td class="kit-num">410.00</td></tr>
+          <tr><td>12/11/2025</td><td>FT-0033</td><td>Gamma Transport</td><td class="kit-num">75.20</td></tr>
+          <tr><td>11/30/2025</td><td>FT-0032</td><td>Delta Systems</td><td class="kit-num">3,300.00</td></tr>
+          <tr><td>11/15/2025</td><td>FT-0031</td><td>Élite Consulting</td><td class="kit-num">620.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<h2 id="pagination">Pagination</h2>
+<p><code>data-kit-page="N"</code> on the table shows N rows at a time and adds the <code>kit-pagination</code> bar below: the count ("1–5 of 12"), the previous and next buttons and the page numbers with ellipses when there are many. The current page has <code>aria-current="page"</code>, the count is an <code>aria-live</code> area and focus stays on the pressed button. It works together with sorting and filtering: changing either returns to the first page, and the count is that of the filtered rows. When printing the bar is not there and the page shown is printed.</p>
+<div class="doc-demo">
+  <div class="kit-search" style="max-width: 320px; margin-bottom: var(--kit-sp)">
+    <svg class="kit-icon"><use href="#i-search"/></svg>
+    <input class="kit-input" type="search" placeholder="Search invoices…" aria-label="Search invoices" data-kit-filter="#invoices-pages">
+  </div>
+  <section class="kit-card">
+    <div class="kit-table-wrap">
+      <table class="kit-table kit-table-hover" id="invoices-pages" data-kit-sort data-kit-page="5">
+        <thead><tr><th>Date</th><th>Number</th><th>Customer</th><th class="kit-num">Amount</th></tr></thead>
+        <tbody>
+          <tr><td>03/12/2026</td><td>FT-0042</td><td>Alpha Services Ltd</td><td class="kit-num">1,250.00</td></tr>
+          <tr><td>03/02/2026</td><td>FT-0041</td><td>Beta Supplies Inc</td><td class="kit-num">830.40</td></tr>
+          <tr><td>02/21/2026</td><td>FT-0040</td><td>Gamma Transport</td><td class="kit-num kit-danger">−310.00</td></tr>
+          <tr><td>02/14/2026</td><td>FT-0039</td><td>Élite Consulting</td><td class="kit-num">12,400.00</td></tr>
+          <tr><td>02/03/2026</td><td>FT-0038</td><td>Delta Systems</td><td class="kit-num">95.50</td></tr>
+          <tr><td>01/28/2026</td><td>FT-0037</td><td>Alpha Services Ltd</td><td class="kit-num">2,100.00</td></tr>
+          <tr><td>01/19/2026</td><td>FT-0036</td><td>Zeta Logistics</td><td class="kit-num kit-danger">−45.00</td></tr>
+          <tr><td>01/09/2026</td><td>FT-0035</td><td>Beta Supplies Inc</td><td class="kit-num">1,980.00</td></tr>
+          <tr><td>12/22/2025</td><td>FT-0034</td><td>Omega Studio</td><td class="kit-num">410.00</td></tr>
+          <tr><td>12/11/2025</td><td>FT-0033</td><td>Gamma Transport</td><td class="kit-num">75.20</td></tr>
+          <tr><td>11/30/2025</td><td>FT-0032</td><td>Delta Systems</td><td class="kit-num">3,300.00</td></tr>
+          <tr><td>11/15/2025</td><td>FT-0031</td><td>Élite Consulting</td><td class="kit-num">620.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+<p>If the server does the pagination (the pages arrive ready-made) you write the bar by hand and use only the CSS: the buttons are normal <code>kit-btn</code>s.</p>
+<div class="doc-demo">
+  <nav class="kit-pagination" aria-label="Pagination" style="border: 1px solid var(--kit-line); border-radius: var(--kit-rad)">
+    <p class="kit-pagination-info">21–30 of 87</p>
+    <div class="kit-pagination-pages">
+      <a class="kit-btn kit-btn-ghost kit-btn-icon" href="#" aria-label="Previous page">‹</a>
+      <a class="kit-btn kit-btn-ghost" href="#" aria-label="Page 1">1</a>
+      <span class="kit-pagination-gap" aria-hidden="true">…</span>
+      <a class="kit-btn kit-btn-ghost" href="#" aria-label="Page 2">2</a>
+      <a class="kit-btn" href="#" aria-label="Page 3" aria-current="page">3</a>
+      <a class="kit-btn kit-btn-ghost" href="#" aria-label="Page 4">4</a>
+      <span class="kit-pagination-gap" aria-hidden="true">…</span>
+      <a class="kit-btn kit-btn-ghost" href="#" aria-label="Page 9">9</a>
+      <a class="kit-btn kit-btn-ghost kit-btn-icon" href="#" aria-label="Next page">›</a>
+    </div>
+  </nav>
+</div>
+
+<h2 id="htmx">With Django and htmx</h2>
+<p>When there are many records the server does pagination, sorting and filtering, one page at a time, and <code>data-kit-sort</code>, <code>data-kit-filter</code> and <code>data-kit-page</code> are not needed: they work on the rows already present. Only the CSS is used (<code>kit-pagination</code>, <code>kit-sort-btn</code>, <code>aria-sort</code>) and htmx replaces the block. If <code>kit.js</code> is present, fragments inserted by htmx initialize by themselves (<code>htmx:load</code> event): selects, comboboxes, tabs, highlighted code and sortable tables inside the response work without calling <code>Kit.init</code>.</p>
+<p>The scheme: a container with an id (<code>#invoices</code>) that is the <code>hx-target</code> and holds the card with table and bar; the search field sits <em>outside</em>, so it is not replaced and the cursor stays where it is. <code>hx-boost</code> on the container turns normal links (headers, pages) into htmx requests with the browser history; the links keep working even without JavaScript.</p>
+<p>The full page (<code>invoices/list.html</code>) contains the field and the container; the view responds with only the fragment (<code>invoices/_table.html</code>) to htmx requests.</p>
+
+<pre class="kit-code" data-kit-code="html"><code>&lt;!-- invoices/list.html --&gt;
+&lt;input class="kit-input" type="search" name="q" value="{{ q }}" placeholder="Search invoices…" aria-label="Search invoices"
+       hx-get="{% url 'invoices' %}" hx-trigger="input changed delay:300ms, search"
+       hx-target="#invoices" hx-push-url="true" hx-include="#invoices [name=sort]" hx-indicator="#invoices"&gt;
+
+&lt;div id="invoices" hx-boost="true" hx-target="#invoices" hx-swap="innerHTML" hx-indicator="#invoices"&gt;
+  {% include "invoices/_table.html" %}
+&lt;/div&gt;</code></pre>
+
+<pre class="kit-code" data-kit-code="html"><code>&lt;!-- invoices/_table.html --&gt;
+&lt;input type="hidden" name="sort" value="{{ sort }}"&gt;
+&lt;section class="kit-card"&gt;
+  &lt;div class="kit-table-wrap"&gt;
+    &lt;table class="kit-table"&gt;
+      &lt;thead&gt;&lt;tr&gt;
+        &lt;th aria-sort="{% if sort == 'customer' %}ascending{% elif sort == '-customer' %}descending{% else %}none{% endif %}"&gt;
+          &lt;a class="kit-sort-btn" id="sort-customer"
+             href="{% if sort == 'customer' %}{% querystring sort='-customer' page=None %}{% else %}{% querystring sort='customer' page=None %}{% endif %}"&gt;Customer&lt;/a&gt;
+        &lt;/th&gt;
+        &lt;!-- the other columns are the same; without kit-sort-btn and aria-sort a column is not sortable --&gt;
+      &lt;/tr&gt;&lt;/thead&gt;
+      &lt;tbody&gt;
+        {% for f in page %}
+          &lt;tr&gt;&lt;td&gt;{{ f.customer }}&lt;/td&gt;&lt;/tr&gt;
+        {% empty %}
+          &lt;tr class="kit-table-empty"&gt;&lt;td colspan="4"&gt;No results&lt;/td&gt;&lt;/tr&gt;
+        {% endfor %}
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/div&gt;
+  &lt;nav class="kit-pagination" aria-label="Pagination"&gt;
+    &lt;p class="kit-pagination-info"&gt;{{ page.start_index }}–{{ page.end_index }} of {{ page.paginator.count }}&lt;/p&gt;
+    {% if page.paginator.num_pages &gt; 1 %}
+    &lt;div class="kit-pagination-pages"&gt;
+      {% if page.has_previous %}
+        &lt;a class="kit-btn kit-btn-ghost kit-btn-icon" id="invoices-prev" href="{% querystring page=page.previous_page_number %}" aria-label="Previous page"&gt;‹&lt;/a&gt;
+      {% else %}
+        &lt;span class="kit-btn kit-btn-ghost kit-btn-icon" aria-disabled="true"&gt;‹&lt;/span&gt;
+      {% endif %}
+      {% for n in pages %}
+        {% if n == page.paginator.ELLIPSIS %}
+          &lt;span class="kit-pagination-gap" aria-hidden="true"&gt;…&lt;/span&gt;
+        {% elif n == page.number %}
+          &lt;a class="kit-btn" href="{% querystring page=n %}" aria-current="page" aria-label="Page {{ n }}"&gt;{{ n }}&lt;/a&gt;
+        {% else %}
+          &lt;a class="kit-btn kit-btn-ghost" href="{% querystring page=n %}" aria-label="Page {{ n }}"&gt;{{ n }}&lt;/a&gt;
+        {% endif %}
+      {% endfor %}
+      {% if page.has_next %}
+        &lt;a class="kit-btn kit-btn-ghost kit-btn-icon" id="invoices-next" href="{% querystring page=page.next_page_number %}" aria-label="Next page"&gt;›&lt;/a&gt;
+      {% else %}
+        &lt;span class="kit-btn kit-btn-ghost kit-btn-icon" aria-disabled="true"&gt;›&lt;/span&gt;
+      {% endif %}
+    &lt;/div&gt;
+    {% endif %}
+  &lt;/nav&gt;
+&lt;/section&gt;</code></pre>
+
+<pre class="kit-code" data-kit-code="python"><code># invoices/views.py
+from django.core.paginator import Paginator
+from django.db.models import Q
+from django.shortcuts import render
+
+ORDERINGS = {"date": "date", "customer": "customer__name", "amount": "amount"}
+
+def invoices(request):
+    qs = Invoice.objects.select_related("customer")
+    q = request.GET.get("q", "").strip()
+    if q:
+        qs = qs.filter(Q(number__icontains=q) | Q(customer__name__icontains=q))
+    sort = request.GET.get("sort", "-date")
+    field = ORDERINGS.get(sort.lstrip("-"))
+    if field:
+        qs = qs.order_by(("-" if sort.startswith("-") else "") + field, "pk")   # "pk" keeps the order stable between pages
+    page = Paginator(qs, 10).get_page(request.GET.get("page"))
+    pages = list(page.paginator.get_elided_page_range(page.number, on_each_side=1, on_ends=1))
+    # htmx asks for the fragment, but the "back" button with no cached history wants the full page
+    partial = request.headers.get("HX-Request") and not request.headers.get("HX-History-Restore-Request")
+    return render(request, "invoices/_table.html" if partial else "invoices/list.html",
+                  {"page": page, "pages": pages, "q": q, "sort": sort})</code></pre>
+
+<pre class="kit-code" data-kit-code="css"><code>/* while the request is in progress htmx puts .htmx-request on the hx-indicator element */
+#invoices.htmx-request { opacity: .55; pointer-events: none; transition: opacity .2s; }</code></pre>
+<p>A few details that matter: <code>{% querystring %}</code> (Django 5.1) keeps the other URL parameters, so search and sort stay while changing page, and <code>page=None</code> removes the page when the sort changes; before 5.1 you need an equivalent template tag. The <code>id</code>s on the previous and next links are for htmx, which after the swap puts focus back on the element with the same id: keyboard users do not lose it. For headers, <code>kit-sort-btn</code> also works on an <code>&lt;a&gt;</code>; with multi-column sorting written by the server the priority number is a <code>&lt;span class="kit-sort-n"&gt;2&lt;/span&gt;</code> inside the link.</p>
+
+<h2 id="api">JavaScript</h2>
+<p>Attributes are enough in most cases. If the rows change after loading (a table filled by a request) call <code>api.refresh()</code>; otherwise <code>Kit.table(table, options)</code> does everything from code and <code>Kit.paginate(table, rows)</code> is the shortcut for pagination only. Both return the same object.</p>
+<div class="doc-demo" data-doc-nocode>
+  <pre class="kit-code" data-kit-code="js">const api = Kit.table("#invoices", { sort: true, size: 10, empty: "No invoices" });
+
+api.sort(3, "descending");   // column (from 0) and direction: "ascending", "descending" or "none"
+api.sort([[2, "ascending"], [3, "descending"]]);   // several columns (with data-kit-sort="multi")
+api.filter("alfa");          // like typing in the search field
+api.page(2);                 // go to page 2; api.page() reads it
+api.pageSize(25);            // rows per page; 0 = all
+api.refresh();               // after adding, removing or changing rows
+api.state();                 // { sort: { column, direction, criteria }, query, page, pages, size, total, count }
+
+document.querySelector("#invoices").addEventListener("kit:page", (e) =&gt; {
+  console.log(e.detail);     // { page, pages, size, total }
+});</pre>
+</div>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>Option</th><th>Attribute</th><th>Default</th></tr></thead><tbody>
+<tr><td><code>sort</code></td><td><code>data-kit-sort</code></td><td>active only if the attribute is present</td></tr>
+<tr><td><code>size</code></td><td><code>data-kit-page</code></td><td><code>0</code>: no pagination</td></tr>
+<tr><td><code>empty</code></td><td><code>data-kit-empty</code></td><td><code>No results</code></td></tr>
+<tr><td><code>labels</code></td><td>–</td><td>bar texts: <code>of</code>, <code>prev</code>, <code>next</code>, <code>page</code> (con <code>{n}</code>), <code>nav</code>, <code>empty</code></td></tr>
+<tr><td><code>filter</code>, <code>page</code></td><td>–</td><td>initial filter and page</td></tr>
+</tbody></table></div></div>
+
+<h2 id="sticky">Sticky header and columns</h2>
+<p>By default the headers (<code>&lt;th&gt;</code>) stay stuck under <code>.kit-header</code> while the page scrolls. Inside <code>kit-table-wrap</code> the box scrolls only horizontally, so the header has nothing to detach from. For a long table add <code>kit-table-scroll</code> to the box: it has a maximum height (<code>--kit-table-h</code>, by default <code>28rem</code>), also scrolls vertically and the header stays attached to its top edge. Cell spacing is adjusted with <code>--kit-row</code> (vertical) and <code>--kit-cell</code> (horizontal).</p>
+<p><code>kit-table-fix</code> on the table locks the <strong>first column</strong> on the left while scrolling horizontally. It works with CSS only, even on rows added later (for example by htmx), and goes well with highlighted and selected rows. The corner cell (header of the fixed column) stays above everything. Try scrolling the table from one side to the other.</p>
+<div class="doc-demo">
+  <section class="kit-card">
+    <div class="kit-table-wrap kit-table-scroll" style="--kit-table-h: 16rem">
+      <table class="kit-table kit-table-hover kit-table-fix">
+        <thead><tr><th>Number</th><th>Customer</th><th>Date</th><th class="kit-num">Net</th><th class="kit-num">VAT</th><th class="kit-num">Total</th><th>Status</th><th>Due date</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>FT-0042</td><td>Alpha Services Ltd</td><td>03/12/2026</td><td class="kit-num">1,025.41</td><td class="kit-num">225.59</td><td class="kit-num">1,251.00</td><td><span class="kit-badge kit-badge-success">Issued</span></td><td>04/11/2026</td><td>Payment in 30 days</td></tr>
+          <tr><td>FT-0041</td><td>Beta Supplies Inc</td><td>03/02/2026</td><td class="kit-num">680.66</td><td class="kit-num">149.74</td><td class="kit-num">830.40</td><td><span class="kit-badge kit-badge-warning">Received</span></td><td>04/01/2026</td><td>Partial delivery</td></tr>
+          <tr><td>FT-0040</td><td>Gamma Transport</td><td>02/21/2026</td><td class="kit-num">−254.10</td><td class="kit-num">−55.90</td><td class="kit-num kit-danger">−310.00</td><td><span class="kit-badge kit-badge-danger">Discarded</span></td><td>–</td><td>Credit note</td></tr>
+          <tr><td>FT-0039</td><td>Élite Consulting</td><td>02/14/2026</td><td class="kit-num">10,163.93</td><td class="kit-num">2,236.07</td><td class="kit-num">12,400.00</td><td><span class="kit-badge kit-badge-success">Issued</span></td><td>03/16/2026</td><td>Annual consulting</td></tr>
+          <tr><td>FT-0038</td><td>Delta Systems</td><td>02/03/2026</td><td class="kit-num">78.28</td><td class="kit-num">17.22</td><td class="kit-num">95.50</td><td><span class="kit-badge kit-badge-success">Issued</span></td><td>03/05/2026</td><td>–</td></tr>
+          <tr><td>FT-0037</td><td>Alpha Services Ltd</td><td>01/28/2026</td><td class="kit-num">1,721.31</td><td class="kit-num">378.69</td><td class="kit-num">2,100.00</td><td><span class="kit-badge kit-badge-warning">Received</span></td><td>02/27/2026</td><td>Contract renewal</td></tr>
+          <tr><td>FT-0036</td><td>Zeta Logistics</td><td>01/19/2026</td><td class="kit-num">−36.89</td><td class="kit-num">−8.11</td><td class="kit-num kit-danger">−45.00</td><td><span class="kit-badge kit-badge-danger">Discarded</span></td><td>–</td><td>Reversal</td></tr>
+          <tr><td>FT-0035</td><td>Beta Supplies Inc</td><td>01/09/2026</td><td class="kit-num">1,622.95</td><td class="kit-num">357.05</td><td class="kit-num">1,980.00</td><td><span class="kit-badge kit-badge-success">Issued</span></td><td>02/08/2026</td><td>January order</td></tr>
+          <tr><td>FT-0034</td><td>Omega Studio</td><td>12/22/2025</td><td class="kit-num">336.07</td><td class="kit-num">73.93</td><td class="kit-num">410.00</td><td><span class="kit-badge kit-badge-success">Issued</span></td><td>01/21/2026</td><td>–</td></tr>
+          <tr><td>FT-0033</td><td>Gamma Transport</td><td>12/11/2025</td><td class="kit-num">61.64</td><td class="kit-num">13.56</td><td class="kit-num">75.20</td><td><span class="kit-badge kit-badge-warning">Received</span></td><td>01/10/2026</td><td>Urgent shipment</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+<p>To lock several columns write <code>data-kit-fix="2"</code> (up to 4): <code>kit.js</code> measures the width of the first columns and measures again when the table changes size (window, larger text, new rows). Without <code>kit.js</code> the cumulative widths must be written by hand as <code>--kit-fix-1</code> (width of the first), <code>--kit-fix-2</code> (first + second) and so on, for example <code>style="--kit-fix-1: 8rem"</code>. The thin line on the right marks where the last fixed column ends.</p>
+<div class="doc-demo">
+  <section class="kit-card">
+    <div class="kit-table-wrap kit-table-scroll" style="--kit-table-h: 16rem">
+      <table class="kit-table kit-table-hover kit-table-fix" data-kit-fix="2">
+        <thead><tr><th>Number</th><th>Customer</th><th>Date</th><th class="kit-num">Net</th><th class="kit-num">VAT</th><th class="kit-num">Total</th><th>Status</th><th>Due date</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>FT-0042</td><td>Alpha Services Ltd</td><td>03/12/2026</td><td class="kit-num">1,025.41</td><td class="kit-num">225.59</td><td class="kit-num">1,251.00</td><td><span class="kit-badge kit-badge-success">Issued</span></td><td>04/11/2026</td><td>Payment in 30 days</td></tr>
+          <tr><td>FT-0041</td><td>Beta Supplies Inc</td><td>03/02/2026</td><td class="kit-num">680.66</td><td class="kit-num">149.74</td><td class="kit-num">830.40</td><td><span class="kit-badge kit-badge-warning">Received</span></td><td>04/01/2026</td><td>Partial delivery</td></tr>
+          <tr><td>FT-0040</td><td>Gamma Transport</td><td>02/21/2026</td><td class="kit-num">−254.10</td><td class="kit-num">−55.90</td><td class="kit-num kit-danger">−310.00</td><td><span class="kit-badge kit-badge-danger">Discarded</span></td><td>–</td><td>Credit note</td></tr>
+          <tr><td>FT-0039</td><td>Élite Consulting</td><td>02/14/2026</td><td class="kit-num">10,163.93</td><td class="kit-num">2,236.07</td><td class="kit-num">12,400.00</td><td><span class="kit-badge kit-badge-success">Issued</span></td><td>03/16/2026</td><td>Annual consulting</td></tr>
+          <tr><td>FT-0038</td><td>Delta Systems</td><td>02/03/2026</td><td class="kit-num">78.28</td><td class="kit-num">17.22</td><td class="kit-num">95.50</td><td><span class="kit-badge kit-badge-success">Issued</span></td><td>03/05/2026</td><td>–</td></tr>
+          <tr><td>FT-0037</td><td>Alpha Services Ltd</td><td>01/28/2026</td><td class="kit-num">1,721.31</td><td class="kit-num">378.69</td><td class="kit-num">2,100.00</td><td><span class="kit-badge kit-badge-warning">Received</span></td><td>02/27/2026</td><td>Contract renewal</td></tr>
+          <tr><td>FT-0036</td><td>Zeta Logistics</td><td>01/19/2026</td><td class="kit-num">−36.89</td><td class="kit-num">−8.11</td><td class="kit-num kit-danger">−45.00</td><td><span class="kit-badge kit-badge-danger">Discarded</span></td><td>–</td><td>Reversal</td></tr>
+          <tr><td>FT-0035</td><td>Beta Supplies Inc</td><td>01/09/2026</td><td class="kit-num">1,622.95</td><td class="kit-num">357.05</td><td class="kit-num">1,980.00</td><td><span class="kit-badge kit-badge-success">Issued</span></td><td>02/08/2026</td><td>January order</td></tr>
+          <tr><td>FT-0034</td><td>Omega Studio</td><td>12/22/2025</td><td class="kit-num">336.07</td><td class="kit-num">73.93</td><td class="kit-num">410.00</td><td><span class="kit-badge kit-badge-success">Issued</span></td><td>01/21/2026</td><td>–</td></tr>
+          <tr><td>FT-0033</td><td>Gamma Transport</td><td>12/11/2025</td><td class="kit-num">61.64</td><td class="kit-num">13.56</td><td class="kit-num">75.20</td><td><span class="kit-badge kit-badge-warning">Received</span></td><td>01/10/2026</td><td>Urgent shipment</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+<p>On very narrow screens fixed columns take space from the scrolling ones: keep few and short (a number, a short name). When printing the maximum height and the lock do not apply.</p>
+    <nav class="doc-pager" aria-label="Previous and next page">
+      <a href="navigation.html"><small>← Previous</small><b>Tabs and breadcrumb</b></a>
+      <a class="doc-next" href="charts.html"><small>Next →</small><b>Charts</b></a>
+    </nav>
+  </article>
+</div>
+</div>
+</main>
+<script src="search-index.js"></script>
+<script src="../docs.js"></script>
+</body>
+</html>

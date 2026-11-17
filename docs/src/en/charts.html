@@ -1,0 +1,116 @@
+<!--title: Charts-->
+<!--desc: Bars, lines, donut and sparklines in SVG, no libraries. They require <code>kit.js</code>.-->
+<h2 id="bars">Bar chart</h2>
+<p><code>Kit.barChart(element, options)</code> draws a bar chart in SVG inside the element. The vertical axis has round values (1, 2, 2.5, 5, 10 for a power of ten) with thousands abbreviated as "k" and "M". Each bar has a tooltip. If there are many bars the chart scrolls horizontally and starts from the end, that is, from the most recent data. Colors, texts and grid follow the theme and the text size; the chart redraws itself when the window changes width.</p>
+<p>Each element of <code>data</code> has a label (<code>label</code>), a value for each series (<code>values</code>) and, optionally, a <code>group</code>: it is written under the bar only when it changes, and is handy for the year.</p>
+<div class="doc-demo" data-doc-init="chart-base" data-doc-js='Kit.barChart("#grafico", {
+  label: "Monthly revenue",
+  data: [
+    { label: "Nov", group: "2025", values: [4210] },
+    { label: "Dec", group: "2025", values: [3890] },
+    { label: "Jan", group: "2026", values: [5120] },
+    /* … */
+  ],
+  series: [{ name: "Revenue" }],
+  format: (v) => v.toLocaleString("en-US", { style: "currency", currency: "EUR" })
+});'>
+  <div id="grafico"></div>
+</div>
+
+<h2 id="series">Several series and clicks</h2>
+<p>With several series (<code>series</code>) each month has one bar per series and the legend appears. The default colors are <code>--kit-c1</code>…<code>--kit-c4</code>; for another color there is <code>color</code> in the series. With <code>onSelect</code> the bars become buttons reachable with Tab, activated with Enter or space; the element also receives the <code>kit:select</code> event with <code>{ index, series, item }</code>.</p>
+<div class="doc-demo" data-doc-init="chart-series" data-doc-js='Kit.barChart("#grafico2", {
+  label: "Issued and received",
+  data: months,          // { label, group, values: [issued, received] }
+  series: [{ name: "Issued" }, { name: "Received" }],
+  legendNote: "· click a bar to see the invoices for that month",
+  onSelect: (month, i, series) => Kit.toast("Month: " + month.label + " " + month.group)
+});'>
+  <div id="grafico2"></div>
+</div>
+
+<h2 id="stacked">Stacked bars</h2>
+<p><code>stacked: true</code> puts the series one on top of the other: each month has a single bar, as tall as the sum. Useful to see how a total is made up.</p>
+<div class="doc-demo" data-doc-init="chart-stacked" data-doc-js='Kit.barChart("#grafico3", {
+  label: "Spending by category",
+  stacked: true,
+  data: months,          // values: [fuel, maintenance, insurance]
+  series: [{ name: "Fuel" }, { name: "Maintenance" }, { name: "Insurance" }]
+});'>
+  <div id="grafico3"></div>
+</div>
+
+<h2 id="lines">Lines</h2>
+<p><code>Kit.lineChart</code> takes the same options as bars. A <code>null</code> value leaves a gap in the line (the month without data). The axis starts from the lowest value, not from zero, so variations are visible; <code>zero: true</code> brings it back to zero. Each series has a different symbol (circle, square, triangle), so they can be told apart even without the colors. <code>area: true</code> colors the space under the line, <code>markers: false</code> removes the points.</p>
+<div class="doc-demo" data-doc-init="chart-line" data-doc-js='Kit.lineChart("#grafico4", {
+  label: "Average price per liter",
+  data: months,           // values: [diesel, petrol]; null = no refuelling
+  series: [{ name: "Diesel" }, { name: "Petrol" }],
+  format: (v) => v.toFixed(3) + " €/l",
+  axisFormat: (v) => v.toFixed(2) + " €"
+});'>
+  <div id="grafico4"></div>
+</div>
+<div class="doc-demo" data-doc-init="chart-area" data-doc-js='Kit.lineChart("#grafico5", {
+  label: "Received invoices",
+  area: true, markers: false, zero: true, height: 180,
+  data: months,          // values: [number of invoices]
+  series: [{ name: "Invoices" }]
+});'>
+  <div id="grafico5"></div>
+</div>
+
+<h2 id="donut">Donut</h2>
+<p><code>Kit.donut</code> shows the parts of a total. In the center is the total (or the text of <code>centerValue</code> and <code>centerLabel</code>), beside it a legend with value and percentage. With <code>onSelect</code> the legend rows become buttons. Slices with a value of zero do not appear.</p>
+<div class="doc-demo" data-doc-init="chart-donut" data-doc-js='Kit.donut("#grafico-ciambella", {
+  label: "Spending by category",
+  data: [
+    { label: "Fuel", value: 8420 },
+    { label: "Maintenance", value: 3150 },
+    { label: "Insurance", value: 2800 },
+    { label: "Other", value: 640, color: "var(--kit-mute)" }
+  ],
+  format: (v) => v.toLocaleString("en-US", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }),
+  centerLabel: "Spending 2026"
+});'>
+  <div id="grafico-ciambella"></div>
+</div>
+
+<h2 id="legend">Chart legend</h2>
+<p>The series colors are the <code>--kit-c1</code> and <code>--kit-c2</code> tokens, which change by themselves between light and dark theme. In SVG charts use them with <code>fill: var(--kit-c1)</code> (see the <a href="dashboard.html">sample dashboard</a>).</p>
+<div class="doc-demo">
+  <div class="kit-legend">
+    <span><i style="background: var(--kit-c1)"></i>Received</span>
+    <span><i style="background: var(--kit-c2)"></i>Issued</span>
+  </div>
+</div>
+
+<h2 id="sparkline">Sparkline</h2>
+<p><code>Kit.sparkline</code> is a tiny chart, with no axes, to put next to a number, for example in a <a href="cards.html#kpi">KPI card</a>. It takes <code>values</code> and, optionally, <code>type</code> (<code>"line"</code> or <code>"bar"</code>), <code>color</code>, <code>area</code> (<code>false</code> removes it) and <code>label</code>. The size is that of the element: change it with CSS (by default 6rem × 1.9rem).</p>
+<div class="doc-demo" data-doc-init="chart-spark" data-doc-js='Kit.sparkline("#spark1", { values: [12, 14, 11, 16, 18, 17, 22], label: "Invoices in the last 7 months" });
+Kit.sparkline("#spark2", { values: [5, 3, 6, 2, 4, 7, 5], type: "bar", color: "var(--kit-c2)" });'>
+  <div class="kit-stats">
+    <div class="kit-kpi"><div class="kit-mute">Invoices</div><div class="kit-fs-3 kit-fw-bold">22</div><div id="spark1"></div></div>
+    <div class="kit-kpi"><div class="kit-mute">Refuellings</div><div class="kit-fs-3 kit-fw-bold">5</div><div id="spark2"></div></div>
+  </div>
+</div>
+
+<h2 id="options">Bar and line options</h2>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>Option</th><th>Values</th><th>Default</th></tr></thead><tbody>
+<tr><td><code>data</code></td><td>array of <code>{ label, group?, values: [n, …] }</code></td><td>–</td></tr>
+<tr><td><code>series</code></td><td>array of <code>{ name, color? }</code></td><td>one "Total" series</td></tr>
+<tr><td><code>label</code></td><td>description for screen reader users</td><td><code>Bar chart</code></td></tr>
+<tr><td><code>format</code></td><td>function for the values in tooltips</td><td>number with the page language's separators</td></tr>
+<tr><td><code>axisFormat</code></td><td>function for the axis values</td><td>abbreviation with "k" and "M"</td></tr>
+<tr><td><code>height</code> · <code>ticks</code> · <code>minSlot</code></td><td>height in px, number of lines, minimum width of a column in px</td><td><code>260</code> · <code>4</code> · <code>34</code></td></tr>
+<tr><td><code>max</code></td><td>maximum value of the axis</td><td>computed from the data, rounded</td></tr>
+<tr><td><code>legend</code> · <code>legendNote</code></td><td><code>true</code>/<code>false</code> · text added to the legend</td><td>legend only with several series</td></tr>
+<tr><td><code>stacked</code></td><td>(bars) stacked series</td><td><code>false</code></td></tr>
+<tr><td><code>area</code> · <code>markers</code> · <code>zero</code></td><td>(lines) colored area · points · axis from zero</td><td><code>false</code> · <code>true</code> · <code>false</code></td></tr>
+<tr><td><code>min</code></td><td>minimum value of the axis</td><td>0 for bars, computed for lines</td></tr>
+<tr><td><code>scrollEnd</code></td><td>starts from the last bar when scrolling</td><td><code>true</code></td></tr>
+<tr><td><code>onSelect</code></td><td><code>(elemento, indice, serie) =&gt; …</code></td><td>none: bars are not clickable</td></tr>
+<tr><td><code>empty</code></td><td>text if <code>data</code> is empty</td><td><code>No data</code></td></tr>
+</tbody></table></div></div>
+<p>The function returns <code>{ update(options), destroy() }</code>. Calling it again on the same element updates the existing chart: <code>Kit.barChart(el, { data: newData })</code> changes only the data. Negative values are not supported in bars (they are drawn as zero). All four functions (<code>barChart</code>, <code>lineChart</code>, <code>donut</code>, <code>sparkline</code>) work this way and return <code>{ update, destroy }</code>.</p>
+<p>The <code>kit-chart</code> class is added by itself. For the rest the tokens are used: <code>--kit-c1</code>…<code>--kit-c4</code> for the series, <code>--kit-line</code> for the grid and <code>--kit-mute</code> for the labels. The <code>kit-chart-bar</code>, <code>kit-chart-axis</code>, <code>kit-chart-label</code> and <code>kit-chart-group</code> classes let you touch up the single parts.</p>
