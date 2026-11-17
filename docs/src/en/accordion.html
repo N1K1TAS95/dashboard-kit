@@ -1,0 +1,66 @@
+<!--title: Accordion-->
+<!--desc: Sections that open and close, built on <code>&lt;details&gt;</code>: also without JavaScript, from the keyboard and with screen readers.-->
+<h2 id="accordion">Accordion</h2>
+<p>A list of sections that open and close, built on the native <code>&lt;details&gt;</code> element: it works without JavaScript, is used from the keyboard (Enter and Space on the title) and is already readable by screen readers. The container is <code>kit-accordion</code>, each item is a direct-child <code>&lt;details&gt;</code> with a <code>&lt;summary&gt;</code> as the title and the content inside <code>kit-accordion-body</code>. <code>open</code> on the <code>&lt;details&gt;</code> opens it initially. Where the browser supports it the opening is animated (not with "reduce motion").</p>
+<div class="doc-demo">
+  <div class="kit-accordion">
+    <details open>
+      <summary>How do I issue an invoice?</summary>
+      <div class="kit-accordion-body"><p>From the <strong>Invoices</strong> menu choose "New", fill in the customer and lines and save: the number is assigned automatically.</p></div>
+    </details>
+    <details>
+      <summary>Can I edit it after sending?</summary>
+      <div class="kit-accordion-body"><p>No: a sent invoice is corrected with a credit note and a new invoice.</p></div>
+    </details>
+    <details>
+      <summary>Where do I find rejected invoices?</summary>
+      <div class="kit-accordion-body"><p>In the list, with the "Discarded" filter. The reason for the rejection is in the detail.</p></div>
+    </details>
+  </div>
+</div>
+
+<h3 id="accordion-single">Only one open</h3>
+<p><code>data-kit-accordion="single"</code> (requires <code>kit.js</code>) closes the other items when one is opened; if several items start open only the first stays open. Without JavaScript the same effect is achieved with the same <code>name="…"</code> on all the <code>&lt;details&gt;</code>, which recent browsers honor by themselves. An accordion inside another's item is independent.</p>
+<div class="doc-demo">
+  <div class="kit-accordion" data-kit-accordion="single">
+    <details open><summary>Company details</summary><div class="kit-accordion-body">Company name, VAT number and address.</div></details>
+    <details><summary>Contacts</summary><div class="kit-accordion-body">Email, certified email and phone.</div></details>
+    <details><summary>Payments</summary><div class="kit-accordion-body">IBAN and payment terms.</div></details>
+  </div>
+</div>
+
+<h3 id="accordion-meta">With a label and inside a card</h3>
+<p><code>kit-accordion-meta</code> inside the <code>&lt;summary&gt;</code> puts a count or a badge on the right, before the arrow. <code>kit-accordion-flush</code> removes the box and shadows, for an accordion inside a card or a panel.</p>
+<div class="doc-demo">
+  <section class="kit-card">
+    <div class="kit-card-body">
+      <div class="kit-accordion kit-accordion-flush">
+        <details open>
+          <summary>To issue <span class="kit-accordion-meta"><span class="kit-badge kit-badge-warning">3</span></span></summary>
+          <div class="kit-accordion-body">Three draft invoices.</div>
+        </details>
+        <details>
+          <summary>Discarded <span class="kit-accordion-meta"><span class="kit-badge kit-badge-danger">1</span></span></summary>
+          <div class="kit-accordion-body">One invoice rejected by the exchange system.</div>
+        </details>
+        <details>
+          <summary>Archived <span class="kit-accordion-meta">128</span></summary>
+          <div class="kit-accordion-body">Invoices from previous years.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+</div>
+
+<h3 id="accordion-js">JavaScript</h3>
+<p><code>Kit.accordion(element, { single })</code> does the same from code and returns <code>{ open(x), close(x), toggle(x), openAll(), closeAll(), items() }</code>, where <code>x</code> is the position (from 0) or the <code>&lt;details&gt;</code>. Every opening and closing fires <code>kit:accordion</code> with <code>{ item, index, open }</code>. When printing all items are shown open.</p>
+<div class="doc-demo" data-doc-nocode>
+  <pre class="kit-code" data-kit-code="js">const acc = Kit.accordion("#faq", { single: true });
+
+acc.open(2);        // opens the third item (and closes the others)
+acc.closeAll();
+
+document.querySelector("#faq").addEventListener("kit:accordion", (e) =&gt; {
+  console.log(e.detail.index, e.detail.open);
+});</pre>
+</div>

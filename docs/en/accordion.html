@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Accordion — Dashboard Kit</title>
+<meta name="description" content="Sections that open and close, built on &amp;lt;details&amp;gt;: also without JavaScript, from the keyboard and with screen readers.">
+<script src="../../dist/kit.js"></script>
+<link rel="stylesheet" href="../../dist/kit.css">
+<link rel="stylesheet" href="../docs.css">
+</head>
+<body>
+<!-- Pagina generata da tools/gen-docs.py a partire da docs/src/en/accordion.html: non modificarla a mano. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="i-chev-up" viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></symbol>
+<symbol id="i-chev-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
+<symbol id="i-chev-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+<symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5m0 0-6 6m6-6 6 6"/></symbol>
+<symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14m0 0-6-6m6 6 6-6"/></symbol>
+<symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5m0 0 6-6m-6 6 6 6"/></symbol>
+<symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></symbol>
+<symbol id="i-expand" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></symbol>
+<symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V4m0 0L8 8m4-4 4 4M5 20h14"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.5-3.5L4 9m0-5v5h5M4 13a8 8 0 0 0 14.5 3.5L20 15m0 5v-5h-5"/></symbol>
+<symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4zM13.5 6.5l4 4"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></symbol>
+<symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8L3 5z"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h8m4 0h4M4 17h4m4 0h8"/><circle cx="14" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+<symbol id="i-more" viewBox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01"/></symbol>
+<symbol id="i-more-v" viewBox="0 0 24 24"><path d="M12 5h.01M12 12h.01M12 19h.01"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7M6 10v10h4v-6h4v6h4V10"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0 1 16 0"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4l2-2zM10 21h4"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM14 3v5h5"/></symbol>
+<symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6a1 1 0 0 1 1-1h5l2 2h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6z"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-text" viewBox="0 0 24 24"><path d="M4 7V5h16v2M12 5v14M9 19h6"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+<symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+<symbol id="i-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 3 3 5-6"/></symbol>
+<symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3.5 2.5 20h19L12 3.5z"/><path d="M12 10v4.5M12 17.5h.01"/></symbol>
+<symbol id="i-error" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/></symbol>
+</defs></svg>
+<header class="kit-header">
+  <div class="kit-container-boxed">
+    <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
+    <span class="kit-spacer"></span>
+    <div class="kit-combo doc-search" role="search">
+      <svg class="kit-icon"><use href="#i-search"/></svg>
+      <input class="kit-input" type="text" placeholder="Search…" aria-label="Search the documentation" spellcheck="false">
+      <kbd aria-hidden="true">/</kbd>
+    </div>
+    <a class="kit-btn kit-btn-ghost" href="../it/accordion.html" hreflang="it" lang="it" title="Language">Italiano</a>
+    <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
+    <div class="kit-dropdown">
+      <button class="kit-btn kit-btn-icon" data-kit-toggle="#settings" aria-haspopup="true" aria-expanded="false" aria-label="Settings" title="Settings"><svg class="kit-icon"><use href="#i-sliders"/></svg></button>
+      <div class="kit-pop kit-pop-right kit-settings" id="settings" role="group" aria-label="Settings" hidden>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Theme</span>
+          <div class="kit-seg" role="group" aria-label="Theme">
+            <button data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg>Auto</button>
+            <button data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg>Light</button>
+            <button data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg>Dark</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Text size</span>
+          <div class="kit-seg" role="group" aria-label="Text size">
+            <button data-kit-fs-set="md" aria-label="Normal" title="Normal">A</button>
+            <button data-kit-fs-set="lg" aria-label="Large" title="Large">A</button>
+            <button data-kit-fs-set="xl" aria-label="Extra large" title="Extra large">A</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Content width</span>
+          <div class="kit-seg" role="group" aria-label="Content width">
+            <button data-kit-layout-set="boxed">Centered</button>
+            <button data-kit-layout-set="fluid">Full page</button>
+          </div>
+          <small>Visible on screens wider than the content.</small>
+        </div>
+        <div class="kit-settings-foot"><button class="kit-btn kit-btn-ghost" data-kit-reset>Reset</button></div>
+      </div>
+    </div>
+  </div>
+</header>
+<main class="kit-main">
+<div class="kit-container-boxed">
+<div class="kit-row kit-gy-0">
+  <aside class="kit-col-12 kit-col-lg-3">
+    <nav class="doc-nav" aria-label="Documentation">
+      <details class="doc-nav-d" open>
+        <summary class="kit-btn">Documentation menu</summary>
+        <div class="doc-nav-body">
+          <div class="doc-nav-group">Getting started</div>
+          <a href="index.html">Introduction</a>
+          <a href="javascript.html">JavaScript</a>
+          <div class="doc-nav-group">Foundations</div>
+          <a href="layout.html">Layout</a>
+          <a href="grid.html">Grid</a>
+          <a href="utilities.html">Utilities</a>
+          <a href="typography.html">Typography</a>
+          <a href="icons.html">Icons</a>
+          <a href="buttons.html">Buttons</a>
+          <div class="doc-nav-group">Forms</div>
+          <a href="forms.html">Basic fields</a>
+          <a href="form-layout.html">Layout and validation</a>
+          <a href="form-controls.html">Select and file</a>
+          <a href="dates.html">Dates and times</a>
+          <div class="doc-nav-group">Navigation</div>
+          <a href="navbar.html">Navbar</a>
+          <a href="sidebar.html">Sidebar</a>
+          <a href="navigation.html">Tabs and breadcrumb</a>
+          <div class="doc-nav-group">Data</div>
+          <a href="tables.html">Tables</a>
+          <a href="charts.html">Charts</a>
+          <a href="cards.html">Cards and details</a>
+          <div class="doc-nav-group">Feedback and overlays</div>
+          <a href="feedback.html">Alerts and progress</a>
+          <a href="overlays.html">Dialogs and menus</a>
+          <a href="accordion.html" class="is-current" aria-current="page">Accordion</a>
+          <ul class="doc-toc">
+            <li><a href="#accordion">Accordion</a></li>
+          </ul>
+          <div class="doc-nav-group">Customizing</div>
+          <a href="../it/theming.html" hreflang="it" lang="it">Themes and tokens <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/snippets.html" hreflang="it" lang="it">VS Code snippets <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Examples</div>
+          <a href="../dashboard.html">Dashboard <span class="kit-badge kit-badge-neutral">example</span></a>
+          <a href="../dashboard-sidebar.html">Dashboard with sidebar <span class="kit-badge kit-badge-neutral">example</span></a>
+        </div>
+      </details>
+    </nav>
+  </aside>
+  <article class="kit-col-12 kit-col-lg-9 doc-content">
+    <h1 class="doc-title">Accordion</h1>
+    <p class="doc-lead">Sections that open and close, built on <code>&lt;details&gt;</code>: also without JavaScript, from the keyboard and with screen readers.</p>
+<h2 id="accordion">Accordion</h2>
+<p>A list of sections that open and close, built on the native <code>&lt;details&gt;</code> element: it works without JavaScript, is used from the keyboard (Enter and Space on the title) and is already readable by screen readers. The container is <code>kit-accordion</code>, each item is a direct-child <code>&lt;details&gt;</code> with a <code>&lt;summary&gt;</code> as the title and the content inside <code>kit-accordion-body</code>. <code>open</code> on the <code>&lt;details&gt;</code> opens it initially. Where the browser supports it the opening is animated (not with "reduce motion").</p>
+<div class="doc-demo">
+  <div class="kit-accordion">
+    <details open>
+      <summary>How do I issue an invoice?</summary>
+      <div class="kit-accordion-body"><p>From the <strong>Invoices</strong> menu choose "New", fill in the customer and lines and save: the number is assigned automatically.</p></div>
+    </details>
+    <details>
+      <summary>Can I edit it after sending?</summary>
+      <div class="kit-accordion-body"><p>No: a sent invoice is corrected with a credit note and a new invoice.</p></div>
+    </details>
+    <details>
+      <summary>Where do I find rejected invoices?</summary>
+      <div class="kit-accordion-body"><p>In the list, with the "Discarded" filter. The reason for the rejection is in the detail.</p></div>
+    </details>
+  </div>
+</div>
+
+<h3 id="accordion-single">Only one open</h3>
+<p><code>data-kit-accordion="single"</code> (requires <code>kit.js</code>) closes the other items when one is opened; if several items start open only the first stays open. Without JavaScript the same effect is achieved with the same <code>name="…"</code> on all the <code>&lt;details&gt;</code>, which recent browsers honor by themselves. An accordion inside another's item is independent.</p>
+<div class="doc-demo">
+  <div class="kit-accordion" data-kit-accordion="single">
+    <details open><summary>Company details</summary><div class="kit-accordion-body">Company name, VAT number and address.</div></details>
+    <details><summary>Contacts</summary><div class="kit-accordion-body">Email, certified email and phone.</div></details>
+    <details><summary>Payments</summary><div class="kit-accordion-body">IBAN and payment terms.</div></details>
+  </div>
+</div>
+
+<h3 id="accordion-meta">With a label and inside a card</h3>
+<p><code>kit-accordion-meta</code> inside the <code>&lt;summary&gt;</code> puts a count or a badge on the right, before the arrow. <code>kit-accordion-flush</code> removes the box and shadows, for an accordion inside a card or a panel.</p>
+<div class="doc-demo">
+  <section class="kit-card">
+    <div class="kit-card-body">
+      <div class="kit-accordion kit-accordion-flush">
+        <details open>
+          <summary>To issue <span class="kit-accordion-meta"><span class="kit-badge kit-badge-warning">3</span></span></summary>
+          <div class="kit-accordion-body">Three draft invoices.</div>
+        </details>
+        <details>
+          <summary>Discarded <span class="kit-accordion-meta"><span class="kit-badge kit-badge-danger">1</span></span></summary>
+          <div class="kit-accordion-body">One invoice rejected by the exchange system.</div>
+        </details>
+        <details>
+          <summary>Archived <span class="kit-accordion-meta">128</span></summary>
+          <div class="kit-accordion-body">Invoices from previous years.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+</div>
+
+<h3 id="accordion-js">JavaScript</h3>
+<p><code>Kit.accordion(element, { single })</code> does the same from code and returns <code>{ open(x), close(x), toggle(x), openAll(), closeAll(), items() }</code>, where <code>x</code> is the position (from 0) or the <code>&lt;details&gt;</code>. Every opening and closing fires <code>kit:accordion</code> with <code>{ item, index, open }</code>. When printing all items are shown open.</p>
+<div class="doc-demo" data-doc-nocode>
+  <pre class="kit-code" data-kit-code="js">const acc = Kit.accordion("#faq", { single: true });
+
+acc.open(2);        // opens the third item (and closes the others)
+acc.closeAll();
+
+document.querySelector("#faq").addEventListener("kit:accordion", (e) =&gt; {
+  console.log(e.detail.index, e.detail.open);
+});</pre>
+</div>
+    <nav class="doc-pager" aria-label="Previous and next page">
+      <a href="overlays.html"><small>← Previous</small><b>Dialogs and menus</b></a>
+      <a class="doc-next" href="../it/theming.html"><small>Next →</small><b>Themes and tokens</b></a>
+    </nav>
+  </article>
+</div>
+</div>
+</main>
+<script src="search-index.js"></script>
+<script src="../docs.js"></script>
+</body>
+</html>

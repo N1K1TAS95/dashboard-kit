@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Alerts and progress — Dashboard Kit</title>
+<meta name="description" content="Alerts, status badges, progress bars, empty states and a welcome screen.">
+<script src="../../dist/kit.js"></script>
+<link rel="stylesheet" href="../../dist/kit.css">
+<link rel="stylesheet" href="../docs.css">
+</head>
+<body>
+<!-- Pagina generata da tools/gen-docs.py a partire da docs/src/en/feedback.html: non modificarla a mano. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="i-chev-up" viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></symbol>
+<symbol id="i-chev-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
+<symbol id="i-chev-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+<symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5m0 0-6 6m6-6 6 6"/></symbol>
+<symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14m0 0-6-6m6 6 6-6"/></symbol>
+<symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5m0 0 6-6m-6 6 6 6"/></symbol>
+<symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></symbol>
+<symbol id="i-expand" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></symbol>
+<symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V4m0 0L8 8m4-4 4 4M5 20h14"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.5-3.5L4 9m0-5v5h5M4 13a8 8 0 0 0 14.5 3.5L20 15m0 5v-5h-5"/></symbol>
+<symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4zM13.5 6.5l4 4"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></symbol>
+<symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8L3 5z"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h8m4 0h4M4 17h4m4 0h8"/><circle cx="14" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+<symbol id="i-more" viewBox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01"/></symbol>
+<symbol id="i-more-v" viewBox="0 0 24 24"><path d="M12 5h.01M12 12h.01M12 19h.01"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7M6 10v10h4v-6h4v6h4V10"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0 1 16 0"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4l2-2zM10 21h4"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM14 3v5h5"/></symbol>
+<symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6a1 1 0 0 1 1-1h5l2 2h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6z"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-text" viewBox="0 0 24 24"><path d="M4 7V5h16v2M12 5v14M9 19h6"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+<symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+<symbol id="i-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 3 3 5-6"/></symbol>
+<symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3.5 2.5 20h19L12 3.5z"/><path d="M12 10v4.5M12 17.5h.01"/></symbol>
+<symbol id="i-error" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/></symbol>
+</defs></svg>
+<header class="kit-header">
+  <div class="kit-container-boxed">
+    <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
+    <span class="kit-spacer"></span>
+    <div class="kit-combo doc-search" role="search">
+      <svg class="kit-icon"><use href="#i-search"/></svg>
+      <input class="kit-input" type="text" placeholder="Search…" aria-label="Search the documentation" spellcheck="false">
+      <kbd aria-hidden="true">/</kbd>
+    </div>
+    <a class="kit-btn kit-btn-ghost" href="../it/feedback.html" hreflang="it" lang="it" title="Language">Italiano</a>
+    <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
+    <div class="kit-dropdown">
+      <button class="kit-btn kit-btn-icon" data-kit-toggle="#settings" aria-haspopup="true" aria-expanded="false" aria-label="Settings" title="Settings"><svg class="kit-icon"><use href="#i-sliders"/></svg></button>
+      <div class="kit-pop kit-pop-right kit-settings" id="settings" role="group" aria-label="Settings" hidden>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Theme</span>
+          <div class="kit-seg" role="group" aria-label="Theme">
+            <button data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg>Auto</button>
+            <button data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg>Light</button>
+            <button data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg>Dark</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Text size</span>
+          <div class="kit-seg" role="group" aria-label="Text size">
+            <button data-kit-fs-set="md" aria-label="Normal" title="Normal">A</button>
+            <button data-kit-fs-set="lg" aria-label="Large" title="Large">A</button>
+            <button data-kit-fs-set="xl" aria-label="Extra large" title="Extra large">A</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Content width</span>
+          <div class="kit-seg" role="group" aria-label="Content width">
+            <button data-kit-layout-set="boxed">Centered</button>
+            <button data-kit-layout-set="fluid">Full page</button>
+          </div>
+          <small>Visible on screens wider than the content.</small>
+        </div>
+        <div class="kit-settings-foot"><button class="kit-btn kit-btn-ghost" data-kit-reset>Reset</button></div>
+      </div>
+    </div>
+  </div>
+</header>
+<main class="kit-main">
+<div class="kit-container-boxed">
+<div class="kit-row kit-gy-0">
+  <aside class="kit-col-12 kit-col-lg-3">
+    <nav class="doc-nav" aria-label="Documentation">
+      <details class="doc-nav-d" open>
+        <summary class="kit-btn">Documentation menu</summary>
+        <div class="doc-nav-body">
+          <div class="doc-nav-group">Getting started</div>
+          <a href="index.html">Introduction</a>
+          <a href="javascript.html">JavaScript</a>
+          <div class="doc-nav-group">Foundations</div>
+          <a href="layout.html">Layout</a>
+          <a href="grid.html">Grid</a>
+          <a href="utilities.html">Utilities</a>
+          <a href="typography.html">Typography</a>
+          <a href="icons.html">Icons</a>
+          <a href="buttons.html">Buttons</a>
+          <div class="doc-nav-group">Forms</div>
+          <a href="forms.html">Basic fields</a>
+          <a href="form-layout.html">Layout and validation</a>
+          <a href="form-controls.html">Select and file</a>
+          <a href="dates.html">Dates and times</a>
+          <div class="doc-nav-group">Navigation</div>
+          <a href="navbar.html">Navbar</a>
+          <a href="sidebar.html">Sidebar</a>
+          <a href="navigation.html">Tabs and breadcrumb</a>
+          <div class="doc-nav-group">Data</div>
+          <a href="tables.html">Tables</a>
+          <a href="charts.html">Charts</a>
+          <a href="cards.html">Cards and details</a>
+          <div class="doc-nav-group">Feedback and overlays</div>
+          <a href="feedback.html" class="is-current" aria-current="page">Alerts and progress</a>
+          <ul class="doc-toc">
+            <li><a href="#alerts">Alerts</a></li>
+            <li><a href="#badge">Badge</a></li>
+            <li><a href="#progress">Progress bar</a></li>
+            <li><a href="#meter">Meter</a></li>
+            <li><a href="#spinner">Spinner</a></li>
+            <li><a href="#skeleton">Skeleton</a></li>
+            <li><a href="#full-progress">Full-screen progress</a></li>
+            <li><a href="#empty">Empty state</a></li>
+            <li><a href="#hero">Welcome screen</a></li>
+          </ul>
+          <a href="overlays.html">Dialogs and menus</a>
+          <a href="accordion.html">Accordion</a>
+          <div class="doc-nav-group">Customizing</div>
+          <a href="../it/theming.html" hreflang="it" lang="it">Themes and tokens <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/snippets.html" hreflang="it" lang="it">VS Code snippets <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Examples</div>
+          <a href="../dashboard.html">Dashboard <span class="kit-badge kit-badge-neutral">example</span></a>
+          <a href="../dashboard-sidebar.html">Dashboard with sidebar <span class="kit-badge kit-badge-neutral">example</span></a>
+        </div>
+      </details>
+    </nav>
+  </aside>
+  <article class="kit-col-12 kit-col-lg-9 doc-content">
+    <h1 class="doc-title">Alerts and progress</h1>
+    <p class="doc-lead">Alerts, status badges, progress bars, empty states and a welcome screen.</p>
+<h2 id="alerts">Alerts</h2>
+<p>A highlighted message inside the page: colored left border and soft background. Without a variant it is information; the others are <code>-success</code>, <code>-warning</code>, <code>-danger</code> and <code>-neutral</code>.</p>
+<div class="doc-demo kit-stack">
+  <div class="kit-alert" role="status">Imported invoices stay on your computer.</div>
+  <div class="kit-alert kit-alert-success" role="status">Import completed: 24 invoices added.</div>
+  <div class="kit-alert kit-alert-warning" role="status">3 invoices are waiting for a receipt from the tax authority.</div>
+  <div class="kit-alert kit-alert-danger" role="alert">Unable to read the file: it is not a valid invoice.</div>
+  <div class="kit-alert kit-alert-neutral">Last updated: today at 09:41.</div>
+</div>
+
+<h3>With an icon</h3>
+<p>Put a <code>&lt;svg class="kit-icon kit-alert-icon"&gt;</code> as the first child: the alert leaves room on the left and the icon takes the variant's color. Icons come from your SVG sprite; here <code>i-info</code>, <code>i-ok</code>, <code>i-warn</code> and <code>i-error</code> (you will find them in this documentation's sprite).</p>
+<div class="doc-demo kit-stack">
+  <div class="kit-alert" role="status"><svg class="kit-icon kit-alert-icon"><use href="#i-info"/></svg>Imported invoices stay on your computer.</div>
+  <div class="kit-alert kit-alert-success" role="status"><svg class="kit-icon kit-alert-icon"><use href="#i-ok"/></svg>Import completed: 24 invoices added.</div>
+  <div class="kit-alert kit-alert-warning" role="status"><svg class="kit-icon kit-alert-icon"><use href="#i-warn"/></svg>3 invoices are waiting for a receipt from the tax authority.</div>
+  <div class="kit-alert kit-alert-danger" role="alert"><svg class="kit-icon kit-alert-icon"><use href="#i-error"/></svg>Unable to read the file: it is not a valid invoice.</div>
+</div>
+<p>For an important alert use <code>role="alert"</code> (it is read immediately by screen readers), for the others <code>role="status"</code>.</p>
+
+<h3>With a title and a link</h3>
+<div class="doc-demo">
+  <div class="kit-alert kit-alert-warning" role="status">
+    <svg class="kit-icon kit-alert-icon"><use href="#i-warn"/></svg>
+    <strong class="kit-alert-title">Deadline approaching</strong>
+    You have until the 30th of the month. <a href="#alerts">Go to the invoices to send</a>.
+  </div>
+</div>
+
+<h3>Dismissible</h3>
+<p>A <code>.kit-alert-close</code> button with <code>data-kit-dismiss</code> removes the alert. The <code>kit:dismiss</code> event bubbles up from the container, if you need to know.</p>
+<div class="doc-demo">
+  <div class="kit-alert kit-alert-success" role="status">
+    Saved. You can close this message.
+    <button class="kit-alert-close" data-kit-dismiss aria-label="Close"><svg class="kit-icon"><use href="#i-x"/></svg></button>
+  </div>
+</div>
+<p class="kit-alert">Color is not enough on its own: the alert's text must explain what happened.</p>
+
+<h2 id="badge">Badge</h2>
+<p>Status labels. Color conveys the outcome: green positive, yellow needs checking, red error, gray neutral.</p>
+<div class="doc-demo">
+  <div class="kit-bar">
+    <span class="kit-badge">Info</span>
+    <span class="kit-badge kit-badge-success">Issued</span>
+    <span class="kit-badge kit-badge-warning">Received</span>
+    <span class="kit-badge kit-badge-danger">Error</span>
+    <span class="kit-badge kit-badge-neutral">Neutral</span>
+  </div>
+</div>
+<p class="kit-alert">Do not rely on color alone for meaning: the badge's text must be enough on its own.</p>
+
+<h2 id="progress">Progress bar</h2>
+<p>Progress is the <code>--kit-value</code> variable (0–100%) on the inner element. Change it from JavaScript with <code>el.style.setProperty("--kit-value", "40%")</code>.</p>
+<div class="doc-demo kit-stack">
+  <div class="kit-progress"><i style="--kit-value: 25%"></i></div>
+  <div class="kit-progress"><i style="--kit-value: 62%"></i></div>
+  <div class="kit-progress"><i style="--kit-value: 100%"></i></div>
+</div>
+
+<h2 id="meter">Meter</h2>
+<p>A measure against a limit: space used, plan quota, score. It differs from the <a href="#progress">progress bar</a> because it is not heading toward completion: the value is what it is, and the color says whether the level is fine (<code>is-success</code>), needs attention (<code>is-warning</code>) or is critical (<code>is-danger</code>). Without a state class the bar is in the accent color. As with the native <code>&lt;meter&gt;</code> element, it has <code>role="meter"</code> and its <code>aria-valuenow</code>, <code>-min</code> and <code>-max</code>; the accessible label is <code>aria-label</code>.</p>
+<p>CSS only (fine for server-side rendering): the width is <code>--kit-value</code> and you choose the state. <code>kit-meter-head</code> puts name and value above the bar.</p>
+<div class="doc-demo kit-stack">
+  <div>
+    <div class="kit-meter-head"><span>Storage</span><b>32 GB of 100</b></div>
+    <div class="kit-meter is-success" role="meter" aria-label="Storage" aria-valuenow="32" aria-valuemin="0" aria-valuemax="100" style="--kit-value: 32%"><i></i></div>
+  </div>
+  <div>
+    <div class="kit-meter-head"><span>Requests this month</span><b>430 of 500</b></div>
+    <div class="kit-meter is-warning" role="meter" aria-label="Requests this month" aria-valuenow="430" aria-valuemin="0" aria-valuemax="500" style="--kit-value: 86%"><i></i></div>
+  </div>
+  <div>
+    <div class="kit-meter-head"><span>Seats taken</span><b>48 of 50</b></div>
+    <div class="kit-meter is-danger" role="meter" aria-label="Seats taken" aria-valuenow="48" aria-valuemin="0" aria-valuemax="50" style="--kit-value: 96%"><i></i></div>
+  </div>
+</div>
+<p>With <code>kit.js</code> just give the value and thresholds and the state is computed by itself. The attributes are <code>data-kit-value</code>, <code>data-kit-min</code> (0), <code>data-kit-max</code> (100), <code>data-kit-warn</code> and <code>data-kit-danger</code>, in the same unit as the value. By default higher is worse: from <code>warn</code> up it is orange, from <code>danger</code> up red, below it is green. With <code>data-kit-good="high"</code> (a score, a coverage) it reads the other way round: up to <code>warn</code> orange, up to <code>danger</code> red. Without thresholds it stays in the accent color. Meters inside a fragment inserted by htmx also set themselves up. Sizes: <code>kit-meter-sm</code> and <code>kit-meter-lg</code>.</p>
+<div class="doc-demo kit-stack">
+  <div>
+    <div class="kit-meter-head"><span>Disk</span><b>78 GB</b></div>
+    <div class="kit-meter" data-kit-meter data-kit-value="78" data-kit-max="100" data-kit-warn="80" data-kit-danger="95" aria-label="Disk"><i></i></div>
+  </div>
+  <div>
+    <div class="kit-meter-head"><span>Test coverage</span><b>45 %</b></div>
+    <div class="kit-meter kit-meter-lg" data-kit-meter data-kit-value="45" data-kit-good="high" data-kit-warn="70" data-kit-danger="50" aria-label="Test coverage"><i></i></div>
+  </div>
+  <div>
+    <div class="kit-meter-head"><span>Room</span><b>12 / 40</b></div>
+    <div class="kit-meter kit-meter-sm" data-kit-meter data-kit-value="12" data-kit-max="40" aria-label="Room"><i></i></div>
+  </div>
+</div>
+<p><code>Kit.meter(element, options)</code> accepts the same things as options (<code>value</code>, <code>min</code>, <code>max</code>, <code>warn</code>, <code>danger</code>, <code>good</code>) and returns <code>{ set(value), value(), state() }</code>; <code>set()</code> updates width, ARIA and color, <code>state()</code> gives <code>"success"</code>, <code>"warning"</code>, <code>"danger"</code> or <code>null</code>.</p>
+<p class="kit-alert">Do not rely on color alone for the level: also write the value (with <code>kit-meter-head</code> or next to the bar), so it is understood even without telling colors apart.</p>
+
+<h2 id="spinner">Spinner</h2>
+<p>A spinning ring, in the text color and as big as the font: inside a button or next to a sentence nothing else is needed. <code>kit-spinner-sm</code> and <code>-lg</code> change the size, <code>kit-spinner-accent</code> uses the accent color. Add <code>role="status"</code> and an <code>aria-label</code>, or text next to it, so that screen reader users know something is loading.</p>
+<div class="doc-demo"><div class="kit-bar">
+  <span class="kit-spinner kit-spinner-accent" role="status" aria-label="Loading"></span>
+  <span class="kit-spinner kit-spinner-lg kit-spinner-accent" role="status" aria-label="Loading"></span>
+  <button class="kit-btn kit-btn-primary" disabled><span class="kit-spinner kit-spinner-sm"></span> Importing…</button>
+  <span class="kit-mute"><span class="kit-spinner kit-spinner-sm"></span> Loading documents…</span>
+</div></div>
+
+<h2 id="skeleton">Skeleton</h2>
+<p>Placeholders with a moving shine, to reserve space while data arrives. Put <code>aria-busy="true"</code> on the container and <code>aria-hidden="true"</code> on the placeholders, which are purely decorative. Parts: <code>kit-skeleton-text</code> (a line of text, the last one shorter), <code>-title</code>, <code>-circle</code> and <code>-block</code>.</p>
+<div class="doc-demo">
+  <section class="kit-card" aria-busy="true">
+    <div class="kit-card-body kit-d-flex kit-gap-3" style="align-items:flex-start">
+      <span class="kit-skeleton kit-skeleton-circle" aria-hidden="true"></span>
+      <div style="flex:1;min-width:0">
+        <div class="kit-skeleton kit-skeleton-title" aria-hidden="true"></div>
+        <div class="kit-skeleton kit-skeleton-text" aria-hidden="true"></div>
+        <div class="kit-skeleton kit-skeleton-text" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<h2 id="full-progress">Full-screen progress</h2>
+<p>For a long operation (reading a folder, importing a file) that blocks the rest of the page. <code>Kit.progress(text, options)</code> opens a dialog with the text and the bar and returns <code>{ update(text, value), close() }</code>. The value goes from 0 to 1; without a value (<code>null</code>) the bar runs by itself, for when you do not know how much is left. Esc and a click on the background do not close it: you close it with <code>close()</code>, or with <code>onCancel</code> a "Cancel" button appears (and Esc counts as Cancel). With <code>delay</code> (in ms) it appears only if the operation lasts longer than that, so quick operations do not flash.</p>
+<div class="doc-demo kit-bar" data-doc-js='const p = Kit.progress("Reading the invoices…", { value: 0, delay: 200,
+  onCancel: () => Kit.toast("Reading cancelled") });
+for (let i = 1; i &lt;= 40; i++) {
+  await readInvoice(i);
+  p.update("Reading " + i + " of 40", i / 40);
+}
+p.close();'>
+  <button class="kit-btn" data-doc-run="progress-bar">With progress</button>
+  <button class="kit-btn" data-doc-run="progress-indet">Without a value</button>
+</div>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>Option</th><th>Values</th><th>Default</th></tr></thead><tbody>
+<tr><td>1st argument</td><td>the text above the bar</td><td>empty</td></tr>
+<tr><td><code>value</code></td><td>from 0 to 1, or <code>null</code> for the running bar</td><td><code>null</code></td></tr>
+<tr><td><code>delay</code></td><td>milliseconds before showing it</td><td><code>0</code></td></tr>
+<tr><td><code>onCancel</code> · <code>cancel</code></td><td>function called if the user cancels · button text</td><td>none: it cannot be cancelled · <code>Cancel</code></td></tr>
+</tbody></table></div></div>
+
+<h2 id="empty">Empty state</h2>
+<p>When a list or table has nothing to show yet, explain why and what to do.</p>
+<div class="doc-demo">
+  <section class="kit-card">
+    <div class="kit-empty">
+      <div class="kit-empty-icon">🗂️</div>
+      <h2>No results</h2>
+      <p>Try changing the filters or searching for another term.</p>
+      <button class="kit-btn">Clear filters</button>
+    </div>
+  </section>
+</div>
+
+<h2 id="hero">Welcome screen</h2>
+<p><code>kit-hero</code> centers a message with a few buttons: the first screen when there is no data yet.</p>
+<div class="doc-demo">
+  <section class="kit-card kit-hero">
+    <h2>Explore your data</h2>
+    <p class="kit-mute">Open a file to get started. Nothing leaves your computer.</p>
+    <button class="kit-btn kit-btn-primary kit-btn-lg">Open a file…</button>
+  </section>
+</div>
+    <nav class="doc-pager" aria-label="Previous and next page">
+      <a href="cards.html"><small>← Previous</small><b>Cards and details</b></a>
+      <a class="doc-next" href="overlays.html"><small>Next →</small><b>Dialogs and menus</b></a>
+    </nav>
+  </article>
+</div>
+</div>
+</main>
+<script src="search-index.js"></script>
+<script src="../docs.js"></script>
+</body>
+</html>

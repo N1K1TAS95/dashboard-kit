@@ -1,0 +1,330 @@
+<!--title: Dialogs and menus-->
+<!--desc: Dialog windows, pop-up menus and temporary messages. They require <code>kit.js</code>.-->
+<h2 id="dialog">Dialog</h2>
+<p>It uses the native <code>&lt;dialog&gt;</code> element: the browser handles focus, the Esc key and the darkened backdrop. The kit adds the style and two attributes: <code>data-kit-open</code> to open it, <code>data-kit-close</code> to close it. A click on the backdrop closes it.</p>
+<p>The dialog is a <a href="cards.html#card">card</a> overlay: it has the same three parts (<code>kit-card-head</code>, <code>kit-card-body</code>, <code>kit-card-foot</code>), the same padding and the same border. If the content is tall, only the body scrolls; title and buttons stay visible. This also holds if the three parts are inside a <code>&lt;form&gt;</code> (<code>&lt;form method="dialog"&gt;</code>). If instead the content is placed directly in the dialog, without <code>kit-card-body</code>, the whole dialog scrolls.</p>
+<p>The width is chosen with a class: <code>kit-dialog-sm</code> (340px), no class (440px), <code>kit-dialog-lg</code> (700px, also <code>kit-dialog-wide</code>), <code>kit-dialog-xl</code> (960px) and <code>kit-dialog-full</code> (the whole window minus the margins). For your own value set <code>--kit-dialog-w</code>: on a single dialog (<code>style="--kit-dialog-w: 520px"</code>) or on all of them (<code>:root { --kit-dialog-w: 520px }</code>). On narrow screens the dialog never goes outside the window.</p>
+<div class="doc-demo">
+    <button class="kit-btn" data-kit-open="#dlg-sm">Small</button>
+    <button class="kit-btn" data-kit-open="#dlg-lg">Wide</button>
+    <button class="kit-btn" data-kit-open="#dlg-xl">Extra wide</button>
+    <button class="kit-btn" data-kit-open="#dlg-custom">Custom 520px</button>
+  <dialog class="kit-dialog kit-dialog-sm" id="dlg-sm"><div class="kit-card-head">kit-dialog-sm</div><div class="kit-card-body">340px.</div><div class="kit-card-foot"><button class="kit-btn" data-kit-close>Close</button></div></dialog>
+  <dialog class="kit-dialog kit-dialog-lg" id="dlg-lg"><div class="kit-card-head">kit-dialog-lg</div><div class="kit-card-body">700px.</div><div class="kit-card-foot"><button class="kit-btn" data-kit-close>Close</button></div></dialog>
+  <dialog class="kit-dialog kit-dialog-xl" id="dlg-xl"><div class="kit-card-head">kit-dialog-xl</div><div class="kit-card-body">960px.</div><div class="kit-card-foot"><button class="kit-btn" data-kit-close>Close</button></div></dialog>
+  <dialog class="kit-dialog" id="dlg-custom" style="--kit-dialog-w: 520px"><div class="kit-card-head">--kit-dialog-w: 520px</div><div class="kit-card-body">Custom width.</div><div class="kit-card-foot"><button class="kit-btn" data-kit-close>Close</button></div></dialog>
+</div>
+<p>On opening, focus goes to the dialog itself, so no ring appears on the first button. To bring it to a field put <code>autofocus</code> on that field.</p>
+<div class="doc-demo" data-doc-include="#dlg">
+  <button class="kit-btn kit-btn-primary" data-kit-open="#dlg">Open the dialog</button>
+  <dialog class="kit-dialog" id="dlg">
+    <div class="kit-card-head">
+      Dialog title
+      <button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-close aria-label="Close"><svg class="kit-icon"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="kit-card-body">
+      <p class="kit-mute">It closes with Esc, with a click on the backdrop, with the X or with the buttons.</p>
+      <label class="kit-field">Name <input class="kit-input" placeholder="John Smith"></label>
+    </div>
+    <div class="kit-card-foot">
+      <button class="kit-btn" data-kit-close>Cancel</button>
+      <button class="kit-btn kit-btn-primary" data-kit-close>Confirm</button>
+    </div>
+  </dialog>
+</div>
+
+<h2 id="drawer">Drawer</h2>
+<p>A dialog that slides in from an edge of the window: for a detail, an advanced filter or a long form, when you want to keep the page in view. It is the same <code>&lt;dialog&gt;</code>, with the same parts, the same attributes (<code>data-kit-open</code>, <code>data-kit-close</code>) and the same Esc, backdrop click and focus; you only add the <code>kit-drawer</code> class. By default it comes from the right; <code>kit-drawer-left</code>, <code>kit-drawer-top</code> and <code>kit-drawer-bottom</code> change the side. On a narrow screen it takes the full width.</p>
+<div class="doc-demo">
+  <button class="kit-btn" data-kit-open="#drw-right">From the right</button>
+  <button class="kit-btn" data-kit-open="#drw-left">From the left</button>
+  <button class="kit-btn" data-kit-open="#drw-bottom">From the bottom</button>
+  <dialog class="kit-dialog kit-drawer" id="drw-right">
+    <div class="kit-card-head">
+      Filters
+      <button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-close aria-label="Close"><svg class="kit-icon"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="kit-card-body kit-stack">
+      <label class="kit-field">Customer <input class="kit-input" placeholder="Smith Ltd"></label>
+      <label class="kit-field">From <input class="kit-input" type="date"></label>
+      <label class="kit-field">To <input class="kit-input" type="date"></label>
+    </div>
+    <div class="kit-card-foot">
+      <button class="kit-btn" data-kit-close>Cancel</button>
+      <button class="kit-btn kit-btn-primary" data-kit-close>Apply</button>
+    </div>
+  </dialog>
+  <dialog class="kit-dialog kit-drawer kit-drawer-left kit-drawer-sm" id="drw-left">
+    <div class="kit-card-head">Menu<button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-close aria-label="Close"><svg class="kit-icon"><use href="#i-x"/></svg></button></div>
+    <div class="kit-card-body"><p class="kit-mute">A narrow drawer from the left: <code>kit-drawer-left kit-drawer-sm</code>.</p></div>
+  </dialog>
+  <dialog class="kit-dialog kit-drawer kit-drawer-bottom" id="drw-bottom">
+    <div class="kit-card-head">Summary<button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-close aria-label="Close"><svg class="kit-icon"><use href="#i-x"/></svg></button></div>
+    <div class="kit-card-body"><p class="kit-mute">From the bottom, at most <code>--kit-drawer-h</code> tall (40% of the window).</p></div>
+  </dialog>
+</div>
+<p>The width is <code>--kit-drawer-w</code> (420px), or a class: <code>kit-drawer-sm</code> (320px), <code>kit-drawer-lg</code> (640px), <code>kit-drawer-xl</code> (860px). For top and bottom drawers the maximum height is <code>--kit-drawer-h</code>. The animation (0.25 s) is turned off by <code>prefers-reduced-motion</code> and, like the dialog's, requires a recent browser. If the detail has to stay next to a list rather than overlay it, use the <a href="layout.html#split">side panel</a>.</p>
+
+<h2 id="confirm">Asking for confirmation</h2>
+<p>A dialog with "Confirm" and "Cancel" interrupts whoever is working, and if it appears too often people learn to press "Confirm" without reading. It is better to choose based on how serious the mistake would be.</p>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>If the action…</th><th>Use</th></tr></thead><tbody>
+<tr><td>can be undone (archiving, moving, deleting with a trash)</td><td><a href="#undo">Undo</a>: the action runs immediately and the toast offers "Undo"</td></tr>
+<tr><td>cannot be undone (deleting forever, sending, paying)</td><td><a href="#confirm-js">Confirm</a> with <code>Kit.confirm</code> or <code>data-kit-confirm</code></td></tr>
+<tr><td>is very serious or concerns a lot of data (deleting an archive)</td><td>Confirm by <a href="#confirm-name">typing the name</a></td></tr>
+</tbody></table></div></div>
+<p>In any case: write the precise verb on the confirm button ("Delete 12 invoices", not "OK"), and say in the text what happens.</p>
+
+<h3 id="confirm-js">Kit.confirm</h3>
+<p><code>Kit.confirm(question, options)</code> opens the dialog by itself, without HTML, and returns a promise: <code>true</code> if the user confirms, <code>false</code> with "Cancel", Esc or a click on the backdrop. With <code>danger: true</code> the button is red and focus starts on "Cancel", so an absent-minded Enter does no harm; without it, focus is on "Confirm".</p>
+<div class="doc-demo kit-bar" data-doc-js='var ok = await Kit.confirm("Archive the invoice?", {
+    text: "You will find it again in the archive.",
+    confirm: "Archive"
+  });
+  if (ok) archive();
+
+  await Kit.confirm("Delete 12 invoices?", {
+    text: "This cannot be undone.",
+    confirm: "Delete 12 invoices",
+    danger: true
+  });'>
+  <button class="kit-btn" data-doc-run="confirm-base">Simple confirmation</button>
+  <button class="kit-btn kit-btn-danger" data-doc-run="confirm-danger">Dangerous action</button>
+</div>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>Option</th><th>Values</th><th>Default</th></tr></thead><tbody>
+<tr><td>1st argument</td><td>the question (dialog title)</td><td><code>Confirm the action?</code></td></tr>
+<tr><td><code>text</code></td><td>explanation under the question</td><td>none</td></tr>
+<tr><td><code>confirm</code> · <code>cancel</code></td><td>text of the two buttons</td><td><code>Confirm</code> · <code>Cancel</code></td></tr>
+<tr><td><code>danger</code></td><td><code>true</code>: red button, warning icon, focus on "Cancel"</td><td><code>false</code></td></tr>
+<tr><td><code>type</code></td><td>text to type to enable the confirmation</td><td>none</td></tr>
+</tbody></table></div></div>
+<p class="kit-alert">The text is always plain text, never HTML: you can also pass a name entered by the user. The dialog is a <code>&lt;dialog&gt;</code> with <code>role="alertdialog"</code>: Tab stays inside, Esc cancels and on closing focus returns to the button that opened it.</p>
+
+<h3 id="confirm-name">Typing the name</h3>
+<p>For truly irreversible actions, <code>type</code> asks to write a text (usually the name of what is being deleted): until it matches, "Confirm" stays disabled. Case matters; spaces at the edges do not. Enter in the field confirms, if the text is right.</p>
+<div class="doc-demo kit-bar" data-doc-js='var ok = await Kit.confirm("Delete the 2024 archive?", {
+    text: "312 invoices will be deleted. This cannot be undone.",
+    confirm: "Delete the archive",
+    danger: true,
+    type: "Archive 2024"
+  });'>
+  <button class="kit-btn kit-btn-danger" data-doc-run="confirm-type">Delete the archive…</button>
+</div>
+
+<h3 id="confirm-attribute">Without JavaScript: data-kit-confirm</h3>
+<p>Put <code>data-kit-confirm="Question?"</code> on a button, a link or a <code>&lt;form&gt;</code>: the click (or the form submit) opens the dialog and, only if the user confirms, the action proceeds as if nothing had been in between. The confirmation runs <em>before</em> your click handlers, which only fire after the "yes". The other options are attributes: <code>data-kit-confirm-text</code>, <code>-ok</code>, <code>-cancel</code>, <code>-danger</code> (no value) and <code>-type</code>.</p>
+<div class="doc-demo kit-bar">
+  <button class="kit-btn kit-btn-danger" data-kit-confirm="Delete invoice 2026/014?" data-kit-confirm-text="It will stay in the trash for 30 days." data-kit-confirm-ok="Delete invoice" data-kit-confirm-danger data-doc-toast="Invoice deleted" data-doc-type="success">Delete invoice</button>
+  <button class="kit-btn" data-kit-confirm="Send the invoices to the exchange system?" data-kit-confirm-ok="Send" data-doc-toast="Invoices sent" data-doc-type="success">Send</button>
+</div>
+
+<h3 id="undo">Undo instead of asking</h3>
+<p>For actions that can be undone, asking first is the worst choice: it slows everyone down to protect a few. <code>Kit.undo</code> does the opposite: the interface changes immediately and a toast with a time bar offers "Undo". When the time runs out (or the toast closes, or the page is left) <code>onCommit</code> runs, the real and final action; with "Undo" <code>onUndo</code> runs and <code>onCommit</code> never does.</p>
+<div class="doc-demo" data-doc-js='row.hidden = true;                           // the interface changes immediately
+  Kit.undo("Invoice deleted", {
+    onUndo:   function () { row.hidden = false; },
+    onCommit: function () { remove(id); },      // only if not undone
+    duration: 6000                               // default 6000 ms
+  });'>
+  <div class="kit-bar" id="doc-undo-row">
+    <span>Invoice 2026/014 · Smith Ltd</span>
+    <span class="kit-spacer"></span>
+    <button class="kit-btn kit-btn-danger" data-doc-run="undo">Delete</button>
+  </div>
+  <p class="kit-mute" id="doc-undo-note" hidden>The invoice is gone: now look at the toast.</p>
+</div>
+<p>Options: <code>onUndo</code>, <code>onCommit</code>, <code>duration</code> (default 6000 ms), <code>label</code> (default "Undo"), <code>type</code> and <code>position</code> as in <a href="#toast">toasts</a>. It returns <code>{ undo(), commit() }</code> to decide from code. If <code>onCommit</code> has to reach a server, remember that when the page closes the browser may interrupt the request: use <code>fetch</code> with <code>keepalive: true</code>.</p>
+
+<h3 id="dialog-animation">Animation</h3>
+<p>All <code>kit-dialog</code>s appear and disappear with a short fade (0.18 s), a slight upward slide and the backdrop darkening. It turns itself off with <code>prefers-reduced-motion</code>. A recent browser is needed (Chrome 117, Safari 17.4, Firefox 129): in the others the dialog appears and disappears without animation, but works just the same.</p>
+
+<h2 id="menu">Pop-up menu</h2>
+<p><code>.kit-pop</code> is a panel that can be used on its own, for any menu: a row's actions, a button's items, the theme selector. A button with <code>data-kit-toggle="#id"</code> opens the indicated <code>.kit-pop</code> (inside a <code>.kit-dropdown</code>, which positions it under the button). It closes with Esc, by clicking outside or by choosing an item; the arrow keys move through the items, Enter activates them.</p>
+<div class="doc-demo" style="min-height: 190px">
+  <div class="kit-dropdown">
+    <button class="kit-btn" data-kit-toggle="#menu-actions" aria-haspopup="menu" aria-expanded="false">Actions<svg class="kit-icon"><use href="#i-chev"/></svg></button>
+    <div class="kit-pop" id="menu-actions" role="menu" hidden>
+      <div class="kit-opt" role="menuitem"><svg class="kit-icon"><use href="#i-download"/></svg><span class="kit-opt-text"><b>Export CSV</b><small>All the filtered rows</small></span></div>
+      <div class="kit-opt" role="menuitem"><svg class="kit-icon"><use href="#i-search"/></svg><span class="kit-opt-text"><b>Search documents</b></span></div>
+    </div>
+  </div>
+</div>
+
+<h3 id="menu-items">Items: buttons, links, separators</h3>
+<p>A <code>.kit-opt</code> item can be a <code>&lt;div&gt;</code>, a <code>&lt;button&gt;</code> or an <code>&lt;a&gt;</code>: use the button for an action and the link to change page. <code>kit-opt-danger</code> colors destructive actions, <code>kit-pop-sep</code> separates groups, <code>kit-pop-group</code> titles them and <code>aria-disabled="true"</code> disables an item.</p>
+<div class="doc-demo" style="min-height: 330px">
+  <div class="kit-dropdown">
+    <button class="kit-btn" data-kit-toggle="#menu-items-1" aria-haspopup="menu" aria-expanded="false">Invoice<svg class="kit-icon"><use href="#i-chev"/></svg></button>
+    <div class="kit-pop" id="menu-items-1" role="menu" hidden>
+      <div class="kit-pop-group">Document</div>
+      <button class="kit-opt" role="menuitem" data-doc-toast="Copied"><svg class="kit-icon"><use href="#i-copy"/></svg><span class="kit-opt-text"><b>Copy number</b></span></button>
+      <a class="kit-opt" role="menuitem" href="#menu-items"><svg class="kit-icon"><use href="#i-external"/></svg><span class="kit-opt-text"><b>Open in a page</b></span></a>
+      <button class="kit-opt" role="menuitem" aria-disabled="true"><svg class="kit-icon"><use href="#i-download"/></svg><span class="kit-opt-text"><b>Download PDF</b><small>Not available</small></span></button>
+      <div class="kit-pop-sep" role="separator"></div>
+      <button class="kit-opt kit-opt-danger" role="menuitem" data-doc-toast="Deleted"><svg class="kit-icon"><use href="#i-trash"/></svg><span class="kit-opt-text"><b>Delete</b></span></button>
+    </div>
+  </div>
+</div>
+
+<h3 id="menu-icon">Icon-only button</h3>
+<p>The classic "more actions" menu of a row. With <code>kit-pop-right</code> the panel aligns to the button's right edge, so it does not go off the page.</p>
+<div class="doc-demo" style="min-height: 190px">
+  <div class="kit-bar" style="justify-content: space-between">
+    <span>Invoice 2026/0142</span>
+    <div class="kit-dropdown">
+      <button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-toggle="#menu-more" aria-haspopup="menu" aria-expanded="false" aria-label="More actions"><svg class="kit-icon"><use href="#i-more-v"/></svg></button>
+      <div class="kit-pop kit-pop-right" id="menu-more" role="menu" hidden>
+        <button class="kit-opt" role="menuitem"><svg class="kit-icon"><use href="#i-edit"/></svg><span class="kit-opt-text"><b>Edit</b></span></button>
+        <button class="kit-opt" role="menuitem"><svg class="kit-icon"><use href="#i-copy"/></svg><span class="kit-opt-text"><b>Duplicate</b></span></button>
+        <div class="kit-pop-sep" role="separator"></div>
+        <button class="kit-opt kit-opt-danger" role="menuitem"><svg class="kit-icon"><use href="#i-trash"/></svg><span class="kit-opt-text"><b>Delete</b></span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3 id="menu-split">Split button</h3>
+<p>The main action on the left, the arrow with the alternatives on the right. <code>kit-btn-split</code> joins the two buttons.</p>
+<div class="doc-demo" style="min-height: 190px">
+  <div class="kit-btn-split">
+    <button class="kit-btn kit-btn-primary"><svg class="kit-icon"><use href="#i-download"/></svg>Export CSV</button>
+    <div class="kit-dropdown">
+      <button class="kit-btn kit-btn-primary kit-btn-icon" data-kit-toggle="#menu-split-1" aria-haspopup="menu" aria-expanded="false" aria-label="Other formats"><svg class="kit-icon"><use href="#i-chev"/></svg></button>
+      <div class="kit-pop kit-pop-right" id="menu-split-1" role="menu" hidden>
+        <button class="kit-opt" role="menuitem"><span class="kit-opt-text"><b>Export Excel</b></span></button>
+        <button class="kit-opt" role="menuitem"><span class="kit-opt-text"><b>Export PDF</b></span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h3 id="menu-up">Upwards</h3>
+<p>Near the bottom edge of the page add <code>kit-pop-up</code>: the panel opens above the button.</p>
+<div class="doc-demo" style="padding-top: 190px">
+  <div class="kit-dropdown">
+    <button class="kit-btn" data-kit-toggle="#menu-up-1" aria-haspopup="menu" aria-expanded="false">Sort by<svg class="kit-icon"><use href="#i-chev"/></svg></button>
+    <div class="kit-pop kit-pop-up" id="menu-up-1" role="menu" hidden>
+      <button class="kit-opt" role="menuitem"><span class="kit-opt-text"><b>Date</b></span></button>
+      <button class="kit-opt" role="menuitem"><span class="kit-opt-text"><b>Amount</b></span></button>
+      <button class="kit-opt" role="menuitem"><span class="kit-opt-text"><b>Supplier</b></span></button>
+    </div>
+  </div>
+</div>
+
+<h3 id="menu-static">Always visible</h3>
+<p>Without a button and without <code>hidden</code>, with <code>kit-pop-static</code>, the panel stays in the page flow: it is for a side menu or a list of actions. The items are normal buttons or links, so they can be reached with Tab.</p>
+<div class="doc-demo">
+  <div class="kit-pop kit-pop-static" role="menu" style="max-width: 260px">
+    <div class="kit-pop-group">Account</div>
+    <a class="kit-opt" role="menuitem" href="#menu-static"><svg class="kit-icon"><use href="#i-user"/></svg><span class="kit-opt-text"><b>Profile</b></span></a>
+    <a class="kit-opt" role="menuitem" href="#menu-static"><svg class="kit-icon"><use href="#i-sliders"/></svg><span class="kit-opt-text"><b>Settings</b></span></a>
+    <div class="kit-pop-sep" role="separator"></div>
+    <button class="kit-opt kit-opt-danger" role="menuitem"><span class="kit-opt-text"><b>Sign out</b></span></button>
+  </div>
+</div>
+
+<h2 id="tooltip">Tooltip</h2>
+<p>A short hint on any element, with CSS only: the <code>data-kit-tip</code> attribute is enough. It appears on mouse hover (after a short wait) and on keyboard focus; with <code>kit.js</code> the Esc key hides it. The mouse can reach the tooltip without it disappearing.</p>
+<div class="doc-demo" style="padding-top: 56px">
+  <div class="kit-bar">
+    <button class="kit-btn kit-btn-icon" data-kit-tip="Download the list as CSV" aria-label="Download"><svg class="kit-icon"><use href="#i-download"/></svg></button>
+    <button class="kit-btn kit-btn-icon" data-kit-tip="Refresh" aria-label="Refresh"><svg class="kit-icon"><use href="#i-refresh"/></svg></button>
+    <span class="kit-badge kit-badge-warning" data-kit-tip="Waiting for the tax authority receipt">Received</span>
+    <a href="#tooltip" data-kit-tip="Back to the start of this section">A link</a>
+  </div>
+</div>
+
+<h3 id="tooltip-position">Position</h3>
+<p><code>data-kit-tip-pos</code> chooses the side: <code>top</code> (default), <code>bottom</code>, <code>left</code>, <code>right</code>.</p>
+<div class="doc-demo" style="padding: 56px var(--kit-sp)">
+  <div class="kit-bar" style="justify-content: center">
+    <button class="kit-btn" data-kit-tip="Above" data-kit-tip-pos="top">Top</button>
+    <button class="kit-btn" data-kit-tip="Below" data-kit-tip-pos="bottom">Bottom</button>
+    <button class="kit-btn" data-kit-tip="To the left" data-kit-tip-pos="left">Left</button>
+    <button class="kit-btn" data-kit-tip="To the right" data-kit-tip-pos="right">Right</button>
+  </div>
+</div>
+<p class="kit-alert kit-alert-warning">The tooltip is not a way to provide a label: an icon-only button must still have <code>aria-label</code>. Do not put essential information, links or buttons in it, because on touch and for screen reader users it may not appear. A <code>disabled</code> button does not receive the mouse: put the tooltip on a <code>&lt;span&gt;</code> that contains it.</p>
+<p>A container with hidden or scrolling <code>overflow</code> (for example <code>.kit-table-wrap</code>) clips the tooltip: in that case choose a side that stays inside the container.</p>
+
+<h2 id="toast">Toast</h2>
+<p>A short message that appears at the bottom and disappears by itself. It is shown from JavaScript with <code>Kit.toast("text")</code>; several toasts stack, up to six at a time. The neutral toast is inverted relative to the theme (dark on light, light on dark), so it always stands out from the content; colored ones fill the whole background.</p>
+<div class="doc-demo" data-doc-js='Kit.toast("Saved!");'>
+  <button class="kit-btn" data-doc-toast="Saved!">Show a toast</button>
+</div>
+
+<h3 id="toast-types">Types, title and icon</h3>
+<p>The <code>type</code> option (<code>info</code>, <code>success</code>, <code>warning</code>, <code>danger</code>) colors the whole toast and adds the icon, if the page has the <a href="icons.html">icons</a> sprite (<code>kit-icons.js</code>); <code>title</code> adds a title. <code>warning</code> and <code>danger</code> toasts are announced immediately by screen readers (<code>role="alert"</code>), the others discreetly.</p>
+<div class="doc-demo kit-bar" data-doc-js='Kit.toast("24 invoices added.", { type: "success", title: "Import completed" });
+  Kit.toast("Check the VAT number.", { type: "warning" });
+  Kit.toast("Unable to read the file.", { type: "danger", title: "Error" });'>
+  <button class="kit-btn" data-doc-toast="A new version is available." data-doc-type="info">Info</button>
+  <button class="kit-btn" data-doc-toast="24 invoices added." data-doc-type="success" data-doc-title="Import completed">Success</button>
+  <button class="kit-btn" data-doc-toast="Check the VAT number." data-doc-type="warning">Warning</button>
+  <button class="kit-btn" data-doc-toast="Unable to read the file." data-doc-type="danger" data-doc-title="Error">Error</button>
+</div>
+
+<h3 id="toast-action">Action and closing</h3>
+<p>With <code>action</code> the toast has a button (typically "Undo") and stays visible until you use it or close it with the <b>×</b>. <code>duration</code> is in milliseconds (default 4000); with <code>0</code> the toast does not disappear by itself. A bar at the bottom of the toast shows how long is left before closing (remove it with <code>progress: false</code>). The time stops while the mouse or focus is on the toast, and the bar goes back to full: when you leave, the countdown restarts from the beginning. <code>Kit.toast</code> returns an object with <code>close()</code> to close it from code, and <code>Kit.toast.clear()</code> closes them all.</p>
+<div class="doc-demo kit-bar" data-doc-js='var t = Kit.toast("Invoice deleted.", {
+    action: { label: "Undo", onClick: function () { restore(); } }
+  });
+  // t.close() closes it from code
+  Kit.toast("Syncing…", { duration: 0 });'>
+  <button class="kit-btn" data-doc-toast="Invoice deleted." data-doc-action="Undo">With an action</button>
+  <button class="kit-btn" data-doc-toast="Syncing…" data-doc-duration="0">Stays until you close it</button>
+  <button class="kit-btn kit-btn-ghost" data-doc-toast-clear>Close all</button>
+</div>
+
+<h3 id="toast-position">Position</h3>
+<p><code>position</code> chooses where it appears: <code>bottom</code> (default), <code>top</code>, <code>bottom-start</code>, <code>bottom-end</code>, <code>top-start</code>, <code>top-end</code>. The corners are the most used in dashboards, because they do not cover the central content.</p>
+<div class="doc-demo kit-bar" data-doc-js='Kit.toast("Saved!", { type: "success", position: "top-end" });'>
+  <button class="kit-btn" data-doc-toast="Top center" data-doc-pos="top">Top</button>
+  <button class="kit-btn" data-doc-toast="Top right" data-doc-pos="top-end" data-doc-type="success">Top right</button>
+  <button class="kit-btn" data-doc-toast="Bottom right" data-doc-pos="bottom-end" data-doc-type="info">Bottom right</button>
+  <button class="kit-btn" data-doc-toast="Bottom left" data-doc-pos="bottom-start">Bottom left</button>
+</div>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>Option</th><th>Values</th><th>Default</th></tr></thead><tbody>
+<tr><td><code>type</code></td><td><code>info</code> · <code>success</code> · <code>warning</code> · <code>danger</code></td><td>neutral</td></tr>
+<tr><td><code>title</code></td><td>text</td><td>no title</td></tr>
+<tr><td><code>duration</code></td><td>milliseconds; <code>0</code> = does not disappear</td><td><code>4000</code></td></tr>
+<tr><td><code>position</code></td><td>see above</td><td><code>bottom</code></td></tr>
+<tr><td><code>action</code></td><td><code>{ label, onClick }</code></td><td>none</td></tr>
+<tr><td><code>progress</code></td><td><code>true</code> · <code>false</code></td><td><code>true</code> (remaining-time bar, if <code>duration</code> &gt; 0)</td></tr>
+<tr><td><code>closable</code></td><td><code>true</code> · <code>false</code></td><td><code>true</code> with an action or <code>duration: 0</code></td></tr>
+</tbody></table></div></div>
+<p class="kit-alert">The toast text is always plain text: <code>Kit.toast</code> never interprets HTML, so you can also pass a value entered by the user.</p>
+
+<h2 id="settings">Settings panel</h2>
+<p>A single menu for the user's preferences: <strong>theme</strong> (automatic, light, dark), <strong>text size</strong> and <strong>content width</strong>, plus "Reset". It is a <a href="#menu">pop-up menu</a> with the <code>kit-settings</code> class, made of <code>kit-seg</code> groups whose buttons use the <code>kit.js</code> attributes you already know (<code>data-kit-theme-set</code>, <code>data-kit-fs-set</code>, <code>data-kit-layout-set</code>). Unlike a normal menu it stays open after each choice, so you can change several things in a row; it closes with Esc or by clicking outside. All choices are remembered. The rows are independent: remove the ones you do not need. <code>data-kit-reset</code> (or <code>Kit.reset()</code>) brings everything back to the starting value: system theme, normal text, the width written in the HTML. It is the "Settings" menu at the top right of these pages.</p>
+<div class="doc-demo" style="min-height: 430px">
+  <div class="kit-dropdown">
+    <button class="kit-btn" data-kit-toggle="#demo-settings" aria-haspopup="true" aria-expanded="false"><svg class="kit-icon"><use href="#i-sliders"/></svg><span class="kit-d-none kit-d-sm-inline">Settings</span><svg class="kit-icon"><use href="#i-chev"/></svg></button>
+    <div class="kit-pop kit-pop-right kit-settings" id="demo-settings" role="group" aria-label="Settings" hidden>
+      <div class="kit-settings-row">
+        <span class="kit-settings-label">Theme</span>
+        <div class="kit-seg" role="group" aria-label="Theme">
+          <button data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg>Auto</button>
+          <button data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg>Light</button>
+          <button data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg>Dark</button>
+        </div>
+      </div>
+      <div class="kit-settings-row">
+        <span class="kit-settings-label">Text size</span>
+        <div class="kit-seg" role="group" aria-label="Text size">
+          <button data-kit-fs-set="md" aria-label="Normal" title="Normal">A</button>
+          <button data-kit-fs-set="lg" aria-label="Large" title="Large">A</button>
+          <button data-kit-fs-set="xl" aria-label="Extra large" title="Extra large">A</button>
+        </div>
+      </div>
+      <div class="kit-settings-row">
+        <span class="kit-settings-label">Content width</span>
+        <div class="kit-seg" role="group" aria-label="Content width">
+          <button data-kit-layout-set="boxed">Centered</button>
+          <button data-kit-layout-set="fluid">Full page</button>
+        </div>
+        <small>Noticeable on screens wider than the content.</small>
+      </div>
+      <div class="kit-settings-foot"><button class="kit-btn kit-btn-ghost" data-kit-reset>Reset</button></div>
+    </div>
+  </div>
+</div>
