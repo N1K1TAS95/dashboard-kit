@@ -86,7 +86,7 @@ A 12-column flexbox grid, with the same names as Bootstrap (prefix `kit-`):
 - Typography: headings, `kit-display-*`, `kit-lead`, `kit-quote`, `kit-prose` and the utilities `kit-fs-*`, `kit-fw-*`, `kit-lh-*`, `kit-uppercase`.
 - Flex and spacing utilities: `kit-d-*`, `kit-flex-*`, `kit-justify-content-*`, `kit-align-items-*`, `kit-gap-*`, `kit-m*-N`, `kit-p*-N`, `kit-w-100`, `kit-h-100`.
 - `kit-bar` is the row of side-by-side elements (a toolbar), different from the grid's `kit-row`.
-- A complete example is in `docs/dashboard.html`.
+- A complete example is in `docs/en/dashboard.html`.
 
 The grid block in `dist/kit.css` is **generated**: to change breakpoints, the spacing scale or the number of columns,
 edit the constants in `tools/gen-grid.py` and run `python3 tools/gen-grid.py`.

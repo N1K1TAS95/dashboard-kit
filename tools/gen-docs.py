@@ -13,7 +13,7 @@ Uso:  python3 tools/gen-docs.py      (non modificare a mano docs/*.html: si rige
 import base64
 import hashlib
 import html
-import json
+import json, shutil
 import pathlib
 import re
 import sys
@@ -197,9 +197,9 @@ def toc_for(body):
 
 
 def page_href(lang, page, translated):
-    """Indirizzo di una pagina dal menu: nella stessa lingua se tradotta, altrimenti la versione italiana; gli esempi stanno in docs/."""
+    """Indirizzo di una pagina dal menu: nella stessa lingua se tradotta, altrimenti la versione italiana; gli esempi sono file statici in docs/<lingua>/."""
     if page in EXAMPLES:
-        return f"../{page}.html"
+        return f"{page}.html"
     return f"{page}.html" if translated else f"../it/{page}.html"
 
 
@@ -427,6 +427,8 @@ def main():
         (OUT / lang).mkdir(exist_ok=True)
         for old in (OUT / lang).glob("*.html"):
             old.unlink()
+        for f in (SRC / "examples" / lang).glob("*.html"):     # le pagine d'esempio sono file statici, copiati così come sono
+            shutil.copyfile(f, OUT / lang / f.name)
         have = {f.stem for f in (SRC / lang).glob("*.html")}
         tok_layout, tok_colors = tokens_table(lang)
         index = []
@@ -439,7 +441,6 @@ def main():
             body = body.replace("<!--icons-->", icons_grid())
             body = body.replace("<!--tokens-layout-->", tok_layout).replace("<!--tokens-colors-->", tok_colors)
             body = body.replace("<!--snippets-->", snippets_table(lang))
-            body = re.sub(r'href="(dashboard|dashboard-sidebar)\.html"', r'href="../\1.html"', body)   # gli esempi stanno in docs/
             if lang != "it":    # un link a una pagina non ancora tradotta porta alla versione italiana
                 body = re.sub(r'href="([a-z-]+)\.html', lambda m: m.group(0) if (m.group(1) in have or m.group(1) in EXAMPLES) else 'href="../it/' + m.group(1) + ".html", body)
             body = body.strip("\n")   # niente rientro: i blocchi <pre> devono restare com'erano
@@ -460,8 +461,8 @@ def main():
                 body = markdown_lite(re.sub(r"<!--(title|desc):.*?-->\n?", "", text, flags=re.S))
                 index += [["../it/" + e[0]] + e[1:] for e in search_entries(f.stem, title, desc, body)]
         u = UI[lang]
-        index.append(["../dashboard", "Dashboard", "", "Dashboard", u["ex_dashboard"], "kit-header kit-card kit-kpi kit-table"])
-        index.append(["../dashboard-sidebar", NAV_TITLE_SIDEBAR[lang], "", NAV_TITLE_SIDEBAR[lang], u["ex_sidebar"], "kit-app kit-sidebar kit-side-link kit-header"])
+        index.append(["dashboard", "Dashboard", "", "Dashboard", u["ex_dashboard"], "kit-header kit-card kit-kpi kit-table"])
+        index.append(["dashboard-sidebar", NAV_TITLE_SIDEBAR[lang], "", NAV_TITLE_SIDEBAR[lang], u["ex_sidebar"], "kit-app kit-sidebar kit-side-link kit-header"])
         (OUT / lang / "search-index.js").write_text(
             "/* Indice della ricerca, generato da tools/gen-docs.py: non modificarlo a mano. */\n"
             "window.DOC_SEARCH = " + json.dumps(index, ensure_ascii=False, separators=(",", ":")) + ";\n", encoding="utf-8")

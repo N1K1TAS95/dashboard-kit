@@ -55,7 +55,7 @@ Griglia a 12 colonne con flexbox, con gli stessi nomi di Bootstrap (prefisso `ki
 - Tipografia: titoli, `kit-display-*`, `kit-lead`, `kit-quote`, `kit-prose` e utility `kit-fs-*`, `kit-fw-*`, `kit-lh-*`, `kit-uppercase`.
 - Utility flex e spazi: `kit-d-*`, `kit-flex-*`, `kit-justify-content-*`, `kit-align-items-*`, `kit-gap-*`, `kit-m*-N`, `kit-p*-N`, `kit-w-100`, `kit-h-100`.
 - `kit-bar` è la barra di elementi affiancati (toolbar), diversa da `kit-row` della griglia.
-- Un esempio completo è in `docs/dashboard.html`.
+- Un esempio completo è in `docs/it/dashboard.html`.
 
 Il blocco della griglia in `dist/kit.css` è **generato**: per cambiare breakpoint, scala degli spazi o numero di colonne
 modifica le costanti in `tools/gen-grid.py` e lancia `python3 tools/gen-grid.py`.
