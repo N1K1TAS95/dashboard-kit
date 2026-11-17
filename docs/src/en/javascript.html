@@ -1,0 +1,110 @@
+<!--title: JavaScript-->
+<!--desc: JavaScript is optional. Without <code>kit.js</code> all the styling works; you only need it for the parts that move: theme, tabs, select, menus, dialogs and toasts.-->
+<h2 id="principles">Principles</h2>
+<ul>
+  <li>No dependencies and no build step: a single file, <code>dist/kit.js</code>.</li>
+  <li>It is activated with <code>data-kit-*</code> attributes, without writing code.</li>
+  <li>It uses no <code>innerHTML</code>, <code>eval</code> or inline scripts: it works with <code>script-src 'self'</code>.</li>
+  <li>Handlers are delegated to the document, so they also apply to HTML added after load.</li>
+</ul>
+
+<h2 id="attributes">Attributes</h2>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table">
+  <thead><tr><th>Attribute</th><th>Where</th><th>What it does</th></tr></thead>
+  <tbody>
+    <tr><td><code>data-kit-theme-set="auto|light|dark"</code></td><td>a button or a menu item</td><td>Sets the theme and remembers it.</td></tr>
+    <tr><td><code>data-kit-fs-set="md|lg|xl"</code></td><td>a button or a menu item</td><td>Sets the text size of the whole page and remembers it.</td></tr>
+    <tr><td><code>data-kit-fs-step="1|-1"</code></td><td>a button</td><td>Makes the text one step larger (<code>1</code>) or smaller (<code>-1</code>); it disables itself at the ends.</td></tr>
+    <tr><td><code>data-kit-reset</code></td><td>a button</td><td>Restores theme, text size and width (see the <a href="overlays.html#impostazioni">settings panel</a>).</td></tr>
+    <tr><td><code>data-kit-layout-set="boxed|fluid"</code></td><td>a button</td><td>Chooses centered or full-width content and remembers it.</td></tr>
+    <tr><td><code>data-kit-layout-toggle</code></td><td>a button</td><td>Switches between the two widths.</td></tr>
+    <tr><td><code>data-kit-nav="#id"</code></td><td>the button of a <a href="navbar.html">navbar</a></td><td>Opens or closes the given collapsible menu (<code>.kit-navbar-menu</code>); Esc or a click outside closes it.</td></tr>
+    <tr><td><code>data-kit-toggle="#id"</code></td><td>a button</td><td>Opens or closes the given <code>.kit-pop</code>.</td></tr>
+    <tr><td><code>data-kit-select</code></td><td><code>.kit-select</code></td><td>Turns the list of options into a select. On a native <code>&lt;select&gt;</code> it replaces it with the kit's menu (<a href="form-controls.html#select-nativo">details</a>).</td></tr>
+    <tr><td><code>data-kit-tabs</code></td><td><code>.kit-tabs</code></td><td>Activates the tabs; each <code>.kit-tab</code> has <code>data-kit-panel="#id"</code>.</td></tr>
+    <tr><td><code>data-kit-open="#id"</code></td><td>a button</td><td>Opens the given <code>&lt;dialog&gt;</code>.</td></tr>
+    <tr><td><code>data-kit-confirm="Question?"</code></td><td>a button, a link or a <code>&lt;form&gt;</code></td><td>First asks for confirmation in a dialog; the action goes on only if the user confirms. See <a href="overlays.html#conferma">Asking for confirmation</a>.</td></tr>
+    <tr><td><code>data-kit-sort</code>, <code>data-kit-filter="#id"</code>, <code>data-kit-page="N"</code></td><td><code>&lt;table&gt;</code>; the search field; <code>&lt;table&gt;</code></td><td>Sorting from the headers, text filter and pagination (<a href="tables.html#ordinamento">details</a>).</td></tr>
+    <tr><td><code>data-kit-datepicker</code>, <code>data-kit-timepicker</code>, <code>data-kit-daterange</code></td><td><code>&lt;input type="date|datetime-local|time"&gt;</code>; a container with two date fields</td><td>Calendar, time picker and date range, with an ISO value in the form (<a href="dates.html">details</a>).</td></tr>
+    <tr><td><code>data-kit-validate</code>, <code>data-kit-password</code>, <code>data-kit-count="#id"</code></td><td>a <code>&lt;form&gt;</code>; a button next to a password field; a text element</td><td>Validation with messages and states, show/hide password, character counter (<a href="form-layout.html#validazione">details</a>).</td></tr>
+    <tr><td><code>data-kit-close</code></td><td>inside a <code>&lt;dialog&gt;</code></td><td>Closes the dialog.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="api">API</h2>
+```js
+Kit.toast("Saved!");            // temporary message; options: type, title, duration, position, action, progress (see Dialogs and menus)
+Kit.toast.clear();              // closes all toasts
+await Kit.confirm("Delete?", { danger: true });      // confirmation dialog → true / false (options: text, confirm, cancel, danger, type)
+Kit.undo("Deleted", { onUndo, onCommit });           // the action happens now, with an "Undo" toast; onCommit if it is not undone
+Kit.theme.get();                // "auto" | "light" | "dark"
+Kit.theme.set("dark");          // sets and saves the theme
+Kit.fontSize.get();             // "sm" | "md" | "lg" | "xl"
+Kit.fontSize.set("lg");         // sets and saves the text size
+Kit.fontSize.step(1);           // one step larger (-1: smaller)
+Kit.reset();                    // restores theme, text and width
+Kit.layout.get();               // "boxed" | "fluid"
+Kit.layout.set("fluid");        // full-width content (remembered)
+Kit.layout.toggle();            // switches
+Kit.table("#table", { sort: true, size: 10 });     // sorting, filter and pages of a table (see Tables); Kit.paginate("#table", 10) for pages only
+Kit.datepicker("#due");         // calendar on a date, date-time or time field (see Dates and times); Kit.daterange("#period") for the range
+Kit.validate("#form");          // checks a form (true/false) and marks its fields; Kit.validate.reset(form) clears states and messages
+Kit.date.parse("3/5/26");       // "2026-03-05" (Kit.date.format, Kit.date.today); the day/month order depends on the language
+Kit.i18n.lang("en");            // language of the kit's texts (see Languages)
+Kit.init(element);              // re-reads selects and tabs in an area added after load
+```
+<div class="doc-demo kit-bar" data-doc-js='Kit.toast("Saved!");'>
+  <button class="kit-btn kit-btn-primary" data-doc-toast="Saved!">Show a toast</button>
+  <button class="kit-btn" data-kit-theme-set="light">Light theme</button>
+  <button class="kit-btn" data-kit-theme-set="dark">Dark theme</button>
+  <button class="kit-btn" data-kit-theme-set="auto">Automatic</button>
+</div>
+
+<h2 id="languages">Languages</h2>
+<p>The texts <code>kit.js</code> writes by itself (the "Cancel" and "Confirm" buttons, labels for screen readers, "No results", table pages, the calendar) come from a dictionary per language. <b>English</b> (the base language) and <b>Italian</b> are built in. The language is the one in <code>&lt;html lang="…"&gt;</code>: without the attribute English is used, so on an Italian page remember to write <code>&lt;html lang="it"&gt;</code>.</p>
+<p>With a language that has a region (<code>pt-BR</code>) it looks for that first, then the language without the region (<code>pt</code>), then English: a dictionary can contain only what changes. Attributes and options (<code>data-kit-empty</code>, <code>Kit.confirm(…, { cancel })</code>) always win over the dictionary.</p>
+<p>The calendar and the tables follow the language too: the date order (<code>mm/dd/yyyy</code> in English, <code>dd/mm/yyyy</code> in Italian), the first day of the week (Sunday in English, Monday in Italian), month and day names, and the decimal separator used to sort the numbers in a column (<code>1,250.50</code> or <code>1.250,50</code>). The submitted value is always ISO.</p>
+```js
+Kit.i18n.lang();                 // "en": the language in use (from <html lang>)
+Kit.i18n.lang("de");             // sets it by hand, ignoring <html lang>; Kit.i18n.lang("") goes back to <html lang>
+
+// Another language: just write what you need, the rest stays in English
+Kit.i18n.add("de", {
+    cancel: "Abbrechen", confirm: "Bestätigen", close: "Schließen", noResults: "Keine Ergebnisse",
+    num: { dec: "," },
+    date: { order: "dmy", first: 1, months: ["Januar", /* … */], days: ["mo", "di", /* … */], t: { today: "Heute", clear: "Löschen" } }
+});
+
+// A regional variant: British English writes the day before the month and starts the week on Monday
+Kit.i18n.add("en-GB", { date: { order: "dmy", first: 1 } });
+```
+<p>The keys are in the dictionary at the top of <code>dist/kit.js</code> (<code>I18N</code>): <code>en</code> is the complete model. <code>Kit.i18n.t("cancel")</code> reads an entry in the current language. Languages must be added before the page builds the components: put <code>Kit.i18n.add(…)</code> right after <code>kit.js</code>.</p>
+
+<h2 id="events">Events</h2>
+<p>They are <code>CustomEvent</code>s that bubble up the DOM: listen on the document or on the element.</p>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table">
+  <thead><tr><th>Event</th><th>On</th><th><code>detail</code></th></tr></thead>
+  <tbody>
+    <tr><td><code>kit:change</code></td><td><code>.kit-select</code></td><td><code>{ value }</code>: the chosen <code>data-value</code> (for a native select also <code>label</code>)</td></tr>
+    <tr><td><code>kit:sort</code>, <code>kit:filter</code>, <code>kit:page</code></td><td><code>&lt;table&gt;</code></td><td><code>{ column, direction }</code>, <code>{ query, count }</code>, <code>{ page, pages, size, total }</code></td></tr>
+    <tr><td><code>kit:change</code></td><td>date, time or range field</td><td><code>{ value, display }</code> (ISO and the field's text) or <code>{ from, to }</code></td></tr>
+    <tr><td><code>kit:invalid</code></td><td><code>&lt;form data-kit-validate&gt;</code></td><td><code>{ fields }</code>: the fields that are invalid at submit time</td></tr>
+    <tr><td><code>kit:tab</code></td><td><code>.kit-tabs</code></td><td><code>{ tab }</code>: the activated tab element</td></tr>
+    <tr><td><code>kit:theme</code></td><td><code>&lt;html&gt;</code></td><td>the theme that was set</td></tr>
+    <tr><td><code>kit:fs</code></td><td><code>&lt;html&gt;</code></td><td>the text size that was set (<code>sm</code>, <code>md</code>, <code>lg</code> or <code>xl</code>)</td></tr>
+    <tr><td><code>kit:reset</code></td><td><code>&lt;html&gt;</code></td><td>the settings were restored</td></tr>
+    <tr><td><code>kit:layout</code></td><td><code>&lt;html&gt;</code></td><td>the width that was set (<code>boxed</code> or <code>fluid</code>)</td></tr>
+  </tbody>
+</table></div></div>
+```js
+document.addEventListener("kit:change", (e) => {
+  console.log("Chosen:", e.detail.value);
+});
+```
+
+<h2 id="keyboard">Keyboard</h2>
+<ul>
+  <li><b>Open menus and selects</b>: up/down arrows to move through the items, Enter or Space to choose, Esc to close (focus returns to the button).</li>
+  <li><b>Tabs</b>: left/right arrows move to the neighboring tab.</li>
+  <li><b>Dialog</b>: Esc closes it (native behavior); so does a click on the backdrop.</li>
+</ul>

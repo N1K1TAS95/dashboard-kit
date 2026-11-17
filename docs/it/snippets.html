@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Snippet VS Code — Dashboard Kit</title>
+<meta name="description" content="Digita il prefisso e premi Tab: l&#x27;editor scrive il markup del componente, con i campi da compilare.">
+<script src="../../dist/kit.js"></script>
+<link rel="stylesheet" href="../../dist/kit.css">
+<link rel="stylesheet" href="../docs.css">
+</head>
+<body>
+<!-- Pagina generata da tools/gen-docs.py a partire da docs/src/it/snippets.html: non modificarla a mano. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="i-chev-up" viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></symbol>
+<symbol id="i-chev-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
+<symbol id="i-chev-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+<symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5m0 0-6 6m6-6 6 6"/></symbol>
+<symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14m0 0-6-6m6 6 6-6"/></symbol>
+<symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5m0 0 6-6m-6 6 6 6"/></symbol>
+<symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></symbol>
+<symbol id="i-expand" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></symbol>
+<symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V4m0 0L8 8m4-4 4 4M5 20h14"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.5-3.5L4 9m0-5v5h5M4 13a8 8 0 0 0 14.5 3.5L20 15m0 5v-5h-5"/></symbol>
+<symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4zM13.5 6.5l4 4"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></symbol>
+<symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8L3 5z"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h8m4 0h4M4 17h4m4 0h8"/><circle cx="14" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+<symbol id="i-more" viewBox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01"/></symbol>
+<symbol id="i-more-v" viewBox="0 0 24 24"><path d="M12 5h.01M12 12h.01M12 19h.01"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7M6 10v10h4v-6h4v6h4V10"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0 1 16 0"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4l2-2zM10 21h4"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM14 3v5h5"/></symbol>
+<symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6a1 1 0 0 1 1-1h5l2 2h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6z"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-text" viewBox="0 0 24 24"><path d="M4 7V5h16v2M12 5v14M9 19h6"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+<symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+<symbol id="i-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 3 3 5-6"/></symbol>
+<symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3.5 2.5 20h19L12 3.5z"/><path d="M12 10v4.5M12 17.5h.01"/></symbol>
+<symbol id="i-error" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/></symbol>
+</defs></svg>
+<header class="kit-header">
+  <div class="kit-container-boxed">
+    <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
+    <span class="kit-spacer"></span>
+    <div class="kit-combo doc-search" role="search">
+      <svg class="kit-icon"><use href="#i-search"/></svg>
+      <input class="kit-input" type="text" placeholder="Cerca…" aria-label="Cerca nella documentazione" spellcheck="false">
+      <kbd aria-hidden="true">/</kbd>
+    </div>
+    <a class="kit-btn kit-btn-ghost" href="../en/index.html" hreflang="en" lang="en" title="Lingua">English</a>
+    <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
+    <div class="kit-dropdown">
+      <button class="kit-btn kit-btn-icon" data-kit-toggle="#settings" aria-haspopup="true" aria-expanded="false" aria-label="Impostazioni" title="Impostazioni"><svg class="kit-icon"><use href="#i-sliders"/></svg></button>
+      <div class="kit-pop kit-pop-right kit-settings" id="settings" role="group" aria-label="Impostazioni" hidden>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Tema</span>
+          <div class="kit-seg" role="group" aria-label="Tema">
+            <button data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg>Auto</button>
+            <button data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg>Chiaro</button>
+            <button data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg>Scuro</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Dimensione del testo</span>
+          <div class="kit-seg" role="group" aria-label="Dimensione del testo">
+            <button data-kit-fs-set="md" aria-label="Normale" title="Normale">A</button>
+            <button data-kit-fs-set="lg" aria-label="Grande" title="Grande">A</button>
+            <button data-kit-fs-set="xl" aria-label="Molto grande" title="Molto grande">A</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Larghezza del contenuto</span>
+          <div class="kit-seg" role="group" aria-label="Larghezza del contenuto">
+            <button data-kit-layout-set="boxed">Centrata</button>
+            <button data-kit-layout-set="fluid">Tutta la pagina</button>
+          </div>
+          <small>Si nota sugli schermi più larghi del contenuto.</small>
+        </div>
+        <div class="kit-settings-foot"><button class="kit-btn kit-btn-ghost" data-kit-reset>Ripristina</button></div>
+      </div>
+    </div>
+  </div>
+</header>
+<main class="kit-main">
+<div class="kit-container-boxed">
+<div class="kit-row kit-gy-0">
+  <aside class="kit-col-12 kit-col-lg-3">
+    <nav class="doc-nav" aria-label="Documentazione">
+      <details class="doc-nav-d" open>
+        <summary class="kit-btn">Menu della documentazione</summary>
+        <div class="doc-nav-body">
+          <div class="doc-nav-group">Per iniziare</div>
+          <a href="index.html">Introduzione</a>
+          <a href="javascript.html">JavaScript</a>
+          <div class="doc-nav-group">Fondamenta</div>
+          <a href="layout.html">Layout</a>
+          <a href="grid.html">Griglia</a>
+          <a href="utilities.html">Utility</a>
+          <a href="typography.html">Tipografia</a>
+          <a href="icons.html">Icone</a>
+          <a href="buttons.html">Bottoni</a>
+          <div class="doc-nav-group">Form</div>
+          <a href="forms.html">Campi base</a>
+          <a href="form-layout.html">Layout e validazione</a>
+          <a href="form-controls.html">Select e file</a>
+          <a href="dates.html">Date e orari</a>
+          <div class="doc-nav-group">Navigazione</div>
+          <a href="navbar.html">Navbar</a>
+          <a href="sidebar.html">Sidebar</a>
+          <a href="navigation.html">Tab e breadcrumb</a>
+          <div class="doc-nav-group">Dati</div>
+          <a href="tables.html">Tabelle</a>
+          <a href="charts.html">Grafici</a>
+          <a href="cards.html">Schede e dettagli</a>
+          <div class="doc-nav-group">Feedback e overlay</div>
+          <a href="feedback.html">Avvisi e avanzamento</a>
+          <a href="overlays.html">Dialog e menu</a>
+          <a href="accordion.html">Accordion</a>
+          <div class="doc-nav-group">Personalizzare</div>
+          <a href="theming.html">Temi e token</a>
+          <a href="snippets.html" class="is-current" aria-current="page">Snippet VS Code</a>
+          <ul class="doc-toc">
+            <li><a href="#installazione">Installazione</a></li>
+            <li><a href="#elenco">Elenco dei prefissi</a></li>
+          </ul>
+          <div class="doc-nav-group">Esempi</div>
+          <a href="../dashboard.html">Dashboard <span class="kit-badge kit-badge-neutral">esempio</span></a>
+          <a href="../dashboard-sidebar.html">Dashboard con sidebar <span class="kit-badge kit-badge-neutral">esempio</span></a>
+        </div>
+      </details>
+    </nav>
+  </aside>
+  <article class="kit-col-12 kit-col-lg-9 doc-content">
+    <h1 class="doc-title">Snippet VS Code</h1>
+    <p class="doc-lead">Digita il prefisso e premi Tab: l'editor scrive il markup del componente, con i campi da compilare.</p>
+<h2 id="installazione">Installazione</h2>
+<ul>
+  <li><b>Solo un progetto</b>: copia <code>vscode/dashboard-kit.code-snippets</code> nella cartella <code>.vscode/</code> del progetto.</li>
+  <li><b>Tutti i progetti</b>: in VS Code apri <em>Preferences: Configure Snippets → New Global Snippets file</em> e incolla il contenuto del file.</li>
+</ul>
+<p>Poi, in un file <code>.html</code>, scrivi per esempio <code>kit-card</code> e premi Tab. Con <code>kit-page</code> ottieni una pagina intera; con <code>kit-dash</code> lo schema di una dashboard (KPI, grafico con laterale, tabella).</p>
+
+<h2 id="elenco">Elenco dei prefissi</h2>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>Prefisso</th><th>Componente</th></tr></thead><tbody>
+<tr><td><code>kit-accordion</code></td><td>Accordion con voci apribili (details), opzionalmente una sola aperta</td></tr>
+<tr><td><code>kit-alert</code></td><td>Avviso con bordo colorato (success, warning, danger, neutral)</td></tr>
+<tr><td><code>kit-alert-close</code></td><td>Avviso con bottone di chiusura</td></tr>
+<tr><td><code>kit-alert-icon</code></td><td>Avviso con icona (serve il simbolo nello sprite SVG)</td></tr>
+<tr><td><code>kit-badge</code></td><td>Badge (success, warning, danger, neutral)</td></tr>
+<tr><td><code>kit-bar</code></td><td>Barra di elementi affiancati (toolbar, filtri)</td></tr>
+<tr><td><code>kit-breadcrumb</code></td><td>Percorso di navigazione (breadcrumb)</td></tr>
+<tr><td><code>kit-btn</code></td><td>Bottone (varianti: primary, ghost, danger, icon, lg)</td></tr>
+<tr><td><code>kit-btn-icon</code></td><td>Bottone quadrato con sola icona (sprite SVG)</td></tr>
+<tr><td><code>kit-btn-primary</code></td><td>Bottone primario</td></tr>
+<tr><td><code>kit-card</code></td><td>Card con intestazione, corpo e piè di pagina</td></tr>
+<tr><td><code>kit-chart</code></td><td>Grafico a barre in SVG (richiede kit.js)</td></tr>
+<tr><td><code>kit-check-cards</code></td><td>Radio a schede</td></tr>
+<tr><td><code>kit-chip</code></td><td>Chip rimovibile</td></tr>
+<tr><td><code>kit-code</code></td><td>Blocco di codice colorato (con bottone Copia)</td></tr>
+<tr><td><code>kit-col</code></td><td>Colonna della griglia (12 su telefono, N/12 da un breakpoint)</td></tr>
+<tr><td><code>kit-combo</code></td><td>Campo con elenco di suggerimenti (richiede kit.js)</td></tr>
+<tr><td><code>kit-container</code></td><td>Contenitore centrato (segue l&#x27;interruttore data-layout; -boxed sempre centrato)</td></tr>
+<tr><td><code>kit-container-fluid</code></td><td>Contenitore sempre a tutta larghezza</td></tr>
+<tr><td><code>kit-control</code></td><td>Campo con icona a sinistra e bottone a destra (anche mostra/nascondi password)</td></tr>
+<tr><td><code>kit-dash</code></td><td>Schema tipico: KPI in alto, grafico + laterale, tabella</td></tr>
+<tr><td><code>kit-date</code></td><td>Campo data con il calendario del kit (gg/mm/aaaa, valore ISO)</td></tr>
+<tr><td><code>kit-daterange</code></td><td>Intervallo dal-al con calendario a due mesi e scelte rapide</td></tr>
+<tr><td><code>kit-datetime</code></td><td>Campo data e ora con calendario e colonne di ore e minuti</td></tr>
+<tr><td><code>kit-dialog</code></td><td>Dialog con bottone di apertura (richiede kit.js)</td></tr>
+<tr><td><code>kit-dropdown</code></td><td>Bottone con menu a comparsa (richiede kit.js)</td></tr>
+<tr><td><code>kit-empty</code></td><td>Messaggio di stato vuoto</td></tr>
+<tr><td><code>kit-field</code></td><td>Campo con etichetta</td></tr>
+<tr><td><code>kit-field</code></td><td>Campo con etichetta, aiuto e messaggio di errore</td></tr>
+<tr><td><code>kit-float</code></td><td>Campo con l&#x27;etichetta dentro che sale</td></tr>
+<tr><td><code>kit-form</code></td><td>Form con campi in colonna e validazione nel browser</td></tr>
+<tr><td><code>kit-form-h</code></td><td>Form con l&#x27;etichetta a sinistra</td></tr>
+<tr><td><code>kit-grid</code></td><td>Griglia responsive (kit-grid-2 / kit-grid-3 per colonne fisse)</td></tr>
+<tr><td><code>kit-header</code></td><td>Intestazione fissa con marchio</td></tr>
+<tr><td><code>kit-header-container</code></td><td>Intestazione il cui contenuto si allinea a quello della pagina</td></tr>
+<tr><td><code>kit-icon</code></td><td>Icona dallo sprite (kit-icons.js)</td></tr>
+<tr><td><code>kit-input-group</code></td><td>Campo con testo o bottone attaccato</td></tr>
+<tr><td><code>kit-kpi</code></td><td>Scheda con etichetta, valore e variazione</td></tr>
+<tr><td><code>kit-kv</code></td><td>Elenco chiave/valore</td></tr>
+<tr><td><code>kit-layout</code></td><td>Imposta la larghezza: boxed (centrato) o fluid (a tutta larghezza)</td></tr>
+<tr><td><code>kit-layout-toggle</code></td><td>Bottone che alterna contenuto centrato / a tutta larghezza (richiede kit.js)</td></tr>
+<tr><td><code>kit-list</code></td><td>Lista di voci impilate (card unite)</td></tr>
+<tr><td><code>kit-meter</code></td><td>Misura rispetto a un limite, con soglie (richiede kit.js per lo stato automatico)</td></tr>
+<tr><td><code>kit-navbar</code></td><td>Navbar con voci e menu a scomparsa (richiede kit.js)</td></tr>
+<tr><td><code>kit-page</code></td><td>Scheletro di pagina con Dashboard Kit (CSS + JS opzionale)</td></tr>
+<tr><td><code>kit-pill</code></td><td>Pill selezionabile con contatore</td></tr>
+<tr><td><code>kit-progress</code></td><td>Barra di avanzamento (0–100%)</td></tr>
+<tr><td><code>kit-prose</code></td><td>Contenitore per testi lunghi: righe comode e interlinea larga</td></tr>
+<tr><td><code>kit-quote</code></td><td>Citazione con la fonte</td></tr>
+<tr><td><code>kit-row</code></td><td>Riga della griglia a 12 colonne</td></tr>
+<tr><td><code>kit-row-cols</code></td><td>Riga con numero fisso di colonne per riga (2 su telefono, 4 da lg)</td></tr>
+<tr><td><code>kit-search</code></td><td>Campo di ricerca con icona e scorciatoia</td></tr>
+<tr><td><code>kit-seg</code></td><td>Controllo segmentato (scegli una voce)</td></tr>
+<tr><td><code>kit-select</code></td><td>Select con elenco di opzioni (richiede kit.js)</td></tr>
+<tr><td><code>kit-settings</code></td><td>Pannello delle impostazioni: tema, dimensione del testo, larghezza (richiede kit.js)</td></tr>
+<tr><td><code>kit-sidebar</code></td><td>Pagina con sidebar a sinistra e intestazione (richiede kit.js)</td></tr>
+<tr><td><code>kit-skeleton</code></td><td>Segnaposto di caricamento</td></tr>
+<tr><td><code>kit-stats</code></td><td>Riga di statistiche</td></tr>
+<tr><td><code>kit-switch</code></td><td>Interruttore on/off</td></tr>
+<tr><td><code>kit-table</code></td><td>Tabella con intestazione e riga di esempio</td></tr>
+<tr><td><code>kit-table-sort</code></td><td>Tabella con ordinamento, ricerca e paginazione</td></tr>
+<tr><td><code>kit-tabs</code></td><td>Tab con pannelli (richiede kit.js)</td></tr>
+<tr><td><code>kit-theme</code></td><td>Imposta il tema: auto, light o dark</td></tr>
+<tr><td><code>kit-time</code></td><td>Campo ora (hh:mm) con selettore di ore e minuti</td></tr>
+<tr><td><code>kit-tip</code></td><td>Attributi del tooltip (su qualsiasi elemento)</td></tr>
+<tr><td><code>kit-toast</code></td><td>Messaggio temporaneo (richiede kit.js)</td></tr>
+</tbody></table></div></div>
+    <nav class="doc-pager" aria-label="Pagina precedente e successiva">
+      <a href="theming.html"><small>← Precedente</small><b>Temi e token</b></a>
+      <span></span>
+    </nav>
+  </article>
+</div>
+</div>
+</main>
+<script src="search-index.js"></script>
+<script src="../docs.js"></script>
+</body>
+</html>

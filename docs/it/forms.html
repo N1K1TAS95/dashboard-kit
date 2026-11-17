@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>Accordion — Dashboard Kit</title>
-<meta name="description" content="Sezioni che si aprono e si chiudono, costruite su &amp;lt;details&amp;gt;: anche senza JavaScript, da tastiera e con gli screen reader.">
-<script src="../dist/kit.js"></script>
-<link rel="stylesheet" href="../dist/kit.css">
-<link rel="stylesheet" href="docs.css">
+<title>Form: campi base — Dashboard Kit</title>
+<meta name="description" content="Campo di testo, ricerca, casella di spunta e interruttore. L&#x27;altezza di bottoni e campi è la stessa (--kit-ctl), così stanno bene sulla stessa riga.">
+<script src="../../dist/kit.js"></script>
+<link rel="stylesheet" href="../../dist/kit.css">
+<link rel="stylesheet" href="../docs.css">
 </head>
 <body>
-<!-- Pagina generata da tools/gen-docs.py a partire da docs/src/accordion.html: non modificarla a mano. -->
+<!-- Pagina generata da tools/gen-docs.py a partire da docs/src/it/forms.html: non modificarla a mano. -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
 <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
 <symbol id="i-chev-up" viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></symbol>
@@ -64,6 +64,7 @@
       <input class="kit-input" type="text" placeholder="Cerca…" aria-label="Cerca nella documentazione" spellcheck="false">
       <kbd aria-hidden="true">/</kbd>
     </div>
+    <a class="kit-btn kit-btn-ghost" href="../en/index.html" hreflang="en" lang="en" title="Lingua">English</a>
     <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
     <div class="kit-dropdown">
       <button class="kit-btn kit-btn-icon" data-kit-toggle="#settings" aria-haspopup="true" aria-expanded="false" aria-label="Impostazioni" title="Impostazioni"><svg class="kit-icon"><use href="#i-sliders"/></svg></button>
@@ -116,7 +117,13 @@
           <a href="icons.html">Icone</a>
           <a href="buttons.html">Bottoni</a>
           <div class="doc-nav-group">Form</div>
-          <a href="forms.html">Campi base</a>
+          <a href="forms.html" class="is-current" aria-current="page">Campi base</a>
+          <ul class="doc-toc">
+            <li><a href="#campi">Campi</a></li>
+            <li><a href="#ricerca">Ricerca</a></li>
+            <li><a href="#casella">Casella di spunta e piè di form</a></li>
+            <li><a href="#interruttore">Interruttore</a></li>
+          </ul>
           <a href="form-layout.html">Layout e validazione</a>
           <a href="form-controls.html">Select e file</a>
           <a href="dates.html">Date e orari</a>
@@ -131,96 +138,70 @@
           <div class="doc-nav-group">Feedback e overlay</div>
           <a href="feedback.html">Avvisi e avanzamento</a>
           <a href="overlays.html">Dialog e menu</a>
-          <a href="accordion.html" class="is-current" aria-current="page">Accordion</a>
-          <ul class="doc-toc">
-            <li><a href="#accordion">Accordion</a></li>
-          </ul>
+          <a href="accordion.html">Accordion</a>
           <div class="doc-nav-group">Personalizzare</div>
           <a href="theming.html">Temi e token</a>
           <a href="snippets.html">Snippet VS Code</a>
           <div class="doc-nav-group">Esempi</div>
-          <a href="dashboard.html">Dashboard <span class="kit-badge kit-badge-neutral">esempio</span></a>
-          <a href="dashboard-sidebar.html">Dashboard con sidebar <span class="kit-badge kit-badge-neutral">esempio</span></a>
+          <a href="../dashboard.html">Dashboard <span class="kit-badge kit-badge-neutral">esempio</span></a>
+          <a href="../dashboard-sidebar.html">Dashboard con sidebar <span class="kit-badge kit-badge-neutral">esempio</span></a>
         </div>
       </details>
     </nav>
   </aside>
   <article class="kit-col-12 kit-col-lg-9 doc-content">
-    <h1 class="doc-title">Accordion</h1>
-    <p class="doc-lead">Sezioni che si aprono e si chiudono, costruite su <code>&lt;details&gt;</code>: anche senza JavaScript, da tastiera e con gli screen reader.</p>
-<h2 id="accordion">Accordion</h2>
-<p>Un elenco di sezioni che si aprono e si chiudono, costruito sull'elemento nativo <code>&lt;details&gt;</code>: funziona anche senza JavaScript, si usa da tastiera (Invio e Spazio sul titolo) ed è già leggibile dagli screen reader. Il contenitore è <code>kit-accordion</code>, ogni voce è un <code>&lt;details&gt;</code> figlio diretto con un <code>&lt;summary&gt;</code> come titolo e il contenuto dentro <code>kit-accordion-body</code>. <code>open</code> sul <code>&lt;details&gt;</code> lo apre di partenza. Dove il browser lo supporta l'apertura è animata (con «riduci animazioni» no).</p>
+    <h1 class="doc-title">Form: campi base</h1>
+    <p class="doc-lead">Campo di testo, ricerca, casella di spunta e interruttore. L'altezza di bottoni e campi è la stessa (<code>--kit-ctl</code>), così stanno bene sulla stessa riga.</p>
+<h2 id="campi">Campi</h2>
+<p><code>.kit-field</code> è l'etichetta con il campo sotto; <code>.kit-input</code> si applica a <code>&lt;input&gt;</code>. <code>.kit-fields</code> dispone più campi in una griglia che si adatta.</p>
 <div class="doc-demo">
-  <div class="kit-accordion">
-    <details open>
-      <summary>Come si emette una fattura?</summary>
-      <div class="kit-accordion-body"><p>Dal menu <strong>Fatture</strong> si sceglie «Nuova», si compilano cliente e righe e si salva: il numero viene assegnato in automatico.</p></div>
-    </details>
-    <details>
-      <summary>Posso modificarla dopo l'invio?</summary>
-      <div class="kit-accordion-body"><p>No: una fattura inviata si corregge con una nota di credito e una nuova fattura.</p></div>
-    </details>
-    <details>
-      <summary>Dove trovo le fatture scartate?</summary>
-      <div class="kit-accordion-body"><p>Nell'elenco, con il filtro «Scartata». Il motivo dello scarto è nel dettaglio.</p></div>
-    </details>
+  <div class="kit-fields">
+    <label class="kit-field">Nome <input class="kit-input" placeholder="Mario Rossi"></label>
+    <label class="kit-field">Data <input class="kit-input" type="date"></label>
+    <label class="kit-field">Importo <input class="kit-input" type="number" step="0.01" placeholder="€"></label>
+    <label class="kit-field kit-field-wide">Nota <input class="kit-input" placeholder="Occupa due colonne (kit-field-wide)"><small>Un testo di aiuto sotto il campo.</small></label>
   </div>
 </div>
 
-<h3 id="accordion-single">Uno solo aperto</h3>
-<p><code>data-kit-accordion="single"</code> (richiede <code>kit.js</code>) chiude le altre voci quando se ne apre una; se più voci partono aperte resta aperta solo la prima. Senza JavaScript lo stesso effetto si ottiene con lo stesso <code>name="…"</code> su tutti i <code>&lt;details&gt;</code>, che i browser recenti rispettano da soli. Un accordion dentro la voce di un altro è indipendente.</p>
+<p>Il resto dei form è in queste pagine: <a href="form-layout.html">Layout e validazione</a> (etichette, aiuto, form in colonna, in griglia e orizzontali, stati valido e non valido con i messaggi di errore, validazione, dimensioni, icone dentro i campi, gruppi e schede selezionabili), <a href="form-controls.html">Select e file</a> (select personalizzato, campo file, zona di rilascio, combobox) e <a href="dates.html">Date e orari</a> (calendario opzionale, pensato anche per il telefono).</p>
+
+<h2 id="ricerca">Ricerca</h2>
+<p>Campo con lente e scorciatoia da tastiera. Si allunga per riempire la riga (<code>flex: 1</code>).</p>
 <div class="doc-demo">
-  <div class="kit-accordion" data-kit-accordion="single">
-    <details open><summary>Anagrafica</summary><div class="kit-accordion-body">Ragione sociale, partita IVA e sede.</div></details>
-    <details><summary>Contatti</summary><div class="kit-accordion-body">Email, PEC e telefono.</div></details>
-    <details><summary>Pagamenti</summary><div class="kit-accordion-body">IBAN e condizioni di pagamento.</div></details>
+  <div class="kit-bar">
+    <label class="kit-search"><svg class="kit-icon"><use href="#i-search"/></svg><input class="kit-input" type="search" placeholder="Cerca…" aria-label="Cerca"><kbd>/</kbd></label>
+    <button class="kit-btn kit-btn-primary">Cerca</button>
   </div>
 </div>
 
-<h3 id="accordion-meta">Con un'etichetta e dentro una card</h3>
-<p><code>kit-accordion-meta</code> dentro il <code>&lt;summary&gt;</code> mette a destra un conteggio o un badge, prima della freccia. <code>kit-accordion-flush</code> toglie il riquadro e le ombre, per l'accordion dentro una card o un pannello.</p>
+<h2 id="casella">Casella di spunta e piè di form</h2>
 <div class="doc-demo">
-  <section class="kit-card">
-    <div class="kit-card-body">
-      <div class="kit-accordion kit-accordion-flush">
-        <details open>
-          <summary>Da emettere <span class="kit-accordion-meta"><span class="kit-badge kit-badge-warning">3</span></span></summary>
-          <div class="kit-accordion-body">Tre fatture in bozza.</div>
-        </details>
-        <details>
-          <summary>Scartate <span class="kit-accordion-meta"><span class="kit-badge kit-badge-danger">1</span></span></summary>
-          <div class="kit-accordion-body">Una fattura scartata dal Sistema di Interscambio.</div>
-        </details>
-        <details>
-          <summary>Archiviate <span class="kit-accordion-meta">128</span></summary>
-          <div class="kit-accordion-body">Le fatture degli anni precedenti.</div>
-        </details>
-      </div>
+  <div class="kit-form-foot">
+    <label class="kit-check"><input type="checkbox" checked> Nascondi duplicati</label>
+    <div class="kit-btn-group">
+      <button class="kit-btn">Azzera</button>
+      <button class="kit-btn kit-btn-primary">Applica</button>
     </div>
-  </section>
+  </div>
 </div>
 
-<h3 id="accordion-js">JavaScript</h3>
-<p><code>Kit.accordion(elemento, { single })</code> fa lo stesso da codice e restituisce <code>{ open(x), close(x), toggle(x), openAll(), closeAll(), items() }</code>, dove <code>x</code> è la posizione (da 0) o il <code>&lt;details&gt;</code>. Ogni apertura e chiusura lancia <code>kit:accordion</code> con <code>{ item, index, open }</code>. In stampa tutte le voci si mostrano aperte.</p>
-<div class="doc-demo" data-doc-nocode>
-  <pre class="kit-code" data-kit-code="js">const acc = Kit.accordion("#faq", { single: true });
-
-acc.open(2);        // apre la terza voce (e chiude le altre)
-acc.closeAll();
-
-document.querySelector("#faq").addEventListener("kit:accordion", (e) =&gt; {
-  console.log(e.detail.index, e.detail.open);
-});</pre>
+<h2 id="interruttore">Interruttore</h2>
+<p>Un on/off che ha effetto subito, al contrario della casella di spunta che si conferma con un pulsante. È un normale <code>&lt;input type="checkbox"&gt;</code> con <code>role="switch"</code>: <code>checked</code>, <code>disabled</code> e l'evento <code>change</code> funzionano come sempre. <code>kit-switch-between</code> mette il testo a sinistra e l'interruttore all'estremo destro.</p>
+<div class="doc-demo kit-stack">
+  <label class="kit-switch"><input type="checkbox" role="switch" checked> Nascondi duplicati</label>
+  <label class="kit-switch"><input type="checkbox" role="switch"> Mostra anche le scartate</label>
+  <label class="kit-switch"><input type="checkbox" role="switch" disabled> Non disponibile</label>
+  <label class="kit-switch kit-switch-between"><span>Notifiche</span><input type="checkbox" role="switch" checked></label>
 </div>
     <nav class="doc-pager" aria-label="Pagina precedente e successiva">
-      <a href="overlays.html"><small>← Precedente</small><b>Dialog e menu</b></a>
-      <a class="doc-next" href="theming.html"><small>Successiva →</small><b>Temi e token</b></a>
+      <a href="buttons.html"><small>← Precedente</small><b>Bottoni</b></a>
+      <a class="doc-next" href="form-layout.html"><small>Successiva →</small><b>Layout e validazione</b></a>
     </nav>
   </article>
 </div>
 </div>
 </main>
 <script src="search-index.js"></script>
-<script src="docs.js"></script>
+<script src="../docs.js"></script>
 </body>
 </html>

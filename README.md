@@ -39,10 +39,10 @@ Or locally, by copying the files in `dist/`:
 If your site has a Content-Security-Policy, remember to allow `https://cdn.jsdelivr.net`
 in `style-src` and `script-src`.
 
-**Documentation:** https://n1k1tas95.github.io/dashboard-kit/ (locally: `docs/index.html`), one page per topic:
+**Documentation:** https://n1k1tas95.github.io/dashboard-kit/ (locally: `docs/en/index.html`), one page per topic:
 introduction, JavaScript, layout, grid, utilities, buttons, forms, navigation, navbar, sidebar, tabs, tables, content, feedback (alerts, badges),
 dialogs and menus, icons, themes and tokens, VS Code snippets. Every example has its copyable code.
-*The documentation is currently in Italian; the English translation is in progress. Class names, attributes and code are the same in both.*
+*The documentation is available in English and Italian (menu: "Italiano" / "English"); the English translation is in progress and pages not yet translated open in Italian. Class names, attributes and code are the same in both.*
 
 ## Languages
 
@@ -93,11 +93,13 @@ edit the constants in `tools/gen-grid.py` and run `python3 tools/gen-grid.py`.
 
 ## Working on the project
 - `dist/kit.css`, `dist/kit.js`: the framework, written by hand (except the grid block, see above).
-- `docs/src/*.html`: the **content** of the documentation pages. The pages in `docs/*.html` are **generated**:
-  after a change run `python3 tools/gen-docs.py` (it adds the menu, indexes, previous/next links, the token and
-  snippet tables, and the SRI hashes of the version set in `VERSION`).
-- To add a page: create `docs/src/name.html` with the lines `<!--title: …-->` and `<!--desc: …-->` and add it to `NAV`
-  in `tools/gen-docs.py`.
+- `docs/src/<lang>/*.html` (`en`, `it`): the **content** of the documentation pages, one folder per language. The pages in `docs/<lang>/*.html`
+  are **generated**: after a change run `python3 tools/gen-docs.py` (it adds the menu, indexes, previous/next links, the token and
+  snippet tables, the search index and the SRI hashes of the version set in `VERSION`). A page that exists only in `docs/src/it/`
+  is shown in the English menu with an "IT" badge and links to the Italian version, so translating is incremental: add the file
+  to `docs/src/en/` and it takes over.
+- To add a page: create `docs/src/it/name.html` (and `docs/src/en/name.html`) with the lines `<!--title: …-->` and `<!--desc: …-->`,
+  and add it to `NAV_IT` and `NAV_EN` in `tools/gen-docs.py`.
 - Examples are `<div class="doc-demo">…</div>`: the code below is generated from their content.
 
 ## What's included

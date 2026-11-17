@@ -1,0 +1,74 @@
+<!--title: Introduction-->
+<!--desc: Dashboard Kit is a small CSS framework, with optional JavaScript, for building dashboards. A single file, no dependencies, light and dark themes, and a 12-column grid like Bootstrap.-->
+<h2 id="installation">Installation</h2>
+<p>From a CDN (jsDelivr), with the version pinned and the <code>integrity</code> attribute (SRI): if the file were tampered with, the browser rejects it.</p>
+```html
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v{{version}}/dist/kit.css"
+      integrity="{{sri-css}}"
+      crossorigin="anonymous">
+
+<!-- optional: theme, select, tabs, dialog, menus, toasts -->
+<script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v{{version}}/dist/kit.js"
+        integrity="{{sri-js}}"
+        crossorigin="anonymous"></script>
+```
+<p>Or locally: copy <code>dist/kit.css</code> (and <code>dist/kit.js</code>) into your project and link them with a relative path.</p>
+<p class="kit-alert">If your site has a Content-Security-Policy, allow <code>https://cdn.jsdelivr.net</code> in <code>style-src</code> and <code>script-src</code>. Avoid <code>@main</code> or <code>@latest</code>: they are not pinned versions and jsDelivr caches them for hours.</p>
+<p class="kit-alert">The texts <code>kit.js</code> writes by itself (button labels, "No results", the calendar…) follow <code>&lt;html lang&gt;</code>: English if missing, Italian with <code>lang="it"</code>. See <a href="javascript.html#languages">Languages</a>.</p>
+
+<h2 id="page-template">Page template</h2>
+<p>The minimal skeleton with a fixed header and a grid for the content. In the editor you get it by typing <code>kit-page</code> + Tab (see <a href="snippets.html">VS Code snippets</a>).</p>
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>My dashboard</title>
+  <script src="dist/kit.js"></script>
+  <link rel="stylesheet" href="dist/kit.css">
+</head>
+<body>
+<header class="kit-header">
+  <h1 class="kit-brand">Name <span>app</span></h1>
+</header>
+<main class="kit-main">
+  <div class="kit-container">
+    <div class="kit-row">
+      <div class="kit-col-12 kit-col-lg-8"><section class="kit-card kit-card-body">…</section></div>
+      <div class="kit-col-12 kit-col-lg-4"><section class="kit-card kit-card-body">…</section></div>
+    </div>
+  </div>
+</main>
+</body>
+</html>
+```
+
+<h2 id="icons">Icons</h2>
+<p>The kit does not include icons: <code>.kit-icon</code> only gives an <code>&lt;svg&gt;</code> its size and stroke. You use an inline sprite in the page and call it with <code>&lt;use&gt;</code>, so the icons take the text color.</p>
+```html
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+</defs></svg>
+
+<button class="kit-btn"><svg class="kit-icon"><use href="#i-search"/></svg>Search</button>
+```
+
+<h2 id="browsers">Supported browsers</h2>
+<p>The light/dark colors use <code>light-dark()</code>, so you need Chrome/Edge 123+, Safari 17.5+ or Firefox 120+. The rest (flexbox, grid, <code>color-mix()</code>, <code>:has()</code> only in the documentation pages) is supported by those same versions.</p>
+
+<h2 id="from-bootstrap">If you know Bootstrap</h2>
+<p>The grid, the utilities and the names follow Bootstrap, with the <code>kit-</code> prefix. The differences to keep in mind:</p>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table">
+  <thead><tr><th>Bootstrap</th><th>Dashboard Kit</th><th>Note</th></tr></thead>
+  <tbody>
+    <tr><td><code>.row</code>, <code>.col-md-6</code></td><td><code>.kit-row</code>, <code>.kit-col-md-6</code></td><td>Identical, but with default gutters equal to <code>--kit-sp</code> (they tighten on phones).</td></tr>
+    <tr><td><code>.btn btn-primary</code></td><td><code>.kit-btn kit-btn-primary</code></td><td>Variants are separate classes, not double-dash modifiers.</td></tr>
+    <tr><td><code>.d-flex</code>, <code>.mt-3</code></td><td><code>.kit-d-flex</code>, <code>.kit-mt-3</code></td><td>Spacing scale 0–5 in px: 0, 4, 8, 16, 24, 48.</td></tr>
+    <tr><td><code>.modal</code>, <code>.dropdown</code></td><td><code>&lt;dialog class="kit-dialog"&gt;</code>, <code>.kit-dropdown</code></td><td>The dialog is the browser's native element.</td></tr>
+    <tr><td>Theme with <code>data-bs-theme</code></td><td><code>data-theme</code> on <code>&lt;html&gt;</code></td><td>Automatic by default, can be forced to light or dark.</td></tr>
+    <tr><td><code>xxl</code> breakpoint</td><td>—</td><td>Not present: add it in <code>tools/gen-grid.py</code>.</td></tr>
+  </tbody>
+</table></div></div>

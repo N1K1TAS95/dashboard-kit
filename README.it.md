@@ -22,7 +22,7 @@ Oppure in locale, copiando i file di `dist/`:
 Se il sito ha una Content-Security-Policy, ricordati di autorizzare `https://cdn.jsdelivr.net`
 in `style-src` e `script-src`.
 
-**Documentazione:** https://n1k1tas95.github.io/dashboard-kit/ (in locale: `docs/index.html`), con una pagina per argomento:
+**Documentazione:** https://n1k1tas95.github.io/dashboard-kit/ (in locale: `docs/it/index.html`), con una pagina per argomento:
 introduzione, JavaScript, layout, griglia, utility, bottoni, form, navigazione, navbar, sidebar, schede, tabelle, contenuti, feedback (avvisi, badge),
 dialog e menu, icone, temi e token, snippet VS Code. Ogni esempio ha il suo codice da copiare.
 
@@ -62,11 +62,13 @@ modifica le costanti in `tools/gen-grid.py` e lancia `python3 tools/gen-grid.py`
 
 ## Lavorare sul progetto
 - `dist/kit.css`, `dist/kit.js`: il framework, scritto a mano (tranne il blocco della griglia, vedi sopra).
-- `docs/src/*.html`: il **contenuto** delle pagine di documentazione. Le pagine in `docs/*.html` sono **generate**:
-  dopo una modifica lancia `python3 tools/gen-docs.py` (aggiunge menu, indici, link avanti/indietro, tabelle dei token e degli
-  snippet, e gli hash SRI della versione indicata in `VERSION`).
-- Per aggiungere una pagina: crea `docs/src/nome.html` con le righe `<!--title: …-->` e `<!--desc: …-->` e inseriscila in `NAV`
-  dentro `tools/gen-docs.py`.
+- `docs/src/<lingua>/*.html` (`en`, `it`): il **contenuto** delle pagine di documentazione, una cartella per lingua. Le pagine in
+  `docs/<lingua>/*.html` sono **generate**: dopo una modifica lancia `python3 tools/gen-docs.py` (aggiunge menu, indici, link
+  avanti/indietro, tabelle dei token e degli snippet, indice di ricerca e gli hash SRI della versione indicata in `VERSION`).
+  Una pagina che esiste solo in `docs/src/it/` compare nel menu inglese con la sigla «IT» e porta alla versione italiana: si traduce
+  poco alla volta, e basta aggiungere il file in `docs/src/en/`.
+- Per aggiungere una pagina: crea `docs/src/it/nome.html` (e `docs/src/en/nome.html`) con le righe `<!--title: …-->` e `<!--desc: …-->`
+  e inseriscila in `NAV_IT` e `NAV_EN` dentro `tools/gen-docs.py`.
 - Gli esempi sono `<div class="doc-demo">…</div>`: il codice sotto si genera da solo dal loro contenuto.
 
 ## Cosa c'è

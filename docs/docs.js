@@ -1,5 +1,34 @@
 // Solo per la documentazione, non fa parte del framework.
 
+/* ---------- Testi della documentazione, per lingua (quella di <html lang>) ----------
+   Gli esempi di grafici e combobox (più sotto) usano ancora dati in italiano: si traducono insieme alle loro pagine. */
+var DOC_T = {
+    en: {
+        copy: "Copy", copied: "Copied", copyFail: "Copy failed", page: "Page", showPages: "Show the pages", more: "{n} more results: type more to narrow down",
+        undone: "Action undone", valid: "All valid: the form would have been sent.", value: "Value: ",
+        filesOne: " file accepted", filesMany: " files accepted", filesNone: "No file", rejected: ", {n} rejected", rejected1: ", 1 rejected",
+        archive: "Archive the invoice?", archiveText: "You will find it again in the archive.", archiveOk: "Archive", archived: "Invoice archived", cancelled: "Cancelled",
+        del12: "Delete 12 invoices?", del12Text: "This cannot be undone.", del12Ok: "Delete 12 invoices", del12Done: "12 invoices deleted",
+        delYear: "Delete the 2024 archive?", delYearText: "312 invoices will be deleted. This cannot be undone.", delYearOk: "Delete the archive", delYearType: "Archive 2024", delYearDone: "Archive deleted",
+        reading: "Reading the invoices…", readingCancel: "Reading cancelled", readingN: "Reading {i} of 20", moment: "Just a moment…",
+        invDeleted: "Invoice deleted", finalDeleted: "Deleted permanently"
+    },
+    it: {
+        copy: "Copia", copied: "Copiato", copyFail: "Copia non riuscita", page: "Pagina", showPages: "Mostra le pagine", more: "Altri {n} risultati: scrivi di più per restringere",
+        undone: "Operazione annullata", valid: "Tutto valido: il form sarebbe partito.", value: "Valore: ",
+        filesOne: " file accettato", filesMany: " file accettati", filesNone: "Nessun file", rejected: ", {n} scartati", rejected1: ", 1 scartato",
+        archive: "Archiviare la fattura?", archiveText: "Potrai ritrovarla nell'archivio.", archiveOk: "Archivia", archived: "Fattura archiviata", cancelled: "Annullato",
+        del12: "Eliminare 12 fatture?", del12Text: "L'operazione non si può annullare.", del12Ok: "Elimina 12 fatture", del12Done: "12 fatture eliminate",
+        delYear: "Eliminare l'archivio 2024?", delYearText: "Verranno cancellate 312 fatture. Non si può annullare.", delYearOk: "Elimina l'archivio", delYearType: "Archivio 2024", delYearDone: "Archivio eliminato",
+        reading: "Lettura delle fatture…", readingCancel: "Lettura annullata", readingN: "Lettura {i} di 20", moment: "Un momento…",
+        invDeleted: "Fattura eliminata", finalDeleted: "Eliminata definitivamente"
+    }
+};
+function D(key, vars) {
+    var l = (document.documentElement.lang || "en").slice(0, 2) === "it" ? "it" : "en";
+    return String(DOC_T[l][key]).replace(/\{(\w+)\}/g, function (m, n) { return vars && vars[n] !== undefined ? vars[n] : m; });
+}
+
 /* ---------- Snippet: il codice di ogni esempio, generato dalla pagina stessa ----------
    Va eseguito PRIMA che kit.js inizializzi la pagina (DOMContentLoaded), altrimenti
    nel codice mostrato finirebbero gli attributi aggiunti a runtime (role, aria-selected…).
@@ -44,7 +73,7 @@
     function copy(text, btn) {
         function done(ok) {
             var old = btn.textContent;
-            btn.textContent = ok ? "Copiato" : "Copia non riuscita";
+            btn.textContent = ok ? D("copied") : D("copyFail");
             setTimeout(function () { btn.textContent = old; }, 1500);
         }
         if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -67,7 +96,7 @@
         var btn = document.createElement("button");
         btn.type = "button";
         btn.className = "kit-btn kit-btn-ghost doc-copy";
-        btn.textContent = "Copia";
+        btn.textContent = D("copy");
         btn.addEventListener("click", function () { copy(code, btn); });
         box.appendChild(btn);
 
@@ -104,47 +133,47 @@ document.addEventListener("click", function (e) {
     if (d.docTitle) o.title = d.docTitle;
     if (d.docDuration !== undefined) o.duration = Number(d.docDuration);
     if (d.docPos) o.position = d.docPos;
-    if (d.docAction) o.action = { label: d.docAction, onClick: function () { Kit.toast("Operazione annullata", { type: "success", duration: 2000 }); } };
+    if (d.docAction) o.action = { label: d.docAction, onClick: function () { Kit.toast(D("undone"), { type: "success", duration: 2000 }); } };
     Kit.toast(t.getAttribute("data-doc-toast"), o);
 });
 
 // <button data-doc-run="nome">: esegue l'esempio con quel nome (il codice mostrato sotto l'esempio è quello di data-doc-js)
 var DOC_RUN = {
     "confirm-base": function () {
-        Kit.confirm("Archiviare la fattura?", { text: "Potrai ritrovarla nell'archivio.", confirm: "Archivia" }).then(function (ok) {
-            Kit.toast(ok ? "Fattura archiviata" : "Annullato", { type: ok ? "success" : undefined, duration: 2500 });
+        Kit.confirm(D("archive"), { text: D("archiveText"), confirm: D("archiveOk") }).then(function (ok) {
+            Kit.toast(ok ? D("archived") : D("cancelled"), { type: ok ? "success" : undefined, duration: 2500 });
         });
     },
     "confirm-danger": function () {
-        Kit.confirm("Eliminare 12 fatture?", { text: "L'operazione non si può annullare.", confirm: "Elimina 12 fatture", danger: true }).then(function (ok) {
-            Kit.toast(ok ? "12 fatture eliminate" : "Annullato", { type: ok ? "danger" : undefined, duration: 2500 });
+        Kit.confirm(D("del12"), { text: D("del12Text"), confirm: D("del12Ok"), danger: true }).then(function (ok) {
+            Kit.toast(ok ? D("del12Done") : D("cancelled"), { type: ok ? "danger" : undefined, duration: 2500 });
         });
     },
     "confirm-type": function () {
-        Kit.confirm("Eliminare l'archivio 2024?", { text: "Verranno cancellate 312 fatture. Non si può annullare.", confirm: "Elimina l'archivio", danger: true, type: "Archivio 2024" }).then(function (ok) {
-            Kit.toast(ok ? "Archivio eliminato" : "Annullato", { type: ok ? "danger" : undefined, duration: 2500 });
+        Kit.confirm(D("delYear"), { text: D("delYearText"), confirm: D("delYearOk"), danger: true, type: D("delYearType") }).then(function (ok) {
+            Kit.toast(ok ? D("delYearDone") : D("cancelled"), { type: ok ? "danger" : undefined, duration: 2500 });
         });
     },
     "progress-bar": function () {
         var t, i = 0;
-        var p = Kit.progress("Lettura delle fatture…", { value: 0, onCancel: function () { clearInterval(t); Kit.toast("Lettura annullata", { duration: 2000 }); } });
+        var p = Kit.progress(D("reading"), { value: 0, onCancel: function () { clearInterval(t); Kit.toast(D("readingCancel"), { duration: 2000 }); } });
         t = setInterval(function () {
             i++;
-            p.update("Lettura " + i + " di 20", i / 20);
+            p.update(D("readingN", { i: i }), i / 20);
             if (i >= 20) { clearInterval(t); p.close(); }
         }, 120);
     },
     "progress-indet": function () {
-        var p = Kit.progress("Un momento…", { onCancel: function () {} });
+        var p = Kit.progress(D("moment"), { onCancel: function () {} });
         setTimeout(function () { p.close(); }, 2200);
     },
     "undo": function (btn) {
         var row = btn.closest("#doc-undo-row"), note = document.getElementById("doc-undo-note");
         row.hidden = true;
         note.hidden = false;
-        Kit.undo("Fattura eliminata", {
+        Kit.undo(D("invDeleted"), {
             onUndo: function () { row.hidden = false; note.hidden = true; },
-            onCommit: function () { note.hidden = true; row.hidden = false; Kit.toast("Eliminata definitivamente", { type: "danger", duration: 2500 }); }
+            onCommit: function () { note.hidden = true; row.hidden = false; Kit.toast(D("finalDeleted"), { type: "danger", duration: 2500 }); }
         });
     }
 };
@@ -173,7 +202,7 @@ document.addEventListener("submit", function (e) {
     var f = e.target;
     if (!(f instanceof HTMLFormElement) || !f.closest(".doc-demo")) return;
     e.preventDefault();
-    if (window.Kit && f.hasAttribute("data-kit-validate")) Kit.toast("Tutto valido: il form sarebbe partito.", { type: "success" });
+    if (window.Kit && f.hasAttribute("data-kit-validate")) Kit.toast(D("valid"), { type: "success" });
 });
 
 // Select: mostra il valore scelto nell'elemento [data-doc-out] dello stesso esempio
@@ -182,7 +211,7 @@ document.addEventListener("kit:change", function (e) {
     var out = demo && demo.querySelector("[data-doc-out]");
     if (!out) return;
     var d = e.detail;
-    out.textContent = "Valore: " + (d.value !== undefined ? d.value || "–" : (d.from || "–") + " → " + (d.to || "–"));
+    out.textContent = D("value") + (d.value !== undefined ? d.value || "–" : (d.from || "–") + " → " + (d.to || "–"));
 });
 
 // Esempi che si disegnano da soli al caricamento (data-doc-init="nome"); il codice mostrato è quello di data-doc-js.
@@ -256,7 +285,7 @@ document.addEventListener("kit:files", function (e) {
     var out = demo && demo.querySelector("[data-doc-out]");
     if (!out) return;
     var n = e.detail.files.length, r = e.detail.rejected.length;
-    out.textContent = (n ? n + (n === 1 ? " file accettato" : " file accettati") : "Nessun file") + (r ? ", " + r + " scartat" + (r === 1 ? "o" : "i") : "") + ".";
+    out.textContent = (n ? n + (n === 1 ? D("filesOne") : D("filesMany")) : D("filesNone")) + (r ? D(r === 1 ? "rejected1" : "rejected", { n: r }) : "") + ".";
 });
 
 // Ricerca: l'indice (search-index.js) lo genera tools/gen-docs.py. Il campo è un combobox del kit.
@@ -290,7 +319,7 @@ document.addEventListener("kit:files", function (e) {
 
     function hint(e, tokens) {
         var hit = e.classes.filter(function (c) { var n = norm(c); return tokens.some(function (t) { return n.indexOf(t) >= 0; }); });
-        var from = e.id ? e.pageTitle : "Pagina";
+        var from = e.id ? e.pageTitle : D("page");
         return hit.length ? from + " · " + hit.slice(0, 3).join(", ") : from;
     }
 
@@ -310,7 +339,7 @@ document.addEventListener("kit:files", function (e) {
     }
 
     var input = wrap.querySelector("input");
-    Kit.combo(wrap, { items: find, filter: false, max: 12, autoActive: true, empty: "Nessun risultato", more: "Altri {n} risultati: scrivi di più per restringere", buttonLabel: "Mostra le pagine" });
+    Kit.combo(wrap, { items: find, filter: false, max: 12, autoActive: true, more: D("more"), buttonLabel: D("showPages") });
     wrap.addEventListener("kit:change", function (e) {
         var url = e.detail.value;
         input.value = "";

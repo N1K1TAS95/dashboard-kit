@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>Icone — Dashboard Kit</title>
-<meta name="description" content="Le icone del kit: uno sprite SVG da includere con una riga di JavaScript.">
-<script src="../dist/kit.js"></script>
-<link rel="stylesheet" href="../dist/kit.css">
-<link rel="stylesheet" href="docs.css">
+<title>Bottoni — Dashboard Kit</title>
+<meta name="description" content="Bottoni di tutti i tipi e dimensioni. Un .kit-btn funziona su &amp;lt;button&amp;gt;, &amp;lt;a&amp;gt; e &amp;lt;label&amp;gt;.">
+<script src="../../dist/kit.js"></script>
+<link rel="stylesheet" href="../../dist/kit.css">
+<link rel="stylesheet" href="../docs.css">
 </head>
 <body>
-<!-- Pagina generata da tools/gen-docs.py a partire da docs/src/icons.html: non modificarla a mano. -->
+<!-- Pagina generata da tools/gen-docs.py a partire da docs/src/it/buttons.html: non modificarla a mano. -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
 <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
 <symbol id="i-chev-up" viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></symbol>
@@ -64,6 +64,7 @@
       <input class="kit-input" type="text" placeholder="Cerca…" aria-label="Cerca nella documentazione" spellcheck="false">
       <kbd aria-hidden="true">/</kbd>
     </div>
+    <a class="kit-btn kit-btn-ghost" href="../en/index.html" hreflang="en" lang="en" title="Lingua">English</a>
     <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
     <div class="kit-dropdown">
       <button class="kit-btn kit-btn-icon" data-kit-toggle="#settings" aria-haspopup="true" aria-expanded="false" aria-label="Impostazioni" title="Impostazioni"><svg class="kit-icon"><use href="#i-sliders"/></svg></button>
@@ -113,15 +114,15 @@
           <a href="grid.html">Griglia</a>
           <a href="utilities.html">Utility</a>
           <a href="typography.html">Tipografia</a>
-          <a href="icons.html" class="is-current" aria-current="page">Icone</a>
+          <a href="icons.html">Icone</a>
+          <a href="buttons.html" class="is-current" aria-current="page">Bottoni</a>
           <ul class="doc-toc">
-            <li><a href="#uso">Uso</a></li>
-            <li><a href="#installazione">Installazione</a></li>
-            <li><a href="#dimensioni">Dimensioni e colore</a></li>
-            <li><a href="#elenco">Elenco</a></li>
-            <li><a href="#nuove">Aggiungere un'icona</a></li>
+            <li><a href="#varianti">Varianti</a></li>
+            <li><a href="#dimensioni">Dimensioni</a></li>
+            <li><a href="#icone">Con icona</a></li>
+            <li><a href="#contatore">Con contatore</a></li>
+            <li><a href="#gruppo">Gruppo e link</a></li>
           </ul>
-          <a href="buttons.html">Bottoni</a>
           <div class="doc-nav-group">Form</div>
           <a href="forms.html">Campi base</a>
           <a href="form-layout.html">Layout e validazione</a>
@@ -143,57 +144,68 @@
           <a href="theming.html">Temi e token</a>
           <a href="snippets.html">Snippet VS Code</a>
           <div class="doc-nav-group">Esempi</div>
-          <a href="dashboard.html">Dashboard <span class="kit-badge kit-badge-neutral">esempio</span></a>
-          <a href="dashboard-sidebar.html">Dashboard con sidebar <span class="kit-badge kit-badge-neutral">esempio</span></a>
+          <a href="../dashboard.html">Dashboard <span class="kit-badge kit-badge-neutral">esempio</span></a>
+          <a href="../dashboard-sidebar.html">Dashboard con sidebar <span class="kit-badge kit-badge-neutral">esempio</span></a>
         </div>
       </details>
     </nav>
   </aside>
   <article class="kit-col-12 kit-col-lg-9 doc-content">
-    <h1 class="doc-title">Icone</h1>
-    <p class="doc-lead">Le icone del kit: uno sprite SVG da includere con una riga di JavaScript.</p>
-<h2 id="uso">Uso</h2>
-<p>Le icone sono tracciati su una griglia 24×24 che prendono il colore del testo (<code>currentColor</code>). Si usano con <code>&lt;svg class="kit-icon"&gt;</code> e <code>&lt;use&gt;</code>; il nome è l'id del simbolo, preceduto da <code>i-</code>.</p>
+    <h1 class="doc-title">Bottoni</h1>
+    <p class="doc-lead">Bottoni di tutti i tipi e dimensioni. Un <code>.kit-btn</code> funziona su <code>&lt;button&gt;</code>, <code>&lt;a&gt;</code> e <code>&lt;label&gt;</code>.</p>
+<h2 id="varianti">Varianti</h2>
 <div class="doc-demo">
-  <button class="kit-btn kit-btn-primary"><svg class="kit-icon"><use href="#i-download"/></svg>Scarica</button>
-  <button class="kit-btn kit-btn-icon" aria-label="Modifica"><svg class="kit-icon"><use href="#i-edit"/></svg></button>
-  <button class="kit-btn kit-btn-icon kit-btn-danger" aria-label="Elimina"><svg class="kit-icon"><use href="#i-trash"/></svg></button>
+  <div class="kit-bar">
+    <button class="kit-btn">Predefinito</button>
+    <button class="kit-btn kit-btn-primary">Primario</button>
+    <button class="kit-btn kit-btn-ghost">Ghost</button>
+    <button class="kit-btn kit-btn-danger">Pericolo</button>
+    <button class="kit-btn" disabled>Disabilitato</button>
+  </div>
 </div>
-<p>Un'icona da sola, senza testo, ha bisogno di un <code>aria-label</code> sul bottone che la contiene. Se è solo decorativa, aggiungi <code>aria-hidden="true"</code> all'<code>&lt;svg&gt;</code>.</p>
+<p><code>kit-btn-primary</code> per l'azione principale della schermata (una sola per area), <code>kit-btn-ghost</code> per azioni secondarie senza bordo, <code>kit-btn-danger</code> per quelle distruttive.</p>
 
-<h2 id="installazione">Installazione</h2>
-<p>Gli sprite non si possono caricare da un altro dominio con un <code>&lt;use&gt;</code> che punta a un file SVG: per questo il kit li inserisce con un piccolo script. Aggiungilo prima di chiudere <code>&lt;/body&gt;</code>:</p>
-<pre class="kit-code" data-kit-code="html"><code>&lt;script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.10.0/dist/kit-icons.js"
-        integrity="sha384-PCYmDMAsjPbQ1IBjABjLf51f2PwcqnPNlvwglhokh27UvWcJlz3wV1806KXPWgfH"
-        crossorigin="anonymous"&gt;&lt;/script&gt;</code></pre>
-<p>Se preferisci non usare JavaScript, copia il contenuto di <code>dist/kit-icons.svg</code> all'inizio del <code>&lt;body&gt;</code> (è quello che fa questa documentazione) oppure tieni nello sprite solo le icone che ti servono.</p>
-<p class="kit-alert">Se hai già un tuo sprite con gli stessi id, vale il primo che il browser trova: non c'è conflitto, ma controlla che le icone siano quelle che ti aspetti.</p>
-
-<h2 id="dimensioni">Dimensioni e colore</h2>
-<p>L'icona è 18px e prende il colore del testo. Per cambiarla usa <code>width</code>/<code>height</code> e <code>color</code>.</p>
+<h2 id="dimensioni">Dimensioni</h2>
+<p>L'altezza di base è <code>--kit-ctl</code> (40px), la stessa dei campi, così bottoni e input stanno allineati. <code>kit-btn-lg</code> la porta a 48px.</p>
 <div class="doc-demo">
-  <svg class="kit-icon" style="width: 14px; height: 14px"><use href="#i-info"/></svg>
-  <svg class="kit-icon"><use href="#i-info"/></svg>
-  <svg class="kit-icon" style="width: 28px; height: 28px"><use href="#i-info"/></svg>
-  <svg class="kit-icon" style="color: var(--kit-success)"><use href="#i-ok"/></svg>
-  <svg class="kit-icon" style="color: var(--kit-danger)"><use href="#i-error"/></svg>
+  <div class="kit-bar">
+    <button class="kit-btn">Normale</button>
+    <button class="kit-btn kit-btn-primary kit-btn-lg">Grande</button>
+  </div>
 </div>
 
-<h2 id="elenco">Elenco</h2>
-<p>Tutte le icone disponibili, con il nome da usare dopo <code>#i-</code>.</p>
-<div class="doc-icons"><div class="doc-icon"><svg class="kit-icon"><use href="#i-chev"/></svg><code>chev</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-chev-up"/></svg><code>chev-up</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-chev-left"/></svg><code>chev-left</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-chev-right"/></svg><code>chev-right</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-arrow-up"/></svg><code>arrow-up</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-arrow-down"/></svg><code>arrow-down</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-arrow-left"/></svg><code>arrow-left</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-arrow-right"/></svg><code>arrow-right</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-expand"/></svg><code>expand</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-external"/></svg><code>external</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-plus"/></svg><code>plus</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-minus"/></svg><code>minus</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-check"/></svg><code>check</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-x"/></svg><code>x</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-search"/></svg><code>search</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-download"/></svg><code>download</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-upload"/></svg><code>upload</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-refresh"/></svg><code>refresh</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-edit"/></svg><code>edit</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-trash"/></svg><code>trash</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-copy"/></svg><code>copy</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-filter"/></svg><code>filter</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-sliders"/></svg><code>sliders</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-menu"/></svg><code>menu</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-more"/></svg><code>more</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-more-v"/></svg><code>more-v</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-home"/></svg><code>home</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-user"/></svg><code>user</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-bell"/></svg><code>bell</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-calendar"/></svg><code>calendar</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-file"/></svg><code>file</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-folder"/></svg><code>folder</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-eye"/></svg><code>eye</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-sun"/></svg><code>sun</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-text"/></svg><code>text</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-moon"/></svg><code>moon</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-auto"/></svg><code>auto</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-info"/></svg><code>info</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-ok"/></svg><code>ok</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-warn"/></svg><code>warn</code></div><div class="doc-icon"><svg class="kit-icon"><use href="#i-error"/></svg><code>error</code></div></div>
+<h2 id="icone">Con icona</h2>
+<p>Metti il <code>&lt;svg class="kit-icon"&gt;</code> prima del testo. Per i bottoni di sola icona aggiungi <code>kit-btn-icon</code> (quadrato) e un <code>aria-label</code>.</p>
+<div class="doc-demo">
+  <div class="kit-bar">
+    <button class="kit-btn kit-btn-primary"><svg class="kit-icon"><use href="#i-download"/></svg>Scarica</button>
+    <button class="kit-btn kit-btn-icon" aria-label="Cerca"><svg class="kit-icon"><use href="#i-search"/></svg></button>
+    <button class="kit-btn kit-btn-ghost kit-btn-icon" aria-label="Scarica"><svg class="kit-icon"><use href="#i-download"/></svg></button>
+  </div>
+</div>
 
-<h2 id="nuove">Aggiungere un'icona</h2>
-<p>Le icone sono definite in <code>tools/icons.py</code> (nome → tracciati SVG). Aggiungi una riga, poi esegui <code>python3 tools/icons.py</code>: rigenera <code>dist/kit-icons.svg</code> e <code>dist/kit-icons.js</code>. Disegnale su 24×24, solo con tratto, senza colori fissi.</p>
+<h2 id="contatore">Con contatore</h2>
+<div class="doc-demo">
+  <button class="kit-btn">Filtri <span class="kit-count">3</span></button>
+</div>
+
+<h2 id="gruppo">Gruppo e link</h2>
+<div class="doc-demo">
+  <div class="kit-btn-group">
+    <button class="kit-btn">Uno</button>
+    <button class="kit-btn">Due</button>
+    <a class="kit-btn" href="#">Un link</a>
+  </div>
+</div>
     <nav class="doc-pager" aria-label="Pagina precedente e successiva">
-      <a href="typography.html"><small>← Precedente</small><b>Tipografia</b></a>
-      <a class="doc-next" href="buttons.html"><small>Successiva →</small><b>Bottoni</b></a>
+      <a href="icons.html"><small>← Precedente</small><b>Icone</b></a>
+      <a class="doc-next" href="forms.html"><small>Successiva →</small><b>Campi base</b></a>
     </nav>
   </article>
 </div>
 </div>
 </main>
 <script src="search-index.js"></script>
-<script src="docs.js"></script>
+<script src="../docs.js"></script>
 </body>
 </html>

@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>Snippet VS Code — Dashboard Kit</title>
-<meta name="description" content="Digita il prefisso e premi Tab: l&#x27;editor scrive il markup del componente, con i campi da compilare.">
-<script src="../dist/kit.js"></script>
-<link rel="stylesheet" href="../dist/kit.css">
-<link rel="stylesheet" href="docs.css">
+<title>Introduzione — Dashboard Kit</title>
+<meta name="description" content="Dashboard Kit è un piccolo framework CSS, con JavaScript opzionale, per costruire dashboard. Un solo file, nessuna dipendenza, tema chiaro e scuro, griglia a 12 colonne come Bootstrap.">
+<script src="../../dist/kit.js"></script>
+<link rel="stylesheet" href="../../dist/kit.css">
+<link rel="stylesheet" href="../docs.css">
 </head>
 <body>
-<!-- Pagina generata da tools/gen-docs.py a partire da docs/src/snippets.html: non modificarla a mano. -->
+<!-- Pagina generata da tools/gen-docs.py a partire da docs/src/it/index.html: non modificarla a mano. -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
 <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
 <symbol id="i-chev-up" viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></symbol>
@@ -64,6 +64,7 @@
       <input class="kit-input" type="text" placeholder="Cerca…" aria-label="Cerca nella documentazione" spellcheck="false">
       <kbd aria-hidden="true">/</kbd>
     </div>
+    <a class="kit-btn kit-btn-ghost" href="../en/index.html" hreflang="en" lang="en" title="Lingua">English</a>
     <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
     <div class="kit-dropdown">
       <button class="kit-btn kit-btn-icon" data-kit-toggle="#settings" aria-haspopup="true" aria-expanded="false" aria-label="Impostazioni" title="Impostazioni"><svg class="kit-icon"><use href="#i-sliders"/></svg></button>
@@ -106,7 +107,14 @@
         <summary class="kit-btn">Menu della documentazione</summary>
         <div class="doc-nav-body">
           <div class="doc-nav-group">Per iniziare</div>
-          <a href="index.html">Introduzione</a>
+          <a href="index.html" class="is-current" aria-current="page">Introduzione</a>
+          <ul class="doc-toc">
+            <li><a href="#installazione">Installazione</a></li>
+            <li><a href="#modello">Modello di pagina</a></li>
+            <li><a href="#icone">Icone</a></li>
+            <li><a href="#browser">Browser supportati</a></li>
+            <li><a href="#da-bootstrap">Se conosci Bootstrap</a></li>
+          </ul>
           <a href="javascript.html">JavaScript</a>
           <div class="doc-nav-group">Fondamenta</div>
           <a href="layout.html">Layout</a>
@@ -134,106 +142,92 @@
           <a href="accordion.html">Accordion</a>
           <div class="doc-nav-group">Personalizzare</div>
           <a href="theming.html">Temi e token</a>
-          <a href="snippets.html" class="is-current" aria-current="page">Snippet VS Code</a>
-          <ul class="doc-toc">
-            <li><a href="#installazione">Installazione</a></li>
-            <li><a href="#elenco">Elenco dei prefissi</a></li>
-          </ul>
+          <a href="snippets.html">Snippet VS Code</a>
           <div class="doc-nav-group">Esempi</div>
-          <a href="dashboard.html">Dashboard <span class="kit-badge kit-badge-neutral">esempio</span></a>
-          <a href="dashboard-sidebar.html">Dashboard con sidebar <span class="kit-badge kit-badge-neutral">esempio</span></a>
+          <a href="../dashboard.html">Dashboard <span class="kit-badge kit-badge-neutral">esempio</span></a>
+          <a href="../dashboard-sidebar.html">Dashboard con sidebar <span class="kit-badge kit-badge-neutral">esempio</span></a>
         </div>
       </details>
     </nav>
   </aside>
   <article class="kit-col-12 kit-col-lg-9 doc-content">
-    <h1 class="doc-title">Snippet VS Code</h1>
-    <p class="doc-lead">Digita il prefisso e premi Tab: l'editor scrive il markup del componente, con i campi da compilare.</p>
+    <h1 class="doc-title">Introduzione</h1>
+    <p class="doc-lead">Dashboard Kit è un piccolo framework CSS, con JavaScript opzionale, per costruire dashboard. Un solo file, nessuna dipendenza, tema chiaro e scuro, griglia a 12 colonne come Bootstrap.</p>
 <h2 id="installazione">Installazione</h2>
-<ul>
-  <li><b>Solo un progetto</b>: copia <code>vscode/dashboard-kit.code-snippets</code> nella cartella <code>.vscode/</code> del progetto.</li>
-  <li><b>Tutti i progetti</b>: in VS Code apri <em>Preferences: Configure Snippets → New Global Snippets file</em> e incolla il contenuto del file.</li>
-</ul>
-<p>Poi, in un file <code>.html</code>, scrivi per esempio <code>kit-card</code> e premi Tab. Con <code>kit-page</code> ottieni una pagina intera; con <code>kit-dash</code> lo schema di una dashboard (KPI, grafico con laterale, tabella).</p>
+<p>Da CDN (jsDelivr), con la versione fissata e l'attributo <code>integrity</code> (SRI): se il file venisse alterato, il browser lo rifiuta.</p>
+<pre class="kit-code" data-kit-code="html"><code>&lt;link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.10.0/dist/kit.css"
+      integrity="sha384-znCaG7h9kJLl62DAiNyMb9OH8yUsmerFcqlRH1huU4THVZIEyiT8s07zyKW3j/bK"
+      crossorigin="anonymous"&gt;
 
-<h2 id="elenco">Elenco dei prefissi</h2>
-<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>Prefisso</th><th>Componente</th></tr></thead><tbody>
-<tr><td><code>kit-accordion</code></td><td>Accordion con voci apribili (details), opzionalmente una sola aperta</td></tr>
-<tr><td><code>kit-alert</code></td><td>Avviso con bordo colorato (success, warning, danger, neutral)</td></tr>
-<tr><td><code>kit-alert-close</code></td><td>Avviso con bottone di chiusura</td></tr>
-<tr><td><code>kit-alert-icon</code></td><td>Avviso con icona (serve il simbolo nello sprite SVG)</td></tr>
-<tr><td><code>kit-badge</code></td><td>Badge (success, warning, danger, neutral)</td></tr>
-<tr><td><code>kit-bar</code></td><td>Barra di elementi affiancati (toolbar, filtri)</td></tr>
-<tr><td><code>kit-breadcrumb</code></td><td>Percorso di navigazione (breadcrumb)</td></tr>
-<tr><td><code>kit-btn</code></td><td>Bottone (varianti: primary, ghost, danger, icon, lg)</td></tr>
-<tr><td><code>kit-btn-icon</code></td><td>Bottone quadrato con sola icona (sprite SVG)</td></tr>
-<tr><td><code>kit-btn-primary</code></td><td>Bottone primario</td></tr>
-<tr><td><code>kit-card</code></td><td>Card con intestazione, corpo e piè di pagina</td></tr>
-<tr><td><code>kit-chart</code></td><td>Grafico a barre in SVG (richiede kit.js)</td></tr>
-<tr><td><code>kit-check-cards</code></td><td>Radio a schede</td></tr>
-<tr><td><code>kit-chip</code></td><td>Chip rimovibile</td></tr>
-<tr><td><code>kit-code</code></td><td>Blocco di codice colorato (con bottone Copia)</td></tr>
-<tr><td><code>kit-col</code></td><td>Colonna della griglia (12 su telefono, N/12 da un breakpoint)</td></tr>
-<tr><td><code>kit-combo</code></td><td>Campo con elenco di suggerimenti (richiede kit.js)</td></tr>
-<tr><td><code>kit-container</code></td><td>Contenitore centrato (segue l&#x27;interruttore data-layout; -boxed sempre centrato)</td></tr>
-<tr><td><code>kit-container-fluid</code></td><td>Contenitore sempre a tutta larghezza</td></tr>
-<tr><td><code>kit-control</code></td><td>Campo con icona a sinistra e bottone a destra (anche mostra/nascondi password)</td></tr>
-<tr><td><code>kit-dash</code></td><td>Schema tipico: KPI in alto, grafico + laterale, tabella</td></tr>
-<tr><td><code>kit-date</code></td><td>Campo data con il calendario del kit (gg/mm/aaaa, valore ISO)</td></tr>
-<tr><td><code>kit-daterange</code></td><td>Intervallo dal-al con calendario a due mesi e scelte rapide</td></tr>
-<tr><td><code>kit-datetime</code></td><td>Campo data e ora con calendario e colonne di ore e minuti</td></tr>
-<tr><td><code>kit-dialog</code></td><td>Dialog con bottone di apertura (richiede kit.js)</td></tr>
-<tr><td><code>kit-dropdown</code></td><td>Bottone con menu a comparsa (richiede kit.js)</td></tr>
-<tr><td><code>kit-empty</code></td><td>Messaggio di stato vuoto</td></tr>
-<tr><td><code>kit-field</code></td><td>Campo con etichetta</td></tr>
-<tr><td><code>kit-field</code></td><td>Campo con etichetta, aiuto e messaggio di errore</td></tr>
-<tr><td><code>kit-float</code></td><td>Campo con l&#x27;etichetta dentro che sale</td></tr>
-<tr><td><code>kit-form</code></td><td>Form con campi in colonna e validazione nel browser</td></tr>
-<tr><td><code>kit-form-h</code></td><td>Form con l&#x27;etichetta a sinistra</td></tr>
-<tr><td><code>kit-grid</code></td><td>Griglia responsive (kit-grid-2 / kit-grid-3 per colonne fisse)</td></tr>
-<tr><td><code>kit-header</code></td><td>Intestazione fissa con marchio</td></tr>
-<tr><td><code>kit-header-container</code></td><td>Intestazione il cui contenuto si allinea a quello della pagina</td></tr>
-<tr><td><code>kit-icon</code></td><td>Icona dallo sprite (kit-icons.js)</td></tr>
-<tr><td><code>kit-input-group</code></td><td>Campo con testo o bottone attaccato</td></tr>
-<tr><td><code>kit-kpi</code></td><td>Scheda con etichetta, valore e variazione</td></tr>
-<tr><td><code>kit-kv</code></td><td>Elenco chiave/valore</td></tr>
-<tr><td><code>kit-layout</code></td><td>Imposta la larghezza: boxed (centrato) o fluid (a tutta larghezza)</td></tr>
-<tr><td><code>kit-layout-toggle</code></td><td>Bottone che alterna contenuto centrato / a tutta larghezza (richiede kit.js)</td></tr>
-<tr><td><code>kit-list</code></td><td>Lista di voci impilate (card unite)</td></tr>
-<tr><td><code>kit-meter</code></td><td>Misura rispetto a un limite, con soglie (richiede kit.js per lo stato automatico)</td></tr>
-<tr><td><code>kit-navbar</code></td><td>Navbar con voci e menu a scomparsa (richiede kit.js)</td></tr>
-<tr><td><code>kit-page</code></td><td>Scheletro di pagina con Dashboard Kit (CSS + JS opzionale)</td></tr>
-<tr><td><code>kit-pill</code></td><td>Pill selezionabile con contatore</td></tr>
-<tr><td><code>kit-progress</code></td><td>Barra di avanzamento (0–100%)</td></tr>
-<tr><td><code>kit-prose</code></td><td>Contenitore per testi lunghi: righe comode e interlinea larga</td></tr>
-<tr><td><code>kit-quote</code></td><td>Citazione con la fonte</td></tr>
-<tr><td><code>kit-row</code></td><td>Riga della griglia a 12 colonne</td></tr>
-<tr><td><code>kit-row-cols</code></td><td>Riga con numero fisso di colonne per riga (2 su telefono, 4 da lg)</td></tr>
-<tr><td><code>kit-search</code></td><td>Campo di ricerca con icona e scorciatoia</td></tr>
-<tr><td><code>kit-seg</code></td><td>Controllo segmentato (scegli una voce)</td></tr>
-<tr><td><code>kit-select</code></td><td>Select con elenco di opzioni (richiede kit.js)</td></tr>
-<tr><td><code>kit-settings</code></td><td>Pannello delle impostazioni: tema, dimensione del testo, larghezza (richiede kit.js)</td></tr>
-<tr><td><code>kit-sidebar</code></td><td>Pagina con sidebar a sinistra e intestazione (richiede kit.js)</td></tr>
-<tr><td><code>kit-skeleton</code></td><td>Segnaposto di caricamento</td></tr>
-<tr><td><code>kit-stats</code></td><td>Riga di statistiche</td></tr>
-<tr><td><code>kit-switch</code></td><td>Interruttore on/off</td></tr>
-<tr><td><code>kit-table</code></td><td>Tabella con intestazione e riga di esempio</td></tr>
-<tr><td><code>kit-table-sort</code></td><td>Tabella con ordinamento, ricerca e paginazione</td></tr>
-<tr><td><code>kit-tabs</code></td><td>Tab con pannelli (richiede kit.js)</td></tr>
-<tr><td><code>kit-theme</code></td><td>Imposta il tema: auto, light o dark</td></tr>
-<tr><td><code>kit-time</code></td><td>Campo ora (hh:mm) con selettore di ore e minuti</td></tr>
-<tr><td><code>kit-tip</code></td><td>Attributi del tooltip (su qualsiasi elemento)</td></tr>
-<tr><td><code>kit-toast</code></td><td>Messaggio temporaneo (richiede kit.js)</td></tr>
-</tbody></table></div></div>
+&lt;!-- opzionale: tema, select, tab, dialog, menu, toast --&gt;
+&lt;script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.10.0/dist/kit.js"
+        integrity="sha384-dQ6RqrVbs6Kazmd+St8NrRXdUQVsrqThJfMmnfZsbiTk7FHoqOtvdeItwIwymvd6"
+        crossorigin="anonymous"&gt;&lt;/script&gt;</code></pre>
+<p>Oppure in locale: copia <code>dist/kit.css</code> (e <code>dist/kit.js</code>) nel progetto e collegali con un percorso relativo.</p>
+<p class="kit-alert">Se il sito ha una Content-Security-Policy, autorizza <code>https://cdn.jsdelivr.net</code> in <code>style-src</code> e <code>script-src</code>. Evita <code>@main</code> o <code>@latest</code>: non sono versioni fissate e jsDelivr le tiene in cache per ore.</p>
+<p class="kit-alert">I testi che <code>kit.js</code> scrive da solo (bottoni, «Nessun risultato», calendario…) seguono <code>&lt;html lang&gt;</code>: inglese se manca, italiano con <code>lang="it"</code>. Vedi <a href="javascript.html#lingue">Lingue</a>.</p>
+
+<h2 id="modello">Modello di pagina</h2>
+<p>Lo scheletro minimo con intestazione fissa e contenuto in griglia. Nell'editor lo ottieni scrivendo <code>kit-page</code> + Tab (vedi <a href="snippets.html">Snippet VS Code</a>).</p>
+<pre class="kit-code" data-kit-code="html"><code>&lt;!doctype html&gt;
+&lt;html lang="it"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;meta name="color-scheme" content="light dark"&gt;
+  &lt;title&gt;La mia dashboard&lt;/title&gt;
+  &lt;script src="dist/kit.js"&gt;&lt;/script&gt;
+  &lt;link rel="stylesheet" href="dist/kit.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;header class="kit-header"&gt;
+  &lt;h1 class="kit-brand"&gt;Nome &lt;span&gt;app&lt;/span&gt;&lt;/h1&gt;
+&lt;/header&gt;
+&lt;main class="kit-main"&gt;
+  &lt;div class="kit-container"&gt;
+    &lt;div class="kit-row"&gt;
+      &lt;div class="kit-col-12 kit-col-lg-8"&gt;&lt;section class="kit-card kit-card-body"&gt;…&lt;/section&gt;&lt;/div&gt;
+      &lt;div class="kit-col-12 kit-col-lg-4"&gt;&lt;section class="kit-card kit-card-body"&gt;…&lt;/section&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<h2 id="icone">Icone</h2>
+<p>Il kit non include icone: <code>.kit-icon</code> dà solo dimensione e tratto a un <code>&lt;svg&gt;</code>. Si usa uno sprite inline nella pagina e lo si richiama con <code>&lt;use&gt;</code>, così le icone prendono il colore del testo.</p>
+<pre class="kit-code" data-kit-code="html"><code>&lt;svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"&gt;&lt;defs&gt;
+  &lt;symbol id="i-search" viewBox="0 0 24 24"&gt;&lt;circle cx="11" cy="11" r="7"/&gt;&lt;path d="m20 20-3.5-3.5"/&gt;&lt;/symbol&gt;
+&lt;/defs&gt;&lt;/svg&gt;
+
+&lt;button class="kit-btn"&gt;&lt;svg class="kit-icon"&gt;&lt;use href="#i-search"/&gt;&lt;/svg&gt;Cerca&lt;/button&gt;</code></pre>
+
+<h2 id="browser">Browser supportati</h2>
+<p>I colori chiaro/scuro usano <code>light-dark()</code>, quindi servono Chrome/Edge 123+, Safari 17.5+ o Firefox 120+. Il resto (flexbox, grid, <code>color-mix()</code>, <code>:has()</code> nelle sole pagine di documentazione) è supportato da quelle stesse versioni.</p>
+
+<h2 id="da-bootstrap">Se conosci Bootstrap</h2>
+<p>La griglia, le utility e i nomi seguono Bootstrap, con il prefisso <code>kit-</code>. Le differenze da tenere a mente:</p>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table">
+  <thead><tr><th>Bootstrap</th><th>Dashboard Kit</th><th>Nota</th></tr></thead>
+  <tbody>
+    <tr><td><code>.row</code>, <code>.col-md-6</code></td><td><code>.kit-row</code>, <code>.kit-col-md-6</code></td><td>Identici, ma con gutter di base uguali a <code>--kit-sp</code> (si stringono sul telefono).</td></tr>
+    <tr><td><code>.btn btn-primary</code></td><td><code>.kit-btn kit-btn-primary</code></td><td>Le varianti sono classi separate, non modificatori con doppio trattino.</td></tr>
+    <tr><td><code>.d-flex</code>, <code>.mt-3</code></td><td><code>.kit-d-flex</code>, <code>.kit-mt-3</code></td><td>Scala degli spazi 0–5 in px: 0, 4, 8, 16, 24, 48.</td></tr>
+    <tr><td><code>.modal</code>, <code>.dropdown</code></td><td><code>&lt;dialog class="kit-dialog"&gt;</code>, <code>.kit-dropdown</code></td><td>Il dialog è l'elemento nativo del browser.</td></tr>
+    <tr><td>Tema con <code>data-bs-theme</code></td><td><code>data-theme</code> su <code>&lt;html&gt;</code></td><td>Automatico di base, forzabile a chiaro o scuro.</td></tr>
+    <tr><td>Breakpoint <code>xxl</code></td><td>—</td><td>Non presente: si aggiunge in <code>tools/gen-grid.py</code>.</td></tr>
+  </tbody>
+</table></div></div>
     <nav class="doc-pager" aria-label="Pagina precedente e successiva">
-      <a href="theming.html"><small>← Precedente</small><b>Temi e token</b></a>
       <span></span>
+      <a class="doc-next" href="javascript.html"><small>Successiva →</small><b>JavaScript</b></a>
     </nav>
   </article>
 </div>
 </div>
 </main>
 <script src="search-index.js"></script>
-<script src="docs.js"></script>
+<script src="../docs.js"></script>
 </body>
 </html>
