@@ -1,0 +1,47 @@
+# Dashboard Kit
+
+> A CSS framework with optional JavaScript for dashboards, used with server-rendered pages (Django + htmx). One CSS file, no build step, no dependencies, light and dark themes, a 12-column grid. All classes start with `kit-`; the theme is made of `--kit-*` custom properties.
+
+## Install
+
+- Copy `dist/kit.css` (required), `dist/kit.js` (optional: theme, select, popover, tabs, dialog, toast, sortable tables...) and `dist/kit-icons.js` (optional SVG icon sprite), or load them from jsDelivr pinned to a tag: `https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.10.0/dist/kit.css`.
+- Set `<html lang="en">` (or `it`): the JS messages follow the page language.
+- Use only classes documented in the pages below. Do not invent `kit-*` classes: look them up in `kit-components.json` or `llms-full.txt`.
+
+## Machine-readable
+
+- [llms-full.txt](https://n1k1tas95.github.io/dashboard-kit/llms-full.txt): the whole documentation as Markdown, with the markup of every example.
+- [kit-components.json](https://n1k1tas95.github.io/dashboard-kit/kit-components.json): for each page and section, the `kit-*` classes, `data-kit-*` attributes, `Kit.*` functions and `--kit-*` variables it uses.
+- [AGENTS.md](https://n1k1tas95.github.io/dashboard-kit/AGENTS.md): rules for working on this repository (not needed to use the kit).
+
+## Documentation
+
+- [Accordion](https://n1k1tas95.github.io/dashboard-kit/en/accordion.html): Sections that open and close, built on `<details>`: also without JavaScript, from the keyboard and with screen readers.
+- [Buttons](https://n1k1tas95.github.io/dashboard-kit/en/buttons.html): Buttons of all kinds and sizes. A `.kit-btn` works on `<button>`, `<a>` and `<label>`.
+- [Cards and details](https://n1k1tas95.github.io/dashboard-kit/en/cards.html): Cards, KPI cards, stats row, lists, key/value pairs and code blocks: the containers and details of a dashboard.
+- [Charts](https://n1k1tas95.github.io/dashboard-kit/en/charts.html): Bars, lines, donut and sparklines in SVG, no libraries. They require `kit.js`.
+- [Dates and times](https://n1k1tas95.github.io/dashboard-kit/en/dates.html): Date and time fields with the kit's look, an optional calendar for a date, a range, date and time, and time only. Designed for the phone: on narrow screens the calendar slides up from the bottom, with 44-pixel targets.
+- [Alerts and progress](https://n1k1tas95.github.io/dashboard-kit/en/feedback.html): Alerts, status badges, progress bars, empty states and a welcome screen.
+- [Forms: select and file](https://n1k1tas95.github.io/dashboard-kit/en/form-controls.html): Custom select, file field, drop zone and combobox: the controls that need `kit.js`.
+- [Forms: layout and validation](https://n1k1tas95.github.io/dashboard-kit/en/form-layout.html): Labels, help text, required fields, column, grid, horizontal and sectioned forms, valid and invalid states with messages, automatic validation, sizes, icons inside fields, field groups, floating labels, card-style checkboxes and the other controls.
+- [Forms: basic fields](https://n1k1tas95.github.io/dashboard-kit/en/forms.html): Text field, search, checkbox and switch. Buttons and fields have the same height (`--kit-ctl`), so they sit well on the same row.
+- [Grid](https://n1k1tas95.github.io/dashboard-kit/en/grid.html): A 12-column flexbox grid, with the same names as Bootstrap. It is built with rows and columns and changes as the screen width changes.
+- [Icons](https://n1k1tas95.github.io/dashboard-kit/en/icons.html): The kit's icons: an SVG sprite you include with one line of JavaScript.
+- [Introduction](https://n1k1tas95.github.io/dashboard-kit/en/index.html): Dashboard Kit is a small CSS framework, with optional JavaScript, for building dashboards. A single file, no dependencies, light and dark themes, and a 12-column grid like Bootstrap.
+- [JavaScript](https://n1k1tas95.github.io/dashboard-kit/en/javascript.html): JavaScript is optional. Without `kit.js` all the styling works; you only need it for the parts that move: theme, tabs, select, menus, dialogs and toasts.
+- [Layout](https://n1k1tas95.github.io/dashboard-kit/en/layout.html): Container, fixed header, element bars, stacking and side panel: the structure of a page. For columns see the [grid](https://n1k1tas95.github.io/dashboard-kit/en/grid.html).
+- [Navbar](https://n1k1tas95.github.io/dashboard-kit/en/navbar.html): The top bar with logo, items, dropdown menus, actions and a collapsible menu on small screens.
+- [Tabs and breadcrumb](https://n1k1tas95.github.io/dashboard-kit/en/navigation.html): Tabs, segmented control, pills, chips and breadcrumb: ways to choose what to show, to filter and to find your way.
+- [Dialogs and menus](https://n1k1tas95.github.io/dashboard-kit/en/overlays.html): Dialog windows, pop-up menus and temporary messages. They require `kit.js`.
+- [Sidebar](https://n1k1tas95.github.io/dashboard-kit/en/sidebar.html): The navigation bar on the left, with header, items, sub-items, account and utilities at the bottom. Slide-in on small screens, compact (icons only) on large ones.
+- [VS Code snippets](https://n1k1tas95.github.io/dashboard-kit/en/snippets.html): Type the prefix and press Tab: the editor writes the component's markup, with the fields to fill in.
+- [Tables](https://n1k1tas95.github.io/dashboard-kit/en/tables.html): Compact tables with a sticky header, selectable rows and aligned numbers.
+- [Themes and tokens](https://n1k1tas95.github.io/dashboard-kit/en/theming.html): The whole look comes from a few CSS variables. Changing them in `:root`, or on a single element, changes colors, density and corners of the whole interface.
+- [Typography](https://n1k1tas95.github.io/dashboard-kit/en/typography.html): Headings, body text, quotes, lists and the classes to control size, weight, line height and line width. It all starts from a few tokens, so it is adjusted from a single place.
+- [Utilities](https://n1k1tas95.github.io/dashboard-kit/en/utilities.html): One-line classes, as in Bootstrap: spacing, display, flexbox, sizes, text and visibility. Almost all use `!important` to win over components.
+
+## Optional
+
+- [Dashboard example](https://n1k1tas95.github.io/dashboard-kit/en/dashboard.html)
+- [Dashboard with sidebar example](https://n1k1tas95.github.io/dashboard-kit/en/dashboard-sidebar.html)
+- [Italian documentation](https://n1k1tas95.github.io/dashboard-kit/it/)

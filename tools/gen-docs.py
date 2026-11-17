@@ -20,6 +20,7 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import icons  # noqa: E402  (tools/icons.py: icone e sprite)
+import llms  # noqa: E402  (tools/llms.py: da HTML a Markdown)
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 VERSION = "0.10.0"   # versione che le istruzioni di installazione indicano (tag v<VERSIONE>)
@@ -384,6 +385,49 @@ def search_entries(page, page_title, desc, body):
     return entries
 
 
+SITE = "https://n1k1tas95.github.io/dashboard-kit/"
+
+
+def write_llms(pages):
+    """File per gli agenti e i modelli, solo in inglese: llms.txt (indice), llms-full.txt (tutta la documentazione
+    in Markdown) e kit-components.json (classi, attributi data-kit-*, API JS e variabili CSS di ogni sezione)."""
+    full = ["# Dashboard Kit: full documentation", "",
+            f"> Version {VERSION}. Generated from the documentation pages by tools/gen-docs.py: do not edit by hand.",
+            f"> Online: {SITE}en/", ""]
+    comps = {"version": VERSION, "docs": SITE + "en/", "pages": []}
+    for stem, title, desc, body in pages:
+        full += ["---", "", f"# {title}", f"Page: {SITE}en/{stem}.html", "", llms.to_markdown(f"<p>{desc}</p>"), llms.to_markdown(body)]
+        sections = []
+        for e in search_entries(stem, title, desc, body):
+            sections.append({"id": e[2], "title": e[3], "uses": e[5].split()})
+        allc = []
+        for s in sections:
+            for c in s["uses"]:
+                if c not in allc:
+                    allc.append(c)
+        comps["pages"].append({"page": stem, "title": title, "url": f"{SITE}en/{stem}.html", "description": plain(desc),
+                               "uses": allc, "sections": [s for s in sections if s["id"]]})
+    (ROOT / "llms-full.txt").write_text("\n".join(full).rstrip() + "\n", encoding="utf-8")
+    (ROOT / "kit-components.json").write_text(json.dumps(comps, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    lines = ["# Dashboard Kit", "",
+             "> A CSS framework with optional JavaScript for dashboards, used with server-rendered pages (Django + htmx). One CSS file, no build step, no dependencies, light and dark themes, a 12-column grid. All classes start with `kit-`; the theme is made of `--kit-*` custom properties.", "",
+             "## Install", "",
+             "- Copy `dist/kit.css` (required), `dist/kit.js` (optional: theme, select, popover, tabs, dialog, toast, sortable tables...) and `dist/kit-icons.js` (optional SVG icon sprite), or load them from jsDelivr pinned to a tag: "
+             f"`https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v{VERSION}/dist/kit.css`.",
+             "- Set `<html lang=\"en\">` (or `it`): the JS messages follow the page language.",
+             "- Use only classes documented in the pages below. Do not invent `kit-*` classes: look them up in `kit-components.json` or `llms-full.txt`.", "",
+             "## Machine-readable", "",
+             f"- [llms-full.txt]({SITE}llms-full.txt): the whole documentation as Markdown, with the markup of every example.",
+             f"- [kit-components.json]({SITE}kit-components.json): for each page and section, the `kit-*` classes, `data-kit-*` attributes, `Kit.*` functions and `--kit-*` variables it uses.",
+             f"- [AGENTS.md]({SITE}AGENTS.md): rules for working on this repository (not needed to use the kit).", "",
+             "## Documentation", ""]
+    lines += [f"- [{title}]({SITE}en/{stem}.html): " + llms.to_markdown("<p>" + desc + "</p>").strip() for stem, title, desc, _ in pages]
+    lines += ["", "## Optional", "",
+              f"- [Dashboard example]({SITE}en/dashboard.html)", f"- [Dashboard with sidebar example]({SITE}en/dashboard-sidebar.html)",
+              "- [Italian documentation](" + SITE + "it/)", ""]
+    (ROOT / "llms.txt").write_text("\n".join(lines), encoding="utf-8")
+
+
 REDIRECT = """<!doctype html>
 <html lang="en">
 <head>
@@ -423,6 +467,7 @@ def main():
             old.unlink()
     (OUT / "index.html").write_text(REDIRECT, encoding="utf-8")
     total = 0
+    en_pages = []
     for lang in LANGS:
         (OUT / lang).mkdir(exist_ok=True)
         for old in (OUT / lang).glob("*.html"):
@@ -451,6 +496,8 @@ def main():
                     .replace("%%BODY%%", body))
             (OUT / lang / f"{f.stem}.html").write_text(page, encoding="utf-8")
             index += search_entries(f.stem, title, desc, body)
+            if lang == "en":
+                en_pages.append((f.stem, title, desc, body))
         if lang != "it":
             # le pagine non ancora tradotte si cercano comunque: il risultato porta alla versione italiana
             for f in sorted((SRC / "it").glob("*.html")):
@@ -469,6 +516,7 @@ def main():
         total += len(index)
         print(f"ok [{lang}]: {len(have)} pagine tradotte, {len(index)} voci di ricerca")
     (OUT / "search-index.js").unlink(missing_ok=True)
+    write_llms(en_pages)
 
 
 NAV_TITLE_SIDEBAR = {"en": "Dashboard with sidebar", "it": "Dashboard con sidebar"}

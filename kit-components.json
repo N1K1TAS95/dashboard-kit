@@ -1,0 +1,4054 @@
+{
+ "version": "0.10.0",
+ "docs": "https://n1k1tas95.github.io/dashboard-kit/en/",
+ "pages": [
+  {
+   "page": "accordion",
+   "title": "Accordion",
+   "url": "https://n1k1tas95.github.io/dashboard-kit/en/accordion.html",
+   "description": "Sections that open and close, built on <details> : also without JavaScript, from the keyboard and with screen readers.",
+   "uses": [
+    "kit-accordion",
+    "kit-accordion-body",
+    "data-kit-accordion",
+    "kit-accordion-meta",
+    "kit-accordion-flush",
+    "kit-card",
+    "kit-card-body",
+    "kit-badge",
+    "kit-badge-warning",
+    "kit-badge-danger",
+    "Kit.accordion",
+    "kit-code",
+    "data-kit-code"
+   ],
+   "sections": [
+    {
+     "id": "accordion",
+     "title": "Accordion",
+     "uses": [
+      "kit-accordion",
+      "kit-accordion-body"
+     ]
+    },
+    {
+     "id": "accordion-single",
+     "title": "Only one open",
+     "uses": [
+      "data-kit-accordion",
+      "kit-accordion",
+      "kit-accordion-body"
+     ]
+    },
+    {
+     "id": "accordion-meta",
+     "title": "With a label and inside a card",
+     "uses": [
+      "kit-accordion-meta",
+      "kit-accordion-flush",
+      "kit-card",
+      "kit-card-body",
+      "kit-accordion",
+      "kit-badge",
+      "kit-badge-warning",
+      "kit-accordion-body",
+      "kit-badge-danger"
+     ]
+    },
+    {
+     "id": "accordion-js",
+     "title": "JavaScript",
+     "uses": [
+      "Kit.accordion",
+      "kit-code",
+      "data-kit-code"
+     ]
+    }
+   ]
+  },
+  {
+   "page": "buttons",
+   "title": "Buttons",
+   "url": "https://n1k1tas95.github.io/dashboard-kit/en/buttons.html",
+   "description": "Buttons of all kinds and sizes. A .kit-btn works on <button> , <a> and <label> .",
+   "uses": [
+    "kit-bar",
+    "kit-btn",
+    "kit-btn-primary",
+    "kit-btn-ghost",
+    "kit-btn-danger",
+    "--kit-ctl",
+    "kit-btn-lg",
+    "kit-icon",
+    "kit-btn-icon",
+    "kit-count",
+    "kit-btn-group"
+   ],
+   "sections": [
+    {
+     "id": "variants",
+     "title": "Variants",
+     "uses": [
+      "kit-bar",
+      "kit-btn",
+      "kit-btn-primary",
+      "kit-btn-ghost",
+      "kit-btn-danger"
+     ]
+    },
+    {
+     "id": "sizes",
+     "title": "Sizes",
+     "uses": [
+      "--kit-ctl",
+      "kit-btn-lg",
+      "kit-bar",
+      "kit-btn",
+      "kit-btn-primary"
+     ]
+    },
+    {
+     "id": "icons",
+     "title": "With an icon",
+     "uses": [
+      "kit-icon",
+      "kit-btn-icon",
+      "kit-bar",
+      "kit-btn",
+      "kit-btn-primary",
+      "kit-btn-ghost"
+     ]
+    },
+    {
+     "id": "counter",
+     "title": "With a counter",
+     "uses": [
+      "kit-btn",
+      "kit-count"
+     ]
+    },
+    {
+     "id": "group",
+     "title": "Group and link",
+     "uses": [
+      "kit-btn-group",
+      "kit-btn"
+     ]
+    }
+   ]
+  },
+  {
+   "page": "cards",
+   "title": "Cards and details",
+   "url": "https://n1k1tas95.github.io/dashboard-kit/en/cards.html",
+   "description": "Cards, KPI cards, stats row, lists, key/value pairs and code blocks: the containers and details of a dashboard.",
+   "uses": [
+    "kit-card-head",
+    "kit-card-body",
+    "kit-card-foot",
+    "kit-card",
+    "kit-btn",
+    "kit-btn-primary",
+    "kit-row-cols",
+    "kit-h-100",
+    "kit-row",
+    "kit-row-cols-2",
+    "kit-row-cols-lg-4",
+    "kit-kpi",
+    "kit-badge",
+    "kit-badge-success",
+    "kit-badge-warning",
+    "kit-badge-danger",
+    "kit-stats",
+    "kit-stat",
+    "kit-success",
+    "kit-danger",
+    "kit-list",
+    "kit-list-item",
+    "kit-list-main",
+    "kit-icon",
+    "kit-list-item-success",
+    "kit-list-item-warning",
+    "kit-list-item-danger",
+    "kit-list-cards",
+    "kit-list-sm",
+    "kit-list-numbered",
+    "kit-list-horizontal",
+    "kit-list-flush",
+    "kit-kv",
+    "kit-code",
+    "data-kit-code",
+    "kit-stack",
+    "data-kit-open",
+    "Kit.toast",
+    "--kit-hover",
+    "data-kit-code-copy",
+    "kit-snippet",
+    "data-kit-code-copied",
+    "Kit.code",
+    "Kit.highlight",
+    "--kit-hl-tag"
+   ],
+   "sections": [
+    {
+     "id": "card",
+     "title": "Card",
+     "uses": [
+      "kit-card-head",
+      "kit-card-body",
+      "kit-card-foot",
+      "kit-card",
+      "kit-btn",
+      "kit-btn-primary"
+     ]
+    },
+    {
+     "id": "kpi",
+     "title": "KPI card",
+     "uses": [
+      "kit-row-cols",
+      "kit-h-100",
+      "kit-row",
+      "kit-row-cols-2",
+      "kit-row-cols-lg-4",
+      "kit-card",
+      "kit-kpi",
+      "kit-badge",
+      "kit-badge-success",
+      "kit-badge-warning",
+      "kit-badge-danger"
+     ]
+    },
+    {
+     "id": "stats",
+     "title": "Stats row",
+     "uses": [
+      "kit-card",
+      "kit-stats",
+      "kit-stat",
+      "kit-success",
+      "kit-danger"
+     ]
+    },
+    {
+     "id": "list",
+     "title": "List",
+     "uses": [
+      "kit-list",
+      "kit-list-item",
+      "kit-list-main",
+      "kit-badge",
+      "kit-badge-warning"
+     ]
+    },
+    {
+     "id": "list-actions",
+     "title": "Clickable items",
+     "uses": [
+      "kit-list",
+      "kit-list-item",
+      "kit-icon"
+     ]
+    },
+    {
+     "id": "list-states",
+     "title": "States",
+     "uses": [
+      "kit-list-item-success",
+      "kit-list",
+      "kit-list-item",
+      "kit-list-item-warning",
+      "kit-list-item-danger"
+     ]
+    },
+    {
+     "id": "list-cards",
+     "title": "Separate cards and compact",
+     "uses": [
+      "kit-list-cards",
+      "kit-list-sm",
+      "kit-list",
+      "kit-list-item",
+      "kit-list-main",
+      "kit-badge",
+      "kit-badge-success",
+      "kit-list-item-danger"
+     ]
+    },
+    {
+     "id": "list-variants",
+     "title": "Numbered, horizontal, borderless",
+     "uses": [
+      "kit-list-numbered",
+      "kit-list-horizontal",
+      "kit-list-flush",
+      "kit-list",
+      "kit-list-item",
+      "kit-card",
+      "kit-card-head",
+      "kit-list-main"
+     ]
+    },
+    {
+     "id": "kv",
+     "title": "Key / value",
+     "uses": [
+      "kit-card",
+      "kit-card-body",
+      "kit-kv"
+     ]
+    },
+    {
+     "id": "code",
+     "title": "Code snippets",
+     "uses": [
+      "kit-code",
+      "data-kit-code",
+      "kit-stack",
+      "kit-btn",
+      "kit-btn-primary",
+      "data-kit-open",
+      "kit-icon",
+      "Kit.toast",
+      "--kit-hover"
+     ]
+    },
+    {
+     "id": "code-copy",
+     "title": "The \"Copy\" button",
+     "uses": [
+      "data-kit-code-copy",
+      "kit-snippet",
+      "data-kit-code-copied",
+      "kit-code",
+      "data-kit-code",
+      "kit-card",
+      "kit-card-body"
+     ]
+    },
+    {
+     "id": "code-js",
+     "title": "From JavaScript",
+     "uses": [
+      "Kit.code",
+      "Kit.highlight",
+      "kit-code",
+      "data-kit-code",
+      "Kit.toast",
+      "--kit-hl-tag"
+     ]
+    }
+   ]
+  },
+  {
+   "page": "charts",
+   "title": "Charts",
+   "url": "https://n1k1tas95.github.io/dashboard-kit/en/charts.html",
+   "description": "Bars, lines, donut and sparklines in SVG, no libraries. They require kit.js .",
+   "uses": [
+    "Kit.barChart",
+    "--kit-c1",
+    "--kit-c4",
+    "Kit.toast",
+    "Kit.lineChart",
+    "Kit.donut",
+    "--kit-mute",
+    "--kit-c2",
+    "kit-legend",
+    "Kit.sparkline",
+    "kit-stats",
+    "kit-kpi",
+    "kit-mute",
+    "kit-fs-3",
+    "kit-fw-bold",
+    "kit-card",
+    "kit-table-wrap",
+    "kit-table",
+    "kit-chart",
+    "--kit-line",
+    "kit-chart-bar",
+    "kit-chart-axis",
+    "kit-chart-label",
+    "kit-chart-group"
+   ],
+   "sections": [
+    {
+     "id": "bars",
+     "title": "Bar chart",
+     "uses": [
+      "Kit.barChart"
+     ]
+    },
+    {
+     "id": "series",
+     "title": "Several series and clicks",
+     "uses": [
+      "--kit-c1",
+      "--kit-c4",
+      "Kit.barChart",
+      "Kit.toast"
+     ]
+    },
+    {
+     "id": "stacked",
+     "title": "Stacked bars",
+     "uses": [
+      "Kit.barChart"
+     ]
+    },
+    {
+     "id": "lines",
+     "title": "Lines",
+     "uses": [
+      "Kit.lineChart"
+     ]
+    },
+    {
+     "id": "donut",
+     "title": "Donut",
+     "uses": [
+      "Kit.donut",
+      "--kit-mute"
+     ]
+    },
+    {
+     "id": "legend",
+     "title": "Chart legend",
+     "uses": [
+      "--kit-c1",
+      "--kit-c2",
+      "kit-legend"
+     ]
+    },
+    {
+     "id": "sparkline",
+     "title": "Sparkline",
+     "uses": [
+      "Kit.sparkline",
+      "--kit-c2",
+      "kit-stats",
+      "kit-kpi",
+      "kit-mute",
+      "kit-fs-3",
+      "kit-fw-bold"
+     ]
+    },
+    {
+     "id": "options",
+     "title": "Bar and line options",
+     "uses": [
+      "kit-card",
+      "kit-table-wrap",
+      "kit-table",
+      "Kit.barChart",
+      "kit-chart",
+      "--kit-c1",
+      "--kit-c4",
+      "--kit-line",
+      "--kit-mute",
+      "kit-chart-bar",
+      "kit-chart-axis",
+      "kit-chart-label",
+      "kit-chart-group"
+     ]
+    }
+   ]
+  },
+  {
+   "page": "dates",
+   "title": "Dates and times",
+   "url": "https://n1k1tas95.github.io/dashboard-kit/en/dates.html",
+   "description": "Date and time fields with the kit's look, an optional calendar for a date, a range, date and time, and time only. Designed for the phone: on narrow screens the calendar slides up from the bottom, with 44-pixel targets.",
+   "uses": [
+    "kit-input",
+    "kit-fields",
+    "kit-field",
+    "kit-danger",
+    "kit-daterange",
+    "data-kit-datepicker",
+    "data-kit-min",
+    "data-kit-max",
+    "data-kit-disable",
+    "data-kit-daterange",
+    "data-kit-presets",
+    "data-kit-step",
+    "data-kit-timepicker",
+    "kit-bar",
+    "kit-btn",
+    "data-kit-open",
+    "kit-dialog",
+    "kit-card-head",
+    "kit-card-body",
+    "kit-card-foot",
+    "data-kit-close",
+    "kit-card",
+    "kit-table-wrap",
+    "kit-table",
+    "kit-code",
+    "data-kit-code",
+    "Kit.datepicker",
+    "Kit.daterange",
+    "Kit.date",
+    "Kit.i"
+   ],
+   "sections": [
+    {
+     "id": "native",
+     "title": "Native fields",
+     "uses": [
+      "kit-input",
+      "kit-fields",
+      "kit-field",
+      "kit-danger",
+      "kit-daterange"
+     ]
+    },
+    {
+     "id": "calendar",
+     "title": "Calendar",
+     "uses": [
+      "data-kit-datepicker",
+      "kit-fields",
+      "kit-field",
+      "kit-input"
+     ]
+    },
+    {
+     "id": "limits",
+     "title": "Limits and excluded days",
+     "uses": [
+      "data-kit-min",
+      "data-kit-max",
+      "data-kit-disable",
+      "kit-fields",
+      "kit-field",
+      "kit-input",
+      "data-kit-datepicker"
+     ]
+    },
+    {
+     "id": "range",
+     "title": "Range",
+     "uses": [
+      "data-kit-daterange",
+      "data-kit-presets",
+      "kit-field",
+      "kit-daterange",
+      "kit-input"
+     ]
+    },
+    {
+     "id": "datetime",
+     "title": "Date and time",
+     "uses": [
+      "data-kit-step",
+      "kit-fields",
+      "kit-field",
+      "kit-input",
+      "data-kit-datepicker"
+     ]
+    },
+    {
+     "id": "time",
+     "title": "Time only",
+     "uses": [
+      "data-kit-timepicker",
+      "kit-fields",
+      "kit-field",
+      "kit-input",
+      "data-kit-step"
+     ]
+    },
+    {
+     "id": "phone",
+     "title": "Phone and touch",
+     "uses": [
+      "data-kit-datepicker",
+      "kit-bar",
+      "kit-btn",
+      "data-kit-open",
+      "kit-dialog",
+      "kit-card-head"
+     ]
+    },
+    {
+     "id": "dlg-date-t",
+     "title": "New appointment",
+     "uses": [
+      "kit-card-body",
+      "kit-fields",
+      "kit-field",
+      "kit-input",
+      "data-kit-datepicker",
+      "data-kit-timepicker",
+      "kit-card-foot",
+      "kit-btn",
+      "data-kit-close"
+     ]
+    },
+    {
+     "id": "keyboard",
+     "title": "Keyboard",
+     "uses": [
+      "kit-card",
+      "kit-table-wrap",
+      "kit-table"
+     ]
+    },
+    {
+     "id": "options",
+     "title": "Attributes and options",
+     "uses": [
+      "kit-card",
+      "kit-table-wrap",
+      "kit-table",
+      "data-kit-datepicker",
+      "data-kit-timepicker",
+      "data-kit-daterange",
+      "data-kit-min",
+      "data-kit-disable",
+      "data-kit-step",
+      "data-kit-presets"
+     ]
+    },
+    {
+     "id": "django",
+     "title": "With Django and htmx",
+     "uses": [
+      "kit-code",
+      "data-kit-code",
+      "kit-input",
+      "kit-daterange",
+      "data-kit-daterange",
+      "kit-danger"
+     ]
+    },
+    {
+     "id": "js",
+     "title": "JavaScript",
+     "uses": [
+      "kit-code",
+      "data-kit-code",
+      "Kit.datepicker",
+      "Kit.daterange",
+      "Kit.date",
+      "Kit.i"
+     ]
+    }
+   ]
+  },
+  {
+   "page": "feedback",
+   "title": "Alerts and progress",
+   "url": "https://n1k1tas95.github.io/dashboard-kit/en/feedback.html",
+   "description": "Alerts, status badges, progress bars, empty states and a welcome screen.",
+   "uses": [
+    "kit-stack",
+    "kit-alert",
+    "kit-alert-success",
+    "kit-alert-warning",
+    "kit-alert-danger",
+    "kit-alert-neutral",
+    "kit-icon",
+    "kit-alert-icon",
+    "kit-alert-title",
+    "kit-alert-close",
+    "data-kit-dismiss",
+    "kit-bar",
+    "kit-badge",
+    "kit-badge-success",
+    "kit-badge-warning",
+    "kit-badge-danger",
+    "kit-badge-neutral",
+    "--kit-value",
+    "kit-progress",
+    "kit-meter-head",
+    "kit-meter",
+    "data-kit-value",
+    "data-kit-min",
+    "data-kit-max",
+    "data-kit-warn",
+    "data-kit-danger",
+    "data-kit-good",
+    "kit-meter-sm",
+    "kit-meter-lg",
+    "data-kit-meter",
+    "Kit.meter",
+    "kit-spinner-sm",
+    "kit-spinner-accent",
+    "kit-spinner",
+    "kit-spinner-lg",
+    "kit-btn",
+    "kit-btn-primary",
+    "kit-mute",
+    "kit-skeleton-text",
+    "kit-card",
+    "kit-card-body",
+    "kit-d-flex",
+    "kit-gap-3",
+    "kit-skeleton",
+    "kit-skeleton-circle",
+    "kit-skeleton-title",
+    "Kit.progress",
+    "Kit.toast",
+    "kit-table-wrap",
+    "kit-table",
+    "kit-empty",
+    "kit-empty-icon",
+    "kit-hero",
+    "kit-btn-lg"
+   ],
+   "sections": [
+    {
+     "id": "alerts",
+     "title": "Alerts",
+     "uses": [
+      "kit-stack",
+      "kit-alert",
+      "kit-alert-success",
+      "kit-alert-warning",
+      "kit-alert-danger",
+      "kit-alert-neutral",
+      "kit-icon",
+      "kit-alert-icon",
+      "kit-alert-title",
+      "kit-alert-close",
+      "data-kit-dismiss"
+     ]
+    },
+    {
+     "id": "badge",
+     "title": "Badge",
+     "uses": [
+      "kit-bar",
+      "kit-badge",
+      "kit-badge-success",
+      "kit-badge-warning",
+      "kit-badge-danger",
+      "kit-badge-neutral",
+      "kit-alert"
+     ]
+    },
+    {
+     "id": "progress",
+     "title": "Progress bar",
+     "uses": [
+      "--kit-value",
+      "kit-stack",
+      "kit-progress"
+     ]
+    },
+    {
+     "id": "meter",
+     "title": "Meter",
+     "uses": [
+      "--kit-value",
+      "kit-meter-head",
+      "kit-stack",
+      "kit-meter",
+      "data-kit-value",
+      "data-kit-min",
+      "data-kit-max",
+      "data-kit-warn",
+      "data-kit-danger",
+      "data-kit-good",
+      "kit-meter-sm",
+      "kit-meter-lg",
+      "data-kit-meter",
+      "Kit.meter",
+      "kit-alert"
+     ]
+    },
+    {
+     "id": "spinner",
+     "title": "Spinner",
+     "uses": [
+      "kit-spinner-sm",
+      "kit-spinner-accent",
+      "kit-bar",
+      "kit-spinner",
+      "kit-spinner-lg",
+      "kit-btn",
+      "kit-btn-primary",
+      "kit-mute"
+     ]
+    },
+    {
+     "id": "skeleton",
+     "title": "Skeleton",
+     "uses": [
+      "kit-skeleton-text",
+      "kit-card",
+      "kit-card-body",
+      "kit-d-flex",
+      "kit-gap-3",
+      "kit-skeleton",
+      "kit-skeleton-circle",
+      "kit-skeleton-title"
+     ]
+    },
+    {
+     "id": "full-progress",
+     "title": "Full-screen progress",
+     "uses": [
+      "Kit.progress",
+      "kit-bar",
+      "Kit.toast",
+      "kit-btn",
+      "kit-card",
+      "kit-table-wrap",
+      "kit-table"
+     ]
+    },
+    {
+     "id": "empty",
+     "title": "Empty state",
+     "uses": [
+      "kit-card",
+      "kit-empty",
+      "kit-empty-icon",
+      "kit-btn"
+     ]
+    },
+    {
+     "id": "hero",
+     "title": "Welcome screen",
+     "uses": [
+      "kit-hero",
+      "kit-card",
+      "kit-mute",
+      "kit-btn",
+      "kit-btn-primary",
+      "kit-btn-lg"
+     ]
+    }
+   ]
+  },
+  {
+   "page": "form-controls",
+   "title": "Forms: select and file",
+   "url": "https://n1k1tas95.github.io/dashboard-kit/en/form-controls.html",
+   "description": "Custom select, file field, drop zone and combobox: the controls that need kit.js .",
+   "uses": [
+    "kit-input",
+    "kit-field",
+    "kit-select",
+    "data-kit-select",
+    "kit-select-btn",
+    "kit-select-value",
+    "kit-icon",
+    "kit-pop",
+    "kit-pop-group",
+    "kit-opt",
+    "kit-opt-text",
+    "kit-opt-check",
+    "kit-pop-right",
+    "data-kit-hint",
+    "data-kit-short",
+    "data-kit-search",
+    "Kit.select",
+    "Kit.init",
+    "kit-file",
+    "data-kit-file",
+    "data-kit-file-max",
+    "data-kit-file-dir",
+    "data-kit-file-page",
+    "kit-dropzone",
+    "kit-mute",
+    "Kit.file",
+    "kit-card",
+    "kit-table-wrap",
+    "kit-table",
+    "data-kit-file-empty",
+    "kit-combo",
+    "data-kit-combo",
+    "Kit.combo",
+    "data-kit-combo-max",
+    "data-kit-combo-empty",
+    "data-kit-combo-more"
+   ],
+   "sections": [
+    {
+     "id": "select",
+     "title": "Custom select",
+     "uses": [
+      "kit-input",
+      "kit-field",
+      "kit-select",
+      "data-kit-select",
+      "kit-select-btn",
+      "kit-select-value",
+      "kit-icon",
+      "kit-pop",
+      "kit-pop-group",
+      "kit-opt",
+      "kit-opt-text",
+      "kit-opt-check",
+      "kit-pop-right"
+     ]
+    },
+    {
+     "id": "native-select",
+     "title": "From a native select",
+     "uses": [
+      "data-kit-select",
+      "data-kit-hint",
+      "data-kit-short",
+      "data-kit-search",
+      "kit-field",
+      "Kit.select",
+      "Kit.init"
+     ]
+    },
+    {
+     "id": "file",
+     "title": "File field",
+     "uses": [
+      "kit-file",
+      "data-kit-file",
+      "data-kit-file-max",
+      "kit-field"
+     ]
+    },
+    {
+     "id": "dropzone",
+     "title": "Drop zone",
+     "uses": [
+      "data-kit-file-dir",
+      "data-kit-file-page",
+      "kit-dropzone",
+      "data-kit-file",
+      "data-kit-file-max",
+      "kit-icon",
+      "kit-mute",
+      "Kit.file",
+      "kit-card",
+      "kit-table-wrap",
+      "kit-table",
+      "data-kit-file-empty"
+     ]
+    },
+    {
+     "id": "combobox",
+     "title": "Combobox",
+     "uses": [
+      "kit-opt",
+      "kit-pop",
+      "kit-field",
+      "kit-combo",
+      "data-kit-combo",
+      "kit-input",
+      "kit-opt-text",
+      "Kit.combo",
+      "kit-card",
+      "kit-table-wrap",
+      "kit-table",
+      "data-kit-combo-max",
+      "data-kit-combo-empty",
+      "data-kit-combo-more"
+     ]
+    }
+   ]
+  },
+  {
+   "page": "form-layout",
+   "title": "Forms: layout and validation",
+   "url": "https://n1k1tas95.github.io/dashboard-kit/en/form-layout.html",
+   "description": "Labels, help text, required fields, column, grid, horizontal and sectioned forms, valid and invalid states with messages, automatic validation, sizes, icons inside fields, field groups, floating labels, card-style checkboxes and the other controls.",
+   "uses": [
+    "kit-field",
+    "kit-label",
+    "kit-hint",
+    "kit-required",
+    "kit-optional",
+    "--kit-optional-text",
+    "kit-fields",
+    "kit-input",
+    "kit-form",
+    "--kit-sp",
+    "kit-field-wide",
+    "kit-row",
+    "kit-col",
+    "kit-col-12",
+    "kit-col-md-6",
+    "kit-col-6",
+    "kit-col-md-5",
+    "kit-col-md-4",
+    "kit-col-md-3",
+    "kit-form-h",
+    "kit-field-h",
+    "--kit-label-w",
+    "kit-form-foot",
+    "kit-form-foot-end",
+    "kit-btn",
+    "kit-btn-primary",
+    "kit-form-inline",
+    "kit-form-section",
+    "kit-fieldset",
+    "kit-form-section-title",
+    "kit-form-section-desc",
+    "kit-form-section-body",
+    "kit-field-foot",
+    "kit-counter",
+    "data-kit-count",
+    "kit-check",
+    "kit-feedback",
+    "kit-feedback-valid",
+    "kit-icon",
+    "kit-feedback-invalid",
+    "kit-feedback-warning",
+    "kit-select",
+    "data-kit-select",
+    "kit-select-btn",
+    "kit-select-value",
+    "kit-pop",
+    "kit-opt",
+    "kit-opt-text",
+    "kit-daterange",
+    "data-kit-daterange",
+    "kit-validate",
+    "kit-validate-ok",
+    "data-kit-validate",
+    "data-kit-msg",
+    "data-kit-msg-required",
+    "data-kit-msg-type",
+    "kit-control",
+    "data-kit-msg-minlength",
+    "kit-control-end",
+    "data-kit-password",
+    "data-kit-datepicker",
+    "data-kit-min",
+    "Kit.validate",
+    "kit-input-sm",
+    "kit-input-lg",
+    "kit-field-sm",
+    "kit-form-sm",
+    "kit-input-group-sm",
+    "--kit-ctl",
+    "kit-btn-sm",
+    "kit-input-group",
+    "kit-input-group-lg",
+    "kit-control-start",
+    "kit-input-text",
+    "kit-float",
+    "kit-check-text",
+    "kit-check-group",
+    "kit-check-inline",
+    "kit-check-card",
+    "kit-check-cards",
+    "kit-textarea-auto",
+    "kit-range",
+    "kit-input-plain",
+    "kit-code",
+    "data-kit-code"
+   ],
+   "sections": [
+    {
+     "id": "labels",
+     "title": "Labels, help and required fields",
+     "uses": [
+      "kit-field",
+      "kit-label",
+      "kit-hint",
+      "kit-required",
+      "kit-optional",
+      "--kit-optional-text",
+      "kit-fields",
+      "kit-input"
+     ]
+    },
+    {
+     "id": "layout",
+     "title": "Layout",
+     "uses": []
+    },
+    {
+     "id": "column",
+     "title": "Column and grid",
+     "uses": [
+      "kit-form",
+      "--kit-sp",
+      "kit-fields",
+      "kit-field-wide",
+      "kit-row",
+      "kit-col",
+      "kit-col-12",
+      "kit-col-md-6",
+      "kit-field",
+      "kit-label",
+      "kit-input",
+      "kit-col-6",
+      "kit-col-md-5",
+      "kit-col-md-4",
+      "kit-col-md-3"
+     ]
+    },
+    {
+     "id": "horizontal",
+     "title": "Horizontal",
+     "uses": [
+      "kit-form-h",
+      "kit-field-h",
+      "--kit-label-w",
+      "kit-field",
+      "kit-label",
+      "kit-form",
+      "kit-input",
+      "kit-hint",
+      "kit-form-foot",
+      "kit-form-foot-end",
+      "kit-btn",
+      "kit-btn-primary"
+     ]
+    },
+    {
+     "id": "inline",
+     "title": "Inline",
+     "uses": [
+      "kit-form-inline",
+      "kit-field",
+      "kit-label",
+      "kit-input",
+      "kit-btn",
+      "kit-btn-primary"
+     ]
+    },
+    {
+     "id": "sections",
+     "title": "Sections and groups",
+     "uses": [
+      "kit-form-section",
+      "kit-fieldset",
+      "kit-form",
+      "kit-form-section-title",
+      "kit-form-section-desc",
+      "kit-form-section-body",
+      "kit-field",
+      "kit-label",
+      "kit-input",
+      "kit-field-foot",
+      "kit-hint",
+      "kit-counter",
+      "data-kit-count",
+      "kit-check"
+     ]
+    },
+    {
+     "id": "states",
+     "title": "States: valid, invalid, warning",
+     "uses": [
+      "kit-field",
+      "kit-feedback",
+      "kit-fields",
+      "kit-label",
+      "kit-input",
+      "kit-feedback-valid",
+      "kit-icon",
+      "kit-feedback-invalid",
+      "kit-feedback-warning",
+      "kit-select",
+      "data-kit-select",
+      "kit-select-btn",
+      "kit-select-value",
+      "kit-pop",
+      "kit-opt",
+      "kit-opt-text",
+      "kit-daterange",
+      "data-kit-daterange",
+      "kit-check",
+      "kit-validate",
+      "kit-validate-ok"
+     ]
+    },
+    {
+     "id": "validation",
+     "title": "Validation in the browser",
+     "uses": [
+      "data-kit-validate",
+      "kit-feedback-invalid",
+      "data-kit-msg",
+      "data-kit-msg-required",
+      "kit-form",
+      "kit-field",
+      "kit-label",
+      "kit-required",
+      "kit-input",
+      "data-kit-msg-type",
+      "kit-feedback",
+      "kit-feedback-valid",
+      "kit-control",
+      "data-kit-msg-minlength",
+      "kit-control-end",
+      "data-kit-password",
+      "kit-icon",
+      "data-kit-datepicker",
+      "data-kit-min",
+      "kit-check",
+      "kit-form-foot",
+      "kit-btn",
+      "kit-btn-primary",
+      "Kit.validate"
+     ]
+    },
+    {
+     "id": "sizes",
+     "title": "Sizes",
+     "uses": [
+      "kit-input-sm",
+      "kit-input-lg",
+      "kit-field-sm",
+      "kit-form-sm",
+      "kit-input-group-sm",
+      "--kit-ctl",
+      "kit-btn-sm",
+      "kit-form",
+      "kit-input",
+      "kit-input-group",
+      "kit-input-group-lg",
+      "kit-btn",
+      "kit-btn-primary"
+     ]
+    },
+    {
+     "id": "icons",
+     "title": "Icons inside fields",
+     "uses": [
+      "kit-control",
+      "kit-control-start",
+      "kit-control-end",
+      "kit-field",
+      "data-kit-password",
+      "kit-fields",
+      "kit-label",
+      "kit-icon",
+      "kit-input",
+      "kit-feedback",
+      "kit-feedback-invalid",
+      "kit-feedback-warning"
+     ]
+    },
+    {
+     "id": "groups",
+     "title": "Field groups",
+     "uses": [
+      "kit-input-group",
+      "kit-input-text",
+      "kit-select",
+      "kit-fields",
+      "kit-field",
+      "kit-field-wide",
+      "kit-label",
+      "kit-input",
+      "kit-btn",
+      "kit-btn-primary",
+      "kit-feedback",
+      "kit-feedback-invalid"
+     ]
+    },
+    {
+     "id": "float",
+     "title": "Floating label",
+     "uses": [
+      "kit-float",
+      "kit-fields",
+      "kit-input",
+      "kit-field-wide"
+     ]
+    },
+    {
+     "id": "check",
+     "title": "Checkboxes, radios and cards",
+     "uses": [
+      "kit-check",
+      "kit-check-text",
+      "kit-check-group",
+      "kit-check-inline",
+      "kit-check-card",
+      "kit-check-cards",
+      "kit-fields",
+      "--kit-sp"
+     ]
+    },
+    {
+     "id": "controls",
+     "title": "Other controls",
+     "uses": [
+      "kit-input",
+      "kit-textarea-auto",
+      "kit-range",
+      "kit-input-plain",
+      "data-kit-count",
+      "kit-fields",
+      "kit-field",
+      "kit-label",
+      "kit-field-foot",
+      "kit-hint",
+      "kit-counter"
+     ]
+    },
+    {
+     "id": "django",
+     "title": "With Django",
+     "uses": [
+      "kit-feedback-invalid",
+      "kit-code",
+      "data-kit-code",
+      "kit-input",
+      "kit-field",
+      "kit-label",
+      "kit-required",
+      "kit-hint",
+      "kit-feedback",
+      "data-kit-validate"
+     ]
+    }
+   ]
+  },
+  {
+   "page": "forms",
+   "title": "Forms: basic fields",
+   "url": "https://n1k1tas95.github.io/dashboard-kit/en/forms.html",
+   "description": "Text field, search, checkbox and switch. Buttons and fields have the same height ( --kit-ctl ), so they sit well on the same row.",
+   "uses": [
+    "kit-field",
+    "kit-input",
+    "kit-fields",
+    "kit-field-wide",
+    "kit-bar",
+    "kit-search",
+    "kit-icon",
+    "kit-btn",
+    "kit-btn-primary",
+    "kit-form-foot",
+    "kit-check",
+    "kit-btn-group",
+    "kit-switch-between",
+    "kit-stack",
+    "kit-switch"
+   ],
+   "sections": [
+    {
+     "id": "fields",
+     "title": "Fields",
+     "uses": [
+      "kit-field",
+      "kit-input",
+      "kit-fields",
+      "kit-field-wide"
+     ]
+    },
+    {
+     "id": "search",
+     "title": "Search",
+     "uses": [
+      "kit-bar",
+      "kit-search",
+      "kit-icon",
+      "kit-input",
+      "kit-btn",
+      "kit-btn-primary"
+     ]
+    },
+    {
+     "id": "checkbox",
+     "title": "Checkbox and form footer",
+     "uses": [
+      "kit-form-foot",
+      "kit-check",
+      "kit-btn-group",
+      "kit-btn",
+      "kit-btn-primary"
+     ]
+    },
+    {
+     "id": "switch",
+     "title": "Switch",
+     "uses": [
+      "kit-switch-between",
+      "kit-stack",
+      "kit-switch"
+     ]
+    }
+   ]
+  },
+  {
+   "page": "grid",
+   "title": "Grid",
+   "url": "https://n1k1tas95.github.io/dashboard-kit/en/grid.html",
+   "description": "A 12-column flexbox grid, with the same names as Bootstrap. It is built with rows and columns and changes as the screen width changes.",
+   "uses": [
+    "kit-row",
+    "kit-col",
+    "kit-col-md-6",
+    "kit-main",
+    "kit-card-body",
+    "kit-card",
+    "kit-table-wrap",
+    "kit-table",
+    "kit-col-6",
+    "kit-col-sm-6",
+    "kit-col-lg-6",
+    "kit-col-xl-6",
+    "kit-stack",
+    "kit-col-4",
+    "kit-center",
+    "kit-col-8",
+    "kit-col-12",
+    "kit-col-xl-3",
+    "kit-col-auto",
+    "kit-row-cols",
+    "kit-row-cols-2",
+    "kit-row-cols-md-4",
+    "kit-offset",
+    "kit-order-first",
+    "kit-order-last",
+    "kit-order-0",
+    "kit-offset-md-3",
+    "kit-align-items",
+    "kit-justify-content",
+    "kit-align-self",
+    "kit-align-items-center",
+    "kit-py-4",
+    "kit-py-5",
+    "kit-justify-content-center",
+    "kit-g-0",
+    "kit-gx",
+    "kit-gy",
+    "--kit-sp",
+    "kit-g-md-4",
+    "kit-g-4",
+    "kit-col-md-8",
+    "kit-mute",
+    "kit-col-md-4",
+    "kit-h-100",
+    "kit-grid",
+    "kit-grid-2",
+    "kit-grid-3",
+    "kit-row-cols-lg-4",
+    "kit-kpi",
+    "kit-badge",
+    "kit-badge-success",
+    "kit-badge-warning",
+    "kit-badge-danger",
+    "kit-col-xl-8",
+    "kit-col-xl-4"
+   ],
+   "sections": [
+    {
+     "id": "how-it-works",
+     "title": "How it works",
+     "uses": [
+      "kit-row",
+      "kit-col",
+      "kit-col-md-6",
+      "kit-main",
+      "kit-card-body",
+      "kit-card",
+      "kit-table-wrap",
+      "kit-table",
+      "kit-col-6",
+      "kit-col-sm-6",
+      "kit-col-lg-6",
+      "kit-col-xl-6"
+     ]
+    },
+    {
+     "id": "columns",
+     "title": "Columns",
+     "uses": [
+      "kit-col",
+      "kit-stack",
+      "kit-row",
+      "kit-col-4",
+      "kit-card",
+      "kit-card-body",
+      "kit-center",
+      "kit-col-8"
+     ]
+    },
+    {
+     "id": "responsive",
+     "title": "Responsive",
+     "uses": [
+      "kit-stack",
+      "kit-row",
+      "kit-col-12",
+      "kit-col-md-6",
+      "kit-col-xl-3",
+      "kit-card",
+      "kit-card-body",
+      "kit-center"
+     ]
+    },
+    {
+     "id": "flexible",
+     "title": "Flexible columns",
+     "uses": [
+      "kit-col",
+      "kit-col-auto",
+      "kit-stack",
+      "kit-row",
+      "kit-card",
+      "kit-card-body",
+      "kit-center",
+      "kit-col-6"
+     ]
+    },
+    {
+     "id": "row-cols",
+     "title": "Columns per row",
+     "uses": [
+      "kit-row-cols",
+      "kit-stack",
+      "kit-row",
+      "kit-row-cols-2",
+      "kit-row-cols-md-4",
+      "kit-card",
+      "kit-card-body",
+      "kit-center"
+     ]
+    },
+    {
+     "id": "offset-order",
+     "title": "Offset and order",
+     "uses": [
+      "kit-offset",
+      "kit-order-first",
+      "kit-order-last",
+      "kit-order-0",
+      "kit-stack",
+      "kit-row",
+      "kit-col-md-6",
+      "kit-offset-md-3",
+      "kit-card",
+      "kit-card-body",
+      "kit-center",
+      "kit-col-4"
+     ]
+    },
+    {
+     "id": "alignment",
+     "title": "Alignment",
+     "uses": [
+      "kit-align-items",
+      "kit-justify-content",
+      "kit-align-self",
+      "kit-stack",
+      "kit-row",
+      "kit-align-items-center",
+      "kit-col-4",
+      "kit-card",
+      "kit-card-body",
+      "kit-center",
+      "kit-py-4",
+      "kit-py-5",
+      "kit-justify-content-center"
+     ]
+    },
+    {
+     "id": "gutter",
+     "title": "Gutter",
+     "uses": [
+      "kit-g-0",
+      "kit-gx",
+      "kit-gy",
+      "--kit-sp",
+      "kit-g-md-4",
+      "kit-stack",
+      "kit-row",
+      "kit-col-6",
+      "kit-card",
+      "kit-card-body",
+      "kit-center",
+      "kit-g-4"
+     ]
+    },
+    {
+     "id": "nested",
+     "title": "Nested rows",
+     "uses": [
+      "kit-card-body",
+      "kit-stack",
+      "kit-row",
+      "kit-col-md-8",
+      "kit-card",
+      "kit-mute",
+      "kit-col-6",
+      "kit-center",
+      "kit-col-md-4"
+     ]
+    },
+    {
+     "id": "equal-height",
+     "title": "Cards of equal height",
+     "uses": [
+      "kit-h-100",
+      "kit-stack",
+      "kit-row",
+      "kit-col-md-6",
+      "kit-card",
+      "kit-card-body"
+     ]
+    },
+    {
+     "id": "css-grid",
+     "title": "Alternative: CSS Grid",
+     "uses": [
+      "kit-grid",
+      "kit-grid-2",
+      "kit-grid-3",
+      "kit-stack",
+      "kit-card",
+      "kit-card-body",
+      "kit-center"
+     ]
+    },
+    {
+     "id": "dashboard",
+     "title": "Structure of a dashboard",
+     "uses": [
+      "kit-stack",
+      "kit-row",
+      "kit-row-cols-2",
+      "kit-row-cols-lg-4",
+      "kit-card",
+      "kit-kpi",
+      "kit-h-100",
+      "kit-badge",
+      "kit-badge-success",
+      "kit-badge-warning",
+      "kit-badge-danger",
+      "kit-col-12",
+      "kit-col-xl-8",
+      "kit-card-body",
+      "kit-center",
+      "kit-mute",
+      "kit-py-5",
+      "kit-col-xl-4"
+     ]
+    }
+   ]
+  },
+  {
+   "page": "icons",
+   "title": "Icons",
+   "url": "https://n1k1tas95.github.io/dashboard-kit/en/icons.html",
+   "description": "The kit's icons: an SVG sprite you include with one line of JavaScript.",
+   "uses": [
+    "kit-icon",
+    "kit-btn",
+    "kit-btn-primary",
+    "kit-btn-icon",
+    "kit-btn-danger",
+    "kit-code",
+    "data-kit-code",
+    "kit-icons",
+    "kit-alert",
+    "--kit-success",
+    "--kit-danger"
+   ],
+   "sections": [
+    {
+     "id": "usage",
+     "title": "Usage",
+     "uses": [
+      "kit-icon",
+      "kit-btn",
+      "kit-btn-primary",
+      "kit-btn-icon",
+      "kit-btn-danger"
+     ]
+    },
+    {
+     "id": "installation",
+     "title": "Installation",
+     "uses": [
+      "kit-code",
+      "data-kit-code",
+      "kit-icons",
+      "kit-alert"
+     ]
+    },
+    {
+     "id": "sizes",
+     "title": "Size and color",
+     "uses": [
+      "kit-icon",
+      "--kit-success",
+      "--kit-danger"
+     ]
+    },
+    {
+     "id": "list",
+     "title": "List",
+     "uses": [
+      "kit-icon"
+     ]
+    },
+    {
+     "id": "adding",
+     "title": "Adding an icon",
+     "uses": [
+      "kit-icons"
+     ]
+    }
+   ]
+  },
+  {
+   "page": "index",
+   "title": "Introduction",
+   "url": "https://n1k1tas95.github.io/dashboard-kit/en/index.html",
+   "description": "Dashboard Kit is a small CSS framework, with optional JavaScript, for building dashboards. A single file, no dependencies, light and dark themes, and a 12-column grid like Bootstrap.",
+   "uses": [
+    "kit-code",
+    "data-kit-code",
+    "kit-alert",
+    "kit-page",
+    "kit-header",
+    "kit-brand",
+    "kit-main",
+    "kit-container",
+    "kit-row",
+    "kit-col-12",
+    "kit-col-lg-8",
+    "kit-card",
+    "kit-card-body",
+    "kit-col-lg-4",
+    "kit-icon",
+    "kit-btn",
+    "kit-table-wrap",
+    "kit-table",
+    "kit-col-md-6",
+    "--kit-sp",
+    "kit-btn-primary",
+    "kit-d-flex",
+    "kit-mt-3",
+    "kit-dialog",
+    "kit-dropdown"
+   ],
+   "sections": [
+    {
+     "id": "installation",
+     "title": "Installation",
+     "uses": [
+      "kit-code",
+      "data-kit-code",
+      "kit-alert"
+     ]
+    },
+    {
+     "id": "page-template",
+     "title": "Page template",
+     "uses": [
+      "kit-page",
+      "kit-code",
+      "data-kit-code",
+      "kit-header",
+      "kit-brand",
+      "kit-main",
+      "kit-container",
+      "kit-row",
+      "kit-col-12",
+      "kit-col-lg-8",
+      "kit-card",
+      "kit-card-body",
+      "kit-col-lg-4"
+     ]
+    },
+    {
+     "id": "icons",
+     "title": "Icons",
+     "uses": [
+      "kit-icon",
+      "kit-code",
+      "data-kit-code",
+      "kit-btn"
+     ]
+    },
+    {
+     "id": "browsers",
+     "title": "Supported browsers",
+     "uses": []
+    },
+    {
+     "id": "from-bootstrap",
+     "title": "If you know Bootstrap",
+     "uses": [
+      "kit-card",
+      "kit-table-wrap",
+      "kit-table",
+      "kit-row",
+      "kit-col-md-6",
+      "--kit-sp",
+      "kit-btn",
+      "kit-btn-primary",
+      "kit-d-flex",
+      "kit-mt-3",
+      "kit-dialog",
+      "kit-dropdown"
+     ]
+    }
+   ]
+  },
+  {
+   "page": "javascript",
+   "title": "JavaScript",
+   "url": "https://n1k1tas95.github.io/dashboard-kit/en/javascript.html",
+   "description": "JavaScript is optional. Without kit.js all the styling works; you only need it for the parts that move: theme, tabs, select, menus, dialogs and toasts.",
+   "uses": [
+    "kit-card",
+    "kit-table-wrap",
+    "kit-table",
+    "data-kit-theme-set",
+    "data-kit-fs-set",
+    "data-kit-fs-step",
+    "data-kit-reset",
+    "data-kit-layout-set",
+    "data-kit-layout-toggle",
+    "data-kit-nav",
+    "kit-navbar-menu",
+    "data-kit-toggle",
+    "kit-pop",
+    "data-kit-select",
+    "kit-select",
+    "data-kit-tabs",
+    "kit-tabs",
+    "kit-tab",
+    "data-kit-panel",
+    "data-kit-open",
+    "data-kit-confirm",
+    "data-kit-sort",
+    "data-kit-filter",
+    "data-kit-page",
+    "data-kit-datepicker",
+    "data-kit-timepicker",
+    "data-kit-daterange",
+    "data-kit-validate",
+    "data-kit-password",
+    "data-kit-count",
+    "data-kit-close",
+    "kit-code",
+    "data-kit-code",
+    "Kit.toast",
+    "Kit.confirm",
+    "Kit.undo",
+    "Kit.theme",
+    "Kit.fontSize",
+    "Kit.reset",
+    "Kit.layout",
+    "Kit.table",
+    "Kit.paginate",
+    "Kit.datepicker",
+    "Kit.daterange",
+    "Kit.validate",
+    "Kit.date",
+    "Kit.i",
+    "Kit.init",
+    "kit-bar",
+    "kit-btn",
+    "kit-btn-primary",
+    "data-kit-empty"
+   ],
+   "sections": [
+    {
+     "id": "principles",
+     "title": "Principles",
+     "uses": []
+    },
+    {
+     "id": "attributes",
+     "title": "Attributes",
+     "uses": [
+      "kit-card",
+      "kit-table-wrap",
+      "kit-table",
+      "data-kit-theme-set",
+      "data-kit-fs-set",
+      "data-kit-fs-step",
+      "data-kit-reset",
+      "data-kit-layout-set",
+      "data-kit-layout-toggle",
+      "data-kit-nav",
+      "kit-navbar-menu",
+      "data-kit-toggle",
+      "kit-pop",
+      "data-kit-select",
+      "kit-select",
+      "data-kit-tabs",
+      "kit-tabs",
+      "kit-tab",
+      "data-kit-panel",
+      "data-kit-open",
+      "data-kit-confirm",
+      "data-kit-sort",
+      "data-kit-filter",
+      "data-kit-page",
+      "data-kit-datepicker",
+      "data-kit-timepicker",
+      "data-kit-daterange",
+      "data-kit-validate",
+      "data-kit-password",
+      "data-kit-count",
+      "data-kit-close"
+     ]
+    },
+    {
+     "id": "api",
+     "title": "API",
+     "uses": [
+      "kit-code",
+      "data-kit-code",
+      "Kit.toast",
+      "Kit.confirm",
+      "Kit.undo",
+      "Kit.theme",
+      "Kit.fontSize",
+      "Kit.reset",
+      "Kit.layout",
+      "Kit.table",
+      "Kit.paginate",
+      "Kit.datepicker",
+      "Kit.daterange",
+      "Kit.validate",
+      "Kit.date",
+      "Kit.i",
+      "Kit.init",
+      "kit-bar",
+      "kit-btn",
+      "kit-btn-primary",
+      "data-kit-theme-set"
+     ]
+    },
+    {
+     "id": "languages",
+     "title": "Languages",
+     "uses": [
+      "data-kit-empty",
+      "Kit.confirm",
+      "kit-code",
+      "data-kit-code",
+      "Kit.i"
+     ]
+    },
+    {
+     "id": "events",
+     "title": "Events",
+     "uses": [
+      "kit-card",
+      "kit-table-wrap",
+      "kit-table",
+      "kit-select",
+      "data-kit-validate",
+      "kit-tabs",
+      "kit-code",
+      "data-kit-code"
+     ]
+    },
+    {
+     "id": "keyboard",
+     "title": "Keyboard",
+     "uses": []
+    }
+   ]
+  },
+  {
+   "page": "layout",
+   "title": "Layout",
+   "url": "https://n1k1tas95.github.io/dashboard-kit/en/layout.html",
+   "description": "Container, fixed header, element bars, stacking and side panel: the structure of a page. For columns see the grid .",
+   "uses": [
+    "kit-header",
+    "kit-main",
+    "kit-container",
+    "kit-stack",
+    "kit-code",
+    "data-kit-code",
+    "kit-brand",
+    "kit-spacer",
+    "--kit-hh",
+    "--kit-container-w",
+    "kit-card",
+    "kit-table-wrap",
+    "kit-table",
+    "kit-container-boxed",
+    "kit-container-fluid",
+    "kit-btn",
+    "kit-btn-ghost",
+    "kit-btn-icon",
+    "data-kit-layout-toggle",
+    "Kit.layout",
+    "kit-alert",
+    "--kit-sp",
+    "kit-card-body",
+    "kit-bar",
+    "kit-btn-primary",
+    "kit-row",
+    "kit-split-lg",
+    "kit-split",
+    "data-kit-split-open",
+    "data-kit-split-close",
+    "data-kit-split-full",
+    "data-kit-split",
+    "kit-table-hover",
+    "kit-right",
+    "kit-num",
+    "kit-split-panel",
+    "kit-split-head",
+    "kit-split-title",
+    "kit-icon",
+    "kit-split-body",
+    "kit-kv",
+    "--kit-split-w",
+    "--kit-split-overlay-w",
+    "Kit.split",
+    "--kit-rad",
+    "--kit-ctl"
+   ],
+   "sections": [
+    {
+     "id": "structure",
+     "title": "Page structure",
+     "uses": [
+      "kit-header",
+      "kit-main",
+      "kit-container",
+      "kit-stack",
+      "kit-code",
+      "data-kit-code",
+      "kit-brand",
+      "kit-spacer",
+      "--kit-hh",
+      "--kit-container-w"
+     ]
+    },
+    {
+     "id": "content-width",
+     "title": "Content width",
+     "uses": [
+      "kit-card",
+      "kit-table-wrap",
+      "kit-table",
+      "kit-container",
+      "--kit-container-w",
+      "kit-container-boxed",
+      "kit-container-fluid",
+      "kit-code",
+      "data-kit-code",
+      "kit-btn",
+      "kit-btn-ghost",
+      "kit-btn-icon",
+      "data-kit-layout-toggle",
+      "Kit.layout",
+      "kit-alert",
+      "kit-header",
+      "kit-brand",
+      "kit-spacer"
+     ]
+    },
+    {
+     "id": "stack",
+     "title": "Stacking: kit-stack",
+     "uses": [
+      "--kit-sp",
+      "kit-stack",
+      "kit-card",
+      "kit-card-body"
+     ]
+    },
+    {
+     "id": "bar",
+     "title": "Element bar: kit-bar",
+     "uses": [
+      "kit-spacer",
+      "kit-bar",
+      "kit-btn",
+      "kit-btn-primary",
+      "kit-btn-ghost",
+      "kit-alert",
+      "kit-row"
+     ]
+    },
+    {
+     "id": "split",
+     "title": "Side panel: kit-split",
+     "uses": [
+      "kit-split-lg",
+      "kit-split",
+      "data-kit-split-open",
+      "data-kit-split-close",
+      "data-kit-split-full",
+      "data-kit-split",
+      "kit-card",
+      "kit-table-wrap",
+      "kit-table",
+      "kit-table-hover",
+      "kit-right",
+      "kit-num",
+      "kit-split-panel",
+      "kit-split-head",
+      "kit-split-title",
+      "kit-btn",
+      "kit-btn-ghost",
+      "kit-btn-icon",
+      "kit-icon",
+      "kit-split-body",
+      "kit-kv",
+      "--kit-split-w",
+      "--kit-split-overlay-w",
+      "Kit.split"
+     ]
+    },
+    {
+     "id": "spacing",
+     "title": "Base spacing",
+     "uses": [
+      "--kit-sp",
+      "--kit-rad",
+      "--kit-ctl"
+     ]
+    }
+   ]
+  },
+  {
+   "page": "navbar",
+   "title": "Navbar",
+   "url": "https://n1k1tas95.github.io/dashboard-kit/en/navbar.html",
+   "description": "The top bar with logo, items, dropdown menus, actions and a collapsible menu on small screens.",
+   "uses": [
+    "kit-header",
+    "kit-navbar",
+    "kit-brand",
+    "kit-navbar-menu",
+    "kit-nav",
+    "kit-navbar-toggler",
+    "kit-navbar-expand-md",
+    "data-kit-nav",
+    "kit-nav-link",
+    "kit-spacer",
+    "kit-btn",
+    "kit-btn-primary",
+    "kit-btn-ghost",
+    "kit-btn-icon",
+    "kit-icon",
+    "kit-badge",
+    "kit-badge-danger",
+    "kit-dropdown",
+    "kit-pop",
+    "kit-opt",
+    "data-kit-toggle",
+    "kit-pop-group",
+    "kit-pop-sep",
+    "kit-navbar-actions",
+    "kit-navbar-expand-lg",
+    "kit-input",
+    "kit-pop-right",
+    "kit-opt-danger",
+    "kit-alert",
+    "kit-table",
+    "kit-navbar-expand-sm",
+    "kit-navbar-expand-xl",
+    "kit-navbar-expand",
+    "kit-container",
+    "--kit-container-w",
+    "kit-container-boxed",
+    "kit-container-fluid",
+    "kit-main",
+    "kit-nav-col"
+   ],
+   "sections": [
+    {
+     "id": "base",
+     "title": "Basic navbar",
+     "uses": [
+      "kit-header",
+      "kit-navbar",
+      "kit-brand",
+      "kit-navbar-menu",
+      "kit-nav",
+      "kit-navbar-toggler",
+      "kit-navbar-expand-md",
+      "data-kit-nav",
+      "kit-nav-link",
+      "kit-spacer",
+      "kit-btn",
+      "kit-btn-primary",
+      "kit-btn-ghost",
+      "kit-btn-icon",
+      "kit-icon"
+     ]
+    },
+    {
+     "id": "items",
+     "title": "Items",
+     "uses": [
+      "kit-nav-link",
+      "kit-badge",
+      "kit-nav",
+      "kit-icon",
+      "kit-badge-danger"
+     ]
+    },
+    {
+     "id": "dropdown",
+     "title": "Items with a dropdown menu",
+     "uses": [
+      "kit-dropdown",
+      "kit-pop",
+      "kit-opt",
+      "kit-header",
+      "kit-navbar",
+      "kit-navbar-expand-md",
+      "kit-brand",
+      "kit-navbar-menu",
+      "kit-nav",
+      "kit-nav-link",
+      "data-kit-toggle",
+      "kit-icon",
+      "kit-pop-group",
+      "kit-pop-sep",
+      "kit-btn",
+      "kit-btn-ghost",
+      "kit-btn-icon",
+      "kit-navbar-toggler",
+      "data-kit-nav"
+     ]
+    },
+    {
+     "id": "actions",
+     "title": "Search, theme and actions",
+     "uses": [
+      "kit-spacer",
+      "kit-navbar-menu",
+      "kit-navbar-actions",
+      "kit-header",
+      "kit-navbar",
+      "kit-navbar-expand-lg",
+      "kit-brand",
+      "kit-nav",
+      "kit-nav-link",
+      "kit-input",
+      "kit-dropdown",
+      "kit-btn",
+      "kit-btn-icon",
+      "kit-btn-ghost",
+      "data-kit-toggle",
+      "kit-icon",
+      "kit-pop",
+      "kit-pop-right",
+      "kit-opt",
+      "kit-opt-danger",
+      "kit-navbar-toggler",
+      "data-kit-nav",
+      "kit-alert"
+     ]
+    },
+    {
+     "id": "breakpoint",
+     "title": "When it opens inline",
+     "uses": [
+      "kit-table",
+      "kit-navbar-expand-sm",
+      "kit-navbar-expand-md",
+      "kit-navbar-expand-lg",
+      "kit-navbar-expand-xl"
+     ]
+    },
+    {
+     "id": "collapsible",
+     "title": "Collapsible menu",
+     "uses": [
+      "kit-navbar-expand",
+      "kit-header",
+      "kit-navbar",
+      "kit-brand",
+      "kit-navbar-menu",
+      "kit-nav",
+      "kit-nav-link",
+      "kit-dropdown",
+      "data-kit-toggle",
+      "kit-icon",
+      "kit-pop",
+      "kit-opt",
+      "kit-input",
+      "kit-btn",
+      "kit-btn-ghost",
+      "kit-btn-icon",
+      "kit-navbar-toggler",
+      "data-kit-nav"
+     ]
+    },
+    {
+     "id": "container",
+     "title": "Aligned with the content: kit-container",
+     "uses": [
+      "kit-table",
+      "kit-container",
+      "--kit-container-w",
+      "kit-container-boxed",
+      "kit-container-fluid",
+      "kit-header",
+      "kit-navbar",
+      "kit-navbar-expand-md",
+      "kit-brand",
+      "kit-navbar-menu",
+      "kit-nav",
+      "kit-nav-link",
+      "kit-spacer",
+      "kit-btn",
+      "kit-btn-primary",
+      "kit-btn-ghost",
+      "kit-btn-icon",
+      "kit-navbar-toggler",
+      "data-kit-nav",
+      "kit-icon",
+      "kit-main",
+      "kit-alert"
+     ]
+    },
+    {
+     "id": "vertical",
+     "title": "Vertical list",
+     "uses": [
+      "kit-nav-col",
+      "kit-nav",
+      "kit-nav-link"
+     ]
+    },
+    {
+     "id": "accessibility",
+     "title": "Accessibility",
+     "uses": []
+    }
+   ]
+  },
+  {
+   "page": "navigation",
+   "title": "Tabs and breadcrumb",
+   "url": "https://n1k1tas95.github.io/dashboard-kit/en/navigation.html",
+   "description": "Tabs, segmented control, pills, chips and breadcrumb: ways to choose what to show, to filter and to find your way.",
+   "uses": [
+    "data-kit-tabs",
+    "data-kit-panel",
+    "kit-spacer",
+    "kit-tabs",
+    "kit-tab",
+    "kit-btn",
+    "kit-btn-ghost",
+    "kit-icon",
+    "kit-card",
+    "kit-card-body",
+    "kit-tabpanel",
+    "kit-seg",
+    "kit-bar",
+    "kit-pill",
+    "kit-chip",
+    "kit-breadcrumb",
+    "kit-breadcrumb-slash",
+    "kit-breadcrumb-collapse",
+    "kit-breadcrumb-more",
+    "kit-header"
+   ],
+   "sections": [
+    {
+     "id": "tab",
+     "title": "Tabs",
+     "uses": [
+      "data-kit-tabs",
+      "data-kit-panel",
+      "kit-spacer",
+      "kit-tabs",
+      "kit-tab",
+      "kit-btn",
+      "kit-btn-ghost",
+      "kit-icon",
+      "kit-card",
+      "kit-card-body",
+      "kit-tabpanel"
+     ]
+    },
+    {
+     "id": "segmented",
+     "title": "Segmented control",
+     "uses": [
+      "kit-seg"
+     ]
+    },
+    {
+     "id": "pill",
+     "title": "Pill",
+     "uses": [
+      "kit-bar",
+      "kit-pill"
+     ]
+    },
+    {
+     "id": "chip",
+     "title": "Chip",
+     "uses": [
+      "kit-bar",
+      "kit-chip"
+     ]
+    },
+    {
+     "id": "breadcrumb",
+     "title": "Breadcrumb",
+     "uses": [
+      "kit-breadcrumb"
+     ]
+    },
+    {
+     "id": "breadcrumb-variants",
+     "title": "Separator and icon",
+     "uses": [
+      "kit-breadcrumb-slash",
+      "kit-icon",
+      "kit-breadcrumb"
+     ]
+    },
+    {
+     "id": "breadcrumb-collapse",
+     "title": "Long paths on narrow screens",
+     "uses": [
+      "kit-breadcrumb-collapse",
+      "kit-breadcrumb-more",
+      "kit-breadcrumb",
+      "kit-header"
+     ]
+    }
+   ]
+  },
+  {
+   "page": "overlays",
+   "title": "Dialogs and menus",
+   "url": "https://n1k1tas95.github.io/dashboard-kit/en/overlays.html",
+   "description": "Dialog windows, pop-up menus and temporary messages. They require kit.js .",
+   "uses": [
+    "data-kit-open",
+    "data-kit-close",
+    "kit-card-head",
+    "kit-card-body",
+    "kit-card-foot",
+    "kit-dialog-sm",
+    "kit-dialog-lg",
+    "kit-dialog-wide",
+    "kit-dialog-xl",
+    "kit-dialog-full",
+    "--kit-dialog-w",
+    "kit-btn",
+    "kit-dialog",
+    "kit-btn-primary",
+    "kit-btn-ghost",
+    "kit-btn-icon",
+    "kit-icon",
+    "kit-mute",
+    "kit-field",
+    "kit-input",
+    "kit-drawer",
+    "kit-drawer-left",
+    "kit-drawer-top",
+    "kit-drawer-bottom",
+    "kit-stack",
+    "kit-drawer-sm",
+    "--kit-drawer-h",
+    "--kit-drawer-w",
+    "kit-drawer-lg",
+    "kit-drawer-xl",
+    "kit-card",
+    "kit-table-wrap",
+    "kit-table",
+    "Kit.confirm",
+    "data-kit-confirm",
+    "kit-bar",
+    "kit-btn-danger",
+    "kit-alert",
+    "data-kit-confirm-text",
+    "data-kit-confirm-ok",
+    "data-kit-confirm-danger",
+    "Kit.undo",
+    "kit-spacer",
+    "kit-pop",
+    "data-kit-toggle",
+    "kit-dropdown",
+    "kit-opt",
+    "kit-opt-text",
+    "kit-opt-danger",
+    "kit-pop-sep",
+    "kit-pop-group",
+    "kit-pop-right",
+    "kit-btn-split",
+    "kit-pop-up",
+    "kit-pop-static",
+    "data-kit-tip",
+    "kit-badge",
+    "kit-badge-warning",
+    "data-kit-tip-pos",
+    "--kit-sp",
+    "kit-alert-warning",
+    "Kit.toast",
+    "kit-icons",
+    "kit-settings",
+    "kit-seg",
+    "data-kit-theme-set",
+    "data-kit-fs-set",
+    "data-kit-layout-set",
+    "data-kit-reset",
+    "Kit.reset",
+    "kit-d-none",
+    "kit-d-sm-inline",
+    "kit-settings-row",
+    "kit-settings-label",
+    "kit-settings-foot"
+   ],
+   "sections": [
+    {
+     "id": "dialog",
+     "title": "Dialog",
+     "uses": [
+      "data-kit-open",
+      "data-kit-close",
+      "kit-card-head",
+      "kit-card-body",
+      "kit-card-foot",
+      "kit-dialog-sm",
+      "kit-dialog-lg",
+      "kit-dialog-wide",
+      "kit-dialog-xl",
+      "kit-dialog-full",
+      "--kit-dialog-w",
+      "kit-btn",
+      "kit-dialog",
+      "kit-btn-primary",
+      "kit-btn-ghost",
+      "kit-btn-icon",
+      "kit-icon",
+      "kit-mute",
+      "kit-field",
+      "kit-input"
+     ]
+    },
+    {
+     "id": "drawer",
+     "title": "Drawer",
+     "uses": [
+      "data-kit-open",
+      "data-kit-close",
+      "kit-drawer",
+      "kit-drawer-left",
+      "kit-drawer-top",
+      "kit-drawer-bottom",
+      "kit-btn",
+      "kit-dialog",
+      "kit-card-head",
+      "kit-btn-ghost",
+      "kit-btn-icon",
+      "kit-icon",
+      "kit-card-body",
+      "kit-stack",
+      "kit-field",
+      "kit-input",
+      "kit-card-foot",
+      "kit-btn-primary",
+      "kit-drawer-sm",
+      "kit-mute",
+      "--kit-drawer-h",
+      "--kit-drawer-w",
+      "kit-drawer-lg",
+      "kit-drawer-xl"
+     ]
+    },
+    {
+     "id": "confirm",
+     "title": "Asking for confirmation",
+     "uses": [
+      "kit-card",
+      "kit-table-wrap",
+      "kit-table",
+      "Kit.confirm",
+      "data-kit-confirm"
+     ]
+    },
+    {
+     "id": "confirm-js",
+     "title": "Kit.confirm",
+     "uses": [
+      "Kit.confirm",
+      "kit-bar",
+      "kit-btn",
+      "kit-btn-danger",
+      "kit-card",
+      "kit-table-wrap",
+      "kit-table",
+      "kit-alert"
+     ]
+    },
+    {
+     "id": "confirm-name",
+     "title": "Typing the name",
+     "uses": [
+      "kit-bar",
+      "Kit.confirm",
+      "kit-btn",
+      "kit-btn-danger"
+     ]
+    },
+    {
+     "id": "confirm-attribute",
+     "title": "Without JavaScript: data-kit-confirm",
+     "uses": [
+      "data-kit-confirm",
+      "data-kit-confirm-text",
+      "kit-bar",
+      "kit-btn",
+      "kit-btn-danger",
+      "data-kit-confirm-ok",
+      "data-kit-confirm-danger"
+     ]
+    },
+    {
+     "id": "undo",
+     "title": "Undo instead of asking",
+     "uses": [
+      "Kit.undo",
+      "kit-bar",
+      "kit-spacer",
+      "kit-btn",
+      "kit-btn-danger",
+      "kit-mute"
+     ]
+    },
+    {
+     "id": "dialog-animation",
+     "title": "Animation",
+     "uses": [
+      "kit-dialog"
+     ]
+    },
+    {
+     "id": "menu",
+     "title": "Pop-up menu",
+     "uses": [
+      "kit-pop",
+      "data-kit-toggle",
+      "kit-dropdown",
+      "kit-btn",
+      "kit-icon",
+      "kit-opt",
+      "kit-opt-text"
+     ]
+    },
+    {
+     "id": "menu-items",
+     "title": "Items: buttons, links, separators",
+     "uses": [
+      "kit-opt",
+      "kit-opt-danger",
+      "kit-pop-sep",
+      "kit-pop-group",
+      "kit-dropdown",
+      "kit-btn",
+      "data-kit-toggle",
+      "kit-icon",
+      "kit-pop",
+      "kit-opt-text"
+     ]
+    },
+    {
+     "id": "menu-icon",
+     "title": "Icon-only button",
+     "uses": [
+      "kit-pop-right",
+      "kit-bar",
+      "kit-dropdown",
+      "kit-btn",
+      "kit-btn-ghost",
+      "kit-btn-icon",
+      "data-kit-toggle",
+      "kit-icon",
+      "kit-pop",
+      "kit-opt",
+      "kit-opt-text",
+      "kit-pop-sep",
+      "kit-opt-danger"
+     ]
+    },
+    {
+     "id": "menu-split",
+     "title": "Split button",
+     "uses": [
+      "kit-btn-split",
+      "kit-btn",
+      "kit-btn-primary",
+      "kit-icon",
+      "kit-dropdown",
+      "kit-btn-icon",
+      "data-kit-toggle",
+      "kit-pop",
+      "kit-pop-right",
+      "kit-opt",
+      "kit-opt-text"
+     ]
+    },
+    {
+     "id": "menu-up",
+     "title": "Upwards",
+     "uses": [
+      "kit-pop-up",
+      "kit-dropdown",
+      "kit-btn",
+      "data-kit-toggle",
+      "kit-icon",
+      "kit-pop",
+      "kit-opt",
+      "kit-opt-text"
+     ]
+    },
+    {
+     "id": "menu-static",
+     "title": "Always visible",
+     "uses": [
+      "kit-pop-static",
+      "kit-pop",
+      "kit-pop-group",
+      "kit-opt",
+      "kit-icon",
+      "kit-opt-text",
+      "kit-pop-sep",
+      "kit-opt-danger"
+     ]
+    },
+    {
+     "id": "tooltip",
+     "title": "Tooltip",
+     "uses": [
+      "data-kit-tip",
+      "kit-bar",
+      "kit-btn",
+      "kit-btn-icon",
+      "kit-icon",
+      "kit-badge",
+      "kit-badge-warning"
+     ]
+    },
+    {
+     "id": "tooltip-position",
+     "title": "Position",
+     "uses": [
+      "data-kit-tip-pos",
+      "--kit-sp",
+      "kit-bar",
+      "kit-btn",
+      "data-kit-tip",
+      "kit-alert",
+      "kit-alert-warning",
+      "kit-table-wrap"
+     ]
+    },
+    {
+     "id": "toast",
+     "title": "Toast",
+     "uses": [
+      "Kit.toast",
+      "kit-btn"
+     ]
+    },
+    {
+     "id": "toast-types",
+     "title": "Types, title and icon",
+     "uses": [
+      "kit-icons",
+      "kit-bar",
+      "Kit.toast",
+      "kit-btn"
+     ]
+    },
+    {
+     "id": "toast-action",
+     "title": "Action and closing",
+     "uses": [
+      "Kit.toast",
+      "kit-bar",
+      "kit-btn",
+      "kit-btn-ghost"
+     ]
+    },
+    {
+     "id": "toast-position",
+     "title": "Position",
+     "uses": [
+      "kit-bar",
+      "Kit.toast",
+      "kit-btn",
+      "kit-card",
+      "kit-table-wrap",
+      "kit-table",
+      "kit-alert"
+     ]
+    },
+    {
+     "id": "settings",
+     "title": "Settings panel",
+     "uses": [
+      "kit-settings",
+      "kit-seg",
+      "data-kit-theme-set",
+      "data-kit-fs-set",
+      "data-kit-layout-set",
+      "data-kit-reset",
+      "Kit.reset",
+      "kit-dropdown",
+      "kit-btn",
+      "data-kit-toggle",
+      "kit-icon",
+      "kit-d-none",
+      "kit-d-sm-inline",
+      "kit-pop",
+      "kit-pop-right",
+      "kit-settings-row",
+      "kit-settings-label",
+      "kit-settings-foot",
+      "kit-btn-ghost"
+     ]
+    }
+   ]
+  },
+  {
+   "page": "sidebar",
+   "title": "Sidebar",
+   "url": "https://n1k1tas95.github.io/dashboard-kit/en/sidebar.html",
+   "description": "The navigation bar on the left, with header, items, sub-items, account and utilities at the bottom. Slide-in on small screens, compact (icons only) on large ones.",
+   "uses": [
+    "kit-app",
+    "kit-app-main",
+    "kit-header",
+    "kit-main",
+    "kit-sidebar-head",
+    "kit-sidebar-body",
+    "kit-sidebar-foot",
+    "kit-sidebar",
+    "kit-brand",
+    "kit-icon",
+    "kit-side-text",
+    "kit-side-nav",
+    "kit-side-link",
+    "kit-badge",
+    "kit-badge-danger",
+    "kit-side-title",
+    "kit-side-user",
+    "kit-side-avatar",
+    "kit-side-user-text",
+    "kit-fs-4",
+    "kit-m-0",
+    "kit-mute",
+    "data-kit-sidebar-toggle",
+    "--kit-hh",
+    "kit-code",
+    "data-kit-code",
+    "kit-app-expand-lg",
+    "kit-btn",
+    "kit-btn-ghost",
+    "kit-btn-icon",
+    "kit-table",
+    "kit-app-expand-md",
+    "kit-app-expand-xl",
+    "--kit-side-wc",
+    "data-kit-sidebar",
+    "Kit.reset",
+    "data-kit-reset",
+    "kit-side-details",
+    "kit-side-chev",
+    "kit-side-sub",
+    "kit-side-tools",
+    "kit-pop-up",
+    "kit-dropdown",
+    "data-kit-toggle",
+    "kit-pop",
+    "kit-opt",
+    "kit-opt-danger",
+    "Kit.sidebar",
+    "--kit-side-w"
+   ],
+   "sections": [
+    {
+     "id": "base",
+     "title": "Structure",
+     "uses": [
+      "kit-app",
+      "kit-app-main",
+      "kit-header",
+      "kit-main",
+      "kit-sidebar-head",
+      "kit-sidebar-body",
+      "kit-sidebar-foot",
+      "kit-sidebar",
+      "kit-brand",
+      "kit-icon",
+      "kit-side-text",
+      "kit-side-nav",
+      "kit-side-link",
+      "kit-badge",
+      "kit-badge-danger",
+      "kit-side-title",
+      "kit-side-user",
+      "kit-side-avatar",
+      "kit-side-user-text",
+      "kit-fs-4",
+      "kit-m-0",
+      "kit-mute"
+     ]
+    },
+    {
+     "id": "header",
+     "title": "Together with the header",
+     "uses": [
+      "kit-header",
+      "kit-app-main",
+      "data-kit-sidebar-toggle",
+      "--kit-hh",
+      "kit-code",
+      "data-kit-code",
+      "kit-app",
+      "kit-app-expand-lg",
+      "kit-sidebar",
+      "kit-btn",
+      "kit-btn-ghost",
+      "kit-btn-icon",
+      "kit-icon",
+      "kit-main"
+     ]
+    },
+    {
+     "id": "breakpoint",
+     "title": "When it stays inline",
+     "uses": [
+      "kit-table",
+      "kit-app",
+      "kit-app-expand-md",
+      "kit-app-expand-lg",
+      "kit-app-expand-xl",
+      "data-kit-sidebar-toggle"
+     ]
+    },
+    {
+     "id": "compact",
+     "title": "Compact, icons only",
+     "uses": [
+      "--kit-side-wc",
+      "data-kit-sidebar",
+      "kit-side-text",
+      "Kit.reset",
+      "data-kit-reset"
+     ]
+    },
+    {
+     "id": "subitems",
+     "title": "Items with sub-items",
+     "uses": [
+      "kit-side-details",
+      "kit-side-link",
+      "kit-side-chev",
+      "kit-side-nav",
+      "kit-side-sub",
+      "kit-app",
+      "kit-sidebar",
+      "kit-sidebar-body",
+      "kit-icon",
+      "kit-side-text"
+     ]
+    },
+    {
+     "id": "account",
+     "title": "Account and utilities at the bottom",
+     "uses": [
+      "kit-sidebar-foot",
+      "kit-side-tools",
+      "kit-side-user",
+      "kit-side-avatar",
+      "kit-side-user-text",
+      "kit-pop-up",
+      "kit-code",
+      "data-kit-code",
+      "kit-dropdown",
+      "data-kit-toggle",
+      "kit-pop",
+      "kit-opt",
+      "kit-opt-danger"
+     ]
+    },
+    {
+     "id": "js",
+     "title": "JavaScript",
+     "uses": [
+      "kit-table",
+      "data-kit-sidebar-toggle",
+      "kit-sidebar",
+      "Kit.sidebar"
+     ]
+    },
+    {
+     "id": "tokens",
+     "title": "Tokens and print",
+     "uses": [
+      "--kit-side-w",
+      "--kit-side-wc",
+      "kit-app"
+     ]
+    }
+   ]
+  },
+  {
+   "page": "snippets",
+   "title": "VS Code snippets",
+   "url": "https://n1k1tas95.github.io/dashboard-kit/en/snippets.html",
+   "description": "Type the prefix and press Tab: the editor writes the component's markup, with the fields to fill in.",
+   "uses": [
+    "kit-card",
+    "kit-page",
+    "kit-dash",
+    "kit-table-wrap",
+    "kit-table",
+    "kit-accordion",
+    "kit-alert",
+    "kit-alert-close",
+    "kit-alert-icon",
+    "kit-badge",
+    "kit-bar",
+    "kit-breadcrumb",
+    "kit-btn",
+    "kit-btn-icon",
+    "kit-btn-primary",
+    "kit-chart",
+    "kit-check-cards",
+    "kit-chip",
+    "kit-code",
+    "kit-col",
+    "kit-combo",
+    "kit-container",
+    "kit-container-fluid",
+    "kit-control",
+    "kit-date",
+    "kit-daterange",
+    "kit-datetime",
+    "kit-dialog",
+    "kit-dropdown",
+    "kit-empty",
+    "kit-field",
+    "kit-float",
+    "kit-form",
+    "kit-form-h",
+    "kit-grid",
+    "kit-grid-2",
+    "kit-grid-3",
+    "kit-header",
+    "kit-header-container",
+    "kit-icon",
+    "kit-icons",
+    "kit-input-group",
+    "kit-kpi",
+    "kit-kv",
+    "kit-layout",
+    "kit-layout-toggle",
+    "kit-list",
+    "kit-meter",
+    "kit-navbar",
+    "kit-pill",
+    "kit-progress",
+    "kit-prose",
+    "kit-quote",
+    "kit-row",
+    "kit-row-cols",
+    "kit-search",
+    "kit-seg",
+    "kit-select",
+    "kit-settings",
+    "kit-sidebar"
+   ],
+   "sections": [
+    {
+     "id": "installation",
+     "title": "Installation",
+     "uses": [
+      "kit-card",
+      "kit-page",
+      "kit-dash"
+     ]
+    },
+    {
+     "id": "list",
+     "title": "List of prefixes",
+     "uses": [
+      "kit-card",
+      "kit-table-wrap",
+      "kit-table",
+      "kit-accordion",
+      "kit-alert",
+      "kit-alert-close",
+      "kit-alert-icon",
+      "kit-badge",
+      "kit-bar",
+      "kit-breadcrumb",
+      "kit-btn",
+      "kit-btn-icon",
+      "kit-btn-primary",
+      "kit-chart",
+      "kit-check-cards",
+      "kit-chip",
+      "kit-code",
+      "kit-col",
+      "kit-combo",
+      "kit-container",
+      "kit-container-fluid",
+      "kit-control",
+      "kit-dash",
+      "kit-date",
+      "kit-daterange",
+      "kit-datetime",
+      "kit-dialog",
+      "kit-dropdown",
+      "kit-empty",
+      "kit-field",
+      "kit-float",
+      "kit-form",
+      "kit-form-h",
+      "kit-grid",
+      "kit-grid-2",
+      "kit-grid-3",
+      "kit-header",
+      "kit-header-container",
+      "kit-icon",
+      "kit-icons",
+      "kit-input-group",
+      "kit-kpi",
+      "kit-kv",
+      "kit-layout",
+      "kit-layout-toggle",
+      "kit-list",
+      "kit-meter",
+      "kit-navbar",
+      "kit-page",
+      "kit-pill",
+      "kit-progress",
+      "kit-prose",
+      "kit-quote",
+      "kit-row",
+      "kit-row-cols",
+      "kit-search",
+      "kit-seg",
+      "kit-select",
+      "kit-settings",
+      "kit-sidebar"
+     ]
+    }
+   ]
+  },
+  {
+   "page": "tables",
+   "title": "Tables",
+   "url": "https://n1k1tas95.github.io/dashboard-kit/en/tables.html",
+   "description": "Compact tables with a sticky header, selectable rows and aligned numbers.",
+   "uses": [
+    "kit-table-wrap",
+    "kit-num",
+    "kit-wrap",
+    "kit-card",
+    "kit-table",
+    "kit-danger",
+    "kit-table-hover",
+    "kit-badge",
+    "kit-badge-success",
+    "kit-badge-warning",
+    "kit-badge-danger",
+    "data-kit-sort",
+    "data-kit-nosort",
+    "data-kit-type",
+    "data-kit-value",
+    "Kit.table",
+    "data-kit-filter",
+    "data-kit-empty",
+    "kit-search",
+    "--kit-sp",
+    "kit-icon",
+    "kit-input",
+    "data-kit-page",
+    "kit-pagination",
+    "kit-btn",
+    "--kit-line",
+    "--kit-rad",
+    "kit-pagination-info",
+    "kit-pagination-pages",
+    "kit-btn-ghost",
+    "kit-btn-icon",
+    "kit-pagination-gap",
+    "kit-sort-btn",
+    "Kit.init",
+    "kit-code",
+    "data-kit-code",
+    "kit-table-empty",
+    "kit-sort-n",
+    "Kit.paginate",
+    "kit-header",
+    "kit-table-scroll",
+    "--kit-table-h",
+    "--kit-row",
+    "--kit-cell",
+    "kit-table-fix",
+    "data-kit-fix",
+    "--kit-fix-1",
+    "--kit-fix-2"
+   ],
+   "sections": [
+    {
+     "id": "base",
+     "title": "Table",
+     "uses": [
+      "kit-table-wrap",
+      "kit-num",
+      "kit-wrap",
+      "kit-card",
+      "kit-table",
+      "kit-danger"
+     ]
+    },
+    {
+     "id": "rows",
+     "title": "Clickable and selected rows",
+     "uses": [
+      "kit-table-hover",
+      "kit-card",
+      "kit-table-wrap",
+      "kit-table",
+      "kit-badge",
+      "kit-badge-success",
+      "kit-badge-warning",
+      "kit-badge-danger"
+     ]
+    },
+    {
+     "id": "sorting",
+     "title": "Sorting",
+     "uses": [
+      "data-kit-sort",
+      "kit-card",
+      "kit-table-wrap",
+      "kit-table",
+      "kit-num",
+      "kit-danger",
+      "data-kit-nosort",
+      "data-kit-type",
+      "data-kit-value"
+     ]
+    },
+    {
+     "id": "sorting-multi",
+     "title": "Several columns",
+     "uses": [
+      "data-kit-sort",
+      "kit-card",
+      "kit-table-wrap",
+      "kit-table",
+      "kit-num",
+      "kit-danger",
+      "Kit.table"
+     ]
+    },
+    {
+     "id": "filter",
+     "title": "Text filter",
+     "uses": [
+      "data-kit-filter",
+      "data-kit-empty",
+      "kit-search",
+      "--kit-sp",
+      "kit-icon",
+      "kit-input",
+      "kit-card",
+      "kit-table-wrap",
+      "kit-table",
+      "data-kit-sort",
+      "kit-num",
+      "kit-danger"
+     ]
+    },
+    {
+     "id": "pagination",
+     "title": "Pagination",
+     "uses": [
+      "data-kit-page",
+      "kit-pagination",
+      "kit-search",
+      "--kit-sp",
+      "kit-icon",
+      "kit-input",
+      "data-kit-filter",
+      "kit-card",
+      "kit-table-wrap",
+      "kit-table",
+      "kit-table-hover",
+      "data-kit-sort",
+      "kit-num",
+      "kit-danger",
+      "kit-btn",
+      "--kit-line",
+      "--kit-rad",
+      "kit-pagination-info",
+      "kit-pagination-pages",
+      "kit-btn-ghost",
+      "kit-btn-icon",
+      "kit-pagination-gap"
+     ]
+    },
+    {
+     "id": "htmx",
+     "title": "With Django and htmx",
+     "uses": [
+      "data-kit-sort",
+      "data-kit-filter",
+      "data-kit-page",
+      "kit-pagination",
+      "kit-sort-btn",
+      "Kit.init",
+      "kit-code",
+      "data-kit-code",
+      "kit-input",
+      "kit-card",
+      "kit-table-wrap",
+      "kit-table",
+      "kit-table-empty",
+      "kit-pagination-info",
+      "kit-pagination-pages",
+      "kit-btn",
+      "kit-btn-ghost",
+      "kit-btn-icon",
+      "kit-pagination-gap",
+      "kit-sort-n"
+     ]
+    },
+    {
+     "id": "api",
+     "title": "JavaScript",
+     "uses": [
+      "Kit.table",
+      "Kit.paginate",
+      "kit-code",
+      "data-kit-code",
+      "data-kit-sort",
+      "kit-card",
+      "kit-table-wrap",
+      "kit-table",
+      "data-kit-page",
+      "data-kit-empty"
+     ]
+    },
+    {
+     "id": "sticky",
+     "title": "Sticky header and columns",
+     "uses": [
+      "kit-header",
+      "kit-table-wrap",
+      "kit-table-scroll",
+      "--kit-table-h",
+      "--kit-row",
+      "--kit-cell",
+      "kit-table-fix",
+      "kit-card",
+      "kit-table",
+      "kit-table-hover",
+      "kit-num",
+      "kit-badge",
+      "kit-badge-success",
+      "kit-badge-warning",
+      "kit-danger",
+      "kit-badge-danger",
+      "data-kit-fix",
+      "--kit-fix-1",
+      "--kit-fix-2"
+     ]
+    }
+   ]
+  },
+  {
+   "page": "theming",
+   "title": "Themes and tokens",
+   "url": "https://n1k1tas95.github.io/dashboard-kit/en/theming.html",
+   "description": "The whole look comes from a few CSS variables. Changing them in :root , or on a single element, changes colors, density and corners of the whole interface.",
+   "uses": [
+    "data-kit-theme-set",
+    "kit-code",
+    "data-kit-code",
+    "kit-btn",
+    "kit-pop",
+    "kit-pop-right",
+    "kit-dropdown",
+    "data-kit-toggle",
+    "kit-icon",
+    "kit-opt",
+    "kit-opt-text",
+    "kit-opt-check",
+    "--kit-font",
+    "--kit-fs",
+    "--kit-zoom",
+    "data-kit-fs",
+    "data-kit-fs-set",
+    "data-kit-fs-step",
+    "--kit-sp",
+    "kit-card",
+    "kit-table-wrap",
+    "kit-table",
+    "--kit-lh",
+    "--kit-h1",
+    "kit-fs-1",
+    "--kit-h2",
+    "kit-fs-2",
+    "--kit-h3",
+    "kit-fs-3",
+    "--kit-h4",
+    "kit-fs-4",
+    "--kit-h5",
+    "kit-fs-5",
+    "--kit-h6",
+    "kit-fs-6",
+    "--kit-row",
+    "--kit-cell",
+    "--kit-rad",
+    "--kit-rad-sm",
+    "--kit-hh",
+    "--kit-ctl",
+    "--kit-container-w",
+    "kit-container",
+    "--kit-side-w",
+    "kit-sidebar",
+    "--kit-side-wc",
+    "--kit-bg",
+    "--kit-card",
+    "--kit-ink",
+    "--kit-mute",
+    "--kit-line",
+    "--kit-line-soft",
+    "--kit-hover",
+    "--kit-accent",
+    "--kit-accent-ink",
+    "--kit-accent-soft",
+    "--kit-danger",
+    "--kit-success",
+    "--kit-warning",
+    "--kit-c1",
+    "--kit-c2",
+    "--kit-c3",
+    "--kit-c4",
+    "--kit-hl-tag",
+    "--kit-hl-attr",
+    "--kit-hl-str",
+    "--kit-hl-kw",
+    "--kit-hl-fn",
+    "--kit-hl-num",
+    "--kit-hl-com",
+    "--kit-sb",
+    "kit-no-scrollbar",
+    "kit-p-3",
+    "kit-bar",
+    "kit-btn-primary",
+    "kit-pill",
+    "kit-badge"
+   ],
+   "sections": [
+    {
+     "id": "theme",
+     "title": "Light and dark theme",
+     "uses": [
+      "data-kit-theme-set",
+      "kit-code",
+      "data-kit-code",
+      "kit-btn"
+     ]
+    },
+    {
+     "id": "selector",
+     "title": "Theme selector (menu)",
+     "uses": [
+      "kit-pop",
+      "data-kit-theme-set",
+      "kit-pop-right",
+      "kit-dropdown",
+      "kit-btn",
+      "data-kit-toggle",
+      "kit-icon",
+      "kit-opt",
+      "kit-opt-text",
+      "kit-opt-check"
+     ]
+    },
+    {
+     "id": "text",
+     "title": "Font and text size",
+     "uses": [
+      "--kit-font",
+      "kit-code",
+      "data-kit-code",
+      "--kit-fs",
+      "--kit-zoom",
+      "data-kit-fs",
+      "data-kit-fs-set",
+      "data-kit-fs-step",
+      "kit-btn"
+     ]
+    },
+    {
+     "id": "layout",
+     "title": "Layout tokens",
+     "uses": [
+      "--kit-sp",
+      "kit-card",
+      "kit-table-wrap",
+      "kit-table",
+      "--kit-fs",
+      "--kit-lh",
+      "--kit-h1",
+      "kit-fs-1",
+      "--kit-h2",
+      "kit-fs-2",
+      "--kit-h3",
+      "kit-fs-3",
+      "--kit-h4",
+      "kit-fs-4",
+      "--kit-h5",
+      "kit-fs-5",
+      "--kit-h6",
+      "kit-fs-6",
+      "--kit-zoom",
+      "--kit-row",
+      "--kit-cell",
+      "--kit-rad",
+      "--kit-rad-sm",
+      "--kit-hh",
+      "--kit-ctl",
+      "--kit-container-w",
+      "kit-container",
+      "--kit-side-w",
+      "kit-sidebar",
+      "--kit-side-wc"
+     ]
+    },
+    {
+     "id": "colors",
+     "title": "Color tokens",
+     "uses": [
+      "kit-card",
+      "kit-table-wrap",
+      "kit-table",
+      "--kit-bg",
+      "--kit-card",
+      "--kit-ink",
+      "--kit-mute",
+      "--kit-line",
+      "--kit-line-soft",
+      "--kit-hover",
+      "--kit-accent",
+      "--kit-accent-ink",
+      "--kit-accent-soft",
+      "--kit-danger",
+      "--kit-success",
+      "--kit-warning",
+      "--kit-c1",
+      "--kit-c2",
+      "--kit-c3",
+      "--kit-c4",
+      "--kit-hl-tag",
+      "--kit-hl-attr",
+      "--kit-hl-str",
+      "--kit-hl-kw",
+      "--kit-hl-fn",
+      "--kit-hl-num",
+      "--kit-hl-com"
+     ]
+    },
+    {
+     "id": "scrollbar",
+     "title": "Scrollbars",
+     "uses": [
+      "--kit-sb",
+      "kit-no-scrollbar",
+      "kit-card",
+      "kit-p-3",
+      "kit-code",
+      "data-kit-code",
+      "--kit-accent"
+     ]
+    },
+    {
+     "id": "customizing",
+     "title": "Customizing",
+     "uses": [
+      "kit-code",
+      "data-kit-code",
+      "--kit-accent",
+      "--kit-accent-soft",
+      "--kit-rad",
+      "--kit-rad-sm",
+      "--kit-row",
+      "--kit-ctl",
+      "kit-bar",
+      "kit-btn",
+      "kit-btn-primary",
+      "kit-pill",
+      "kit-badge"
+     ]
+    }
+   ]
+  },
+  {
+   "page": "typography",
+   "title": "Typography",
+   "url": "https://n1k1tas95.github.io/dashboard-kit/en/typography.html",
+   "description": "Headings, body text, quotes, lists and the classes to control size, weight, line height and line width. It all starts from a few tokens, so it is adjusted from a single place.",
+   "uses": [
+    "--kit-lh",
+    "--kit-fs",
+    "kit-h1",
+    "kit-h6",
+    "kit-h4",
+    "--kit-h1",
+    "--kit-h6",
+    "kit-fs-1",
+    "kit-fs-6",
+    "kit-code",
+    "data-kit-code",
+    "--kit-h2",
+    "kit-display-1",
+    "kit-display-4",
+    "kit-display-2",
+    "kit-display-3",
+    "kit-lead",
+    "kit-initialism",
+    "kit-card",
+    "kit-fs-sm",
+    "kit-fs-lg",
+    "kit-lh-1",
+    "kit-fs-2",
+    "kit-fs-3",
+    "kit-fs-4",
+    "kit-fs-5",
+    "kit-fw-light",
+    "kit-fw-normal",
+    "kit-fw-medium",
+    "kit-fw-semibold",
+    "kit-fw-bold",
+    "kit-fst-italic",
+    "kit-fst-normal",
+    "kit-left",
+    "kit-center",
+    "kit-right",
+    "kit-p-3",
+    "kit-nowrap",
+    "kit-mute",
+    "kit-wrap",
+    "kit-break",
+    "kit-uppercase",
+    "kit-lowercase",
+    "kit-capitalize",
+    "kit-underline",
+    "kit-line-through",
+    "kit-no-underline",
+    "kit-ls-tight",
+    "kit-ls-wide",
+    "kit-lh-sm",
+    "kit-lh-base",
+    "kit-lh-lg",
+    "kit-row",
+    "kit-col-12",
+    "kit-col-md-6",
+    "kit-mono",
+    "--kit-mono",
+    "kit-ink",
+    "kit-quote",
+    "kit-col-md-4",
+    "kit-list-unstyled",
+    "kit-list-inline",
+    "kit-prose",
+    "--kit-measure",
+    "kit-measure",
+    "kit-table-wrap",
+    "kit-table",
+    "--kit-font",
+    "--kit-zoom"
+   ],
+   "sections": [
+    {
+     "id": "base",
+     "title": "Base text",
+     "uses": [
+      "--kit-lh",
+      "--kit-fs"
+     ]
+    },
+    {
+     "id": "headings",
+     "title": "Headings",
+     "uses": [
+      "kit-h1",
+      "kit-h6",
+      "kit-h4",
+      "--kit-h1",
+      "--kit-h6",
+      "kit-fs-1",
+      "kit-fs-6",
+      "kit-code",
+      "data-kit-code",
+      "--kit-h2"
+     ]
+    },
+    {
+     "id": "display",
+     "title": "Display",
+     "uses": [
+      "kit-display-1",
+      "kit-display-4",
+      "kit-display-2",
+      "kit-display-3"
+     ]
+    },
+    {
+     "id": "lead",
+     "title": "Lead paragraph",
+     "uses": [
+      "kit-lead"
+     ]
+    },
+    {
+     "id": "inline",
+     "title": "Inline text",
+     "uses": [
+      "kit-initialism",
+      "kit-card"
+     ]
+    },
+    {
+     "id": "utilities",
+     "title": "Classes to control the text",
+     "uses": []
+    },
+    {
+     "id": "size",
+     "title": "Size",
+     "uses": [
+      "kit-fs-1",
+      "kit-fs-6",
+      "kit-fs-sm",
+      "kit-fs-lg",
+      "kit-lh-1",
+      "kit-fs-2",
+      "kit-fs-3",
+      "kit-fs-4",
+      "kit-fs-5"
+     ]
+    },
+    {
+     "id": "weight",
+     "title": "Weight and style",
+     "uses": [
+      "kit-fw-light",
+      "kit-fw-normal",
+      "kit-fw-medium",
+      "kit-fw-semibold",
+      "kit-fw-bold",
+      "kit-fst-italic",
+      "kit-fst-normal"
+     ]
+    },
+    {
+     "id": "alignment",
+     "title": "Alignment and wrapping",
+     "uses": [
+      "kit-left",
+      "kit-center",
+      "kit-right",
+      "kit-card",
+      "kit-p-3",
+      "kit-nowrap",
+      "kit-mute",
+      "kit-wrap",
+      "kit-break"
+     ]
+    },
+    {
+     "id": "transforms",
+     "title": "Case, decoration and spacing",
+     "uses": [
+      "kit-uppercase",
+      "kit-lowercase",
+      "kit-capitalize",
+      "kit-underline",
+      "kit-line-through",
+      "kit-no-underline",
+      "kit-ls-tight",
+      "kit-ls-wide",
+      "kit-fs-sm"
+     ]
+    },
+    {
+     "id": "line-height",
+     "title": "Line height",
+     "uses": [
+      "kit-lh-1",
+      "kit-lh-sm",
+      "kit-lh-base",
+      "--kit-lh",
+      "kit-lh-lg",
+      "kit-row",
+      "kit-col-12",
+      "kit-col-md-6"
+     ]
+    },
+    {
+     "id": "family",
+     "title": "Monospace font and color",
+     "uses": [
+      "kit-mono",
+      "--kit-mono",
+      "kit-ink",
+      "kit-mute"
+     ]
+    },
+    {
+     "id": "quotes",
+     "title": "Quotes",
+     "uses": [
+      "kit-quote"
+     ]
+    },
+    {
+     "id": "lists",
+     "title": "Lists",
+     "uses": [
+      "kit-row",
+      "kit-col-12",
+      "kit-col-md-4",
+      "kit-fw-semibold",
+      "kit-mute",
+      "kit-fs-sm",
+      "kit-list-unstyled",
+      "kit-list-inline"
+     ]
+    },
+    {
+     "id": "prose",
+     "title": "Long texts",
+     "uses": [
+      "kit-prose",
+      "--kit-measure",
+      "kit-measure",
+      "kit-code",
+      "data-kit-code"
+     ]
+    },
+    {
+     "id": "tokens",
+     "title": "Typographic tokens",
+     "uses": [
+      "kit-card",
+      "kit-table-wrap",
+      "kit-table",
+      "--kit-font",
+      "--kit-mono",
+      "--kit-fs",
+      "--kit-zoom",
+      "--kit-lh",
+      "--kit-measure",
+      "kit-prose",
+      "kit-measure",
+      "--kit-h1",
+      "--kit-h6",
+      "kit-fs-1",
+      "kit-fs-6"
+     ]
+    }
+   ]
+  },
+  {
+   "page": "utilities",
+   "title": "Utilities",
+   "url": "https://n1k1tas95.github.io/dashboard-kit/en/utilities.html",
+   "description": "One-line classes, as in Bootstrap: spacing, display, flexbox, sizes, text and visibility. Almost all use !important to win over components.",
+   "uses": [
+    "kit-card",
+    "kit-table-wrap",
+    "kit-table",
+    "kit-bar",
+    "kit-p-0",
+    "kit-p-1",
+    "kit-p-2",
+    "kit-p-3",
+    "kit-p-4",
+    "kit-px-5",
+    "kit-py-2",
+    "kit-card-body",
+    "kit-mt-4",
+    "kit-mb-2",
+    "kit-d-flex",
+    "kit-btn",
+    "kit-ms-auto",
+    "kit-d",
+    "kit-d-md-none",
+    "kit-stack",
+    "kit-d-none",
+    "kit-d-md-block",
+    "kit-mute",
+    "kit-flex-row",
+    "kit-flex-wrap",
+    "kit-justify-content",
+    "kit-align-items",
+    "kit-align-self",
+    "kit-flex-grow-1",
+    "kit-flex-shrink-0",
+    "kit-flex-fill",
+    "kit-gap-0",
+    "kit-justify-content-between",
+    "kit-align-items-center",
+    "kit-badge",
+    "kit-badge-success",
+    "kit-gap-3",
+    "kit-flex-column",
+    "kit-flex-md-row",
+    "kit-gap-2",
+    "kit-w-100",
+    "kit-w-auto",
+    "kit-h-100",
+    "kit-h-auto",
+    "kit-accent",
+    "kit-success",
+    "kit-warning",
+    "kit-danger",
+    "kit-num",
+    "kit-mt-3",
+    "kit-truncate",
+    "kit-nowrap",
+    "kit-center",
+    "kit-right",
+    "kit-hidden",
+    "kit-sr",
+    "kit-hide-sm",
+    "kit-only-sm",
+    "kit-no-print",
+    "kit-print-only",
+    "kit-print-break",
+    "kit-print-avoid"
+   ],
+   "sections": [
+    {
+     "id": "spacing",
+     "title": "Margins and padding",
+     "uses": [
+      "kit-card",
+      "kit-table-wrap",
+      "kit-table",
+      "kit-bar",
+      "kit-p-0",
+      "kit-p-1",
+      "kit-p-2",
+      "kit-p-3",
+      "kit-p-4",
+      "kit-px-5",
+      "kit-py-2",
+      "kit-card-body",
+      "kit-mt-4",
+      "kit-mb-2",
+      "kit-d-flex",
+      "kit-btn",
+      "kit-ms-auto"
+     ]
+    },
+    {
+     "id": "display",
+     "title": "Display",
+     "uses": [
+      "kit-d",
+      "kit-d-md-none",
+      "kit-stack",
+      "kit-card",
+      "kit-p-3",
+      "kit-d-none",
+      "kit-d-md-block",
+      "kit-mute"
+     ]
+    },
+    {
+     "id": "flex",
+     "title": "Flexbox",
+     "uses": [
+      "kit-d-flex",
+      "kit-flex-row",
+      "kit-flex-wrap",
+      "kit-justify-content",
+      "kit-align-items",
+      "kit-align-self",
+      "kit-flex-grow-1",
+      "kit-flex-shrink-0",
+      "kit-flex-fill",
+      "kit-gap-0",
+      "kit-stack",
+      "kit-justify-content-between",
+      "kit-align-items-center",
+      "kit-card",
+      "kit-p-3",
+      "kit-badge",
+      "kit-badge-success",
+      "kit-gap-3",
+      "kit-btn",
+      "kit-flex-column",
+      "kit-flex-md-row",
+      "kit-gap-2"
+     ]
+    },
+    {
+     "id": "sizing",
+     "title": "Sizes",
+     "uses": [
+      "kit-w-100",
+      "kit-w-auto",
+      "kit-h-100",
+      "kit-h-auto"
+     ]
+    },
+    {
+     "id": "text",
+     "title": "Text and color",
+     "uses": [
+      "kit-bar",
+      "kit-mute",
+      "kit-accent",
+      "kit-success",
+      "kit-warning",
+      "kit-danger",
+      "kit-num",
+      "kit-card",
+      "kit-p-3",
+      "kit-mt-3",
+      "kit-truncate",
+      "kit-nowrap",
+      "kit-center",
+      "kit-right"
+     ]
+    },
+    {
+     "id": "visibility",
+     "title": "Visibility",
+     "uses": [
+      "kit-hidden",
+      "kit-sr",
+      "kit-hide-sm",
+      "kit-only-sm",
+      "kit-d"
+     ]
+    },
+    {
+     "id": "print",
+     "title": "Print",
+     "uses": [
+      "kit-no-print",
+      "kit-print-only",
+      "kit-print-break",
+      "kit-print-avoid"
+     ]
+    }
+   ]
+  }
+ ]
+}
