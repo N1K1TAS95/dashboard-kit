@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Layout — Dashboard Kit</title>
+<meta name="description" content="Container, fixed header, element bars, stacking and side panel: the structure of a page. For columns see the grid.">
+<script src="../../dist/kit.js"></script>
+<link rel="stylesheet" href="../../dist/kit.css">
+<link rel="stylesheet" href="../docs.css">
+</head>
+<body>
+<!-- Pagina generata da tools/gen-docs.py a partire da docs/src/en/layout.html: non modificarla a mano. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="i-chev-up" viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></symbol>
+<symbol id="i-chev-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
+<symbol id="i-chev-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+<symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5m0 0-6 6m6-6 6 6"/></symbol>
+<symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14m0 0-6-6m6 6 6-6"/></symbol>
+<symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5m0 0 6-6m-6 6 6 6"/></symbol>
+<symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></symbol>
+<symbol id="i-expand" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></symbol>
+<symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V4m0 0L8 8m4-4 4 4M5 20h14"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.5-3.5L4 9m0-5v5h5M4 13a8 8 0 0 0 14.5 3.5L20 15m0 5v-5h-5"/></symbol>
+<symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4zM13.5 6.5l4 4"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></symbol>
+<symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8L3 5z"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h8m4 0h4M4 17h4m4 0h8"/><circle cx="14" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+<symbol id="i-more" viewBox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01"/></symbol>
+<symbol id="i-more-v" viewBox="0 0 24 24"><path d="M12 5h.01M12 12h.01M12 19h.01"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7M6 10v10h4v-6h4v6h4V10"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0 1 16 0"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4l2-2zM10 21h4"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM14 3v5h5"/></symbol>
+<symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6a1 1 0 0 1 1-1h5l2 2h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6z"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-text" viewBox="0 0 24 24"><path d="M4 7V5h16v2M12 5v14M9 19h6"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+<symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+<symbol id="i-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 3 3 5-6"/></symbol>
+<symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3.5 2.5 20h19L12 3.5z"/><path d="M12 10v4.5M12 17.5h.01"/></symbol>
+<symbol id="i-error" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/></symbol>
+</defs></svg>
+<header class="kit-header">
+  <div class="kit-container-boxed">
+    <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
+    <span class="kit-spacer"></span>
+    <div class="kit-combo doc-search" role="search">
+      <svg class="kit-icon"><use href="#i-search"/></svg>
+      <input class="kit-input" type="text" placeholder="Search…" aria-label="Search the documentation" spellcheck="false">
+      <kbd aria-hidden="true">/</kbd>
+    </div>
+    <a class="kit-btn kit-btn-ghost" href="../it/layout.html" hreflang="it" lang="it" title="Language">Italiano</a>
+    <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
+    <div class="kit-dropdown">
+      <button class="kit-btn kit-btn-icon" data-kit-toggle="#settings" aria-haspopup="true" aria-expanded="false" aria-label="Settings" title="Settings"><svg class="kit-icon"><use href="#i-sliders"/></svg></button>
+      <div class="kit-pop kit-pop-right kit-settings" id="settings" role="group" aria-label="Settings" hidden>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Theme</span>
+          <div class="kit-seg" role="group" aria-label="Theme">
+            <button data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg>Auto</button>
+            <button data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg>Light</button>
+            <button data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg>Dark</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Text size</span>
+          <div class="kit-seg" role="group" aria-label="Text size">
+            <button data-kit-fs-set="md" aria-label="Normal" title="Normal">A</button>
+            <button data-kit-fs-set="lg" aria-label="Large" title="Large">A</button>
+            <button data-kit-fs-set="xl" aria-label="Extra large" title="Extra large">A</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Content width</span>
+          <div class="kit-seg" role="group" aria-label="Content width">
+            <button data-kit-layout-set="boxed">Centered</button>
+            <button data-kit-layout-set="fluid">Full page</button>
+          </div>
+          <small>Visible on screens wider than the content.</small>
+        </div>
+        <div class="kit-settings-foot"><button class="kit-btn kit-btn-ghost" data-kit-reset>Reset</button></div>
+      </div>
+    </div>
+  </div>
+</header>
+<main class="kit-main">
+<div class="kit-container-boxed">
+<div class="kit-row kit-gy-0">
+  <aside class="kit-col-12 kit-col-lg-3">
+    <nav class="doc-nav" aria-label="Documentation">
+      <details class="doc-nav-d" open>
+        <summary class="kit-btn">Documentation menu</summary>
+        <div class="doc-nav-body">
+          <div class="doc-nav-group">Getting started</div>
+          <a href="index.html">Introduction</a>
+          <a href="javascript.html">JavaScript</a>
+          <div class="doc-nav-group">Foundations</div>
+          <a href="layout.html" class="is-current" aria-current="page">Layout</a>
+          <ul class="doc-toc">
+            <li><a href="#structure">Page structure</a></li>
+            <li><a href="#content-width">Content width</a></li>
+            <li><a href="#stack">Stacking: kit-stack</a></li>
+            <li><a href="#bar">Element bar: kit-bar</a></li>
+            <li><a href="#split">Side panel: kit-split</a></li>
+            <li><a href="#spacing">Base spacing</a></li>
+          </ul>
+          <a href="grid.html">Grid</a>
+          <a href="utilities.html">Utilities</a>
+          <a href="typography.html">Typography</a>
+          <a href="icons.html">Icons</a>
+          <a href="buttons.html">Buttons</a>
+          <div class="doc-nav-group">Forms</div>
+          <a href="forms.html">Basic fields</a>
+          <a href="form-layout.html">Layout and validation</a>
+          <a href="form-controls.html">Select and file</a>
+          <a href="dates.html">Dates and times</a>
+          <div class="doc-nav-group">Navigation</div>
+          <a href="../it/navbar.html" hreflang="it" lang="it">Navbar <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/sidebar.html" hreflang="it" lang="it">Sidebar <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/navigation.html" hreflang="it" lang="it">Tabs and breadcrumb <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Data</div>
+          <a href="../it/tables.html" hreflang="it" lang="it">Tables <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/charts.html" hreflang="it" lang="it">Charts <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/cards.html" hreflang="it" lang="it">Cards and details <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Feedback and overlays</div>
+          <a href="../it/feedback.html" hreflang="it" lang="it">Alerts and progress <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/overlays.html" hreflang="it" lang="it">Dialogs and menus <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/accordion.html" hreflang="it" lang="it">Accordion <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Customizing</div>
+          <a href="../it/theming.html" hreflang="it" lang="it">Themes and tokens <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/snippets.html" hreflang="it" lang="it">VS Code snippets <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Examples</div>
+          <a href="../dashboard.html">Dashboard <span class="kit-badge kit-badge-neutral">example</span></a>
+          <a href="../dashboard-sidebar.html">Dashboard with sidebar <span class="kit-badge kit-badge-neutral">example</span></a>
+        </div>
+      </details>
+    </nav>
+  </aside>
+  <article class="kit-col-12 kit-col-lg-9 doc-content">
+    <h1 class="doc-title">Layout</h1>
+    <p class="doc-lead">Container, fixed header, element bars, stacking and side panel: the structure of a page. For columns see the <a href="grid.html">grid</a>.</p>
+<h2 id="structure">Page structure</h2>
+<p>A page is a fixed <code>.kit-header</code> at the top and a <code>.kit-main</code> containing a <code>.kit-container</code>. Inside the container you use the <a href="grid.html">grid</a> or <code>.kit-stack</code>.</p>
+<pre class="kit-code" data-kit-code="html"><code>&lt;header class="kit-header"&gt;
+  &lt;h1 class="kit-brand"&gt;Name &lt;span&gt;app&lt;/span&gt;&lt;/h1&gt;
+  &lt;span class="kit-spacer"&gt;&lt;/span&gt;
+  &lt;!-- buttons, menus, theme… --&gt;
+&lt;/header&gt;
+&lt;main class="kit-main"&gt;
+  &lt;div class="kit-container kit-stack"&gt;
+    …
+  &lt;/div&gt;
+&lt;/main&gt;</code></pre>
+<ul>
+  <li><code>.kit-header</code>: <code>--kit-hh</code> tall, stays stuck to the top (sticky). Table headers stick right below it.</li>
+  <li><code>.kit-brand</code>: a title whose second word, in a <code>&lt;span&gt;</code>, is colored with the accent.</li>
+  <li><code>.kit-main</code>: 24px of inner margin (16px below 900px) and 80px at the bottom.</li>
+  <li><code>.kit-container</code>: centered content, at most <code>--kit-container-w</code> (1200px) wide. See <a href="#content-width">Content width</a>.</li>
+</ul>
+
+<h2 id="content-width">Content width</h2>
+<p>Narrow, centered content reads better for texts and forms; a dashboard with tables and charts often does better at full width. The kit allows both, at two levels.</p>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table">
+  <thead><tr><th>Class</th><th>Behavior</th></tr></thead>
+  <tbody>
+    <tr><td><code>kit-container</code></td><td>Centered, at most <code>--kit-container-w</code> wide. It follows the <b>global switch</b> (below): with <code>data-layout="fluid"</code> it fills the whole window.</td></tr>
+    <tr><td><code>kit-container-boxed</code></td><td>Always centered, whatever the switch.</td></tr>
+    <tr><td><code>kit-container-fluid</code></td><td>Always full width.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h3>Global switch</h3>
+<p>Put <code>data-layout="boxed"</code> or <code>"fluid"</code> on <code>&lt;html&gt;</code> to choose the width of the whole page (<code>boxed</code> by default). With <code>kit.js</code> the user can change it from a button and the choice is remembered, like the theme. The width only changes when the window is wider than <code>--kit-container-w</code>.</p>
+<pre class="kit-code" data-kit-code="html"><code>&lt;!-- full-width content by default --&gt;
+&lt;html lang="en" data-layout="fluid"&gt;
+
+&lt;!-- a button that lets the user choose (it is remembered) --&gt;
+&lt;button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-layout-toggle aria-label="Full-width content"&gt;…&lt;/button&gt;</code></pre>
+<pre class="kit-code" data-kit-code="js"><code>Kit.layout.set("fluid");   // or "boxed"; Kit.layout.toggle() switches</code></pre>
+<p class="kit-alert">These documentation pages use <code>kit-container-boxed</code> and always stay centered. To see the switch in action open the <a href="../dashboard.html">sample dashboard</a>: it starts at full width and has the button with the arrows at the top right.</p>
+
+<h3>Header aligned with the content</h3>
+<p>If you put a <code>.kit-container</code> inside <code>.kit-header</code>, it becomes the header's inner row and its content aligns with the page's, both centered and full width. Without a container the header always fills the whole window.</p>
+<pre class="kit-code" data-kit-code="html"><code>&lt;header class="kit-header"&gt;
+  &lt;div class="kit-container"&gt;
+    &lt;h1 class="kit-brand"&gt;Name &lt;span&gt;app&lt;/span&gt;&lt;/h1&gt;
+    &lt;span class="kit-spacer"&gt;&lt;/span&gt;
+    &lt;button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-layout-toggle aria-label="Content width"&gt;…&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/header&gt;</code></pre>
+
+<h2 id="stack">Stacking: kit-stack</h2>
+<p>It lays out its children in a column with a constant gap (<code>--kit-sp</code>). It is the simplest way to put cards one under the other.</p>
+<div class="doc-demo">
+  <div class="kit-stack">
+    <div class="kit-card kit-card-body">First card</div>
+    <div class="kit-card kit-card-body">Second card</div>
+    <div class="kit-card kit-card-body">Third card</div>
+  </div>
+</div>
+
+<h2 id="bar">Element bar: kit-bar</h2>
+<p>Elements side by side and vertically centered, wrapping when there is no room: toolbars, filters, groups of buttons. <code>.kit-spacer</code> pushes what follows to the right.</p>
+<div class="doc-demo">
+  <div class="kit-bar">
+    <button class="kit-btn kit-btn-primary">New</button>
+    <button class="kit-btn">Import</button>
+    <span class="kit-spacer"></span>
+    <button class="kit-btn kit-btn-ghost">Settings</button>
+  </div>
+</div>
+<p class="kit-alert"><code>kit-bar</code> is not the grid's row: for columns use <code>kit-row</code>.</p>
+
+<h2 id="split">Side panel: kit-split</h2>
+<p>A list with, next to it, a detail panel that opens when a row is selected. Above 900px the panel sits next to the list and stays put while the list scrolls. Below 900px it covers the page from the right, with a dark veil behind it, and a click on the veil closes it. With <code>kit-split-lg</code> instead of <code>kit-split</code> the switch happens below 1250px, for lists that need a lot of room.</p>
+<p>With <code>kit.js</code> three attributes are enough: <code>data-kit-split-open="#id"</code> on whatever opens it (a row, a button), <code>data-kit-split-close</code> and <code>data-kit-split-full</code> inside the panel. The second closes, the third toggles between "next to the list" and "full width" (the list disappears). With <code>data-kit-split</code> on the container Esc closes the panel, or brings it back next to the list if it was full width. On opening, focus goes to the panel and on closing it returns to whatever opened it.</p>
+<div class="doc-demo doc-split-demo">
+  <div class="kit-split" id="demo-split" data-kit-split>
+    <div class="kit-card">
+      <div class="kit-table-wrap"><table class="kit-table kit-table-hover"><thead><tr><th>Invoice</th><th>Customer</th><th class="kit-right">Amount</th></tr></thead><tbody>
+        <tr data-kit-split-open="#demo-split" style="cursor: pointer"><td>2026/014</td><td>Smith Ltd</td><td class="kit-right kit-num">€1,240.00</td></tr>
+        <tr data-kit-split-open="#demo-split" style="cursor: pointer"><td>2026/015</td><td>Brown Inc</td><td class="kit-right kit-num">€860.50</td></tr>
+        <tr data-kit-split-open="#demo-split" style="cursor: pointer"><td>2026/016</td><td>Green Services</td><td class="kit-right kit-num">€3,075.00</td></tr>
+      </tbody></table></div>
+    </div>
+    <aside class="kit-split-panel" aria-label="Invoice detail">
+      <div class="kit-split-head">
+        <div class="kit-split-title"><h3>Invoice 2026/014</h3><small>Smith Ltd</small></div>
+        <button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-split-full aria-label="Full width" title="Full width"><svg class="kit-icon"><use href="#i-expand"/></svg></button>
+        <button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-split-close aria-label="Close" title="Close (Esc)"><svg class="kit-icon"><use href="#i-x"/></svg></button>
+      </div>
+      <div class="kit-split-body">
+        <dl class="kit-kv"><dt>Date</dt><dd>03/12/2026</dd><dt>Taxable amount</dt><dd>€1,016.39</dd><dt>VAT 22%</dt><dd>€223.61</dd><dt>Total</dt><dd>€1,240.00</dd></dl>
+      </div>
+    </aside>
+  </div>
+</div>
+<p>The panel is made of <code>kit-split-head</code> (title in <code>kit-split-title</code> and buttons) and <code>kit-split-body</code>, which is the part that scrolls. Width next to the list: <code>--kit-split-w</code> (40%); width when it covers the page: <code>--kit-split-overlay-w</code> (860px). Without JavaScript just add or remove <code>is-open</code> (and <code>is-full</code>) on the container.</p>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>JavaScript</th><th>Effect</th></tr></thead><tbody>
+<tr><td><code>Kit.split("#id")</code></td><td>returns <code>{ open(), close(), full(on), isOpen(), isFull() }</code></td></tr>
+<tr><td><code>kit:split</code> event</td><td>on the container, with <code>{ open, full }</code>: useful to update the selected row or free the detail's data</td></tr>
+</tbody></table></div></div>
+<p>Moving to the previous or next row (arrows, "j" and "k") depends on the list and is not included: write it with two buttons and a handler that calls your own open function.</p>
+
+<h2 id="spacing">Base spacing</h2>
+<p>Three tokens govern the interface's breathing room (see <a href="../it/theming.html">Themes and tokens</a>): <code>--kit-sp</code> (margins, distance between cards, inner padding, gutter), <code>--kit-rad</code> (corners) and <code>--kit-ctl</code> (height of buttons and fields). Below 760px <code>--kit-sp</code> goes down from 16 to 8px.</p>
+    <nav class="doc-pager" aria-label="Previous and next page">
+      <a href="javascript.html"><small>← Previous</small><b>JavaScript</b></a>
+      <a class="doc-next" href="grid.html"><small>Next →</small><b>Grid</b></a>
+    </nav>
+  </article>
+</div>
+</div>
+</main>
+<script src="search-index.js"></script>
+<script src="../docs.js"></script>
+</body>
+</html>

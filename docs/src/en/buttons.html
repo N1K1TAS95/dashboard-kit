@@ -1,0 +1,46 @@
+<!--title: Buttons-->
+<!--desc: Buttons of all kinds and sizes. A <code>.kit-btn</code> works on <code>&lt;button&gt;</code>, <code>&lt;a&gt;</code> and <code>&lt;label&gt;</code>.-->
+<h2 id="variants">Variants</h2>
+<div class="doc-demo">
+  <div class="kit-bar">
+    <button class="kit-btn">Default</button>
+    <button class="kit-btn kit-btn-primary">Primary</button>
+    <button class="kit-btn kit-btn-ghost">Ghost</button>
+    <button class="kit-btn kit-btn-danger">Danger</button>
+    <button class="kit-btn" disabled>Disabled</button>
+  </div>
+</div>
+<p><code>kit-btn-primary</code> for the screen's main action (only one per area), <code>kit-btn-ghost</code> for secondary actions without a border, <code>kit-btn-danger</code> for destructive ones.</p>
+
+<h2 id="sizes">Sizes</h2>
+<p>The base height is <code>--kit-ctl</code> (40px), the same as fields, so buttons and inputs line up. <code>kit-btn-lg</code> brings it to 48px.</p>
+<div class="doc-demo">
+  <div class="kit-bar">
+    <button class="kit-btn">Normal</button>
+    <button class="kit-btn kit-btn-primary kit-btn-lg">Large</button>
+  </div>
+</div>
+
+<h2 id="icons">With an icon</h2>
+<p>Put the <code>&lt;svg class="kit-icon"&gt;</code> before the text. For icon-only buttons add <code>kit-btn-icon</code> (square) and an <code>aria-label</code>.</p>
+<div class="doc-demo">
+  <div class="kit-bar">
+    <button class="kit-btn kit-btn-primary"><svg class="kit-icon"><use href="#i-download"/></svg>Download</button>
+    <button class="kit-btn kit-btn-icon" aria-label="Search"><svg class="kit-icon"><use href="#i-search"/></svg></button>
+    <button class="kit-btn kit-btn-ghost kit-btn-icon" aria-label="Download"><svg class="kit-icon"><use href="#i-download"/></svg></button>
+  </div>
+</div>
+
+<h2 id="counter">With a counter</h2>
+<div class="doc-demo">
+  <button class="kit-btn">Filters <span class="kit-count">3</span></button>
+</div>
+
+<h2 id="group">Group and link</h2>
+<div class="doc-demo">
+  <div class="kit-btn-group">
+    <button class="kit-btn">One</button>
+    <button class="kit-btn">Two</button>
+    <a class="kit-btn" href="#">A link</a>
+  </div>
+</div>

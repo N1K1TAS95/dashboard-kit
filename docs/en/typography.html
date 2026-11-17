@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Typography — Dashboard Kit</title>
+<meta name="description" content="Headings, body text, quotes, lists and the classes to control size, weight, line height and line width. It all starts from a few tokens, so it is adjusted from a single place.">
+<script src="../../dist/kit.js"></script>
+<link rel="stylesheet" href="../../dist/kit.css">
+<link rel="stylesheet" href="../docs.css">
+</head>
+<body>
+<!-- Pagina generata da tools/gen-docs.py a partire da docs/src/en/typography.html: non modificarla a mano. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="i-chev-up" viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></symbol>
+<symbol id="i-chev-left" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></symbol>
+<symbol id="i-chev-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+<symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5m0 0-6 6m6-6 6 6"/></symbol>
+<symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14m0 0-6-6m6 6 6-6"/></symbol>
+<symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5m0 0 6-6m-6 6 6 6"/></symbol>
+<symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m0 0-6-6m6 6-6 6"/></symbol>
+<symbol id="i-expand" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></symbol>
+<symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V4m0 0L8 8m4-4 4 4M5 20h14"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.5-3.5L4 9m0-5v5h5M4 13a8 8 0 0 0 14.5 3.5L20 15m0 5v-5h-5"/></symbol>
+<symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4zM13.5 6.5l4 4"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></symbol>
+<symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8L3 5z"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h8m4 0h4M4 17h4m4 0h8"/><circle cx="14" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+<symbol id="i-more" viewBox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01"/></symbol>
+<symbol id="i-more-v" viewBox="0 0 24 24"><path d="M12 5h.01M12 12h.01M12 19h.01"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11 12 4l8 7M6 10v10h4v-6h4v6h4V10"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0 1 16 0"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4l2-2zM10 21h4"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM14 3v5h5"/></symbol>
+<symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6a1 1 0 0 1 1-1h5l2 2h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6z"/></symbol>
+<symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-text" viewBox="0 0 24 24"><path d="M4 7V5h16v2M12 5v14M9 19h6"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol>
+<symbol id="i-auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></symbol>
+<symbol id="i-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 3 3 5-6"/></symbol>
+<symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3.5 2.5 20h19L12 3.5z"/><path d="M12 10v4.5M12 17.5h.01"/></symbol>
+<symbol id="i-error" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6M15 9l-6 6"/></symbol>
+</defs></svg>
+<header class="kit-header">
+  <div class="kit-container-boxed">
+    <h1 class="kit-brand"><a href="index.html">Dashboard Kit <span>docs</span></a></h1>
+    <span class="kit-spacer"></span>
+    <div class="kit-combo doc-search" role="search">
+      <svg class="kit-icon"><use href="#i-search"/></svg>
+      <input class="kit-input" type="text" placeholder="Search…" aria-label="Search the documentation" spellcheck="false">
+      <kbd aria-hidden="true">/</kbd>
+    </div>
+    <a class="kit-btn kit-btn-ghost" href="../it/typography.html" hreflang="it" lang="it" title="Language">Italiano</a>
+    <a class="kit-btn kit-btn-ghost kit-d-none kit-d-md-inline-flex" href="https://github.com/N1K1TAS95/dashboard-kit">GitHub</a>
+    <div class="kit-dropdown">
+      <button class="kit-btn kit-btn-icon" data-kit-toggle="#settings" aria-haspopup="true" aria-expanded="false" aria-label="Settings" title="Settings"><svg class="kit-icon"><use href="#i-sliders"/></svg></button>
+      <div class="kit-pop kit-pop-right kit-settings" id="settings" role="group" aria-label="Settings" hidden>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Theme</span>
+          <div class="kit-seg" role="group" aria-label="Theme">
+            <button data-kit-theme-set="auto"><svg class="kit-icon"><use href="#i-auto"/></svg>Auto</button>
+            <button data-kit-theme-set="light"><svg class="kit-icon"><use href="#i-sun"/></svg>Light</button>
+            <button data-kit-theme-set="dark"><svg class="kit-icon"><use href="#i-moon"/></svg>Dark</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Text size</span>
+          <div class="kit-seg" role="group" aria-label="Text size">
+            <button data-kit-fs-set="md" aria-label="Normal" title="Normal">A</button>
+            <button data-kit-fs-set="lg" aria-label="Large" title="Large">A</button>
+            <button data-kit-fs-set="xl" aria-label="Extra large" title="Extra large">A</button>
+          </div>
+        </div>
+        <div class="kit-settings-row">
+          <span class="kit-settings-label">Content width</span>
+          <div class="kit-seg" role="group" aria-label="Content width">
+            <button data-kit-layout-set="boxed">Centered</button>
+            <button data-kit-layout-set="fluid">Full page</button>
+          </div>
+          <small>Visible on screens wider than the content.</small>
+        </div>
+        <div class="kit-settings-foot"><button class="kit-btn kit-btn-ghost" data-kit-reset>Reset</button></div>
+      </div>
+    </div>
+  </div>
+</header>
+<main class="kit-main">
+<div class="kit-container-boxed">
+<div class="kit-row kit-gy-0">
+  <aside class="kit-col-12 kit-col-lg-3">
+    <nav class="doc-nav" aria-label="Documentation">
+      <details class="doc-nav-d" open>
+        <summary class="kit-btn">Documentation menu</summary>
+        <div class="doc-nav-body">
+          <div class="doc-nav-group">Getting started</div>
+          <a href="index.html">Introduction</a>
+          <a href="javascript.html">JavaScript</a>
+          <div class="doc-nav-group">Foundations</div>
+          <a href="layout.html">Layout</a>
+          <a href="grid.html">Grid</a>
+          <a href="utilities.html">Utilities</a>
+          <a href="typography.html" class="is-current" aria-current="page">Typography</a>
+          <ul class="doc-toc">
+            <li><a href="#base">Base text</a></li>
+            <li><a href="#headings">Headings</a></li>
+            <li><a href="#display">Display</a></li>
+            <li><a href="#lead">Lead paragraph</a></li>
+            <li><a href="#inline">Inline text</a></li>
+            <li><a href="#utilities">Classes to control the text</a></li>
+            <li><a href="#quotes">Quotes</a></li>
+            <li><a href="#lists">Lists</a></li>
+            <li><a href="#prose">Long texts</a></li>
+            <li><a href="#tokens">Typographic tokens</a></li>
+          </ul>
+          <a href="icons.html">Icons</a>
+          <a href="buttons.html">Buttons</a>
+          <div class="doc-nav-group">Forms</div>
+          <a href="forms.html">Basic fields</a>
+          <a href="form-layout.html">Layout and validation</a>
+          <a href="form-controls.html">Select and file</a>
+          <a href="dates.html">Dates and times</a>
+          <div class="doc-nav-group">Navigation</div>
+          <a href="../it/navbar.html" hreflang="it" lang="it">Navbar <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/sidebar.html" hreflang="it" lang="it">Sidebar <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/navigation.html" hreflang="it" lang="it">Tabs and breadcrumb <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Data</div>
+          <a href="../it/tables.html" hreflang="it" lang="it">Tables <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/charts.html" hreflang="it" lang="it">Charts <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/cards.html" hreflang="it" lang="it">Cards and details <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Feedback and overlays</div>
+          <a href="../it/feedback.html" hreflang="it" lang="it">Alerts and progress <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/overlays.html" hreflang="it" lang="it">Dialogs and menus <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/accordion.html" hreflang="it" lang="it">Accordion <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Customizing</div>
+          <a href="../it/theming.html" hreflang="it" lang="it">Themes and tokens <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <a href="../it/snippets.html" hreflang="it" lang="it">VS Code snippets <span class="kit-badge kit-badge-neutral" title="This page is only available in Italian.">IT</span></a>
+          <div class="doc-nav-group">Examples</div>
+          <a href="../dashboard.html">Dashboard <span class="kit-badge kit-badge-neutral">example</span></a>
+          <a href="../dashboard-sidebar.html">Dashboard with sidebar <span class="kit-badge kit-badge-neutral">example</span></a>
+        </div>
+      </details>
+    </nav>
+  </aside>
+  <article class="kit-col-12 kit-col-lg-9 doc-content">
+    <h1 class="doc-title">Typography</h1>
+    <p class="doc-lead">Headings, body text, quotes, lists and the classes to control size, weight, line height and line width. It all starts from a few tokens, so it is adjusted from a single place.</p>
+<h2 id="base">Base text</h2>
+<p>The kit uses the <a href="../it/theming.html#testo">Inter</a> font at <code>1rem</code> with line height <code>--kit-lh</code> (1.5). <code>1rem</code> is the base size <code>--kit-fs</code>, which grows with the screen and can be chosen by the user (see <a href="../it/theming.html#testo">Font and text size</a>): all the sizes below are in <code>rem</code> or <code>em</code>, so they follow it. Zeros are slashed, so they are not confused with the letter "o".</p>
+
+<h2 id="headings">Headings</h2>
+<p>The <code>&lt;h1&gt;</code>…<code>&lt;h6&gt;</code> elements already have the kit's style. The <code>kit-h1</code>…<code>kit-h6</code> classes give the same look to another element (a <code>&lt;p&gt;</code>, a <code>&lt;div&gt;</code>) without changing the document structure. A <code>&lt;small&gt;</code> inside the heading becomes a gray secondary text.</p>
+<div class="doc-demo">
+  <h1>h1. Page title</h1>
+  <h2>h2. Section title</h2>
+  <h3>h3. Group title</h3>
+  <h4>h4. Block title</h4>
+  <h5>h5. Small title</h5>
+  <h6>h6. Smallest title</h6>
+  <h3>With secondary text <small>gray subtitle</small></h3>
+  <p class="kit-h4">A paragraph that looks like an h4 (kit-h4)</p>
+</div>
+<p>The sizes are the <code>--kit-h1</code>…<code>--kit-h6</code> tokens: changing them in <code>:root</code> changes the scale of the whole page, including the <code>kit-fs-1</code>…<code>kit-fs-6</code> classes.</p>
+<pre class="kit-code" data-kit-code="css"><code>:root {
+  --kit-h1: 2.6rem;   /* bigger headings */
+  --kit-h2: 2rem;
+}</code></pre>
+
+<h2 id="display">Display</h2>
+<p>For an opening title, bigger and lighter than the normal ones (<code>kit-display-1</code> is the largest, <code>kit-display-4</code> the smallest). Below 576px they shrink by themselves.</p>
+<div class="doc-demo">
+  <p class="kit-display-1">Display 1</p>
+  <p class="kit-display-2">Display 2</p>
+  <p class="kit-display-3">Display 3</p>
+  <p class="kit-display-4">Display 4</p>
+</div>
+
+<h2 id="lead">Lead paragraph</h2>
+<p>With <code>kit-lead</code> the first paragraph stands out from the rest.</p>
+<div class="doc-demo">
+  <p class="kit-lead">A lead paragraph: a bit bigger than normal text, to introduce the topic.</p>
+  <p>The text that follows has the normal size.</p>
+</div>
+
+<h2 id="inline">Inline text</h2>
+<div class="doc-demo">
+  <p>You can <mark>highlight</mark> a part (<code>&lt;mark&gt;</code>), <del>delete</del> (<code>&lt;del&gt;</code>), <ins>insert</ins> (<code>&lt;ins&gt;</code>), <u>underline</u> (<code>&lt;u&gt;</code>), make <strong>bold</strong> or <em>italic</em>, and write in <small>smaller type</small> (<code>&lt;small&gt;</code>).</p>
+  <p>Abbreviations show their meaning on mouse hover: <abbr title="Value added tax">VAT</abbr>, and in small caps with <code>kit-initialism</code>: <abbr class="kit-initialism" title="HyperText Markup Language">html</abbr>.</p>
+  <p>For a key use <kbd>Ctrl</kbd> + <kbd>K</kbd>; for code <code>kit-card</code>.</p>
+</div>
+
+<h2 id="utilities">Classes to control the text</h2>
+<p>All with <code>!important</code>, like the <a href="utilities.html">utilities</a>, to win over the components' style.</p>
+
+<h3 id="size">Size</h3>
+<p><code>kit-fs-1</code>…<code>kit-fs-6</code> use the same scale as the headings; <code>kit-fs-sm</code> and <code>kit-fs-lg</code> are relative to the text that contains them (<code>.875em</code> and <code>1.2em</code>), useful inside a component.</p>
+<div class="doc-demo">
+  <p class="kit-fs-1 kit-lh-1">kit-fs-1</p>
+  <p class="kit-fs-2 kit-lh-1">kit-fs-2</p>
+  <p class="kit-fs-3 kit-lh-1">kit-fs-3</p>
+  <p class="kit-fs-4 kit-lh-1">kit-fs-4</p>
+  <p class="kit-fs-5 kit-lh-1">kit-fs-5</p>
+  <p class="kit-fs-6 kit-lh-1">kit-fs-6</p>
+  <p>Normal text, <span class="kit-fs-sm">smaller (kit-fs-sm)</span> and <span class="kit-fs-lg">larger (kit-fs-lg)</span>.</p>
+</div>
+
+<h3 id="weight">Weight and style</h3>
+<div class="doc-demo">
+  <p class="kit-fw-light">kit-fw-light — light (300)</p>
+  <p class="kit-fw-normal">kit-fw-normal — normal (400)</p>
+  <p class="kit-fw-medium">kit-fw-medium — medium (500)</p>
+  <p class="kit-fw-semibold">kit-fw-semibold — semibold (600)</p>
+  <p class="kit-fw-bold">kit-fw-bold — bold (700)</p>
+  <p class="kit-fst-italic">kit-fst-italic — italic</p>
+  <p class="kit-fst-italic kit-fst-normal">kit-fst-normal — removes the italic</p>
+</div>
+
+<h3 id="alignment">Alignment and wrapping</h3>
+<div class="doc-demo">
+  <p class="kit-left">kit-left — left</p>
+  <p class="kit-center">kit-center — center</p>
+  <p class="kit-right">kit-right — right</p>
+  <div class="kit-card kit-p-3" style="max-width: 260px">
+    <p class="kit-nowrap kit-mute" style="margin: 0 0 8px; overflow: hidden">kit-nowrap: a long line that never wraps and so overflows the space</p>
+    <p class="kit-wrap" style="margin: 0 0 8px">kit-wrap: removes the ban on wrapping and the text goes back into the available space.</p>
+    <p class="kit-break" style="margin: 0">kit-break: also breaks very long identifiers like IT01234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789</p>
+  </div>
+</div>
+
+<h3 id="transforms">Case, decoration and spacing</h3>
+<div class="doc-demo">
+  <p class="kit-uppercase">kit-uppercase — all uppercase</p>
+  <p class="kit-lowercase">KIT-LOWERCASE — ALL LOWERCASE</p>
+  <p class="kit-capitalize">kit-capitalize — capitalized words</p>
+  <p class="kit-underline">kit-underline — underlined</p>
+  <p class="kit-line-through">kit-line-through — struck through</p>
+  <p><a class="kit-no-underline" href="#utilities">kit-no-underline — a link without underline</a></p>
+  <p class="kit-ls-tight">kit-ls-tight — tighter letters</p>
+  <p class="kit-ls-wide kit-uppercase kit-fs-sm">kit-ls-wide — spaced letters</p>
+</div>
+
+<h3 id="line-height">Line height</h3>
+<p><code>kit-lh-1</code> (1), <code>kit-lh-sm</code> (1.25), <code>kit-lh-base</code> (the value of <code>--kit-lh</code>) and <code>kit-lh-lg</code> (1.8). To change it everywhere just change <code>--kit-lh</code>.</p>
+<div class="doc-demo">
+  <div class="kit-row">
+    <div class="kit-col-12 kit-col-md-6"><p class="kit-lh-sm"><b>kit-lh-sm</b> — A line of text long enough to wrap at least once, to see how close the lines are to each other.</p></div>
+    <div class="kit-col-12 kit-col-md-6"><p class="kit-lh-lg"><b>kit-lh-lg</b> — A line of text long enough to wrap at least once, to see how close the lines are to each other.</p></div>
+  </div>
+</div>
+
+<h3 id="family">Monospace font and color</h3>
+<p><code>kit-mono</code> uses the code font (<code>--kit-mono</code>), useful for identifiers and amounts in a column. Text colors are in <a href="utilities.html#text">Utilities</a>; <code>kit-ink</code> brings back the normal color inside a colored element.</p>
+<div class="doc-demo">
+  <p><span class="kit-mono">FT-0042 · €1,250.00</span> · <span class="kit-mute">kit-mute <span class="kit-ink">kit-ink</span></span></p>
+</div>
+
+<h2 id="quotes">Quotes</h2>
+<p>With <code>kit-quote</code> on a <code>&lt;blockquote&gt;</code>: a bar in the accent color on the left. The source goes in a <code>&lt;footer&gt;</code> (or in a <code>&lt;figcaption&gt;</code> if the quote is inside a <code>&lt;figure&gt;</code>), preceded by an em dash.</p>
+<div class="doc-demo">
+  <blockquote class="kit-quote">
+    <p>A good dashboard shows the things you need, at the moment you need them.</p>
+    <footer>From the project notes</footer>
+  </blockquote>
+</div>
+
+<h2 id="lists">Lists</h2>
+<div class="doc-demo">
+  <div class="kit-row">
+    <div class="kit-col-12 kit-col-md-4">
+      <p class="kit-fw-semibold kit-mute kit-fs-sm">Normal</p>
+      <ul><li>Received invoices</li><li>Issued invoices</li><li>Credit notes</li></ul>
+    </div>
+    <div class="kit-col-12 kit-col-md-4">
+      <p class="kit-fw-semibold kit-mute kit-fs-sm">kit-list-unstyled</p>
+      <ul class="kit-list-unstyled"><li>Received invoices</li><li>Issued invoices</li><li>Credit notes</li></ul>
+    </div>
+    <div class="kit-col-12 kit-col-md-4">
+      <p class="kit-fw-semibold kit-mute kit-fs-sm">kit-list-inline</p>
+      <ul class="kit-list-inline"><li>Received</li><li>Issued</li><li>Notes</li></ul>
+    </div>
+  </div>
+</div>
+<p>For label/value detail lists there is <a href="../it/cards.html#kv">key / value</a>.</p>
+
+<h2 id="prose">Long texts</h2>
+<p>An article, a guide or some notes read better with shorter lines and more space between lines. <code>kit-prose</code> limits the width to <code>--kit-measure</code> (65 characters), brings the line height to 1.7 and spaces paragraphs, headings and lists regularly, without you having to put classes on the single elements. To limit only the width of a block there is <code>kit-measure</code>.</p>
+<div class="doc-demo">
+  <div class="kit-prose">
+    <h3>How a long text is read</h3>
+    <p>When a line goes past about seventy characters the eye struggles to return to the start of the next line. This is why long texts should not take up the whole width of a large screen.</p>
+    <p>Line height matters too: lines that are too close blur together, lines too far apart read as separate paragraphs.</p>
+    <h4>Some tips</h4>
+    <ul>
+      <li>Keep lines under 65–75 characters.</li>
+      <li>Use a line height between 1.5 and 1.7.</li>
+      <li>Give headings more space above than below.</li>
+    </ul>
+  </div>
+</div>
+<pre class="kit-code" data-kit-code="html"><code>&lt;article class="kit-prose"&gt;
+  &lt;h2&gt;Title&lt;/h2&gt;
+  &lt;p&gt;Text…&lt;/p&gt;
+&lt;/article&gt;</code></pre>
+<pre class="kit-code" data-kit-code="css"><code>:root { --kit-measure: 72ch; }   /* slightly longer lines */</code></pre>
+
+<h2 id="tokens">Typographic tokens</h2>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table">
+  <thead><tr><th>Token</th><th>Value</th><th>What it controls</th></tr></thead>
+  <tbody>
+    <tr><td><code>--kit-font</code></td><td><code>"Kit Inter", system-ui, …</code></td><td>Text font</td></tr>
+    <tr><td><code>--kit-mono</code></td><td><code>ui-monospace, Consolas, …</code></td><td>Code font</td></tr>
+    <tr><td><code>--kit-fs</code></td><td><code>15px</code></td><td>Base size (1rem), grows with the screen</td></tr>
+    <tr><td><code>--kit-zoom</code></td><td><code>.875</code></td><td>Multiplier chosen by the user</td></tr>
+    <tr><td><code>--kit-lh</code></td><td><code>1.5</code></td><td>Text line height</td></tr>
+    <tr><td><code>--kit-measure</code></td><td><code>65ch</code></td><td>Maximum length of a line (<code>kit-prose</code>, <code>kit-measure</code>)</td></tr>
+    <tr><td><code>--kit-h1</code>…<code>--kit-h6</code></td><td><code>2.2rem</code>…<code>1rem</code></td><td>Size of headings and of <code>kit-fs-1</code>…<code>kit-fs-6</code></td></tr>
+  </tbody>
+</table></div></div>
+    <nav class="doc-pager" aria-label="Previous and next page">
+      <a href="utilities.html"><small>← Previous</small><b>Utilities</b></a>
+      <a class="doc-next" href="icons.html"><small>Next →</small><b>Icons</b></a>
+    </nav>
+  </article>
+</div>
+</div>
+</main>
+<script src="search-index.js"></script>
+<script src="../docs.js"></script>
+</body>
+</html>

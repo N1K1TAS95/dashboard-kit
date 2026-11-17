@@ -1,0 +1,179 @@
+<!--title: Typography-->
+<!--desc: Headings, body text, quotes, lists and the classes to control size, weight, line height and line width. It all starts from a few tokens, so it is adjusted from a single place.-->
+<h2 id="base">Base text</h2>
+<p>The kit uses the <a href="theming.html#testo">Inter</a> font at <code>1rem</code> with line height <code>--kit-lh</code> (1.5). <code>1rem</code> is the base size <code>--kit-fs</code>, which grows with the screen and can be chosen by the user (see <a href="theming.html#testo">Font and text size</a>): all the sizes below are in <code>rem</code> or <code>em</code>, so they follow it. Zeros are slashed, so they are not confused with the letter "o".</p>
+
+<h2 id="headings">Headings</h2>
+<p>The <code>&lt;h1&gt;</code>…<code>&lt;h6&gt;</code> elements already have the kit's style. The <code>kit-h1</code>…<code>kit-h6</code> classes give the same look to another element (a <code>&lt;p&gt;</code>, a <code>&lt;div&gt;</code>) without changing the document structure. A <code>&lt;small&gt;</code> inside the heading becomes a gray secondary text.</p>
+<div class="doc-demo">
+  <h1>h1. Page title</h1>
+  <h2>h2. Section title</h2>
+  <h3>h3. Group title</h3>
+  <h4>h4. Block title</h4>
+  <h5>h5. Small title</h5>
+  <h6>h6. Smallest title</h6>
+  <h3>With secondary text <small>gray subtitle</small></h3>
+  <p class="kit-h4">A paragraph that looks like an h4 (kit-h4)</p>
+</div>
+<p>The sizes are the <code>--kit-h1</code>…<code>--kit-h6</code> tokens: changing them in <code>:root</code> changes the scale of the whole page, including the <code>kit-fs-1</code>…<code>kit-fs-6</code> classes.</p>
+```css
+:root {
+  --kit-h1: 2.6rem;   /* bigger headings */
+  --kit-h2: 2rem;
+}
+```
+
+<h2 id="display">Display</h2>
+<p>For an opening title, bigger and lighter than the normal ones (<code>kit-display-1</code> is the largest, <code>kit-display-4</code> the smallest). Below 576px they shrink by themselves.</p>
+<div class="doc-demo">
+  <p class="kit-display-1">Display 1</p>
+  <p class="kit-display-2">Display 2</p>
+  <p class="kit-display-3">Display 3</p>
+  <p class="kit-display-4">Display 4</p>
+</div>
+
+<h2 id="lead">Lead paragraph</h2>
+<p>With <code>kit-lead</code> the first paragraph stands out from the rest.</p>
+<div class="doc-demo">
+  <p class="kit-lead">A lead paragraph: a bit bigger than normal text, to introduce the topic.</p>
+  <p>The text that follows has the normal size.</p>
+</div>
+
+<h2 id="inline">Inline text</h2>
+<div class="doc-demo">
+  <p>You can <mark>highlight</mark> a part (<code>&lt;mark&gt;</code>), <del>delete</del> (<code>&lt;del&gt;</code>), <ins>insert</ins> (<code>&lt;ins&gt;</code>), <u>underline</u> (<code>&lt;u&gt;</code>), make <strong>bold</strong> or <em>italic</em>, and write in <small>smaller type</small> (<code>&lt;small&gt;</code>).</p>
+  <p>Abbreviations show their meaning on mouse hover: <abbr title="Value added tax">VAT</abbr>, and in small caps with <code>kit-initialism</code>: <abbr class="kit-initialism" title="HyperText Markup Language">html</abbr>.</p>
+  <p>For a key use <kbd>Ctrl</kbd> + <kbd>K</kbd>; for code <code>kit-card</code>.</p>
+</div>
+
+<h2 id="utilities">Classes to control the text</h2>
+<p>All with <code>!important</code>, like the <a href="utilities.html">utilities</a>, to win over the components' style.</p>
+
+<h3 id="size">Size</h3>
+<p><code>kit-fs-1</code>…<code>kit-fs-6</code> use the same scale as the headings; <code>kit-fs-sm</code> and <code>kit-fs-lg</code> are relative to the text that contains them (<code>.875em</code> and <code>1.2em</code>), useful inside a component.</p>
+<div class="doc-demo">
+  <p class="kit-fs-1 kit-lh-1">kit-fs-1</p>
+  <p class="kit-fs-2 kit-lh-1">kit-fs-2</p>
+  <p class="kit-fs-3 kit-lh-1">kit-fs-3</p>
+  <p class="kit-fs-4 kit-lh-1">kit-fs-4</p>
+  <p class="kit-fs-5 kit-lh-1">kit-fs-5</p>
+  <p class="kit-fs-6 kit-lh-1">kit-fs-6</p>
+  <p>Normal text, <span class="kit-fs-sm">smaller (kit-fs-sm)</span> and <span class="kit-fs-lg">larger (kit-fs-lg)</span>.</p>
+</div>
+
+<h3 id="weight">Weight and style</h3>
+<div class="doc-demo">
+  <p class="kit-fw-light">kit-fw-light — light (300)</p>
+  <p class="kit-fw-normal">kit-fw-normal — normal (400)</p>
+  <p class="kit-fw-medium">kit-fw-medium — medium (500)</p>
+  <p class="kit-fw-semibold">kit-fw-semibold — semibold (600)</p>
+  <p class="kit-fw-bold">kit-fw-bold — bold (700)</p>
+  <p class="kit-fst-italic">kit-fst-italic — italic</p>
+  <p class="kit-fst-italic kit-fst-normal">kit-fst-normal — removes the italic</p>
+</div>
+
+<h3 id="alignment">Alignment and wrapping</h3>
+<div class="doc-demo">
+  <p class="kit-left">kit-left — left</p>
+  <p class="kit-center">kit-center — center</p>
+  <p class="kit-right">kit-right — right</p>
+  <div class="kit-card kit-p-3" style="max-width: 260px">
+    <p class="kit-nowrap kit-mute" style="margin: 0 0 8px; overflow: hidden">kit-nowrap: a long line that never wraps and so overflows the space</p>
+    <p class="kit-wrap" style="margin: 0 0 8px">kit-wrap: removes the ban on wrapping and the text goes back into the available space.</p>
+    <p class="kit-break" style="margin: 0">kit-break: also breaks very long identifiers like IT01234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789</p>
+  </div>
+</div>
+
+<h3 id="transforms">Case, decoration and spacing</h3>
+<div class="doc-demo">
+  <p class="kit-uppercase">kit-uppercase — all uppercase</p>
+  <p class="kit-lowercase">KIT-LOWERCASE — ALL LOWERCASE</p>
+  <p class="kit-capitalize">kit-capitalize — capitalized words</p>
+  <p class="kit-underline">kit-underline — underlined</p>
+  <p class="kit-line-through">kit-line-through — struck through</p>
+  <p><a class="kit-no-underline" href="#utilities">kit-no-underline — a link without underline</a></p>
+  <p class="kit-ls-tight">kit-ls-tight — tighter letters</p>
+  <p class="kit-ls-wide kit-uppercase kit-fs-sm">kit-ls-wide — spaced letters</p>
+</div>
+
+<h3 id="line-height">Line height</h3>
+<p><code>kit-lh-1</code> (1), <code>kit-lh-sm</code> (1.25), <code>kit-lh-base</code> (the value of <code>--kit-lh</code>) and <code>kit-lh-lg</code> (1.8). To change it everywhere just change <code>--kit-lh</code>.</p>
+<div class="doc-demo">
+  <div class="kit-row">
+    <div class="kit-col-12 kit-col-md-6"><p class="kit-lh-sm"><b>kit-lh-sm</b> — A line of text long enough to wrap at least once, to see how close the lines are to each other.</p></div>
+    <div class="kit-col-12 kit-col-md-6"><p class="kit-lh-lg"><b>kit-lh-lg</b> — A line of text long enough to wrap at least once, to see how close the lines are to each other.</p></div>
+  </div>
+</div>
+
+<h3 id="family">Monospace font and color</h3>
+<p><code>kit-mono</code> uses the code font (<code>--kit-mono</code>), useful for identifiers and amounts in a column. Text colors are in <a href="utilities.html#text">Utilities</a>; <code>kit-ink</code> brings back the normal color inside a colored element.</p>
+<div class="doc-demo">
+  <p><span class="kit-mono">FT-0042 · €1,250.00</span> · <span class="kit-mute">kit-mute <span class="kit-ink">kit-ink</span></span></p>
+</div>
+
+<h2 id="quotes">Quotes</h2>
+<p>With <code>kit-quote</code> on a <code>&lt;blockquote&gt;</code>: a bar in the accent color on the left. The source goes in a <code>&lt;footer&gt;</code> (or in a <code>&lt;figcaption&gt;</code> if the quote is inside a <code>&lt;figure&gt;</code>), preceded by an em dash.</p>
+<div class="doc-demo">
+  <blockquote class="kit-quote">
+    <p>A good dashboard shows the things you need, at the moment you need them.</p>
+    <footer>From the project notes</footer>
+  </blockquote>
+</div>
+
+<h2 id="lists">Lists</h2>
+<div class="doc-demo">
+  <div class="kit-row">
+    <div class="kit-col-12 kit-col-md-4">
+      <p class="kit-fw-semibold kit-mute kit-fs-sm">Normal</p>
+      <ul><li>Received invoices</li><li>Issued invoices</li><li>Credit notes</li></ul>
+    </div>
+    <div class="kit-col-12 kit-col-md-4">
+      <p class="kit-fw-semibold kit-mute kit-fs-sm">kit-list-unstyled</p>
+      <ul class="kit-list-unstyled"><li>Received invoices</li><li>Issued invoices</li><li>Credit notes</li></ul>
+    </div>
+    <div class="kit-col-12 kit-col-md-4">
+      <p class="kit-fw-semibold kit-mute kit-fs-sm">kit-list-inline</p>
+      <ul class="kit-list-inline"><li>Received</li><li>Issued</li><li>Notes</li></ul>
+    </div>
+  </div>
+</div>
+<p>For label/value detail lists there is <a href="cards.html#kv">key / value</a>.</p>
+
+<h2 id="prose">Long texts</h2>
+<p>An article, a guide or some notes read better with shorter lines and more space between lines. <code>kit-prose</code> limits the width to <code>--kit-measure</code> (65 characters), brings the line height to 1.7 and spaces paragraphs, headings and lists regularly, without you having to put classes on the single elements. To limit only the width of a block there is <code>kit-measure</code>.</p>
+<div class="doc-demo">
+  <div class="kit-prose">
+    <h3>How a long text is read</h3>
+    <p>When a line goes past about seventy characters the eye struggles to return to the start of the next line. This is why long texts should not take up the whole width of a large screen.</p>
+    <p>Line height matters too: lines that are too close blur together, lines too far apart read as separate paragraphs.</p>
+    <h4>Some tips</h4>
+    <ul>
+      <li>Keep lines under 65–75 characters.</li>
+      <li>Use a line height between 1.5 and 1.7.</li>
+      <li>Give headings more space above than below.</li>
+    </ul>
+  </div>
+</div>
+```html
+<article class="kit-prose">
+  <h2>Title</h2>
+  <p>Text…</p>
+</article>
+```
+```css
+:root { --kit-measure: 72ch; }   /* slightly longer lines */
+```
+
+<h2 id="tokens">Typographic tokens</h2>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table">
+  <thead><tr><th>Token</th><th>Value</th><th>What it controls</th></tr></thead>
+  <tbody>
+    <tr><td><code>--kit-font</code></td><td><code>"Kit Inter", system-ui, …</code></td><td>Text font</td></tr>
+    <tr><td><code>--kit-mono</code></td><td><code>ui-monospace, Consolas, …</code></td><td>Code font</td></tr>
+    <tr><td><code>--kit-fs</code></td><td><code>15px</code></td><td>Base size (1rem), grows with the screen</td></tr>
+    <tr><td><code>--kit-zoom</code></td><td><code>.875</code></td><td>Multiplier chosen by the user</td></tr>
+    <tr><td><code>--kit-lh</code></td><td><code>1.5</code></td><td>Text line height</td></tr>
+    <tr><td><code>--kit-measure</code></td><td><code>65ch</code></td><td>Maximum length of a line (<code>kit-prose</code>, <code>kit-measure</code>)</td></tr>
+    <tr><td><code>--kit-h1</code>…<code>--kit-h6</code></td><td><code>2.2rem</code>…<code>1rem</code></td><td>Size of headings and of <code>kit-fs-1</code>…<code>kit-fs-6</code></td></tr>
+  </tbody>
+</table></div></div>

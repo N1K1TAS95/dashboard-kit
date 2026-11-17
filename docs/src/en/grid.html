@@ -1,0 +1,181 @@
+<!--title: Grid-->
+<!--desc: A 12-column flexbox grid, with the same names as Bootstrap. It is built with rows and columns and changes as the screen width changes.-->
+<h2 id="how-it-works">How it works</h2>
+<ul>
+  <li>A <code>.kit-row</code> contains <code>.kit-col-*</code> columns; each row has <b>12</b> columns and wraps by itself.</li>
+  <li>It is <b>mobile first</b>: a class without a breakpoint applies everywhere, <code>kit-col-md-6</code> applies from 768px up.</li>
+  <li>The row has negative margins that compensate the columns' padding (the <em>gutters</em>): put it inside a container with padding, like <code>.kit-main</code> or <code>.kit-card-body</code>.</li>
+  <li>The row's direct children are all columns: even a <code>&lt;div&gt;</code> without a class is 100% wide.</li>
+</ul>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table">
+  <thead><tr><th>Abbreviation</th><th>From</th><th>Example</th></tr></thead>
+  <tbody>
+    <tr><td><i>none</i></td><td>0px</td><td><code>kit-col-6</code></td></tr>
+    <tr><td><code>sm</code></td><td>576px</td><td><code>kit-col-sm-6</code></td></tr>
+    <tr><td><code>md</code></td><td>768px</td><td><code>kit-col-md-6</code></td></tr>
+    <tr><td><code>lg</code></td><td>992px</td><td><code>kit-col-lg-6</code></td></tr>
+    <tr><td><code>xl</code></td><td>1200px</td><td><code>kit-col-xl-6</code></td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="columns">Columns</h2>
+<p><code>kit-col-N</code> with N from 1 to 12: the column takes N twelfths of the row.</p>
+
+<div class="doc-demo kit-stack">
+    <div class="kit-row">
+      <div class="kit-col-4"><div class="kit-card kit-card-body kit-center">kit-col-4</div></div>
+      <div class="kit-col-4"><div class="kit-card kit-card-body kit-center">kit-col-4</div></div>
+      <div class="kit-col-4"><div class="kit-card kit-card-body kit-center">kit-col-4</div></div>
+    </div>
+    <div class="kit-row">
+      <div class="kit-col-8"><div class="kit-card kit-card-body kit-center">kit-col-8</div></div>
+      <div class="kit-col-4"><div class="kit-card kit-card-body kit-center">kit-col-4</div></div>
+    </div>
+</div>
+
+<h2 id="responsive">Responsive</h2>
+<p>Combine several classes: a full-width column on the phone, half from <code>md</code>, a quarter from <code>xl</code>. <b>Resize the window</b> to see them change.</p>
+
+<div class="doc-demo kit-stack">
+    <div class="kit-row">
+      <div class="kit-col-12 kit-col-md-6 kit-col-xl-3"><div class="kit-card kit-card-body kit-center">12 → md 6 → xl 3</div></div>
+      <div class="kit-col-12 kit-col-md-6 kit-col-xl-3"><div class="kit-card kit-card-body kit-center">12 → md 6 → xl 3</div></div>
+      <div class="kit-col-12 kit-col-md-6 kit-col-xl-3"><div class="kit-card kit-card-body kit-center">12 → md 6 → xl 3</div></div>
+      <div class="kit-col-12 kit-col-md-6 kit-col-xl-3"><div class="kit-card kit-card-body kit-center">12 → md 6 → xl 3</div></div>
+    </div>
+</div>
+
+<h2 id="flexible">Flexible columns</h2>
+<p><code>kit-col</code> splits the remaining space in equal parts; <code>kit-col-auto</code> is as wide as its content.</p>
+
+<div class="doc-demo kit-stack">
+    <div class="kit-row">
+      <div class="kit-col"><div class="kit-card kit-card-body kit-center">kit-col</div></div>
+      <div class="kit-col-auto"><div class="kit-card kit-card-body kit-center">kit-col-auto</div></div>
+      <div class="kit-col"><div class="kit-card kit-card-body kit-center">kit-col</div></div>
+    </div>
+    <div class="kit-row">
+      <div class="kit-col"><div class="kit-card kit-card-body kit-center">kit-col</div></div>
+      <div class="kit-col-6"><div class="kit-card kit-card-body kit-center">kit-col-6</div></div>
+      <div class="kit-col"><div class="kit-card kit-card-body kit-center">kit-col</div></div>
+    </div>
+</div>
+
+<h2 id="row-cols">Columns per row</h2>
+<p>On the row, <code>kit-row-cols-N</code> (N from 1 to 6) decides how many cells fit in a row, with no classes on the cells. It is the most convenient way for KPI cards.</p>
+
+<div class="doc-demo kit-stack">
+    <div class="kit-row kit-row-cols-2 kit-row-cols-md-4">
+      <div><div class="kit-card kit-card-body kit-center">1</div></div>
+      <div><div class="kit-card kit-card-body kit-center">2</div></div>
+      <div><div class="kit-card kit-card-body kit-center">3</div></div>
+      <div><div class="kit-card kit-card-body kit-center">4</div></div>
+      <div><div class="kit-card kit-card-body kit-center">5</div></div>
+      <div><div class="kit-card kit-card-body kit-center">6</div></div>
+      <div><div class="kit-card kit-card-body kit-center">7</div></div>
+      <div><div class="kit-card kit-card-body kit-center">8</div></div>
+    </div>
+</div>
+
+<h2 id="offset-order">Offset and order</h2>
+<p><code>kit-offset-N</code> moves the column right by N twelfths. <code>kit-order-first</code>, <code>kit-order-last</code> and <code>kit-order-0…5</code> change the display order without touching the HTML.</p>
+
+<div class="doc-demo kit-stack">
+    <div class="kit-row">
+      <div class="kit-col-md-6 kit-offset-md-3"><div class="kit-card kit-card-body kit-center">kit-col-md-6 kit-offset-md-3</div></div>
+    </div>
+    <div class="kit-row">
+      <div class="kit-col-4 kit-order-last"><div class="kit-card kit-card-body kit-center">1st in the code, last</div></div>
+      <div class="kit-col-4"><div class="kit-card kit-card-body kit-center">2nd</div></div>
+      <div class="kit-col-4 kit-order-first"><div class="kit-card kit-card-body kit-center">3rd in the code, first</div></div>
+    </div>
+</div>
+
+<h2 id="alignment">Alignment</h2>
+<p>On the row, <code>kit-align-items-*</code> aligns vertically and <code>kit-justify-content-*</code> horizontally. On a single column <code>kit-align-self-*</code> applies.</p>
+
+<div class="doc-demo kit-stack">
+    <div class="kit-row kit-align-items-center">
+      <div class="kit-col-4"><div class="kit-card kit-card-body kit-center kit-py-4">align-items-center</div></div>
+      <div class="kit-col-4"><div class="kit-card kit-card-body kit-center">centered</div></div>
+      <div class="kit-col-4"><div class="kit-card kit-card-body kit-center kit-py-5">centered</div></div>
+    </div>
+    <div class="kit-row kit-justify-content-center">
+      <div class="kit-col-4"><div class="kit-card kit-card-body kit-center">justify-content-center</div></div>
+    </div>
+</div>
+
+<h2 id="gutter">Gutter</h2>
+<p>The space between columns is adjusted with <code>kit-g-0…5</code> (horizontal and vertical), <code>kit-gx-*</code> and <code>kit-gy-*</code>. By default it is <code>--kit-sp</code>, so it tightens by itself on the phone; with <code>kit-g-md-4</code> it changes from a breakpoint.</p>
+
+<div class="doc-demo kit-stack">
+    <div class="kit-row kit-g-0">
+      <div class="kit-col-6"><div class="kit-card kit-card-body kit-center">kit-g-0</div></div>
+      <div class="kit-col-6"><div class="kit-card kit-card-body kit-center">kit-g-0</div></div>
+    </div>
+    <div class="kit-row kit-g-4">
+      <div class="kit-col-6"><div class="kit-card kit-card-body kit-center">kit-g-4</div></div>
+      <div class="kit-col-6"><div class="kit-card kit-card-body kit-center">kit-g-4</div></div>
+      <div class="kit-col-6"><div class="kit-card kit-card-body kit-center">kit-g-4</div></div>
+      <div class="kit-col-6"><div class="kit-card kit-card-body kit-center">kit-g-4</div></div>
+    </div>
+</div>
+
+<h2 id="nested">Nested rows</h2>
+<p>Inside a column you can put another row, with its own 12 columns. Remember the container's padding (here <code>kit-card-body</code>).</p>
+
+<div class="doc-demo kit-stack">
+    <div class="kit-row">
+      <div class="kit-col-md-8">
+        <div class="kit-card kit-card-body">
+          <p class="kit-mute">kit-col-md-8, with a row inside</p>
+          <div class="kit-row">
+            <div class="kit-col-6"><div class="kit-card kit-card-body kit-center">kit-col-6</div></div>
+            <div class="kit-col-6"><div class="kit-card kit-card-body kit-center">kit-col-6</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="kit-col-md-4"><div class="kit-card kit-card-body kit-center">kit-col-md-4</div></div>
+    </div>
+</div>
+
+<h2 id="equal-height">Cards of equal height</h2>
+<p>The columns of a row already have the same height, but the card inside does not. Add <code>kit-h-100</code> to the card.</p>
+
+<div class="doc-demo kit-stack">
+    <div class="kit-row">
+      <div class="kit-col-md-6"><div class="kit-card kit-card-body kit-h-100">A little text.</div></div>
+      <div class="kit-col-md-6"><div class="kit-card kit-card-body kit-h-100">Much more text, which runs over several lines and makes the column taller than the other: with kit-h-100 the two cards end at the same height.</div></div>
+    </div>
+</div>
+
+<h2 id="css-grid">Alternative: CSS Grid</h2>
+<p>When you do not need per-column breakpoints, <code>kit-grid</code> fills the row with as many columns as fit (at least 240px each). <code>kit-grid-2</code> and <code>kit-grid-3</code> fix 2 or 3 columns (just one below 900px).</p>
+
+<div class="doc-demo kit-stack">
+    <div class="kit-grid">
+      <div class="kit-card kit-card-body kit-center">kit-grid 1</div>
+      <div class="kit-card kit-card-body kit-center">kit-grid 2</div>
+      <div class="kit-card kit-card-body kit-center">kit-grid 3</div>
+      <div class="kit-card kit-card-body kit-center">kit-grid 4</div>
+    </div>
+</div>
+
+<h2 id="dashboard">Structure of a dashboard</h2>
+<p>The most common scheme: KPIs at the top, a chart with a side panel, then a full-width table. The complete result is in the <a href="dashboard.html">sample dashboard</a>.</p>
+
+<div class="doc-demo kit-stack">
+    <div class="kit-row kit-row-cols-2 kit-row-cols-lg-4">
+      <div><div class="kit-card kit-kpi kit-h-100"><small>Documents</small><b>1,284</b><span class="kit-badge kit-badge-success">+4%</span></div></div>
+      <div><div class="kit-card kit-kpi kit-h-100"><small>Total</small><b>€48,920</b><span class="kit-badge kit-badge-success">+1.2%</span></div></div>
+      <div><div class="kit-card kit-kpi kit-h-100"><small>To review</small><b>17</b><span class="kit-badge kit-badge-warning">−3</span></div></div>
+      <div><div class="kit-card kit-kpi kit-h-100"><small>Discarded</small><b>2</b><span class="kit-badge kit-badge-danger">+1</span></div></div>
+    </div>
+    <div class="kit-row">
+      <div class="kit-col-12 kit-col-xl-8"><section class="kit-card kit-card-body kit-h-100 kit-center kit-mute kit-py-5">Chart (kit-col-xl-8)</section></div>
+      <div class="kit-col-12 kit-col-xl-4"><section class="kit-card kit-card-body kit-h-100 kit-center kit-mute kit-py-5">Side panel (kit-col-xl-4)</section></div>
+    </div>
+    <div class="kit-row">
+      <div class="kit-col-12"><section class="kit-card kit-card-body kit-center kit-mute">Table (kit-col-12)</section></div>
+    </div>
+</div>

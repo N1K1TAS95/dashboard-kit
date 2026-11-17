@@ -1,0 +1,80 @@
+<!--title: Utilities-->
+<!--desc: One-line classes, as in Bootstrap: spacing, display, flexbox, sizes, text and visibility. Almost all use <code>!important</code> to win over components.-->
+<h2 id="spacing">Margins and padding</h2>
+<p>Format <code>kit-{m|p}{side}-{n}</code>. Sides: <i>none</i> (all), <code>t</code> top, <code>b</code> bottom, <code>s</code> start, <code>e</code> end, <code>x</code> horizontal, <code>y</code> vertical. The <code>n</code> scale goes from 0 to 5; margins also have <code>auto</code>.</p>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table">
+  <thead><tr><th>n</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead>
+  <tbody><tr><td>Value</td><td>0</td><td>4px</td><td>8px</td><td>16px</td><td>24px</td><td>48px</td></tr></tbody>
+</table></div></div>
+<div class="doc-demo">
+  <div class="kit-bar">
+    <div class="kit-card kit-p-0">p-0</div>
+    <div class="kit-card kit-p-1">p-1</div>
+    <div class="kit-card kit-p-2">p-2</div>
+    <div class="kit-card kit-p-3">p-3</div>
+    <div class="kit-card kit-p-4">p-4</div>
+    <div class="kit-card kit-px-5 kit-py-2">px-5 py-2</div>
+  </div>
+</div>
+<div class="doc-demo">
+  <div class="kit-card kit-card-body kit-mt-4 kit-mb-2">kit-mt-4 kit-mb-2</div>
+  <div class="kit-d-flex"><button class="kit-btn">Left</button><button class="kit-btn kit-ms-auto">kit-ms-auto: to the right</button></div>
+</div>
+
+<h2 id="display">Display</h2>
+<p><code>kit-d-{value}</code> with value <code>none</code>, <code>inline</code>, <code>block</code>, <code>inline-block</code>, <code>flex</code>, <code>inline-flex</code>, <code>grid</code>. With a breakpoint it applies from there up: <code>kit-d-md-none</code>.</p>
+<div class="doc-demo kit-stack">
+  <div class="kit-card kit-p-3 kit-d-none kit-d-md-block">Visible from md (768px) up: <code>kit-d-none kit-d-md-block</code></div>
+  <div class="kit-card kit-p-3 kit-d-md-none">Visible only below md: <code>kit-d-md-none</code></div>
+  <p class="kit-mute">Resize the window to see the two boxes alternate.</p>
+</div>
+
+<h2 id="flex">Flexbox</h2>
+<p>With <code>kit-d-flex</code> you enable direction (<code>kit-flex-row</code>, <code>-column</code>, <code>-row-reverse</code>, <code>-column-reverse</code>), wrapping (<code>kit-flex-wrap</code>, <code>-nowrap</code>), <code>kit-justify-content-{start|end|center|between|around|evenly}</code>, <code>kit-align-items-{start|end|center|baseline|stretch}</code>, <code>kit-align-self-*</code>, <code>kit-flex-grow-1</code>, <code>kit-flex-shrink-0</code>, <code>kit-flex-fill</code> and <code>kit-gap-0…5</code>. Direction, justify and align also have a per-breakpoint version.</p>
+<div class="doc-demo kit-stack">
+  <div class="kit-d-flex kit-justify-content-between kit-align-items-center kit-card kit-p-3">
+    <b>Title</b>
+    <span class="kit-badge kit-badge-success">justify-content-between</span>
+  </div>
+  <div class="kit-d-flex kit-gap-3 kit-align-items-center">
+    <button class="kit-btn kit-flex-shrink-0">Does not shrink</button>
+    <div class="kit-card kit-p-3 kit-flex-grow-1">flex-grow-1: takes the remaining space</div>
+  </div>
+  <div class="kit-d-flex kit-flex-column kit-flex-md-row kit-gap-2">
+    <div class="kit-card kit-p-3 kit-flex-fill">In a column on the phone</div>
+    <div class="kit-card kit-p-3 kit-flex-fill">in a row from md up</div>
+  </div>
+</div>
+
+<h2 id="sizing">Sizes</h2>
+<p><code>kit-w-100</code>, <code>kit-w-auto</code>, <code>kit-h-100</code>, <code>kit-h-auto</code>. <code>kit-h-100</code> is often needed to make a card reach the height of the column that contains it.</p>
+
+<h2 id="text">Text and color</h2>
+<div class="doc-demo">
+  <div class="kit-bar">
+    <span class="kit-mute">kit-mute</span>
+    <span class="kit-accent">kit-accent</span>
+    <span class="kit-success">kit-success</span>
+    <span class="kit-warning">kit-warning</span>
+    <span class="kit-danger">kit-danger</span>
+    <span class="kit-num">1,234.50 (kit-num: aligned digits)</span>
+  </div>
+  <div class="kit-card kit-p-3 kit-mt-3" style="max-width: 220px"><span class="kit-truncate" style="display:block">kit-truncate cuts with an ellipsis a text that is too long for the available space</span></div>
+</div>
+<p>Others: <code>kit-nowrap</code>, <code>kit-center</code>, <code>kit-right</code>. Size, weight, line height, case and line width are in <a href="typography.html#utilities">Typography</a>.</p>
+
+<h2 id="visibility">Visibility</h2>
+<ul>
+  <li><code>kit-hidden</code> and the <code>hidden</code> attribute: hide the element.</li>
+  <li><code>kit-sr</code>: hides it visually but it stays readable by screen readers (labels for icon-only controls).</li>
+  <li><code>kit-hide-sm</code> (below 760px) and <code>kit-only-sm</code> (only below 760px): shortcuts tied to the phone breakpoint. For the other breakpoints use <code>kit-d-*</code>.</li>
+</ul>
+
+<h2 id="print">Print</h2>
+<p>The kit prepares the page for printing: always on light (even if it is dark on screen), without header, alerts and tabs, without shadows, with the page margins reset. Badge and chart colors are kept. Cards, lists, KPI cards and table rows do not split between two pages, and the table header repeats on every page.</p>
+<ul>
+  <li><code>kit-no-print</code>: the element is not printed (buttons, filters, toolbars).</li>
+  <li><code>kit-print-only</code>: the element is only visible when printing (document title, date, notes).</li>
+  <li><code>kit-print-break</code>: goes to a new page; <code>kit-print-avoid</code>: does not split between two pages.</li>
+</ul>
+<p>The sheet size and margins are left to the app: <code>@page { size: A4; margin: 14mm }</code> in your CSS.</p>

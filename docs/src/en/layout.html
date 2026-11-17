@@ -1,0 +1,115 @@
+<!--title: Layout-->
+<!--desc: Container, fixed header, element bars, stacking and side panel: the structure of a page. For columns see the <a href="grid.html">grid</a>.-->
+<h2 id="structure">Page structure</h2>
+<p>A page is a fixed <code>.kit-header</code> at the top and a <code>.kit-main</code> containing a <code>.kit-container</code>. Inside the container you use the <a href="grid.html">grid</a> or <code>.kit-stack</code>.</p>
+```html
+<header class="kit-header">
+  <h1 class="kit-brand">Name <span>app</span></h1>
+  <span class="kit-spacer"></span>
+  <!-- buttons, menus, theme… -->
+</header>
+<main class="kit-main">
+  <div class="kit-container kit-stack">
+    …
+  </div>
+</main>
+```
+<ul>
+  <li><code>.kit-header</code>: <code>--kit-hh</code> tall, stays stuck to the top (sticky). Table headers stick right below it.</li>
+  <li><code>.kit-brand</code>: a title whose second word, in a <code>&lt;span&gt;</code>, is colored with the accent.</li>
+  <li><code>.kit-main</code>: 24px of inner margin (16px below 900px) and 80px at the bottom.</li>
+  <li><code>.kit-container</code>: centered content, at most <code>--kit-container-w</code> (1200px) wide. See <a href="#content-width">Content width</a>.</li>
+</ul>
+
+<h2 id="content-width">Content width</h2>
+<p>Narrow, centered content reads better for texts and forms; a dashboard with tables and charts often does better at full width. The kit allows both, at two levels.</p>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table">
+  <thead><tr><th>Class</th><th>Behavior</th></tr></thead>
+  <tbody>
+    <tr><td><code>kit-container</code></td><td>Centered, at most <code>--kit-container-w</code> wide. It follows the <b>global switch</b> (below): with <code>data-layout="fluid"</code> it fills the whole window.</td></tr>
+    <tr><td><code>kit-container-boxed</code></td><td>Always centered, whatever the switch.</td></tr>
+    <tr><td><code>kit-container-fluid</code></td><td>Always full width.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h3>Global switch</h3>
+<p>Put <code>data-layout="boxed"</code> or <code>"fluid"</code> on <code>&lt;html&gt;</code> to choose the width of the whole page (<code>boxed</code> by default). With <code>kit.js</code> the user can change it from a button and the choice is remembered, like the theme. The width only changes when the window is wider than <code>--kit-container-w</code>.</p>
+```html
+<!-- full-width content by default -->
+<html lang="en" data-layout="fluid">
+
+<!-- a button that lets the user choose (it is remembered) -->
+<button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-layout-toggle aria-label="Full-width content">…</button>
+```
+```js
+Kit.layout.set("fluid");   // or "boxed"; Kit.layout.toggle() switches
+```
+<p class="kit-alert">These documentation pages use <code>kit-container-boxed</code> and always stay centered. To see the switch in action open the <a href="dashboard.html">sample dashboard</a>: it starts at full width and has the button with the arrows at the top right.</p>
+
+<h3>Header aligned with the content</h3>
+<p>If you put a <code>.kit-container</code> inside <code>.kit-header</code>, it becomes the header's inner row and its content aligns with the page's, both centered and full width. Without a container the header always fills the whole window.</p>
+```html
+<header class="kit-header">
+  <div class="kit-container">
+    <h1 class="kit-brand">Name <span>app</span></h1>
+    <span class="kit-spacer"></span>
+    <button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-layout-toggle aria-label="Content width">…</button>
+  </div>
+</header>
+```
+
+<h2 id="stack">Stacking: kit-stack</h2>
+<p>It lays out its children in a column with a constant gap (<code>--kit-sp</code>). It is the simplest way to put cards one under the other.</p>
+<div class="doc-demo">
+  <div class="kit-stack">
+    <div class="kit-card kit-card-body">First card</div>
+    <div class="kit-card kit-card-body">Second card</div>
+    <div class="kit-card kit-card-body">Third card</div>
+  </div>
+</div>
+
+<h2 id="bar">Element bar: kit-bar</h2>
+<p>Elements side by side and vertically centered, wrapping when there is no room: toolbars, filters, groups of buttons. <code>.kit-spacer</code> pushes what follows to the right.</p>
+<div class="doc-demo">
+  <div class="kit-bar">
+    <button class="kit-btn kit-btn-primary">New</button>
+    <button class="kit-btn">Import</button>
+    <span class="kit-spacer"></span>
+    <button class="kit-btn kit-btn-ghost">Settings</button>
+  </div>
+</div>
+<p class="kit-alert"><code>kit-bar</code> is not the grid's row: for columns use <code>kit-row</code>.</p>
+
+<h2 id="split">Side panel: kit-split</h2>
+<p>A list with, next to it, a detail panel that opens when a row is selected. Above 900px the panel sits next to the list and stays put while the list scrolls. Below 900px it covers the page from the right, with a dark veil behind it, and a click on the veil closes it. With <code>kit-split-lg</code> instead of <code>kit-split</code> the switch happens below 1250px, for lists that need a lot of room.</p>
+<p>With <code>kit.js</code> three attributes are enough: <code>data-kit-split-open="#id"</code> on whatever opens it (a row, a button), <code>data-kit-split-close</code> and <code>data-kit-split-full</code> inside the panel. The second closes, the third toggles between "next to the list" and "full width" (the list disappears). With <code>data-kit-split</code> on the container Esc closes the panel, or brings it back next to the list if it was full width. On opening, focus goes to the panel and on closing it returns to whatever opened it.</p>
+<div class="doc-demo doc-split-demo">
+  <div class="kit-split" id="demo-split" data-kit-split>
+    <div class="kit-card">
+      <div class="kit-table-wrap"><table class="kit-table kit-table-hover"><thead><tr><th>Invoice</th><th>Customer</th><th class="kit-right">Amount</th></tr></thead><tbody>
+        <tr data-kit-split-open="#demo-split" style="cursor: pointer"><td>2026/014</td><td>Smith Ltd</td><td class="kit-right kit-num">€1,240.00</td></tr>
+        <tr data-kit-split-open="#demo-split" style="cursor: pointer"><td>2026/015</td><td>Brown Inc</td><td class="kit-right kit-num">€860.50</td></tr>
+        <tr data-kit-split-open="#demo-split" style="cursor: pointer"><td>2026/016</td><td>Green Services</td><td class="kit-right kit-num">€3,075.00</td></tr>
+      </tbody></table></div>
+    </div>
+    <aside class="kit-split-panel" aria-label="Invoice detail">
+      <div class="kit-split-head">
+        <div class="kit-split-title"><h3>Invoice 2026/014</h3><small>Smith Ltd</small></div>
+        <button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-split-full aria-label="Full width" title="Full width"><svg class="kit-icon"><use href="#i-expand"/></svg></button>
+        <button class="kit-btn kit-btn-ghost kit-btn-icon" data-kit-split-close aria-label="Close" title="Close (Esc)"><svg class="kit-icon"><use href="#i-x"/></svg></button>
+      </div>
+      <div class="kit-split-body">
+        <dl class="kit-kv"><dt>Date</dt><dd>03/12/2026</dd><dt>Taxable amount</dt><dd>€1,016.39</dd><dt>VAT 22%</dt><dd>€223.61</dd><dt>Total</dt><dd>€1,240.00</dd></dl>
+      </div>
+    </aside>
+  </div>
+</div>
+<p>The panel is made of <code>kit-split-head</code> (title in <code>kit-split-title</code> and buttons) and <code>kit-split-body</code>, which is the part that scrolls. Width next to the list: <code>--kit-split-w</code> (40%); width when it covers the page: <code>--kit-split-overlay-w</code> (860px). Without JavaScript just add or remove <code>is-open</code> (and <code>is-full</code>) on the container.</p>
+<div class="kit-card"><div class="kit-table-wrap"><table class="kit-table"><thead><tr><th>JavaScript</th><th>Effect</th></tr></thead><tbody>
+<tr><td><code>Kit.split("#id")</code></td><td>returns <code>{ open(), close(), full(on), isOpen(), isFull() }</code></td></tr>
+<tr><td><code>kit:split</code> event</td><td>on the container, with <code>{ open, full }</code>: useful to update the selected row or free the detail's data</td></tr>
+</tbody></table></div></div>
+<p>Moving to the previous or next row (arrows, "j" and "k") depends on the list and is not included: write it with two buttons and a handler that calls your own open function.</p>
+
+<h2 id="spacing">Base spacing</h2>
+<p>Three tokens govern the interface's breathing room (see <a href="theming.html">Themes and tokens</a>): <code>--kit-sp</code> (margins, distance between cards, inner padding, gutter), <code>--kit-rad</code> (corners) and <code>--kit-ctl</code> (height of buttons and fields). Below 760px <code>--kit-sp</code> goes down from 16 to 8px.</p>
