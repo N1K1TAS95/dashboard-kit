@@ -3,6 +3,10 @@
 Until 0.10.0 the kit's built-in texts (button labels, messages, calendar) and the documentation were in Italian;
 quoted UI strings below are translated here. From 0.11.0 on the texts come from a per-language dictionary.
 
+## Unreleased
+
+- Multiple select: `<select multiple data-kit-select>` now gets the kit's menu, with several choices. Each click toggles an item and the menu stays open; the button shows the labels up to `data-kit-multi-max` (2 by default), then "N selected" (new `selected` message in the dictionary, English and Italian). Search, groups, hints and keyboard work as in the single select; `kit:change` carries `{ value, values, labels }` (arrays). New "Multiple choice" section on the Forms: select and file page.
+
 ## 0.11.0 — 17 November 2026
 
 - **Languages** (`Kit.i18n`): the texts `kit.js` writes by itself now come from a per-language dictionary, **English** (the default) and **Italian**, chosen from `<html lang>`. **Heads-up, the default behavior changes**: a page without `lang` now gets English texts ("Cancel", "No results"); for Italian you need `<html lang="it">`. `Kit.i18n.lang(code)` sets the language by hand, `Kit.i18n.add(code, dictionary)` adds one (it can hold only what differs: `pt-BR` falls back to `pt`, then to `en`), `Kit.i18n.t(key)` reads an entry; attributes and options (`data-kit-empty`, `{ cancel }`, …) always win. The language also drives the date order (`mm/dd/yyyy` or `dd/mm/yyyy`), the first day of the week in the calendar, the decimal separator used to sort numeric columns, and file sizes. The date-range presets now have English names (`today`, `yesterday`, `month`, `last-month`, `year`, `last-year`); the old Italian names still work, and `data-kit-disable` recognizes weekday names in every loaded language. New "Languages" section on the JavaScript page.

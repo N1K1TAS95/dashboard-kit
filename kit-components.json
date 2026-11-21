@@ -846,6 +846,7 @@
     "data-kit-hint",
     "data-kit-short",
     "data-kit-search",
+    "data-kit-multi-max",
     "Kit.select",
     "Kit.init",
     "kit-file",
@@ -895,7 +896,18 @@
       "data-kit-hint",
       "data-kit-short",
       "data-kit-search",
+      "kit-field"
+     ]
+    },
+    {
+     "id": "multiple-select",
+     "title": "Multiple choice",
+     "uses": [
+      "data-kit-select",
+      "data-kit-multi-max",
+      "data-kit-hint",
       "kit-field",
+      "data-kit-search",
       "Kit.select",
       "Kit.init"
      ]

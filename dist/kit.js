@@ -58,7 +58,7 @@
             close: "Close", cancel: "Cancel", confirm: "Confirm", undo: "Undo",
             confirmTitle: "Are you sure?", confirmType: "To confirm, type ",
             comboToggle: "Show the list", comboMore: "{n} more results: keep typing to narrow down",
-            noResults: "No results", search: "Search…", noData: "No data", total: "Total",
+            noResults: "No results", selected: "{n} selected", search: "Search…", noData: "No data", total: "Total",
             chartLine: "Line chart", chartBar: "Bar chart", chartDonut: "Donut chart", trend: "Trend",
             copy: "Copy", copied: "Copied",
             file: { type: "{name}: file type not accepted ({accept}).", size: "{name}: larger than {max} MB.", count: "{name}: only one file can be chosen.", folder: "{name}: folders are not allowed.",
@@ -87,7 +87,7 @@
             close: "Chiudi", cancel: "Annulla", confirm: "Conferma", undo: "Annulla",
             confirmTitle: "Confermi l'azione?", confirmType: "Per confermare scrivi ",
             comboToggle: "Mostra l'elenco", comboMore: "Altri {n} risultati: continua a scrivere per restringere",
-            noResults: "Nessun risultato", search: "Cerca…", noData: "Nessun dato", total: "Totale",
+            noResults: "Nessun risultato", selected: "{n} selezionati", search: "Cerca…", noData: "Nessun dato", total: "Totale",
             chartLine: "Grafico a linee", chartBar: "Grafico a barre", chartDonut: "Grafico a ciambella", trend: "Andamento",
             copy: "Copia", copied: "Copiato",
             file: { type: "{name}: tipo di file non accettato ({accept}).", size: "{name}: supera i {max} MB.", count: "{name}: si può scegliere un solo file.", folder: "{name}: le cartelle non sono ammesse.",
@@ -1006,20 +1006,32 @@
 
     function nativeSync(st) {
         var o = st.sel.selectedOptions[0];
-        var t = o ? (o.getAttribute("data-kit-short") || o.textContent.trim()) : "";
-        st.value.textContent = t;
+        if (st.multi) {
+            // several values: the labels up to `multiMax`, then only the count
+            var chosen = Array.prototype.filter.call(st.sel.selectedOptions, function (x) { return x.value !== ""; });
+            var names = chosen.map(function (x) { return x.getAttribute("data-kit-short") || x.textContent.trim(); });
+            st.value.textContent = names.length > st.multiMax ? t("selected", { n: names.length }) : names.join(", ");
+            st.btn.classList.toggle("is-empty", !chosen.length);
+            st.btn.disabled = st.sel.disabled;
+            return;
+        }
+        var t1 = o ? (o.getAttribute("data-kit-short") || o.textContent.trim()) : "";
+        st.value.textContent = t1;
         st.btn.classList.toggle("is-empty", !o || o.value === "");
         st.btn.disabled = st.sel.disabled;
     }
 
     function nativeList(st) {
         var q = st.q.trim().toLowerCase(), cur = st.sel.value, head = null, shown = 0, n = 0;
+        var keep = st.list.querySelector(".kit-opt.is-active");
+        keep = keep ? keep.dataset.value : null;
+        var chosen = st.multi ? Array.prototype.map.call(st.sel.selectedOptions, function (x) { return x.value; }) : null;
         st.list.textContent = "";
         nativeItems(st.sel).forEach(function (x) {
             if (x.group !== undefined) { head = x.group; return; }
             if (q && (x.label + " " + x.hint).toLowerCase().indexOf(q) < 0) return;
             if (head !== null) { st.list.appendChild(mkEl("div", "kit-pop-group", head)); head = null; }
-            var on = x.value === cur;
+            var on = st.multi ? chosen.indexOf(x.value) >= 0 : x.value === cur;
             var o = mkEl("div", "kit-opt" + (on ? " is-on" : ""));
             o.id = st.id + "-" + (n++);
             o.setAttribute("role", "option");
@@ -1035,8 +1047,12 @@
             shown++;
         });
         if (!shown) st.list.appendChild(mkEl("div", "kit-pop-empty", st.empty));
-        var a = st.list.querySelector(".kit-opt.is-on:not([aria-disabled='true'])") || st.list.querySelector(".kit-opt:not([aria-disabled='true'])");
-        if (a) { a.classList.add("is-active"); if (!q) a.scrollIntoView({ block: "nearest" }); }
+        var a = null;
+        if (st.multi && keep !== null) {
+            Array.prototype.forEach.call(st.list.querySelectorAll(".kit-opt:not([aria-disabled='true'])"), function (o) { if (!a && o.dataset.value === keep) a = o; });
+        }
+        a = a || st.list.querySelector(".kit-opt.is-on:not([aria-disabled='true'])") || st.list.querySelector(".kit-opt:not([aria-disabled='true'])");
+        if (a) { a.classList.add("is-active"); if (!q || keep !== null) a.scrollIntoView({ block: "nearest" }); }
     }
 
     function nativeOpen(st) {
@@ -1060,6 +1076,7 @@
         }
         st.list = mkEl("div", "kit-pop-list");
         st.list.setAttribute("role", "listbox");
+        if (st.multi) st.list.setAttribute("aria-multiselectable", "true");
         st.pop.appendChild(st.list);
         nativeList(st);
         st.pop.classList.remove("kit-pop-right");
@@ -1072,6 +1089,17 @@
 
     function nativeChoose(st, opt) {
         var v = opt.dataset.value || "";
+        if (st.multi) {
+            // the menu stays open: each choice toggles the option
+            Array.prototype.forEach.call(st.sel.options, function (o) { if (o.value === v) o.selected = !o.selected; });
+            nativeSync(st);
+            nativeList(st);
+            st.sel.dispatchEvent(new Event("change", { bubbles: true }));
+            var vals = Array.prototype.map.call(st.sel.selectedOptions, function (o) { return o.value; });
+            var labs = Array.prototype.map.call(st.sel.selectedOptions, function (o) { return o.textContent.trim(); });
+            st.wrap.dispatchEvent(new CustomEvent("kit:change", { bubbles: true, detail: { value: vals, values: vals, labels: labs } }));
+            return;
+        }
         var changed = st.sel.value !== v;
         st.sel.value = v;
         nativeSync(st);
@@ -1115,8 +1143,11 @@
         pop.hidden = true;
         wrap.appendChild(btn);
         wrap.appendChild(pop);
+        var multi = sel.multiple;
+        var multiMax = opts.multiMax !== undefined ? opts.multiMax : (d.kitMultiMax !== undefined ? parseInt(d.kitMultiMax, 10) : 2);
         var st = {
             sel: sel, wrap: wrap, btn: btn, value: value, pop: pop, id: id, q: "", input: null, list: null, search: search,
+            multi: multi, multiMax: multiMax,
             empty: opts.empty !== undefined ? opts.empty : (d.kitEmpty || t("noResults")),
             placeholder: opts.placeholder || d.kitPlaceholder || t("search")
         };

@@ -37,6 +37,19 @@
     <small data-doc-out>Valore: TD01</small>
   </div>
 </div>
+<h3 id="multiple-select">Scelta multipla</h3>
+<p>Un <code>&lt;select multiple data-kit-select&gt;</code> diventa un menu in cui ogni clic attiva o disattiva una voce e il menu resta aperto (si chiude con Esc o con un clic fuori). Il bottone mostra le etichette scelte fino a 2 (<code>data-kit-multi-max</code>, o l'opzione <code>multiMax</code>), poi «N selezionati». La ricerca, i gruppi, <code>data-kit-hint</code> e la tastiera (frecce, Invio o Spazio per attivare) funzionano come nella select singola. Il <code>&lt;select&gt;</code> resta la fonte dei dati: il form invia tutti i valori scelti e <code>change</code> scatta a ogni scelta. <code>kit:change</code> porta <code>{ value, values, labels }</code>, dove <code>value</code> e <code>values</code> sono gli array dei valori scelti.</p>
+<div class="doc-demo">
+  <div class="kit-field" style="max-width: 280px">
+    <label for="sel-multi">Negozi</label>
+    <select id="sel-multi" multiple data-kit-select data-kit-search="3">
+      <option value="1" selected>Alfa Srl</option>
+      <option value="2" selected>Beta Spa</option>
+      <option value="3">Gamma Trasporti</option>
+      <option value="4">Delta Forniture</option>
+    </select>
+  </div>
+</div>
 <p>Da JavaScript: <code>Kit.select(el, { search, empty, placeholder })</code> fa lo stesso per un select aggiunto in seguito (<code>Kit.init(radice)</code> lo fa per tutti quelli dentro <code>radice</code>) e restituisce <code>{ sync(), open(), close() }</code>. Se si cambia <code>select.value</code> da codice, si chiama <code>sync()</code> per aggiornare il bottone (<code>change</code> lanciato a mano lo fa già).</p>
 
 <h2 id="file">Campo file</h2>

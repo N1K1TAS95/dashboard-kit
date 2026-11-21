@@ -37,6 +37,19 @@
     <small data-doc-out>Value: TD01</small>
   </div>
 </div>
+<h3 id="multiple-select">Multiple choice</h3>
+<p>A <code>&lt;select multiple data-kit-select&gt;</code> becomes a menu where each click toggles an item and the menu stays open (Esc or a click outside closes it). The button shows the chosen labels up to 2 (<code>data-kit-multi-max</code>, or the <code>multiMax</code> option), then "N selected". The search field, groups, <code>data-kit-hint</code> and the keyboard (arrows, Enter or Space to toggle) work as in the single select. The <code>&lt;select&gt;</code> stays the source of the data: all the chosen values are submitted by the form, and <code>change</code> fires on every toggle. <code>kit:change</code> carries <code>{ value, values, labels }</code>, where <code>value</code> and <code>values</code> are the arrays of the chosen values.</p>
+<div class="doc-demo">
+  <div class="kit-field" style="max-width: 280px">
+    <label for="sel-multi">Shops</label>
+    <select id="sel-multi" multiple data-kit-select data-kit-search="3">
+      <option value="1" selected>Alpha Ltd</option>
+      <option value="2" selected>Beta Inc</option>
+      <option value="3">Gamma Transport</option>
+      <option value="4">Delta Supplies</option>
+    </select>
+  </div>
+</div>
 <p>From JavaScript: <code>Kit.select(el, { search, empty, placeholder })</code> does the same for a select added later (<code>Kit.init(root)</code> does it for all those inside <code>root</code>) and returns <code>{ sync(), open(), close() }</code>. If you change <code>select.value</code> from code, call <code>sync()</code> to update the button (a <code>change</code> fired by hand already does).</p>
 
 <h2 id="file">File field</h2>

@@ -975,6 +975,24 @@ Example markup:
 </div>
 ```
 
+### Multiple choice
+
+A `<select multiple data-kit-select>` becomes a menu where each click toggles an item and the menu stays open (Esc or a click outside closes it). The button shows the chosen labels up to 2 (`data-kit-multi-max`, or the `multiMax` option), then "N selected". The search field, groups, `data-kit-hint` and the keyboard (arrows, Enter or Space to toggle) work as in the single select. The `<select>` stays the source of the data: all the chosen values are submitted by the form, and `change` fires on every toggle. `kit:change` carries `{ value, values, labels }`, where `value` and `values` are the arrays of the chosen values.
+
+Example markup:
+
+```html
+<div class="kit-field" style="max-width: 280px">
+  <label for="sel-multi">Shops</label>
+  <select id="sel-multi" multiple data-kit-select data-kit-search="3">
+    <option value="1" selected>Alpha Ltd</option>
+    <option value="2" selected>Beta Inc</option>
+    <option value="3">Gamma Transport</option>
+    <option value="4">Delta Supplies</option>
+  </select>
+</div>
+```
+
 From JavaScript: `Kit.select(el, { search, empty, placeholder })` does the same for a select added later (`Kit.init(root)` does it for all those inside `root`) and returns `{ sync(), open(), close() }`. If you change `select.value` from code, call `sync()` to update the button (a `change` fired by hand already does).
 
 ## File field
@@ -1776,7 +1794,7 @@ From a CDN (jsDelivr), with the version pinned and the `integrity` attribute (SR
 
 <!-- optional: theme, select, tabs, dialog, menus, toasts -->
 <script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.11.0/dist/kit.js"
-        integrity="sha384-VQpUqPK9ZCxfCao7rrz7IGAfbpWrhxw7Fh3uVC/AKUcA4D99T3fnMuw01VWFatYr"
+        integrity="sha384-E8k1BIsidNO7DKy6DTwVicqmImx7UzRaFtUix8pWXq17/+cZrNcEc7l3AbzfrSRd"
         crossorigin="anonymous"></script>
 ```
 
