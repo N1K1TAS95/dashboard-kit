@@ -4,7 +4,7 @@
 
 ## Install
 
-- Copy `dist/kit.css` (required), `dist/kit.js` (optional: theme, select, popover, tabs, dialog, toast, sortable tables...) and `dist/kit-icons.js` (optional SVG icon sprite), or load them from jsDelivr pinned to a tag: `https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.12.1/dist/kit.css`.
+- Copy `dist/kit.css` (required), `dist/kit.js` (optional: theme, select, popover, tabs, dialog, toast, sortable tables...) and `dist/kit-icons.js` (optional SVG icon sprite), or load them from jsDelivr pinned to a tag: `https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.12.2/dist/kit.css`.
 - Set `<html lang="en">` (or `it`): the JS messages follow the page language.
 - Use only classes documented in the pages below. Do not invent `kit-*` classes: look them up in `kit-components.json` or `llms-full.txt`.
 

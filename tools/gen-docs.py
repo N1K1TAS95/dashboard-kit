@@ -25,7 +25,7 @@ import icons  # noqa: E402  (tools/icons.py: icone e sprite)
 import llms  # noqa: E402  (tools/llms.py: da HTML a Markdown)
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-VERSION = "0.12.1"   # version the install instructions point to (tag v<VERSION>)
+VERSION = "0.12.2"   # version the install instructions point to (tag v<VERSION>)
 SRC = ROOT / "docs" / "src"
 OUT = ROOT / "docs"
 LANGS = ["en", "it"]          # the first is the base one (docs/index.html redirects there if the browser is not in Italian)

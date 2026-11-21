@@ -1,6 +1,6 @@
 # Dashboard Kit: full documentation
 
-> Version 0.12.1. Generated from the documentation pages by tools/gen-docs.py: do not edit by hand.
+> Version 0.12.2. Generated from the documentation pages by tools/gen-docs.py: do not edit by hand.
 > Online: https://n1k1tas95.github.io/dashboard-kit/en/
 
 ---
@@ -1742,7 +1742,7 @@ An icon on its own, without text, needs an `aria-label` on the button that conta
 Sprites cannot be loaded from another domain with a `<use>` that points to an SVG file: that is why the kit inserts them with a small script. Add it before closing `</body>`:
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.12.1/dist/kit-icons.js"
+<script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.12.2/dist/kit-icons.js"
         integrity="sha384-HrtxdGgc5dQOvkslXHapNsTNVhGGEfQ6FWYOn5zdFAIrc/6z/AbizR+W6xdilWS9"
         crossorigin="anonymous"></script>
 ```
@@ -1788,13 +1788,13 @@ From a CDN (jsDelivr), with the version pinned and the `integrity` attribute (SR
 
 ```html
 <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.12.1/dist/kit.css"
-      integrity="sha384-fpgW2abeYGXvejcfwsnr3H2KL5Ho/YBxXGhhz+khUzKwzp1DWIBQeHCEE4CfZZ5K"
+      href="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.12.2/dist/kit.css"
+      integrity="sha384-hT0JP8EI0JU9zpJ2SwbP97XCurdSKEgUe0g1SC7trhfU6Do8Ze3v1rqkiNrH13qn"
       crossorigin="anonymous">
 
 <!-- optional: theme, select, tabs, dialog, menus, toasts -->
-<script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.12.1/dist/kit.js"
-        integrity="sha384-U3fIn+1cqtutfr/xzayEdcEUliaevNZ8BhoMkZ8yUJFkRYlVmcjEpIvOtdIf5WSI"
+<script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.12.2/dist/kit.js"
+        integrity="sha384-URYbKYL4dlqvP32hQe9BhaSsz5nvSMOIsOKk52J7oXu+WAJoKq7PgiwTTM5lgPQe"
         crossorigin="anonymous"></script>
 ```
 

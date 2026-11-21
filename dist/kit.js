@@ -1,5 +1,5 @@
 /*!
- * Dashboard Kit 0.12.1 — optional JavaScript. No dependencies, no innerHTML, no eval:
+ * Dashboard Kit 0.12.2 — optional JavaScript. No dependencies, no innerHTML, no eval:
  * compatible with a strict Content-Security-Policy (script-src 'self').
  *
  * It activates by itself through data-kit-* attributes:
@@ -1172,7 +1172,17 @@
         wrap.addEventListener("focusout", function (e) {
             if (!wrap.contains(e.relatedTarget) && openPop && openPop.pop === pop) closePop(false);
         });
-        sel.addEventListener("focus", function () { btn.focus(); });   // a <label for> or focus() on the select go to the button
+        sel.addEventListener("focus", function () { btn.focus(); });   // focus() on the select goes to the button
+        // A <label for> would open the browser's own menu: the click goes to the kit's button instead
+        // (a click inside the label on the button or the menu itself keeps its normal behavior).
+        if (sel.labels) Array.prototype.forEach.call(sel.labels, function (l) {
+            l.addEventListener("click", function (e) {
+                if (e.target instanceof Element && wrap.contains(e.target)) return;
+                e.preventDefault();
+                // after the click has reached the document, whose "click outside" handler would close the menu
+                setTimeout(function () { btn.focus(); btn.click(); }, 0);
+            });
+        });
         sel.addEventListener("change", function () { nativeSync(st); });
         if (sel.form) sel.form.addEventListener("reset", function () { setTimeout(function () { st.api.sync(); }, 0); });
         if (window.MutationObserver) new MutationObserver(function () { st.api.sync(); }).observe(sel, { childList: true, subtree: true, attributes: true, attributeFilter: ["disabled", "label", "hidden", "data-kit-hint", "data-kit-short"], characterData: true });

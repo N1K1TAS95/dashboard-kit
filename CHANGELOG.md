@@ -3,6 +3,10 @@
 Until 0.10.0 the kit's built-in texts (button labels, messages, calendar) and the documentation were in Italian;
 quoted UI strings below are translated here. From 0.11.0 on the texts come from a per-language dictionary.
 
+## 0.12.2 — 21 November 2026
+
+- Fix: in a `<select data-kit-select>` (single and multiple) a click on its `<label for>` opened the browser's own menu next to the kit's one. The click now opens the kit's menu.
+
 ## 0.12.1 — 21 November 2026
 
 - Fix: in a dialog or drawer, the list of a select or combobox (`.kit-pop`) was as wide as its longest label (up to 520px) and, anchored to the right, stuck out of the dialog and was clipped on the left. It now stays within the width of the field; long labels are truncated.
