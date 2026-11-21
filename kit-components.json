@@ -1,5 +1,5 @@
 {
- "version": "0.11.0",
+ "version": "0.12.0",
  "docs": "https://n1k1tas95.github.io/dashboard-kit/en/",
  "pages": [
   {
@@ -3071,8 +3071,8 @@
     "kit-search",
     "kit-seg",
     "kit-select",
-    "kit-settings",
-    "kit-sidebar"
+    "kit-select-multi",
+    "kit-settings"
    ],
    "sections": [
     {
@@ -3146,8 +3146,8 @@
       "kit-search",
       "kit-seg",
       "kit-select",
-      "kit-settings",
-      "kit-sidebar"
+      "kit-select-multi",
+      "kit-settings"
      ]
     }
    ]

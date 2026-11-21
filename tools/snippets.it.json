@@ -139,6 +139,10 @@
   "name": "Kit: select personalizzato",
   "description": "Select con elenco di opzioni (richiede kit.js)"
  },
+ "Kit: multiple select": {
+  "name": "Kit: select multipla",
+  "description": "Select a scelta multipla, da un <select multiple> nativo (richiede kit.js)"
+ },
  "Kit: combobox": {
   "name": "Kit: combobox",
   "description": "Campo con elenco di suggerimenti (richiede kit.js)"

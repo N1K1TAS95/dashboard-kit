@@ -404,6 +404,20 @@
       "</div>$0"
     ]
   },
+  "Kit: multiple select": {
+    "prefix": "kit-select-multi",
+    "scope": "html",
+    "description": "Select with several choices, from a native <select multiple> (requires kit.js)",
+    "body": [
+      "<div class=\"kit-field\">",
+      "  <label for=\"${1:id}\">${2:Label}</label>",
+      "  <select id=\"${1:id}\" name=\"${3:name}\" multiple data-kit-select>",
+      "    <option value=\"${4:a}\" selected>${5:First}</option>",
+      "    <option value=\"${6:b}\">${7:Second}</option>",
+      "  </select>",
+      "</div>$0"
+    ]
+  },
   "Kit: combobox": {
     "prefix": "kit-combo",
     "scope": "html",

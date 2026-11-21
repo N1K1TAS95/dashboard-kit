@@ -12,15 +12,15 @@ From a CDN (jsDelivr), always pinning a version:
 
 ```html
 <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.11.0/dist/kit.css"
-      integrity="sha384-caI9z5CMWhN61so69TJdI2W0CNgg9S/+kpJOHLXAtH+BJfDxBaY1a+izk6JVhNZY"
+      href="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.12.0/dist/kit.css"
+      integrity="sha384-j1LpwhlGEsOKAwQJLzVif06wKFqxqQsM/45TyGufvtgzRu4l6tRzgdoB/g09j4+P"
       crossorigin="anonymous">
 <!-- optional: theme, select, popover, tabs, dialog, toast -->
-<script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.11.0/dist/kit.js"
-        integrity="sha384-VQpUqPK9ZCxfCao7rrz7IGAfbpWrhxw7Fh3uVC/AKUcA4D99T3fnMuw01VWFatYr"
+<script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.12.0/dist/kit.js"
+        integrity="sha384-jNQ7nvAJEsVLr1zDoOQbHhfT010bF9U7f+sg/k7bPkpI1m+tkxdu0Kp+7Zairaxa"
         crossorigin="anonymous"></script>
 <!-- optional: the icons (an SVG sprite inserted into the page) -->
-<script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.11.0/dist/kit-icons.js"
+<script src="https://cdn.jsdelivr.net/gh/N1K1TAS95/dashboard-kit@v0.12.0/dist/kit-icons.js"
         integrity="sha384-HrtxdGgc5dQOvkslXHapNsTNVhGGEfQ6FWYOn5zdFAIrc/6z/AbizR+W6xdilWS9"
         crossorigin="anonymous"></script>
 ```
