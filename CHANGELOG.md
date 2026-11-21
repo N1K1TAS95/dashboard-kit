@@ -3,6 +3,10 @@
 Until 0.10.0 the kit's built-in texts (button labels, messages, calendar) and the documentation were in Italian;
 quoted UI strings below are translated here. From 0.11.0 on the texts come from a per-language dictionary.
 
+## 0.12.1 — 21 November 2026
+
+- Fix: in a dialog or drawer, the list of a select or combobox (`.kit-pop`) was as wide as its longest label (up to 520px) and, anchored to the right, stuck out of the dialog and was clipped on the left. It now stays within the width of the field; long labels are truncated.
+
 ## 0.12.0 — 21 November 2026
 
 - Multiple select: `<select multiple data-kit-select>` now gets the kit's menu, with several choices. Each click toggles an item and the menu stays open; the button shows the labels up to `data-kit-multi-max` (2 by default), then "N selected" (new `selected` message in the dictionary, English and Italian). Search, groups, hints and keyboard work as in the single select; `kit:change` carries `{ value, values, labels }` (arrays). Snippet `kit-select-multi`. New "Multiple choice" section on the Forms: select and file page.
